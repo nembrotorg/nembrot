@@ -1,11 +1,17 @@
-!!!
-- html_tag
-  %head
-    %title Nembrot
-    = stylesheet_link_tag "application", :media => "all" %>
-    = javascript_include_tag "application"
-    = csrf_meta_tags
+!!! 5
+-# http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither
+- html_tag :class => "no-js", :lang => "en" do
+  = render "head"
 
-    %body
+  %body{ :class => "#{ controller.controller_name }" }
+    = render "chromeframe"
+    = render "header"
+
+    #main{ :role => "main" }
+      = render "flashes"
       = yield
-    xxx
+
+    = render "footer"
+
+    -# Javascript at the bottom for fast page loading
+    = render "javascripts"

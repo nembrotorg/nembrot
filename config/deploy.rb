@@ -1,7 +1,7 @@
 require "bundler/capistrano"
 
 set :scm,             :git
-set :repository,      "git@codeplane.com:you/joegattnet_v3.git"
+set :repository,      "git@joegatt.org.com:deployer/joegattnet_v3.git"
 set :branch,          "origin/master"
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }

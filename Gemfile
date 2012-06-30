@@ -28,7 +28,7 @@ group :assets do
   gem 'compass-h5bp'
 end
 
-# Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:red
+# Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:guard
 # Also use Factory Girl
 group :test do
   gem 'rspec-rails',  '2.10.0'

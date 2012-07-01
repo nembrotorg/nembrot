@@ -6,7 +6,7 @@ describe "Static pages" do
 
     it "should have the content 'Nembrot'" do
       visit '/'
-      page.should have_content('Nembrot')
+      page.should have_content('Home - Nembrot')
     end
   end
 

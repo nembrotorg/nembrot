@@ -37,6 +37,16 @@ Spork.prefork do
     # automatically. This will be the default behavior in future versions of
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = false
+
+    # Tweaks Garbage Collection to speed up tests
+    # See: http://ariejan.net/2011/09/24/rspec-speed-up-by-tweaking-ruby-garbage-collection
+    config.before(:all) do
+      DeferredGarbageCollection.start
+    end
+
+    config.after(:all) do
+      DeferredGarbageCollection.reconsider
+    end
   end
 end
 

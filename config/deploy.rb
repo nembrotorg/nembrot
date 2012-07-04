@@ -1,13 +1,15 @@
+set :stages, %w(production staging)
+set :default_stage, "staging"
+
 require "bundler/capistrano"
+require 'capistrano/ext/multistage'
 
 set :scm,             :git
-set :repository,      "git://github.com/joegattnet/joegattnet_v3.git"
-set :branch,          "origin/master"
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
-set :rails_env,       "production"
-set :deploy_to,       "/home/deployer/apps/joegattnet_v3"
 set :normalize_asset_timestamps, false
+
+set :repository,      "git://github.com/joegattnet/joegattnet_v3.git"
 
 set :user,            "deployer"
 set :group,           "staff"
@@ -24,14 +26,6 @@ set(:current_release) { fetch(:current_path) }
 set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
-
-default_environment["RAILS_ENV"] = 'production'
-
-# Use our ruby-1.9.2-p290@my_site gemset
-default_environment["PATH"]         = "/usr/local/rvm/gems/ruby-1.9.2-p290@joegattnet_v3/bin:/usr/local/rvm/gems/ruby-1.9.2-p290@joegattnet_v3/bin:/usr/local/rvm/rubies/ruby-1.9.2-p290/bin:/usr/local/rvm/bin:$PATH"
-default_environment["GEM_HOME"]     = "/usr/local/rvm/gems/ruby-1.9.2-p290@joegattnet_v3"
-default_environment["GEM_PATH"]     = "/usr/local/rvm/gems/ruby-1.9.2-p290@joegattnet_v3:/usr/local/rvm/gems/ruby-1.9.2-p290@joegattnet_v3"
-default_environment["RUBY_VERSION"] = "ruby-1.9.2-p290"
 
 default_run_options[:shell] = 'bash'
 
@@ -100,7 +94,7 @@ namespace :deploy do
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :except => { :no_release => true } do
-    run "kill -s USR2 `cat /tmp/unicorn.joegattnet_v3.pid`"
+    run "kill -s USR2 `cat /tmp/unicorn.#{application}.pid`"
   end
 
   desc "Start unicorn"
@@ -110,7 +104,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
-    run "kill -s QUIT `cat /tmp/unicorn.joegattnet_v3.pid`"
+    run "kill -s QUIT `cat /tmp/unicorn.#{application}.pid`"
   end  
 
   namespace :rollback do

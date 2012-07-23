@@ -7,7 +7,7 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb' do
   watch('spec/spec_helper.rb')  { "spec" }
 
   # Rails example
-  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^spec/.+\.rb$})
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/requests" }
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
@@ -28,6 +28,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch(%r{^config/initializers/.+\.rb$})
   watch('Gemfile')
   watch('Gemfile.lock')
+  watch(%r{^spec/.+\.rb$})
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
   watch('spec/support/')

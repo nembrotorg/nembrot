@@ -32,6 +32,7 @@ end
 # Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:guard
 # And http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html
 group :test do
+  gem 'sqlite3',      '1.3.5'
   gem 'faker'
   gem 'rspec-rails',  '2.10.0'
   gem 'factory_girl_rails'
@@ -55,7 +56,7 @@ group :test do
   # gem 'win32console', '1.3.0'
 end
 
-group :production do
+group :staging, :production do
   gem 'therubyracer',   '>= 0.9.2'
   gem 'pg',           '0.12.2'
 end

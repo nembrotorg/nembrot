@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723133919) do
+ActiveRecord::Schema.define(:version => 20120728011308) do
+
+  create_table "note_versions", :force => true do |t|
+    t.string   "title",      :null => false
+    t.text     "body",       :null => false
+    t.integer  "version",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "note_id"
+  end
 
   create_table "notes", :force => true do |t|
     t.string   "external_note_id", :null => false

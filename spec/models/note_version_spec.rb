@@ -13,4 +13,7 @@ describe NoteVersion do
 	it "is invalid without a body" do
 		FactoryGirl.build( :note_version, body: nil).should_not be_valid
 	end
+	it "is invalid without a version" do
+		FactoryGirl.build( :note_version, version: nil).should_not be_valid
+	end
 end

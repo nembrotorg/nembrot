@@ -66,3 +66,7 @@ end
 
 # To use debugger
 # gem 'ruby-debug'
+
+gem 'devise'
+
+gem 'rails_admin'

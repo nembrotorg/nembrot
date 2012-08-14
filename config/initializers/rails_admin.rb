@@ -83,7 +83,7 @@ RailsAdmin.config do |config|
   #   # Found associations:
   #     configure :note_versions, :has_many_association   #   # Found columns:
   #     configure :id, :integer 
-  #     configure :external_note_id, :string 
+  #     configure :external_identifier, :string 
   #     configure :created_at, :datetime 
   #     configure :updated_at, :datetime   #   # Sections:
   #   list do; end

@@ -75,14 +75,15 @@ describe NoteVersion do
     it { should have(1).error_on( :external_updated_at ) }
   end
 
-  describe "accepts tags" do
-    @note_version.tag_list = "tag1, tag2, tag3"
-    @note_version.save
-    @note_version.tag_list.should_be ["tag1, tag2, tag3"]
+  describe "accepts tags and is findable by tags" do
+    @note_version = FactoryGirl.create(:note_version, :tag_list => "tag1, tag2, tag3")
+    @note_version.tag_list.should == ["tag1", "tag2", "tag3"]
   end
 
   describe "is findable by tag" do
-    NoteVersion.tagged_with("tag1").first.should_be @note_version
+    tag = Faker::Lorem.words(1)
+    @note_version = FactoryGirl.create(:note_version, :tag_list => tag)
+    NoteVersion.tagged_with(tag).first.should == @note_version
   end
 
 end

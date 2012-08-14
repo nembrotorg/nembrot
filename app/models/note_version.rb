@@ -3,6 +3,8 @@ class NoteVersion < ActiveRecord::Base
 
   belongs_to :note
 
+  acts_as_taggable
+
   before_validation :calculate_version
 
   validates :title, :body, :external_updated_at, :version, :note_id, :presence => true

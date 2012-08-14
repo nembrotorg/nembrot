@@ -5,12 +5,10 @@ class Note < ActiveRecord::Base
 
   accepts_nested_attributes_for :note_versions, :reject_if => proc { |a| a['title'].blank? || a['body'].blank? }
 
-  validates :external_identifier, :presence => true
-  #validates :external_identifier, :presence => true, :uniqueness => true
-  #This is fine when used iwth first_or_create as it should be
-  #But need a different way of building in FactoryGirl
+  validates :external_identifier, :presence => true, :uniqueness => true
 
-	#validate :has_version?
+	#There are cases during testing when a note is created before any versions
+  #validate :has_version?
 	#def has_version?
 	#  errors.add "Note must have at least one NoteVersion." if self.note_versions.blank?
 	#end

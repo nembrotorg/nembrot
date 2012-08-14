@@ -1,10 +1,19 @@
 require 'spec_helper'
 
 describe Note do
-	it "has a valid factory" do
-		FactoryGirl.create( :note ).should be_valid
-	end
-	it "is invalid without an external_note_id" do
-		FactoryGirl.build( :note, external_note_id: nil).should_not be_valid
-	end
+
+  before {
+    @note = FactoryGirl.build_stubbed(:note)
+  }
+
+  subject { @note }
+
+  it { should be_valid }
+  it { should respond_to(:external_identifier) }
+
+  describe "when external_identifier is not present" do
+    before { @note.external_identifier = nil }
+    it { should_not be_valid }
+  end
+
 end

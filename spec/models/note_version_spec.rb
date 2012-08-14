@@ -75,4 +75,14 @@ describe NoteVersion do
     it { should have(1).error_on( :external_updated_at ) }
   end
 
+  describe "accepts tags" do
+    @note_version.tag_list = "tag1, tag2, tag3"
+    @note_version.save
+    @note_version.tag_list.should_be ["tag1, tag2, tag3"]
+  end
+
+  describe "is findable by tag" do
+    NoteVersion.tagged_with("tag1").first.should_be @note_version
+  end
+
 end

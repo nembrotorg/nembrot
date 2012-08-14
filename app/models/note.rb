@@ -12,5 +12,4 @@ class Note < ActiveRecord::Base
 	#def has_version?
 	#  errors.add "Note must have at least one NoteVersion." if self.note_versions.blank?
 	#end
-
 end

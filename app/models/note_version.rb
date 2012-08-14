@@ -6,7 +6,6 @@ class NoteVersion < ActiveRecord::Base
   before_validation :calculate_version
 
   validates :title, :body, :external_updated_at, :version, :note_id, :presence => true
-
   validate :external_updated_at_must_be_latest, :before => :validation
   validates_associated :note
 

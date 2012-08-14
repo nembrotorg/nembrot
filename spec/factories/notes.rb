@@ -1,6 +1,6 @@
 FactoryGirl.define do
 	factory :note do
-		external_identifier Faker::Lorem.words(1)
+		sequence(:external_identifier) { "ABCDEF#{n}" }
 		factory :note_with_versions do
 			ignore do
 				versions_count 1

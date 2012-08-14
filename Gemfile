@@ -15,7 +15,7 @@ gem 'unicorn'
 
 group :development do
   gem 'sqlite3',      '1.3.5'
-  gem 'rspec-rails',  '2.10.0'
+  gem 'rspec-rails',  '2.11.0'
   gem 'factory_girl_rails'
   gem 'guard-rspec',  '0.5.5'
   gem 'capistrano'
@@ -34,7 +34,7 @@ end
 group :test do
   gem 'sqlite3',      '1.3.5'
   gem 'faker'
-  gem 'rspec-rails',  '2.10.0'
+  gem 'rspec-rails',  '2.11.0'
   gem 'factory_girl_rails'
   gem 'capybara',     '1.1.2'
   gem 'guard-spork',  '0.3.2'

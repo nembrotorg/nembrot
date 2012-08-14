@@ -1,24 +1,23 @@
 class NoteVersion < ActiveRecord::Base
-  attr_accessible :body, :title, :note_id, :version, :external_note_id
+  attr_accessible :body, :title, :version, :external_updated_at
+
   belongs_to :note
-  
-  attr_writer :external_note_id
 
-# validates :note_id, :presence => true
-# we may not know it at this stage
-  validates :title, :presence => true
-  validates :body, :presence => true
+  before_validation :calculate_version
 
-  before_create :get_note_id
-  before_create :calculate_version
+  validates :title, :body, :external_updated_at, :version, :note_id, :presence => true
 
-  def get_note_id
-    self.note_id = Note.where(:external_note_id => @external_note_id).first_or_create.id
-  end
+  validate :external_updated_at_must_be_latest, :before => :validation
+  validates_associated :note
 
   # To calculate the version we count how many versions of this note_id already exist, then increment:
   def calculate_version
-    self.version = NoteVersion.where(:note_id => self.note_id).count + 1
+    self.version = NoteVersion.where( :note_id => self.note_id ).count + 1
   end
 
+  def external_updated_at_must_be_latest
+    if self.version > 1 and !( self.external_updated_at > NoteVersion.where( :note_id => self.note_id ).maximum( :external_updated_at ) )
+      errors.add( :external_updated_at, 'must be more recent than any other version' )
+    end
+  end
 end

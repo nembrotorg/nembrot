@@ -1,0 +1,15 @@
+%nav
+  %h6 Breadcrumbs
+  %ul
+    %li= link_to 'Home', root_path
+    %li Notes
+
+%section
+
+  %header
+    %hgroup
+      %h1 Notes
+      %aside
+        %h4#notice= notice
+
+  = render 'notes_list'

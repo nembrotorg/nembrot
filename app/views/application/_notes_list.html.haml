@@ -1,0 +1,3 @@
+%ul
+  = list_of @notes do |note|
+    = link_to_unless_current "##{ note.id } #{ snippet( note.note_versions.last.title + ': ' + note.note_versions.last.body, 30) }", note

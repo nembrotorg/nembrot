@@ -1,6 +1,6 @@
 FactoryGirl.define do
 	factory :note do
-		sequence(:external_identifier) { "ABCDEF#{n}" }
+		sequence(:external_identifier) { "xABCDEF#{n}" }
 		factory :note_with_versions do
 			ignore do
 				versions_count 1

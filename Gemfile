@@ -4,7 +4,7 @@ gem 'rails',          '3.2.5'
 
 gem 'json'
 
-gem 'acts-as-taggable-on', '~> 2.2.2'
+gem 'acts-as-taggable-on', '~> 2.3.3'
 
 gem 'haml'
 gem 'haml-rails'

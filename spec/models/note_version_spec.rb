@@ -75,6 +75,22 @@ describe NoteVersion do
     it { should have(1).error_on( :external_updated_at ) }
   end
 
+  describe "sets latest to false in all other versions" do
+    before {
+      @note_version = FactoryGirl.create(:note_version, external_updated_at: 'Mon, 30 Jul 2012 12:00:00 UTC +00:00', :note => note) 
+      @note_version_1 = FactoryGirl.build(:note_version, external_updated_at: 'Mon, 30 Jul 2012 12:00:01 UTC +00:00', :note => note) 
+    }
+    its(:latest) { should == false }
+  end
+
+  describe "sets latest to true in current version" do
+    before {
+      @note_version_0 = FactoryGirl.create(:note_version, external_updated_at: 'Mon, 30 Jul 2012 12:00:00 UTC +00:00', :note => note) 
+      @note_version = FactoryGirl.build(:note_version, external_updated_at: 'Mon, 30 Jul 2012 12:00:01 UTC +00:00', :note => note) 
+    }
+    its(:latest) { should == true }
+  end
+
   describe "accepts tags and is findable by tags" do
     @note_version = FactoryGirl.create(:note_version, :tag_list => "tag1, tag2, tag3")
     @note_version.tag_list.should == ["tag1", "tag2", "tag3"]

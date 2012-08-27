@@ -10,4 +10,8 @@ Nembrot::Application.routes.draw do
     resources :note_versions
   end
 
+  resources :tags do
+    resources :notes
+  end
+
 end

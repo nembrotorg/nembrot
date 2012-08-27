@@ -8,6 +8,7 @@ class Note < ActiveRecord::Base
   validates :external_identifier, :presence => true, :uniqueness => true
 
 	#There are cases during testing when a note is created before any versions
+	#Elsewhere we always use first_or_create
   #validate :has_version?
 	#def has_version?
 	#  errors.add "Note must have at least one NoteVersion." if self.note_versions.blank?

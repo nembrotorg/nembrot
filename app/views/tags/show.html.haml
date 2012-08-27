@@ -1,0 +1,10 @@
+%section
+
+  %header
+    %hgroup
+      %h1= @tag.name
+      %h2= link_to 'Tags', tags_path
+      %aside
+        %h4#notice= notice
+
+  = render 'notes_list'

@@ -14,8 +14,6 @@ describe Note do
   it { should respond_to(:title) }
   it { should respond_to(:body) }
   it { should respond_to(:external_updated_at) }
-  it { should respond_to(:external_id) }
-  it { should respond_to(:external) }
 
   its(:external) { should == external }
 
@@ -37,28 +35,7 @@ describe Note do
     it { should have(1).error_on(:external_updated_at) }
   end
 
-  describe "when external_id is not present" do
-    before { @note.external_updated_at = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:external_id) }
-  end
-
-  describe "when external_id is not unique" do
-    before { 
-      @note0 = FactoryGirl.create(:note, :external_id => 1)
-      @note = FactoryGirl.build_stubbed(:note, :external_id => 1)
-    }
-    it { should_not be_valid }
-    it { should have(1).error_on(:external_id) }
-  end
-
-  describe "accessible attributes" do
-    it "should not allow access to note_id" do
-      expect { NoteVersion.new(note_id: note.id) }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-    end    
-  end
-
-  describe "accepts tags and is findable by tags" do
+  describe "is taggable" do
     @note_version = FactoryGirl.create(:note_version, :tag_list => "tag1, tag2, tag3")
     @note_version.tag_list.should == ["tag1", "tag2", "tag3"]
   end

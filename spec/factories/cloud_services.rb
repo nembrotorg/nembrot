@@ -1,5 +1,5 @@
 FactoryGirl.define do
-	factory :third_party do
+	factory :cloud_service do
 		sequence( :name ) { "xABCDEF#{n}" }
 	end
 end

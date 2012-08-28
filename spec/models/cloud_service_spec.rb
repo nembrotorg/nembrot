@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ThirdParty do
+describe CloudService do
 
   before {
-    @third_party = FactoryGirl.build_stubbed(:third_party)
+    @cloud_service = FactoryGirl.build_stubbed(:cloud_service)
   }
 
   subject { @note }
@@ -19,8 +19,8 @@ describe ThirdParty do
 
   describe "when name is not unique" do
     before { 
-      @note0 = FactoryGirl.create(:third_party, :name => 'NOTUNIQUE')
-      @note = FactoryGirl.build_stubbed(:third_party, :name => 'NOTUNIQUE')
+      @note0 = FactoryGirl.create(:cloud_service, :name => 'NOTUNIQUE')
+      @note = FactoryGirl.build_stubbed(:cloud_service, :name => 'NOTUNIQUE')
     }
     it { should_not be_valid }
     it { should have(1).error_on(:name) }

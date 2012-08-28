@@ -1,16 +1,8 @@
 FactoryGirl.define do
 	factory :note do
-		sequence(:external_identifier) { "xABCDEF#{n}" }
-		factory :note_with_versions do
-			ignore do
-				versions_count 1
-			end
-			after(:create) do |note, evaluator|
-				FactoryGirl.create_list(
-					:note_version, 
-					evaluator.versions_count,
-					note: note)
-			end
-		end
+		title { Faker::Lorem.sentences(1) }
+		body { Faker::Lorem.paragraphs(5) }
+		sequence( :external_updated_at ) { |n| ( 1000 - n ).days.ago }
+		external
 	end
 end

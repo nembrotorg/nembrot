@@ -35,4 +35,13 @@ describe CloudNote do
     it { should_not be_valid }
     it { should have(1).error_on(:cloud_service) }
   end
+
+  describe "when cloud_note_identifier is not unique for cloud_service" do
+    before {
+      @cloud_note_pre = FactoryGirl.create(:cloud_note, :cloud_note_identifier => 'NOTUNIQUE', :note => note, :cloud_service => cloud_service)
+      @cloud_note = FactoryGirl.build_stubbed(:cloud_note, :cloud_note_identifier => 'NOTUNIQUE', :note => note, :cloud_service => cloud_service)
+    }
+    it { should_not be_valid }
+    it { should have(1).error_on(:cloud_note_identifier) }
+  end
 end

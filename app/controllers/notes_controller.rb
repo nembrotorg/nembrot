@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
 
   def index
-    @notes = NoteVersion.current
+    @notes = Note.find(:all)
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class NotesController < ApplicationController
 
   def show
     @versions = Note.find(params[:id])
-    @note = @versions.note_versions.last
+    @note = @versions
     @tags = @note.tags
 
     respond_to do |format|

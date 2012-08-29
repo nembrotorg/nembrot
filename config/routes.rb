@@ -6,12 +6,8 @@ Nembrot::Application.routes.draw do
 
   root :to => "home#index"
 
-  resources :notes do
-    resources :note_versions
-  end
+  resources :notes
 
-  resources :tags do
-    resources :notes
-  end
+  resources :tags
 
 end

@@ -1,5 +1,5 @@
 class CloudNote < ActiveRecord::Base
-  attr_accessible :cloud_note_identifier
+  attr_accessible :cloud_note_identifier, :cloud_service_id
 
   belongs_to :note, :dependent => :destroy
 

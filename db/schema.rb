@@ -11,23 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826222746) do
+ActiveRecord::Schema.define(:version => 20120828234842) do
 
-  create_table "note_versions", :force => true do |t|
-    t.string   "title",                                 :null => false
-    t.text     "body",                                  :null => false
-    t.integer  "version",                               :null => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+  create_table "cloud_notes", :force => true do |t|
+    t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.datetime "external_updated_at"
-    t.boolean  "latest",              :default => true
+    t.integer  "cloud_service_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  create_table "cloud_services", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "notes", :force => true do |t|
-    t.string   "external_identifier", :null => false
+    t.string   "title",               :null => false
+    t.text     "body",                :null => false
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.datetime "external_updated_at", :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

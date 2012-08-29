@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe NotesController do
+describe TagsController do
 
   before(:each) do
-      @note = FactoryGirl.create(:note)
+      @tag = Note.tag_counts_on(:tags)
   end
   
   describe "GET #index" do
-    it "populates an array of notes" do
+    it "populates an array of tags" do
       get :index
-      assigns(:notes).should eq([@note])
+      assigns(:tags).should eq([@tag])
     end
     
     it "renders the :index view" do
@@ -19,13 +19,13 @@ describe NotesController do
   end
 
   describe "GET #show" do
-    it "assigns the requested note to @note" do
-      get :show, id: @note
-      assigns(:note).should eq(@note)
+    it "assigns the requested tag to @tag" do
+      get :show, id: @tag
+      assigns(:tag).should eq(@tag)
     end
     
     it "renders the #show view" do
-      get :show, id: @note
+      get :show, id: @tag
       response.should render_template :show
     end
   end

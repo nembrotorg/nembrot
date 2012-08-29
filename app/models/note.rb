@@ -1,16 +1,11 @@
 class Note < ActiveRecord::Base
-  attr_accessible :external_identifier, :note_versions_attributes
+  attr_accessible :title, :body, :external_updated_at
 
-  has_many :note_versions, :dependent => :destroy
+  has_many :cloud_notes, :dependent => :destroy
 
-  accepts_nested_attributes_for :note_versions, :reject_if => proc { |a| a['title'].blank? || a['body'].blank? }
+  acts_as_taggable
 
-  validates :external_identifier, :presence => true, :uniqueness => true
+  accepts_nested_attributes_for :cloud_notes, :reject_if => proc { |a| a['cloud_note_identifier'].blank? || a['cloud_service'].blank? }
 
-	#There are cases during testing when a note is created before any versions
-	#Elsewhere we always use first_or_create
-  #validate :has_version?
-	#def has_version?
-	#  errors.add "Note must have at least one NoteVersion." if self.note_versions.blank?
-	#end
+  validates :title, :body, :external_updated_at, :presence => true
 end

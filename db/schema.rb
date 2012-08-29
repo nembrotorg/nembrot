@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120828234842) do
+ActiveRecord::Schema.define(:version => 20120829102252) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20120828234842) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
   end
+
+  add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_cloud_note_identifier_and_cloud_service_id", :unique => true
 
   create_table "cloud_services", :force => true do |t|
     t.string   "name"

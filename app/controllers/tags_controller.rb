@@ -18,8 +18,8 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
-    @tag = Tag.find_by_name(params[:id])
-    @notes = Note.tagged_with(params[:id])
+    @tag = Tag.find_by_slug(params[:id])
+    @notes = Note.tagged_with(@tag.name)
     #@notes = Note.find(:all, :order => 'updated_at DESC')
     #@notes = Note.note_versions.tagged_with(params[:name])
 

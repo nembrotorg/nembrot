@@ -6,7 +6,7 @@ class Tag < ActiveRecord::Base
 
   default_scope :order => 'name'
 
-  def to_param
-    name.parameterize
-  end
+  #def to_param
+  #  name.parameterize
+  #end
 end

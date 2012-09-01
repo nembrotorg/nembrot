@@ -8,4 +8,4 @@
 
   %ul
     - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
-      %li= link_to tag.name, tag_path(tag.name.parameterize), :class => css_class
+      %li= link_to tag.name, tag_path(tag.slug), :class => css_class

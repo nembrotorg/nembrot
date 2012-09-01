@@ -8,7 +8,7 @@
       %aside
         %h4#notice= notice
 
-  = @note.body.html_safe
+  = bodify(@note.body)
 
   = render 'tags'
   

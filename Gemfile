@@ -6,6 +6,7 @@ gem 'json'
 
 gem 'friendly_id',          '~> 4.0.1'
 gem 'acts-as-taggable-on',  '~> 2.3.3'
+gem 'paper_trail'
 
 gem 'haml'
 gem 'haml-rails'
@@ -13,6 +14,10 @@ gem 'haml-rails'
 gem 'jquery-rails'
 
 gem 'html5-rails'
+
+gem 'differ'
+
+gem 'rails-timeago'
 
 gem 'unicorn'
 
@@ -50,7 +55,7 @@ group :test do
   # gem 'libnotify',  '0.5.9'
 
   # Mac OSX
-  gem 'rb-fsevent',   '0.4.3.1', :require => false
+  gem 'rb-fsevent',   '0.9.1'
   gem 'growl',        '1.0.3'
 
   # Windows

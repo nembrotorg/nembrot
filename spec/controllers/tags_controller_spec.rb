@@ -20,12 +20,12 @@ describe TagsController do
 
   describe "GET #show" do
     it "assigns the requested tag to @tag" do
-      get :show, id: @tag
+      get :show, slug: @tag
       assigns(:tag).should eq(@tag)
     end
     
     it "renders the #show view" do
-      get :show, id: @tag
+      get :show, slug: @tag
       response.should render_template :show
     end
   end

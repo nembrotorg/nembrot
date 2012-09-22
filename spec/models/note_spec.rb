@@ -32,13 +32,27 @@ describe Note do
   end
 
   describe "is taggable" do
-    @note = FactoryGirl.create(:note, :tag_list => "tag1, tag2, tag3")
-    @note.tag_list.should == ["tag1", "tag2", "tag3"]
+    note = FactoryGirl.create(:note, :tag_list => "tag1, tag2, tag3")
+    note.tag_list.should == ["tag1", "tag2", "tag3"]
   end
 
   describe "is findable by tag" do
     tag = Faker::Lorem.words(1)
-    @note = FactoryGirl.create(:note, :tag_list => tag)
-    Note.tagged_with(tag).first.should == @note
+    note = FactoryGirl.create(:note, :tag_list => tag)
+    Note.tagged_with(tag).first.should == note
+  end
+
+  describe "saves versions on every update", :versioning => false do
+    note = FactoryGirl.create(:note)
+    note.update_attributes( :title => 'New Title')
+    note.update_attributes( :title => 'Newer Title')
+    note.versions.length.should == 2
+  end
+
+  describe "attributes should be retrievable from versions", :versioning => true do
+    note = FactoryGirl.create(:note)
+    note.update_attributes( :title => 'New Title')
+    note.update_attributes( :title => 'Newer Title')
+    note.versions.last.reify.title.should == 'New Title'
   end
 end

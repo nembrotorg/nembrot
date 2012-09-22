@@ -1,0 +1,18 @@
+%article
+
+  %header
+    %hgroup
+      %h1!= @version.title
+      %h2
+        = link_to "Note ##{ @note.id }", note_path(@note)
+        %span.version
+          v#{ @sequence } (#{ timeago_tag @version.external_updated_at })
+      %h3= link_to 'Notes', notes_path
+      %aside
+        %h4#notice= notice
+
+  != @version.body
+
+  = render 'diffed_tags'
+
+  = render 'versions_list'

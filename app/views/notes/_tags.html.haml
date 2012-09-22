@@ -5,6 +5,6 @@
 
   %ul
     = list_of @tags do |tag|
-      = link_to_unless_current tag.name, tag_path(tag.name.parameterize)
+      = link_to_unless_current tag.name, tag_path(tag.slug)
       
   -# Need to link only if tags still have latest versions attache dto them

@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def bodify(text)
-    (sanitize text, :tags => %w(a ul ol li), :attributes => %w(href))
+    (sanitize text, :tags => %w(a ul ol li ins del), :attributes => %w(href))
       .gsub(/^.*DOCTYPE.*>/, '')
       .gsub(/^(\w*)$/, '')
       .gsub(/^(.*)$/, '<p>\1</p>')

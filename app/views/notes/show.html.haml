@@ -3,7 +3,7 @@
   %header
     %hgroup
       %h1= @note.title
-      %h2 Note ##{ @versions.id }
+      %h2 Note ##{ @note.id }
       %h3= link_to 'Notes', notes_path
       %aside
         %h4#notice= notice
@@ -11,4 +11,5 @@
   = bodify(@note.body)
 
   = render 'tags'
-  
+
+  = render 'versions_list'

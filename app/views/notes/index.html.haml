@@ -1,3 +1,9 @@
+- document_title = "Notes | joegatt.net"
+- set_meta_tags :title => document_title,
+                :description => '',
+                :open_graph => { :title => document_title },
+                :noindex => true
+
 %nav
   %h6 Breadcrumbs
   %ul
@@ -5,9 +11,8 @@
     %li Notes
 
 %section
-
   %header
-    %hgroup
+    %hgroup{ :data => {:title => document_title} }
       %h1 Notes
       %aside
         %h4#notice= notice

@@ -47,6 +47,8 @@ class NotesController < ApplicationController
       previous_tags = @previous.version.tags
     end
 
+    @undiffed_version = @version
+
     @version.title = Differ.diff_by_word(@version.title, @previous.title)
     @version.body = Differ.diff_by_word(@version.body, @previous.body)
 

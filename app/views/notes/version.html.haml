@@ -1,7 +1,20 @@
-%article
+- document_title = "#{ @undiffed_version.title } | Note #{ @note.id } version #{ @sequence } | joegatt.net"
+- set_meta_tags :title => document_title,
+                :description => snippet( "#{@undiffed_version.title} : #{@undiffed_version.body}", 30),
+                :open_graph => { :title => document_title },
+                :noindex => true
 
+%nav
+  %h6 Breadcrumbs
+  %ul
+    %li= link_to 'Home', root_path
+    %li= link_to 'Notes', notes_path
+    %li= link_to "##{ @note.id }", note_path(@note)
+    %li= "v#{ @sequence }"
+
+%article
   %header
-    %hgroup
+    %hgroup{ :data => {:title => document_title} }
       %h1!= @version.title
       %h2
         = link_to "Note ##{ @note.id }", note_path(@note)
@@ -15,4 +28,4 @@
 
   = render 'diffed_tags'
 
-  = render 'versions_list'
+  = render 'versions_list', :note => @note

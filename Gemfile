@@ -1,38 +1,39 @@
 source 'https://rubygems.org'
 
-gem 'rails',          '3.2.5'
+gem 'rails',          '3.2.8'
 
 gem 'json'
+
+gem 'unicorn'
 
 gem 'friendly_id',          '~> 4.0.1'
 gem 'acts-as-taggable-on',  '~> 2.3.3'
 gem 'paper_trail'
 
+gem 'differ'
+
 gem 'haml'
 gem 'haml-rails'
 
 gem 'jquery-rails'
-
 gem 'html5-rails'
-
-gem 'differ'
-
+gem 'pjax_rails'
+gem 'meta-tags', :require => 'meta_tags'
 gem 'rails-timeago'
-
-gem 'unicorn'
 
 group :development do
   gem 'sqlite3',      '1.3.5'
   gem 'rspec-rails',  '2.11.0'
   gem 'factory_girl_rails'
   gem 'guard-rspec',  '0.5.5'
+  gem 'rails_best_practices'
   gem 'capistrano'
 end
 
 group :assets do
-  gem 'sass-rails',   '3.2.4'
-  gem 'coffee-rails', '3.2.2'
-  gem 'uglifier',     '1.2.3'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
   gem 'compass-rails'
   gem 'compass-h5bp'
 end
@@ -48,7 +49,8 @@ group :test do
   gem 'guard-spork',  '0.3.2'
   gem 'spork',        '0.9.0'
   gem 'launchy'
-  
+  gem 'database_cleaner'
+
   # System-dependent gems
   # Linux
   # gem 'rb-inotify', '0.8.8'

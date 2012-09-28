@@ -1,7 +1,18 @@
-%section
+- document_title = "\"#{ @tag.name }\" | Tags | joegatt.net"
+- set_meta_tags :title => document_title,
+                :description => '',
+                :open_graph => { :title => document_title }
 
+%nav
+  %h6 Breadcrumbs
+  %ul
+    %li= link_to 'Home', root_path
+    %li= link_to 'Tags', tags_path
+    %li= @tag.name
+
+%section
   %header
-    %hgroup
+    %hgroup{ :data => {:title => document_title} }
       %h1= @tag.name
       %h2= link_to 'Tags', tags_path
       %aside

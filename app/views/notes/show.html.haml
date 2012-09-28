@@ -1,7 +1,18 @@
-%article
+- document_title = "#{ @note.title } | Note #{ @note.id } | joegatt.net"
+- set_meta_tags :title => document_title,
+                :description => snippet( "#{@note.title} : #{@note.body}", 30),
+                :open_graph => { :title => document_title }
 
+%nav
+  %h6 Breadcrumbs
+  %ul
+    %li= link_to 'Home', root_path
+    %li= link_to 'Notes', notes_path
+    %li= "##{ @note.id }"
+
+%article
   %header
-    %hgroup
+    %hgroup{ :data => {:title => document_title} }
       %h1= @note.title
       %h2 Note ##{ @note.id }
       %h3= link_to 'Notes', notes_path
@@ -12,4 +23,4 @@
 
   = render 'tags'
 
-  = render 'versions_list'
+  = render 'versions_list', :note => @note

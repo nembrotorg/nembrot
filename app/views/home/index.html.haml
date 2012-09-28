@@ -1,6 +1,19 @@
-%h1 Home - Nembrot
+- document_title = "joegatt.net"
+- set_meta_tags :title => document_title,
+                :description => '',
+                :open_graph => { :title => document_title }
 
 %nav
+  %h6 Breadcrumbs
+  %ul
+    %li
+      Home
+
+%article
+  %header
+    %hgroup{ :data => {:title => document_title} }
+      %h1 Nembrot
+  
   %ul
     %li= link_to 'Notes', notes_path
     %li= link_to 'Tags', tags_path

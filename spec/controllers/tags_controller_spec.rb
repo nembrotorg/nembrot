@@ -9,7 +9,7 @@ describe TagsController do
   describe "GET #index" do
     it "populates an array of tags" do
       get :index
-      assigns(:tags).should eq([@tag])
+      assigns(:tags).should eq(@tag)
     end
     
     it "renders the :index view" do

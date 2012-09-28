@@ -1,18 +1,21 @@
 require 'spec_helper'
 
 describe "Static pages" do
-
+  
   describe "Home page" do
 
   	before { visit '/' }
 
-    it "should have the content 'Nembrot'" do
-      page.should have_selector('h1')
-    end
+  	subject { page }
 
-    it "should have the content 'Nembrot'" do
-      visit '/'
-      page.should have_selector('h1', text: 'Home - Nembrot')
+    it "should have the content 'Nembrotxx'" do
+      page.should have_selector('h1', text: 'Nembrot')
+    end
+    it "should have a link to Notes" do
+      page.should have_selector('a', text: 'Notes')
+    end
+    it "should have a link to Tags" do
+      page.should have_selector('a', text: 'Tags')
     end
 
   end

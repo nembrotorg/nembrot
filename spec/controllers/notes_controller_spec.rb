@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe NotesController do
 
+  DatabaseCleaner.clean
+
   before(:each) do
       @note = FactoryGirl.create(:note)
   end
   
-  describe "GET #index" do
+  describe "GET #indexx" do
     it "populates an array of notes" do
       get :index
       assigns(:notes).should eq([@note])

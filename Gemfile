@@ -53,12 +53,12 @@ group :test do
 
   # System-dependent gems
   # Linux
-  # gem 'rb-inotify', '0.8.8'
-  # gem 'libnotify',  '0.5.9'
+  gem 'rb-inotify', '0.8.8'
+  gem 'libnotify',  '0.5.9'
 
   # Mac OSX
-  gem 'rb-fsevent',   '0.9.1'
-  gem 'growl',        '1.0.3'
+  # gem 'rb-fsevent',   '0.9.1'
+  # gem 'growl',        '1.0.3'
 
   # Windows
   # gem 'rb-fchange', '0.0.5'

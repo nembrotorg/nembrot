@@ -45,9 +45,9 @@ group :test do
   gem 'faker'
   gem 'rspec-rails',  '2.11.0'
   gem 'factory_girl_rails'
-  gem 'capybara',     '1.1.2'
-  gem 'guard-spork',  '0.3.2'
-  gem 'spork',        '0.9.0'
+  gem 'capybara',     '1.1.3'
+  gem 'guard-spork'
+  gem 'spork-rails'
   gem 'launchy'
   gem 'database_cleaner'
 

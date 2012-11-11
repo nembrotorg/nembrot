@@ -1,6 +1,6 @@
 - document_title = "#{ @note.title } | Note #{ @note.id } | joegatt.net"
 - set_meta_tags :title => document_title,
-                :description => snippet( "#{@note.title} : #{@note.body}", 30),
+                :description => @note.headline,
                 :open_graph => { :title => document_title }
 
 %nav

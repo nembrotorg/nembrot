@@ -1,7 +1,7 @@
 - document_title = "#{ @diffed_version.title } | Note #{ @note.id } version #{ @diffed_version.sequence } | joegatt.net"
 - set_meta_tags :title => document_title,
-                :description => snippet( "#{@diffed_version.title} : #{@diffed_version.body}", 30),
-                :open_graph => { :title => document_title },
+                :description => @diffed_version.body,
+                :open_graph => { :title => @diffed_version.title },
                 :noindex => true
 
 %nav
@@ -26,6 +26,6 @@
 
   != Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body)
 
-  = render 'diffed_tags'
+  = render 'tags', :tags => @diffed_version.tags
 
   = render 'versions_list', :note => @note

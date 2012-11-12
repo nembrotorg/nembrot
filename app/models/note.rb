@@ -55,6 +55,15 @@ class Note < ActiveRecord::Base
       previous_tags = previous.version.tags
     end
 
+    added_tags = (version_tags - previous_tags).each { |tag| tag.diff_status = 1 }
+    removed_tags = (previous_tags - version_tags).each { |tag| tag.diff_status = -1 }
+    unchanged_tags = (version_tags - added_tags - removed_tags)
+    tags = (added_tags + removed_tags + unchanged_tags).each { |tag|
+      if Note.tagged_with(tag.name).size == 0
+        tag.obsolete = true
+      end 
+    }.sort_by { |tag| tag.name.downcase }
+
     OpenStruct.new({
             :title => version.title,
             :body => version.body,
@@ -62,10 +71,7 @@ class Note < ActiveRecord::Base
             :previous_body => previous.body,
             :sequence => sequence,
             :external_updated_at => version.external_updated_at,
-            :removed_tags => previous_tags - version_tags,
-            :added_tags => version_tags - previous_tags,
-            :tags => (version_tags + previous_tags).uniq
+            :tags => tags
           })
   end
-
 end

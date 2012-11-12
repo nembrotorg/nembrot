@@ -1,3 +1,3 @@
 %ul
   = list_of @notes do |note|
-    = link_to_unless_current "##{ note.id } #{ snippet( note.title + ': ' + note.body, 30) }", note
+    = link_to_unless_current snippet( note.blurb, 30 ), note

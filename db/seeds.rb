@@ -97,7 +97,7 @@ cloud_note.save
 
 note = Note.find(cloud_note.note_id)
 note.update_attributes(
-    :title => 'Indigestion',
+    :title => 'Untitled',
     :body => 'We never see, says an adage, what we digest.\nHow many, however, know what digestion is, though it is a necessity equalizing rich and poor, the shepherd and the king.\nThe majority of persons who, like M. Jourdan, talked prose without knowing it, digest without knowing how; for them I make a popular history of digestion, being satisfied that M. Jourdan was much better satisfied when his master told him that he wrote prose. To he fully acquainted with digestion, one must know hoth its antecedents and consequents.',
     :external_updated_at => 'Mon, 30 Jul 2012 14:00:02 UTC +00:00',
     :tag_list => 'chicken, liver, foie gras'

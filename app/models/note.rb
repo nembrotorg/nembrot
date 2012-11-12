@@ -1,4 +1,6 @@
 class Note < ActiveRecord::Base
+  include ApplicationHelper
+
   attr_accessible :title, :body, :external_updated_at, :tag_list
 
   has_many :cloud_notes, :dependent => :destroy
@@ -16,8 +18,20 @@ class Note < ActiveRecord::Base
 
   validates :title, :body, :external_updated_at, :presence => true
 
-  def headline
-    self.title + ': ' + self.body
+  before_save :normalise_title
+
+  def normalise_title
+    if ['', 'Untitled', 'New note'].include? self.title
+      self.title = snippet( self.body, 8)
+    end
+  end
+
+  def blurb
+    if self.body.index(self.title.gsub(/\.\.\.$/, '')) == 0
+      self.body
+    else
+      self.title + ': ' + self.body
+    end
   end
 
   def diffed_version(sequence)

@@ -56,15 +56,15 @@ class Note < ActiveRecord::Base
     end
 
     OpenStruct.new({
-            :title => Differ.diff_by_word(version.title, previous.title),
-            :body => Differ.diff_by_word(version.body, previous.body),
-            :undiffed_title => version.title,
-            :undiffed_body => version.body,
+            :title => version.title,
+            :body => version.body,
+            :previous_title => previous.title,
+            :previous_body => previous.body,
             :sequence => sequence,
             :external_updated_at => version.external_updated_at,
             :removed_tags => previous_tags - version_tags,
             :added_tags => version_tags - previous_tags,
-            :tags => (version_tags + previous_tags).find_all { |tag| tag.name.match(/^[^_]/) }.uniq.sort_by { |tag| tag.name.downcase }
+            :tags => (version_tags + previous_tags).uniq
           })
   end
 

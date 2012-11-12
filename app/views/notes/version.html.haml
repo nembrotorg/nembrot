@@ -1,6 +1,6 @@
-- document_title = "#{ @diffed_version.undiffed_title } | Note #{ @note.id } version #{ @diffed_version.sequence } | joegatt.net"
+- document_title = "#{ @diffed_version.title } | Note #{ @note.id } version #{ @diffed_version.sequence } | joegatt.net"
 - set_meta_tags :title => document_title,
-                :description => snippet( "#{@diffed_version.undiffed_title} : #{@diffed_version.undiffed_body}", 30),
+                :description => snippet( "#{@diffed_version.title} : #{@diffed_version.body}", 30),
                 :open_graph => { :title => document_title },
                 :noindex => true
 
@@ -15,7 +15,7 @@
 %article
   %header
     %hgroup{ :data => {:title => document_title} }
-      %h1!= @diffed_version.title
+      %h1!= Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
       %h2
         = link_to "Note ##{ @note.id }", note_path(@note)
         %span.version
@@ -24,7 +24,7 @@
       %aside
         %h4#notice= notice
 
-  != @diffed_version.body
+  != Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body)
 
   = render 'diffed_tags'
 

@@ -1,5 +1,6 @@
 - document_title = "#{ @diffed_version.title } | Note #{ @note.id } version #{ @diffed_version.sequence } | joegatt.net"
 - set_meta_tags :title => document_title,
+                :canonical => note_path(@note),
                 :description => @diffed_version.body,
                 :open_graph => { :title => @diffed_version.title },
                 :noindex => true

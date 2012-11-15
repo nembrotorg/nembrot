@@ -9,8 +9,10 @@ class Note < ActiveRecord::Base
   
   has_paper_trail :on => [:update, :destroy],
                   :meta => { 
+                    # Adding a sequence enables us to retrieve by version number
                     :sequence  => Proc.new { |note| note.versions.length + 1 }, 
-                    :tags  => Proc.new { |note| Note.find(note.id).tags } # Simply storing note.tag_list would store incoming one, so we store object
+                    # Simply storing note.tag_list would store incoming tag list
+                    :tags  => Proc.new { |note| Note.find(note.id).tags }
                   }
 
   accepts_nested_attributes_for :cloud_notes, 
@@ -21,6 +23,10 @@ class Note < ActiveRecord::Base
   before_save :normalise_title
 
   def normalise_title
+    # Title can be normalised on access (versions can save normalised title or
+    # save it as headline, or not save it at all and recalculated in diffed_version...)
+    # This could lead to a false diffing though, if title is modified in note on the basis
+    # of the headline at the time.
     if ['', 'Untitled', 'New note'].include? self.title
       self.title = snippet( self.body, 8)
     end
@@ -36,6 +42,8 @@ class Note < ActiveRecord::Base
 
   def diffed_version(sequence)
     if sequence == 1
+      # If retrieveing first version, we create an empty version object and an empty array
+      # to enable to diff against them
       version = self.versions.find_by_sequence(1).reify
       previous = OpenStruct.new({
         :title => '',
@@ -44,26 +52,36 @@ class Note < ActiveRecord::Base
       version_tags = version.version.tags
       previous_tags = Array.new
     elsif sequence == self.versions.length + 1
+      # If we're requesting the latest (current) version, we select the current note as the
+      # version, and the last stored version as previous
       version = self
-      previous = self.versions.last.reify
+      previous = version.versions.last.reify
       version_tags = version.tags
       previous_tags = previous.version.tags
-    else        
+    else
       version = self.versions.find_by_sequence(sequence).reify
       previous = version.previous_version    
       version_tags = version.version.tags
       previous_tags = previous.version.tags
     end
 
+    # We calculate the difference between current and previous tag lists,
+    # and set diff_status accordingly so we can mark up list in view
     added_tags = (version_tags - previous_tags).each { |tag| tag.diff_status = 1 }
     removed_tags = (previous_tags - version_tags).each { |tag| tag.diff_status = -1 }
     unchanged_tags = (version_tags - added_tags - removed_tags)
-    tags = (added_tags + removed_tags + unchanged_tags).each { |tag|
+    tags = (added_tags + removed_tags + unchanged_tags)
+
+    # We check whether tags are still in use and set obsolete accordingly
+    tags.each { |tag|
       if Note.tagged_with(tag.name).size == 0
         tag.obsolete = true
-      end 
-    }.sort_by { |tag| tag.name.downcase }
+      end
+    }
 
+    tags.sort_by { |tag| tag.name.downcase }
+
+    # We build and return the version object
     OpenStruct.new({
             :title => version.title,
             :body => version.body,

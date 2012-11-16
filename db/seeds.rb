@@ -105,3 +105,14 @@ note.update_attributes(
 note.save
 cloud_note.note_id = note.id
 cloud_note.save
+
+cloud_note = CloudNote.where(:cloud_note_identifier => 'ABC104', :cloud_service_id => cloud_service.id).first_or_initialize
+note = Note.new(
+    :title => 'Primal food',
+    :body => 'Potage is a healthy food, very nourishing, and suits every body; it pleases the stomach and prepares it for reception and digestion. Persons threatened with obesity should take bouillon alone.',
+    :external_updated_at => 'Mon, 30 Jul 2012 14:00:00 UTC +00:00',
+    :tag_list => 'potage, cheese'
+  )
+note.save
+cloud_note.note_id = note.id
+cloud_note.save

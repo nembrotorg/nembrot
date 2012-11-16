@@ -6,8 +6,8 @@
   %ul
     = list_of tags do |tag|
       - if tag.diff_status == 1
-        %ins= link_to_tag_if_current(tag)
+        %ins= link_to_tag_unless_obsolete(tag)
       - elsif tag.diff_status == -1
-        %del= link_to_tag_if_current(tag)
+        %del= link_to_tag_unless_obsolete(tag)
       - else
-        = link_to_tag_if_current(tag)
+        = link_to_tag_unless_obsolete(tag)

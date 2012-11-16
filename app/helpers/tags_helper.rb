@@ -1,7 +1,7 @@
 module TagsHelper
   include ActsAsTaggableOn::TagsHelper
 
-  def link_to_tag_if_current(tag)
+  def link_to_tag_unless_obsolete(tag)
     if tag.obsolete
       tag.name
     else

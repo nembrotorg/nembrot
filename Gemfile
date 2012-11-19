@@ -9,6 +9,7 @@ gem 'unicorn'
 gem 'friendly_id',          '~> 4.0.1'
 gem 'acts-as-taggable-on',  '~> 2.3.3'
 gem 'paper_trail'
+gem 'settingslogic'
 
 gem 'differ'
 

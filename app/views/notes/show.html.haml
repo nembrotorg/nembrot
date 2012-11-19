@@ -1,21 +1,21 @@
-- document_title = "#{ @note.title } | Note #{ @note.id } | joegatt.net"
+- document_title = "#{ @note.title } | #{ t('notes.item', :count => 1) } #{ @note.id } | #{ t('site.title') }"
 - set_meta_tags :title => document_title,
                 :description => @note.body,
                 :open_graph => { :title => @note.title }
 
 %nav
-  %h6 Breadcrumbs
+  %h6= t('site.breadcrumbs')
   %ul
-    %li= link_to 'Home', root_path
-    %li= link_to 'Notes', notes_path
+    %li= link_to t('home.title'), root_path
+    %li= link_to t('notes.title'), notes_path
     %li= "##{ @note.id }"
 
 %article
   %header
     %hgroup{ :data => {:title => document_title} }
       %h1= @note.title
-      %h2 Note ##{ @note.id }
-      %h3= link_to 'Notes', notes_path
+      %h2 #{ t('notes.item', :count => 1) } ##{ @note.id }
+      %h3= link_to t('notes.title'), notes_path
       %aside
         %h4#notice= notice
 

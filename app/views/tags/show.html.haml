@@ -3,13 +3,6 @@
                 :description => '',
                 :open_graph => { :title => document_title }
 
-%nav
-  %h6= t('site.breadcrumbs')
-  %ul
-    %li= link_to t('home.title'), root_path
-    %li= link_to t('tags.title'), tags_path
-    %li= @tag.name
-
 %section
   %header
     %hgroup{ :data => {:title => document_title} }

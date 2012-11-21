@@ -20,6 +20,7 @@ gem 'jquery-rails'
 gem 'html5-rails'
 gem 'pjax_rails'
 gem 'meta-tags', :require => 'meta_tags'
+gem 'breadcrumbs_on_rails'
 gem 'rails-timeago'
 
 group :development do

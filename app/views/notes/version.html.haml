@@ -6,14 +6,6 @@
                 :open_graph => { :title => @diffed_version.title },
                 :noindex => true
 
-%nav
-  %h6= t('site.breadcrumbs')
-  %ul
-    %li= link_to t('home.title'), root_path
-    %li= link_to t('notes.title'), notes_path
-    %li= link_to "##{ @note.id }", note_path(@note)
-    %li= "#{ t('notes.versions.abbr') }#{ @diffed_version.sequence }"
-
 %article
   %header
     %hgroup{ :data => {:title => document_title} }

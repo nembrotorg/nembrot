@@ -3,13 +3,6 @@
                 :description => @note.body,
                 :open_graph => { :title => @note.title }
 
-%nav
-  %h6= t('site.breadcrumbs')
-  %ul
-    %li= link_to t('home.title'), root_path
-    %li= link_to t('notes.title'), notes_path
-    %li= "##{ @note.id }"
-
 %article
   %header
     %hgroup{ :data => {:title => document_title} }

@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
-  # GET /tags
-  # GET /tags.json
+
+  add_breadcrumb I18n.t('tags.title'), :tags_path
+
   def index
     # Can this be transferred to model?
     @tags = Note.tag_counts_on(:tags)
@@ -16,6 +17,8 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.tagged_with(@tag.name)
+
+    add_breadcrumb @tag.name, tag_path(params[:slug])
 
     respond_to do |format|
       format.html # show.html.erb

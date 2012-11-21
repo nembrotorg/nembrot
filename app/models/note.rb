@@ -27,12 +27,13 @@ class Note < ActiveRecord::Base
     # save it as headline, or not save it at all and recalculated in diffed_version...)
     # This could lead to a false diffing though, if title is modified in note on the basis
     # of the headline at the time.
-    if ['', 'Untitled', 'New note'].include? self.title
-      self.title = snippet( self.body, 8)
+    if I18n.t('notes.untitled_synonyms').include? self.title
+      self.title = snippet( self.body, Settings.notes.title_length )
     end
   end
 
   def blurb
+    # If the title is derived from the body, we do not include it in the blurb
     if self.body.index(self.title.gsub(/\.\.\.$/, '')) == 0
       self.body
     else

@@ -19,6 +19,7 @@ en:
       item:
         one: "Version"
         other: "Versions"
+    untitled_synonyms: ["Untitled", "Untitled note", "New note"]
 
   tags:
     title: "Tags"

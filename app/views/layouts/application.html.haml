@@ -9,7 +9,7 @@
 
     #main{ :role => 'main', :data => { "pjax-container" => true } }
       = render 'flashes'
-      %nav= render_breadcrumbs :builder => ::OrderedListBuilder, :separator => ''
+      %nav= render_breadcrumbs :builder => ::OrderedListBuilder
       = yield
 
     = render 'footer'

@@ -5,8 +5,9 @@ defaults: &defaults
     user_store_url: https://sandbox.evernote.com/edam/user
     note_store_url: http://sandbox.evernote.com/edam/note
     notebook: joegattdev's notebook
-  note:
-    teaser_length: 30
+  notes:
+    title_length: 8
+    blurb_length: 30
 
 development:
   <<: *defaults

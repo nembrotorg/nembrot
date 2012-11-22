@@ -1,5 +1,4 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.item', :count => 1) } #{ @note.id } #{ t('notes.versions.item', :count => 1) } #{ @diffed_version.sequence } | #{ t('site.title') }"
-
+- document_title = "#{ @diffed_version.title } | #{ t('notes.versions.full', :id => @note.id, :sequence => @diffed_version.sequence) }"
 - set_meta_tags :title => document_title,
                 :canonical => note_path(@note),
                 :description => @diffed_version.body,
@@ -11,9 +10,9 @@
     %hgroup{ :data => {:title => document_title} }
       %h1!= Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
       %h2
-        = link_to "#{ t('notes.item', :count => 1) } ##{ @note.id }", note_path(@note)
+        = link_to "#{ t('notes.item', :id => @note.id) }", note_path(@note)
         %span.version
-          #{ t('notes.versions.abbr') }#{ @diffed_version.sequence } (#{ timeago_tag @diffed_version.external_updated_at })
+          #{ t('notes.versions.short', :sequence => @diffed_version.sequence) } (#{ timeago_tag @diffed_version.external_updated_at })
       %h3= link_to t('notes.title'), notes_path
       %aside
         %h4#notice= notice

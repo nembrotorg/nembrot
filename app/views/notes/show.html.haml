@@ -1,4 +1,4 @@
-- document_title = "#{ @note.title } | #{ t('notes.item', :count => 1) } #{ @note.id } | #{ t('site.title') }"
+- document_title = "#{ @note.title } | #{ t('notes.item', :id => @note.id) }"
 - set_meta_tags :title => document_title,
                 :description => @note.body,
                 :open_graph => { :title => @note.title }
@@ -7,7 +7,7 @@
   %header
     %hgroup{ :data => {:title => document_title} }
       %h1= @note.title
-      %h2 #{ t('notes.item', :count => 1) } ##{ @note.id }
+      %h2= t('notes.item', :id => @note.id)
       %h3= link_to t('notes.title'), notes_path
       %aside
         %h4#notice= notice

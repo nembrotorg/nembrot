@@ -6,6 +6,6 @@
       - if note.versions.length == 0
         v#{note.versions.length + 1} (#{ timeago_tag note.external_updated_at })
       - else
-        = link_to_unless_current "#{ t('notes.versions.abbr') }#{note.versions.length + 1} (#{ timeago_tag note.external_updated_at })".html_safe, note_version_path(note, note.versions.length + 1)
+        = link_to_unless_current "#{ t('notes.versions.short', :sequence => note.versions.length + 1) } (#{ timeago_tag note.external_updated_at })".html_safe, note_version_path(note, note.versions.length + 1)
         = list_of note.versions.reverse do |version|
-          = link_to_unless_current "#{ t('notes.versions.abbr') }#{ version.sequence } (#{ timeago_tag version.reify.external_updated_at })".html_safe, note_version_path(note, version.sequence)
+          = link_to_unless_current "#{ t('notes.versions.short', :sequence => version.sequence) } (#{ timeago_tag version.reify.external_updated_at })".html_safe, note_version_path(note, version.sequence)

@@ -10,19 +10,15 @@ en:
 
   notes:
     title: "Notes"
-    item:
-      one: "Note"
-      other: "Notes"
+    item: "Note %{id}"
+    short: "#%{id}"
     versions:
       title: "Versions"
-      abbr: "v"
-      item:
-        one: "Version"
-        other: "Versions"
+      item: "Version %{sequence}"
+      short: "v%{sequence}"
+      full: "Note %{id} v%{sequence}"
     untitled_synonyms: ["Untitled", "Untitled note", "New note"]
 
   tags:
     title: "Tags"
-    item:
-      one: "Tag"
-      other: "Tags"
+    item: "Tag"

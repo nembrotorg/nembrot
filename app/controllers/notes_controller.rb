@@ -16,7 +16,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @tags = @note.tags
 
-    add_breadcrumb "##{ @note.id }", note_path(@note)
+    add_breadcrumb I18n.t('notes.short', :id => @note.id), note_path(@note)
 
     respond_to do |format|
       format.html
@@ -28,8 +28,8 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @diffed_version = @note.diffed_version(params[:sequence].to_i)
 
-    add_breadcrumb "##{ @note.id }", note_path(@note)
-    add_breadcrumb "v#{ @diffed_version.sequence }", note_version_path(@note, @diffed_version.sequence)
+    add_breadcrumb I18n.t('notes.short', :id => @note.id), note_path(@note)
+    add_breadcrumb I18n.t('notes.versions.short', :sequence => @diffed_version.sequence), note_version_path(@note, @diffed_version.sequence)
 
     respond_to do |format|
       format.html

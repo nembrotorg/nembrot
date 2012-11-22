@@ -6,16 +6,16 @@ class Note < ActiveRecord::Base
   has_many :cloud_notes, :dependent => :destroy
 
   acts_as_taggable
-  
+
   has_paper_trail :on => [:update, :destroy],
-                  :meta => { 
+                  :meta => {
                     # Adding a sequence enables us to retrieve by version number
-                    :sequence  => Proc.new { |note| note.versions.length + 1 }, 
+                    :sequence  => Proc.new { |note| note.versions.length + 1 },
                     # Simply storing note.tag_list would store incoming tag list
                     :tags  => Proc.new { |note| Note.find(note.id).tags }
                   }
 
-  accepts_nested_attributes_for :cloud_notes, 
+  accepts_nested_attributes_for :cloud_notes,
                                 :reject_if => Proc.new { |a| a['cloud_note_identifier'].blank? || a['cloud_service'].blank? }
 
   validates :title, :body, :external_updated_at, :presence => true
@@ -61,7 +61,7 @@ class Note < ActiveRecord::Base
       previous_tags = previous.version.tags
     else
       version = self.versions.find_by_sequence(sequence).reify
-      previous = version.previous_version    
+      previous = version.previous_version
       version_tags = version.version.tags
       previous_tags = previous.version.tags
     end

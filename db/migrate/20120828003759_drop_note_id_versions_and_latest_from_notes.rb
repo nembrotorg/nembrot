@@ -1,7 +1,7 @@
 class DropNoteIdVersionsAndLatestFromNotes < ActiveRecord::Migration
   def up
-    remove_column :notes, :note_id 
-    remove_column :notes, :latest 
+    remove_column :notes, :note_id
+    remove_column :notes, :latest
     remove_column :notes, :version
   end
   def down

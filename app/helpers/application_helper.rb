@@ -1,15 +1,11 @@
 module ApplicationHelper
 
-  # Add html truncate gem - do teaser
+  # Add html truncate gem - do blurb
   # Truncate by letters not words
   def snippet(text, wordcount)
-    # Full path to strip_tags because we're using this in model (sub-optimal) 
+    # Full path to strip_tags because we're using this in model (sub-optimal)
     text = ActionController::Base.helpers.strip_tags text
-    text.split[0..(wordcount-1)].join(' ') + (text.split.size > wordcount ? '...' : '') 
-  end
-
-  def headline(note)
-
+    text.split[0..(wordcount-1)].join(' ') + (text.split.size > wordcount ? '...' : '')
   end
 
   def bodify(text)

@@ -82,9 +82,9 @@ RailsAdmin.config do |config|
   # config.model Note do
   #   # Found associations:
   #     configure :note_versions, :has_many_association   #   # Found columns:
-  #     configure :id, :integer 
-  #     configure :external_identifier, :string 
-  #     configure :created_at, :datetime 
+  #     configure :id, :integer
+  #     configure :external_identifier, :string
+  #     configure :created_at, :datetime
   #     configure :updated_at, :datetime   #   # Sections:
   #   list do; end
   #   export do; end
@@ -96,12 +96,12 @@ RailsAdmin.config do |config|
   # config.model NoteVersion do
   #   # Found associations:
   #     configure :note, :belongs_to_association   #   # Found columns:
-  #     configure :id, :integer 
-  #     configure :title, :string 
-  #     configure :body, :text 
-  #     configure :version, :integer 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :title, :string
+  #     configure :body, :text
+  #     configure :version, :integer
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
   #     configure :note_id, :integer         # Hidden   #   # Sections:
   #   list do; end
   #   export do; end

@@ -3,7 +3,7 @@
 #
 # OrderedListBuilder accepts the following options:
 # * list_class: a class ofr the list element (default: 'breadcrumbs')
-# 
+#
 # The breadcrumbs are rendered in an ordered list and separators are left to css
 #
 # (For a discussion of breadcrumb semantics see http://css-tricks.com/markup-for-breadcrumbs/)

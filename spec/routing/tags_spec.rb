@@ -9,10 +9,18 @@ describe "routing to tags" do
   end
 
   it "routes /tags/:slug to tag#show for slug" do
-    expect(:get => "/tags/mytag").to route_to(
+    expect(:get => "/tags/mytag123").to route_to(
       :controller => "tags",
       :action => "show",
-      :id => "mytag"
+      :slug => "mytag123"
+    )
+  end
+
+  it "routes hyphenated slugs" do
+    expect(:get => "/tags/my-tag").to route_to(
+      :controller => "tags",
+      :action => "show",
+      :slug => "my-tag"
     )
   end
 

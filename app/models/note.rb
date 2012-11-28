@@ -18,19 +18,14 @@ class Note < ActiveRecord::Base
   accepts_nested_attributes_for :cloud_notes,
                                 :reject_if => Proc.new { |a| a['cloud_note_identifier'].blank? || a['cloud_service'].blank? }
 
+  default_scope :order => 'external_updated_at DESC'
+
   validates :title, :body, :external_updated_at, :presence => true
 
-  before_save :normalise_title
+  # Being activated on create and throws error
+  # validate :external_updated_at_must_be_latest, :before => :update
 
-  def normalise_title
-    # Title can be normalised on access (versions can save normalised title or
-    # save it as headline, or not save it at all and recalculated in diffed_version...)
-    # This could lead to a false diffing though, if title is modified in note on the basis
-    # of the headline at the time.
-    if I18n.t('notes.untitled_synonyms').include? self.title
-      self.title = snippet( self.body, Settings.notes.title_length )
-    end
-  end
+  before_save :normalise_title
 
   def blurb
     # If the title is derived from the body, we do not include it in the blurb
@@ -43,7 +38,7 @@ class Note < ActiveRecord::Base
 
   def diffed_version(sequence)
     if sequence == 1
-      # If retrieveing first version, we create an empty version object and an empty array
+      # If retrieveing the first version, we create an empty version object and an empty array
       # to enable to diff against them
       version = self.versions.find_by_sequence(1).reify
       previous = OpenStruct.new({
@@ -56,8 +51,8 @@ class Note < ActiveRecord::Base
       # If we're requesting the latest (current) version, we select the current note as the
       # version, and the last stored version as previous
       version = self
-      previous = version.versions.last.reify
-      version_tags = version.tags
+      previous = self.versions.last.reify
+      version_tags = self.tags
       previous_tags = previous.version.tags
     else
       version = self.versions.find_by_sequence(sequence).reify
@@ -93,4 +88,23 @@ class Note < ActiveRecord::Base
             :tags => tags
           })
   end
+
+  # private
+    # def external_updated_at_must_be_latest
+    #     if !self.external_updated_at_was.nil? && self.external_updated_at <= self.external_updated_at_was
+    #       errors.add( :external_updated_at, 'must be more recent than any other version' )
+    #       return false
+    #     end
+    # end
+
+    def normalise_title
+      # Title can be normalised on access (versions can save normalised title or
+      # save it as headline, or not save it at all and recalculated in diffed_version...)
+      # This could lead to a false diffing though, if title is modified in note on the basis
+      # of the headline at the time.
+      if I18n.t('notes.untitled_synonyms').include? self.title
+        self.title = snippet( self.body, Settings.notes.title_length )
+      end
+    end
+
 end

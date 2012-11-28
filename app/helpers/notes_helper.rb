@@ -1,3 +1,3 @@
 module NotesHelper
-  include ActsAsTaggableOn::TagsHelper
+  include EvernoteHelper
 end

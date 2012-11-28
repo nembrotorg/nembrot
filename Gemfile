@@ -12,6 +12,7 @@ gem 'paper_trail'
 gem 'settingslogic'
 
 gem 'differ'
+gem 'nokogiri'
 
 gem 'haml'
 gem 'haml-rails'
@@ -82,3 +83,9 @@ end
 gem 'devise'
 
 gem 'rails_admin'
+
+# gem 'evernote'
+# http://rubyitalianstyle.it/post/19728996112/ruby-1-9-3-evernote-thrift
+gem 'evernote', '~> 1.2.0', :git => 'git://github.com/cgs/evernote.git'
+gem 'thrift', :git => 'git://github.com/McRipper/thrift-1.9.3.git'
+gem 'thrift_client', '~> 0.8.1', :git => 'git://github.com/McRipper/thrift_client.git'

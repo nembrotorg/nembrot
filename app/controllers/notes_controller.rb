@@ -36,4 +36,14 @@ class NotesController < ApplicationController
       format.json { render :json => @note }
     end
   end
+
+  def update_cloud
+
+    @guid = params[:guid]
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @note }
+    end
+  end
 end

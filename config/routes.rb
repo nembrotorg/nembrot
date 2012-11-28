@@ -14,4 +14,10 @@ Nembrot::Application.routes.draw do
 
   get 'tags/:slug' => 'tags#show', :slug => /[a-z\d\-]+/
   get 'tags' => 'tags#index'
+
+  resources :notes, only: [:index, :show, :version] do
+    resources :v, :as => :versions
+  end
+
+  resources :tags, only: [:index, :show]
 end

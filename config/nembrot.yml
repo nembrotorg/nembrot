@@ -1,13 +1,15 @@
 # All Nembrot settings go here except for secret strings
 
 defaults: &defaults
+  version: '0.9'
   evernote:
     user_store_url: https://sandbox.evernote.com/edam/user
-    note_store_url: http://sandbox.evernote.com/edam/note
     notebook: joegattdev's notebook
   notes:
     title_length: 8
     blurb_length: 30
+    allowed_html_tags: a blockquote del ins li ol ul
+    allowed_html_attributes: href
 
 development:
   <<: *defaults

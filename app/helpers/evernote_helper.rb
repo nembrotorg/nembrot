@@ -28,10 +28,13 @@ module EvernoteHelper
   end
 
   def get_user_store
-    user_store_url = Settings.evernote.user_store_url
-    user_store_transport = Thrift::HTTPClientTransport.new(user_store_url)
-    user_store_protocol = Thrift::BinaryProtocol.new(user_store_transport)
-    Evernote::EDAM::UserStore::UserStore::Client.new(user_store_protocol)
+    config = {
+      :username => Secret.evernote.username,
+      :password => Secret.evernote.password,
+      :consumer_key => Secret.evernote.consumer_key,
+      :consumer_secret => Secret.evernote.consumer_secret
+    }
+    Evernote::UserStore.new(Settings.evernote.user_store_url, config)
   end
 
   def get_note_store(auth_token, user_store)

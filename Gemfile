@@ -2,20 +2,29 @@ source 'https://rubygems.org'
 
 gem 'rails',          '3.2.8'
 
-gem 'json'
-
 gem 'unicorn'
 
+gem 'devise'
+gem 'rails_admin'
+
+gem 'attr_encrypted'
 gem 'friendly_id',          '~> 4.0.1'
 gem 'acts-as-taggable-on',  '~> 2.3.3'
 gem 'paper_trail'
 gem 'settingslogic'
+
+gem 'evernote-thrift'
+gem 'oauth'
+gem 'omniauth'
+gem 'omniauth-evernote'
 
 gem 'differ'
 gem 'nokogiri'
 
 gem 'haml'
 gem 'haml-rails'
+
+gem 'json'
 
 gem 'jquery-rails'
 gem 'html5-rails'
@@ -70,22 +79,10 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'therubyracer',   '>= 0.9.2'
+  # http://stackoverflow.com/questions/8126465/bundle-install-update-libv8-therubyracer-installation-fails-with-native-ex
+  #  gem 'therubyracer',   '>= 0.9.2'
+  gem 'libv8', '~> 3.11.8'
+  gem 'therubyracer', '>= 0.11.0beta1', :require => 'v8'
+
   gem 'pg',           '0.12.2'
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use debugger
-# gem 'ruby-debug'
-
-gem 'devise'
-
-gem 'rails_admin'
-
-# gem 'evernote'
-# http://rubyitalianstyle.it/post/19728996112/ruby-1-9-3-evernote-thrift
-gem 'evernote', '~> 1.2.0', :git => 'git://github.com/cgs/evernote.git'
-gem 'thrift', :git => 'git://github.com/McRipper/thrift-1.9.3.git'
-gem 'thrift_client', '~> 0.8.1', :git => 'git://github.com/McRipper/thrift_client.git'

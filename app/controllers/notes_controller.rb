@@ -1,5 +1,7 @@
 class NotesController < ApplicationController
 
+  include ActionView::Helpers::SanitizeHelper
+
   add_breadcrumb I18n.t('notes.title'), :notes_path
 
   def index
@@ -33,17 +35,7 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @note }
-    end
-  end
-
-  def update_cloud
-
-    @guid = params[:guid]
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @note }
+      format.json { render :json => @diffed_version }
     end
   end
 end

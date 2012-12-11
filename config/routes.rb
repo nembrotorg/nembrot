@@ -4,20 +4,28 @@ Nembrot::Application.routes.draw do
 
 	devise_for :users
 
-	root :to => "home#index"
+	root :to => 'home#index'
 
-  get 'webhooks/evernote_note' => 'notes#update_cloud'
+  match 'auth/failure', to: 'cloud_services#auth_failure'
+  match 'auth/:provider/callback', to: 'cloud_services#auth_callback'
+
+
+  get 'auth/:provider/inspect' => 'cloud_services#auth_inspect'
+
+  get 'webhooks/evernote_note' => 'cloud_notes#update_cloud'
 
   get 'notes/:id/v/:sequence' => 'notes#version', :id => /\d+/, :sequence => /\d+/
   get 'notes/:id' => 'notes#show', :id => /\d+/
-  get 'notes' => 'notes#index'
 
   get 'tags/:slug' => 'tags#show', :slug => /[a-z\d\-]+/
-  get 'tags' => 'tags#index'
 
   resources :notes, only: [:index, :show, :version] do
     resources :v, :as => :versions
   end
 
   resources :tags, only: [:index, :show]
+
+  resources :cloud_notes, only: [:update_cloud]
+
+  resources :cloud_services, only: [:auth_callback, :auth_failure]
 end

@@ -1,0 +1,11 @@
+:plain
+=t('email.greeting', :name => Settings.monitoring.name)
+
+
+=t('notes.sync.failed.email.body', :provider => @provider, :guid => @guid, :username => @username)
+
+
+= @error.class
+= @error.message
+
+=t('email.signature')

@@ -7,7 +7,7 @@ class Note < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_paper_trail :on => [:update, :destroy],
+  has_paper_trail :on => [:update],
                   :meta => {
                     # Adding a sequence enables us to retrieve by version number
                     :sequence  => Proc.new { |note| note.versions.length + 1 },

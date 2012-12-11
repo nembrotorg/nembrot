@@ -2,14 +2,26 @@
 
 defaults: &defaults
   version: '0.9'
+  admin:
+    name: Joe
+    email: joe@joegatt.net
+  monitoring:
+    name: Joe
+    email: joe@joegatt.net
+  mailer:
+    address: smtp.gmail.com
+    port: 587
+    domain: mail.joegatt.net
   evernote:
-    user_store_url: https://sandbox.evernote.com/edam/user
-    notebook: joegattdev's notebook
+    server: https://sandbox.evernote.com
+    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    tags: __PUBLISH
   notes:
     title_length: 8
     blurb_length: 30
     allowed_html_tags: a blockquote del ins li ol ul
     allowed_html_attributes: href
+    sync_retries: 3
 
 development:
   <<: *defaults

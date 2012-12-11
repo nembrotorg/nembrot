@@ -1,13 +1,20 @@
 en:
+  auth:
+    success: "Your %{provider} key has been authenticated."
+    failure: "%{provider} authentication failed!"
+    email:
+      subject: "%{provider} authentication required"
+      body: "%{provider} authentication is missing. Please authenticate your key for this provider by visiting %{url}"
+  email:
+    greeting: "Hi %{name}"
+    signature: "joegatt.net"
   site:
     title: "joegatt.net"
     breadcrumbs: "Breadcrumbs"
     copyright_html: "Except as otherwise stated, all content on this site is <span class=\"byline author vcard\">by <span class=\"fn\">Joe Gatt</span></span> and licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported licence</a>."
     chromeframe_html: "Your browser is <em>ancient!</em> <a href=\"http://browsehappy.com/\">Upgrade to a different browser</a> or <a href=\"http://www.google.com/chromeframe/?redirect=true\">install Google Chrome Frame</a> to experience this site."
-
   home:
     title: "Home"
-
   notes:
     title: "Notes"
     item: "Note %{id}"
@@ -18,7 +25,20 @@ en:
       short: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
     untitled_synonyms: ["Untitled", "Untitled note", "New note"]
-
+    sync:
+      updated: "%{provider}: note %{guid} (%{title}) updated."
+      rejected:
+        version_not_ok: "%{provider}: note %{guid} (%{title}) failed! The SDK is out of date."
+        not_authenticated: "%{provider}: note %{guid} (%{title}) rejected! Your %{provider} API key is not authenticated."
+        not_in_notebook: "%{provider}: note %{guid} (%{title}) rejected! Not in required notebook."
+        tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
+        not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."
+      update_error: "%{provider}: note %{guid} failed on database update!"
+      failed: 
+        logger: "%{provider}: note %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: note %{guid} failed on database update!"
+          body: "%{provider}: note %{guid} for user %{username} failed on database update!"
   tags:
     title: "Tags"
     item: "Tag"

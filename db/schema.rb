@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122073351) do
+ActiveRecord::Schema.define(:version => 20121211201119) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20121122073351) do
     t.integer  "cloud_service_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.boolean  "dirty"
+    t.integer  "sync_retries"
   end
 
   add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_cloud_note_identifier_and_cloud_service_id", :unique => true
@@ -26,8 +28,10 @@ ActiveRecord::Schema.define(:version => 20121122073351) do
 
   create_table "cloud_services", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.text     "auth"
+    t.text     "encrypted_auth"
   end
 
   create_table "notes", :force => true do |t|

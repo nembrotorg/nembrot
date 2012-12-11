@@ -14,6 +14,7 @@ describe CloudNote do
   it { should respond_to(:cloud_note_identifier) }
   it { should respond_to(:note_id) }
   it { should respond_to(:cloud_service_id) }
+  it { should respond_to(:dirty) }
 
   its(:note) { should == note }
   its(:cloud_service) { should == cloud_service }
@@ -43,5 +44,10 @@ describe CloudNote do
     }
     it { should_not be_valid }
     it { should have(1).error_on(:cloud_note_identifier) }
+  end
+
+  describe "needs_syncdown scope should contain all dirty notes" do
+    before { @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true) }
+    it { should == CloudNote.needs_syncdown.last }
   end
 end

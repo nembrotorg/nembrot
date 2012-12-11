@@ -1,10 +1,11 @@
 require 'spec_helper'
 
+include ActionView::Helpers::SanitizeHelper
 include ApplicationHelper
 
 describe Note do
 
-  # llet(:note) { FactoryGirl.create(:note) }
+  # let(:note) { FactoryGirl.create(:note) }
   # subject(:note)
 
   before {

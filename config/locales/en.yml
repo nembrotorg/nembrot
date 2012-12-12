@@ -1,4 +1,5 @@
 en:
+
   auth:
     success: "Your %{provider} key has been authenticated."
     failure: "%{provider} authentication failed!"
@@ -13,8 +14,10 @@ en:
     breadcrumbs: "Breadcrumbs"
     copyright_html: "Except as otherwise stated, all content on this site is <span class=\"byline author vcard\">by <span class=\"fn\">Joe Gatt</span></span> and licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported licence</a>."
     chromeframe_html: "Your browser is <em>ancient!</em> <a href=\"http://browsehappy.com/\">Upgrade to a different browser</a> or <a href=\"http://www.google.com/chromeframe/?redirect=true\">install Google Chrome Frame</a> to experience this site."
+
   home:
     title: "Home"
+
   notes:
     title: "Notes"
     item: "Note %{id}"
@@ -39,6 +42,7 @@ en:
         email:
           subject: "%{provider}: note %{guid} failed on database update!"
           body: "%{provider}: note %{guid} for user %{username} failed on database update!"
+
   tags:
     title: "Tags"
     item: "Tag"

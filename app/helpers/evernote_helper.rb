@@ -25,7 +25,7 @@ module EvernoteHelper
     cloud_service = CloudService.where(:name => 'evernote').first_or_create
     auth = cloud_service.auth
 
-    if auth.empty?
+    if !auth || auth.empty?
       CloudServiceMailer.auth_not_found('evernote').deliver
       logger.error t('notes.sync.rejected.not_authenticated', :provider => 'Evernote', :guid => guid)
     else

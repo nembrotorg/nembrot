@@ -29,7 +29,7 @@ en:
       updated: "%{provider}: note %{guid} (%{title}) updated."
       rejected:
         version_not_ok: "%{provider}: note %{guid} (%{title}) failed! The SDK is out of date."
-        not_authenticated: "%{provider}: note %{guid} (%{title}) rejected! Your %{provider} API key is not authenticated."
+        not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
         not_in_notebook: "%{provider}: note %{guid} (%{title}) rejected! Not in required notebook."
         tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
         not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."

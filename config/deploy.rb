@@ -106,7 +106,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
-    run "kill -s QUIT `cat /tmp/unicorn.#{application}.pid`"
+    run "kill -s QUIT `cat /tmp/unicorn.#{application}.pid`;rm -r #{latest_release}/tmp/pids"
   end
 
   namespace :rollback do

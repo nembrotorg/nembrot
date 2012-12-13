@@ -34,26 +34,29 @@ module EvernoteHelper
       note_store = get_note_store(edam_noteStoreUrl)
 
       note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
-      cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
 
+      cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
       required_notebooks = Settings.evernote.notebooks.split(' ')
       required_tags = Settings.evernote.tags.split(' ')
 
       if !required_notebooks.include?(note_metadata.notebookGuid)
         cloud_note.destroy
-        logger.info t('notes.sync.rejected.not_in_notebook', :provider => 'Evernote', :guid => guid, :title => note_metadata.title)
+        logger.info t('notes.sync.rejected.not_in_notebook', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+      elsif !note_metadata.active
+        cloud_note.destroy
+        logger.info t('notes.sync.rejected.deleted_note', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
       else
         note = Note.where(:id => cloud_note.note_id).first
         note_tags = note_store.getNoteTagNames(oauth_token, guid)
-        if (required_tags & note_tags) != required_tags 
+        if (required_tags & note_tags) != required_tags
           cloud_note.destroy
-          logger.info t('notes.sync.rejected.tag_missing', :provider => 'Evernote', :guid => guid, :title => note_metadata.title)
+          logger.info t('notes.sync.rejected.tag_missing', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         elsif note && note.external_updated_at >= Time.at(note_metadata.updated / 1000).to_datetime
-          logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title)
+          logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         else
           note_data = note_store.getNote(oauth_token, guid, true, true, false, false)
-          create_or_update_note(cloud_note, oauth_token, note_store, note_data, note_tags, auth.info.nickname)
-          logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title)
+          create_or_update_note(cloud_note, note_data, note_tags, auth.info.nickname)
+          logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         end
       end
     end
@@ -72,7 +75,7 @@ module EvernoteHelper
     Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
   end
 
-  def create_or_update_note(cloud_note, oauth_token, note_store, note_data, note_tags, username)
+  def create_or_update_note(cloud_note, note_data, note_tags, username)
     note = Note.where(:id => cloud_note.note_id).first_or_create
     note.update_attributes(
       :title => note_data.title,

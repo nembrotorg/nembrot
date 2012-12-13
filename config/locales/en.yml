@@ -31,13 +31,14 @@ en:
     sync:
       updated: "%{provider}: note %{guid} (%{title}) updated."
       rejected:
-        version_not_ok: "%{provider}: note %{guid} (%{title}) failed! The SDK is out of date."
+        version_not_ok: "%{provider}: note %{guid} (%{title}) for user %{username} failed! The SDK is out of date."
         not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
-        not_in_notebook: "%{provider}: note %{guid} (%{title}) rejected! Not in required notebook."
-        tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
-        not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."
+        not_in_notebook: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Not in required notebook."
+        deleted_note: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Note has been deleted from cloud notebook."
+        tag_missing: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Missing required tag."
+        not_latest: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Already have latest version."
       update_error: "%{provider}: note %{guid} failed on database update!"
-      failed: 
+      failed:
         logger: "%{provider}: note %{guid} (%{title}) failed on database update!"
         email:
           subject: "%{provider}: note %{guid} failed on database update!"

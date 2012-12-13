@@ -1,4 +1,4 @@
-class Changeversionstagscolumntype < ActiveRecord::Migration
+class ChangeVersionsTagsColumnType < ActiveRecord::Migration
   def up
     change_column :versions, :tags, :text
   end

@@ -10,6 +10,7 @@ describe CloudService do
 
   it { should be_valid }
   it { should respond_to(:name) }
+  it { should respond_to(:auth) }
 
   describe "when name is not present" do
     before { @cloud_service.name = nil }

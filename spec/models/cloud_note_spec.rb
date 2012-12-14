@@ -15,6 +15,8 @@ describe CloudNote do
   it { should respond_to(:note_id) }
   it { should respond_to(:cloud_service_id) }
   it { should respond_to(:dirty) }
+  it { should respond_to(:sync_retries) }
+  it { should respond_to(:content_hash) }
 
   its(:note) { should == note }
   its(:cloud_service) { should == cloud_service }
@@ -47,7 +49,16 @@ describe CloudNote do
   end
 
   describe "needs_syncdown scope should contain all dirty notes" do
-    before { @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true) }
+    before {
+      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => 0)
+    }
     it { should == CloudNote.needs_syncdown.last }
+  end
+
+  describe "needs_syncdown scope should not contain dirty notes that have been retried too often" do
+    before {
+      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => Settings.notes.sync_retries + 1)
+    }
+    it { should_not == CloudNote.needs_syncdown.last }
   end
 end

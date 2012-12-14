@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213131710) do
+ActiveRecord::Schema.define(:version => 20121213133824) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(:version => 20121213131710) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.datetime "external_updated_at", :null => false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.float    "altitude"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

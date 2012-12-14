@@ -7,7 +7,7 @@ class CloudServiceMailer < ActionMailer::Base
     
     mail( 
       :to => Settings.monitoring.email,
-      :subject => I18n.t('auth.email.not_found_subject', :provider => provider.titlecase, :url => @url)
+      :subject => I18n.t('auth.email.subject', :provider => provider.titlecase, :url => @url)
     )
   end
 end

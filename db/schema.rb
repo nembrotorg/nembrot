@@ -11,19 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213133824) do
+ActiveRecord::Schema.define(:version => 20121214134225) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
     t.integer  "cloud_service_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.boolean  "dirty"
     t.integer  "sync_retries"
+    t.binary   "content_hash",          :limit => 255
   end
 
-  add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_cloud_note_identifier_and_cloud_service_id", :unique => true
+  add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_identifier_service_id", :unique => true
   add_index "cloud_notes", ["note_id"], :name => "index_cloud_notes_on_note_id"
 
   create_table "cloud_services", :force => true do |t|

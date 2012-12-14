@@ -1,0 +1,22 @@
+<div>Intending to pop in soon. Yes! Yes! Yes! Yes! Again! This changes too. Does cache get deleted now? That day I read no more. Like some avenger in the Nights, I was by the promise of a good story.</div>
+<div>How did I ever think this will be finished in a few months?</div>
+<div>
+<br clear="none"><en-media width="640" height="472" style="cursor: url('/images/magnify.cur'),crosshair;" hash="aaee250d010f93dcb212fdc3757eaa8b" type="image/jpeg"></en-media>
+</div>
+
+
+
+on importing notes, we should:
+normalise quotes and hyphens (prettify again before displaying - or just normalise into prettified)
+replace above with simple image tag and caption (if available) - use caption as alt text
+save images (with caption)
+replace divs with p, then remove superfluous nesting
+slideshows are done client-side by hiding inline images and gathering them up at top __SLIDESHOW
+Use raw/template/cut paradigm
+
+EXIF data is removed and map only shown if __SHOWMAPS is turned on in note.
+
+notes
+has_many images
+
+videos and sounds should just be links, then client-side embeds

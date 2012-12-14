@@ -57,13 +57,17 @@ module EvernoteHelper
         elsif note && note.external_updated_at >= Time.at(note_metadata.updated / 1000).to_datetime
           logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         else
-          #CONSIDER USING JUST ONE CALL instead of metadata and data - since we're not getting notedata anyway
-          #But means we always get content
-          #maybe we can store & check content hash before we request again?
-          #YES! do this - store contentHash in cloudNote
-          note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
-File.open('raw_note_data.yml', 'w') {|f| f.write(note_data.inspect.to_yaml) }
-          create_or_update_note(cloud_note, note_data, note_tags, auth.info.nickname)
+          if note_metadata.contentHash == cloud_note.content_hash
+            # Content hasn't changed so no need to fetch.
+            note_data = note_metadata
+            note_content = note.body
+          else
+            note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
+            note_content = sanitize(Nokogiri::XML(note_data.content).css("en-note").inner_html,
+              :tags => Settings.notes.allowed_html_tags.split(' '),
+              :attributes => Settings.notes.allowed_html_attributes.split(' '))
+          end
+          create_or_update_note(cloud_note, note_data, note_content, note_tags, auth.info.nickname)
           logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         end
       end
@@ -83,20 +87,18 @@ File.open('raw_note_data.yml', 'w') {|f| f.write(note_data.inspect.to_yaml) }
     Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
   end
 
-  def create_or_update_note(cloud_note, note_data, note_tags, username)
+  def create_or_update_note(cloud_note, note_data, note_content, note_tags, username)
     note = Note.where(:id => cloud_note.note_id).first_or_create
     note.update_attributes(
       :title => note_data.title,
-      :body => 
-        sanitize(Nokogiri::XML(note_data.content).css("en-note").inner_html,
-          :tags => Settings.notes.allowed_html_tags.split(' '),
-          :attributes => Settings.notes.allowed_html_attributes.split(' ')),
+      :body => note_content,
       :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
       :tag_list => note_tags
     )
     cloud_note.update_attributes(
       :note_id => note.id,
       :sync_retries => 0,
+      :content_hash => note_data.contentHash,
       :dirty => false
     )
     puts Nokogiri::XML(note_data.content).css("en-note").inner_html

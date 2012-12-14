@@ -36,6 +36,7 @@ en:
         not_in_notebook: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Not in required notebook."
         deleted_note: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Note has been deleted from cloud notebook."
         tag_missing: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Missing required tag."
+        ignore: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Contains instructions to ignore."
         not_latest: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Already have latest version."
       update_error: "%{provider}: note %{guid} failed on database update!"
       failed:

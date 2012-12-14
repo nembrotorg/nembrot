@@ -37,7 +37,8 @@ module EvernoteHelper
 
       cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
       required_notebooks = Settings.evernote.notebooks.split(' ')
-      required_tags = Settings.evernote.tags.split(' ')
+      required_tags = Settings.evernote.instructions.required.split(' ')
+      ignore_instructions = Settings.evernote.instructions.ignore.split(' ')
 
       if !required_notebooks.include?(note_metadata.notebookGuid)
         cloud_note.destroy
@@ -51,10 +52,17 @@ module EvernoteHelper
         if (required_tags & note_tags) != required_tags
           cloud_note.destroy
           logger.info t('notes.sync.rejected.tag_missing', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+        elsif !(ignore_instructions & note_tags).empty?
+          logger.info t('notes.sync.rejected.ignore', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         elsif note && note.external_updated_at >= Time.at(note_metadata.updated / 1000).to_datetime
           logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         else
-          note_data = note_store.getNote(oauth_token, guid, true, true, false, false)
+          #CONSIDER USING JUST ONE CALL instead of metadata and data - since we're not getting notedata anyway
+          #But means we always get content
+          #maybe we can store & check content hash before we request again?
+          #YES! do this - store contentHash in cloudNote
+          note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
+File.open('raw_note_data.yml', 'w') {|f| f.write(note_data.inspect.to_yaml) }
           create_or_update_note(cloud_note, note_data, note_tags, auth.info.nickname)
           logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
         end
@@ -91,6 +99,7 @@ module EvernoteHelper
       :sync_retries => 0,
       :dirty => false
     )
+    puts Nokogiri::XML(note_data.content).css("en-note").inner_html
   rescue => error
     CloudNoteMailer.syncdown_note_failed('evernote', note_data.guid, username, error).deliver
     logger.info t('notes.sync.update_error', :provider => 'Evernote', :guid => note_data.guid)

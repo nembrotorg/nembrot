@@ -4,7 +4,7 @@ class CloudNotesController < ApplicationController
   include EvernoteHelper
 
   def update_cloud
-    result = add_evernote_task(params[:guid], true)
+    result = add_evernote_task(params[:guid])
 
     render :json => { "status" => result }
   end

@@ -2,8 +2,6 @@ class TagsController < ApplicationController
 
   add_breadcrumb I18n.t('tags.title'), :tags_path
 
-  require 'wikipedia'
-
   def index
     @tags = Note.tag_counts_on(:tags)
 
@@ -16,8 +14,6 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.tagged_with(@tag.name)
-    page  = Wikipedia.find( @tag.name )
-    @wikipedia = page
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 

@@ -33,7 +33,6 @@ gem 'pjax_rails'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'breadcrumbs_on_rails'
 gem 'rails-timeago'
-gem 'wikipedia-client'
 
 group :development do
   gem 'sqlite3',      '1.3.5'
@@ -42,8 +41,6 @@ group :development do
   gem 'guard-rspec',  '0.5.5'
   gem 'rails_best_practices'
   gem 'capistrano'
-  gem 'webmock'
-  gem 'vcr'
 end
 
 group :assets do

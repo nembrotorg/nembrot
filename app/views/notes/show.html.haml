@@ -12,8 +12,6 @@
       %aside
         %h4#notice= notice
 
-  = render 'images', :images => @note.resources.attached_images
-
   = bodify(@note.body)
 
   = render 'tags', :tags => @tags

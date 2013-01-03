@@ -7,10 +7,9 @@ class CloudNoteMailer < ActionMailer::Base
     @username = username
     @error = error
 
-    mail(
+    mail( 
       :to => Settings.monitoring.email,
-      :subject => I18n.t('notes.sync.failed.email.subject', :provider => @provider.titlecase, :guid => @guid, :username => @username),
-      :host => 'root_url'
+      :subject => I18n.t('notes.sync.failed.email.subject', :provider => @provider.titlecase, :guid => @guid, :username => @username)
     )
   end
 end

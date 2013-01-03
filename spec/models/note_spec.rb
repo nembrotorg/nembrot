@@ -96,9 +96,9 @@ describe Note do
   #  @note.versions.length.should > 0
   #end
 
-  #describe "diffed_version should return title and previous_title", :versioning => true do
-  #  note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
-  #  note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
+  describe "diffed_version should return title and previous_title", :versioning => true do
+    note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
+    note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
     # Test that tags change
     # Test obsolete status
     #  note.diffed_version(1).sequence.should == 1
@@ -107,5 +107,5 @@ describe Note do
     #  note.diffed_version(2).sequence.should == 2
     #  note.diffed_version(2).title.should == 'Second Title'
     #  note.diffed_version(2).previous_title.should == 'First Title'
-  #end
+  end
 end

@@ -3,11 +3,12 @@ class CloudServiceMailer < ActionMailer::Base
 
   def auth_not_found(provider)
     @provider = provider.titlecase
-    @url = "http://localhost:3000/auth/#{ provider }"
-    
-    mail( 
+    @url = "#{root_url}auth/#{ provider }"
+
+    mail(
       :to => Settings.monitoring.email,
-      :subject => I18n.t('auth.email.subject', :provider => provider.titlecase, :url => @url)
+      :subject => I18n.t('auth.email.subject', :provider => provider.titlecase, :url => @url),
+      :host => 'root_url'
     )
   end
 end

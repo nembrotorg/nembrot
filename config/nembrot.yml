@@ -24,15 +24,21 @@ defaults: &defaults
     allowed_html_tags: a blockquote del ins li ol ul img src alt
     allowed_html_attributes: href
     sync_retries: 3
+  sections:
+    tags: ["A Typology of Philistinism", "Nimrod"]
 
 development:
   <<: *defaults
+  host: localhost:3000
 
 test:
   <<: *defaults
+  host: localhost:3000
 
 staging:
   <<: *defaults
+  host: staging.joegatt.net
 
 production:
   <<: *defaults
+  host: joegatt.net

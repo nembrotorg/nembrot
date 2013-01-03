@@ -6,7 +6,7 @@ describe "Notes" do
   }
 
   describe "index page" do
-  	before { 
+  	before {
       @note.update_attributes( :title => 'New title', :body => 'New body' )
       visit notes_path
     }

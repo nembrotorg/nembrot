@@ -7,6 +7,7 @@ Nembrot::Application.initialize!
 # Indent all HTML output
 Haml::Template.options[:ugly] = false
 Haml::Template.options[:attr_wrapper] = "\""
+Haml::Template.options[:format] = :html5
 
 # Enforcing UTF-8
 Encoding.default_external = Encoding::UTF_8

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214134225) do
+ActiveRecord::Schema.define(:version => 20121228133853) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -58,6 +58,32 @@ ActiveRecord::Schema.define(:version => 20121214134225) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "resources", :force => true do |t|
+    t.string   "cloud_resource_identifier"
+    t.string   "mime"
+    t.string   "caption"
+    t.string   "description"
+    t.string   "credit"
+    t.string   "source_url"
+    t.datetime "external_updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.float    "altitude"
+    t.string   "camera_make"
+    t.string   "camera_model"
+    t.string   "file_name"
+    t.boolean  "attachment"
+    t.boolean  "dirty"
+    t.integer  "sync_retries"
+    t.integer  "note_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.binary   "data_hash"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "size"
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

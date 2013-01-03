@@ -2,6 +2,7 @@ require 'rubygems'
 require 'spork'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'webmock/rspec'
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However, 

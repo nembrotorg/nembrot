@@ -11,4 +11,8 @@
       %aside
         %h4#notice= notice
 
+  = @wikipedia
+  = @wikipedia.sanitized_content
+  = @wikipedia.links
+
   = render 'notes_list', :notes => @notes

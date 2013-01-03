@@ -14,8 +14,3 @@ doc/
 *~
 .project
 .DS_Store
-
-# Ignore files with passwords etc (except sample and model files)
-secret*
-!secret.rb
-!secret*.example

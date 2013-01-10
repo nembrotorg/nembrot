@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',          '3.2.8'
+gem 'rails',          '3.2.10'
 
 gem 'thin'
 gem 'unicorn'
@@ -24,23 +24,24 @@ gem 'nokogiri'
 
 gem 'haml'
 gem 'haml-rails'
+gem 'html5-rails'
 
 gem 'json'
 
 gem 'jquery-rails'
-gem 'html5-rails'
 gem 'pjax_rails'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'breadcrumbs_on_rails'
 gem 'rails-timeago'
+gem 'wikipedia-client'
 
 group :development do
   gem 'sqlite3',      '1.3.5'
-  gem 'rspec-rails',  '2.11.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'guard-rspec',  '0.5.5'
   gem 'rails_best_practices'
   gem 'capistrano'
+  gem 'webmock'
 end
 
 group :assets do
@@ -56,9 +57,13 @@ end
 group :test do
   gem 'sqlite3',      '1.3.5'
   gem 'faker'
-  gem 'rspec-rails',  '2.11.0'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'capybara',     '1.1.3'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
   gem 'guard-spork'
   gem 'spork-rails'
   gem 'launchy'
@@ -80,10 +85,7 @@ group :test do
 end
 
 group :staging, :production do
-  # http://stackoverflow.com/questions/8126465/bundle-install-update-libv8-therubyracer-installation-fails-with-native-ex
-  #  gem 'therubyracer',   '>= 0.9.2'
   gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer', '>= 0.11.0beta1', :require => 'v8'
-
-  gem 'pg',           '0.12.2'
+  gem 'therubyracer', :require => 'v8'
+  gem 'pg'
 end

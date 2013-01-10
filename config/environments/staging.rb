@@ -65,7 +65,8 @@ Nembrot::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  #Mailer
+  # Mailer
+  # If we put these in application.rb, Settings is not read.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => Settings.mailer.address,
@@ -76,5 +77,7 @@ Nembrot::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
-  
+  config.action_mailer.default_url_options = { 
+    :host => Settings.host
+  }  
 end

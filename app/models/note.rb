@@ -1,9 +1,12 @@
 class Note < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessible :title, :body, :external_updated_at, :tag_list
+  attr_accessible :title, :body, :external_updated_at, :resources, :tag_list
+
+  attr_writer :tag_list
 
   has_many :cloud_notes, :dependent => :destroy
+  has_many :resources, :dependent => :destroy
 
   acts_as_taggable
 
@@ -17,6 +20,9 @@ class Note < ActiveRecord::Base
 
   accepts_nested_attributes_for :cloud_notes,
                                 :reject_if => Proc.new { |a| a['cloud_note_identifier'].blank? || a['cloud_service'].blank? }
+
+  accepts_nested_attributes_for :resources,
+                                :reject_if => Proc.new { |a| a['cloud_resource_identifier'].blank? }
 
   default_scope :order => 'external_updated_at DESC'
 
@@ -79,14 +85,14 @@ class Note < ActiveRecord::Base
 
     # We build and return the version object
     OpenStruct.new({
-            :title => version.title,
-            :body => version.body,
-            :previous_title => previous.title,
-            :previous_body => previous.body,
-            :sequence => sequence,
-            :external_updated_at => version.external_updated_at,
-            :tags => tags
-          })
+      :title => version.title,
+      :body => version.body,
+      :previous_title => previous.title,
+      :previous_body => previous.body,
+      :sequence => sequence,
+      :external_updated_at => version.external_updated_at,
+      :tags => tags
+    })
   end
 
   # private
@@ -106,5 +112,4 @@ class Note < ActiveRecord::Base
         self.title = snippet( self.body, Settings.notes.title_length )
       end
     end
-
 end

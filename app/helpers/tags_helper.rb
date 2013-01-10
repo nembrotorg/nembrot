@@ -5,7 +5,7 @@ module TagsHelper
     if tag.obsolete
       tag.name
     else
-      link_to_unless_current tag.name, tag_path(tag.slug)
+      link_to_unless_current tag.name, tag_path(tag)
     end
   end
 end

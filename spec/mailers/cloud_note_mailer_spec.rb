@@ -1,11 +1,9 @@
-require 'spec_helper'
- 
 describe CloudNoteMailer do
   describe 'syncdown_note_failed' do
     let(:provider) { 'PROVIDER01' }
     let(:guid) { 'USER01' }
     let(:username) { 'USER01' }
-    let(:error) { mock('error', :class => 'ERRORCLASS', :message => 'ERRORMESSAGE') }
+    let(:error) { mock('error', :class => 'ERRORCLASS', :message => 'ERRORMESSAGE', :backtrace => 'ERRORBACKTRACE') }
     let(:mail) { CloudNoteMailer.syncdown_note_failed(provider, guid, username, error) }
  
     it 'renders the subject' do

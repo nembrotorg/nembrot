@@ -1,7 +1,10 @@
-require 'spec_helper'
-
 describe "Tags pages" do
   before {
+
+  stub_request(:get, /^.*wikipedia.*$/).
+       with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby/1.9.3'}).
+       to_return(:status => 200, :body => "", :headers => {})
+
     @note = FactoryGirl.create(:note)
     @note.update_attributes( :tag_list => 'tag1' )
     @tag = @note.tags[0]
@@ -22,7 +25,7 @@ describe "Tags pages" do
   describe "Tag show page" do
     before { 
       @note.update_attributes( :title => 'New title', :body => 'New body' )
-      visit tag_path(@tag.slug)
+      visit tag_path(@tag)
     }
     it "should have the tag title as title" do
       page.should have_selector('h1', text: @tag.name)

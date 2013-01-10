@@ -1,12 +1,7 @@
-require 'spec_helper'
-
 include ActionView::Helpers::SanitizeHelper
 include ApplicationHelper
 
 describe Note do
-
-  # let(:note) { FactoryGirl.create(:note) }
-  # subject(:note)
 
   before {
     @note = FactoryGirl.create(:note)
@@ -21,23 +16,14 @@ describe Note do
   it { should respond_to(:blurb) }
   it { should respond_to(:diffed_version) }
 
-  describe "when title is not present" do
-    before { @note.title = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:title) }
-  end
+  it { should have_many(:cloud_notes) }
+  it { should have_many(:resources) }
+  it { should have_many(:tags).through(:tag_taggings) }
+  it { should have_many(:versions) }
 
-  describe "when body is not present" do
-    before { @note.body = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:body) }
-  end
-
-  describe "when external_updated_at is not present" do
-    before { @note.external_updated_at = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:external_updated_at) }
-  end
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:body) }
+  it { should validate_presence_of(:external_updated_at) }
 
   # Not yet implemented
   # describe "refuses update when external_updated_at is unchanged" do
@@ -78,7 +64,10 @@ describe Note do
   end
 
   describe "is taggable" do
-    before { @note.update_attributes( :tag_list => "tag1, tag2, tag3" ) }
+    before { 
+      @note.tag_list = "tag1, tag2, tag3"
+      @note.save
+    }
     its (:tag_list) { should == ["tag1", "tag2", "tag3"] }
   end
 
@@ -96,9 +85,9 @@ describe Note do
   #  @note.versions.length.should > 0
   #end
 
-  describe "diffed_version should return title and previous_title", :versioning => true do
-    note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
-    note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
+  #describe "diffed_version should return title and previous_title", :versioning => true do
+  #  note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
+  #  note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
     # Test that tags change
     # Test obsolete status
     #  note.diffed_version(1).sequence.should == 1
@@ -107,5 +96,5 @@ describe Note do
     #  note.diffed_version(2).sequence.should == 2
     #  note.diffed_version(2).title.should == 'Second Title'
     #  note.diffed_version(2).previous_title.should == 'First Title'
-  end
+  #end
 end

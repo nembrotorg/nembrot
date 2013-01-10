@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe "routing to tags" do
   it "routes /tags to tag#index" do
     expect(:get => "/tags").to route_to(

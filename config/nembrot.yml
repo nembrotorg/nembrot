@@ -33,7 +33,7 @@ development:
 
 test:
   <<: *defaults
-  host: localhost:3000
+  host: rspec-tests
 
 staging:
   <<: *defaults

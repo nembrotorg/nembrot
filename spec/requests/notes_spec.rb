@@ -1,12 +1,10 @@
-require 'spec_helper'
-
 describe "Notes" do
   before {
     @note = FactoryGirl.create(:note)
   }
 
   describe "index page" do
-  	before { 
+  	before {
       @note.update_attributes( :title => 'New title', :body => 'New body' )
       visit notes_path
     }
@@ -20,7 +18,8 @@ describe "Notes" do
 
   describe "show page" do
   	before {
-      @note.update_attributes( :tag_list => 'tag1' )
+      @note.tag_list = 'tag1'
+      @note.save
       visit note_path(@note)
     }
     it "should have the note title as title" do
@@ -42,8 +41,14 @@ describe "Notes" do
 
   describe "version page", :versioning => true do
     before {
-      @note.update_attributes( :title => 'Newer title', :body => 'Newer body', :tag_list => 'tag1' )
-      @note.update_attributes( :title => 'Newest title', :body => 'Newest body', :tag_list => 'tag2' )
+      @note.title = 'Newer title'
+      @note.body = 'Newer body'
+      @note.tag_list = 'tag1'
+      @note.save
+      @note.title = 'Newest title'
+      @note.body = 'Newest body'
+      @note.tag_list = 'tag2'
+      @note.save
       visit note_version_path(@note, 3)
     }
     it "should have the note title as title" do

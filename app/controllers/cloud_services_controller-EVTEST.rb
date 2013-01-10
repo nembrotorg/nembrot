@@ -5,6 +5,9 @@ class CloudServicesController < ApplicationController
     cloud_service.auth = request.env['omniauth.auth']
     cloud_service.save
 
+file_name = File.join(Rails.root, 'spec', 'webmocks', 'evernote_omniauth_auth.json')
+File.open(file_name, 'w') { |f| f.puts request.env['omniauth.auth'].to_json }
+
     flash[:success] = I18n.t('auth.success', :provider => params[:provider].titlecase)
     redirect_to '/'
   end

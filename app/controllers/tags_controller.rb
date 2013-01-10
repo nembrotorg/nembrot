@@ -14,7 +14,7 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.tagged_with(@tag.name)
-
+    
     add_breadcrumb @tag.name, tag_path(params[:slug])
 
     respond_to do |format|

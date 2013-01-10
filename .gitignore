@@ -19,3 +19,6 @@ doc/
 secret*
 !secret.rb
 !secret*.example
+
+# Ignore resource files
+public/resources/*/*.*

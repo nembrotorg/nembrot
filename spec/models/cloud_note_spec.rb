@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CloudNote do
 
   let(:note) { FactoryGirl.build_stubbed(:note) }
@@ -18,47 +16,29 @@ describe CloudNote do
   it { should respond_to(:sync_retries) }
   it { should respond_to(:content_hash) }
 
+  it { should belong_to(:note) }
+  it { should belong_to(:cloud_service) }
+
   its(:note) { should == note }
   its(:cloud_service) { should == cloud_service }
 
-  describe "when cloud_note_identifier is not present" do
-    before { @cloud_note.cloud_note_identifier = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:cloud_note_identifier) }
-  end
+  it { should validate_presence_of(:cloud_note_identifier) }
+  it { should validate_presence_of(:note) }
+  it { should validate_presence_of(:cloud_service) }
 
-  describe "when note_id is not present" do
-    before { @cloud_note.note = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:note) }
-  end
-
-  describe "when cloud_service_id is not present" do
-    before { @cloud_note.cloud_service = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:cloud_service) }
-  end
-
-  describe "when cloud_note_identifier is not unique for cloud_service" do
-    before {
-      @cloud_note_pre = FactoryGirl.create(:cloud_note, :cloud_note_identifier => 'NOTUNIQUE', :note => note, :cloud_service => cloud_service)
-      @cloud_note = FactoryGirl.build_stubbed(:cloud_note, :cloud_note_identifier => 'NOTUNIQUE', :note => note, :cloud_service => cloud_service)
-    }
-    it { should_not be_valid }
-    it { should have(1).error_on(:cloud_note_identifier) }
-  end
+  it { should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:cloud_service_id) }
 
   describe "needs_syncdown scope should contain all dirty notes" do
     before {
       @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => 0)
     }
-    it { should == CloudNote.needs_syncdown.last }
+    CloudNote.needs_syncdown.last.should == @cloud_note
   end
 
   describe "needs_syncdown scope should not contain dirty notes that have been retried too often" do
     before {
       @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => Settings.notes.sync_retries + 1)
     }
-    it { should_not == CloudNote.needs_syncdown.last }
+    CloudNote.needs_syncdown.last.should == nil
   end
 end

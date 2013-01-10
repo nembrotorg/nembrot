@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CloudService do
 
   before {
@@ -12,19 +10,10 @@ describe CloudService do
   it { should respond_to(:name) }
   it { should respond_to(:auth) }
 
-  describe "when name is not present" do
-    before { @cloud_service.name = nil }
-    it { should_not be_valid }
-    it { should have(1).error_on(:name) }
-  end
+  it { should_not allow_mass_assignment_of(:auth) }
 
-  describe "when name is not unique" do
-    before { 
-      @cloud_service0 = FactoryGirl.create(:cloud_service, :name => 'NOTUNIQUE')
-      @cloud_service = FactoryGirl.build_stubbed(:cloud_service, :name => 'NOTUNIQUE')
-    }
-    it { should_not be_valid }
-    it { should have(1).error_on(:name) }
-  end
+  it { should have_many(:cloud_notes) }
 
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
 end

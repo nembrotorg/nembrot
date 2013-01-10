@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe "routing to notes" do
   it "routes /notes to note#index" do
     expect(:get => "/notes").to route_to(

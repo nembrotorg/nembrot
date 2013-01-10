@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe TagsController do
   
   describe "GET #index" do

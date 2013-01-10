@@ -8,7 +8,7 @@ class CloudServiceMailer < ActionMailer::Base
     mail(
       :to => Settings.monitoring.email,
       :subject => I18n.t('auth.email.subject', :provider => provider.titlecase, :url => @url),
-      :host => 'root_url'
+      :host => Settings.host
     )
   end
 end

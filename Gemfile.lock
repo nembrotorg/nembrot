@@ -361,7 +361,6 @@ DEPENDENCIES
   json
   launchy
   libnotify (= 0.5.9)
-  libv8 (~> 3.11.8)
   meta-tags
   nokogiri
   oauth

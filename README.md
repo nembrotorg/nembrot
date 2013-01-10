@@ -1,8 +1,1 @@
-Nembrot
-=======
-
-Creating gemsets
-
-rvm gemset create joegattnet_v3_staging
-
-rvm ruby-1.9.2-p290@joegattnet_v3_staging gem install bundler
+joegatt.net [![Build Status](https://travis-ci.org/joegattnet/joegattnet_v3.png?branch=staging)](https://travis-ci.org/joegattnet/joegattnet_v3)

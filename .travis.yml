@@ -2,4 +2,5 @@ rvm:
   - 1.9.3
 
 before_script:
-  - "rake db:test:prepare RAILS_ENV=test"
+script: 
+  - "rake db:migrate RAILS_ENV=test"

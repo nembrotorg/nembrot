@@ -3,8 +3,6 @@ module EvernoteHelper
   require 'rubygems'
   require 'nokogiri'
 
-  WebMock.allow_net_connect!
-
   def add_evernote_task(guid, run_tasks)
     cloud_service = CloudService.where( :name => 'evernote' ).first_or_create
     cloud_note = CloudNote.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id).first_or_create
@@ -44,9 +42,6 @@ module EvernoteHelper
   def syncdown_note(cloud_service, guid, auth, oauth_token, note_store)
 
     note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
-
-file_name = File.join(Rails.root, 'spec', 'webmocks', 'evernote_metadata.json')
-File.open(file_name, 'w') { |f| f.puts note_metadata.to_json }
 
     cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
     required_notebooks = Settings.evernote.notebooks.split(' ')

@@ -41,7 +41,6 @@ group :development do
   gem 'factory_girl_rails'
   gem 'rails_best_practices'
   gem 'capistrano'
-  gem 'webmock'
 end
 
 group :assets do

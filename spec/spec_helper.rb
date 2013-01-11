@@ -2,7 +2,6 @@ require 'rubygems'
 require 'spork'
 require 'capybara/rspec'
 require 'database_cleaner'
-require 'webmock/rspec'
 
 # Workaround for issue #109 until pull-req #140 gets merged
 # See https://github.com/sporkrb/spork/pull/140

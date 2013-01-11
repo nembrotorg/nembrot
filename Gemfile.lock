@@ -77,7 +77,6 @@ GEM
       compass
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    crack (0.3.2)
     daemons (1.1.9)
     database_cleaner (0.9.1)
     devise (2.2.0)
@@ -323,9 +322,6 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.1)
       rack (>= 1.0)
-    webmock (1.9.0)
-      addressable (>= 2.2.7)
-      crack (>= 0.1.7)
     websocket (1.0.6)
     wikipedia-client (1.0.0)
     xpath (0.1.4)
@@ -385,5 +381,4 @@ DEPENDENCIES
   thin
   uglifier
   unicorn
-  webmock
   wikipedia-client

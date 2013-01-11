@@ -85,7 +85,7 @@ group :test do
 end
 
 group :staging, :production do
-  #gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer', :require => 'v8'
+  gem 'libv8', '~> 3.11.8.3', :platform => :ruby
+  gem 'therubyracer', '~> 0.11.1'
   gem 'pg'
 end

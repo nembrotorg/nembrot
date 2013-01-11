@@ -1,10 +1,6 @@
 describe "Tags pages" do
+
   before {
-
-  stub_request(:get, /^.*wikipedia.*$/).
-       with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby/1.9.3'}).
-       to_return(:status => 200, :body => "", :headers => {})
-
     @note = FactoryGirl.create(:note)
     @note.update_attributes( :tag_list => 'tag1' )
     @tag = @note.tags[0]

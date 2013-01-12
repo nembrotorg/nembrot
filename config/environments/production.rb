@@ -77,7 +77,7 @@ Nembrot::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { 
+  config.action_mailer.default_url_options = {
     :host => Settings.host
   }
 end

@@ -31,7 +31,7 @@ module EvernoteHelper
       dirty_cloud_notes.each do |cloud_note|
         syncdown_note(cloud_service, cloud_note.cloud_note_identifier, auth, oauth_token, note_store)
       end
-      
+
       dirty_resources = Resource.needs_syncdown
       dirty_resources.each do |resource|
         syncdown_resource(resource, auth, oauth_token, note_store)
@@ -101,7 +101,7 @@ module EvernoteHelper
     end
 
     if Digest::MD5.file(file_name).digest == resource.data_hash
-      resource.update_attributes(
+      resource.update_attributes!(
         :dirty => false,
         :sync_retries => 0
       )
@@ -110,13 +110,13 @@ module EvernoteHelper
 
   def create_or_update_note(cloud_note, note_data, note_content, note_tags, username)
     note = Note.where(:id => cloud_note.note_id).first_or_create
-    note.update_attributes(
+    note.update_attributes!(
       :title => note_data.title,
       :body => note_content,
       :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
       :tag_list => note_tags
     )
-    cloud_note.update_attributes(
+    cloud_note.update_attributes!(
       :note_id => note.id,
       :sync_retries => 0,
       :content_hash => note_data.contentHash,
@@ -133,7 +133,7 @@ module EvernoteHelper
   def create_or_update_resources(note, cloud_resources)
     cloud_resources.each do |cloud_resource|
       resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
-      resource.update_attributes(
+      resource.update_attributes!(
         :note_id => note.id,
         :mime => cloud_resource.mime,
         :width => cloud_resource.width,

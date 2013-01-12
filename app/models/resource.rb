@@ -1,6 +1,6 @@
 class Resource < ActiveRecord::Base
-  attr_accessible :note_id, :cloud_resource_identifier, :mime, :width, :height, :caption, 
-  :description, :credit, :source_url, :external_updated_at, :latitude, :longitude, :altitude, 
+  attr_accessible :note_id, :cloud_resource_identifier, :mime, :width, :height, :caption,
+  :description, :credit, :source_url, :external_updated_at, :latitude, :longitude, :altitude,
   :camera_make, :camera_model, :file_name, :attachment, :data_hash, :dirty, :sync_retries
 
   belongs_to :note

@@ -9,6 +9,7 @@
 /tmp
 
 # Ignore other unneeded files.
+.rvmrc
 doc/
 *.swp
 *~

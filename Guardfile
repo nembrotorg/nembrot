@@ -19,6 +19,7 @@ guard 'rspec', :cli => "--drb --format progress --color", :all_after_pass => fal
     watch(%r{^spec/helpers/.+_spec\.rb$})
     watch(%r{^spec/routing/.+_spec\.rb$})
     watch(%r{^spec/requests/.+_spec\.rb$})
+    watch(%r{^spec/features/.+_spec\.rb$})
 
     watch(%r{^app/models/(.+)\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
     watch(%r{^app/helpers/(.+)\.rb$}) { |m| "spec/helpers/#{m[1]}_spec.rb" }
@@ -29,8 +30,8 @@ guard 'rspec', :cli => "--drb --format progress --color", :all_after_pass => fal
       ]
     end
 
-    # These tests should be in features (Capybara)
     watch(%r{^app/views/(.+)\.\.html\.haml$}) { |m| "spec/requests/#{m[1]}_spec.rb" }
+    watch(%r{^app/views/(.+)\.\.html\.haml$}) { |m| "spec/features/#{m[1]}_spec.rb" }
 
     watch(%r{^spec/support/(.+)\.rb$}) { "spec" }
     watch('config/routes.rb') { "spec/routing" }

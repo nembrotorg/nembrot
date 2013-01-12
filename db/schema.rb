@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228133853) do
+ActiveRecord::Schema.define(:version => 20130112162343) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20121228133853) do
     t.integer  "height"
     t.integer  "size"
   end
+
+  add_index "resources", ["note_id"], :name => "index_resources_on_note_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

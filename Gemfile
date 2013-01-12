@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',          '3.2.10'
+gem 'rails',          '3.2.11'
 
 gem 'thin'
 gem 'unicorn'
@@ -36,7 +36,7 @@ gem 'rails-timeago'
 gem 'wikipedia-client'
 
 group :development do
-  gem 'sqlite3',      '1.3.5'
+  gem 'sqlite3',      '1.3.6'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rails_best_practices'
@@ -55,12 +55,12 @@ end
 # Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:guard
 # And http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html
 group :test do
-  gem 'sqlite3',      '1.3.5'
+  gem 'sqlite3',      '1.3.6'
   gem 'faker'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
-  gem 'capybara',     '1.1.3'
+  gem 'capybara'
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
@@ -71,8 +71,8 @@ group :test do
 
   # System-dependent gems
   # Linux
-  gem 'rb-inotify', '0.8.8'
-  gem 'libnotify',  '0.5.9'
+  gem 'rb-inotify', '~> 0.8.8'
+  gem 'libnotify'
 
   # Mac OSX
   # gem 'rb-fsevent',   '0.9.1'

@@ -49,6 +49,7 @@ group :assets do
   gem 'uglifier'
   gem 'compass-rails'
   gem 'compass-h5bp'
+  gem 'turbo-sprockets-rails3'
 end
 
 # Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:guard

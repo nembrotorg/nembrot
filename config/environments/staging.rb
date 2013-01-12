@@ -48,6 +48,9 @@ Nembrot::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( polyfills.js )
 
+  # See https://github.com/ndbroadbent/turbo-sprockets-rails3
+  config.assets.expire_after 2.weeks
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 

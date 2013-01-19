@@ -1,0 +1,91 @@
+// Defaults
+
+body
+  line-height: $line-height
+
+a
+  text-decoration: none
+
+h1
+  margin: $line-height 0
+
+h2, h3, h6
+  display: none
+
+ins
+  text-decoration: none
+  background-color: #ee0
+
+ol, ul
+  +no-bullets
+  padding: 0
+
+// Document
+
+#main,
+footer
+  width: 90%
+  margin: 0 5% $line-height 5%
+
+header,
+footer small
+  @include column(12)
+
+.breadcrumb
+  @include column(12)
+  +horizontal-list
+  text-transform: lowercase  
+
+article
+  img
+    width: 100%
+
+.tags
+  @include column(12)
+
+// Pages
+
+#text
+  font:
+    family: $font-family-body
+    size: $font-size-body
+  p
+    @include hyphens
+    margin: 0
+    font-size: 18px
+    text-indent: $line-height
+    text-align: justify
+    &:first-of-type
+      text-indent: 0
+
+  a[href*=youtube]
+    display: block
+    text-indent: -9999px
+    overflow: hidden
+    width: 100%
+    height: 200px
+    background-color: #000
+
+.tags
+  +inline-list
+
+.versions
+  @include column(12)
+
+.notes-index
+  ul
+    @include column(12)
+    a
+      display: block
+      margin-bottom: $line-height
+
+.tags-index
+  ul
+    @include column(12)
+    +inline-block-list
+    a
+      display: block
+
+.tags-show
+  ul
+    @include column(12)

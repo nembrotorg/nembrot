@@ -1,7 +1,7 @@
 %nav.versions
   %header
     %h6=t('notes.versions.title')
-  %ul
+  %ol
     %li
       - if note.versions.length == 0
         v#{note.versions.length + 1} (#{ timeago_tag note.external_updated_at })

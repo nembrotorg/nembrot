@@ -11,6 +11,11 @@
       %aside
         %h4#notice= notice
 
-  %ul
-    - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
-      %li= link_to tag.name, tag_path(tag.slug), :class => css_class
+    - if Settings.tags.cloud
+      %ul.cloud
+        - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+          %li= link_to tag.name, tag_path(tag.slug), :class => css_class, :title => tag.count
+    - else
+      %ul
+        = list_of @tags do |tag|
+          %li= link_to "#{ tag.name } (#{ tag.count })", tag_path(tag.slug)

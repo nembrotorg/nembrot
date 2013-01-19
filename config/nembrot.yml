@@ -24,6 +24,8 @@ defaults: &defaults
     allowed_html_tags: a blockquote del ins li ol ul img src alt
     allowed_html_attributes: href
     sync_retries: 3
+  tags:
+    cloud: true
   sections:
     tags: ["A Typology of Philistinism", "Nimrod"]
 

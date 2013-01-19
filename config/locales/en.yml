@@ -6,9 +6,11 @@ en:
     email:
       subject: "%{provider} authentication required"
       body: "%{provider} authentication is missing. Please authenticate your key for this provider by visiting %{url}"
+
   email:
     greeting: "Hi %{name}"
     signature: "joegatt.net"
+
   site:
     title: "joegatt.net"
     breadcrumbs: "Breadcrumbs"
@@ -47,4 +49,5 @@ en:
 
   tags:
     title: "Tags"
-    item: "Tag"
+    item: "Tag: %{name}"
+    short: "%{name}"

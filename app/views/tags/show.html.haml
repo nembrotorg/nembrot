@@ -6,7 +6,7 @@
 %section
   %header
     %hgroup{ :data => {:title => document_title} }
-      %h1= @tag.name
+      %h1= t('tags.item', :name => @tag.name)
       %h2= link_to t('tags.title'), tags_path
       %aside
         %h4#notice= notice

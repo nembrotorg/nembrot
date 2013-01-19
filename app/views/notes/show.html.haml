@@ -14,7 +14,7 @@
 
   = render 'images', :images => @note.resources.attached_images
 
-  = bodify(@note.body)
+  %section#text= bodify(@note.body)
 
   = render 'tags', :tags => @tags
 

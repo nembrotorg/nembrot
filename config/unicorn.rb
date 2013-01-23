@@ -11,7 +11,6 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-
 # Production specific settings
 if env == "production"
   pid "/tmp/unicorn.joegattnet_v3.pid"

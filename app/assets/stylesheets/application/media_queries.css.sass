@@ -11,9 +11,44 @@
   // It will affect nested images by nesting
   // them inside #text.
   article
-    @include column(6)
-    @include push(0)
-    @include pull(6)
+    figure
+      @include column(9)
+      @include push(0)
+      @include pull(3)
+      margin-bottom: $line-height
+      figcaption
+        padding-top: $line-height / 2
+    #map-container
+      position: relative
+      #map
+        background-color: #ccc
+        color: #666
+        position: absolute
+        // Do functions to calculate these
+        // Including snapped height
+        // BUt px vs %
+        display: block
+        // width: gridsystem-width(2) - $gutter-width
+        //width: $column-width * 2 + $gutter-width
+        width: 220px
+        height: $line-height * 5
+        //left: $column-width * 6 + $gutter-width * 6
+        left: 480px
+    #text
+      @include column(6)
+      @include push(0)
+      @include pull(6)
+
+  // Undo all...
+  // Make sure this only applies to ltr pages
+  section#note-content[dir=rtl]
+    #text
+      @include column(6)
+      @include push(6)
+      @include pull(0)
+    #map-container
+      #map
+        right: 480px
 
   .notes-index
     ul
@@ -30,3 +65,11 @@
     width: 960px
     margin: 0 auto $line-height auto
     overflow: hidden
+
+//@media only screen and (min-width: 1200px)
+
+//  #main,
+//  footer
+//    width: 1200px
+//    margin: 0 auto $line-height auto
+//    overflow: hidden

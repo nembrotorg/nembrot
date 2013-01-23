@@ -1,7 +1,7 @@
 class Note < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessible :title, :body, :external_updated_at, :resources, :tag_list
+  attr_accessible :title, :body, :external_updated_at, :resources, :lang, :tag_list
 
   attr_writer :tag_list
 

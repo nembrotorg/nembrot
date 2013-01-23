@@ -23,7 +23,7 @@ en:
   notes:
     title: "Notes"
     item: "Note %{id}"
-    short: "#%{id}"
+    short: "Note %{id}"
     versions:
       title: "Versions"
       item: "Version %{sequence}"

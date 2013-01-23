@@ -2,6 +2,7 @@ module EvernoteHelper
   # http://discussion.evernote.com/topic/15321-evernote-ruby-thrift-client-error/
   require 'rubygems'
   require 'nokogiri'
+  require 'wtf_lang'
 
   def add_evernote_task(guid, run_tasks)
     cloud_service = CloudService.where( :name => 'evernote' ).first_or_create
@@ -95,7 +96,7 @@ module EvernoteHelper
     resource.update_attribute(:sync_retries, resource.sync_retries + 1)
     cloud_resource_data = note_store.getResourceData(oauth_token, resource.cloud_resource_identifier)
 
-    file_name = File.join(Rails.root, 'public', 'resources', 'raw', resource.cloud_resource_identifier + '.jpg')
+    file_name = File.join(Rails.root, 'public', 'resources', 'raw', resource.file_name )
     File.open(file_name,"wb") do |file|
       file.write(cloud_resource_data)
     end
@@ -113,6 +114,8 @@ module EvernoteHelper
     note.update_attributes!(
       :title => note_data.title,
       :body => note_content,
+      # This should be done asynchronously
+      :lang => (strip_tags("#{ note_data.title } #{ note_content }"[0..250])).lang,
       :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
       :tag_list => note_tags
     )
@@ -149,7 +152,11 @@ module EvernoteHelper
         :altitude => cloud_resource.attributes.altitude,
         :camera_make => cloud_resource.attributes.cameraMake,
         :camera_model => cloud_resource.attributes.cameraModel,
-        :file_name => cloud_resource.attributes.fileName,
+        # Maybe we should add a field computed filename...?
+        # this should probably be derived from the alt, or note title
+        # :local_file_name
+        :file_name => cloud_resource.guid + '.' + (Mime::Type.file_extension_of cloud_resource.mime),
+        #, cloud_resource.attributes.fileName),
         :attachment => cloud_resource.attributes.attachment,
         :data_hash => cloud_resource.data.bodyHash,
         :dirty => (cloud_resource.data.bodyHash != resource.data_hash),

@@ -1,2 +1,19 @@
+-# We also add figcaption. But figure should not be used for inine images! (according to spec)
+-# Also, adding float: left to image fixes white space around image
+-# Or display: block; clear: both
+-# Use lightbox to intercept link
+-# Add similar but resources for bottom of note (downloads)
+-# Do scope for images (excludes other files - and what about inlineness?)
+-# Do route called downloads which resorts to /resources/raw (and do index, of course)
 - images.each do |image|
-  = image_tag('/resources/raw/' + image.cloud_resource_identifier + '.jpg', :title => raw_resource_path(image))
+  %figure
+    = link_to image_tag("/resources/cut/#{ File.basename(image.file_name, File.extname(image.file_name)) }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }#{ File.extname(image.file_name) }", :title => cut_resource_path(image)),
+      "/resources/cut/#{ File.basename(image.file_name, File.extname(image.file_name)) }-#{Settings.styling.images.standard.aspect.x}-#{Settings.styling.images.standard.aspect.y}-1000#{ File.extname(image.file_name) }"
+    -# or link to raw image - or link to largest.........
+    %figcaption= "Pie Jesu Domine. Tuba mirum spargen sonum. Nel sepulchra, regionum. (credit: Gunter Lause)"
+
+- downloads.each do |image|
+  -# This should be read once when file is downloaded...
+  - fileloc = File.join(Rails.root, 'public', 'resources', 'raw', "#{ image.file_name }")
+  - size = number_to_human_size(File.size( fileloc )).downcase
+  = link_to "#{ image.file_name } (#{ size })", "/resources/raw/#{ image.file_name }", :title => "Right-click to download"

@@ -4,17 +4,24 @@
                 :open_graph => { :title => @note.title }
 
 %article
-  %header
-    %hgroup{ :data => {:title => document_title} }
-      %h1= @note.title
-      %h2= t('notes.item', :id => @note.id)
-      %h3= link_to t('notes.title'), notes_path
-      %aside
-        %h4#notice= notice
+  %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
+    %header
+      %hgroup{ :data => {:title => document_title} }
+        %h1
+          = @note.title
+        %h2= t('notes.item', :id => @note.id)
+        %h3= link_to t('notes.title'), notes_path
+        %aside
+          %h4#notice= notice
 
-  = render 'images', :images => @note.resources.attached_images
+    = render 'images', :images => @note.resources.attached_images, :downloads => @note.resources.attached_files
 
-  %section#text= bodify(@note.body)
+    %div#map-container
+      %div#map
+        map
+
+    %section#text
+      = bodify(@note.body)
 
   = render 'tags', :tags => @tags
 

@@ -2,6 +2,7 @@
 
 defaults: &defaults
   version: '0.9'
+  locale: 'en'
   admin:
     name: Joe
     email: joe@joegatt.net
@@ -18,6 +19,8 @@ defaults: &defaults
     instructions:
       required: __PUBLISH
       ignore: __IGNORE __HOLD
+  lang:
+    rtl_langs: ['ar', 'fa']
   notes:
     title_length: 8
     blurb_length: 30
@@ -28,6 +31,14 @@ defaults: &defaults
     cloud: true
   sections:
     tags: ["A Typology of Philistinism", "Nimrod"]
+  styling:
+    lineheight: 30
+    images:
+      standard:
+        width: 740
+        aspect:
+          x: 16
+          y: 9
 
 development:
   <<: *defaults

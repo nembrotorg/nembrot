@@ -15,3 +15,6 @@ Encoding.default_internal = Encoding::UTF_8
 
 # Set default format for Differ
 Differ.format = Differ::Format::CLEAN_HTML
+
+# Detect Language
+WtfLang::API.key = Secret.auth.detect_language.api_key

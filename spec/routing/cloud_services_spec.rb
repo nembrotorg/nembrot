@@ -1,17 +1,25 @@
 describe "routing to update_cloud" do
-  it "routes /webhooks/evernote_note to cloud_notes#update_cloud" do
-    expect(:get => "/webhooks/evernote_note").to route_to(
-      :controller => "cloud_notes",
-      :action => "update_cloud"
+  it "routes /auth/failure to cloud_services#auth_failure" do
+    expect(:get => "/auth/failure").to route_to(
+      :controller => "cloud_services",
+      :action => "auth_failure"
+    )
+  end
+
+  it "routes auth/:provider/callback to cloud_services#auth_callback" do
+    expect(:get => "auth/PROVIDER/callback").to route_to(
+      :controller => "cloud_services",
+      :action => "auth_callback",
+      :provider => "PROVIDER"
     )
   end
 
   it "does not expose all CRUD actions" do
-    expect(:get => "/update_cloud/1/create").not_to be_routable
-    expect(:get => "/update_cloud/show").not_to be_routable
-    expect(:get => "/update_cloud/update").not_to be_routable
-    expect(:get => "/update_cloud/edit").not_to be_routable
-    expect(:get => "/update_cloud/new").not_to be_routable
-    expect(:get => "/update_cloud/destroy").not_to be_routable
+    expect(:get => "/cloud_services/1/create").not_to be_routable
+    expect(:get => "/cloud_services/show").not_to be_routable
+    expect(:get => "/cloud_services/update").not_to be_routable
+    expect(:get => "/cloud_services/edit").not_to be_routable
+    expect(:get => "/cloud_services/new").not_to be_routable
+    expect(:get => "/cloud_services/destroy").not_to be_routable
   end
 end

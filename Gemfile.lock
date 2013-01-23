@@ -259,6 +259,7 @@ GEM
       json (~> 1.4)
     ref (1.0.2)
     remotipart (1.0.2)
+    rmagick (2.13.1)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -328,6 +329,8 @@ GEM
       rack (>= 1.0)
     websocket (1.0.6)
     wikipedia-client (1.0.0)
+    wtf_lang (0.4.0)
+      json
     xpath (1.0.0)
       nokogiri (~> 1.3)
 
@@ -375,6 +378,7 @@ DEPENDENCIES
   rails_admin
   rails_best_practices
   rb-inotify (~> 0.8.8)
+  rmagick
   rspec-rails
   sass-rails
   settingslogic
@@ -387,3 +391,4 @@ DEPENDENCIES
   uglifier
   unicorn
   wikipedia-client
+  wtf_lang

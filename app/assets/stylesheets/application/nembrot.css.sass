@@ -1,10 +1,21 @@
 // Defaults
 
+html
+  height: 101%
+  
 body
   line-height: $line-height
 
+article[dir=rtl]
+  text-align: right
+  float: right
+  background-color: yellow
+
 a
   text-decoration: none
+
+a[dir=rtl]
+  text-align: right
 
 h1
   margin: $line-height 0
@@ -15,6 +26,9 @@ h2, h3, h6
 ins
   text-decoration: none
   background-color: #ee0
+
+del
+  color: #999
 
 ol, ul
   +no-bullets
@@ -37,8 +51,19 @@ footer small
   text-transform: lowercase  
 
 article
-  img
-    width: 100%
+  figure
+    @include column(12)
+    margin-bottom: $line-height / 2
+    figcaption
+      color: #454545
+      font-size: 11px
+      line-height: $line-height / 2
+    img
+      display: block
+      clear: both
+      width: 100%
+  #map-container
+    @include column(12)
 
 .tags
   @include column(12)
@@ -76,6 +101,7 @@ article
   ul
     @include column(12)
     a
+      @include column-break-inside(avoid)
       display: block
       margin-bottom: $line-height
 

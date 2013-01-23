@@ -7,7 +7,7 @@ class Resource < ActiveRecord::Base
 
   scope :needs_syncdown, where("dirty = ? AND sync_retries <= ?", true, Settings.notes.sync_retries).order('updated_at')
   scope :attached_images, where(:attachment => nil)
-  scope :attached_files, where(:attachment => nil)
+  scope :attached_files, where(:mime => 'application/pdf')
 
   validates :note, :presence => true
   validates :cloud_resource_identifier, :presence => true, :uniqueness => true

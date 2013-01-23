@@ -18,7 +18,14 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug' => 'tags#show', :slug => /[\_a-z\d\-]+/, :as => :tag
   get 'tags' => 'tags#index'
 
-  get 'resources/raw/:cloud_resource_identifier' => 'resources#raw', :as => :raw_resource
+  # Redirect downloads though they should never reash here
+  
+  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)' => 'resources#cut',
+    :as => :cut_resource,
+    :aspect_x => /\d+/,
+    :aspect_y => /\d+/,
+    :width => /\d+/,
+    :constraints => {:format => /(gif|jpg|jpeg|png)/}
 
   resources :cloud_notes, only: [:update_cloud]
 

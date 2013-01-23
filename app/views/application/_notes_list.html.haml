@@ -1,3 +1,6 @@
 %ul
   = list_of notes do |note|
-    = link_to_unless_current snippet( sanitize(note.blurb), Settings.notes.blurb_length ), note
+    = link_to_unless_current snippet( sanitize(note.blurb), Settings.notes.blurb_length ),
+      note,
+      :lang => lang_attr(note.lang),
+      :dir => dir_attr(note.lang)

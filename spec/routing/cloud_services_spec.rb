@@ -1,4 +1,5 @@
-describe "routing to update_cloud" do
+describe "routing to cloud_services" do
+
   it "routes /auth/failure to cloud_services#auth_failure" do
     expect(:get => "/auth/failure").to route_to(
       :controller => "cloud_services",

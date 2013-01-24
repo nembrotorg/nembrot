@@ -1,4 +1,4 @@
-describe "routing to update_cloud" do
+describe "routing to cloud_notes" do
   it "routes /webhooks/evernote_note to cloud_notes#update_cloud" do
     expect(:get => "/webhooks/evernote_note").to route_to(
       :controller => "cloud_notes",

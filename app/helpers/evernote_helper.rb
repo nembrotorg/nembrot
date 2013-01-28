@@ -119,6 +119,11 @@ module EvernoteHelper
       :latitude => note_data.attributes.latitude,
       :longitude => note_data.attributes.longitude,
       :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
+      :author => note_data.attributes.author,
+      :last_edited_by => note_data.attributes.lastEditedBy,
+      :source => note_data.attributes.source,
+      :source_application => note_data.attributes.sourceApplication,
+      :source_url => note_data.attributes.sourceURL,
       :tag_list => cloud_note_tags.grep(/^[^_]/),
       :instruction_list => cloud_note_tags.grep(/^_/)
     )

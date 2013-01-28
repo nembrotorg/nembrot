@@ -1,14 +1,16 @@
 class Note < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessible :title, :body, :external_updated_at, :resources, :lang, :tag_list
+  attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang,
+  :author, :last_edited_by, :source, :source_application, :source_url, :tag_list, :instruction_list
 
-  attr_writer :tag_list
+  attr_writer :tag_list, :instruction_list
 
   has_many :cloud_notes, :dependent => :destroy
   has_many :resources, :dependent => :destroy
 
-  acts_as_taggable
+  acts_as_taggable_on :tags, :instructions
+  acts_as_gmappable :process_geocoding => false, :check_process => false
 
   has_paper_trail :on => [:update],
                   :meta => {
@@ -16,6 +18,7 @@ class Note < ActiveRecord::Base
                     :sequence  => Proc.new { |note| note.versions.length + 1 },
                     # Simply storing note.tag_list would store incoming tag list
                     :tags  => Proc.new { |note| Note.find(note.id).tags }
+                    # SHould instructions be stored for versions?
                   }
 
   accepts_nested_attributes_for :cloud_notes,
@@ -111,5 +114,21 @@ class Note < ActiveRecord::Base
       if I18n.t('notes.untitled_synonyms').include? self.title
         self.title = snippet( self.body, Settings.notes.title_length )
       end
+    end
+
+    def embedded_source_url
+      self.source_url
+        .gsub(/^.*youtube.*v=(.*)\b/, "http://www.youtube.com/embed/\\1?rel=0")
+        .gsub(/^.*vimeo\/video\/(\d*)\b/, "http://player.vimeo.com/video/\\1")
+        .gsub(/(^.*soundcloud.*$)/, "http://w.soundcloud.com/player/?url=\\1")
+    end
+
+    def gmaps4rails_title
+      self.title
+    end
+
+    def gmaps4rails_infowindow
+      image_path = "/resources/cut/#{ self.resources.attached_images.first.cloud_resource_identifier }-16-9-160.jpeg"
+      "<img src=\"#{ image_path }\" width=\160\" height=\"90\"><br>#{self.title}"
     end
 end

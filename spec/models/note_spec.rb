@@ -15,6 +15,12 @@ describe Note do
   it { should respond_to(:external_updated_at) }
   it { should respond_to(:blurb) }
   it { should respond_to(:diffed_version) }
+  it { should respond_to(:active) }
+  it { should respond_to(:author) }
+  it { should respond_to(:source) }
+  it { should respond_to(:source_url) }
+  it { should respond_to(:source_application) }
+  it { should respond_to(:last_edited_by) }
 
   it { should have_many(:cloud_notes) }
   it { should have_many(:resources) }

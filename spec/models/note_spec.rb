@@ -19,6 +19,7 @@ describe Note do
   it { should have_many(:cloud_notes) }
   it { should have_many(:resources) }
   it { should have_many(:tags).through(:tag_taggings) }
+  it { should have_many(:instructions).through(:instruction_taggings) }
   it { should have_many(:versions) }
 
   it { should validate_presence_of(:title) }

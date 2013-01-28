@@ -58,13 +58,13 @@ module EvernoteHelper
       logger.info t('notes.sync.rejected.deleted_note', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
     else
       note = Note.where(:id => cloud_note.note_id).first
-      note_tags = note_store.getNoteTagNames(oauth_token, guid)
+      cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid)
 
-      if (required_tags & note_tags) != required_tags
+      if (required_tags & cloud_note_tags) != required_tags
         # Don't destroy just set active to false so that versions are not lost immediately
         cloud_note.destroy
         logger.info t('notes.sync.rejected.tag_missing', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
-      elsif !(ignore_instructions & note_tags).empty?
+      elsif !(ignore_instructions & cloud_note_tags).empty?
         logger.info t('notes.sync.rejected.ignore', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
       elsif note && note.external_updated_at >= Time.at(note_metadata.updated / 1000).to_datetime
         logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
@@ -81,7 +81,7 @@ module EvernoteHelper
             :attributes => Settings.notes.allowed_html_attributes.split(' '))
         end
         ##cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
-        create_or_update_note(cloud_note, note_data, note_content, note_tags, auth.info.nickname)
+        create_or_update_note(cloud_note, note_data, note_content, cloud_note_tags, auth.info.nickname)
         logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
       end
     end
@@ -109,15 +109,18 @@ module EvernoteHelper
     end
   end
 
-  def create_or_update_note(cloud_note, note_data, note_content, note_tags, username)
+  def create_or_update_note(cloud_note, note_data, note_content, cloud_note_tags, username)
     note = Note.where(:id => cloud_note.note_id).first_or_create
     note.update_attributes!(
       :title => note_data.title,
       :body => note_content,
       # This should be done asynchronously
       :lang => (strip_tags("#{ note_data.title } #{ note_content }"[0..250])).lang,
+      :latitude => note_data.attributes.latitude,
+      :longitude => note_data.attributes.longitude,
       :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
-      :tag_list => note_tags
+      :tag_list => cloud_note_tags.grep(/^[^_]/),
+      :instruction_list => cloud_note_tags.grep(/^_/)
     )
     cloud_note.update_attributes!(
       :note_id => note.id,

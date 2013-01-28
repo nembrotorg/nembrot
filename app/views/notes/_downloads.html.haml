@@ -1,0 +1,6 @@
+%ul
+  = list_of downloads do |download|
+    -# This should be read once when file is downloaded...
+    - fileloc = File.join(Rails.root, 'public', 'resources', 'raw', "#{ download.file_name }")
+    - size = number_to_human_size(File.size( fileloc )).downcase
+    = link_to "#{ download.file_name } (#{ size })", "/resources/raw/#{ download.file_name }", :title => "Right-click to download"

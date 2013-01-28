@@ -18,9 +18,6 @@
 
     = render 'media', :note => @note
 
-    = gmaps4rails(@map)
-    -#= gmaps(:markers => { :data => @map }, :map_options => { :auto_adjust => false, :zoom => 6 }, :last_map => true, :scripts => :api)
-
     %section#text
       = bodify(@note.body)
 

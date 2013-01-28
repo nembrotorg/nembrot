@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122113434) do
+ActiveRecord::Schema.define(:version => 20130128115208) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -44,8 +44,13 @@ ActiveRecord::Schema.define(:version => 20130122113434) do
     t.float    "latitude"
     t.float    "longitude"
     t.float    "altitude"
-    t.boolean  "gmaps"
     t.string   "lang",                :limit => 2
+    t.boolean  "active"
+    t.string   "author"
+    t.string   "source"
+    t.string   "source_url"
+    t.string   "source_application"
+    t.string   "last_edited_by"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -85,7 +90,6 @@ ActiveRecord::Schema.define(:version => 20130122113434) do
     t.integer  "width"
     t.integer  "height"
     t.integer  "size"
-    t.boolean  "gmaps"
   end
 
   add_index "resources", ["note_id"], :name => "index_resources_on_note_id"

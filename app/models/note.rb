@@ -117,10 +117,14 @@ class Note < ActiveRecord::Base
     end
 
     def embedded_source_url
-      self.source_url
-        .gsub(/^.*youtube.*v=(.*)\b/, "http://www.youtube.com/embed/\\1?rel=0")
-        .gsub(/^.*vimeo\/video\/(\d*)\b/, "http://player.vimeo.com/video/\\1")
-        .gsub(/(^.*soundcloud.*$)/, "http://w.soundcloud.com/player/?url=\\1")
+      if self.source_url
+        self.source_url
+          .gsub(/^.*youtube.*v=(.*)\b/, "http://www.youtube.com/embed/\\1?rel=0")
+          .gsub(/^.*vimeo\/video\/(\d*)\b/, "http://player.vimeo.com/video/\\1")
+          .gsub(/(^.*soundcloud.*$)/, "http://w.soundcloud.com/player/?url=\\1")
+      else
+        nil
+      end
     end
 
     def gmaps4rails_title

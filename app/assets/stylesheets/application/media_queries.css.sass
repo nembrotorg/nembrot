@@ -18,7 +18,7 @@
       margin-bottom: $line-height
       figcaption
         padding-top: $line-height / 2
-    #map-container
+    .map_container
       position: relative
       #map
         background-color: #ccc
@@ -30,14 +30,66 @@
         display: block
         // width: gridsystem-width(2) - $gutter-width
         //width: $column-width * 2 + $gutter-width
-        width: 220px
-        height: $line-height * 5
+
+        width: 310px
+        height: $line-height * 6
+        
+        // You could also try this:
+        // width: 310px
+        // height: $line-height * 6
+        
         //left: $column-width * 6 + $gutter-width * 6
-        left: 480px
+        left: 560px
+    iframe
+      @include column(9)
+      @include push(0)
+      @include pull(3)
+      border: 0
+      margin-bottom: $line-height
+      &[src*='vimeo'],
+      &[src*='youtube']
+        height: $line-height * 16
+      &[src*='soundcloud.com']
+        height: $line-height * 6
+      &[src*='soundcloud.com%2Fplaylist']
+        height: $line-height * 15
     #text
       @include column(6)
       @include push(0)
       @include pull(6)
+      p
+        position: relative
+        span.annotation
+          &:before
+          content: "*"
+          margin-left: -5px
+          span
+            @include hyphens
+            position: absolute
+            width: 220px
+            left: 560px
+            margin-top: $line-height * -0.3 
+            font:
+              family: sans-serif 
+              size: 12px
+            color: #666
+            line-height: $line-height / 2
+            text-indent: 0
+            text-align: left
+            display: block
+            opacity: 0
+            transition: all 1s ease-out
+            -webkit-transition: all 1s ease-out
+            -moz-transition: all 1s ease-out
+            -o-transition: all 1s ease-out
+      &:hover
+        span.annotation
+          span
+            opacity: 1
+            transition: all 1s ease-out
+            -webkit-transition: all 1s ease-out
+            -moz-transition: all 1s ease-out
+            -o-transition: all 1s ease-out
 
   // Undo all...
   // Make sure this only applies to ltr pages
@@ -46,9 +98,9 @@
       @include column(6)
       @include push(6)
       @include pull(0)
-    #map-container
+    .map_container
       #map
-        right: 480px
+        right: 560px
 
   .notes-index
     ul
@@ -62,7 +114,7 @@
 
   #main,
   footer
-    width: 960px
+    width: 1080px
     margin: 0 auto $line-height auto
     overflow: hidden
 

@@ -36,6 +36,7 @@ gem 'pjax_rails'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'breadcrumbs_on_rails'
 gem 'rails-timeago'
+gem 'gmaps4rails'
 gem 'wikipedia-client'
 
 group :development do
@@ -50,6 +51,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'sass-rails'
+  gem 'font-awesome-sass-rails'
   gem 'compass-rails'
   gem 'compass-h5bp'
   gem 'turbo-sprockets-rails3'

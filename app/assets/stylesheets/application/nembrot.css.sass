@@ -3,8 +3,10 @@
 html
   height: 101%
   
-body
+body, small
   line-height: $line-height
+  color: #666666
+  font-size: 12px
 
 article[dir=rtl]
   text-align: right
@@ -19,6 +21,14 @@ a[dir=rtl]
 
 h1
   margin: $line-height 0
+  line-height: $line-height * 2
+  color: #000
+
+  &:before
+    @extend [class^="icon-"]
+    @extend [class^="icon-"]:before
+    @extend .icon-star:before
+    color: red
 
 h2, h3, h6
   display: none
@@ -48,21 +58,19 @@ footer small
 .breadcrumb
   @include column(12)
   +horizontal-list
-  text-transform: lowercase  
+  text-transform: lowercase
 
 article
   figure
     @include column(12)
     margin-bottom: $line-height / 2
     figcaption
-      color: #454545
-      font-size: 11px
       line-height: $line-height / 2
     img
       display: block
       clear: both
       width: 100%
-  #map-container
+  .map_container
     @include column(12)
 
 .tags
@@ -74,6 +82,7 @@ article
   font:
     family: $font-family-body
     size: $font-size-body
+  color: #000
   p
     @include hyphens
     margin: 0
@@ -104,6 +113,11 @@ article
       @include column-break-inside(avoid)
       display: block
       margin-bottom: $line-height
+
+.notes-map, .tags-map
+  #map
+    @include column(12)
+    height: $line-height * 20
 
 .tags-index
   ul

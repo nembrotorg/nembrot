@@ -1,0 +1,8 @@
+- if Settings.tags.index.style == 'cloud'
+  %ul.cloud
+    - tag_cloud(tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+      = link_to tag.name, tag_path(tag), :class => css_class, :title => tag.count
+- else
+  %ul.tags
+    = list_of tags do |tag|
+      = link_to "#{ tag.name } (#{ tag.count })", tag_path(tag)

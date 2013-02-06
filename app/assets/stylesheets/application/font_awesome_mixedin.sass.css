@@ -1,0 +1,967 @@
+/*  Font Awesome 3.0
+ *    the iconic font designed for use with Twitter Bootstrap
+ *    -------------------------------------------------------
+ *    The full suite of pictographic icons, examples, and documentation
+ *    can be found at: http://fortawesome.github.com/Font-Awesome/
+ *
+ *    License
+ *    -------------------------------------------------------
+ *    • The Font Awesome font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL
+ *    • Font Awesome CSS, LESS, and SASS files are licensed under the MIT License -
+ *      http://opensource.org/licenses/mit-license.html
+ *    • The Font Awesome pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/
+ *    • Attribution is no longer required in Font Awesome 3.0, but much appreciated:
+ *      "Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome"
+ *
+ *    Contact
+ *    -------------------------------------------------------
+ *    Email: dave@davegandy.com
+ *    Twitter: http://twitter.com/fortaweso_me
+ *    Work: Lead Product Designer @ http://kyruus.com
+ */
+
+$fontAwesomePath:   "fontawesome-subset-webfont" !default
+$borderColor:       #eee !default
+$iconMuted:         #eee !default
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  border-radius: $radius
+
+
+@font-face
+  font-family: 'FontAwesome'
+  src: font-url('#{$fontAwesomePath}.eot')
+  src: font-url('#{$fontAwesomePath}.eot?#iefix') format("embedded-opentype"), font-url('#{$fontAwesomePath}.woff') format("woff"), font-url('#{$fontAwesomePath}.ttf') format("truetype")
+  font-weight: normal
+  font-style: normal
+
+
+/*  Font Awesome styles
+ *  -------------------------------------------------------
+ * includes sprites.less reset */
+
+=icon
+  font-family: FontAwesome
+  font-weight: normal
+  font-style: normal
+  padding-right: 0.5em
+
+[class^="icon-"], [class*=" icon-"]
+  font-family: FontAwesome
+  font-weight: normal
+  font-style: normal
+  text-decoration: inherit
+  display: inline
+  width: auto
+  height: auto
+  line-height: normal
+  vertical-align: baseline
+  background-image: none !important
+  background-position: 0% 0%
+  background-repeat: repeat
+
+[class^="icon-"], [class*=" icon-"]
+  text-decoration: inherit
+  display: inline-block
+  speak: none
+
+/* makes sure icons active on rollover in links */
+
+a
+  [class^="icon-"], [class*=" icon-"]
+    display: inline-block
+
+/* makes the font 33% larger relative to the icon container */
+
+=icon-large
+  vertical-align: -10%
+  font-size: 1.3333333333333333em
+
+=icon-small
+  vertical-align: 5%
+  font-size: 0.6666666666666666em
+
+.btn, .nav
+  [class^="icon-"], [class*=" icon-"]
+    display: inline
+    /* keeps button heights with and without icons the same */
+    line-height: .6em
+    &.icon-spin
+      display: inline-block
+
+li
+  [class^="icon-"], [class*=" icon-"]
+    display: inline-block
+    width: 1.25em
+    text-align: center
+    &.icon-large
+      /* increased font size for icon-large */
+      width: 1.25*1.25em
+
+ul.icons
+  list-style-type: none
+  text-indent: -.75em
+
+  li
+    [class^="icon-"], [class*=" icon-"]
+      width: .75em
+
+=icon-muted
+  color: $iconMuted
+
+// Icon Borders
+// -------------------------
+
+=icon-border
+  border: solid 1px $borderColor
+  padding: .2em .25em .15em
+  @include border-radius(3px)
+
+// Icon Sizes
+// -------------------------
+
+=icon-2x
+  font-size: 2em
+  &.icon-border
+    border-width: 2px
+    @include border-radius(4px)
+
+=icon-3x
+  font-size: 3em
+  &.icon-border
+    border-width: 3px
+    @include border-radius(5px)
+
+=icon-4x
+  font-size: 4em
+  &.icon-border
+    border-width: 4px
+    @include border-radius(6px)
+
+// Floats
+// -------------------------
+
+// Quick floats
+.pull-right
+  float: right
+
+.pull-left
+  float: left
+
+[class^="icon-"], [class*=" icon-"]
+  &.pull-left
+    margin-right: .35em
+  &.pull-right
+    margin-left: .35em
+
+.btn
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .35em
+    &.icon-spin.icon-large
+      height: .75em
+
+.btn.btn-small
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .45em
+
+.btn.btn-large
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .2em
+
+
+=icon-spin
+  display: inline-block
+  -moz-animation: spin 2s infinite linear
+  -o-animation: spin 2s infinite linear
+  -webkit-animation: spin 2s infinite linear
+  animation: spin 2s infinite linear
+
+@-moz-keyframes spin
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(359deg)
+
+@-webkit-keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(359deg)
+
+@-o-keyframes spin
+  0%
+    -o-transform: rotate(0deg)
+  100%
+    -o-transform: rotate(359deg)
+
+@-ms-keyframes spin
+  0%
+    -ms-transform: rotate(0deg)
+  100%
+    -ms-transform: rotate(359deg)
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(359deg)
+
+
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+ *  readers do not read off random characters that represent icons */
+
+=icon-glass
+  +icon
+  content: "\f000"
+=icon-music
+  +icon
+  content: "\f001"
+=icon-search
+  +icon
+  content: "\f002"
+=icon-envelope
+  +icon
+  content: "\f003"
+=icon-heart
+  +icon
+  content: "\f004"
+=icon-star
+  +icon
+  content: "\f005"
+=icon-star-empty
+  +icon
+  content: "\f006"
+=icon-user
+  +icon
+  content: "\f007"
+=icon-film
+  +icon
+  content: "\f008"
+=icon-th-large
+  +icon
+  content: "\f009"
+=icon-th
+  +icon
+  content: "\f00a"
+=icon-th-list
+  +icon
+  content: "\f00b"
+=icon-ok
+  +icon
+  content: "\f00c"
+=icon-remove
+  +icon
+  content: "\f00d"
+=icon-zoom-in
+  +icon
+  content: "\f00e"
+=icon-zoom-out
+  +icon
+  content: "\f010"
+=icon-off
+  +icon
+  content: "\f011"
+=icon-signal
+  +icon
+  content: "\f012"
+=icon-cog
+  +icon
+  content: "\f013"
+=icon-trash
+  +icon
+  content: "\f014"
+=icon-home
+  +icon
+  content: "\f015"
+=icon-file
+  +icon
+  content: "\f016"
+=icon-time
+  +icon
+  content: "\f017"
+=icon-road
+  +icon
+  content: "\f018"
+=icon-download-alt
+  +icon
+  content: "\f019"
+=icon-download
+  +icon
+  content: "\f01a"
+=icon-upload
+  +icon
+  content: "\f01b"
+=icon-inbox
+  +icon
+  content: "\f01c"
+=icon-play-circle
+  +icon
+  content: "\f01d"
+=icon-repeat
+  +icon
+  content: "\f01e"
+/* \f020 doesn't work in Safari. all shifted one down */
+=icon-refresh
+  +icon
+  content: "\f021"
+=icon-list-alt
+  +icon
+  content: "\f022"
+=icon-lock
+  +icon
+  content: "\f023"
+=icon-flag
+  +icon
+  content: "\f024"
+=icon-headphones
+  +icon
+  content: "\f025"
+=icon-volume-off
+  +icon
+  content: "\f026"
+=icon-volume-down
+  +icon
+  content: "\f027"
+=icon-volume-up
+  +icon
+  content: "\f028"
+=icon-qrcode
+  +icon
+  content: "\f029"
+=icon-barcode
+  +icon
+  content: "\f02a"
+=icon-tag
+  +icon
+  content: "\f02b"
+=icon-tags
+  +icon
+  content: "\f02c"
+=icon-book
+  +icon
+  content: "\f02d"
+=icon-bookmark
+  +icon
+  content: "\f02e"
+=icon-print
+  +icon
+  content: "\f02f"
+=icon-camera
+  +icon
+  content: "\f030"
+=icon-font
+  +icon
+  content: "\f031"
+=icon-bold
+  +icon
+  content: "\f032"
+=icon-italic
+  +icon
+  content: "\f033"
+=icon-text-height
+  +icon
+  content: "\f034"
+=icon-text-width
+  +icon
+  content: "\f035"
+=icon-align-left
+  +icon
+  content: "\f036"
+=icon-align-center
+  +icon
+  content: "\f037"
+=icon-align-right
+  +icon
+  content: "\f038"
+=icon-align-justify
+  +icon
+  content: "\f039"
+=icon-list
+  +icon
+  content: "\f03a"
+=icon-indent-left
+  +icon
+  content: "\f03b"
+=icon-indent-right
+  +icon
+  content: "\f03c"
+=icon-facetime-video
+  +icon
+  content: "\f03d"
+=icon-picture
+  +icon
+  content: "\f03e"
+=icon-pencil
+  +icon
+  content: "\f040"
+=icon-map-marker
+  +icon
+  content: "\f041"
+=icon-adjust
+  +icon
+  content: "\f042"
+=icon-tint
+  +icon
+  content: "\f043"
+=icon-edit
+  +icon
+  content: "\f044"
+=icon-share
+  +icon
+  content: "\f045"
+=icon-check
+  +icon
+  content: "\f046"
+=icon-move
+  +icon
+  content: "\f047"
+=icon-step-backward
+  +icon
+  content: "\f048"
+=icon-fast-backward
+  +icon
+  content: "\f049"
+=icon-backward
+  +icon
+  content: "\f04a"
+=icon-play
+  +icon
+  content: "\f04b"
+=icon-pause
+  +icon
+  content: "\f04c"
+=icon-stop
+  +icon
+  content: "\f04d"
+=icon-forward
+  +icon
+  content: "\f04e"
+=icon-fast-forward
+  +icon
+  content: "\f050"
+=icon-step-forward
+  +icon
+  content: "\f051"
+=icon-eject
+  +icon
+  content: "\f052"
+=icon-chevron-left
+  +icon
+  content: "\f053"
+=icon-chevron-right
+  +icon
+  content: "\f054"
+=icon-plus-sign
+  +icon
+  content: "\f055"
+=icon-minus-sign
+  +icon
+  content: "\f056"
+=icon-remove-sign
+  +icon
+  content: "\f057"
+=icon-ok-sign
+  +icon
+  content: "\f058"
+=icon-question-sign
+  +icon
+  content: "\f059"
+=icon-info-sign
+  +icon
+  content: "\f05a"
+=icon-screenshot
+  +icon
+  content: "\f05b"
+=icon-remove-circle
+  +icon
+  content: "\f05c"
+=icon-ok-circle
+  +icon
+  content: "\f05d"
+=icon-ban-circle
+  +icon
+  content: "\f05e"
+=icon-arrow-left
+  +icon
+  content: "\f060"
+=icon-arrow-right
+  +icon
+  content: "\f061"
+=icon-arrow-up
+  +icon
+  content: "\f062"
+=icon-arrow-down
+  +icon
+  content: "\f063"
+=icon-share-alt
+  +icon
+  content: "\f064"
+=icon-resize-full
+  +icon
+  content: "\f065"
+=icon-resize-small
+  +icon
+  content: "\f066"
+=icon-plus
+  +icon
+  content: "\f067"
+=icon-minus
+  +icon
+  content: "\f068"
+=icon-asterisk
+  +icon
+  content: "\f069"
+=icon-exclamation-sign
+  +icon
+  content: "\f06a"
+=icon-gift
+  +icon
+  content: "\f06b"
+=icon-leaf
+  +icon
+  content: "\f06c"
+=icon-fire
+  +icon
+  content: "\f06d"
+=icon-eye-open
+  +icon
+  content: "\f06e"
+=icon-eye-close
+  +icon
+  content: "\f070"
+=icon-warning-sign
+  +icon
+  content: "\f071"
+=icon-plane
+  +icon
+  content: "\f072"
+=icon-calendar
+  +icon
+  content: "\f073"
+=icon-random
+  +icon
+  content: "\f074"
+=icon-comment
+  +icon
+  content: "\f075"
+=icon-magnet
+  +icon
+  content: "\f076"
+=icon-chevron-up
+  +icon
+  content: "\f077"
+=icon-chevron-down
+  +icon
+  content: "\f078"
+=icon-retweet
+  +icon
+  content: "\f079"
+=icon-shopping-cart
+  +icon
+  content: "\f07a"
+=icon-folder-close
+  +icon
+  content: "\f07b"
+=icon-folder-open
+  +icon
+  content: "\f07c"
+=icon-resize-vertical
+  +icon
+  content: "\f07d"
+=icon-resize-horizontal
+  +icon
+  content: "\f07e"
+=icon-bar-chart
+  +icon
+  content: "\f080"
+=icon-twitter-sign
+  +icon
+  content: "\f081"
+=icon-facebook-sign
+  +icon
+  content: "\f082"
+=icon-camera-retro
+  +icon
+  content: "\f083"
+=icon-key
+  +icon
+  content: "\f084"
+=icon-cogs
+  +icon
+  content: "\f085"
+=icon-comments
+  +icon
+  content: "\f086"
+=icon-thumbs-up
+  +icon
+  content: "\f087"
+=icon-thumbs-down
+  +icon
+  content: "\f088"
+=icon-star-half
+  +icon
+  content: "\f089"
+=icon-heart-empty
+  +icon
+  content: "\f08a"
+=icon-signout
+  +icon
+  content: "\f08b"
+=icon-linkedin-sign
+  +icon
+  content: "\f08c"
+=icon-pushpin
+  +icon
+  content: "\f08d"
+=icon-external-link
+  +icon
+  content: "\f08e"
+=icon-signin
+  +icon
+  content: "\f090"
+=icon-trophy
+  +icon
+  content: "\f091"
+=icon-github-sign
+  +icon
+  content: "\f092"
+=icon-upload-alt
+  +icon
+  content: "\f093"
+=icon-lemon
+  +icon
+  content: "\f094"
+=icon-phone
+  +icon
+  content: "\f095"
+=icon-check-empty
+  +icon
+  content: "\f096"
+=icon-bookmark-empty
+  +icon
+  content: "\f097"
+=icon-phone-sign
+  +icon
+  content: "\f098"
+=icon-twitter
+  +icon
+  content: "\f099"
+=icon-facebook
+  +icon
+  content: "\f09a"
+=icon-github
+  +icon
+  content: "\f09b"
+=icon-unlock
+  +icon
+  content: "\f09c"
+=icon-credit-card
+  +icon
+  content: "\f09d"
+=icon-rss
+  +icon
+  content: "\f09e"
+=icon-hdd
+  +icon
+  content: "\f0a0"
+=icon-bullhorn
+  +icon
+  content: "\f0a1"
+=icon-bell
+  +icon
+  content: "\f0a2"
+=icon-certificate
+  +icon
+  content: "\f0a3"
+=icon-hand-right
+  +icon
+  content: "\f0a4"
+=icon-hand-left
+  +icon
+  content: "\f0a5"
+=icon-hand-up
+  +icon
+  content: "\f0a6"
+=icon-hand-down
+  +icon
+  content: "\f0a7"
+=icon-circle-arrow-left
+  +icon
+  content: "\f0a8"
+=icon-circle-arrow-right
+  +icon
+  content: "\f0a9"
+=icon-circle-arrow-up
+  +icon
+  content: "\f0aa"
+=icon-circle-arrow-down
+  +icon
+  content: "\f0ab"
+=icon-globe
+  +icon
+  content: "\f0ac"
+=icon-wrench
+  +icon
+  content: "\f0ad"
+=icon-tasks
+  +icon
+  content: "\f0ae"
+=icon-filter
+  +icon
+  content: "\f0b0"
+=icon-briefcase
+  +icon
+  content: "\f0b1"
+=icon-fullscreen
+  +icon
+  content: "\f0b2"
+=icon-group
+  +icon
+  content: "\f0c0"
+=icon-link
+  +icon
+  content: "\f0c1"
+=icon-cloud
+  +icon
+  content: "\f0c2"
+=icon-beaker
+  +icon
+  content: "\f0c3"
+=icon-cut
+  +icon
+  content: "\f0c4"
+=icon-copy
+  +icon
+  content: "\f0c5"
+=icon-paper-clip
+  +icon
+  content: "\f0c6"
+=icon-save
+  +icon
+  content: "\f0c7"
+=icon-sign-blank
+  +icon
+  content: "\f0c8"
+=icon-reorder
+  +icon
+  content: "\f0c9"
+=icon-list-ul
+  +icon
+  content: "\f0ca"
+=icon-list-ol
+  +icon
+  content: "\f0cb"
+=icon-strikethrough
+  +icon
+  content: "\f0cc"
+=icon-underline
+  +icon
+  content: "\f0cd"
+=icon-table
+  +icon
+  content: "\f0ce"
+=icon-magic
+  +icon
+  content: "\f0d0"
+=icon-truck
+  +icon
+  content: "\f0d1"
+=icon-pinterest
+  +icon
+  content: "\f0d2"
+=icon-pinterest-sign
+  +icon
+  content: "\f0d3"
+=icon-google-plus-sign
+  +icon
+  content: "\f0d4"
+=icon-google-plus
+  +icon
+  content: "\f0d5"
+=icon-money
+  +icon
+  content: "\f0d6"
+=icon-caret-down
+  +icon
+  content: "\f0d7"
+=icon-caret-up
+  +icon
+  content: "\f0d8"
+=icon-caret-left
+  +icon
+  content: "\f0d9"
+=icon-caret-right
+  +icon
+  content: "\f0da"
+=icon-columns
+  +icon
+  content: "\f0db"
+=icon-sort
+  +icon
+  content: "\f0dc"
+=icon-sort-down
+  +icon
+  content: "\f0dd"
+=icon-sort-up
+  +icon
+  content: "\f0de"
+=icon-envelope-alt
+  +icon
+  content: "\f0e0"
+=icon-linkedin
+  +icon
+  content: "\f0e1"
+=icon-undo
+  +icon
+  content: "\f0e2"
+=icon-legal
+  +icon
+  content: "\f0e3"
+=icon-dashboard
+  +icon
+  content: "\f0e4"
+=icon-comment-alt
+  +icon
+  content: "\f0e5"
+=icon-comments-alt
+  +icon
+  content: "\f0e6"
+=icon-bolt
+  +icon
+  content: "\f0e7"
+=icon-sitemap
+  +icon
+  content: "\f0e8"
+=icon-umbrella
+  +icon
+  content: "\f0e9"
+=icon-paste
+  +icon
+  content: "\f0ea"
+=icon-lightbulb
+  +icon
+  content: "\f0eb"
+=icon-exchange
+  +icon
+  content: "\f0ec"
+=icon-cloud-download
+  +icon
+  content: "\f0ed"
+=icon-cloud-upload
+  +icon
+  content: "\f0ee"
+=icon-user-md
+  +icon
+  content: "\f0f0"
+=icon-stethoscope
+  +icon
+  content: "\f0f1"
+=icon-suitcase
+  +icon
+  content: "\f0f2"
+=icon-bell-alt
+  +icon
+  content: "\f0f3"
+=icon-coffee
+  +icon
+  content: "\f0f4"
+=icon-food
+  +icon
+  content: "\f0f5"
+=icon-file-alt
+  +icon
+  content: "\f0f6"
+=icon-building
+  +icon
+  content: "\f0f7"
+=icon-hospital
+  +icon
+  content: "\f0f8"
+=icon-ambulance
+  +icon
+  content: "\f0f9"
+=icon-medkit
+  +icon
+  content: "\f0fa"
+=icon-fighter-jet
+  +icon
+  content: "\f0fb"
+=icon-beer
+  +icon
+  content: "\f0fc"
+=icon-h-sign
+  +icon
+  content: "\f0fd"
+=icon-plus-sign-alt
+  +icon
+  content: "\f0fe"
+=icon-double-angle-left
+  +icon
+  content: "\f100"
+=icon-double-angle-right
+  +icon
+  content: "\f101"
+=icon-double-angle-up
+  +icon
+  content: "\f102"
+=icon-double-angle-down
+  +icon
+  content: "\f103"
+=icon-angle-left
+  +icon
+  content: "\f104"
+=icon-angle-right
+  +icon
+  content: "\f105"
+=icon-angle-up
+  +icon
+  content: "\f106"
+=icon-angle-down
+  +icon
+  content: "\f107"
+=icon-desktop
+  +icon
+  content: "\f108"
+=icon-laptop
+  +icon
+  content: "\f109"
+=icon-tablet
+  +icon
+  content: "\f10a"
+=icon-mobile-phone
+  +icon
+  content: "\f10b"
+=icon-circle-blank
+  +icon
+  content: "\f10c"
+=icon-quote-left
+  +icon
+  content: "\f10d"
+=icon-quote-right
+  +icon
+  content: "\f10e"
+=icon-spinner
+  +icon
+  content: "\f110"
+=icon-circle
+  +icon
+  content: "\f111"
+=icon-reply
+  +icon
+  content: "\f112"
+=icon-github-alt
+  +icon
+  content: "\f113"
+=icon-folder-close-alt
+  +icon
+  content: "\f114"
+=icon-folder-open-alt
+  +icon
+  content: "\f115"

@@ -1,4 +1,7 @@
 describe "Notes" do
+
+  include ResourcesHelper
+
   before {
     @note = FactoryGirl.create(:note)
   }
@@ -62,6 +65,63 @@ describe "Notes" do
 
   describe "show page" do
     before {
+      @resource = FactoryGirl.create(:resource, :note => @note)
+      visit note_path(@note)
+    }
+    it "should display attached images" do
+      page.should have_css("figure img[src*=\"#{ cut_image_path(@resource) }\"]")
+    end
+    it "should display the description in the alt attribute" do
+      page.should have_css("figure img[alt*=\"#{ @resource.description }\"]")
+    end
+    it "should display the caption for the image" do
+      page.should have_selector('figcaption', text: @resource.caption)
+    end
+  end
+
+  describe "show page" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => @note, :mime => 'application/pdf')
+      visit note_path(@resource.note)
+    }
+    it "should display downloadable files" do
+      @note.resources.size.should == 1
+      #page.should have_css("a[href*=\"#{ @resource.local_file_name }\"]")
+    end
+  end
+
+  describe "show page" do
+    before {
+      @note.update_attributes( :source_url => 'http://youtube.com/?v=ABCDEF' )
+      visit note_path(@note)
+    }
+    it "should have an iframe with an embedded youtube video" do
+      page.should have_css("iframe[src=\"http://www.youtube.com/embed/ABCDEF?rel=0\"]")
+    end
+  end
+
+  describe "show page" do
+    before {
+      @note.update_attributes( :source_url => 'http://vimeo.com/video/ABCDEF' )
+      visit note_path(@note)
+    }
+    it "should have an iframe with an embedded vimeo video" do
+      page.should have_css("iframe[src=\"http://player.vimeo.com/video/ABCDEF\"]")
+    end
+  end
+
+  describe "show page" do
+    before {
+      @note.update_attributes( :source_url => 'http://soundcloud.com/ABCDEF' )
+      visit note_path(@note)
+    }
+    it "should have an iframe with an embedded soundcloud video" do
+      page.should have_css("iframe[src=\"http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF\"]")
+    end
+  end
+
+  describe "show page" do
+    before {
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
       @note.lang = 'ar'
@@ -69,10 +129,10 @@ describe "Notes" do
       visit note_path(@note)
     }
     it "should have the language attribute if note is not in default language" do
-      page.should have_css('#note-content[lang=ar]')
+      page.should have_css("#note-content[lang=ar]")
     end
     it "should have the text direction if note is not in default language" do
-      page.should have_css('#note-content[dir=rtl]')
+      page.should have_css("#note-content[dir=rtl]")
     end
   end
 
@@ -92,10 +152,10 @@ describe "Notes" do
       page.should have_selector('h1', text: @note.title)
     end
     it "should not have the language attribute (if note is in default language)" do
-      page.should_not have_css('#note-content[lang=en]')
+      page.should_not have_css("#note-content[lang=en]")
     end
     it "should not have the text direction (if note is in default language)" do
-      page.should_not have_css('#note-content[dir=rtl]')
+      page.should_not have_css("#note-content[dir=rtl]")
     end
     it "should have a link to Notes" do
       page.should have_link(I18n.t('notes.title'), href: notes_path)
@@ -132,10 +192,12 @@ describe "Notes" do
       visit note_version_path(@note, 3)
     }
     it "should have the language attribute if note is not in default language" do
-      page.should have_css('#note-content[lang=ar]')
+      page.should have_css("#note-content[lang=ar]")
     end
     it "should have the text direction if note is not in default languagex" do
-      page.should have_css('#note-content[dir=rtl]')
+      page.should have_css("#note-content[dir=rtl]")
     end
   end
+
+  # Test images and embedded media
 end

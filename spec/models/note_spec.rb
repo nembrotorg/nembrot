@@ -87,16 +87,9 @@ describe Note do
     Note.tagged_with("tag4").last.should == @note
   end
 
-  describe "is findable by tag" do
-    before {
-      @note.update_attributes( :tag_list => "tag4" ) 
-    }
-    Note.tagged_with("tag4").last.should == @note
-  end
-
   #describe "saves versions on every update", :versioning => true do
-  #  before { 
-  #    @note.update_attributes( :title => "New Title" ) 
+  #  before {
+  #    @note.update_attributes( :title => "New Title" )
   #  }
   #  @note.versions.length.should > 0
   #end

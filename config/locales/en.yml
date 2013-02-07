@@ -47,6 +47,12 @@ en:
           subject: "%{provider}: note %{guid} failed on database update!"
           body: "%{provider}: note %{guid} for user %{username} failed on database update!"
 
+  resources:
+    cut:
+      failed:
+        raw_image_not_found: "Raw image not found when cutting %{ local_file_name }"
+        record_not_found: "Record not found when cutting %{ local_file_name }"
+
   tags:
     title: "Tags"
     item: "Tag: %{name}"

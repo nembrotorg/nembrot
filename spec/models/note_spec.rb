@@ -21,6 +21,8 @@ describe Note do
   it { should respond_to(:source_url) }
   it { should respond_to(:source_application) }
   it { should respond_to(:last_edited_by) }
+  it { should respond_to(:embeddable_source_url) }
+  it { should respond_to(:fx) }
 
   it { should have_many(:cloud_notes) }
   it { should have_many(:resources) }
@@ -85,6 +87,13 @@ describe Note do
     Note.tagged_with("tag4").last.should == @note
   end
 
+  describe "is findable by tag" do
+    before {
+      @note.update_attributes( :tag_list => "tag4" ) 
+    }
+    Note.tagged_with("tag4").last.should == @note
+  end
+
   #describe "saves versions on every update", :versioning => true do
   #  before { 
   #    @note.update_attributes( :title => "New Title" ) 
@@ -104,4 +113,39 @@ describe Note do
     #  note.diffed_version(2).title.should == 'Second Title'
     #  note.diffed_version(2).previous_title.should == 'First Title'
   #end
+
+  describe "embeddable_source_url" do
+    before {
+      @note.source_url = 'http://www.example.com'
+    }
+    its(:embeddable_source_url) { should be_nil }
+  end
+
+  describe "embeddable_source_url should should return an embeddable youtube link if source_url is a youtube link" do
+    before {
+      @note.source_url = 'http://youtube.com?v=ABCDEF'
+    }
+    its(:embeddable_source_url) { should == 'http://www.youtube.com/embed/ABCDEF?rel=0' }
+  end
+
+  describe "embeddable_source_url should should return an embeddable vimeo link if source_url is a vimeo link" do
+    before {
+      @note.source_url = 'http://vimeo.com/video/ABCDEF'
+    }
+    its(:embeddable_source_url) { should == 'http://player.vimeo.com/video/ABCDEF' }
+  end  
+
+  describe "embeddable_source_url should should return an embeddable soundcloud link if source_url is a soundcloud link" do
+    before {
+      @note.source_url = 'http://soundcloud.com?v=ABCDEF'
+    }
+    its (:embeddable_source_url) { should == 'http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF' }
+  end
+
+  describe "note.fx should return fx for note's images" do
+    before {
+      @note.instruction_list = '__FX_ABC, __FX_DEF'
+    }
+    its (:fx) { should == 'abc_def' }
+  end
 end

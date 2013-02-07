@@ -22,4 +22,5 @@ secret*
 !secret*.example
 
 # Ignore resource files
-public/resources/*/*.*
+/public/resources/*/*.*
+!/public/resources/cut/blank.*

@@ -4,6 +4,8 @@ module EvernoteHelper
   require 'nokogiri'
   require 'wtf_lang'
 
+  # If source_url is an image, download it (and keep as source...)
+
   def add_evernote_task(guid, run_tasks)
     cloud_service = CloudService.where( :name => 'evernote' ).first_or_create
     cloud_note = CloudNote.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id).first_or_create
@@ -45,9 +47,9 @@ module EvernoteHelper
     note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
     cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
-    required_notebooks = Settings.evernote.notebooks.split(' ')
-    required_tags = Settings.evernote.instructions.required.split(' ')
-    ignore_instructions = Settings.evernote.instructions.ignore.split(' ')
+    required_notebooks = Settings.evernote.notebooks
+    required_tags = Settings.evernote.instructions.required
+    ignore_instructions = Settings.evernote.instructions.ignore
 
     if !required_notebooks.include?(note_metadata.notebookGuid)
       cloud_note.destroy
@@ -77,10 +79,10 @@ module EvernoteHelper
           note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
 
           note_content = sanitize(Nokogiri::XML(note_data.content).css("en-note").inner_html,
-            :tags => Settings.notes.allowed_html_tags.split(' '),
-            :attributes => Settings.notes.allowed_html_attributes.split(' '))
+            :tags => Settings.notes.allowed_html_tags,
+            :attributes => Settings.notes.allowed_html_attributes)
         end
-        ##cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
+        # cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
         create_or_update_note(cloud_note, note_data, note_content, cloud_note_tags, auth.info.nickname)
         logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
       end
@@ -89,28 +91,41 @@ module EvernoteHelper
     rescue => error
       CloudNoteMailer.syncdown_note_failed('evernote', guid, auth.info.nickname, error).deliver
       logger.info t('notes.sync.update_error', :provider => 'Evernote', :guid => guid)
-      logger.info error.inspect
+      logger.info error.first(20).backtrace.join("\n")
   end
 
   def syncdown_resource(resource, auth, oauth_token, note_store)
-    resource.update_attribute(:sync_retries, resource.sync_retries + 1)
-    cloud_resource_data = note_store.getResourceData(oauth_token, resource.cloud_resource_identifier)
+    file_location = resource.raw_location
+    if !File.file?(file_location)
+      resource.update_attribute(:sync_retries, resource.sync_retries + 1)
+      cloud_resource_data = note_store.getResourceData(oauth_token, resource.cloud_resource_identifier)
 
-    file_name = File.join(Rails.root, 'public', 'resources', 'raw', resource.file_name )
-    File.open(file_name,"wb") do |file|
-      file.write(cloud_resource_data)
-    end
+      File.open(file_location,"wb") do |file|
+        file.write(cloud_resource_data)
+      end
 
-    if Digest::MD5.file(file_name).digest == resource.data_hash
-      resource.update_attributes!(
-        :dirty => false,
-        :sync_retries => 0
-      )
+      # Also how do we delete images when a resource is deleted?
+      # (A method in resource - checks file is not used by other resources first...?)
+
+      # We check that the resource has been downloaded correctly, if so we unflag the resource.
+      if Digest::MD5.file(file_location).digest == resource.data_hash
+        resource.update_attributes!(
+          :dirty => false,
+          :sync_retries => 0
+        )
+      end
     end
   end
 
   def create_or_update_note(cloud_note, note_data, note_content, cloud_note_tags, username)
     note = Note.where(:id => cloud_note.note_id).first_or_create
+
+    captions = note_content.scan(/^\s*cap:\s*(.*?)\s*$/i)
+    descriptions = note_content.scan(/^\s*alt:\s*(.*?)\s*$/i)
+
+    note_content.gsub!(/^.*cap:.*$/i, '')
+    note_content.gsub!(/^.*alt:.*$/i, '')
+
     note.update_attributes!(
       :title => note_data.title,
       :body => note_content,
@@ -133,26 +148,30 @@ module EvernoteHelper
       :content_hash => note_data.contentHash,
       :dirty => false
     )
-    create_or_update_resources(note, note_data.resources)
+    create_or_update_resources(note, note_data.resources, captions, descriptions)
     rescue => error
       CloudNoteMailer.syncdown_note_failed('evernote', note_data.guid, username, error).deliver
       logger.info t('notes.sync.update_error', :provider => 'Evernote', :guid => note_data.guid)
-      logger.info error.inspect
+      logger.info error.backtrace.first(20).join("\n")
       cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
   end
 
-  def create_or_update_resources(note, cloud_resources)
-    cloud_resources.each do |cloud_resource|
+  def create_or_update_resources(note, cloud_resources, captions, descriptions)
+    # When a note contains both images and downloads, the alt/cap is disrupted
+    cloud_resources.each_with_index do |cloud_resource, index|
       resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
       resource.update_attributes!(
         :note_id => note.id,
         :mime => cloud_resource.mime,
         :width => cloud_resource.width,
         :height => cloud_resource.height,
-        #:size => cloud_resource.size,
-        :caption => '',
-        :description => '',
-        :credit => '',
+        :caption => captions[index] ? captions[index][0] : '',
+        :description => descriptions[index] ? descriptions[index][0] : '',
+        
+        #Add captions to videos?
+        #Add fx (similarly)
+        #Remove credit - should just go with caption?
+        #:credit => '',
         :source_url => cloud_resource.attributes.sourceURL,
         :external_updated_at => cloud_resource.attributes.timestamp,
         :latitude => cloud_resource.attributes.latitude,
@@ -160,17 +179,29 @@ module EvernoteHelper
         :altitude => cloud_resource.attributes.altitude,
         :camera_make => cloud_resource.attributes.cameraMake,
         :camera_model => cloud_resource.attributes.cameraModel,
-        # Maybe we should add a field computed filename...?
-        # this should probably be derived from the alt, or note title
-        # :local_file_name
-        :file_name => cloud_resource.guid + '.' + (Mime::Type.file_extension_of cloud_resource.mime),
-        #, cloud_resource.attributes.fileName),
+        :local_file_name => make_local_file_name(captions, descriptions, index, cloud_resource),
+        :file_name => cloud_resource.attributes.fileName,
         :attachment => cloud_resource.attributes.attachment,
         :data_hash => cloud_resource.data.bodyHash,
         :dirty => (cloud_resource.data.bodyHash != resource.data_hash),
         :sync_retries => 0
       )
     end
+  end
+
+  def make_local_file_name(captions, descriptions, index, cloud_resource)
+    if cloud_resource.mime !~ /image/
+      local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
+    elsif captions[index]
+      local_file_name = snippet(captions[index][0], Styling.images.name_length, '')
+    elsif descriptions[index]
+      local_file_name = snippet(descriptions[index][0], Styling.images.name_length, '')
+    elsif cloud_resource.attributes.fileName
+      local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
+    else
+      local_file_name = cloud_resource.guid
+    end
+      local_file_name = local_file_name.parameterize
   end
 
   def get_note_store(edam_note_store_url)

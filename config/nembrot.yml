@@ -17,29 +17,47 @@ defaults: &defaults
     server: https://sandbox.evernote.com
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
     instructions:
-      required: __PUBLISH
-      ignore: __IGNORE __HOLD
+      required: ['__PUBLISH']
+      ignore: ['__IGNORE', '__HOLD']
   lang:
     rtl_langs: ['ar', 'fa']
+  home:
+    instructions:
+      required: ['__HOME']
   notes:
-    title_length: 8
-    blurb_length: 30
-    allowed_html_tags: a blockquote del ins li ol ul img src alt
-    allowed_html_attributes: href
+    title_length: 40
+    blurb_length: 150
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    allowed_html_attributes: ['href', 'src', 'alt']
     sync_retries: 3
   tags:
-    cloud: true
+    index:
+      style: false
   sections:
-    tags: ["A Typology of Philistinism", "Nimrod"]
+    tags: ['A Typology of Philistinism', 'Nimrod', 'Wutz']
+    enface: [['Wutz', 'de', 'en'], ['Wutz RC1', 'de', 'en']]
   styling:
-    lineheight: 30
+    css_for_instructions: ['__FX_POL']
+    line_height: 30
     images:
+      name_length: 30
+      snap: 1
+      gravity: 0
+      effects: tri
       standard:
-        width: 740
+        width: 780
         aspect:
           x: 16
           y: 9
-
+      cinema:
+        width: 980
+        aspect:
+          x: 27
+          y: 10
+      thumbnail:
+        width: 330
+      expanded:
+        width: 1400
 development:
   <<: *defaults
   host: localhost:3000

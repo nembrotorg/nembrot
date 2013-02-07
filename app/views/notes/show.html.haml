@@ -3,7 +3,7 @@
                 :description => @note.body,
                 :open_graph => { :title => @note.title }
 
-%article
+%article{ :class => (@note.instruction_list & Settings.styling.css_for_instructions).collect { |c| 'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase } }
   %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
     %header
       %hgroup{ :data => {:title => document_title} }
@@ -14,7 +14,7 @@
         %aside
           %h4#notice= notice
 
-    = render 'images', :images => @note.resources.attached_images
+    = render 'images', :note => @note
 
     = render 'media', :note => @note
 
@@ -26,3 +26,4 @@
   = render 'tags', :tags => @tags
 
   = render 'versions_list', :note => @note
+

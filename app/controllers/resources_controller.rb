@@ -9,9 +9,9 @@ class ResourcesController < ApplicationController
         params[:aspect_x].to_i,
         params[:aspect_y].to_i,
         params[:width].to_i,
-        true,
-        '',
-        ''
+        params[:snap],
+        params[:gravity],
+        params[:effects]
       )
 
     send_file(image, :disposition => 'inline')

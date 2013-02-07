@@ -3,10 +3,24 @@
                 :description => '',
                 :open_graph => { :title => document_title }
 
-%article
-  %header
-    %hgroup{ :data => {:title => document_title} }
-      %h1= t('site.title')
+- if @notes.first
+
+  %article
+    %header
+      %hgroup{ :data => {:title => document_title} }
+        %h1= link_to @notes.first.title, @notes.first
+
+    -#= render 'images', :note => @notes.first
+    - image = @notes.first.resources.first 
+    %figure
+      = link_to image_tag(cut_image_path(image, :type => 'cinema'),
+      :alt => strip_tags(image.description)), @notes.first
+      - if image.caption
+        %figcaption= image.caption.html_safe
+
+    = render 'media', :note => @notes.first
+
+- else
 
   %ul
     %li= link_to t('notes.title'), notes_path

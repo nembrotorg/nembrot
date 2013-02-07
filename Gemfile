@@ -40,7 +40,7 @@ gem 'gmaps4rails'
 gem 'wikipedia-client'
 
 group :development do
-  gem 'sqlite3',      '1.3.6'
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rails_best_practices'
@@ -59,7 +59,7 @@ end
 # Test set-up from http://ruby.railstutorial.org/chapters/static-pages#sec:guard
 # And http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html
 group :test do
-  gem 'sqlite3',      '1.3.6'
+  gem 'sqlite3'
   gem 'faker'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
@@ -75,7 +75,7 @@ group :test do
 
   # System-dependent gems
   # Linux
-  gem 'rb-inotify', '~> 0.8.8'
+  gem 'rb-inotify'
   gem 'libnotify'
 
   # Mac OSX

@@ -193,5 +193,5 @@ module EffectsHelper
       end
 
       image
-    end  
+    end
 end

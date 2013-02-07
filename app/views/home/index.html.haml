@@ -11,7 +11,7 @@
         %h1= link_to @notes.first.title, @notes.first
 
     -#= render 'images', :note => @notes.first
-    - image = @notes.first.resources.first 
+    - image = @notes.first.resources.first
     %figure
       = link_to image_tag(cut_image_path(image, :type => 'cinema'),
       :alt => strip_tags(image.description)), @notes.first

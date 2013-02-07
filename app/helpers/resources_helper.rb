@@ -52,7 +52,7 @@ module ResourcesHelper
 
     begin
       image =  Magick::Image.read(file_name_in).first
-      
+
       image = pre_fx(image, effects)
 
       # Resize image

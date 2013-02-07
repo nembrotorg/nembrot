@@ -167,7 +167,7 @@ module EvernoteHelper
         :height => cloud_resource.height,
         :caption => captions[index] ? captions[index][0] : '',
         :description => descriptions[index] ? descriptions[index][0] : '',
-        
+
         #Add captions to videos?
         #Add fx (similarly)
         #Remove credit - should just go with caption?

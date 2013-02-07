@@ -1,4 +1,4 @@
-- document_title = "#{ t('tags.item') }: #{ @tag.name }"
+- document_title = t('tags.item', :name => @tag.name)
 - set_meta_tags :title => document_title,
                 :description => '',
                 :open_graph => { :title => document_title }
@@ -12,3 +12,5 @@
         %h4#notice= notice
 
   = render 'notes_list', :notes => @notes
+
+  = render 'tags_list', :tags => @tags

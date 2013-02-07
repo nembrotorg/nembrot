@@ -193,9 +193,9 @@ module EvernoteHelper
     if cloud_resource.mime !~ /image/
       local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
     elsif captions[index]
-      local_file_name = snippet(captions[index][0], Styling.images.name_length, '')
+      local_file_name = snippet(captions[index][0], Settings.styling.images.name_length, '')
     elsif descriptions[index]
-      local_file_name = snippet(descriptions[index][0], Styling.images.name_length, '')
+      local_file_name = snippet(descriptions[index][0], Settings.styling.images.name_length, '')
     elsif cloud_resource.attributes.fileName
       local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
     else

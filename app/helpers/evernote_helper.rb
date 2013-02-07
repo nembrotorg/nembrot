@@ -4,6 +4,8 @@ module EvernoteHelper
   require 'nokogiri'
   require 'wtf_lang'
 
+  include ApplicationHelper
+
   # If source_url is an image, download it (and keep as source...)
 
   def add_evernote_task(guid, run_tasks)

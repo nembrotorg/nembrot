@@ -82,6 +82,11 @@ a
   vertical-align: 5%
   font-size: 0.6666666666666666em
 
+/* For resetting: */
+=icon-regular
+  vertical-align: 0
+  font-size: 1em
+
 .btn, .nav
   [class^="icon-"], [class*=" icon-"]
     display: inline

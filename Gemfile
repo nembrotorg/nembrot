@@ -51,7 +51,6 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'sass-rails'
-  gem 'font-awesome-sass-rails'
   gem 'compass-rails'
   gem 'compass-h5bp'
   gem 'turbo-sprockets-rails3'

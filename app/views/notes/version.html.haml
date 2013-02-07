@@ -20,7 +20,7 @@
 
     -#= render 'images', :images => @diffed_version.resources.attached_images
 
-    %section#text!= Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body)
+    %section#text!= Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
   = render 'tags', :tags => @diffed_version.tags
 

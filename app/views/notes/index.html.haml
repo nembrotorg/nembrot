@@ -11,4 +11,4 @@
       %aside
         %h4#notice= notice
 
-  = render 'notes_list', :notes => @notes
+  = render 'notes_list', :notes => @notes.first(9)

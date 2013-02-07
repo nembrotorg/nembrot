@@ -6,9 +6,7 @@ module ApplicationHelper
   end
 
   def body_dir_attr(language)
-    if Settings.lang.rtl_langs.include?(language)
-      'rtl'
-    end
+    Settings.lang.rtl_langs.include?(language) ? 'rtl' : 'ltr'
   end
 
   def dir_attr(language)
@@ -21,15 +19,9 @@ module ApplicationHelper
     end
   end
 
-  def snippet(text, wordcount)
-    text = strip_tags text
-    text.split[0..(wordcount-1)].join(' ') + (text.split.size > wordcount ? '...' : '')
-  end
-
-  def bodify(text)
-    notify(smartify(text))
-      .gsub(/^(.+)$/, '<p>\1</p>').gsub(/^ +$/, '')
-      .html_safe
+  def snippet(text, characters, omission = '...')
+    text = ActionController::Base.helpers.strip_tags(text)
+    text = ActionController::Base.helpers.truncate(text, :length => characters, :separator => ' ', :omission => omission)
   end
 
   def smartify(text)
@@ -47,7 +39,18 @@ module ApplicationHelper
 
   def notify(text)
     text
-      .gsub(/\[/, '<span class="annotation instapaper_ignore"><span>')
-      .gsub(/\]/, '</span></span>')
+      .gsub(/ ?\[/, '<span class="annotation instapaper_ignore"><span>')
+      .gsub(/\]/, '</span></span> ')
+  end
+
+  def bodify(text)
+    text = smartify(text)
+    text = notify(text)
+    text = text
+      .gsub(/^([^<].+[^>])$/, '<p>\1</p>')
+      .gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
+      .gsub(/^(<p> +<\/p)>$/, '')
+      .gsub(/^ +$/, '')
+      .html_safe
   end
 end

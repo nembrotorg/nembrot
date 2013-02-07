@@ -19,8 +19,8 @@ describe ApplicationHelper do
     it "should return 'rtl' if language is rtl" do
       body_dir_attr('ar').should == 'rtl'
     end
-    it "should return nil if language is not rtl" do
-      body_dir_attr('en').should == nil
+    it "should return 'ltr' if language is not rtl" do
+      body_dir_attr('en').should == 'ltr'
     end
   end
 
@@ -51,16 +51,28 @@ describe ApplicationHelper do
   end
 
   describe "Snippet" do
-    it "should not truncate string if it contains fewer words than required" do
-      snippet("One two three", 4).should == "One two three"
+    it "should not truncate string if it contains fewer characters than required" do
+      snippet("1234 1234 1234", 20).should == "1234 1234 1234"
     end
 
-    it "should not truncate string if it contains as many words as required" do
-      snippet("One two three four", 4).should == "One two three four"
+    it "should not truncate string if it contains as many characters as required" do
+      snippet("1234 1234 1234", 14).should == "1234 1234 1234"
     end
 
-    it "should truncate string and add ellipses if it contains more words than required" do
-      snippet("One two three four", 3).should == "One two three..."
+    it "should truncate string without breaking any words and add ellipses if it contains more words than required" do
+      snippet("1234 1234 1234", 13).should == "1234 1234..."
+    end
+  end
+
+  describe "Smartify" do
+    it "should wrap multiple paragraphs in <p> tags" do
+      bodify("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
+    end
+  end
+
+  describe "Notify" do
+    it "should wrap [notes] into html tags" do
+      notify("Plain [A side-note.] text. More plain text").should == "Plain<span class=\"annotation instapaper_ignore\"><span>A side-note.</span></span>  text. More plain text"
     end
   end
 

@@ -3,7 +3,7 @@ describe CloudNoteMailer do
     let(:provider) { 'PROVIDER01' }
     let(:guid) { 'USER01' }
     let(:username) { 'USER01' }
-    let(:error) { mock('error', :class => 'ERRORCLASS', :message => 'ERRORMESSAGE', :backtrace => 'ERRORBACKTRACE') }
+    let(:error) { mock('error', :class => 'ERRORCLASS', :message => 'ERRORMESSAGE', :backtrace => ['ERROR', 'BACKTRACE']) }
     let(:mail) { CloudNoteMailer.syncdown_note_failed(provider, guid, username, error) }
  
     it 'renders the subject' do

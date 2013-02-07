@@ -1,7 +1,7 @@
 describe NotesController do
 
   before(:each) do
-      @note = FactoryGirl.create(:note)
+    @note = FactoryGirl.create(:note)
     @note.update_attributes( :title => 'New Title')
     @note.update_attributes( :title => 'Newer Title')
   end

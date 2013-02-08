@@ -84,7 +84,7 @@ namespace :deploy do
       ln -s #{shared_path}/log #{latest_release}/log &&
       ln -s #{shared_path}/system #{latest_release}/public/system &&
       ln -s #{shared_path}/pids #{latest_release}/tmp/pids &&
-      ln -sf #{shared_path}/database.yml #{latest_release}/config/database.yml
+      ln -sf #{shared_path}/database.yml #{latest_release}/config/database.yml &&
       ln -sf #{shared_path}/secret.yml #{latest_release}/config/secret.yml
     CMD
 
@@ -108,6 +108,12 @@ namespace :deploy do
   desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
     run "kill -s QUIT `cat /tmp/unicorn.#{application}.pid`;rm -r #{latest_release}/tmp/pids"
+  end
+
+  desc "Stop & start unicorn"
+  task :stopstart, :except => { :no_release => true } do
+    stop
+    start
   end
 
   namespace :rollback do

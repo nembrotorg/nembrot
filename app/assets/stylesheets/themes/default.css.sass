@@ -183,7 +183,6 @@ footer
 .notes-index
   ul
     +column(12)
-    +columns(3)
     li
       font:
         family: $font-family-body
@@ -237,15 +236,25 @@ footer
         margin-top: 0
         text-indent: 0
 
-  nav.tags
+.tags
+  ul
+    +column(12)
     +horizontal-list
-    +place(0, 6, 0)
     li
       a:after
         content: ", "
       &:last-child
         a:after
           content: ""
+.versions
+  ol
+    +column(12)
+    li
+      &:first-child
+        a:before
+          +icon-double-angle-down
+      &:nth-child(n+2)
+        display: none
 
 .notes-map, .tags-map
   #map
@@ -255,7 +264,6 @@ footer
 .tags-index
   ul
     +column(12)
-    +columns(6)
     &.cloud
       +inline-block-list
 
@@ -285,10 +293,14 @@ footer
   h1
     margin: $line-height * 2 0
 
+  .notes-index
+    ul
+      +columns(3)
+
   // This is not good enough:
   // It will affect nested images by nesting
   // them inside #text.
-  .notes-show
+  #note-content
     figure
       +place(0, 9, 3)
       margin-bottom: $line-height
@@ -368,16 +380,16 @@ footer
           right: grid-width(6) + $gutter-width
 
   .tags
-    +place(0, 6, 6)
+    ul
+      +place(0, 6, 6)
 
   .versions
-    +place(0, 6, 6)
-    li
-      &:first-child
-        a:before
-          +icon-double-angle-down
-      &:nth-child(n+2)
-        display: none
+    ol
+      +place(0, 6, 6)
+
+  .tags-index
+    ul
+      +columns(6)
 
   footer
     ul

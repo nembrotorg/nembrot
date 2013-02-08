@@ -1,4 +1,4 @@
-f# Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
+# Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
 
 set :stages, %w(production staging)
 set :default_stage, "staging"

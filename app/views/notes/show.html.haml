@@ -14,7 +14,7 @@
         %aside
           %h4#notice= notice
 
-    = render 'images', :note => @note
+    = render 'images', :images => @note.resources.attached_images
 
     = render 'media', :note => @note
 

@@ -10,7 +10,6 @@ class Note < ActiveRecord::Base
   has_many :resources, :dependent => :destroy
 
   acts_as_taggable_on :tags, :instructions
-  acts_as_gmappable :process_geocoding => false, :check_process => false
 
   has_paper_trail :on => [:update],
                   :meta => {
@@ -92,6 +91,7 @@ class Note < ActiveRecord::Base
       :body => version.body,
       :previous_title => previous.title,
       :previous_body => previous.body,
+      :embeddable_source_url => version.embeddable_source_url,
       :sequence => sequence,
       :external_updated_at => version.external_updated_at,
       :tags => tags

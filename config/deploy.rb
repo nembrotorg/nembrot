@@ -1,4 +1,4 @@
-# Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
+f# Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
 
 set :stages, %w(production staging)
 set :default_stage, "staging"
@@ -85,6 +85,7 @@ namespace :deploy do
       ln -s #{shared_path}/system #{latest_release}/public/system &&
       ln -s #{shared_path}/pids #{latest_release}/tmp/pids &&
       ln -sf #{shared_path}/database.yml #{latest_release}/config/database.yml
+      ln -sf #{shared_path}/secret.yml #{latest_release}/config/secret.yml
     CMD
 
     if fetch(:normalize_asset_timestamps, true)

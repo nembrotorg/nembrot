@@ -86,20 +86,17 @@ module EvernoteHelper
         end
         # cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
         create_or_update_note(cloud_note, note_data, note_content, cloud_note_tags, auth.info.nickname)
-        logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
       end
     end
 
     rescue => error
-      CloudNoteMailer.syncdown_note_failed('evernote', guid, auth.info.nickname, error).deliver
-      logger.info t('notes.sync.update_error', :provider => 'Evernote', :guid => guid)
-      logger.info error.first(20).backtrace.join("\n")
+      sync_error('evernote', guid, auth.info.nickname, error)
   end
 
   def syncdown_resource(resource, auth, oauth_token, note_store)
     file_location = resource.raw_location
     if !File.file?(file_location)
-      resource.update_attribute(:sync_retries, resource.sync_retries + 1)
+      increment_retries(resource)
       cloud_resource_data = note_store.getResourceData(oauth_token, resource.cloud_resource_identifier)
 
       File.open(file_location,"wb") do |file|
@@ -111,10 +108,7 @@ module EvernoteHelper
 
       # We check that the resource has been downloaded correctly, if so we unflag the resource.
       if Digest::MD5.file(file_location).digest == resource.data_hash
-        resource.update_attributes!(
-          :dirty => false,
-          :sync_retries => 0
-        )
+        reset_retries(resource)
       end
     end
   end
@@ -151,43 +145,44 @@ module EvernoteHelper
       :dirty => false
     )
     create_or_update_resources(note, note_data.resources, captions, descriptions)
+    logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => note_data.guid, :title => note.title, :username => username)
     rescue => error
-      CloudNoteMailer.syncdown_note_failed('evernote', note_data.guid, username, error).deliver
-      logger.info t('notes.sync.update_error', :provider => 'Evernote', :guid => note_data.guid)
-      logger.info error.backtrace.first(20).join("\n")
-      cloud_note.update_attribute(:sync_retries, cloud_note.sync_retries + 1)
+      sync_error('evernote', note_data.guid, username, error)
+      increment_retries(cloud_note)
   end
 
   def create_or_update_resources(note, cloud_resources, captions, descriptions)
     # When a note contains both images and downloads, the alt/cap is disrupted
-    cloud_resources.each_with_index do |cloud_resource, index|
-      resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
-      resource.update_attributes!(
-        :note_id => note.id,
-        :mime => cloud_resource.mime,
-        :width => cloud_resource.width,
-        :height => cloud_resource.height,
-        :caption => captions[index] ? captions[index][0] : '',
-        :description => descriptions[index] ? descriptions[index][0] : '',
+    if cloud_resources
+      cloud_resources.each_with_index do |cloud_resource, index|
+        resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
+        resource.update_attributes!(
+          :note_id => note.id,
+          :mime => cloud_resource.mime,
+          :width => cloud_resource.width,
+          :height => cloud_resource.height,
+          :caption => captions[index] ? captions[index][0] : '',
+          :description => descriptions[index] ? descriptions[index][0] : '',
 
-        #Add captions to videos?
-        #Add fx (similarly)
-        #Remove credit - should just go with caption?
-        #:credit => '',
-        :source_url => cloud_resource.attributes.sourceURL,
-        :external_updated_at => cloud_resource.attributes.timestamp,
-        :latitude => cloud_resource.attributes.latitude,
-        :longitude => cloud_resource.attributes.longitude,
-        :altitude => cloud_resource.attributes.altitude,
-        :camera_make => cloud_resource.attributes.cameraMake,
-        :camera_model => cloud_resource.attributes.cameraModel,
-        :local_file_name => make_local_file_name(captions, descriptions, index, cloud_resource),
-        :file_name => cloud_resource.attributes.fileName,
-        :attachment => cloud_resource.attributes.attachment,
-        :data_hash => cloud_resource.data.bodyHash,
-        :dirty => (cloud_resource.data.bodyHash != resource.data_hash),
-        :sync_retries => 0
-      )
+          #Add captions to videos?
+          #Add fx (similarly)
+          #Remove credit - should just go with caption?
+          #:credit => '',
+          :source_url => cloud_resource.attributes.sourceURL,
+          :external_updated_at => cloud_resource.attributes.timestamp,
+          :latitude => cloud_resource.attributes.latitude,
+          :longitude => cloud_resource.attributes.longitude,
+          :altitude => cloud_resource.attributes.altitude,
+          :camera_make => cloud_resource.attributes.cameraMake,
+          :camera_model => cloud_resource.attributes.cameraModel,
+          :local_file_name => make_local_file_name(captions, descriptions, index, cloud_resource),
+          :file_name => cloud_resource.attributes.fileName,
+          :attachment => cloud_resource.attributes.attachment,
+          :data_hash => cloud_resource.data.bodyHash,
+          :dirty => (cloud_resource.data.bodyHash != resource.data_hash),
+          :sync_retries => 0
+        )
+      end
     end
   end
 
@@ -206,20 +201,35 @@ module EvernoteHelper
       local_file_name = local_file_name.parameterize
   end
 
-  def get_note_store(edam_note_store_url)
-    note_store_transport = Thrift::HTTPClientTransport.new(edam_note_store_url)
-    note_store_protocol = Thrift::BinaryProtocol.new(note_store_transport)
-    Evernote::EDAM::NoteStore::NoteStore::Client.new(note_store_protocol)
-  end
-
-  def check_version(user_store)
-    version_ok = user_store.checkVersion("Evernote EDAMTest (Ruby)",
-      Evernote::EDAM::UserStore::EDAM_VERSION_MAJOR,
-      Evernote::EDAM::UserStore::EDAM_VERSION_MINOR
-    )
-    unless version_ok
-      logger.error t('notes.sync.version_not_ok', :provider => 'Evernote', :guid => guid)
-      exit(1)
+  private
+    def get_note_store(edam_note_store_url)
+      note_store_transport = Thrift::HTTPClientTransport.new(edam_note_store_url)
+      note_store_protocol = Thrift::BinaryProtocol.new(note_store_transport)
+      Evernote::EDAM::NoteStore::NoteStore::Client.new(note_store_protocol)
     end
-  end
+
+    def sync_error(provider, guid, username, error)
+      CloudNoteMailer.syncdown_note_failed(provider, guid, username, error).deliver
+      logger.info t('notes.sync.update_error', :provider => provider, :guid => guid)
+      logger.info error.backtrace.join("\n")
+    end
+
+    def increment_retries(record)
+      record.update_attributes(:sync_retries => record.sync_retries + 1)
+    end
+
+    def reset_retries(record)
+      record.update_attributes(:sync_retries => 0, :dirty => 0)
+    end
+
+    def check_version(user_store)
+      version_ok = user_store.checkVersion("Evernote EDAMTest (Ruby)",
+        Evernote::EDAM::UserStore::EDAM_VERSION_MAJOR,
+        Evernote::EDAM::UserStore::EDAM_VERSION_MINOR
+      )
+      unless version_ok
+        logger.error t('notes.sync.version_not_ok', :provider => 'Evernote', :guid => guid)
+        exit(1)
+      end
+    end
 end

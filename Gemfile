@@ -75,7 +75,7 @@ group :test do
 
   # System-dependent gems
   # Linux
-  gem 'rb-inotify'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'libnotify'
 
   # Mac OSX

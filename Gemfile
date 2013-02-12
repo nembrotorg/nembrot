@@ -41,6 +41,7 @@ gem 'wikipedia-client'
 
 group :development do
   gem 'sqlite3'
+  gem 'flog'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rails_best_practices'

@@ -53,7 +53,7 @@ describe Resource do
   end
 
   describe "cut_location should return path to the cut image" do
-    pendfing "Need to add this test"
+    pending "Need to add this test"
     #before {
     #  @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION')
     #}
@@ -61,7 +61,7 @@ describe Resource do
   end
 
   describe "template_location should return path to the cut image" do
-    pendfing "Need to add this test"
+    pending "Need to add this test"
     #before {
     #  @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION')
     #}

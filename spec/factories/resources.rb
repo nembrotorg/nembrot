@@ -12,7 +12,7 @@ FactoryGirl.define do
     longitude Random.rand(50)
     altitude Random.rand(1000)
     file_name { Faker::Lorem.word + '.png' }
-    local_file_name { Faker::Lorem.word }
+    #local_file_name { Faker::Lorem.word }
     sync_retries 0
     note
   end

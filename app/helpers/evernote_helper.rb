@@ -169,13 +169,12 @@ module EvernoteHelper
           #Remove credit - should just go with caption?
           #:credit => '',
           :source_url => cloud_resource.attributes.sourceURL,
-          :external_updated_at => cloud_resource.attributes.timestamp,
+          :external_updated_at => cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
           :latitude => cloud_resource.attributes.latitude,
           :longitude => cloud_resource.attributes.longitude,
           :altitude => cloud_resource.attributes.altitude,
           :camera_make => cloud_resource.attributes.cameraMake,
           :camera_model => cloud_resource.attributes.cameraModel,
-          :local_file_name => make_local_file_name(captions, descriptions, index, cloud_resource),
           :file_name => cloud_resource.attributes.fileName,
           :attachment => cloud_resource.attributes.attachment,
           :data_hash => cloud_resource.data.bodyHash,
@@ -184,21 +183,6 @@ module EvernoteHelper
         )
       end
     end
-  end
-
-  def make_local_file_name(captions, descriptions, index, cloud_resource)
-    if cloud_resource.mime !~ /image/
-      local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
-    elsif captions[index]
-      local_file_name = snippet(captions[index][0], Settings.styling.images.name_length, '')
-    elsif descriptions[index]
-      local_file_name = snippet(descriptions[index][0], Settings.styling.images.name_length, '')
-    elsif cloud_resource.attributes.fileName
-      local_file_name = cloud_resource.attributes.fileName.gsub(/^(.*)\.\w*$/, "\\1")
-    else
-      local_file_name = cloud_resource.guid
-    end
-      local_file_name = local_file_name.parameterize
   end
 
   private

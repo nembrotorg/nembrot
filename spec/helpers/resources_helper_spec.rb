@@ -3,7 +3,7 @@ describe ResourcesHelper do
   describe "cut_image_path" do
     before {
       @note = FactoryGirl.build_stubbed(:note)
-      @resource = FactoryGirl.build_stubbed(:resource, :note => @note)
+      @resource = FactoryGirl.create(:resource, :note => @note)
     }
     it "should use default settings for path to the cut image" do
       cut_image_path( @resource ).should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ Settings.styling.images.effects }.png"

@@ -38,6 +38,37 @@ describe Resource do
   it { should validate_presence_of(:cloud_resource_identifier) }
   it { should validate_uniqueness_of(:cloud_resource_identifier) }
 
+  describe "file_ext should return correct file extension" do
+    before {
+      @resource = FactoryGirl.build_stubbed(:resource, :mime => 'image/png')
+    }
+    its(:file_ext) { should == 'png' }
+  end
+
+  describe "blank_location should return path for blank file of same format" do
+    before {
+      @resource = FactoryGirl.build_stubbed(:resource, :mime => 'image/png')
+    }
+    its(:blank_location) { should == File.join(Rails.root, 'public', 'resources', 'cut', "blank.png") }
+  end
+
+  describe "cut_location should return path to the cut image" do
+    pendfing "Need to add this test"
+    #before {
+    #  @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION')
+    #}
+    #@resource.cut_location(160, 90, 500, 0, 0, 0).should =~ /\/public\/resources\/cut\/image-caption-160-90-500-0-0-0.png/
+  end
+
+  describe "template_location should return path to the cut image" do
+    pendfing "Need to add this test"
+    #before {
+    #  @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION')
+    #}
+    #@resource.cut_location(160, 90, 500, 0, 0, 0).should =~ /\/public\/resources\/cut\/image-caption-160-90-500-0-0-0.png/
+    # @resource.template_location(16, 9).should =~ /\/public\/resources\/templates\/#{ @resource.cloud_resource_identifier }-16-9.png/
+  end  
+
   describe "needs_syncdown scope should contain all dirty resources" do
     before {
       @resource = FactoryGirl.build_stubbed(:resource, :dirty => true, :sync_retries => 0)
@@ -50,5 +81,40 @@ describe Resource do
       @resource = FactoryGirl.build_stubbed(:resource, :dirty => true, :sync_retries => Settings.notes.sync_retries + 1)
     }
     Resource.needs_syncdown.last.should == nil
+  end
+
+  describe "local_file_name is set to file_name if mime type is not image and file_name is available" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'application/pdf', :file_name => 'ORIGINAL FILE NAME' )
+    }
+    its(:local_file_name) { should == 'original-file-name' }
+  end
+
+  describe "local_file_name is set to caption if mime type is image and caption is available" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION' )
+    }
+    its(:local_file_name) { should == 'image-caption' }
+  end
+
+  describe "local_file_name is set to description if mime type is image, caption is nil and description is available" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => nil, :description => 'IMAGE DESCRIPTION' )
+    }
+    its(:local_file_name) { should == 'image-description' }
+  end
+
+  describe "local_file_name is set to file_name if mime type is image, caption is nil, description is nil, and file_name is available" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => nil, :description => nil, :file_name => 'ORIGINAL FILE NAME' )
+    }
+    its(:local_file_name) { should == 'original-file-name' }
+  end
+
+  describe "local_file_name is set to cloud_resource_identifier if mime type is image and all else is nil" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => nil, :description => nil, :file_name => nil )
+    }
+    its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
   end
 end

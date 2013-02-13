@@ -76,4 +76,7 @@ production:
   evernote:
     server: https://www.evernote.com
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    instructions:
+      required: ['__PUBLISH']
+      ignore: ['__IGNORE', '__HOLD']
 

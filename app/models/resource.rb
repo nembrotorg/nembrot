@@ -24,16 +24,15 @@ class Resource < ActiveRecord::Base
   end
 
   def raw_location
-      file_name = self.local_file_name
-      File.join(Rails.root, 'public', 'resources', 'raw', "#{ file_name }.#{ self.file_ext }" )
+      File.join(Rails.root, 'public', 'resources', 'raw', "#{ self.cloud_resource_identifier }.#{ self.file_ext }" )
   end
 
   def cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
-    file_name_out = File.join(Rails.root, 'public', 'resources', 'cut', "#{ self.local_file_name }-#{ aspect_x }-#{ aspect_y }-#{ width }-#{ snap }-#{ gravity }-#{ effects }.#{ self.file_ext }")
+    File.join(Rails.root, 'public', 'resources', 'cut', "#{ self.local_file_name }-#{ aspect_x }-#{ aspect_y }-#{ width }-#{ snap }-#{ gravity }-#{ effects }.#{ self.file_ext }")
   end
 
   def template_location(aspect_x, aspect_y)
-    file_name_template = File.join(Rails.root, 'public', 'resources', 'templates', "#{ self.cloud_resource_identifier }-#{ aspect_x }-#{ aspect_y }.#{ self.file_ext }")
+    File.join(Rails.root, 'public', 'resources', 'templates', "#{ self.cloud_resource_identifier }-#{ aspect_x }-#{ aspect_y }.#{ self.file_ext }")
   end
 
   def blank_location

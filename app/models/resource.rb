@@ -47,11 +47,14 @@ class Resource < ActiveRecord::Base
         local_file_name = snippet(self.caption, Settings.styling.images.name_length, '')
       elsif self.description
         local_file_name = snippet(self.description, Settings.styling.images.name_length, '')
-      elsif self.file_name && self.file_name != ''
+      elsif self.file_name
         local_file_name = File.basename(self.file_name, File.extname(self.file_name))
-      else
+      end
+
+      if local_file_name.nil? || !local_file_name || local_file_name.empty?
         local_file_name = self.cloud_resource_identifier
       end
+
       self.local_file_name = local_file_name.parameterize
     end
 end

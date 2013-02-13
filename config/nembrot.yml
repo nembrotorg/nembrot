@@ -17,7 +17,7 @@ defaults: &defaults
     server: https://sandbox.evernote.com
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
     instructions:
-      required: ['__PUBLISH']
+      required: ['__STAGING']
       ignore: ['__IGNORE', '__HOLD']
   lang:
     rtl_langs: ['ar', 'fa']

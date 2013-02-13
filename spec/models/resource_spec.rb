@@ -111,6 +111,13 @@ describe Resource do
     its(:local_file_name) { should == 'original-file-name' }
   end
 
+  describe "local_file_name is set to cloud_resource_identifier if mime type is image, file_name is empty and all else is nil" do
+    before {
+      @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => nil, :description => nil, :file_name => '' )
+    }
+    its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
+  end
+
   describe "local_file_name is set to cloud_resource_identifier if mime type is image and all else is nil" do
     before {
       @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => nil, :description => nil, :file_name => nil )

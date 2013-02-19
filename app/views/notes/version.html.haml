@@ -9,12 +9,10 @@
   %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
     %header
       %hgroup{ :data => {:title => document_title} }
-        %h1!= Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
-        %h2
-          = link_to "#{ t('notes.item', :id => @note.id) }", note_path(@note)
+        %h1
+          != Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
           %span.version
             #{ t('notes.versions.short', :sequence => @diffed_version.sequence) } (#{ timeago_tag @diffed_version.external_updated_at })
-        %h3= link_to t('notes.title'), notes_path
         %aside
           %h4#notice= notice
 

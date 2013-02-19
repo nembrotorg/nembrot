@@ -1,16 +1,16 @@
-// ******************************
+///////////////////////////////
 //
 // Default theme
 //
-// Over-specific vs ... [etc, find links] 
+// Over-specific vs ... [etc, find links]
 //
-// ******************************
+///////////////////////////////
 
-// ******************************
+///////////////////////////////
 //
 // Functions, Mix-ins
 //
-// ******************************
+///////////////////////////////
 
 =embed-font($font-name, $suffix: '-webfont')
   @font-face
@@ -35,19 +35,26 @@
 =push($offset: 1, $columns: $columns)
   margin-left: $total-width * ($gutter-width + $column-width) * $offset / gridsystem-width($columns) + $total-width * $gutter-width * 0.5 / gridsystem-width($columns)
 
-// ******************************
+///////////////////////////////
 //
-// Embed fonts 
+// Embed fonts
 //
-// ******************************
+///////////////////////////////
 
 +embed-font($headline-font)
 
-// ******************************
+///////////////////////////////
 //
-// Elements 
+// Elements
 //
-// ******************************
+///////////////////////////////
+
+::-moz-selection
+  background: $selected-background-color
+  text-shadow: none
+::selection
+  background: $selected-background-color
+  text-shadow: none
 
 html
   overflow-y: scroll
@@ -97,21 +104,22 @@ li
 
 h1
   margin: $line-height 0
-  line-height: $line-height * 2
+  line-height: $line-height
+  height: $line-height * 2
   color: #cc0000
   font:
     family: $font-family-headline
     weight: normal
-    size: 32px
+    size: 24px
 
 h2, h3, h6
   display: none
 
-// ******************************
+///////////////////////////////
 //
-// Document 
+// Document
 //
-// ******************************
+///////////////////////////////
 
 #main, footer
   width: 90%
@@ -157,11 +165,11 @@ footer
     small
       font-size: $font-size-small
 
-// ******************************
+///////////////////////////////
 //
-// Pages 
+// Pages
 //
-// ******************************
+///////////////////////////////
 
 .bibliography-show
   iframe[src*='books.google']
@@ -203,7 +211,8 @@ footer
     +column(12)
     margin-bottom: $line-height / 2
     figcaption
-      //line-height: $line-height / 2
+      // padding-top: $line-height / 2
+      // line-height: $line-height / 2
     img
       float: left
       clear: both
@@ -212,7 +221,6 @@ footer
     font:
       family: $font-family-body
       size: $font-size-body
-      color: $font-color-body
     p
       +hyphens
       margin: 0
@@ -241,12 +249,14 @@ footer
   ul
     +column(12)
     +horizontal-list
+    margin-bottom: $line-height
     li
       a:after
         content: ", "
       &:last-child
         a:after
           content: ""
+
 .versions
   ol
     +column(12)
@@ -257,7 +267,8 @@ footer
       &:nth-child(n+2)
         display: none
 
-.notes-map, .tags-map
+.notes-map,
+.tags-map
   #map
     +column(12)
     height: $line-height * 20
@@ -283,16 +294,24 @@ footer
     +column(6)
     +columns(3)
 
-// ******************************
+///////////////////////////////
 //
-// Media-queries 
+// Media-queries
 //
-// ******************************
+///////////////////////////////
 
 @media only screen and (min-width: 720px)
 
+  body
+    padding-top: $line-height / 2
+
+  #main,
+  footer
+    margin: 0 auto $line-height auto
+    overflow: hidden
+
   h1
-    margin: $line-height * 2 0
+    margin: $line-height 0
 
   .notes-index
     ul
@@ -336,6 +355,8 @@ footer
       position: relative
       counter-reset: term
       +place(0, 6, 6)
+      margin-bottom: $line-height
+      color: $font-color-body
       p
         position: relative
       span.annotation
@@ -347,9 +368,9 @@ footer
           margin-right: 5px
         span
           +hyphens
-          position: absolute
           +column(3, 6)
           +push(6, 6)
+          position: absolute
           font:
             size: $font-size-small
           color: #c00
@@ -383,6 +404,7 @@ footer
   .tags
     ul
       +place(0, 6, 6)
+      margin-bottom: $line-height
 
   .versions
     ol
@@ -395,15 +417,13 @@ footer
   footer
     ul
       +columns(6)
-      margin: $line-height 0
+      margin-bottom: $line-height
 
 @media only screen and (min-width: 1024px)
 
   #main,
   footer
     width: 1080px
-    margin: 0 auto $line-height auto
-    overflow: hidden
 
 //@media only screen and (min-width: 1200px)
 

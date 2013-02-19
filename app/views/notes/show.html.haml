@@ -9,19 +9,17 @@
       %hgroup{ :data => {:title => document_title} }
         %h1
           = @note.title
-        %h2= t('notes.item', :id => @note.id)
-        %h3= link_to t('notes.title'), notes_path
         %aside
           %h4#notice= notice
 
-    = render 'images', :images => @note.resources.attached_images
+    = render 'images', :images => @note.resources.attached_images unless @note.resources.attached_images.empty?
 
     = render 'media', :note => @note
 
     %section#text
       = bodify(@note.body)
 
-    = render 'downloads', :downloads => @note.resources.attached_files
+    = render 'downloads', :downloads => @note.resources.attached_files unless @note.resources.attached_files.empty?
 
   = render 'tags', :tags => @tags
 

@@ -6,7 +6,7 @@
 
   %body{ :dir => body_dir_attr(I18n.locale.to_s) }
     = render 'chromeframe'
-    = render 'header'
+    -#= render 'header'
 
     #main{ :role => 'main', :data => { "pjax-container" => true } }
       %div{ :class => controller.controller_name + '-' + controller.action_name  }
@@ -18,4 +18,4 @@
 
     -# Javascript at the bottom for fast page loading
     = render 'javascripts'
-    = yield :scripts
+    -#= yield :scripts

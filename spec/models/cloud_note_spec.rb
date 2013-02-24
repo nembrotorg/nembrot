@@ -41,4 +41,12 @@ describe CloudNote do
     }
     CloudNote.needs_syncdown.last.should == nil
   end
+
+  describe "a cloud_note is disincluded from needs_syncdown when max_out method is applied to it" do
+    before {
+      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true)
+      @cloud_note.max_out_sync_retries
+    }
+    CloudNote.needs_syncdown.last.should == nil
+  end
 end

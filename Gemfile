@@ -73,6 +73,7 @@ group :test do
   gem 'spork-rails'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'simplecov', :require => false
 
   # System-dependent gems
   # Linux

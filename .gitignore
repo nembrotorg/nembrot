@@ -24,3 +24,6 @@ secret*
 # Ignore resource files
 /public/resources/*/*.*
 !/public/resources/cut/blank.*
+
+* Ignore coverage
+coverage

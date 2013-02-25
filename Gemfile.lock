@@ -69,6 +69,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     colored (1.2)
+    colorize (0.5.8)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -77,6 +78,12 @@ GEM
       compass
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    coveralls (0.5.6)
+      colorize
+      json
+      rest-client
+      simplecov (>= 0.7)
+      thor
     daemons (1.1.9)
     database_cleaner (0.9.1)
     delayed_job (3.0.5)
@@ -267,6 +274,8 @@ GEM
       json (~> 1.4)
     ref (1.0.2)
     remotipart (1.0.5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.2)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
@@ -363,6 +372,7 @@ DEPENDENCIES
   coffee-rails
   compass-h5bp
   compass-rails
+  coveralls
   database_cleaner
   delayed_job_active_record
   devise

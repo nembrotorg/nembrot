@@ -41,6 +41,8 @@ gem 'rails-timeago'
 gem 'gmaps4rails'
 gem 'wikipedia-client'
 
+gem 'coveralls', require: false
+
 group :development do
   gem 'sqlite3'
   gem 'flog'

@@ -12,11 +12,11 @@
 //
 ///////////////////////////////
 
-=embed-font($font-name, $suffix: '-webfont')
+=embed-font($font-name)
   @font-face
     font-family: $font-name
-    src: font-url('#{$font-name}#{$suffix}.eot')
-    src: font-url('#{$font-name}#{$suffix}.eot?#iefix') format("embedded-opentype"), font-url('#{$font-name}#{$suffix}.woff') format("woff"), font-url('#{$font-name}#{$suffix}.ttf') format("truetype")
+    src: font-url('#{$font-name}.eot')
+    src: font-url('#{$font-name}.eot?#iefix') format("embedded-opentype"), font-url('#{$font-name}.woff') format("woff"), font-url('#{$font-name}.ttf') format("truetype")
     font-weight: normal
     font-style: normal
 
@@ -135,35 +135,41 @@ footer small
   +column(12)
   text-transform: lowercase
   a:before
-    +icon-arrow-right
+    +icon-right-4
     +icon-small
   li:last-child:before
-    +icon-arrow-right
+    +icon-right-4
     +icon-small
 
 footer
   ul
     a:before
-      +icon-arrow-right
+      +icon-right-4
       +icon-small
     a[href*=http]:before
-      +icon-external-link
+      //+icon-external-link
       +icon-regular
     a[href*=mailto]:before
-      +icon-envelope
+      //+icon-envelope
       +icon-regular
     a[href*=facebook]:before
-      +icon-facebook
+      +icon-facebook-1
     a[href*=twitter]:before
-      +icon-twitter
-    //a[href*=youtube]:before
-    //  +icon-youtube
+      +icon-twitter-1
+    a[href*=youtube]:before
+      +icon-youtube-1
+    a[href*=vimeo]:before
+      +icon-vimeo-1
+    a[href*=soundcloud]:before
+      +icon-soundcloud-1
     a[href*=github]:before
-      +icon-github
+      +icon-github-circled-1
     a[href*=googleplus]:before
-      +icon-google-plus
-    small
-      font-size: $font-size-small
+      //+icon-google-plus-1
+  small
+    &:before
+      +icon-cc-by-nc-sa
+      letter-spacing: 0.25em
 
 ///////////////////////////////
 //
@@ -177,7 +183,8 @@ footer
     +place(5, 7, 0)
 
 .home-index
-  figure, ul
+  figure, 
+  ul
     +column(12)
   iframe
     +column(12)
@@ -229,7 +236,7 @@ footer
       &:first-of-type
         text-indent: 0
       a[href*=http]:after
-        +icon-external-link
+        //+icon-external-link
         padding: 0 0 0 0.5em
     h2
       display: block
@@ -263,7 +270,7 @@ footer
     li
       &:first-child
         a:before
-          +icon-double-angle-down
+          +icon-angle-double-down
       &:nth-child(n+2)
         display: none
 
@@ -304,6 +311,7 @@ footer
 
   body
     padding-top: $line-height / 2
+    // background-color: settings('test_color')
 
   #main,
   footer
@@ -322,7 +330,7 @@ footer
   // them inside #text.
   #note-content
     figure
-      +place(0, 9, 3)
+      +place(0, 8, 4)
       margin-bottom: $line-height
       figcaption
         padding-top: $line-height / 2

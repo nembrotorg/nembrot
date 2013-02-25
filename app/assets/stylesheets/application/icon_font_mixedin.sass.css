@@ -1,0 +1,371 @@
+/*  Font Awesome 3.0
+ *    the iconic font designed for use with Twitter Bootstrap
+ *    -------------------------------------------------------
+ *    The full suite of pictographic icons, examples, and documentation
+ *    can be found at: http://fortawesome.github.com/Font-Awesome/
+ *
+ *    License
+ *    -------------------------------------------------------
+ *    • The Font Awesome font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL
+ *    • Font Awesome CSS, LESS, and SASS files are licensed under the MIT License -
+ *      http://opensource.org/licenses/mit-license.html
+ *    • The Font Awesome pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/
+ *    • Attribution is no longer required in Font Awesome 3.0, but much appreciated:
+ *      "Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome"
+ *
+ *    Contact
+ *    -------------------------------------------------------
+ *    Email: dave@davegandy.com
+ *    Twitter: http://twitter.com/fortaweso_me
+ *    Work: Lead Product Designer @ http://kyruus.com
+ */
+
+$fontelloPath:   "fontello" !default
+$borderColor:       #eee !default
+$iconMuted:         #eee !default
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  border-radius: $radius
+
+
+@font-face
+  font-family: 'fontello'
+  src: font-url('#{$fontelloPath}.eot')
+  src: font-url('#{$fontelloPath}.eot?#iefix') format("embedded-opentype"), font-url('#{$fontelloPath}.woff') format("woff"), font-url('#{$fontelloPath}.ttf') format("truetype")
+  font-weight: normal
+  font-style: normal
+
+
+/*  Font Awesome styles
+ *  -------------------------------------------------------
+ * includes sprites.less reset */
+
+=icon
+  font-family: fontello
+  font-weight: normal
+  font-style: normal
+  padding-right: 0.5em
+
+[class^="icon-"], [class*=" icon-"]
+  font-family: fontello
+  font-weight: normal
+  font-style: normal
+  text-decoration: inherit
+  display: inline
+  width: auto
+  height: auto
+  line-height: normal
+  vertical-align: baseline
+  background-image: none !important
+  background-position: 0% 0%
+  background-repeat: repeat
+
+[class^="icon-"], [class*=" icon-"]
+  text-decoration: inherit
+  display: inline-block
+  speak: none
+
+/* makes sure icons active on rollover in links */
+
+a
+  [class^="icon-"], [class*=" icon-"]
+    display: inline-block
+
+/* makes the font 33% larger relative to the icon container */
+
+=icon-large
+  vertical-align: -10%
+  font-size: 1.3333333333333333em
+
+=icon-small
+  vertical-align: 5%
+  font-size: 0.6666666666666666em
+
+/* For resetting: */
+=icon-regular
+  vertical-align: 0
+  font-size: 1em
+
+.btn, .nav
+  [class^="icon-"], [class*=" icon-"]
+    display: inline
+    /* keeps button heights with and without icons the same */
+    line-height: .6em
+    &.icon-spin
+      display: inline-block
+
+li
+  [class^="icon-"], [class*=" icon-"]
+    display: inline-block
+    width: 1.25em
+    text-align: center
+    &.icon-large
+      /* increased font size for icon-large */
+      width: 1.25*1.25em
+
+ul.icons
+  list-style-type: none
+  text-indent: -.75em
+
+  li
+    [class^="icon-"], [class*=" icon-"]
+      width: .75em
+
+=icon-muted
+  color: $iconMuted
+
+// Icon Borders
+// -------------------------
+
+=icon-border
+  border: solid 1px $borderColor
+  padding: .2em .25em .15em
+  @include border-radius(3px)
+
+// Icon Sizes
+// -------------------------
+
+=icon-2x
+  font-size: 2em
+  &.icon-border
+    border-width: 2px
+    @include border-radius(4px)
+
+=icon-3x
+  font-size: 3em
+  &.icon-border
+    border-width: 3px
+    @include border-radius(5px)
+
+=icon-4x
+  font-size: 4em
+  &.icon-border
+    border-width: 4px
+    @include border-radius(6px)
+
+// Floats
+// -------------------------
+
+// Quick floats
+.pull-right
+  float: right
+
+.pull-left
+  float: left
+
+[class^="icon-"], [class*=" icon-"]
+  &.pull-left
+    margin-right: .35em
+  &.pull-right
+    margin-left: .35em
+
+.btn
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .35em
+    &.icon-spin.icon-large
+      height: .75em
+
+.btn.btn-small
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .45em
+
+.btn.btn-large
+  [class^="icon-"], [class*=" icon-"]
+    &.pull-left, &.pull-right
+      &.icon-2x
+        margin-top: .2em
+
+
+=icon-spin
+  display: inline-block
+  -moz-animation: spin 2s infinite linear
+  -o-animation: spin 2s infinite linear
+  -webkit-animation: spin 2s infinite linear
+  animation: spin 2s infinite linear
+
+@-moz-keyframes spin
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(359deg)
+
+@-webkit-keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(359deg)
+
+@-o-keyframes spin
+  0%
+    -o-transform: rotate(0deg)
+  100%
+    -o-transform: rotate(359deg)
+
+@-ms-keyframes spin
+  0%
+    -ms-transform: rotate(0deg)
+  100%
+    -ms-transform: rotate(359deg)
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(359deg)
+
+
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+ *  readers do not read off random characters that represent icons */
+
+
+=icon-wikipedia
+  +icon
+  content: '\2c'
+
+=icon-digg
+  +icon
+  content: '\ea22'
+
+=icon-reddit
+  +icon
+  content: '\3e'
+
+icon-evernote-1
+  +icon
+  content: '\ea29'
+
+=icon-flickr-1
+  +icon
+  content: '\ea2a'
+
+=icon-instapaper
+  +icon
+  content: '\ea2d'
+
+=icon-youtube-1
+  +icon
+  content: '\ea38'
+
+=icon-vimeo-1
+  +icon
+  content: '\ea39'
+
+=icon-soundcloud-1
+  +icon
+  content: '\73'
+icon-left-1
+  +icon
+  content: '\e88f'
+
+=icon-left-4
+  +icon
+  content: '\e9c9'
+
+=icon-right-1
+  +icon
+  content: '\e890'
+
+=icon-right-4
+  +icon
+  content: '\e9ca'
+
+=icon-attention-2
+  +icon
+  content: '\e872'
+
+=icon-ok-1
+  +icon
+  content: '\e853'
+
+=icon-tag-2
+  +icon
+  content: '\e863'
+
+=icon-tags
+  +icon
+  content: '\e70d'
+
+=icon-cc
+  +icon
+  content: '\e7a5'
+
+=icon-cc-by
+  +icon
+  content: '\e83a'
+
+=icon-cc-nc
+  +icon
+  content: '\e7a7'
+
+=icon-cc-nc-eu
+  +icon
+  content: '\e7a8'
+
+=icon-cc-nc-jp
+  +icon
+  content: '\e7a9'
+
+=icon-cc-sa
+  +icon
+  content: '\e7aa'
+
+=icon-cc-share
+  +icon
+  content: '\e7ae'
+
+=icon-cc-remix
+  +icon
+  content: '\e7af'
+
+=icon-right-open-4
+  +icon
+  content: '\f006'
+
+=icon-left-open-4
+  +icon
+  content: '\f007'
+
+=icon-twitter-1
+  +icon
+  content: '\f099'
+
+=icon-facebook-1
+  +icon
+  content: '\f09a'
+
+=icon-github-circled-1
+  +icon
+  content: '\f09b'
+
+=icon-gplus-1
+  +icon
+  content: '\f0d5'
+
+=icon-angle-double-down
+  +icon
+  content: '\f103'
+
+=icon-lastfm
+  +icon
+  content: '\f321'
+
+=icon-spotify
+  +icon
+  content: '\f327'
+
+=icon-user-2
+  +icon
+  content: '\e84b'
+
+=icon-download-1
+  +icon
+  content: '\e868'
+
+=icon-cc-by-nc-sa
+  +icon
+  content: '\e83a\e7a7\e7aa'

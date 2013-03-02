@@ -251,7 +251,7 @@ icon-evernote-1
   +icon
   content: '\ea38'
 
-=icon-vimeo-1
+=icon-vimeo
   +icon
   content: '\ea39'
 
@@ -369,3 +369,15 @@ icon-left-1
 =icon-cc-by-nc-sa
   +icon
   content: '\e83a\e7a7\e7aa'
+
+=icon-mail
+  +icon
+  content: '\2709'
+
+=icon-link-ext
+  +icon
+  content: '\f08e'
+
+=icon-gplus-1
+  +icon
+  content: '\f0d5'

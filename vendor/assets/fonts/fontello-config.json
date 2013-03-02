@@ -3,6 +3,19 @@
   "glyphs": [
     {
       "search": [
+        "google",
+        "plus"
+      ],
+      "code": 43,
+      "uid": "e566d3f1d24f22981f6552d5188e7265",
+      "css": "gplus",
+      "orig_css": "gplus",
+      "orig_code": 43,
+      "src": "zocial",
+      "from": 43
+    },
+    {
+      "search": [
         "wikipedia"
       ],
       "code": 44,
@@ -24,6 +37,18 @@
       "orig_code": 59938,
       "src": "zocial",
       "from": 59
+    },
+    {
+      "search": [
+        "spotify"
+      ],
+      "code": 61,
+      "uid": "e4b799ca3860a8276dba05b11d7e13db",
+      "css": "spotify-1",
+      "orig_css": "spotify",
+      "orig_code": 61,
+      "src": "zocial",
+      "from": 61
     },
     {
       "search": [
@@ -114,19 +139,6 @@
         "arrow",
         "left"
       ],
-      "code": 59535,
-      "from": 8592,
-      "uid": "555ef8c86832e686fef85f7af2eb7cde",
-      "css": "left-1",
-      "orig_css": "left",
-      "orig_code": 59535,
-      "src": "fontawesome"
-    },
-    {
-      "search": [
-        "arrow",
-        "left"
-      ],
       "code": 59849,
       "uid": "c21d309f797d3644dc8d28c4617738ce",
       "css": "left-4",
@@ -134,19 +146,6 @@
       "orig_code": 59849,
       "src": "mfglabs",
       "from": 8592
-    },
-    {
-      "search": [
-        "arrow",
-        "right"
-      ],
-      "code": 59536,
-      "from": 8594,
-      "uid": "ad6b3fbb5324abe71a9c0b6609cbb9f1",
-      "css": "right-1",
-      "orig_css": "right",
-      "orig_code": 59536,
-      "src": "fontawesome"
     },
     {
       "search": [
@@ -163,6 +162,84 @@
     },
     {
       "search": [
+        "pause",
+        "player"
+      ],
+      "code": 9097,
+      "from": 9097,
+      "uid": "0b28050bac9d3facf2f0226db643ece0",
+      "css": "pause",
+      "orig_css": "pause",
+      "orig_code": 9097,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "right",
+        "player"
+      ],
+      "code": 9193,
+      "from": 9193,
+      "uid": "4e511190b60f329d08301eb6869c5130",
+      "css": "fast-fw",
+      "orig_css": "fast-fw",
+      "orig_code": 9193,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "left",
+        "player"
+      ],
+      "code": 9194,
+      "from": 9194,
+      "uid": "b3d902fcead809e3a64c7ddcda497a6c",
+      "css": "fast-bw",
+      "orig_css": "fast-bw",
+      "orig_code": 9194,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "right",
+        "player"
+      ],
+      "code": 9197,
+      "from": 9197,
+      "uid": "c47efa0e3e74f6ba4c2562c1258fff1f",
+      "css": "to-end",
+      "orig_css": "to-end",
+      "orig_code": 9197,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "left",
+        "player"
+      ],
+      "code": 9198,
+      "from": 9198,
+      "uid": "12052b30d23a1a70d6b32962d5464cae",
+      "css": "to-start",
+      "orig_css": "to-start",
+      "orig_code": 9198,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "play",
+        "player"
+      ],
+      "code": 9654,
+      "from": 9654,
+      "uid": "ce06b5805120d0c2f8d60cd3f1a4fdb5",
+      "css": "play",
+      "orig_css": "play",
+      "orig_code": 9654,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
         "attention",
         "warning",
         "alert"
@@ -173,6 +250,19 @@
       "css": "attention-2",
       "orig_css": "attention",
       "orig_code": 59506,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "mail",
+        "email"
+      ],
+      "code": 9993,
+      "from": 9993,
+      "uid": "bf882b30900da12fca090d9796bc3030",
+      "css": "mail",
+      "orig_css": "mail",
+      "orig_code": 9993,
       "src": "fontawesome"
     },
     {
@@ -218,6 +308,31 @@
       "css": "tags",
       "orig_css": "tags",
       "orig_code": 59149,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "resize",
+        "fullscreen"
+      ],
+      "code": 59204,
+      "from": 59204,
+      "uid": "e594fc6e5870b4ab7e49f52571d52577",
+      "css": "resize-full",
+      "orig_css": "resize-full",
+      "orig_code": 59204,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "resize"
+      ],
+      "code": 59206,
+      "from": 59206,
+      "uid": "3c24ee33c9487bbf18796ca6dffa1905",
+      "css": "resize-small",
+      "orig_css": "resize-small",
+      "orig_code": 59206,
       "src": "fontawesome"
     },
     {
@@ -334,29 +449,17 @@
     },
     {
       "search": [
-        "arrow",
-        "right"
+        "link",
+        "url",
+        "external"
       ],
-      "code": 61446,
-      "uid": "37910a1398001a5ccb541cb2a253a2c7",
-      "css": "right-open-4",
-      "orig_css": "right-open",
-      "orig_code": 61446,
-      "src": "mfglabs",
-      "from": 61446
-    },
-    {
-      "search": [
-        "arrow",
-        "left"
-      ],
-      "code": 61447,
-      "uid": "b714be5a812a474811604f700dfc87ce",
-      "css": "left-open-4",
-      "orig_css": "left-open",
-      "orig_code": 61447,
-      "src": "mfglabs",
-      "from": 61447
+      "code": 61582,
+      "uid": "e15f0d620a7897e2035c18c80142f6d9",
+      "css": "link-ext",
+      "orig_css": "link-ext",
+      "orig_code": 61582,
+      "src": "fontawesome",
+      "from": 61582
     },
     {
       "search": [
@@ -422,6 +525,28 @@
     },
     {
       "search": [
+        "vimeo"
+      ],
+      "code": 62223,
+      "meta": {
+        "twitter": "https://twitter.com/puzrin",
+        "github": "https://github.com/puzrin",
+        "author": "Vitaly Puzrin"
+      },
+      "uid": "70cdf244c51630e09038659d1dcbee87",
+      "file": "vimeo",
+      "transform": {
+        "rescale": 0.8,
+        "offset": 0.05
+      },
+      "css": "vimeo",
+      "orig_css": "vimeo",
+      "orig_code": 62223,
+      "src": "brandico",
+      "from": 62223
+    },
+    {
+      "search": [
         "lastfm",
         "social",
         "logo"
@@ -460,6 +585,19 @@
       "css": "user-2",
       "orig_css": "user",
       "orig_code": 59467,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "pin",
+        "pushpin"
+      ],
+      "code": 128204,
+      "from": 128204,
+      "uid": "5b0772e9484a1a11646793a82edd622a",
+      "css": "pin",
+      "orig_css": "pin",
+      "orig_code": 128204,
       "src": "fontawesome"
     },
     {

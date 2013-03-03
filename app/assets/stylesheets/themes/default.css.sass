@@ -89,7 +89,7 @@ img
 
 ins
   text-decoration: none
-  background-color: #ee0
+  background-color: $highlighter-yellow
 
 del
   color: #999
@@ -137,9 +137,27 @@ footer small
   a:before
     +icon-right-4
     +icon-small
-  li:last-child:before
-    +icon-right-4
-    +icon-small
+  li:last-child
+    &:before
+      +icon-right-4
+      +icon-small
+      font-weight: normal
+
+header
+  position: relative
+  #notice
+    position: absolute
+    top: $line-height * 2
+    .success
+      background-color: $highlighter-green
+      &:before
+        +icon-ok-1
+    .error
+      background-color: $highlighter-red
+      color: $black
+      margin: 0
+      &:before
+        +icon-attention-2
 
 footer
   ul
@@ -147,10 +165,10 @@ footer
       +icon-right-4
       +icon-small
     a[href*=http]:before
-      //+icon-external-link
+      +icon-link-ext
       +icon-regular
     a[href*=mailto]:before
-      //+icon-envelope
+      +icon-mail
       +icon-regular
     a[href*=facebook]:before
       +icon-facebook-1
@@ -159,13 +177,15 @@ footer
     a[href*=youtube]:before
       +icon-youtube-1
     a[href*=vimeo]:before
-      +icon-vimeo-1
+      +icon-vimeo
     a[href*=soundcloud]:before
       +icon-soundcloud-1
     a[href*=github]:before
       +icon-github-circled-1
     a[href*=googleplus]:before
-      //+icon-google-plus-1
+      +icon-gplus-1
+    a[href*=spotify]:before
+      +icon-spotify
   small
     &:before
       +icon-cc-by-nc-sa
@@ -242,7 +262,7 @@ footer
       display: block
       font:
         family: $font-family-headline
-        size: 22px
+        size: 18px
       margin: ($line-height * 1.5) 0 0 0
       // If this occurs first it should not have this margin-top
       &+p

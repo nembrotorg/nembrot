@@ -10,7 +10,7 @@
 
     #main{ :role => 'main', :data => { "pjax-container" => true } }
       %div{ :class => controller.controller_name + '-' + controller.action_name  }
-        = render 'flashes'
+        -# = render 'flashes'
         %nav= render_breadcrumbs :builder => ::OrderedListBuilder
         = yield
 

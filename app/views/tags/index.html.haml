@@ -5,10 +5,7 @@
                 :noindex => true
 
 %section
-  %header
-    %hgroup{ :data => {:title => document_title} }
-      %h1= t('tags.title')
-      %aside
-        %h4#notice= notice
+
+  = render 'header', :title => t('tags.title'), :document_title => document_title 
 
   = render 'tags_list', :tags => @tags

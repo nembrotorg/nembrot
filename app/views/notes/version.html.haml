@@ -7,14 +7,8 @@
 
 %article
   %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
-    %header
-      %hgroup{ :data => {:title => document_title} }
-        %h1
-          != Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
-          %span.version
-            #{ t('notes.versions.short', :sequence => @diffed_version.sequence) } (#{ timeago_tag @diffed_version.external_updated_at })
-        %aside
-          %h4#notice= notice
+
+    = render 'header', :title => "#{ Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title) } #{ t('notes.versions.short', :sequence => @diffed_version.sequence) }", :document_title => document_title
 
     = render 'media', :note => @diffed_version
 

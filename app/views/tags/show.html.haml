@@ -4,11 +4,8 @@
                 :open_graph => { :title => document_title }
 
 %section
-  %header
-    %hgroup{ :data => {:title => document_title} }
-      %h1= t('tags.item', :name => @tag.name)
-      %aside
-        %h4#notice= notice
+
+  = render 'header', :title => t('tags.item', :name => @tag.name), :document_title => document_title 
 
   = render 'notes_list', :notes => @notes
 

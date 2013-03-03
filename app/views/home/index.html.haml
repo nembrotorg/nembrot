@@ -6,9 +6,8 @@
 - if @notes.first
 
   %article
-    %header
-      %hgroup{ :data => {:title => document_title} }
-        %h1= link_to @notes.first.title, @notes.first
+
+    = render 'header', :title => t('site.title'), :document_title => document_title 
 
     -#= render 'images', :note => @notes.first
     - image = @notes.first.resources.first

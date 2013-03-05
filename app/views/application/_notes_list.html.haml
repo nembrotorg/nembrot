@@ -3,11 +3,10 @@
     -# Get effect for note
     - image = note.resources.first
     - if image
-      = link_to image_tag(cut_image_path(image), :alt => strip_tags(image.description), :width => Settings.styling.images.thumbnail.width), note,
-        :lang => lang_attr(note.lang),
-        :dir => dir_attr(note.lang)
+      = link_to image_tag(cut_image_path(image), :alt => strip_tags(image.description), :width => Settings.styling.images.thumbnail.width), note, 
+        :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)
+      = link_to snippet(note.blurb, Settings.notes.blurb_length), note,
+        :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)
     - else
-      = link_to_unless_current snippet( note.blurb, Settings.notes.blurb_length ),
-        note,
-        :lang => lang_attr(note.lang),
-        :dir => dir_attr(note.lang)
+      = link_to snippet(note.blurb, Settings.notes.blurb_length), note,
+        :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)

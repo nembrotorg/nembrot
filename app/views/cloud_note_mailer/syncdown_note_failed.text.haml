@@ -4,10 +4,9 @@
 
 =t('notes.sync.failed.email.body', :provider => @provider, :guid => @guid, :username => @username)
 
+#{ Settings.evernote.server }/Home.action#st=p&n=#{ @guid }
 
-= @error.class
-= @error.message
-= @error.backtrace.first(20).join("\n")
+= @error
 
 =t('email.signature')
 =@host

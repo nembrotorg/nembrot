@@ -16,8 +16,9 @@ defaults: &defaults
   evernote:
     server: https://sandbox.evernote.com
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
     instructions:
-      required: ['__STAGING']
+      required: ['__PUBLISH']
       ignore: ['__IGNORE', '__HOLD']
   lang:
     rtl_langs: ['ar', 'fa']
@@ -37,6 +38,7 @@ defaults: &defaults
     tags: ['A Typology of Philistinism', 'Nimrod', 'Wutz']
     enface: [['Wutz', 'de', 'en'], ['Wutz RC1', 'de', 'en']]
   styling:
+    test_color: #666
     css_for_instructions: ['__FX_POL']
     line_height: 30
     images:
@@ -45,7 +47,7 @@ defaults: &defaults
       gravity: 0
       effects: tri
       standard:
-        width: 780
+        width: 690
         aspect:
           x: 16
           y: 9

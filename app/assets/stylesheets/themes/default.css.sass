@@ -68,7 +68,6 @@ body, small
 article[dir=rtl]
   text-align: right
   float: right
-  background-color: yellow
 
 a
   text-decoration: none
@@ -77,6 +76,12 @@ a
     color: $link-hover-color
   &[dir=rtl]
     text-align: right
+  &:focus
+    outline: 0
+  &[href*=pdf]
+    color: $link-hover-color
+    &:before
+      +icon-download-1
 
 iframe
   border: 0
@@ -92,7 +97,7 @@ ins
   background-color: $highlighter-yellow
 
 del
-  color: #999
+  text-decoration: strike-through
 
 ol, ul
   +no-bullets
@@ -105,8 +110,7 @@ li
 h1
   margin: $line-height 0
   line-height: $line-height
-  height: $line-height * 2
-  color: #cc0000
+  color: $title-color
   font:
     family: $font-family-headline
     weight: normal
@@ -146,8 +150,6 @@ footer small
 header
   position: relative
   #notice
-    position: absolute
-    top: $line-height * 2
     .success
       background-color: $highlighter-green
       &:before
@@ -161,6 +163,7 @@ header
 
 footer
   ul
+    +columns(2)
     a:before
       +icon-right-4
       +icon-small
@@ -186,6 +189,9 @@ footer
       +icon-gplus-1
     a[href*=spotify]:before
       +icon-spotify
+    a[href*=rss]:before
+      +icon-rss
+      +icon-regular
   small
     &:before
       +icon-cc-by-nc-sa
@@ -216,22 +222,18 @@ footer
     &[src*='soundcloud.com%2Fplaylist']
       height: $line-height * 15
 
-.notes-index
-  ul
-    +column(12)
-    li
-      font:
-        family: $font-family-body
-        size: $font-size-body
-      color: $font-color-body
-      margin-bottom: $line-height
-      display: block
-      height: $line-height * 6
-      +hyphens
-      a
-        +column-break-inside(avoid)
-        img:hover
-          +fade(0.5)
+ul.notes
+  +column(12)
+  li
+    font:
+      family: $font-family-body
+      size: $font-size-body
+    color: $font-color-body
+    margin-bottom: $line-height
+    display: block
+    +column-break-inside(avoid)
+    a:first-line
+      color: $title-color
 
 .notes-show
   figure
@@ -244,33 +246,38 @@ footer
       float: left
       clear: both
 
-  #text
-    font:
-      family: $font-family-body
-      size: $font-size-body
-    p
-      +hyphens
-      margin: 0
-      text-indent: $line-height
-      text-align: justify
-      &:first-of-type
-        text-indent: 0
-      a[href*=http]:after
-        //+icon-external-link
-        padding: 0 0 0 0.5em
-    h2
+.notes-version
+  .versions
+    li:nth-child(n+2)
       display: block
-      font:
-        family: $font-family-headline
-        size: 18px
-      margin: ($line-height * 1.5) 0 0 0
-      // If this occurs first it should not have this margin-top
-      &+p
-        margin-top: ($line-height / 2)
-        text-indent: 0
-      &+p:first-of-type
-        margin-top: 0
-        text-indent: 0
+
+#text
+  font:
+    family: $font-family-body
+    size: $font-size-body
+  p
+    +hyphens
+    margin: 0
+    text-indent: $line-height
+    text-align: justify
+    &:first-of-type
+      text-indent: 0
+    a[href*=http]:after
+      //+icon-external-link
+      padding: 0 0 0 0.5em
+  h2
+    display: block
+    font:
+      family: $font-family-headline
+      size: 18px
+    margin: ($line-height * 1.5) 0 0 0
+    // If this occurs first it should not have this margin-top
+    &+p
+      margin-top: ($line-height / 2)
+      text-indent: 0
+    &+p:first-of-type
+      margin-top: 0
+      text-indent: 0
 
 .tags
   ul
@@ -308,15 +315,8 @@ footer
 
 .tags-show
   ul.notes
-    +place(0, 5, 1)
-    a
-      +column-break-inside(avoid)
-      display: block
-      margin-bottom: $line-height
-      img
-        width: 400px
-        margin: 0
-        #width: $column-width * 3 + $gutter-width * 2
+    +place(0, 6, 0)
+
   ul.tags
     +column(6)
     +columns(3)
@@ -338,12 +338,29 @@ footer
     margin: 0 auto $line-height auto
     overflow: hidden
 
+  header
+    position: relative
+    #notice
+      position: absolute
+      top: $line-height * 2
+
   h1
     margin: $line-height 0
+    height: $line-height * 2
 
   .notes-index
-    ul
-      +columns(3)
+    ul.notes
+      +columns(2)
+
+  ul.notes
+    li
+      position: relative
+      a
+        padding-right: 33%
+      img
+        position: absolute
+        width: 20%
+        right: 10%
 
   // This is not good enough:
   // It will affect nested images by nesting

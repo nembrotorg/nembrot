@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @tag }
+      format.json { render :json => @notes }
     end
   end
 end

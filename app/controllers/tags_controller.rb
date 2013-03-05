@@ -29,7 +29,10 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @tag }
+      format.json { render :json => @notes }
     end
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Tag: #{ params[:slug] } does not exist."
+      redirect_to tags_path
   end
 end

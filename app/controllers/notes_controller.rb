@@ -24,6 +24,9 @@ class NotesController < ApplicationController
       format.html
       format.json { render :json => @note }
     end
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Note #{ params[:id] } is not available."
+      redirect_to notes_path
   end
 
   def version
@@ -37,5 +40,8 @@ class NotesController < ApplicationController
       format.html
       format.json { render :json => @diffed_version }
     end
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Note #{ params[:id] } v#{ params[:sequence] } is not available."
+      redirect_to note_path(@note)
   end
 end

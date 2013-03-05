@@ -8,8 +8,6 @@ gem 'unicorn'
 gem 'devise'
 gem 'rails_admin'
 
-gem 'delayed_job_active_record'
-
 gem 'attr_encrypted'
 gem 'friendly_id',          '~> 4.0.1'
 gem 'acts-as-taggable-on',  '~> 2.3.3'

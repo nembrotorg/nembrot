@@ -253,7 +253,7 @@ icon-evernote-1
 
 =icon-vimeo
   +icon
-  content: '\ea39'
+  content: '\f30f'
 
 =icon-soundcloud-1
   +icon
@@ -368,7 +368,7 @@ icon-left-1
 
 =icon-cc-by-nc-sa
   +icon
-  content: '\e83a\e7a7\e7aa'
+  content: '\e7a5\e83a\e7a7\e7aa'
 
 =icon-mail
   +icon
@@ -381,3 +381,11 @@ icon-left-1
 =icon-gplus-1
   +icon
   content: '\f0d5'
+
+=icon-rss
+  +icon
+  content: '\f09e'
+
+=icon-rss-alt
+  +icon
+  content: '\e73b'

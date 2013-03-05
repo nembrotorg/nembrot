@@ -112,18 +112,6 @@
     },
     {
       "search": [
-        "vimeo"
-      ],
-      "code": 59961,
-      "uid": "e47352cd4c5e069288b29a2c9ab9d305",
-      "css": "vimeo-1",
-      "orig_css": "vimeo",
-      "orig_code": 59961,
-      "src": "zocial",
-      "from": 86
-    },
-    {
-      "search": [
         "soundcloud"
       ],
       "code": 115,
@@ -312,6 +300,19 @@
     },
     {
       "search": [
+        "rss"
+      ],
+      "code": 59195,
+      "uid": "d6a9fe8ceb1a852d925452694691a41d",
+      "file": "rss",
+      "css": "rss-alt",
+      "orig_css": "rss-alt",
+      "orig_code": 59195,
+      "src": "iconic",
+      "from": 59195
+    },
+    {
+      "search": [
         "resize",
         "fullscreen"
       ],
@@ -496,6 +497,18 @@
       "orig_code": 61595,
       "src": "fontawesome",
       "from": 61595
+    },
+    {
+      "search": [
+        "rss"
+      ],
+      "code": 61598,
+      "uid": "72b1277834cba5b7944b0a6cac7ddb0d",
+      "css": "rss",
+      "orig_css": "rss",
+      "orig_code": 61598,
+      "src": "fontawesome",
+      "from": 61598
     },
     {
       "search": [

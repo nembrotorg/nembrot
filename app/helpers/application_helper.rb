@@ -21,6 +21,7 @@ module ApplicationHelper
 
   def snippet(text, characters, omission = '...')
     text = ActionController::Base.helpers.strip_tags(text)
+    text = text.gsub(/\[.+\]/, '')
     text = ActionController::Base.helpers.truncate(text, :length => characters, :separator => ' ', :omission => omission)
   end
 

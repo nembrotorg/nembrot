@@ -9,6 +9,7 @@ class Resource < ActiveRecord::Base
   belongs_to :note
 
   scope :needs_syncdown, where("dirty = ? AND sync_retries <= ?", true, Settings.notes.sync_retries).order('updated_at')
+  scope :maxed_out, where("sync_retries > ?", Settings.notes.sync_retries).order('updated_at')
   scope :attached_images, where("mime LIKE 'image%'").where( :attachment => nil)
   scope :attached_files, where(:mime => 'application/pdf')
 
@@ -37,6 +38,15 @@ class Resource < ActiveRecord::Base
 
   def blank_location
     File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ self.file_ext }")
+  end
+
+  def increment_sync_retries
+    self.increment!(:sync_retries)
+  end
+
+  def max_out_sync_retries
+    self.sync_retries = Settings.notes.sync_retries + 1
+    self.save
   end
 
   private

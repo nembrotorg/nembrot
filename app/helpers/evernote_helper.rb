@@ -11,22 +11,22 @@ module EvernoteHelper
   def add_evernote_task(guid, run_tasks)
     cloud_service = CloudService.where( :name => 'evernote' ).first_or_create
     cloud_note = CloudNote.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id).first_or_create
-    cloud_note.update_attribute( :dirty, true )
-    cloud_note.update_attribute( :sync_retries, 0 )
+    cloud_note.update_attributes( :dirty => true , :sync_retries => 0 )
+    # Do sync history?
     # To do the actual updates asynchronously, comment out the following line
     # and add a cron job for EvernoteHelper.run_evernote_tasks.
     if run_tasks
-      run_evernote_tasks(cloud_service)
+      run_evernote_tasks(cloud_service, guid)
     end
     'OK'
   end
 
-  def run_evernote_tasks(cloud_service)
+  def run_evernote_tasks(cloud_service, guid)
     auth = cloud_service.auth
 
     if !auth || auth.empty?
       CloudServiceMailer.auth_not_found('evernote').deliver
-      logger.error t('notes.sync.rejected.not_authenticated', :provider => 'Evernote', :guid => '')
+      logger.error t('notes.sync.rejected.not_authenticated', :provider => 'Evernote', :guid => guid)
     else
       edam_note_store_url = auth.extra.access_token.params[:edam_noteStoreUrl]
       oauth_token = auth.extra.access_token.params[:oauth_token]
@@ -46,20 +46,22 @@ module EvernoteHelper
 
   def syncdown_note(cloud_service, guid, auth, oauth_token, note_store)
 
+    cloud_note = CloudNote.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id).first_or_create
     note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
-    cloud_note = CloudNote.where(:cloud_note_identifier => note_metadata.guid, :cloud_service_id => cloud_service.id).first_or_create
     required_notebooks = Settings.evernote.notebooks
     required_tags = Settings.evernote.instructions.required
     ignore_instructions = Settings.evernote.instructions.ignore
 
+    error_details = { :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname }
+    
     if !required_notebooks.include?(note_metadata.notebookGuid)
       cloud_note.destroy
-      logger.info t('notes.sync.rejected.not_in_notebook', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+      logger.info t('notes.sync.rejected.not_in_notebook', error_details)
     elsif !note_metadata.active
       # Don't destroy just set active to false so that versions are not lost immediately
       cloud_note.destroy
-      logger.info t('notes.sync.rejected.deleted_note', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+      logger.info t('notes.sync.rejected.deleted_note', error_details)
     else
       note = Note.where(:id => cloud_note.note_id).first
       cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid)
@@ -67,11 +69,11 @@ module EvernoteHelper
       if (required_tags & cloud_note_tags) != required_tags
         # Don't destroy just set active to false so that versions are not lost immediately
         cloud_note.destroy
-        logger.info t('notes.sync.rejected.tag_missing', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+        logger.info t('notes.sync.rejected.tag_missing', error_details)
       elsif !(ignore_instructions & cloud_note_tags).empty?
-        logger.info t('notes.sync.rejected.ignore', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+        logger.info t('notes.sync.rejected.ignore', error_details)
       elsif note && note.external_updated_at >= Time.at(note_metadata.updated / 1000).to_datetime
-        logger.info t('notes.sync.rejected.not_latest', :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => auth.info.nickname)
+        logger.info t('notes.sync.rejected.not_latest', error_details)
       else
         if note_metadata.contentHash == cloud_note.content_hash
           # Content hasn't changed so no need to fetch.
@@ -89,14 +91,25 @@ module EvernoteHelper
       end
     end
 
-    rescue => error
-      sync_error('evernote', guid, auth.info.nickname, error)
+    rescue Evernote::EDAM::Error::EDAMUserException => error
+      cloud_note.max_out_sync_retries
+      sync_error('evernote', guid, auth.info.nickname, "User Exception: #{ Settings.evernote.errors[error.errorCode] } (#{ error.parameter }).")
+
+    rescue Evernote::EDAM::Error::EDAMNotFoundException => error
+      cloud_note.max_out_sync_retries
+      sync_error('evernote', guid, auth.info.nickname, "Not Found Exception: #{ error.identifier }: #{ error.key }.")
+
+    rescue Evernote::EDAM::Error::EDAMSystemException
+      sync_error('evernote', guid, auth.info.nickname, "User Exception: error #{ error.errorCode }: #{ error.message }.")
+
   end
 
   def syncdown_resource(resource, auth, oauth_token, note_store)
     file_location = resource.raw_location
     if !File.file?(file_location)
-      increment_retries(resource)
+      resource.increment_sync_retries
+
+      # We can also use curl to download file
       cloud_resource_data = note_store.getResourceData(oauth_token, resource.cloud_resource_identifier)
 
       File.open(file_location,"wb") do |file|
@@ -108,7 +121,7 @@ module EvernoteHelper
 
       # We check that the resource has been downloaded correctly, if so we unflag the resource.
       if Digest::MD5.file(file_location).digest == resource.data_hash
-        reset_retries(resource)
+        resource.increment_sync_retries
       end
     end
   end
@@ -148,44 +161,44 @@ module EvernoteHelper
     logger.info t('notes.sync.updated', :provider => 'Evernote', :guid => note_data.guid, :title => note.title, :username => username)
     rescue => error
       sync_error('evernote', note_data.guid, username, error)
-      increment_retries(cloud_note)
-  end
-
-  def create_or_update_resources(note, cloud_resources, captions, descriptions)
-    # When a note contains both images and downloads, the alt/cap is disrupted
-    if cloud_resources
-      cloud_resources.each_with_index do |cloud_resource, index|
-        resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
-        resource.update_attributes!(
-          :note_id => note.id,
-          :mime => cloud_resource.mime,
-          :width => cloud_resource.width,
-          :height => cloud_resource.height,
-          :caption => captions[index] ? captions[index][0] : '',
-          :description => descriptions[index] ? descriptions[index][0] : '',
-
-          #Add captions to videos?
-          #Add fx (similarly)
-          #Remove credit - should just go with caption?
-          #:credit => '',
-          :source_url => cloud_resource.attributes.sourceURL,
-          :external_updated_at => cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
-          :latitude => cloud_resource.attributes.latitude,
-          :longitude => cloud_resource.attributes.longitude,
-          :altitude => cloud_resource.attributes.altitude,
-          :camera_make => cloud_resource.attributes.cameraMake,
-          :camera_model => cloud_resource.attributes.cameraModel,
-          :file_name => cloud_resource.attributes.fileName,
-          :attachment => cloud_resource.attributes.attachment,
-          :data_hash => cloud_resource.data.bodyHash,
-          :dirty => (cloud_resource.data.bodyHash != resource.data_hash),
-          :sync_retries => 0
-        )
-      end
-    end
+      cloud_note.increment_sync_retries
   end
 
   private
+    def create_or_update_resources(note, cloud_resources, captions, descriptions)
+      # When a note contains both images and downloads, the alt/cap is disrupted
+      if cloud_resources
+        cloud_resources.each_with_index do |cloud_resource, index|
+          resource = Resource.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
+          resource.update_attributes!(
+            :note_id => note.id,
+            :mime => cloud_resource.mime,
+            :width => cloud_resource.width,
+            :height => cloud_resource.height,
+            :caption => captions[index] ? captions[index][0] : '',
+            :description => descriptions[index] ? descriptions[index][0] : '',
+
+            #Add captions to videos?
+            #Add fx (similarly)
+            #Remove credit - should just go with caption?
+            #:credit => '',
+            :source_url => cloud_resource.attributes.sourceURL,
+            :external_updated_at => cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
+            :latitude => cloud_resource.attributes.latitude,
+            :longitude => cloud_resource.attributes.longitude,
+            :altitude => cloud_resource.attributes.altitude,
+            :camera_make => cloud_resource.attributes.cameraMake,
+            :camera_model => cloud_resource.attributes.cameraModel,
+            :file_name => cloud_resource.attributes.fileName,
+            :attachment => cloud_resource.attributes.attachment,
+            :data_hash => cloud_resource.data.bodyHash,
+            :dirty => (cloud_resource.data.bodyHash != resource.data_hash),
+            :sync_retries => 0
+          )
+        end
+      end
+    end
+
     def get_note_store(edam_note_store_url)
       note_store_transport = Thrift::HTTPClientTransport.new(edam_note_store_url)
       note_store_protocol = Thrift::BinaryProtocol.new(note_store_transport)
@@ -193,9 +206,9 @@ module EvernoteHelper
     end
 
     def sync_error(provider, guid, username, error)
-      CloudNoteMailer.syncdown_note_failed(provider, guid, username, error).deliver
-      logger.info t('notes.sync.update_error', :provider => provider, :guid => guid)
-      logger.info error.backtrace.join("\n")
+      # CloudNoteMailer.syncdown_note_failed(provider, guid, username, error).deliver
+      logger.info t('notes.sync.update_error', :provider => provider.titlecase, :guid => guid)
+      logger.info error
     end
 
     def increment_retries(record)

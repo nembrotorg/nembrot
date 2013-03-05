@@ -48,32 +48,27 @@ class Note < ActiveRecord::Base
     if sequence == 1
       # If retrieveing the first version, we create an empty version object and an empty array
       # to enable to diff against them
-      version = self.versions.find_by_sequence(1).reify
+      version = self.versions.first.reify
       previous = OpenStruct.new({
         :title => '',
-        :body => ''
+        :body => '',
+        :tags => Array.new
       })
-      version_tags = version.version.tags
-      previous_tags = Array.new
-    elsif sequence == self.versions.length + 1
+    elsif sequence == self.versions.size + 1
       # If we're requesting the latest (current) version, we select the current note as the
       # version, and the last stored version as previous
       version = self
       previous = self.versions.last.reify
-      version_tags = self.tags
-      previous_tags = previous.version.tags
     else
       version = self.versions.find_by_sequence(sequence).reify
       previous = version.previous_version
-      version_tags = version.version.tags
-      previous_tags = previous.version.tags
     end
 
     # We calculate the difference between current and previous tag lists,
     # and set diff_status accordingly so we can mark up list in view
-    added_tags = (version_tags - previous_tags).each { |tag| tag.diff_status = 1 }
-    removed_tags = (previous_tags - version_tags).each { |tag| tag.diff_status = -1 }
-    unchanged_tags = (version_tags - added_tags - removed_tags)
+    added_tags = (version.tags - previous.tags).each { |tag| tag.diff_status = 1 }
+    removed_tags = (previous.tags - version.tags).each { |tag| tag.diff_status = -1 }
+    unchanged_tags = (version.tags - added_tags - removed_tags)
     tags = (added_tags + removed_tags + unchanged_tags)
 
     # We check whether tags are still in use and set obsolete accordingly
@@ -113,6 +108,8 @@ class Note < ActiveRecord::Base
       # of the headline at the time.
       if I18n.t('notes.untitled_synonyms').include? self.title
         self.title = snippet( self.body, Settings.notes.title_length )
+        # TODO: option
+        # self.title = "Note #{ self.id }"
       end
     end
 
@@ -129,6 +126,6 @@ class Note < ActiveRecord::Base
 
     def fx
       fx = self.instruction_list.keep_if {|i| i =~ /__FX_/}.join('_').gsub(/__FX_/, '').downcase
-      return fx == ''? nil : fx
+      fx == '' ? nil : fx
     end
 end

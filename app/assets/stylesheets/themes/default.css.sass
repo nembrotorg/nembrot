@@ -114,7 +114,7 @@ h1
   font:
     family: $font-family-headline
     weight: normal
-    size: 24px
+    size: $font-size-headline
 
 h2, h3, h6
   display: none
@@ -192,10 +192,9 @@ footer
     a[href*=rss]:before
       +icon-rss
       +icon-regular
-  small
-    &:before
-      +icon-cc-by-nc-sa
-      letter-spacing: 0.25em
+  small:before
+    +icon-cc-by-nc-sa
+    letter-spacing: 0.25em
 
 ///////////////////////////////
 //
@@ -205,12 +204,11 @@ footer
 
 .bibliography-show
   iframe[src*='books.google']
-    height: $line-height * 20
     +place(5, 7, 0)
+    height: $line-height * 20
 
 .home-index
-  figure, 
-  ul
+  figure, ul
     +column(12)
   iframe
     +column(12)
@@ -270,7 +268,7 @@ ul.notes
     font:
       family: $font-family-headline
       size: 18px
-    margin: ($line-height * 1.5) 0 0 0
+    margin: $line-height 0 0 0
     // If this occurs first it should not have this margin-top
     &+p
       margin-top: ($line-height / 2)
@@ -310,16 +308,17 @@ ul.notes
 .tags-index
   ul
     +column(12)
+    +columns(2)
     &.cloud
       +inline-block-list
 
 .tags-show
   ul.notes
-    +place(0, 6, 0)
+    +column(12)
 
   ul.tags
-    +column(6)
-    +columns(3)
+    +column(12)
+    +columns(2)
 
 ///////////////////////////////
 //
@@ -331,7 +330,6 @@ ul.notes
 
   body
     padding-top: $line-height / 2
-    // background-color: settings('test_color')
 
   #main,
   footer
@@ -352,16 +350,6 @@ ul.notes
     ul.notes
       +columns(2)
 
-  ul.notes
-    li
-      position: relative
-      a
-        padding-right: 33%
-      img
-        position: absolute
-        width: 20%
-        right: 10%
-
   // This is not good enough:
   // It will affect nested images by nesting
   // them inside #text.
@@ -377,17 +365,14 @@ ul.notes
     .map_container
       position: relative
       #map
-        +column(4)
-        +push(6)
-        background-color: #ccc
-        color: #666
+        +place(6, 4, 2)
+        background-color: $light-gray
+        color: $gray
         position: absolute
         height: $line-height * 6
 
     iframe
-      +column(9)
-      +push(0)
-      +pull(3)
+      +place(0, 9, 3)
       &[src*='vimeo'],
       &[src*='youtube']
         height: $line-height * 16
@@ -439,12 +424,12 @@ ul.notes
   [dir=ltr]
     section#note-content[dir=rtl]
       #text
-        +column(6)
-        +push(6)
-        +pull(0)
+        +place(6, 6, 0)
       .map_container
         #map
           right: grid-width(6) + $gutter-width
+      figure
+        +place(4, 8, 0)
 
   .tags
     ul
@@ -457,11 +442,19 @@ ul.notes
 
   .tags-index
     ul
-      +columns(6)
+      +columns(4)
+
+  .tags-show
+    ul.notes
+      +column(6)
+
+    ul.tags
+      +column(6)
+      +columns(2)
 
   footer
     ul
-      +columns(6)
+      +columns(4)
       margin-bottom: $line-height
 
 @media only screen and (min-width: 1024px)
@@ -469,6 +462,29 @@ ul.notes
   #main,
   footer
     width: 1080px
+
+  ul.notes
+    li
+      position: relative
+      height: $line-height * 3
+      a
+        padding-right: 33%
+      img
+        position: absolute
+        width: 28%
+        right: 2%
+
+  .tags-index
+    ul
+      +columns(6)
+
+  .tags-show
+    ul.tags
+      +columns(3)
+
+  footer
+    ul
+      +columns(6)
 
 //@media only screen and (min-width: 1200px)
 

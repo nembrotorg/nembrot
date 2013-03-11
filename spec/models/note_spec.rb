@@ -87,6 +87,14 @@ describe Note do
     Note.tagged_with("tag4").last.should == @note
   end
 
+  #describe "accepts special characters in tags" do
+  #  before { 
+  #    @note.tag_list = "Žižek, Café, 井戸端"
+  #    @note.save
+  #  }
+  #  its (:tag_list) { should == ["Žižek", "Café", "井戸端"] }
+  #end
+
   #describe "saves versions on every update", :versioning => true do
   #  before {
   #    @note.update_attributes( :title => "New Title" )

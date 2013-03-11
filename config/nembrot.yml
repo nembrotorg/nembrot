@@ -16,6 +16,8 @@ defaults: &defaults
   evernote:
     server: https://sandbox.evernote.com
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    stream_binaries: false
+    synchronous: false
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
     instructions:
       required: ['__PUBLISH']
@@ -27,10 +29,13 @@ defaults: &defaults
       required: ['__HOME']
   notes:
     title_length: 40
-    blurb_length: 150
+    blurb_length: 125
+    wtf_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt']
     sync_retries: 3
+    index:
+      page_size: 30
   tags:
     index:
       style: false
@@ -78,6 +83,8 @@ production:
   evernote:
     server: https://www.evernote.com
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    stream_binaries: false
+    synchronous: true
     instructions:
       required: ['__PUBLISH']
       ignore: ['__IGNORE', '__HOLD']

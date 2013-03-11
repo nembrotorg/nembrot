@@ -58,4 +58,30 @@ describe CloudNote do
     }
     CloudNote.needs_syncdown.last.should == nil
   end
+
+  describe "run_evernote_tasks should syncdown pending notes" do
+    before {
+    }
+    it "should de-activate a note that is not in a required notebook" do
+      # xxx
+    end
+    it "should de-activate a note that has been deleted in the cloud notebook" do
+      # xxx
+    end
+    it "should de-activate a note not tagged with __PUBLISH (or synonyms)" do
+      # xxx
+    end
+    it "should not update a note tagged with __IGNORE (or synonyms)" do
+      # xxx
+    end
+    it "should not request full data if content hash has not changed" do
+      # xxx
+    end
+    it "should request full data if content hash has changed" do
+      # xxx
+    end
+    it "should syncdown resource if it has changed" do
+      # xxx
+    end
+  end
 end

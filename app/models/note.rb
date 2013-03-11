@@ -128,4 +128,23 @@ class Note < ActiveRecord::Base
       fx = self.instruction_list.keep_if {|i| i =~ /__FX_/}.join('_').gsub(/__FX_/, '').downcase
       fx == '' ? nil : fx
     end
+
+    def update_with_evernote(note_content, note_data, cloud_note_tags)
+      self.update_attributes!(
+        :title => note_data.title,
+        :body => note_data.content.gsub(/^.*[cap|alt|description]:.*$/i, ''),
+        :lang => (ActionController::Base.helpers.strip_tags("#{ note_data.title } #{ note_content }"[0..Settings.notes.wtf_sample_length])).lang,
+        :latitude => note_data.attributes.latitude,
+        :longitude => note_data.attributes.longitude,
+        :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
+        :author => note_data.attributes.author,
+        :last_edited_by => note_data.attributes.lastEditedBy,
+        :source => note_data.attributes.source,
+        :source_application => note_data.attributes.sourceApplication,
+        :source_url => note_data.attributes.sourceURL,
+        :tag_list => cloud_note_tags.grep(/^[^_]/),
+        :instruction_list => cloud_note_tags.grep(/^_/)
+      )
+      Resource.update_all_with_evernote(self, note_data)
+    end
 end

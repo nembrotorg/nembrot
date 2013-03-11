@@ -150,6 +150,7 @@ describe "Notes" do
     }
     it "should have the note title as title" do
       page.should have_selector('h1', text: @note.title)
+      save_and_open_page
     end
     it "should not have the language attribute (if note is in default language)" do
       page.should_not have_css("#note-content[lang=en]")

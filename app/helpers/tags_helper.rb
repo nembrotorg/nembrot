@@ -5,7 +5,7 @@ module TagsHelper
     if tag['obsolete']
       tag['name']
     else
-      link_to_unless_current tag['name'], tag_path(tag)
+      link_to_unless_current tag['name'], tag_path(tag), :rel => 'tag'
     end
   end
 end

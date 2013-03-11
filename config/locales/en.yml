@@ -55,5 +55,5 @@ en:
 
   tags:
     title: "Tags"
-    item: "Tag: %{name}"
+    item: "%{name}"
     short: "%{name}"

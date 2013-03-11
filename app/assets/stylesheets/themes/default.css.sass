@@ -283,12 +283,18 @@ ul.notes
     +column(12)
     +horizontal-list
     margin-bottom: $line-height
+    // Also, what tags above means is ambiguous
+    // Causes a line-break
+    // &:before
+    // +icon-tags
     li
       a:after
         content: ", "
       &:last-child
         a:after
           content: ""
+  .count
+    color: $red
 
 .versions
   ol
@@ -314,12 +320,15 @@ ul.notes
       +inline-block-list
 
 .tags-show
+  h1:before
+    +icon-tag-2
   ul.notes
     +column(12)
 
   ul.tags
     +column(12)
     +columns(2)
+
 
 ///////////////////////////////
 //

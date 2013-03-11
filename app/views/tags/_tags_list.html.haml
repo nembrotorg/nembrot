@@ -5,4 +5,4 @@
 - else
   %ul.tags
     = list_of tags do |tag|
-      = link_to "#{ tag.name } (#{ tag.count })", tag_path(tag)
+      = link_to "#{ tag.name } <span class=\"count\">#{ tag.count }</span>".html_safe, tag_path(tag), :rel => 'tag'

@@ -42,6 +42,7 @@ defaults: &defaults
   sections:
     tags: ['A Typology of Philistinism', 'Nimrod', 'Wutz']
     enface: [['Wutz', 'de', 'en'], ['Wutz RC1', 'de', 'en']]
+  web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet', 'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet', 'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
   styling:
     test_color: #666
     css_for_instructions: ['__FX_POL']
@@ -65,6 +66,7 @@ defaults: &defaults
         width: 330
       expanded:
         width: 1400
+
 development:
   <<: *defaults
   host: localhost:3000

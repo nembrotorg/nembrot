@@ -5,7 +5,7 @@
                 :noindex => true
 
 %section
-  
+
   = render 'header', :title => t('notes.title'), :document_title => document_title 
 
-  = render 'notes_list', :notes => @notes.first(9)
+  = render 'notes_list', :notes => @notes.first(Settings.notes.index.page_size)

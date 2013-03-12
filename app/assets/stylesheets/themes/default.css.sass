@@ -117,7 +117,7 @@ h1
     weight: normal
     size: $font-size-headline
 
-h2, h3, h6
+h3, h6
   display: none
 
 ///////////////////////////////
@@ -223,7 +223,7 @@ footer
 
 ul.notes
   +column(12)
-  li
+  li, li h2
     font:
       family: $font-family-body
       size: $font-size-body
@@ -231,8 +231,9 @@ ul.notes
     margin-bottom: $line-height
     display: block
     +column-break-inside(avoid)
-    a:first-line
+    h2
       color: $title-color
+      display: inline
 
 .notes-show
   figure
@@ -328,7 +329,6 @@ ul.notes
   ul.tags
     +column(12)
     +columns(2)
-
 
 ///////////////////////////////
 //

@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def snippet(text, characters, omission = '...')
-    text = ActionController::Base.helpers.strip_tags(text)
+    text = ActionController::Base.helpers.sanitize(text, :tags => ['h2'])
     text = text.gsub(/\[.+\]/, '')
     text = ActionController::Base.helpers.truncate(text, :length => characters, :separator => ' ', :omission => omission)
   end

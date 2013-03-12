@@ -38,9 +38,9 @@ class Note < ActiveRecord::Base
   def blurb
     # If the title is derived from the body, we do not include it in the blurb
     if self.body.index(self.title.gsub(/\.\.\.$/, '')) == 0
-      self.body
+      '<h2>' + self.title + '</h2>: ' + self.body.gsub(/"#{ self.title }"/, '')
     else
-      self.title + ': ' + self.body
+      '<h2>' + self.title + '</h2>: ' + self.body
     end
   end
 

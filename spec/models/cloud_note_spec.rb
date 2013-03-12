@@ -15,6 +15,7 @@ describe CloudNote do
   it { should respond_to(:dirty) }
   it { should respond_to(:sync_retries) }
   it { should respond_to(:content_hash) }
+  it { should respond_to(:update_sequence_number) }
 
   it { should belong_to(:note) }
   it { should belong_to(:cloud_service) }

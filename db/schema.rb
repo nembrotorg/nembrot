@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130101353) do
+ActiveRecord::Schema.define(:version => 20130312190300) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"

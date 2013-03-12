@@ -102,6 +102,7 @@ class CloudNote < ActiveRecord::Base
         :note_id => note.id,
         :sync_retries => 0,
         :content_hash => note_data.contentHash,
+        :update_sequence_number => note_data.update_sequence_number,
         :dirty => false
       )
     end

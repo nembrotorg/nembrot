@@ -51,21 +51,19 @@ class CloudNote < ActiveRecord::Base
       cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
       nickname = self.cloud_service.evernote_nickname
 
-      error_details = { :provider => 'Evernote', :guid => guid, :title => note_metadata.title, :username => self.cloud_service.auth.info.nickname }
+      error_details = { :provider => 'Evernote', :guid => guid, :title => cloud_note_metadata.title, :username => self.cloud_service.auth.info.nickname }
       
       if self.evernote_notebook_required?(cloud_note_metadata)
         self.destroy
         logger.info t('notes.sync.rejected.not_in_notebook', error_details)
       elsif self.evernote_note_inactive?(cloud_note_metadata)
-        # Don't destroy just set active to false so that versions are not lost immediately
-        self.destroy
+        self.update_attributes( :active => false )
         logger.info t('notes.sync.rejected.deleted_note', error_details)
       else
         cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid)
 
         if self.evernote_note_required?(cloud_note_tags)
-          # Don't destroy just set active to false so that versions are not lost immediately
-          self.destroy
+          self.update_attributes( :active => false )
           logger.info I18n.t('notes.sync.rejected.tag_missing', error_details)
         elsif self.evernote_note_ignore?(cloud_note_tags)
           logger.info I18n.t('notes.sync.rejected.ignore', error_details)
@@ -82,7 +80,7 @@ class CloudNote < ActiveRecord::Base
           self.note = Note.new if self.note.nil?
 
           self.note.update_with_evernote(cloud_note_data, cloud_note_tags)
-          Resource.update_all_with_evernote(self.note, note_data)
+          Resource.update_all_with_evernote(self.note, cloud_note_data)
           self.undirtify
         end
       end

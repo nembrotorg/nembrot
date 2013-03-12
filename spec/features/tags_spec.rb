@@ -18,6 +18,16 @@ describe "Tags pages" do
     end
   end
 
+  describe "Tags index page" do
+    before { 
+      @note.update_attributes( :active => false )
+      visit tags_path
+    }
+    it "should not have a link to a tag belonging to an inactive note" do
+      page.should_not have_link(@tag.name, href: tag_path(@tag.slug))
+    end
+  end
+
   describe "Tag show page" do
     before { 
       @note.update_attributes( :title => 'New title', :body => 'New body' )
@@ -29,6 +39,17 @@ describe "Tags pages" do
     it "should have a link to note" do
       page.should have_selector('a', text: 'New title: New body')
       page.should have_link('New title: New body', href: note_path(@note))
+    end
+  end
+
+  describe "Tag show page" do
+    before {
+      @note.update_attributes( :title => 'New title', :body => 'New body', :active => false )
+      visit tag_path(@tag)
+    }
+    it "should not have a link to an inactive note" do
+      page.should_not have_selector('a', text: 'New title: New body')
+      page.should_not have_link('New title: New body', href: note_path(@note))
     end
   end
 end

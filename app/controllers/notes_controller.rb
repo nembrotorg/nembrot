@@ -6,7 +6,7 @@ class NotesController < ApplicationController
 
   def index
 
-    @notes = Note.find(:all)
+    @notes = Note.active.all
 
     respond_to do |format|
       format.html
@@ -15,7 +15,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = Note.find(params[:id])
+    @note = Note.active.find(params[:id])
     @tags = @note.tags
 
     add_breadcrumb I18n.t('notes.short', :id => @note.id), note_path(@note)
@@ -30,7 +30,7 @@ class NotesController < ApplicationController
   end
 
   def version
-    @note = Note.find(params[:id])
+    @note = Note.active.find(params[:id])
     @diffed_version = @note.diffed_version(params[:sequence].to_i)
 
     add_breadcrumb I18n.t('notes.short', :id => @note.id), note_path(@note)

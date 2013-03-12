@@ -23,6 +23,7 @@ describe Note do
   it { should respond_to(:last_edited_by) }
   it { should respond_to(:embeddable_source_url) }
   it { should respond_to(:fx) }
+  it { should respond_to(:active) }
 
   it { should have_many(:cloud_notes) }
   it { should have_many(:resources) }
@@ -64,7 +65,7 @@ describe Note do
   end
 
   describe "uses title and body for blurb" do
-    its(:blurb) { should == @note.title + ': ' + @note.body }
+    its(:blurb) { should == '<h2>' + @note.title + '</h2>: ' + @note.body }
   end
 
   describe "omits title in blurb when title is derived from body" do

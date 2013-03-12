@@ -2,7 +2,7 @@ class Note < ActiveRecord::Base
   include ApplicationHelper
 
   attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang,
-  :author, :last_edited_by, :source, :source_application, :source_url, :tag_list, :instruction_list
+  :author, :last_edited_by, :source, :source_application, :source_url, :tag_list, :instruction_list, :active
 
   attr_writer :tag_list, :instruction_list
 
@@ -26,6 +26,7 @@ class Note < ActiveRecord::Base
   accepts_nested_attributes_for :resources,
                                 :reject_if => Proc.new { |a| a['cloud_resource_identifier'].blank? }
 
+  scope :active, where("active = ?", true)
   default_scope :order => 'external_updated_at DESC'
 
   validates :title, :body, :external_updated_at, :presence => true
@@ -129,11 +130,11 @@ class Note < ActiveRecord::Base
       fx == '' ? nil : fx
     end
 
-    def update_with_evernote(note_content, note_data, cloud_note_tags)
+    def update_with_evernote(note_data, cloud_note_tags)
       self.update_attributes!(
         :title => note_data.title,
         :body => note_data.content.gsub(/^.*[cap|alt|description]:.*$/i, ''),
-        :lang => (ActionController::Base.helpers.strip_tags("#{ note_data.title } #{ note_content }"[0..Settings.notes.wtf_sample_length])).lang,
+        :lang => (ActionController::Base.helpers.strip_tags("#{ note_data.title } #{ note_data.content }"[0..Settings.notes.wtf_sample_length])).lang,
         :latitude => note_data.attributes.latitude,
         :longitude => note_data.attributes.longitude,
         :external_updated_at => Time.at(note_data.updated / 1000).to_datetime,
@@ -143,7 +144,8 @@ class Note < ActiveRecord::Base
         :source_application => note_data.attributes.sourceApplication,
         :source_url => note_data.attributes.sourceURL,
         :tag_list => cloud_note_tags.grep(/^[^_]/),
-        :instruction_list => cloud_note_tags.grep(/^_/)
+        :instruction_list => cloud_note_tags.grep(/^_/),
+        :active => true
       )
       Resource.update_all_with_evernote(self, note_data)
     end

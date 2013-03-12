@@ -21,6 +21,16 @@ describe "Notes" do
 
   describe "index page" do
     before {
+      @note.update_attributes( :title => 'New title', :body => 'New body', :active => false )
+      visit notes_path
+    }
+    it "should not have a link to an inactive note" do
+      page.should_not have_link('New title: New body', href: note_path(@note))
+    end
+  end
+
+  describe "index page" do
+    before {
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
       @note.update_attributes( :title => 'New title', :body => 'New body', :lang => 'ar' )

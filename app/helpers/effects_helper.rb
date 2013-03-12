@@ -4,20 +4,34 @@ module EffectsHelper
     def pre_fx(image, effects)
       # Any effect that affects the size of the image goes here
 
+      transpose(image, effects)
+      transverse(image, effects)
+      trim(image, effects)
+      image
+    end
+
+    def transpose(image, effects)
+      # Rotate left
+      
       if effects =~ /lef/
-        # Rotate left
         image = image.transpose
       end
+      image
+    end      
+
+    def transverse(image, effects)
+      # Rotate right
 
       if effects =~ /rig/
-        # Rotate right
         image = image.transverse
       end
+      image
+    end
 
+    def trim(image, effects)
       if effects =~ /tri/
         image = image.trim
       end
-
       image
     end
 

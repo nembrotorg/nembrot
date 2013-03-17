@@ -4,6 +4,6 @@ loop {
 
   EvernoteNote.sync_all
   Resource.sync_all_binaries
-  sleep(5)
+  sleep Settings.evernote.daemon_frequency
 
 }

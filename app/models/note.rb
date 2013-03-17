@@ -23,7 +23,8 @@ class Note < ActiveRecord::Base
   scope :publishable, where("active = ? AND hide = ?", true, false)
   default_scope :order => 'external_updated_at DESC'
 
-  validates :title, :body, :external_updated_at, :presence => true
+  # TODO: :body is allowed to be blank - but should make sure that at least an image or embedded media is present.
+  validates :title, :external_updated_at, :presence => true
 
   # Being activated on create and throws error
   # validate :external_updated_at_must_be_latest, :before => :update

@@ -36,6 +36,7 @@ module ApplicationHelper
       .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
       .gsub(/'([^']+)'/, "\u2018\\1\u2019")
       .gsub(/"([^"]+)"/, "\u201C\\1\u201D")
+      .gsub(/(\d)\^([\d\,\.]+)/, "\\1<sup>\\2</sup>")
   end
 
   def notify(text)

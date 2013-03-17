@@ -2,7 +2,9 @@ describe TagsController do
   
   describe "GET #index" do
     before(:each) do
-        @tags = Note.tag_counts_on(:tags)
+      @tag_name = Faker::Lorem.words(1)
+      note = FactoryGirl.create(:note, :tag_list => @tag_name)
+      @tags = Note.tag_counts_on(:tags)
     end
 
     it "populates an array of tags" do

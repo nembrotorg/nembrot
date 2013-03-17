@@ -48,9 +48,11 @@ module ApplicationHelper
     text = smartify(text)
     text = notify(text)
     text = text
+      .strip
+      .gsub(/[\n]+/, "\n")
       .gsub(/^([^<].+[^>])$/, '<p>\1</p>')
       .gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
-      .gsub(/^(<p> +<\/p)>$/, '')
+      .gsub(/^(<p> *<\/p)>$/, '')
       .gsub(/^ +$/, '')
       .html_safe
   end

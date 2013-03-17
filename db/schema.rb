@@ -11,17 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312190300) do
+ActiveRecord::Schema.define(:version => 20130316164549) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
     t.integer  "cloud_service_id"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.boolean  "dirty"
-    t.integer  "sync_retries"
-    t.binary   "content_hash",          :limit => 255
+    t.integer  "attempts"
+    t.binary   "content_hash",           :limit => 255
+    t.string   "type"
+    t.integer  "update_sequence_number"
   end
 
   add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_identifier_service_id", :unique => true
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130312190300) do
     t.string   "source_url"
     t.string   "source_application"
     t.string   "last_edited_by"
+    t.boolean  "hide"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -82,7 +85,7 @@ ActiveRecord::Schema.define(:version => 20130312190300) do
     t.string   "file_name"
     t.boolean  "attachment"
     t.boolean  "dirty"
-    t.integer  "sync_retries"
+    t.integer  "attempts"
     t.integer  "note_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
@@ -134,14 +137,15 @@ ActiveRecord::Schema.define(:version => 20130312190300) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
+    t.string   "item_type",                   :null => false
+    t.integer  "item_id",                     :null => false
+    t.string   "event",                       :null => false
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
     t.integer  "sequence"
     t.text     "tags"
+    t.text     "instructions", :limit => 255
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"

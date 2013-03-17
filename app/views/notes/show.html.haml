@@ -1,4 +1,4 @@
-- document_title = "#{ @note.title } | #{ t('notes.item', :id => @note.id) }"
+- document_title = "#{ @note.headline } | #{ t('notes.item', :id => @note.id) }"
 - set_meta_tags :title => document_title,
                 :description => @note.body,
                 :open_graph => { :title => @note.title }
@@ -6,11 +6,11 @@
 %article{ :class => (@note.instruction_list & Settings.styling.css_for_instructions).collect { |c| 'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase } }
   %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
 
-    = render 'header', :title => @note.title, :document_title => document_title
+    = render 'header', :title => @note.headline, :document_title => document_title
 
     = render 'images', :images => @note.resources.attached_images unless @note.resources.attached_images.empty?
 
-    = render 'media', :note => @note
+    = render 'media', :note => @note unless @note.embeddable_source_url.nil?
 
     %section#text
       = bodify(@note.body)

@@ -11,7 +11,7 @@ module ResourcesHelper
     width = options[:width] || Settings.styling.images[type]['width']
     snap = options[:snap] || Settings.styling.images.snap
     gravity = options[:gravity] || Settings.styling.images.gravity
-    effects = options[:effects] || image.note.fx  || Settings.styling.images.effects
+    effects = options[:effects] || image.note.fx
 
     cut_resource_path(
       :file_name => image.local_file_name,
@@ -26,19 +26,19 @@ module ResourcesHelper
   end
 
   def cut_image(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
-    # Need to add gravity
+    
+    # TODO: add gravity
     image_record = Resource.find_by_local_file_name(local_file_name)
 
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
     # The height is derived from the aspect ratio and width.
+    # Width should be worked out by columns
     height = (width * aspect_y) / aspect_x
-
-    if snap == 1
-      # We snap the height to nearest baseline to maintain a vertical grid.
-      height = round_nearest(height, Settings.styling.line_height)
-    end
+    
+    # We snap the height to nearest baseline to maintain a vertical grid.
+    height = round_nearest(height, Settings.styling.line_height) if snap == 1
 
     # We check if a (manually-cropped) template exists.
     if File.file?(file_name_template)
@@ -62,7 +62,7 @@ module ResourcesHelper
       image = post_fx(image, effects, image_record)
 
       # Gravity
-      #image = image.resize_to_fit(width, height, EastGravity)
+      # image = image.resize_to_fit(width, height, EastGravity)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
       image.write(file_name_out)
@@ -81,7 +81,8 @@ module ResourcesHelper
   end
 
   private
-    def round_nearest(number, nearest)
-      (number / nearest.to_f).round * nearest
-    end
+
+  def round_nearest(number, nearest)
+    (number / nearest.to_f).round * nearest
+  end
 end

@@ -9,7 +9,7 @@ Nembrot::Application.routes.draw do
   match 'auth/failure' => 'cloud_services#auth_failure'
   match 'auth/:provider/callback' => 'cloud_services#auth_callback'
 
-  get 'webhooks/evernote_note' => 'cloud_notes#add_evernote_task'
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
   get 'notes/:id/v/:sequence' => 'notes#version', :id => /\d+/, :sequence => /\d+/, :as => :note_version
   get 'notes/:id' => 'notes#show', :id => /\d+/, :as => :note
@@ -20,7 +20,7 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug' => 'tags#show', :slug => /[\_a-z\d\-]+/, :as => :tag
   get 'tags' => 'tags#index'
 
-  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)' => 'resources#cut',
+  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     :as => :cut_resource,
     :aspect_x => /\d+/,
     :aspect_y => /\d+/,

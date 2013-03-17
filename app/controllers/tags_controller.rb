@@ -4,9 +4,9 @@ class TagsController < ApplicationController
 
   def index
     if Settings.tags.index.style == 'cloud'
-      @tags = Note.active.tag_counts_on(:tags)
+      @tags = Note.publishable.tag_counts_on(:tags)
     else
-      @tags = Note.active.tag_counts
+      @tags = Note.publishable.tag_counts
     end
 
     respond_to do |format|
@@ -17,12 +17,12 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_slug(params[:slug])
-    @notes = Note.active.tagged_with(@tag.name)
+    @notes = Note.publishable.tagged_with(@tag.name)
 
     if Settings.tags.index.style == 'cloud'
-      @tags = Note.active.tag_counts_on(:tags)
+      @tags = Note.publishable.tag_counts_on(:tags)
     else
-      @tags = Note.active.tag_counts
+      @tags = Note.publishable.tag_counts
     end
 
     add_breadcrumb @tag.name, tag_path(params[:slug])

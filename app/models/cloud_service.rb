@@ -9,9 +9,6 @@ class CloudService < ActiveRecord::Base
 
   def evernote_oauth_token
     self.auth.extra.access_token.params[:oauth_token]
-    rescue
-      CloudServiceMailer.auth_not_found('evernote').deliver
-      logger.error t('notes.sync.rejected.not_authenticated', :provider => 'Evernote', :guid => guid)
   end
 
   def evernote_note_store
@@ -19,6 +16,9 @@ class CloudService < ActiveRecord::Base
     note_store_transport = Thrift::HTTPClientTransport.new(edam_note_store_url)
     note_store_protocol = Thrift::BinaryProtocol.new(note_store_transport)
     Evernote::EDAM::NoteStore::NoteStore::Client.new(note_store_protocol)
+    rescue
+      CloudServiceMailer.auth_not_found('evernote').deliver
+      logger.error I18n.t('notes.sync.rejected.not_authenticated', :provider => 'Evernote', :guid => '')
   end
 
   def evernote_nickname

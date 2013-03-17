@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# See http://stackoverflow.com/questions/5441221/custom-daemon-with-rails-3
+
+require 'rubygems'
+require 'daemons'
+
+ENV["APP_ROOT"] ||= File.expand_path("#{File.dirname(__FILE__)}/..")
+ENV["RAILS_ENV_PATH"] ||= "#{ENV["APP_ROOT"]}/config/environment.rb"
+
+script = "#{ENV["APP_ROOT"]}/script/daemons/#{ARGV[1]}"
+
+Daemons.run(script, dir_mode: :normal, dir: "#{ENV["APP_ROOT"]}/tmp/pids") 

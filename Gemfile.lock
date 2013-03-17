@@ -368,6 +368,7 @@ DEPENDENCIES
   compass-h5bp
   compass-rails
   coveralls
+  daemons
   database_cleaner
   devise
   differ

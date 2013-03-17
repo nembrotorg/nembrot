@@ -89,15 +89,11 @@ class Resource < ActiveRecord::Base
   end
 
   def self.sync_all_binaries
-    puts "Syncing all binaries..."
-    need_syncdown.each do |resource|
-      resource.sync_binary
-    end
+    need_syncdown.each { |resource| resource.sync_binary }
   end
 
   def sync_binary
     if !File.file?(raw_location)
-      puts "Syncing binary #{ cloud_resource_identifier }..."
 
       increment_attempts
 

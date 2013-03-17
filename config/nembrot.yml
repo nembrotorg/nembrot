@@ -19,6 +19,7 @@ defaults: &defaults
     stream_binaries: false
     synchronous: false
     reset: true
+    daemon_frequency: 30
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
     instructions:
       required: ['__PUBLISH']
@@ -95,3 +96,4 @@ production:
       required: ['__PUBLISH']
       ignore: ['__IGNORE', '__HOLD']
       reset: ['__RESET']
+      daemon_frequency: 30

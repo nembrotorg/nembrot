@@ -361,10 +361,16 @@ ul.notes
   .notes-index
     ul.notes
       +columns(2)
+      li
+        position: relative
+        height: $line-height * 3
+        a
+          padding-right: 33%
+        img
+          position: absolute
+          width: 28%
+          right: 2%
 
-  // This is not good enough:
-  // It will affect nested images by nesting
-  // them inside #text.
   #note-content
     figure
       +place(0, 8, 4)
@@ -474,17 +480,6 @@ ul.notes
   #main,
   footer
     width: 1080px
-
-  ul.notes
-    li
-      position: relative
-      height: $line-height * 3
-      a
-        padding-right: 33%
-      img
-        position: absolute
-        width: 28%
-        right: 2%
 
   .tags-index
     ul

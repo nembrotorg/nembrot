@@ -1,9 +1,8 @@
 %ul.notes
   = list_of notes do |note|
-    -# Get effect for note
     - image = note.resources.attached_images.first
     - if image
-      = link_to "#{ image_tag(cut_image_path(image), :alt => strip_tags(image.description), :width => Settings.styling.images.thumbnail.width) } #{ snippet(note.blurb, Settings.notes.blurb_length) }".html_safe, note, :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)
+      = link_to "#{ image_tag(cut_image_path(image, :type => :thumbnail ), :alt => strip_tags(image.description), :width => Settings.styling.images.thumbnail.width) } #{ snippet(note.blurb, Settings.notes.blurb_length) }".html_safe, note, :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)
     - else
       = link_to snippet(note.blurb, Settings.notes.blurb_length).html_safe, note,
         :lang => lang_attr(note.lang), :dir => dir_attr(note.lang)

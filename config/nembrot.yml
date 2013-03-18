@@ -51,22 +51,28 @@ defaults: &defaults
     test_color: #666
     css_for_instructions: ['__FX_POL'] # FX instructions are not rendered unless included in this list
     line_height: 30
+    column_width: 60
+    gutter_width: 30
+    columns: 12
     images:
       name_length: 30
       snap: 1
       gravity: 0
       standard:
-        width: 690
         aspect:
           x: 16
           y: 9
+        width: 8
       cinema:
-        width: 980
         aspect:
           x: 27
           y: 10
+        width: 12
       thumbnail:
-        width: 330
+        aspect:
+          x: 16
+          y: 9
+        width: 2
       expanded:
         width: 1400
 

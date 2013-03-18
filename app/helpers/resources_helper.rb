@@ -33,6 +33,8 @@ module ResourcesHelper
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
+    width = column_width(width) if (width <= Settings.styling.columns)
+
     # The height is derived from the aspect ratio and width.
     # Width should be worked out by columns
     height = (width * aspect_y) / aspect_x
@@ -84,5 +86,9 @@ module ResourcesHelper
 
   def round_nearest(number, nearest)
     (number / nearest.to_f).round * nearest
+  end
+
+  def column_width(columns)
+    (Settings.styling.column_width * columns) + (Settings.styling.gutter_width * (columns - 1))
   end
 end

@@ -1,13 +1,19 @@
 #!/usr/bin/env ruby
 
 # See http://stackoverflow.com/questions/5441221/custom-daemon-with-rails-3
+#  and http://stackoverflow.com/questions/4901745/how-to-write-a-robust-never-ending-process
 
 require 'rubygems'
+require 'bundler'
 require 'daemons'
 
-ENV["APP_ROOT"] ||= File.expand_path("#{File.dirname(__FILE__)}/..")
-ENV["RAILS_ENV_PATH"] ||= "#{ENV["APP_ROOT"]}/config/environment.rb"
+options = {
+  :app_name   => "Nembrot",
+  :dir_mode   => :system,
+  :multiple   => true,
+  :backtrace  => true,
+  :monitor    => true
+}
 
 script = "#{ENV["APP_ROOT"]}/script/daemons/#{ARGV[1]}"
-
-Daemons.run(script, dir_mode: :normal, dir: "#{ENV["APP_ROOT"]}/tmp/pids") 
+Daemons.run(script, options)

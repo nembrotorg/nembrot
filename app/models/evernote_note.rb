@@ -34,11 +34,11 @@ class EvernoteNote < CloudNote
 
     if cloud_notebook_not_required?(cloud_note_metadata.notebookGuid)
       destroy
-      logger.info t('notes.sync.rejected.not_in_notebook', error_details)
+      logger.info I18n.t('notes.sync.rejected.not_in_notebook', error_details)
 
     elsif !cloud_note_metadata.active
       update_attributes( :active => false )
-      logger.info t('notes.sync.rejected.deleted_note', error_details)
+      logger.info I18n.t('notes.sync.rejected.deleted_note', error_details)
 
     else
       cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid)

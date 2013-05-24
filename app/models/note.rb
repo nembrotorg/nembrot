@@ -2,12 +2,13 @@ class Note < ActiveRecord::Base
   include ApplicationHelper
 
   attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang, :author, 
-  :last_edited_by, :source, :source_application, :source_url, :tag_list, :instruction_list, :hide, :active
+  :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list, :hide, :active
 
   attr_writer :tag_list, :instruction_list
 
   has_many :cloud_notes, :dependent => :destroy
   has_many :resources, :dependent => :destroy
+  has_and_belongs_to_many :sources
 
   acts_as_taggable_on :tags, :instructions
 
@@ -23,30 +24,38 @@ class Note < ActiveRecord::Base
   scope :publishable, where("active = ? AND hide = ?", true, false)
   default_scope :order => 'external_updated_at DESC'
 
-  # TODO: :body is allowed to be blank - but should make sure that at least an image or embedded media is present.
   validates :title, :external_updated_at, :presence => true
+  validate :body_or_source_or_resource, :before => :update
+
+  # FIXME Doesn't work with :body_changed?
+  before_validation :scan_note_for_references #, :if => :body_changed?
+  before_validation :scan_note_for_isbns #, :if => :body_changed?
+
+  def body_or_source_or_resource
+    if body.blank? and embeddable_source_url.blank? and resources.blank?
+      errors.add(:note, 'Note needs one of body, source or resource.')
+    end
+  end 
 
   # Being activated on create and throws error
   # validate :external_updated_at_must_be_latest, :before => :update
 
-  # before_delete: delete_binaries
-
   def headline
-    (I18n.t('notes.untitled_synonyms').include? self.title) ? "Note #{ id }" : self.title
+    (I18n.t('notes.untitled_synonyms').include? title) ? "Note #{ id }" : title
   end
 
   def blurb
     # If the title is derived from the body, we do not include it in the blurb
-    if self.body.index(self.title) == 0
-      "<h2>#{ self.headline }</h2> #{ self.body[self.headline.length .. Settings.notes.blurb_length * 2] }"
+    if body.index(title) == 0
+      "<h2>#{ headline }</h2> #{ body[headline.length .. Settings.notes.blurb_length * 2] }"
     else
-      "<h2>#{ self.headline }</h2>: #{ self.body }"
+      "<h2>#{ headline }</h2>: #{ body }"
     end
   end
 
   def embeddable_source_url
-    if self.source_url && self.source_url =~ /youtube|vimeo|soundcloud/
-      self.source_url
+    if source_url && source_url =~ /youtube|vimeo|soundcloud/
+      source_url
         .gsub(/^.*youtube.*v=(.*)\b/, "http://www.youtube.com/embed/\\1?rel=0")
         .gsub(/^.*vimeo.*\/video\/(\d*)\b/, "http://player.vimeo.com/video/\\1")
         .gsub(/(^.*soundcloud.*$)/, "http://w.soundcloud.com/player/?url=\\1")
@@ -64,44 +73,53 @@ class Note < ActiveRecord::Base
     fx == '' ? nil : fx
   end
 
+  # Use a table-less class for this
+  #  - maybe a child of Note?
   def diffed_version(sequence)
     if sequence == 1
       # If retrieveing the first version, we create an empty version object and an empty array
       #  to enable to diff against them
-      version = self.versions.first.reify
-      previous = OpenStruct.new({
+      version = versions.first.reify
+      previous = OpenStruct.new(
         :title => '',
-        :body => '',
-        :tags => Array.new
-      })
-    elsif sequence == self.versions.size + 1
+        :body => ''
+      )
+      version_tags = ActsAsTaggableOn::Tag.new
+      previous_tags = versions.first.tags
+    elsif sequence == versions.size + 1
       # If we're requesting the latest (current) version, we select the current note as the
       #  version, and the last stored version as previous
       version = self
-      previous = self.versions.last.reify
+      previous = versions.last.reify
+      version_tags = tags
+      previous_tags = versions.last.tags
     else
-      version = self.versions.find_by_sequence(sequence).reify
+      version = versions.find_by_sequence(sequence).reify
       previous = version.previous_version
+      version_tags = versions.find_by_sequence(sequence).tags
+      previous_tags = previous.tags
     end
 
     # We calculate the difference between current and previous tag lists,
     #  and set diff_status accordingly so we can mark up list in view
-    added_tags = (version.tags - previous.tags).each { |tag| tag.diff_status = 1 }
-    removed_tags = (previous.tags - version.tags).each { |tag| tag.diff_status = -1 }
-    unchanged_tags = (version.tags - added_tags - removed_tags)
+    added_tags = (version_tags - previous_tags)
+    #removed_tags = (previous_tags - version_tags)
+    removed_tags = (version_tags - previous_tags)
+    unchanged_tags = (version_tags - added_tags - removed_tags)
+
+    added_tags.each { |tag| tag.diff_status = 1 }
+    removed_tags.each { |tag| tag.diff_status = -1 }
+
     tags = (added_tags + removed_tags + unchanged_tags)
 
     # We check whether tags are still in use and set obsolete accordingly
-    tags.each { |tag|
-      if Note.tagged_with(tag.name).size == 0
-        tag.obsolete = true
-      end
-    }
+    tags.each { |tag| tag.obsolete = true if Note.tagged_with(tag.name).size == 0 }
 
     tags.sort_by { |tag| tag.name.downcase }
 
     # We build and return the version object
-    OpenStruct.new({
+    # TODO Use separate model without database for this (see Style Guide)
+    OpenStruct.new(
       :title => version.title,
       :body => version.body,
       :previous_title => previous.title,
@@ -110,12 +128,12 @@ class Note < ActiveRecord::Base
       :sequence => sequence,
       :external_updated_at => version.external_updated_at,
       :tags => tags
-    })
+    )
   end
 
   # private
     # def external_updated_at_must_be_latest
-    #     if !self.external_updated_at_was.nil? && self.external_updated_at <= self.external_updated_at_was
+    #     if !external_updated_at_was.blank? && external_updated_at <= external_updated_at_was
     #       errors.add( :external_updated_at, 'must be more recent than any other version' )
     #       return false
     #     end
@@ -124,8 +142,8 @@ class Note < ActiveRecord::Base
   def update_with_evernote_data(note_data, cloud_note_tags)
     update_attributes!(
       :title => note_data.title,
-      :body => sanitize_for_db(note_data),
-      :lang => lang_from_cloud(note_data),
+      :body => sanitize_for_db(note_data.content),
+      :lang => lang_from_cloud("#{ note_data.title } #{ note_data.content }"),
       :latitude => note_data.attributes.latitude,
       :longitude => note_data.attributes.longitude,
       :external_updated_at => calculate_updated_at(note_data, cloud_note_tags),
@@ -142,12 +160,12 @@ class Note < ActiveRecord::Base
     update_resources_with_evernote_data(note_data)
   end
 
-  def sanitize_for_db(note_data)
-    note_data.content.gsub(/^(:?cap|alt|description|credit):.*$/i, '').gsub(/[\n]+/, "\n").strip
+  def sanitize_for_db(content)
+    content.gsub(/^(:?cap|alt|description|credit):.*$/i, '').gsub(/[\n]+/, "\n").strip
   end
 
-  def lang_from_cloud(note_data)
-    (ActionController::Base.helpers.strip_tags("#{ note_data.title } #{ note_data.content }"[0..Settings.notes.wtf_sample_length])).lang    
+  def lang_from_cloud(content)
+    (ActionController::Base.helpers.strip_tags(content[0..Settings.notes.wtf_sample_length])).lang    
   end
 
   def calculate_updated_at(note_data, cloud_note_tags)
@@ -158,11 +176,20 @@ class Note < ActiveRecord::Base
       versions.destroy_all
     end
 
-    if external_updated_at.nil? && Settings.evernote.reset
+    if external_updated_at.blank? && Settings.evernote.reset
       use_date = note_data.created
     end
 
     Time.at(use_date / 1000).to_datetime
+  end
+
+  def scan_note_for_references
+    # REVIEW: Should this be in Book?
+    self.sources = Book.citable.keep_if { |book| self.body.include?(book.tag) }
+  end
+
+  def scan_note_for_isbns
+    Book.grab_isbns(body) unless body.blank?
   end
 
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
@@ -173,8 +200,8 @@ class Note < ActiveRecord::Base
     credits = cloud_note_data.content.scan(/^\s*credit:\s*(.*?)\s*$/i)
 
     # First we remove all resources (to make sure deleted resources disappear - 
-    #  but we don't want to delete binaries - binaries should only be deleted when the note itself is deleted)
-    resources.destroy_all 
+    #  but we don't want to delete binaries so we use #delete rather than #destroy)
+    resources.delete_all
 
     if cloud_resources
       cloud_resources.each_with_index do |cloud_resource, index|
@@ -189,11 +216,4 @@ class Note < ActiveRecord::Base
       end
     end
   end
-
-  #def delete_binaries
-  #  self.resources.each do |resource|
-  #    File.delete resource.raw_location
-  #    # self.local_file_name
-  #  end
-  #end
 end

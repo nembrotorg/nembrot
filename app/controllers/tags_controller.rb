@@ -3,6 +3,9 @@ class TagsController < ApplicationController
   add_breadcrumb I18n.t('tags.title'), :tags_path
 
   def index
+
+    # Do these need to be different?
+
     if Settings.tags.index.style == 'cloud'
       @tags = Note.publishable.tag_counts_on(:tags)
     else

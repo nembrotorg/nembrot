@@ -10,13 +10,15 @@
 
     = render 'images', :images => @note.resources.attached_images, :type => :standard unless @note.resources.attached_images.empty?
 
-    = render 'media', :note => @note unless @note.embeddable_source_url.nil?
+    = render 'media', :note => @note unless @note.embeddable_source_url.blank?
 
     %section#text
-      = bodify(@note.body)
+      = bodify(@note.body, @note.sources)
 
       = render 'downloads', :downloads => @note.resources.attached_files unless @note.resources.attached_files.empty?
 
   = render 'tags', :tags => @tags
+
+  = render 'books_list', :books => @note.sources
 
   = render 'versions_list', :note => @note

@@ -13,7 +13,7 @@ describe CloudNote do
   it { should respond_to(:note_id) }
   it { should respond_to(:cloud_service_id) }
   it { should respond_to(:dirty) }
-  it { should respond_to(:sync_retries) }
+  it { should respond_to(:attempts) }
   it { should respond_to(:content_hash) }
   it { should respond_to(:update_sequence_number) }
 
@@ -29,35 +29,35 @@ describe CloudNote do
 
   it { should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:cloud_service_id) }
 
-  describe "needs_syncdown scope should contain all dirty notes" do
+  describe "need_syncdown scope should contain all dirty notes" do
     before {
-      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => 0)
+      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :attempts => 0)
     }
-    CloudNote.needs_syncdown.last.should == @cloud_note
+    CloudNote.need_syncdown.last.should == @cloud_note
   end
 
-  describe "needs_syncdown scope should increment sync_retries when requested to" do
+  describe "need_syncdown scope should increment attempts when requested to" do
     before {
-      @cloud_note = FactoryGirl.create(:cloud_note, :sync_retries => 0)
-      @cloud_note.increment_sync_retries
+      @cloud_note = FactoryGirl.create(:cloud_note, :attempts => 0)
+      @cloud_note.increment_attempts
     }
-    its(:sync_retries) { should == 1 }
+    its(:attempts) { should == 1 }
   end
 
-  describe "needs_syncdown scope should not contain dirty notes that have been retried too often" do
+  describe "need_syncdown scope should not contain dirty notes that have been retried too often" do
     before {
-      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :sync_retries => Settings.notes.sync_retries + 1)
+      @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true, :attempts => Settings.notes.attempts + 1)
     }
-    CloudNote.needs_syncdown.last.should == nil
+    CloudNote.need_syncdown.last.should == nil
   end
 
-  describe "a cloud_note is disincluded from needs_syncdown when max_out method is applied to it" do
+  describe "a cloud_note is disincluded from need_syncdown when max_out method is applied to it" do
     before {
       @cloud_note = FactoryGirl.create(:cloud_note, :dirty => true)
-      @cloud_note.increment_sync_retries
-      @cloud_note.max_out_sync_retries
+      @cloud_note.increment_attempts
+      @cloud_note.max_out_attempts
     }
-    CloudNote.needs_syncdown.last.should == nil
+    CloudNote.need_syncdown.last.should == nil
   end
 
   describe "run_evernote_tasks should syncdown pending notes" do

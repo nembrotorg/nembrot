@@ -113,14 +113,14 @@ namespace :deploy do
     stop_daemon
   end
 
-  desc "Retart daemon"
+  desc "Restart daemon"
   task :restart_daemon, :except => { :no_release => true } do
     run "cd #{current_path}; script/daemon restart sync_all.rb"
   end
 
   desc "Start daemon"
   task :start_daemon, :except => { :no_release => true } do
-    run "cd #{current_path}; script/daemon start sync_all.rb"
+    #run "cd #{current_path}; script/daemon start sync_all.rb"
   end
 
   desc "Stop daemon"

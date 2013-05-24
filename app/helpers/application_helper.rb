@@ -28,7 +28,6 @@ module ApplicationHelper
   def smartify(text)
     text
       .gsub(/ - ([^-^.]+) - /, "\u2013\\1\u2013")
-      .gsub(/(\b\.)(\b)/, ". ")
       .gsub(/  /, " ")
       .gsub(/ - /, "\u2014")
       .gsub(/'([\d{2}])/, "\u2019\\1")
@@ -36,6 +35,7 @@ module ApplicationHelper
       .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
       .gsub(/'([^']+)'/, "\u2018\\1\u2019")
       .gsub(/"([^"]+)"/, "\u201C\\1\u201D")
+      .gsub(/(<[^>]*)\u201C([a-zA-Z0-9\-\/:_]+?)\u201D([^<]*\>)/, "\\1\"\\2\"\\3")
       .gsub(/(\d)\^([\d\,\.]+)/, "\\1<sup>\\2</sup>")
   end
 
@@ -45,7 +45,8 @@ module ApplicationHelper
       .gsub(/\]/, '</span></span> ')
   end
 
-  def bodify(text)
+  def bodify(text, books = [])
+    text = bookify(text, books)
     text = smartify(text)
     text = notify(text)
     text = text
@@ -56,5 +57,12 @@ module ApplicationHelper
       .gsub(/^(<p> *<\/p)>$/, '')
       .gsub(/^ +$/, '')
       .html_safe
+  end
+
+  def bookify(text, books)
+    books.each do |book|
+      text.gsub!(/#{ book.tag }/, (link_to book.headline, book))
+    end
+    text
   end
 end

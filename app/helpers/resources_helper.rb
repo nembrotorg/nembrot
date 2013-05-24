@@ -12,8 +12,9 @@ module ResourcesHelper
     snap = options[:snap] || Settings.styling.images.snap
     gravity = options[:gravity] || Settings.styling.images.gravity
     effects = options[:effects] || image.note.fx
+    id = options[:id] || image.id
 
-    cut_resource_path(
+    Rails.application.routes.url_helpers.cut_resource_path(
       :file_name => image.local_file_name,
       :aspect_x => x,
       :aspect_y => y,
@@ -21,6 +22,7 @@ module ResourcesHelper
       :snap => snap,
       :gravity => gravity,
       :effects => effects,
+      :id => id,
       :format => image.file_ext.to_sym
     )
   end

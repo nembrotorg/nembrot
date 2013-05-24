@@ -20,6 +20,9 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug' => 'tags#show', :slug => /[\_a-z\d\-]+/, :as => :tag
   get 'tags' => 'tags#index'
 
+  get 'bibliography/:slug' => 'books#show', :slug => /[\_a-z\d\-]+/, :as => :book
+  get 'bibliography' => 'books#index', :as => :books
+
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     :as => :cut_resource,
     :aspect_x => /\d+/,

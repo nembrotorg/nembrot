@@ -3,8 +3,9 @@ class EvernoteNote < CloudNote
   include EvernoteHelper
 
   def self.add_task(guid)
-    evernote_note = self.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id).first_or_create
-    evernote_note.dirtify
+    self.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id)
+        .first_or_create
+        .dirtify
   end
 
   def self.sync_all
@@ -30,6 +31,9 @@ class EvernoteNote < CloudNote
     increment_attempts
 
     cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
+
+#File.open('evernote_metadata.json', 'w') {|f| f.write(cloud_note_metadata.to_json) }
+
     error_details = error_details(cloud_note_metadata)
 
     if cloud_notebook_not_required?(cloud_note_metadata.notebookGuid)
@@ -37,7 +41,7 @@ class EvernoteNote < CloudNote
       logger.info I18n.t('notes.sync.rejected.not_in_notebook', error_details)
 
     elsif !cloud_note_metadata.active
-      update_attributes( :active => false )
+      # note.update_attributes( :active => false )
       logger.info I18n.t('notes.sync.rejected.deleted_note', error_details)
 
     else

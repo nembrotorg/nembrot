@@ -24,6 +24,7 @@ describe Note do
   it { should respond_to(:embeddable_source_url) }
   it { should respond_to(:fx) }
   it { should respond_to(:active) }
+  it { should respond_to(:hide) }
 
   it { should have_many(:cloud_notes) }
   it { should have_many(:resources) }
@@ -32,8 +33,18 @@ describe Note do
   it { should have_many(:versions) }
 
   it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:body) }
   it { should validate_presence_of(:external_updated_at) }
+
+  describe "refuses update when body, embeddable url and resources are all nil" do
+    before {
+      @note.update_attributes(
+        :body => nil,
+        :source_url => nil
+      )
+    }
+    it { should_not be_valid }
+    it { should have(1).error_on(:note) }
+  end
 
   # Not yet implemented
   # describe "refuses update when external_updated_at is unchanged" do
@@ -150,4 +161,6 @@ describe Note do
     }
     its (:fx) { should == 'abc_def' }
   end
+
+# TEST PUBLISHABLE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
 end

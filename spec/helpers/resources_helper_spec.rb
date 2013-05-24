@@ -6,7 +6,7 @@ describe ResourcesHelper do
       @resource = FactoryGirl.create(:resource, :note => @note)
     }
     it "should use default settings for path to the cut image" do
-      cut_image_path( @resource ).should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ Settings.styling.images.effects }.png"
+      cut_image_path( @resource ).should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ Settings.styling.images.effects }-#{ @resource.id }.png"
     end
   
     describe "cut_image_path with note fx" do
@@ -14,7 +14,7 @@ describe ResourcesHelper do
         @note.instruction_list = '__FX_ABC'
       }
       it "should use note's fx if they are set" do
-        cut_image_path( @resource ).should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ @note.fx }.png"
+        cut_image_path( @resource ).should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ @note.fx }-#{ @resource.id }.png"
       end
     end
 
@@ -27,9 +27,10 @@ describe ResourcesHelper do
           :snap => 0,
           :gravity => 'ne',
           :effects => 'def',
+          :id => 999,
           :format => 'jpeg'
         }
-        cut_image_path( @resource, options ).should == "/resources/cut/#{ @resource.local_file_name }-5-4-100-0-ne-def.png"
+        cut_image_path( @resource, options ).should == "/resources/cut/#{ @resource.local_file_name }-5-4-100-0-ne-def-999.png"
       end
     end
   end

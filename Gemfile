@@ -33,13 +33,14 @@ gem 'json'
 
 gem 'jquery-rails'
 gem 'pjax_rails'
-gem 'meta-tags', :require => 'meta_tags'
+gem 'meta-tags', require: 'meta_tags'
 gem 'breadcrumbs_on_rails'
 gem 'rails-timeago'
 gem 'gmaps4rails'
 gem 'wikipedia-client'
+gem 'httparty'
 
-gem 'daemons'
+gem 'god'
 
 gem 'coveralls', require: false
 
@@ -50,6 +51,7 @@ group :development do
   gem 'factory_girl_rails'
   gem 'rails_best_practices'
   gem 'capistrano'
+  gem 'guard-rubocop'
 end
 
 group :assets do
@@ -66,6 +68,7 @@ end
 group :test do
   gem 'sqlite3'
   gem 'faker'
+  gem 'fakeweb'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
@@ -77,7 +80,8 @@ group :test do
   gem 'spork-rails'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
+  gem 'vcr'
 
   # System-dependent gems
   # Linux
@@ -95,7 +99,7 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'libv8', '~> 3.11.8.3', :platform => :ruby
+  gem 'libv8', '~> 3.11.8.3', platform: :ruby
   gem 'therubyracer', '~> 0.11.1'
   gem 'pg'
 end

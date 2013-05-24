@@ -57,3 +57,21 @@ en:
     title: "Tags"
     item: "%{name}"
     short: "%{name}"
+
+  books:
+    title: "Bibliography"
+    item: "%{name}"
+    short: "%{name}"
+    editor_short: "(ed.)"
+
+  citations:
+    default:
+      inline: "#{ surname } #{ short_year }"
+      index: "#{ surname }: #{ title }"
+      full: "#{ surname }, #{ name }. #{ title }. #{ city }: #{ publisher }, #{ long_year }."
+
+  titlecase_exceptions:
+    articles: "a an the"
+    coordinating_conjunctions: "and but for nor or so yet"
+    common_prepositions: "about beneath in regarding above beside inside round across between into since after beyond like through against by near to among concerning of toward around despite off under as down on unlike at during out until before except outside up behind for over upon below from past with via"
+    latin_abbreviations: "v vs id est"

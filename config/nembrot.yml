@@ -40,6 +40,23 @@ defaults: &defaults
     instructions: ['__TRI']
     index:
       page_size: 30
+  books:
+    google_books:
+      domain: 'https://www.googleapis.com'
+      path: '/books/v1/volumes'
+      active?: true
+    isbndb:
+      domain: 'http://isbndb.com'
+      path: '/api/books.xml'
+      active?: true
+    open_library:
+      domain: 'http://openlibrary.org'
+      path: '/api/books'
+      active?: true
+    world_cat:
+      domain: 'http://www.worldcat.org'
+      path: '/webservices/catalog/content/isbn/'
+      active?: true
   tags:
     index:
       style: false
@@ -55,6 +72,7 @@ defaults: &defaults
     gutter_width: 30
     columns: 12
     images:
+      effects:
       name_length: 30
       snap: 1
       gravity: 0

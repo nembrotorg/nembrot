@@ -1,0 +1,25 @@
+- document_title = @book.headline
+- set_meta_tags :title => document_title,
+                :description => '',
+                :open_graph => { :title => document_title }
+
+%section
+
+  = render 'header', :title => @book.headline, :document_title => document_title
+
+  -# %iframe{ :src => "http://books.google.de/books?id=#{ @book.google_books_id }&lpg=PR1&ots=Hfep-dhu0H&d&pg=PR1&output=embed" }
+
+  -# %section.details
+  -#  %p
+  -#    Publisher: 
+  -#    = @book.publisher
+  -#  %p
+  -#    = @book.published_date
+  -#  %p
+  -#    = @book.published_city
+  -#  %p
+  -#    = @book.page_count
+
+  = render 'notes_list', :notes => @book.notes
+
+  = render 'books_list', :books => @books

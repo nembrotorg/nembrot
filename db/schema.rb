@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130316164549) do
+ActiveRecord::Schema.define(:version => 20130502201434) do
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -39,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20130316164549) do
 
   create_table "notes", :force => true do |t|
     t.string   "title",                            :null => false
-    t.text     "body",                             :null => false
+    t.text     "body"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.datetime "external_updated_at",              :null => false
@@ -54,6 +53,11 @@ ActiveRecord::Schema.define(:version => 20130316164549) do
     t.string   "source_application"
     t.string   "last_edited_by"
     t.boolean  "hide"
+  end
+
+  create_table "notes_sources", :force => true do |t|
+    t.integer "source_id"
+    t.integer "note_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -97,6 +101,36 @@ ActiveRecord::Schema.define(:version => 20130316164549) do
   end
 
   add_index "resources", ["note_id"], :name => "index_resources_on_note_id"
+
+  create_table "sources", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "translator"
+    t.string   "introducer"
+    t.string   "editor"
+    t.string   "lang"
+    t.date     "published_date"
+    t.string   "published_city"
+    t.string   "publisher"
+    t.string   "isbn_10"
+    t.string   "isbn_13"
+    t.string   "format"
+    t.integer  "page_count"
+    t.string   "dimensions"
+    t.string   "weight"
+    t.string   "google_books_id"
+    t.string   "tag"
+    t.boolean  "dirty"
+    t.integer  "attempts"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "library_thing_id"
+    t.string   "open_library_id"
+    t.string   "slug"
+    t.string   "type"
+  end
+
+  add_index "sources", ["slug"], :name => "index_sources_on_slug", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

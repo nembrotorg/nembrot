@@ -1,0 +1,11 @@
+- document_title = "#{ t('books.title') } | #{ t('site.title') }"
+- set_meta_tags :title => document_title,
+                :description => '',
+                :open_graph => { :title => document_title },
+                :noindex => true
+
+%section
+
+  = render 'header', :title => t('books.title'), :document_title => document_title 
+
+  = render 'books_list', :books => @books

@@ -20,12 +20,15 @@
     font-weight: normal
     font-style: normal
 
-=fade($opacity: 0, $duration: 1s)
-  opacity: $opacity
+=transition($duration: 1s)
   transition: all $duration ease-out
   -webkit-transition: all $duration ease-out
   -moz-transition: all $duration ease-out
   -o-transition: all $duration ease-out
+
+=fade($opacity: 0)
+  opacity: $opacity
+  +transition
 
 =place($push: 0, $columns: 1, $pull: 0)
   +column($columns)
@@ -64,6 +67,8 @@ body, small
   line-height: $line-height
   color: $font-color
   font-size: $font-size
+  // SASS functions test
+  // background-color: styling-setting("test")
 
 article[dir=rtl]
   text-align: right
@@ -199,14 +204,31 @@ footer
 
 ///////////////////////////////
 //
+// Elements
+//
+///////////////////////////////
+
+ul.notes
+  li
+    position: relative
+    height: $line-height * 3
+    a
+      padding-right: 33%
+    img
+      position: absolute
+      width: 28%
+      right: 2%
+
+///////////////////////////////
+//
 // Pages
 //
 ///////////////////////////////
 
-.bibliography-show
+.books-show
   iframe[src*='books.google']
     +place(5, 7, 0)
-    height: $line-height * 20
+    height: $line-height * 24
 
 .home-index
   figure, ul
@@ -299,6 +321,9 @@ ul.notes
   .count
     color: $red
 
+.books
+  +column(12)
+
 .versions
   ol
     +column(12)
@@ -361,15 +386,6 @@ ul.notes
   .notes-index
     ul.notes
       +columns(2)
-      li
-        position: relative
-        height: $line-height * 3
-        a
-          padding-right: 33%
-        img
-          position: absolute
-          width: 28%
-          right: 2%
 
   #note-content
     figure
@@ -426,6 +442,7 @@ ul.notes
           text-indent: 0
           text-align: left
           display: block
+          margin-top: $line-height * (14/23) * -1
           +fade
           &:before
             content: counter(term)
@@ -433,6 +450,9 @@ ul.notes
             font-size: $font-size-small
             margin-right: 5px
       &:hover
+        a
+          color: $blue
+          +transition
         span.annotation
           span
             +fade(1)
@@ -453,10 +473,30 @@ ul.notes
     ul
       +place(0, 6, 6)
       margin-bottom: $line-height
+  
+  .books
+    ol
+      +place(0, 6, 6)
+      margin-bottom: $line-height
 
   .versions
     ol
       +place(0, 6, 6)
+
+  .books-index
+    ol
+      +column(12)
+      .count
+        color: $red
+
+  .books-show
+    ul.notes
+      +column(6)
+    .books
+      ol
+        +column(6)
+        .count
+          color: $red
 
   .tags-index
     ul
@@ -480,6 +520,10 @@ ul.notes
   #main,
   footer
     width: 1080px
+
+  .books-index
+    ol
+      +columns(2)
 
   .tags-index
     ul

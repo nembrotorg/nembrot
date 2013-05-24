@@ -25,3 +25,6 @@ module Differ
     end
   end
 end
+
+# Set default format for Differ
+Differ.format = Differ::Format::CLEAN_HTML

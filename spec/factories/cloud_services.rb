@@ -1,6 +1,6 @@
 FactoryGirl.define do
 	factory :cloud_service do
-		sequence( :name ) { |n| "xABCDEF#{n}" }
+		sequence( :name ) { |n| "Evernote" }
     auth OpenStruct.new({ 
         :extra => OpenStruct.new({ 
           :access_token =>

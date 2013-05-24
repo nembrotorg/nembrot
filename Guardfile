@@ -11,7 +11,7 @@ guard 'spork', wait: 60, cucumber: false, rspec: true, test_unit: false do
   watch('spec/spec_helper.rb')
 end
 
-guard 'rspec', :cli => "--drb --format progress --color", :all_after_pass => false do
+guard 'rspec', cli: "--drb --format progress --color", all_after_pass: false do
     watch('spec/spec_helper.rb') { "spec" }
 
     watch(%r{^spec/controllers/.+_spec\.rb$})
@@ -38,4 +38,9 @@ guard 'rspec', :cli => "--drb --format progress --color", :all_after_pass => fal
     watch('app/controllers/application_controller.rb') { "spec/controllers" }
 
     watch(%r{^spec/lib/.+_integration_spec\.rb$})
+end
+
+guard 'rubocop', all_on_start: false, notification: true do
+  watch(%r{.+\.rb$})
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end

@@ -1,11 +1,14 @@
+# encoding: utf-8
+
 class EvernoteNote < CloudNote
 
   include EvernoteHelper
 
   def self.add_task(guid)
-    self.where(:cloud_note_identifier => guid, :cloud_service_id => cloud_service.id)
-        .first_or_create
-        .dirtify
+    self.where(cloud_note_identifier: guid,
+               cloud_service_id: cloud_service.id)
+              .first_or_create
+              .dirtify
   end
 
   def self.sync_all
@@ -15,14 +18,21 @@ class EvernoteNote < CloudNote
   def self.bulk_sync
     filter = Evernote::EDAM::NoteStore::NoteFilter.new(
       notebookGuid: Settings.evernote.notebooks,
-      words: Settings.evernote.instructions.required.join(' ').gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
+      words: Settings.evernote.instructions.required.join(' ')
+              .gsub(/^/, 'tag:')
+              .gsub(/ /, ' tag:'),
       order: 2,
       ascending: false
     )
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
 
-    cloud_notes = cloud_service.evernote_note_store.findNotesMetadata(cloud_service.evernote_oauth_token, filter, 0, 999, spec)
-    cloud_notes.notes.each { |cloud_note| EvernoteNote.add_task(cloud_note.guid) }
+    cloud_notes = cloud_service.evernote_note_store
+                  .findNotesMetadata(cloud_service
+                                      .evernote_oauth_token,
+                                      filter, 0, 999, spec)
+    cloud_notes.notes.each do |cloud_note|
+      EvernoteNote.add_task(cloud_note.guid)
+    end
   end
 
   def syncdown_one
@@ -30,9 +40,12 @@ class EvernoteNote < CloudNote
 
     increment_attempts
 
-    cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
+    cloud_note_metadata = note_store
+                          .getNote(oauth_token,
+                                   guid, false, false, false, false)
 
-#File.open('evernote_metadata.json', 'w') {|f| f.write(cloud_note_metadata.to_json) }
+    # File.open('evernote_metadata.json', 'w') 
+    # {|f| f.write(cloud_note_metadata.to_json) }
 
     error_details = error_details(cloud_note_metadata)
 
@@ -52,7 +65,7 @@ class EvernoteNote < CloudNote
         if note.nil?
           delete
         else
-          note.update_attributes( :active => false )
+          note.update_attributes(active: false)
           logger.info I18n.t('notes.sync.rejected.tag_missing', error_details)
           undirtify
         end
@@ -66,8 +79,9 @@ class EvernoteNote < CloudNote
         undirtify
 
       else
-        # If this is a new EvernoteNote, we only create a note here since many CloudNotes will be created
-        #  and then destroyed if they're not required.
+        # If this is a new EvernoteNote, we only create a note here since
+        # many CloudNotes will be created and then destroyed if they're not
+        # required.
         build_note if note.nil?
 
         cloud_note_data = get_new_content_from_cloud(cloud_note_metadata)
@@ -78,7 +92,8 @@ class EvernoteNote < CloudNote
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       max_out_attempts
-      sync_error('Evernote', guid, user_nickname, "User Exception: #{ Settings.evernote.errors[error.errorCode] } (#{ error.parameter }).")
+      sync_error('Evernote', guid, user_nickname,
+                 "User Exception: #{ Settings.evernote.errors[error.errorCode] } (#{ error.parameter }).")
 
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       max_out_attempts
@@ -91,7 +106,7 @@ class EvernoteNote < CloudNote
   private
 
   def self.cloud_service
-    CloudService.where( :name => 'evernote' ).first_or_create
+    CloudService.where(name: 'evernote').first_or_create
   end
 
   def guid
@@ -111,26 +126,29 @@ class EvernoteNote < CloudNote
   end
 
   def cloud_note_updated?(note_metadata_updated)
-    (note && note.external_updated_at >= Time.at(note_metadata_updated / 1000).to_datetime)
+    (note && note.update_sequence_number >= note_data.updateSequenceNum)
   end
 
   def update_with_data_from_cloud(note_data)
     update_attributes!(
-      :note_id => note.id,
-      :attempts => 0,
-      :content_hash => note_data.contentHash,
-      :update_sequence_number => note_data.updateSequenceNum,
-      :dirty => false
+      note_id: note.id,
+      attempts: 0,
+      content_hash: note_data.contentHash,
+      update_sequence_number: note_data.updateSequenceNum,
+      dirty: false
     )
   end
 
   def get_new_content_from_cloud(note_data)
     note_data.content = note.body
     if note_data.contentHash != content_hash
-      note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
-      note_data.content = ActionController::Base.helpers.sanitize(Nokogiri::XML(note_data.content).css("en-note").inner_html,
-        :tags => Settings.notes.allowed_html_tags,
-        :attributes => Settings.notes.allowed_html_attributes)
+      note_data = note_store
+                  .getNote(oauth_token, guid, true, false, false, false)
+      note_data.content = ActionController::Base.helpers
+                          .sanitize(Nokogiri::XML(note_data.content)
+                          .css('en-note').inner_html,
+        tags: Settings.notes.allowed_html_tags,
+        attributes: Settings.notes.allowed_html_attributes)
     end
     note_data
   end

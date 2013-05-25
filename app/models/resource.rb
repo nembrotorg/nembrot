@@ -42,7 +42,7 @@ class Resource < ActiveRecord::Base
     File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
   end
 
-  private
+  # private
 
   def make_local_file_name
     if mime && mime !~ /image/

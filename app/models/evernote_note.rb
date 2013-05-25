@@ -74,7 +74,7 @@ class EvernoteNote < CloudNote
         logger.info I18n.t('notes.sync.rejected.ignore', error_details)
         undirtify
 
-      elsif cloud_note_updated?(cloud_note_metadata.updated)
+      elsif cloud_note_not_updated?(cloud_note_metadata.updateSequenceNum)
         logger.info  I18n.t('notes.sync.rejected.not_latest', error_details)
         undirtify
 
@@ -125,8 +125,8 @@ class EvernoteNote < CloudNote
     (!(Settings.evernote.instructions.ignore & cloud_note_tags).empty?)
   end
 
-  def cloud_note_updated?(note_metadata_updated)
-    (note && note.update_sequence_number >= note_data.updateSequenceNum)
+  def cloud_note_not_updated?(cloud_note_data_update_sequence_number)
+    (note && update_sequence_number >= cloud_note_data_update_sequence_number)
   end
 
   def update_with_data_from_cloud(note_data)

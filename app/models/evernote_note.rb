@@ -56,14 +56,14 @@ class EvernoteNote < CloudNote
           logger.info I18n.t('notes.sync.rejected.tag_missing', error_details)
           undirtify
         end
-        
+
       elsif cloud_note_ignorable?(cloud_note_tags)
         logger.info I18n.t('notes.sync.rejected.ignore', error_details)
-        max_out_attempts
+        undirtify
 
       elsif cloud_note_updated?(cloud_note_metadata.updated)
         logger.info  I18n.t('notes.sync.rejected.not_latest', error_details)
-        max_out_attempts
+        undirtify
 
       else
         # If this is a new EvernoteNote, we only create a note here since many CloudNotes will be created

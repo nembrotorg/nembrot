@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 describe Resource do
   let(:note) { FactoryGirl.create(:note) }
   before { @resource = FactoryGirl.create(:resource, note: note) }
@@ -31,9 +33,42 @@ describe Resource do
   it { should respond_to(:dirty) }
   it { should respond_to(:attempts) }
 
+  it { should respond_to(:dirtify) }
+  it { should respond_to(:undirtify) }
+  it { should respond_to(:max_out_attempts) }
+  it { should respond_to(:increment_attempts) }
+
   it { should validate_presence_of(:note) }
   it { should validate_presence_of(:cloud_resource_identifier) }
   it { should validate_uniqueness_of(:cloud_resource_identifier) }
+
+  describe 'dirtify should mark it dirty' do
+    before { @resource.dirtify }
+    its(:dirty) { should == true }
+    its(:attempts) { should == 0 }
+  end
+
+  describe 'undirtify should mark it not dirty' do
+    before do
+      @resource = FactoryGirl.create(:resource, dirty: true, attempts: 1)
+      @resource.undirtify
+    end
+    its(:dirty) { should == false }
+    its(:attempts) { should == 0 }
+  end
+
+  describe 'increment_attempts should increment attempts' do
+    before do
+      @resource = FactoryGirl.create(:resource, attempts: 0)
+      @resource.increment_attempts
+    end
+    its(:attempts) { should == 1 }
+  end
+
+  describe 'max_out_attempts should increment attempts' do
+    before { @resource.max_out_attempts }
+    its(:attempts) { should >=  Settings.notes.attempts }
+  end
 
   describe 'file_ext should return correct file extension' do
     before { @resource.update_attributes(mime: 'image/png') }
@@ -42,22 +77,20 @@ describe Resource do
 
   describe 'blank_location should return path for blank file of same format' do
     before { @resource.update_attributes(mime: 'image/png') }
-    its(:blank_location) { should == File.join(Rails.root, 'public', 'resources', 'cut', 'blank.png') }
+    its(:blank_location) do
+      should == File.join(Rails.root, 'public', 'resources', 'cut',
+                          'blank.png')
+    end
   end
 
   describe 'cut_location should return path to the cut image' do
-    pending 'Need to add this test'
-    before { @resource.update_attributes(caption: 'IMAGE CAPTION') }
-    # its.cut_location(160, 90, 500, 0, 0, 0).should =~ /\/public\/resources\/cut\/image-caption-160-90-500-0-0-0.png/
+    pending 'Need to add this test.'
+    # its.cut_location(160, 90, 500, 0, 0, 0).should
+    # =~ /\/public\/resources\/cut\/image-caption-160-90-500-0-0-0.png/
   end
 
   describe 'template_location should return path to the cut image' do
-    pending 'Need to add this test'
-    # before {
-    #  @resource = FactoryGirl.create(:resource, :note => note, :mime => 'image/png', :caption => 'IMAGE CAPTION')
-    # }
-    # @resource.cut_location(160, 90, 500, 0, 0, 0).should =~ /\/public\/resources\/cut\/image-caption-160-90-500-0-0-0.png/
-    # @resource.template_location(16, 9).should =~ /\/public\/resources\/templates\/#{ @resource.cloud_resource_identifier }-16-9.png/
+    pending 'Need to add this test.'
   end
 
   describe 'need_syncdown scope should contain all dirty resources' do
@@ -65,41 +98,71 @@ describe Resource do
     Resource.need_syncdown.last.should == @resource
   end
 
-  describe 'needs_syncdown scope should not contain dirty resources that have been retried too often' do
-    before { @resource.update_attributes(dirty: true, attempts: Settings.notes.attempts + 1) }
+  describe 'needs_syncdown should not contain maxed_out, dirty resources' do
+    before do
+      @resource.update_attributes(dirty: true,
+                                  attempts: Settings.notes.attempts + 1)
+    end
     Resource.need_syncdown.last.should == nil
   end
 
-  describe 'local_file_name is set to file_name if mime type is not image and file_name is available' do
-    before { @resource.update_attributes(mime: 'application/pdf', file_name: 'ORIGINAL FILE NAME') }
+  describe 'local_file_name is set to file_name if mime type is not image and
+            file_name is available' do
+    before do
+      @resource.update_attributes(mime: 'application/pdf',
+                                  file_name: 'ORIGINAL FILE NAME')
+    end
     its(:local_file_name) { should == 'original-file-name' }
   end
 
-  describe 'local_file_name is set to caption if mime type is image and caption is available' do
+  describe 'local_file_name is set to caption if mime type is image and caption
+            is available' do
     before { @resource.update_attributes(caption: 'IMAGE CAPTION') }
     its(:local_file_name) { should == 'image-caption' }
   end
 
-  describe 'local_file_name is set to description if mime type is image, caption is nil and description is available' do
-    before { @resource.update_attributes(caption: nil, description: nil, file_name: 'IMAGE DESCRIPTION') }
+  describe 'local_file_name is set to description if mime type is image,
+            caption is nil and description is available' do
+    before do
+      @resource.update_attributes(caption: nil,
+                                  description: nil,
+                                  file_name: 'IMAGE DESCRIPTION')
+    end
     its(:local_file_name) { should == 'image-description' }
   end
 
-  describe 'local_file_name is set to file_name if mime type is image, caption is nil, description is nil, and file_name is available' do
-    before { @resource.update_attributes(caption: nil, description: nil, file_name: 'ORIGINAL FILE NAME') }
+  describe 'local_file_name is set to file_name if mime type is image, caption
+            is nil, description is nil, and file_name is available' do
+    before do
+      @resource.update_attributes(caption: nil,
+                                  description: nil,
+                                  file_name: 'ORIGINAL FILE NAME')
+    end
     its(:local_file_name) { should == 'original-file-name' }
   end
 
-  describe 'local_file_name is set to cloud_resource_identifier if mime type is image, file_name is empty and all else is nil' do
-    before { @resource.update_attributes(caption: nil, description: nil, file_name: '') }
-    its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
+  describe 'local_file_name is set to cloud_resource_identifier if mime type is
+            image, file_name is empty and all else is nil' do
+    before do
+      @resource.update_attributes(caption: nil,
+                                  description: nil,
+                                  file_name: '')
+    end
+    its(:local_file_name) do
+      should == @resource.cloud_resource_identifier.parameterize
+    end
   end
 
-  describe 'local_file_name is set to cloud_resource_identifier if mime type is image and all else is nil' do
-    before { 
-      @resource.update_attributes(caption: nil, description: nil, file_name: '')
+  describe 'local_file_name is set to cloud_resource_identifier if mime type is
+            image and all else is nil' do
+    before do
+      @resource.update_attributes(caption: nil,
+                                  description: nil,
+                                  file_name: '')
       @resource.valid?
-    }
-    its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
+    end
+    its(:local_file_name) do
+      should == @resource.cloud_resource_identifier.parameterize
+    end
   end
 end

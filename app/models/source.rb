@@ -11,10 +11,10 @@ class Source < ActiveRecord::Base
   default_scope :order => 'tag'
 
   # See http://stackoverflow.com/questions/3875564
-  scope :citable, where("title NOT ? AND tag NOT ?", nil, nil)
-  scope :publishable, where("title NOT ? AND tag NOT ?", nil, nil)
+  scope :citable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
+  scope :publishable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
     .joins('left outer join notes_sources on sources.id = notes_sources.source_id')
-    .where('notes_sources.source_id NOT ?', nil)
+    .where('notes_sources.source_id IS NOT ?', nil)
     .uniq
   scope :need_syncdown, where("dirty = ? AND attempts <= ?", true, Settings.notes.attempts)
   scope :maxed_out, where("attempts > ?", Settings.notes.attempts).order('updated_at')

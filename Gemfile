@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',          '3.2.12'
+gem 'rails',          '3.2.13'
 
 gem 'thin'
 gem 'unicorn'
@@ -9,8 +9,8 @@ gem 'devise'
 gem 'rails_admin'
 
 gem 'attr_encrypted'
-gem 'friendly_id',          '~> 4.0.1'
-gem 'acts-as-taggable-on',  '~> 2.3.3'
+gem 'friendly_id'
+gem 'acts-as-taggable-on'
 gem 'paper_trail'
 gem 'settingslogic'
 gem 'rmagick'

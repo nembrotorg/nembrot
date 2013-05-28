@@ -1,4 +1,4 @@
-require ENV["RAILS_ENV_PATH"]
+# require ENV["RAILS_ENV_PATH"]
 require File.expand_path(File.join(File.dirname(__FILE__), '../..', 'config', 'environment'))
 require 'rubygems'
 
@@ -8,4 +8,6 @@ loop do
   Resource.sync_all_binaries
   Book.sync_all
   sleep Settings.evernote.daemon_frequency
+  rescue: error
+    puts error.backtrace
 end

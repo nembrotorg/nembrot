@@ -184,7 +184,7 @@ GEM
       actionpack
     method_source (0.8.1)
     mime-types (1.23)
-    multi_json (1.7.3)
+    multi_json (1.7.4)
     multi_xml (0.5.3)
     nested_form (0.3.2)
     net-scp (1.1.1)
@@ -236,7 +236,7 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
-    rails-timeago (2.3.0)
+    rails-timeago (2.4.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
     rails_admin (0.4.8)

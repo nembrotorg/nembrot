@@ -27,7 +27,7 @@ class Resource < ActiveRecord::Base
   end
 
   def raw_location
-      File.join(Rails.root, 'public', 'resources', 'raw', "#{ id }.#{ file_ext }")
+    File.join(Rails.root, 'public', 'resources', 'raw', "#{ id }.#{ file_ext }")
   end
 
   def cut_location(aspect_x, aspect_y, width, snap, gravity, effects = '0')
@@ -138,8 +138,12 @@ class Resource < ActiveRecord::Base
   private
 
   def delete_binaries
-    File.delete raw_location
-    Dir.glob("public/resources/templates/#{ id }*.*").each { |binary| File.delete binary }
-    Dir.glob("public/resources/cut/*-#{ id }.*").each { |binary| File.delete binary }
+    File.delete raw_location if File.exists? raw_location
+    Dir.glob("public/resources/templates/#{ id }*.*").each do |binary|
+      File.delete binary if File.exists? binary
+    end
+    Dir.glob("public/resources/cut/*-#{ id }.*").each do |binary|
+      File.delete binary if File.exists? binary
+    end
   end
 end

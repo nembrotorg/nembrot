@@ -8,6 +8,4 @@ loop do
   Resource.sync_all_binaries
   Book.sync_all
   sleep Settings.evernote.daemon_frequency
-  rescue: error
-    puts error.backtrace
 end

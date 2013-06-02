@@ -6,3 +6,7 @@ AllCops:
     - 'db/**'
     - 'config/**'
     - 'script/**'
+
+LineLength:
+  Enabled: true
+  Max: 119

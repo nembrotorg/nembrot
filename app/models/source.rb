@@ -2,7 +2,7 @@ class Source < ActiveRecord::Base
 
   include SyncHelper
 
-  attr_accessible :title, :author, :editor, :lang, :published_date, :pages, :isbn_10, 
+  attr_accessible :title, :author, :editor, :introducer, :translator, :lang, :published_date, :pages, :isbn_10,
   :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id,
   :tag, :dirty, :attempts, :notes
 

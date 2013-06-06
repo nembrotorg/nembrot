@@ -11,7 +11,7 @@ guard 'spork', wait: 60, cucumber: false, rspec: true, test_unit: false do
   watch('spec/spec_helper.rb')
 end
 
-guard 'rspec', cli: "--drb --format progress --color", all_after_pass: false do
+guard 'rspec', cli: "--drb --format Fuubar --color", all_after_pass: false, all_after_fail: false do
     watch('spec/spec_helper.rb') { "spec" }
 
     watch(%r{^spec/controllers/.+_spec\.rb$})

@@ -47,6 +47,7 @@ gem 'coveralls', require: false
 group :development do
   gem 'sqlite3'
   gem 'flog'
+  gem 'fuubar'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rails_best_practices'
@@ -69,6 +70,7 @@ group :test do
   gem 'sqlite3'
   gem 'faker'
   gem 'fakeweb'
+  gem 'fuubar'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'

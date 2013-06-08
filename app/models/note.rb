@@ -1,41 +1,45 @@
+# encoding: utf-8
+
 class Note < ActiveRecord::Base
+
   include ApplicationHelper
 
-  attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang, :author, 
-  :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list, :hide, :active
+  attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang, :author,
+                  :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list,
+                  :hide, :active
 
   attr_writer :tag_list, :instruction_list
 
-  has_many :cloud_notes, :dependent => :destroy
-  has_many :resources, :dependent => :destroy
+  has_many :cloud_notes, dependent: :destroy
+  has_many :resources, dependent: :destroy
   has_and_belongs_to_many :sources
 
   acts_as_taggable_on :tags, :instructions
 
-  has_paper_trail :on => [:update],
-                  :meta => {
+  has_paper_trail on: [:update],
+                  meta: {
                     # Adding a sequence enables us to retrieve by version number
-                    :sequence  => Proc.new { |note| note.versions.length + 1 },
+                    sequence:  Proc.new { |note| note.versions.length + 1 },
                     # Simply storing note.tag_list would store incoming tag list
-                    :tags  => Proc.new { |note| Note.find(note.id).tags },
-                    :instructions  => Proc.new { |note| Note.find(note.id).instructions }
+                    tags:  Proc.new { |note| Note.find(note.id).tags },
+                    instructions:  Proc.new { |note| Note.find(note.id).instructions }
                   }
 
-  scope :publishable, where("active = ? AND hide = ?", true, false)
-  default_scope :order => 'external_updated_at DESC'
+  scope :publishable, where('active = ? AND hide = ?', true, false)
+  default_scope order: 'external_updated_at DESC'
 
-  validates :title, :external_updated_at, :presence => true
-  validate :body_or_source_or_resource, :before => :update
+  validates :title, :external_updated_at, presence: true
+  validate :body_or_source_or_resource, before: :update
 
-  # FIXME Doesn't work with :body_changed?
-  before_validation :scan_note_for_references #, :if => :body_changed?
-  before_validation :scan_note_for_isbns #, :if => :body_changed?
+  # FIXME: Doesn't work with :body_changed?
+  before_validation :scan_note_for_references # , :if => :body_changed?
+  before_validation :scan_note_for_isbns      # , :if => :body_changed?
 
   def body_or_source_or_resource
-    if body.blank? and embeddable_source_url.blank? and resources.blank?
+    if body.blank? && embeddable_source_url.blank? && resources.blank?
       errors.add(:note, 'Note needs one of body, source or resource.')
     end
-  end 
+  end
 
   # Being activated on create and throws error
   # validate :external_updated_at_must_be_latest, :before => :update
@@ -56,20 +60,20 @@ class Note < ActiveRecord::Base
   def embeddable_source_url
     if source_url && source_url =~ /youtube|vimeo|soundcloud/
       source_url
-        .gsub(/^.*youtube.*v=(.*)\b/, "http://www.youtube.com/embed/\\1?rel=0")
-        .gsub(/^.*vimeo.*\/video\/(\d*)\b/, "http://player.vimeo.com/video/\\1")
-        .gsub(/(^.*soundcloud.*$)/, "http://w.soundcloud.com/player/?url=\\1")
+        .gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
+        .gsub(/^.*vimeo.*\/video\/(\d*)\b/, 'http://player.vimeo.com/video/\\1')
+        .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
     else
       nil
     end
   end
 
   def instructed_to?(instruction, instructions = instruction_list)
-    (Settings.notes.instructions + instructions).include? ("__#{ instruction.upcase }")
+    (Settings.notes.instructions + instructions).include? "__#{ instruction.upcase }"
   end
 
   def fx
-    fx = (Settings.notes.instructions + instruction_list).keep_if {|i| i =~ /__FX_/}.join('_').gsub(/__FX_/, '').downcase
+    fx = (Settings.notes.instructions + instruction_list).keep_if { |i| i =~ /__FX_/ }.join('_').gsub(/__FX_/, '').downcase
     fx == '' ? nil : fx
   end
 
@@ -81,8 +85,8 @@ class Note < ActiveRecord::Base
       #  to enable to diff against them
       version = versions.first.reify
       previous = OpenStruct.new(
-        :title => '',
-        :body => ''
+        title: '',
+        body: ''
       )
       version_tags = ActsAsTaggableOn::Tag.new
       previous_tags = versions.first.tags
@@ -103,7 +107,7 @@ class Note < ActiveRecord::Base
     # We calculate the difference between current and previous tag lists,
     #  and set diff_status accordingly so we can mark up list in view
     added_tags = (version_tags - previous_tags)
-    #removed_tags = (previous_tags - version_tags)
+    # removed_tags = (previous_tags - version_tags)
     removed_tags = (version_tags - previous_tags)
     unchanged_tags = (version_tags - added_tags - removed_tags)
 
@@ -118,16 +122,16 @@ class Note < ActiveRecord::Base
     tags.sort_by { |tag| tag.name.downcase }
 
     # We build and return the version object
-    # TODO Use separate model without database for this (see Style Guide)
+    # TODO: Use separate model without database for this (see Style Guide)
     OpenStruct.new(
-      :title => version.title,
-      :body => version.body,
-      :previous_title => previous.title,
-      :previous_body => previous.body,
-      :embeddable_source_url => version.embeddable_source_url,
-      :sequence => sequence,
-      :external_updated_at => version.external_updated_at,
-      :tags => tags
+      title: version.title,
+      body: version.body,
+      previous_title: previous.title,
+      previous_body: previous.body,
+      embeddable_source_url: version.embeddable_source_url,
+      sequence: sequence,
+      external_updated_at: version.external_updated_at,
+      tags: tags
     )
   end
 
@@ -141,44 +145,47 @@ class Note < ActiveRecord::Base
 
   def update_with_evernote_data(note_data, cloud_note_tags)
     update_attributes!(
-      :title => note_data.title,
-      :body => sanitize_for_db(note_data.content),
-      :lang => lang_from_cloud("#{ note_data.title } #{ note_data.content }"),
-      :latitude => note_data.attributes.latitude,
-      :longitude => note_data.attributes.longitude,
-      :external_updated_at => calculate_updated_at(note_data, cloud_note_tags),
-      :author => note_data.attributes.author,
-      :last_edited_by => note_data.attributes.lastEditedBy,
-      :source => note_data.attributes.source,
-      :source_application => note_data.attributes.sourceApplication,
-      :source_url => note_data.attributes.sourceURL,
-      :tag_list => cloud_note_tags.grep(/^[^_]/),
-      :instruction_list => cloud_note_tags.grep(/^_/),
-      :hide => instructed_to?('hide'),
-      :active => true
+      title: note_data.title,
+      body: sanitize_for_db(note_data.content),
+      lang: lang_from_cloud("#{ note_data.title } #{ note_data.content }"),
+      latitude: note_data.attributes.latitude,
+      longitude: note_data.attributes.longitude,
+      external_updated_at: calculate_updated_at(note_data, cloud_note_tags),
+      author: note_data.attributes.author,
+      last_edited_by: note_data.attributes.lastEditedBy,
+      source: note_data.attributes.source,
+      source_application: note_data.attributes.sourceApplication,
+      source_url: note_data.attributes.sourceURL,
+      tag_list: cloud_note_tags.grep(/^[^_]/),
+      instruction_list: cloud_note_tags.grep(/^_/),
+      hide: instructed_to?('hide'),
+      active: true
     )
     update_resources_with_evernote_data(note_data)
   end
 
   def sanitize_for_db(content)
-    content.gsub(/^(:?cap|alt|description|credit):.*$/i, '').gsub(/[\n]+/, "\n").strip
+    # REVIEW: we should also remove
+    content.gsub(/^(:?cap|alt|description|credit):.*$/i, '')
+           .gsub(/\&nbsp\;/, ' ')
+           .gsub(/[\n]+/, '\n')
+           .strip
   end
 
   def lang_from_cloud(content)
-    (ActionController::Base.helpers.strip_tags(content[0..Settings.notes.wtf_sample_length])).lang    
+    (ActionController::Base.helpers.strip_tags(content[0..Settings.notes.wtf_sample_length])).lang
   end
 
   def calculate_updated_at(note_data, cloud_note_tags)
     use_date = note_data.updated
-
-    if !(Settings.evernote.instructions.reset & cloud_note_tags).empty?
+    # REVIEW: this method does two things
+    # Also, a version is still created after saving.
+    unless (Settings.evernote.instructions.reset & cloud_note_tags).empty?
       use_date = note_data.created
       versions.destroy_all
     end
 
-    if external_updated_at.blank? && Settings.evernote.reset
-      use_date = note_data.created
-    end
+    use_date = note_data.created if external_updated_at.blank? && Settings.evernote.reset
 
     Time.at(use_date / 1000).to_datetime
   end
@@ -199,14 +206,14 @@ class Note < ActiveRecord::Base
     descriptions = cloud_note_data.content.scan(/^\s*(?:alt|description):\s*(.*?)\s*$/i)
     credits = cloud_note_data.content.scan(/^\s*credit:\s*(.*?)\s*$/i)
 
-    # First we remove all resources (to make sure deleted resources disappear - 
+    # First we remove all resources (to make sure deleted resources disappear -
     #  but we don't want to delete binaries so we use #delete rather than #destroy)
     resources.delete_all
 
     if cloud_resources
       cloud_resources.each_with_index do |cloud_resource, index|
 
-        resource = resources.where(:cloud_resource_identifier => cloud_resource.guid).first_or_create
+        resource = resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_create
 
         caption = captions[index] ? captions[index][0] : ''
         description = descriptions[index] ? descriptions[index][0] : ''

@@ -1,0 +1,39 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/INVALID_ISBN?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=wRXF1DxPbZ0PLsadbac5BmNSoZWI6MvB5Kx6jXfp2PGSB6DlJSRLzNB9GJkCjNOnLR4zuvjIgxnXmOAy
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      date: 
+      - Thu, 06 Jun 2013 21:14:42 GMT
+      server: 
+      - Apache
+      content-length: 
+      - "326"
+      connection: 
+      - close
+      content-type: 
+      - text/xml;charset=utf-8
+    body: 
+      encoding: US-ASCII
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <diagnostics xmlns:oclcterms="http://purl.org/oclc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <diagnostic xmlns="http://www.loc.gov/zing/srw/diagnostic/">
+        <uri>info:srw/diagnostic/1/65</uri>
+        <message>Record does not exist</message>
+        </diagnostic>
+        </diagnostics>
+
+    http_version: "1.1"
+  recorded_at: Thu, 06 Jun 2013 21:14:42 GMT
+recorded_with: VCR 2.5.0

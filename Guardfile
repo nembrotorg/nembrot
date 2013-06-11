@@ -44,3 +44,16 @@ guard 'rubocop', all_on_start: false, notification: true do
   watch(%r{.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end
+
+guard 'livereload' do
+  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/helpers/.+\.rb})
+  watch(%r{public/.+\.(css|js|html)})
+  watch(%r{config/locales/.+\.yml})
+  # Rails Assets Pipeline
+  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+end
+
+guard 'sass', :input => 'sass', :output => 'css', :noop => true, :hide_success => true
+
+guard 'coffeescript', :input => 'app/assets/javascripts', :noop => true, :hide_success => true

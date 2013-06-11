@@ -165,11 +165,17 @@ class Note < ActiveRecord::Base
   end
 
   def sanitize_for_db(content)
-    # REVIEW: we should also remove
     content.gsub(/^(:?cap|alt|description|credit):.*$/i, '')
+           .gsub(/<b>/, '<strong>')
+           .gsub(/<\/b>/, '</strong>')
+           .gsub(/<h\d>/, '<strong>')
+           .gsub(/<h\d>/, '</strong>')
            .gsub(/\&nbsp\;/, ' ')
            .gsub(/[\n]+/, '\n')
            .strip
+    ActionController::Base.helpers.sanitize(content,
+                                            tags: Settings.notes.allowed_html_tags,
+                                            attributes: Settings.notes.allowed_html_attributes)
   end
 
   def lang_from_cloud(content)

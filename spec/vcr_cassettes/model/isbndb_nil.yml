@@ -1,0 +1,37 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://isbndb.com/api/v2/json/API_KEY_OBFUSCATED/book/INVALID_ISBN
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      date: 
+      - Tue, 11 Jun 2013 09:27:53 GMT
+      server: 
+      - Apache/2.2.3 (CentOS)
+      content-length: 
+      - "49"
+      x-catalyst: 
+      - "5.90030"
+      connection: 
+      - close
+      content-type: 
+      - text/plain; charset=UTF-8
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "error" : "Unable to locate INVALID_ISBN"
+        }
+
+    http_version: "1.1"
+  recorded_at: Tue, 11 Jun 2013 09:27:53 GMT
+recorded_with: VCR 2.5.0

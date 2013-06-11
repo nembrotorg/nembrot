@@ -89,7 +89,7 @@ describe Note do
       @note.tag_list = "tag1, tag2, tag3"
       @note.save
     }
-    its (:tag_list) { should == ["tag1", "tag2", "tag3"] }
+    its (:tags) { should == ["tag1", "tag2", "tag3"] }
   end
 
   describe "is findable by tag" do

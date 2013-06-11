@@ -1,0 +1,102 @@
+--- !ruby/object:Evernote::EDAM::Type::Note
+guid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+title: Palm Tree XV
+contentHash: !binary |-
+  LMyKSPh0zp/Y7XkFp7ZPwQ==
+contentLength: 6044
+created: 1354043754000
+updated: 1360613758000
+active: true
+updateSequenceNum: 1941
+notebookGuid: f63f25b7-0c4f-4541-afb3-7286d72e452b
+tagGuids:
+- 6e50e767-eb47-4bc2-b217-04d57e47194a
+- bd51707f-f5a3-458c-b7a7-972d6f972151
+resources:
+- !ruby/object:Evernote::EDAM::Type::Resource
+  guid: 3e8ceccd-dc80-4a7d-8330-f087bf3f3637
+  noteGuid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+  data: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      SvBQeLANa+DGzidw1A+QNA==
+    size: 1111274
+  mime: image/png
+  width: 1600
+  height: 1200
+  active: true
+  recognition: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      Y1mF3V4Lq88WyIk+ao/aTA==
+    size: 294
+  attributes: !ruby/object:Evernote::EDAM::Type::ResourceAttributes
+    fileName: Screen Shot 2012-07-03 at 22.06.29 (2).png
+  updateSequenceNum: 1944
+- !ruby/object:Evernote::EDAM::Type::Resource
+  guid: f253e9df-ac54-4f90-ac6a-de6d132f56e4
+  noteGuid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+  data: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      BwZZ/kDhafWHuE1v27DB5g==
+    size: 46025
+  mime: application/pdf
+  active: true
+  attributes: !ruby/object:Evernote::EDAM::Type::ResourceAttributes
+    fileName: Kittler1.pdf
+  updateSequenceNum: 1946
+- !ruby/object:Evernote::EDAM::Type::Resource
+  guid: 50747ce2-aa2b-49cf-bde4-77c519013747
+  noteGuid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+  data: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      aFJeb3QhN+BhWwdp+Zm6gg==
+    size: 70549
+  mime: image/jpeg
+  width: 900
+  height: 600
+  active: true
+  recognition: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      lAh4xzErdbcS/kwCoWrFKA==
+    size: 363
+  attributes: !ruby/object:Evernote::EDAM::Type::ResourceAttributes
+    fileName: flower.jpg
+  updateSequenceNum: 1942
+- !ruby/object:Evernote::EDAM::Type::Resource
+  guid: 18f8a291-b534-4f24-b641-631bc89567f4
+  noteGuid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+  data: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      aXoCGs8WxuT8Fan34whBXQ==
+    size: 214516
+  mime: image/jpeg
+  width: 1920
+  height: 1080
+  active: true
+  recognition: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      h+FmtVVNuFrHPQb43tchZQ==
+    size: 503
+  attributes: !ruby/object:Evernote::EDAM::Type::ResourceAttributes
+    fileName: 10.jpeg
+  updateSequenceNum: 1945
+- !ruby/object:Evernote::EDAM::Type::Resource
+  guid: e07cc0e2-e352-45bc-b32f-b452d6756fe8
+  noteGuid: ac2327a0-63d0-4e71-86da-61b6756ff0b3
+  data: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      6sGVrWkNiOB0Sv3HDSIfGw==
+    size: 1684480
+  mime: image/jpeg
+  width: 1430
+  height: 1156
+  active: true
+  recognition: !ruby/object:Evernote::EDAM::Type::Data
+    bodyHash: !binary |-
+      WU0CyFcNPZAfjBYWZO25cA==
+    size: 2513
+  attributes: !ruby/object:Evernote::EDAM::Type::ResourceAttributes
+    fileName: adam_naming_the_creatures_currier_and_ives.jpg
+  updateSequenceNum: 1943
+attributes: !ruby/object:Evernote::EDAM::Type::NoteAttributes
+  latitude: 10.0
+  longitude: 10.0

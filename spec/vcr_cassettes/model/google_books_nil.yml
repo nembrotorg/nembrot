@@ -1,0 +1,97 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&q=ISBN%3AINVALID_ISBN&maxResults=1
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      expires: 
+      - Tue, 11 Jun 2013 13:25:56 GMT
+      date: 
+      - Tue, 11 Jun 2013 13:25:56 GMT
+      cache-control: 
+      - private, max-age=0, must-revalidate, no-transform
+      etag: 
+      - "\"I09ELXbrmOlE-RFCkDsRbIJj278/bO6vf_XnkIst6vMChN0HkrQOnYs\""
+      content-type: 
+      - application/json; charset=UTF-8
+      x-content-type-options: 
+      - nosniff
+      x-frame-options: 
+      - SAMEORIGIN
+      x-xss-protection: 
+      - 1; mode=block
+      server: 
+      - GSE
+      connection: 
+      - close
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+         "kind": "books#volumes",
+         "totalItems": 570,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "QfJLkgEACAAJ",
+           "etag": "C8TCZceFcLc",
+           "selfLink": "https://www.googleapis.com/books/v1/volumes/QfJLkgEACAAJ",
+           "volumeInfo": {
+            "title": "Invalid Isbn",
+            "authors": [
+             "Random House"
+            ],
+            "publishedDate": "1999-01-01",
+            "industryIdentifiers": [
+             {
+              "type": "ISBN_10",
+              "identifier": "1844136086"
+             },
+             {
+              "type": "ISBN_13",
+              "identifier": "9781844136087"
+             }
+            ],
+            "printType": "BOOK",
+            "contentVersion": "preview-1.0.0",
+            "language": "en",
+            "previewLink": "http://books.google.co.uk/books?id=QfJLkgEACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=QfJLkgEACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=QfJLkgEACAAJ"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": false
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "NO_PAGES",
+            "embeddable": false,
+            "publicDomain": false,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": false
+            },
+            "pdf": {
+             "isAvailable": false
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=QfJLkgEACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "NONE"
+           }
+          }
+         ]
+        }
+
+    http_version: "1.1"
+  recorded_at: Tue, 11 Jun 2013 13:25:56 GMT
+recorded_with: VCR 2.5.0

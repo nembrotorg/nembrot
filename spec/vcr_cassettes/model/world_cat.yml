@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0394510526?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=wRXF1DxPbZ0PLsadbac5BmNSoZWI6MvB5Kx6jXfp2PGSB6DlJSRLzNB9GJkCjNOnLR4zuvjIgxnXmOAy
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=API_KEY_OBFUSCATED
     body: 
       encoding: US-ASCII
       string: ""
@@ -14,11 +14,11 @@ http_interactions:
       message: OK
     headers: 
       date: 
-      - Thu, 06 Jun 2013 21:14:40 GMT
+      - Tue, 11 Jun 2013 09:28:28 GMT
       server: 
       - Apache
       content-length: 
-      - "2590"
+      - "1919"
       connection: 
       - close
       content-type: 
@@ -28,35 +28,35 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <oclcdcs xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oclcterms="http://purl.org/oclc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <dc:creator>Musil, Robert, 1880-1942.</dc:creator>
-        <dc:date>1995</dc:date>
-        <dc:description>1st American ed.</dc:description>
-        <dc:description>A novel in four volumes on the dying culture of pre-World War I Vienna. The man without qualities of the title is Ulrich, a skeptical type who views with an amused eye all attempts by the rulers of the Austro-Hungarian Empire to instill in their subjects the nationalistic fervor of neighboring Germany. The author died in 1942. Translated by John Smith, with an introduction by Belinda Smith, and edited by Cece Smith.</dc:description>
-        <dc:description>I.A sort of introduction and Pseudoreality prevails -- II. Into the millennium.</dc:description>
-        <dc:format>2 v. (x, 1774 p.) ; 23 cm.</dc:format>
-        <dc:identifier>0394510526 (set)</dc:identifier>
-        <dc:identifier>9780394510521 (set)</dc:identifier>
+        <dc:contributor>Metteer, Michael.</dc:contributor>
+        <dc:creator>Kittler, Friedrich A. (Friedrich Adolf), 1943-2011.</dc:creator>
+        <dc:date>cop. 1990</dc:date>
+        <dc:description>Lit.opg.: [419]-447. - Index.</dc:description>
+        <dc:format>xxxiii, 459 p. : ill. ; 25 cm.</dc:format>
+        <dc:identifier>0804716161 (geb.)</dc:identifier>
+        <dc:identifier>9780804716161 (geb.)</dc:identifier>
+        <dc:identifier>0804720991 (verbeterd : pbk)</dc:identifier>
+        <dc:identifier>9780804720991</dc:identifier>
         <dc:language xsi:type="http://purl.org/dc/terms/ISO639-2">eng</dc:language>
-        <dc:publisher>A.A. Knopf </dc:publisher>
-        <dc:publisher>Distributed by Random House</dc:publisher>
-        <dc:relation xsi:type="http://purl.org/dc/terms/URI">http://catdir.loc.gov/catdir/description/random041/92037943.html</dc:relation>
-        <dc:subject xsi:type="http://purl.org/dc/terms/DDC">833/.912</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/LCC">PT2625.U8 M313 1995</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/LCSH">German fiction--20th century--Translations into English.</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/LCSH">Vienna (Austria)--Fiction.</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/LCSH">Austria--History--1867-1918--Fiction.</dc:subject>
-        <dc:title>The man without qualities </dc:title>
-        <dc:title>Mann ohne Eigenschaften.</dc:title>
+        <dc:publisher>Stanford University Press</dc:publisher>
+        <dc:subject>German literature.</dc:subject>
+        <dc:subject>Books and reading in literature.</dc:subject>
+        <dc:subject>Authorship.</dc:subject>
+        <dc:subject>Books and reading.</dc:subject>
+        <dc:subject>Literature and society.</dc:subject>
+        <dc:subject xsi:type="http://purl.org/dc/terms/DDC">830.9/357</dc:subject>
+        <dc:subject xsi:type="http://purl.org/dc/terms/LCC">PT345</dc:subject>
+        <dc:title>Discourse networks 1800/1900 </dc:title>
         <dc:type>Text</dc:type>
-        <oclcterms:recordContentSource>DLC</oclcterms:recordContentSource>
-        <oclcterms:recordCreationDate xsi:type="http://purl.org/oclc/terms/marc008date">921005</oclcterms:recordCreationDate>
-        <oclcterms:recordIdentifier xsi:type="http://purl.org/oclc/terms/lccn">   92037943 </oclcterms:recordIdentifier>
-        <oclcterms:recordIdentifier>26852135</oclcterms:recordIdentifier>
-        <oclcterms:languageOfCataloging xsi:type="http://purl.org/oclc/terms/iso639-2b">eng</oclcterms:languageOfCataloging>
-        <oclcterms:recordOCLCControlNumberCross-Reference xsi:type="http://purl.org/oclc/terms/oclcmarc019">36717685</oclcterms:recordOCLCControlNumberCross-Reference>
-        <oclcterms:recordTranscribingAgency>DLC</oclcterms:recordTranscribingAgency>
+        <oclcterms:recordContentSource>NLGGC</oclcterms:recordContentSource>
+        <oclcterms:recordCreationDate xsi:type="http://purl.org/oclc/terms/marc008date">900115</oclcterms:recordCreationDate>
+        <oclcterms:recordIdentifier xsi:type="http://purl.org/oclc/terms/lccn">   89026291 </oclcterms:recordIdentifier>
+        <oclcterms:recordIdentifier>781994172</oclcterms:recordIdentifier>
+        <oclcterms:languageOfCataloging xsi:type="http://purl.org/oclc/terms/iso639-2b">dut</oclcterms:languageOfCataloging>
+        <oclcterms:recordTranscribingAgency>NLGGC</oclcterms:recordTranscribingAgency>
+        <oclcterms:recordContentSource>fobidrtb</oclcterms:recordContentSource>
         </oclcdcs>
 
     http_version: "1.1"
-  recorded_at: Thu, 06 Jun 2013 21:14:40 GMT
+  recorded_at: Tue, 11 Jun 2013 09:28:28 GMT
 recorded_with: VCR 2.5.0

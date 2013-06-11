@@ -16,7 +16,7 @@ http_interactions:
       server: 
       - nginx/0.8.32
       date: 
-      - Mon, 03 Jun 2013 18:52:08 GMT
+      - Tue, 11 Jun 2013 09:28:13 GMT
       content-type: 
       - application/json
       transfer-encoding: 
@@ -24,10 +24,10 @@ http_interactions:
       connection: 
       - close
       x-ol-stats: 
-      - "\"IB 1 0.039 TT 0 0.039\""
+      - "\"IB 1 0.037 TT 0 0.037\""
     body: 
       encoding: US-ASCII
       string: "{}"
     http_version: "1.1"
-  recorded_at: Mon, 03 Jun 2013 18:52:07 GMT
+  recorded_at: Tue, 11 Jun 2013 09:28:13 GMT
 recorded_with: VCR 2.5.0

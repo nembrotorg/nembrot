@@ -6,7 +6,7 @@ class OpenLibrary
   base_uri Settings.books.open_library.domain
 
   attr_accessor :isbn, :title, :author, :isbn_10, :isbn_13, :page_count, :publisher, :library_thing_id,
-                :open_library_id, :response
+                :open_library_id, :response, :lcc_number, :dewey_decimal, :introducer, :editor, :translator
 
   def initialize(isbn)
     @isbn = isbn
@@ -20,13 +20,19 @@ class OpenLibrary
   def populate(response)
     response = response["ISBN:#{ isbn }"]['details']
 
-    @response = response
-    @title = response['title']
+    # TODO
+    # @editor = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
+    # @introducer = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
+    # @translator = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
     @author = response['authors'][0]['name']
-    @isbn_10 = response['isbn_10'][0]
+    @dewey_decimal = response['dewey_decimal_class'].try { first }
+    @lcc_number = response['lccn'].try { first }
+    @library_thing_id = response['identifiers'].try { response['identifiers']['librarything'].first }
+    @open_library_id = response['identifiers'].try { response['identifiers']['goodreads'].first }
     @page_count = response['number_of_pages']
     @publisher = response['publishers'].first
-    @library_thing_id = response['identifiers']['librarything'].first
-    @open_library_id = response['identifiers']['goodreads'].first
+    @response = response
+    @title = response['title']
+
   end
 end

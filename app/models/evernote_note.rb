@@ -142,13 +142,8 @@ class EvernoteNote < CloudNote
   def get_new_content_from_cloud(note_data)
     note_data.content = note.body
     if note_data.contentHash != content_hash
-      note_data = note_store
-                  .getNote(oauth_token, guid, true, false, false, false)
-      note_data.content = ActionController::Base.helpers
-                          .sanitize(Nokogiri::XML(note_data.content)
-                          .css('en-note').inner_html,
-        tags: Settings.notes.allowed_html_tags,
-        attributes: Settings.notes.allowed_html_attributes)
+      note_data = note_store.getNote(oauth_token, guid, true, false, false, false)
+      note_data.content = Nokogiri::XML(note_data.content).css('en-note').inner_html
     end
     note_data
   end

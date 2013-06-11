@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ResourcesHelper
 
   require 'RMagick'
@@ -15,32 +17,31 @@ module ResourcesHelper
     id = options[:id] || image.id
 
     Rails.application.routes.url_helpers.cut_resource_path(
-      :file_name => image.local_file_name,
-      :aspect_x => x,
-      :aspect_y => y,
-      :width => width,
-      :snap => snap,
-      :gravity => gravity,
-      :effects => effects,
-      :id => id,
-      :format => image.file_ext.to_sym
+      file_name: image.local_file_name,
+      aspect_x: x,
+      aspect_y: y,
+      width: width,
+      snap: snap,
+      gravity: gravity,
+      effects: effects,
+      id: id,
+      format: image.file_ext.to_sym
     )
   end
 
   def cut_image(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
-    
     # TODO: add gravity
     image_record = Resource.find_by_local_file_name(local_file_name)
 
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
-    width = column_width(width) if (width <= Settings.styling.columns)
+    width = column_width(width) if width <= Settings.styling.columns
 
     # The height is derived from the aspect ratio and width.
     # Width should be worked out by columns
     height = (width * aspect_y) / aspect_x
-    
+
     # We snap the height to nearest baseline to maintain a vertical grid.
     height = round_nearest(height, Settings.styling.line_height) if snap == 1
 
@@ -50,7 +51,7 @@ module ResourcesHelper
     elsif image_record
       file_name_in = image_record.raw_location
     else
-      logger.info t('resources.cut.failed.record_not_found', :local_file_name => local_file_name)
+      logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
       return image_record.blank_location
     end
 
@@ -74,11 +75,11 @@ module ResourcesHelper
     rescue => error
       image_record.dirty = true
       image_record.save!
-      logger.info t('resources.cut.failed.image_record_not_found', :local_file_name => local_file_name)
+      logger.info t('resources.cut.failed.image_record_not_found', local_file_name: local_file_name)
       logger.info error
       return image_record.blank_location
     else
-      logger.info t('resources.cut.failed.record_not_found', :local_file_name => local_file_name)
+      logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
       logger.info error
       return image_record.blank_location
     end

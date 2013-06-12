@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/INVALID_ISBN?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=API_KEY_OBFUSCATED
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/INVALID_ISBN?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
     body: 
       encoding: US-ASCII
       string: ""
@@ -14,7 +14,7 @@ http_interactions:
       message: OK
     headers: 
       date: 
-      - Tue, 11 Jun 2013 09:28:30 GMT
+      - Wed, 12 Jun 2013 11:22:18 GMT
       server: 
       - Apache
       content-length: 
@@ -35,5 +35,5 @@ http_interactions:
         </diagnostics>
 
     http_version: "1.1"
-  recorded_at: Tue, 11 Jun 2013 09:28:30 GMT
+  recorded_at: Wed, 12 Jun 2013 11:22:18 GMT
 recorded_with: VCR 2.5.0

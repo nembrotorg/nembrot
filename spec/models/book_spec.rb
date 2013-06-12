@@ -50,10 +50,10 @@ describe Book do
 
   describe '#populate!' do
     before do
-      VCR.use_cassette('model/world_cat', decode_compressed_response: true) do
-        VCR.use_cassette('model/isbndb', decode_compressed_response: true) do
-          VCR.use_cassette('model/google_books', decode_compressed_response: true) do
-            VCR.use_cassette('model/open_library', decode_compressed_response: true) do
+      VCR.use_cassette('model/world_cat') do
+        VCR.use_cassette('model/isbndb') do
+          VCR.use_cassette('model/google_books') do
+            VCR.use_cassette('model/open_library') do
               # Secret['auth']['isbndb']['api_key'] = 'OBSCURED'
               @book = Book.new
               @book.isbn_10 = '0804720991'

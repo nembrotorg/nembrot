@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=API_KEY_OBFUSCATED
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
     body: 
       encoding: US-ASCII
       string: ""
@@ -14,49 +14,63 @@ http_interactions:
       message: OK
     headers: 
       date: 
-      - Tue, 11 Jun 2013 09:28:28 GMT
+      - Wed, 12 Jun 2013 11:22:17 GMT
       server: 
       - Apache
       content-length: 
-      - "1919"
+      - "5738"
       connection: 
       - close
       content-type: 
       - text/xml;charset=utf-8
     body: 
-      encoding: US-ASCII
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <oclcdcs xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oclcterms="http://purl.org/oclc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <dc:contributor>Metteer, Michael.</dc:contributor>
-        <dc:creator>Kittler, Friedrich A. (Friedrich Adolf), 1943-2011.</dc:creator>
-        <dc:date>cop. 1990</dc:date>
-        <dc:description>Lit.opg.: [419]-447. - Index.</dc:description>
-        <dc:format>xxxiii, 459 p. : ill. ; 25 cm.</dc:format>
-        <dc:identifier>0804716161 (geb.)</dc:identifier>
-        <dc:identifier>9780804716161 (geb.)</dc:identifier>
-        <dc:identifier>0804720991 (verbeterd : pbk)</dc:identifier>
-        <dc:identifier>9780804720991</dc:identifier>
-        <dc:language xsi:type="http://purl.org/dc/terms/ISO639-2">eng</dc:language>
-        <dc:publisher>Stanford University Press</dc:publisher>
-        <dc:subject>German literature.</dc:subject>
-        <dc:subject>Books and reading in literature.</dc:subject>
-        <dc:subject>Authorship.</dc:subject>
-        <dc:subject>Books and reading.</dc:subject>
-        <dc:subject>Literature and society.</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/DDC">830.9/357</dc:subject>
-        <dc:subject xsi:type="http://purl.org/dc/terms/LCC">PT345</dc:subject>
-        <dc:title>Discourse networks 1800/1900 </dc:title>
-        <dc:type>Text</dc:type>
-        <oclcterms:recordContentSource>NLGGC</oclcterms:recordContentSource>
-        <oclcterms:recordCreationDate xsi:type="http://purl.org/oclc/terms/marc008date">900115</oclcterms:recordCreationDate>
-        <oclcterms:recordIdentifier xsi:type="http://purl.org/oclc/terms/lccn">   89026291 </oclcterms:recordIdentifier>
-        <oclcterms:recordIdentifier>781994172</oclcterms:recordIdentifier>
-        <oclcterms:languageOfCataloging xsi:type="http://purl.org/oclc/terms/iso639-2b">dut</oclcterms:languageOfCataloging>
-        <oclcterms:recordTranscribingAgency>NLGGC</oclcterms:recordTranscribingAgency>
-        <oclcterms:recordContentSource>fobidrtb</oclcterms:recordContentSource>
-        </oclcdcs>
-
+      encoding: ASCII-8BIT
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
+        <oclcdcs xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:oclcterms=\"http://purl.org/oclc/terms/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\
+        <dc:creator>Kittler, Friedrich A.</dc:creator>\n\
+        <dc:date>c1990</dc:date>\n\
+        <dc:description>Translation of: Aufschreibesysteme 1800/1900.</dc:description>\n\
+        <dc:description>Includes bibliographical references (p. [419]-447) and index.</dc:description>\n\
+        <dc:description>This is a highly original book about the connections between historical moment, social structure, technology, communication systems, and what is said and thought using these systems--notably literature. The author focuses on the differences between 'discourse networks' in 1800 and in 1900, in the process developing a new analysis of the shift from romanticism to modernism. The work might be classified as a German equivalent to the New Historicism that is currently of great interest among American literary scholars, both in the intellectual influences to which Kittler responds and in his concern to ground literature in the most concrete details of historical reality. The artful structure of the book begins with Goethe's Faust and ends with Vale\xCC\x81ry's Faust. In the 1800 section, the author discusses how language was learned, the emergence of the modern university, the associated beginning of the interpretation of contemporary literature, and the canonization of literature. Among the writers and works Kittler analyzes in addition to Goethe's Faust are Schlegel, Hegel, E.T.A. Hoffman's 'The Golden Pot', and Goethe's Tasso. The 1900 section argues that the new discourse network in which literature is situated in the modern period is characterized by new technological media--film, the photograph, and the typewritten page--and the crisis that these caused for literary production. Along the way, the author discusses the work of Nietzsche, Gertrude Stein, Mallarme\xCC\x81, Bram Stroker, the Surrealists, Rilke, Kafka, and Freud, among others.</dc:description>\n\
+        <dc:description>Foreword -- I. 1800 -- The scholar's tragedy: prelude in the theater -- The mother's mouth. Learning to read in 1800 ; Motherliness and civil service -- Language channels. The im-possibility of translations ; \"The golden pot\" ; Authors, readers, authors -- The toast. Function: feminine reader ; ... and the Kingdom of God -- II. 1900 -- Nietzsche: incipit tragoedia -- The great Lalula\xCC\x84. Psychophysics ; Technological media -- Rebus. Untranslatability and the transposition of media ; Psychoanalysis and its shadow ; A simulacrum of madness -- Queen's sacrifice -- Afterword to the second printing.</dc:description>\n\
+        <dc:format>xxxiii, 459 p. : ill. ; 25 cm.</dc:format>\n\
+        <dc:identifier>9780804720991 (pbk. : alk. paper)</dc:identifier>\n\
+        <dc:identifier>0804720991 (pbk. : alk. paper)</dc:identifier>\n\
+        <dc:identifier>0804716161 (cl. : alk. paper)</dc:identifier>\n\
+        <dc:identifier>9780804716161 (cl. : alk. paper)</dc:identifier>\n\
+        <dc:language xsi:type=\"http://purl.org/dc/terms/ISO639-2\">eng</dc:language>\n\
+        <dc:publisher>Stanford University Press</dc:publisher>\n\
+        <dc:relation xsi:type=\"http://purl.org/dc/terms/URI\">http://catdir.loc.gov/catdir/toc/cam027/89026291.html</dc:relation>\n\
+        <dc:relation xsi:type=\"http://purl.org/dc/terms/URI\">http://catdir.loc.gov/catdir/description/cam023/89026291.html</dc:relation>\n\
+        <dc:subject>Literatura alemana--Siglo XX--Historia y cri\xCC\x81tica.</dc:subject>\n\
+        <dc:subject>Authorship</dc:subject>\n\
+        <dc:subject>Books and reading,History,19th century,Germany</dc:subject>\n\
+        <dc:subject>Books and reading,History,20th century,Germany</dc:subject>\n\
+        <dc:subject>Books and reading in literature</dc:subject>\n\
+        <dc:subject>German literature,History and criticism,19th century</dc:subject>\n\
+        <dc:subject>German literature,History and criticism,20th century</dc:subject>\n\
+        <dc:subject>Literature and society,History,19th century,Germany</dc:subject>\n\
+        <dc:subject>Literature and society,History,20th century,Germany</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/DDC\">830.9/357</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCC\">PT345 .K5813 1990</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">German literature--19th century--History and criticism.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">German literature--20th century--History and criticism.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Books and reading in literature.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Authorship.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Books and reading--Germany--History--19th century.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Books and reading--Germany--History--20th century.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Literature and society--Germany--History--19th century.</dc:subject>\n\
+        <dc:subject xsi:type=\"http://purl.org/dc/terms/LCSH\">Literature and society--Germany--History--20th century.</dc:subject>\n\
+        <dc:title>Discourse networks 1800/1900 </dc:title>\n\
+        <dc:title>Aufschreibesysteme 1800/1900.</dc:title>\n\
+        <dc:type>Text</dc:type>\n\
+        <oclcterms:recordContentSource>DLC</oclcterms:recordContentSource>\n\
+        <oclcterms:recordCreationDate xsi:type=\"http://purl.org/oclc/terms/marc008date\">891205</oclcterms:recordCreationDate>\n\
+        <oclcterms:recordIdentifier xsi:type=\"http://purl.org/oclc/terms/lccn\">   89026291 </oclcterms:recordIdentifier>\n\
+        <oclcterms:recordIdentifier>20827920</oclcterms:recordIdentifier>\n\
+        <oclcterms:languageOfCataloging xsi:type=\"http://purl.org/oclc/terms/iso639-2b\">eng</oclcterms:languageOfCataloging>\n\
+        <oclcterms:recordTranscribingAgency>DLC</oclcterms:recordTranscribingAgency>\n\
+        </oclcdcs>\n"
     http_version: "1.1"
-  recorded_at: Tue, 11 Jun 2013 09:28:28 GMT
+  recorded_at: Wed, 12 Jun 2013 11:22:17 GMT
 recorded_with: VCR 2.5.0

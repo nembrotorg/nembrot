@@ -4,7 +4,7 @@ describe WorldCat do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/world_cat', decode_compressed_response: true) do
+      VCR.use_cassette('model/world_cat') do
         @world_cat_book = WorldCat.new('0804720991')
       end
     end
@@ -21,7 +21,7 @@ describe WorldCat do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/world_cat_nil', decode_compressed_response: true) do
+      VCR.use_cassette('model/world_cat_nil') do
         @world_cat_book_nil = WorldCat.new('INVALID_ISBN')
       end
     end

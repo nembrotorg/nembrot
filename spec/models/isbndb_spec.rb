@@ -4,7 +4,7 @@ describe Isbndb do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/isbndb', decode_compressed_response: true) do
+      VCR.use_cassette('model/isbndb') do
         # Secret['auth']['isbndb']['api_key'] = 'OBSCURED'
         @isbndb_book = Isbndb.new('0804720991')
       end
@@ -25,7 +25,7 @@ describe Isbndb do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/isbndb_nil', decode_compressed_response: true) do
+      VCR.use_cassette('model/isbndb_nil') do
         @isbndb_book_nil = Isbndb.new('INVALID_ISBN')
       end
     end

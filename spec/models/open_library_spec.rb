@@ -4,7 +4,7 @@ describe OpenLibrary do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/open_library', decode_compressed_response: true) do
+      VCR.use_cassette('model/open_library') do
         @open_library_book = OpenLibrary.new('0804720991')
       end
     end
@@ -25,7 +25,7 @@ describe OpenLibrary do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/open_library_nil', decode_compressed_response: true) do
+      VCR.use_cassette('model/open_library_nil') do
         @open_library_book = OpenLibrary.new('INVALID_ISBN')
       end
     end

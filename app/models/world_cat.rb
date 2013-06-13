@@ -26,10 +26,10 @@ class WorldCat
     # @author = response['creator']
     # @title = response['title']
     # @author_statement = response['Title']
-    @publisher = response['publisher'].is_a?(Array) ? response['publisher'].first : response['publisher']
+    @publisher = Array(response['publisher']).first
     @published_date = "1-1-#{ response['date'].scan(/\d\d\d\d/).first }"
     if response['description']
-      description = response['description'].is_a?(Array) ? response['description'].join(' ') : response['description']
+      description = Array(response['description']).join(' ')
       # REVIEW: These regular expressions can be refined (by [A-Z]{1}\w)
       @editor = description.scan(/edited.*? by ([\w ]+\w)/i).join(', ')
       @introducer = description.scan(/introduc.*? by ([\w ]+\w)/i).join(', ')

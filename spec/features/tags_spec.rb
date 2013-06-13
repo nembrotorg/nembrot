@@ -2,7 +2,7 @@ describe "Tags pages" do
 
   before {
     @note = FactoryGirl.create(:note)
-    @note.update_attributes( :tag_list => 'tag1' )
+    @note.update_attributes( :tag_list => ['tag1'] )
     @tag = @note.tags[0]
   }
 

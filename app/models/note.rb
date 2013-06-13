@@ -18,9 +18,9 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   meta: {
-                    sequence:  Proc.new { |note| note.versions.length + 1 },  # To retrieve by version number
-                    tags:  Proc.new { |note| Note.find(note.id).tags }, # Note.tag_list would store incoming tag list
-                    instructions:  Proc.new { |note| Note.find(note.id).instructions }
+                    sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
+                    tags:  proc { |note| Note.find(note.id).tags }, # Note.tag_list would store incoming tag list
+                    instructions:  proc { |note| Note.find(note.id).instructions }
                   }
 
   scope :publishable, where('active = ? AND hide = ?', true, false)
@@ -43,7 +43,7 @@ class Note < ActiveRecord::Base
   # validate :external_updated_at_must_be_latest, :before => :update
 
   def headline
-    (I18n.t('notes.untitled_synonyms').include? title) ? I18n.t('notes.short', id: id) : title
+    I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.short', id: id) : title
   end
 
   def blurb
@@ -59,7 +59,7 @@ class Note < ActiveRecord::Base
     if source_url && source_url =~ /youtube|vimeo|soundcloud/
       source_url
         .gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
-        .gsub(/^.*vimeo.*\/video\/(\d*)\b/, 'http://player.vimeo.com/video/\\1')
+        .gsub(%r(^.*vimeo.*/video/(\d*)\b), 'http://player.vimeo.com/video/\\1')
         .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
     else
       nil
@@ -89,8 +89,8 @@ class Note < ActiveRecord::Base
         title: '',
         body: ''
       )
-      version_tags = ActsAsTaggableOn::Tag.new
-      previous_tags = versions.first.tag
+      version_tags = versions.first.tags
+      previous_tags = []
     elsif sequence == versions.size + 1
       # If we're requesting the latest (current) version, we select the current note as the
       #  version, and the last stored version as previous
@@ -115,12 +115,12 @@ class Note < ActiveRecord::Base
     added_tags.each { |tag| tag.diff_status = 1 }
     removed_tags.each { |tag| tag.diff_status = -1 }
 
-    tags = (added_tags + removed_tags + unchanged_tags)
+    version_tags = (added_tags + removed_tags + unchanged_tags)
 
     # We check whether tags are still in use and set obsolete accordingly
-    tags.each { |tag| tag.obsolete = true if Note.tagged_with(tag.name).size == 0 }
+    version_tags.each { |tag| tag.obsolete = true if Note.tagged_with(tag.name).size == 0 }
 
-    tags.sort_by { |tag| tag.name.downcase }
+    version_tags.sort_by { |tag| tag.name.downcase }
 
     # We build and return the version object
     # TODO: Use separate model without database for this (see Style Guide)
@@ -132,7 +132,7 @@ class Note < ActiveRecord::Base
       embeddable_source_url: version.embeddable_source_url,
       sequence: sequence,
       external_updated_at: version.external_updated_at,
-      tags: tags
+      tags: version_tags
     )
   end
 
@@ -167,15 +167,12 @@ class Note < ActiveRecord::Base
 
   def sanitize_for_db(content)
     content.gsub(/^(:?cap|alt|description|credit):.*$/i, '')
-           .gsub(/<b>/, '<strong>')
-           .gsub(/<\/b>/, '</strong>')
-           .gsub(/<h\d>/, '<strong>')
-           .gsub(/<h\d>/, '</strong>')
+           .gsub(/<b>|<h\d>/, '<strong>')
+           .gsub(/<\/b>|<h\d>/, '</strong>')
            .gsub(/\&nbsp\;/, ' ')
            .gsub(/[\n]+/, '\n')
            .strip
-    ActionController::Base.helpers.sanitize(content,
-                                            tags: Settings.notes.allowed_html_tags,
+    ActionController::Base.helpers.sanitize(content, tags: Settings.notes.allowed_html_tags,
                                             attributes: Settings.notes.allowed_html_attributes)
   end
 

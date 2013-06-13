@@ -1,11 +1,13 @@
+# encoding: utf-8
+
 include ActionView::Helpers::SanitizeHelper
 include ApplicationHelper
 
 describe Note do
 
-  before {
+  before do
     @note = FactoryGirl.create(:note)
-  }
+  end
 
   subject { @note }
 
@@ -35,32 +37,32 @@ describe Note do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:external_updated_at) }
 
-  describe "refuses update when body, embeddable url and resources are all nil" do
-    before {
+  describe 'rejects update when body, embeddable url and resources are all nil' do
+    before do
       @note.update_attributes(
-        :body => nil,
-        :source_url => nil
+        body: nil,
+        source_url: nil
       )
-    }
+    end
     it { should_not be_valid }
     it { should have(1).error_on(:note) }
   end
 
   # Not yet implemented
   # describe "refuses update when external_updated_at is unchanged" do
-  #   before { 
+  #   before do
   #     @note.update_attributes(
   #         :title => "New Title",
   #         :external_updated_at => @note.external_updated_at
   #       )
-  #   }
+  #   end
   #   it { should_not be_valid }
   #   it { should have(1).error_on(:external_updated_at) }
   # end
 
   # Not yet implemented
   # describe "refuses update when external_updated_at is older" do
-  #   before { 
+  #   before {
   #     @note.update_attributes(
   #         :title => "New Title",
   #         :external_updated_at => @note.external_updated_at - 1
@@ -71,50 +73,46 @@ describe Note do
   # end
 
   # REVIEW: Headlines, blurbs and titles need to be simplified.
-  describe "uses body when title is missing" do
-    before { @note.update_attributes( :title => I18n.t('notes.untitled_synonyms')[0] ) }
+  describe 'uses body when title is missing' do
+    before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
     its(:headline) { should == I18n.t('notes.short', id: @note.id) }
   end
 
-  describe "uses title and body for blurb" do
+  describe 'uses title and body for blurb' do
     its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
   end
 
-  describe "omits title in blurb when title is derived from body" do
-    before { @note.update_attributes( :title => I18n.t('notes.untitled_synonyms')[0] ) }
+  describe 'omits title in blurb when title is derived from body' do
+    before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
     its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
   end
 
-  describe "is taggable" do
-    before { 
-      @note.update_attributes( :tag_list => ['tag1', 'tag2', 'tag3'] ) 
-    }
-    its (:tag_list) { should == ['tag1', 'tag2', 'tag3'] }
+  describe 'is taggable' do
+    before { @note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
+    its (:tag_list) { should == %w(tag1 tag2 tag3) }
   end
 
-  describe "is findable by tag" do
-    before {
-      @note.update_attributes( :tag_list => "tag4" ) 
-    }
-    Note.tagged_with("tag4").last.should == @note
+  describe 'is findable by tag' do
+    before { @note.update_attributes(tag_list: 'tag4') }
+    Note.tagged_with('tag4').last.should == @note
   end
 
-  #describe "accepts special characters in tags" do
-  #  before { 
+  # describe "accepts special characters in tags" do
+  #  before {
   #    @note.tag_list = "Žižek, Café, 井戸端"
   #    @note.save
   #  }
   #  its (:tag_list) { should == ["Žižek", "Café", "井戸端"] }
-  #end
+  # end
 
-  #describe "saves versions on every update", :versioning => true do
+  # describe "saves versions on every update", :versioning => true do
   #  before {
   #    @note.update_attributes( :title => "New Title" )
   #  }
   #  @note.versions.length.should > 0
-  #end
+  # end
 
-  #describe "diffed_version should return title and previous_title", :versioning => true do
+  # describe "diffed_version should return title and previous_title", :versioning => true do
   #  note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
   #  note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
     # Test that tags change
@@ -125,40 +123,30 @@ describe Note do
     #  note.diffed_version(2).sequence.should == 2
     #  note.diffed_version(2).title.should == 'Second Title'
     #  note.diffed_version(2).previous_title.should == 'First Title'
-  #end
+  # end
 
-  describe "embeddable_source_url" do
-    before {
-      @note.source_url = 'http://www.example.com'
-    }
+  describe '#embeddable_source_url' do
+    before { @note.source_url = 'http://www.example.com' }
     its(:embeddable_source_url) { should be_nil }
   end
 
-  describe "embeddable_source_url should should return an embeddable youtube link if source_url is a youtube link" do
-    before {
-      @note.source_url = 'http://youtube.com?v=ABCDEF'
-    }
+  describe '#embeddable_source_url returns an embeddable youtube link if source_url is a youtube link' do
+    before { @note.source_url = 'http://youtube.com?v=ABCDEF' }
     its(:embeddable_source_url) { should == 'http://www.youtube.com/embed/ABCDEF?rel=0' }
   end
 
-  describe "embeddable_source_url should should return an embeddable vimeo link if source_url is a vimeo link" do
-    before {
-      @note.source_url = 'http://vimeo.com/video/ABCDEF'
-    }
+  describe '#embeddable_source_url returns an embeddable vimeo link if source_url is a vimeo link' do
+    before { @note.source_url = 'http://vimeo.com/video/ABCDEF' }
     its(:embeddable_source_url) { should == 'http://player.vimeo.com/video/ABCDEF' }
-  end  
+  end
 
-  describe "embeddable_source_url should should return an embeddable soundcloud link if source_url is a soundcloud link" do
-    before {
-      @note.source_url = 'http://soundcloud.com?v=ABCDEF'
-    }
+  describe '#embeddable_source_url returns an embeddable soundcloud link if source_url is a soundcloud link' do
+    before { @note.source_url = 'http://soundcloud.com?v=ABCDEF' }
     its (:embeddable_source_url) { should == 'http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF' }
   end
 
-  describe "note.fx should return fx for note's images" do
-    before {
-      @note.instruction_list = ['__FX_ABC', '__FX_DEF']
-    }
+  describe '#fx should return fx for images' do
+    before { @note.instruction_list = %w(__FX_ABC __FX_DEF) }
     its (:fx) { should == 'abc_def' }
   end
 

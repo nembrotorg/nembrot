@@ -18,10 +18,8 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   meta: {
-                    # Adding a sequence enables us to retrieve by version number
-                    sequence:  Proc.new { |note| note.versions.length + 1 },
-                    # Simply storing note.tag_list would store incoming tag list
-                    tags:  Proc.new { |note| Note.find(note.id).tags },
+                    sequence:  Proc.new { |note| note.versions.length + 1 },  # To retrieve by version number
+                    tags:  Proc.new { |note| Note.find(note.id).tags }, # Note.tag_list would store incoming tag list
                     instructions:  Proc.new { |note| Note.find(note.id).instructions }
                   }
 
@@ -45,7 +43,7 @@ class Note < ActiveRecord::Base
   # validate :external_updated_at_must_be_latest, :before => :update
 
   def headline
-    (I18n.t('notes.untitled_synonyms').include? title) ? "Note #{ id }" : title
+    (I18n.t('notes.untitled_synonyms').include? title) ? I18n.t('notes.short', id: id) : title
   end
 
   def blurb
@@ -73,7 +71,10 @@ class Note < ActiveRecord::Base
   end
 
   def fx
-    fx = (Settings.notes.instructions + instruction_list).keep_if { |i| i =~ /__FX_/ }.join('_').gsub(/__FX_/, '').downcase
+    fx = (Settings.notes.instructions + instruction_list).keep_if { |i| i =~ /__FX_/ }
+                                                         .join('_')
+                                                         .gsub(/__FX_/, '')
+                                                         .downcase
     fx == '' ? nil : fx
   end
 
@@ -89,7 +90,7 @@ class Note < ActiveRecord::Base
         body: ''
       )
       version_tags = ActsAsTaggableOn::Tag.new
-      previous_tags = versions.first.tags
+      previous_tags = versions.first.tag
     elsif sequence == versions.size + 1
       # If we're requesting the latest (current) version, we select the current note as the
       #  version, and the last stored version as previous

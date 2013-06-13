@@ -70,26 +70,26 @@ describe Note do
   #   it { should have(1).error_on(:external_updated_at) }
   # end
 
+  # REVIEW: Headlines, blurbs and titles need to be simplified.
   describe "uses body when title is missing" do
     before { @note.update_attributes( :title => I18n.t('notes.untitled_synonyms')[0] ) }
-    its(:title) { should == snippet( @note.body, Settings.notes.title_length ) }
+    its(:headline) { should == I18n.t('notes.short', id: @note.id) }
   end
 
   describe "uses title and body for blurb" do
-    its(:blurb) { should == '<h2>' + @note.title + '</h2>: ' + @note.body }
+    its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
   end
 
   describe "omits title in blurb when title is derived from body" do
     before { @note.update_attributes( :title => I18n.t('notes.untitled_synonyms')[0] ) }
-    its(:blurb) { should == @note.body }
+    its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
   end
 
   describe "is taggable" do
     before { 
-      @note.tag_list = "tag1, tag2, tag3"
-      @note.save
+      @note.update_attributes( :tag_list => ['tag1', 'tag2', 'tag3'] ) 
     }
-    its (:tags) { should == ["tag1", "tag2", "tag3"] }
+    its (:tag_list) { should == ['tag1', 'tag2', 'tag3'] }
   end
 
   describe "is findable by tag" do
@@ -157,10 +157,10 @@ describe Note do
 
   describe "note.fx should return fx for note's images" do
     before {
-      @note.instruction_list = '__FX_ABC, __FX_DEF'
+      @note.instruction_list = ['__FX_ABC', '__FX_DEF']
     }
     its (:fx) { should == 'abc_def' }
   end
 
-# TEST PUBLISHABLE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
+# TEST PUBLISHABLE & Listable !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 end

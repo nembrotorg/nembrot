@@ -89,7 +89,7 @@ describe Note do
 
   describe 'is taggable' do
     before { @note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
-    its (:tag_list) { should == %w(tag1 tag2 tag3) }
+    its(:tag_list) { should == %w(tag1 tag2 tag3) }
   end
 
   describe 'is findable by tag' do
@@ -97,19 +97,17 @@ describe Note do
     Note.tagged_with('tag4').last.should == @note
   end
 
-  # describe "accepts special characters in tags" do
-  #  before {
-  #    @note.tag_list = "Žižek, Café, 井戸端"
-  #    @note.save
-  #  }
-  #  its (:tag_list) { should == ["Žižek", "Café", "井戸端"] }
-  # end
+  describe 'accepts special characters in tags' do
+    before {
+      @note.tag_list = %w(Žižek Café 井戸端)
+      @note.save
+    }
+    its(:tag_list) { should == ['Žižek', 'Café', '井戸端'] }
+  end
 
-  # describe "saves versions on every update", :versioning => true do
-  #  before {
-  #    @note.update_attributes( :title => "New Title" )
-  #  }
-  #  @note.versions.length.should > 0
+  # describe 'saves versions on every update', versioning: true do
+  #  before { @note.update_attributes(title: 'New Title') }
+  #  its(:versions) { should > 0 }
   # end
 
   # describe "diffed_version should return title and previous_title", :versioning => true do

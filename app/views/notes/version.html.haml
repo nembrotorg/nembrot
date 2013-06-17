@@ -14,6 +14,6 @@
 
     %section#text!= Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
-  = render 'tags', :tags => @diffed_version.tags
+  = render 'diffed_tag_list', :diffed_tag_list => @diffed_tag_list
 
   = render 'versions_list', :note => @note

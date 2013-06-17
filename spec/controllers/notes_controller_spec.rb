@@ -46,7 +46,7 @@ describe NotesController do
 
     it 'assigns the requested version to @diffed_version', versioning: true do
       get :version, id: @note, sequence: 1
-      assigns(:diffed_version).should eq(@note.diffed_version(1))
+      assigns(:diffed_version).should be_an_instance_of(DiffedNoteVersion)
     end
 
     it 'renders the #version view', versioning: true  do

@@ -17,7 +17,7 @@
 
       = render 'downloads', :downloads => @note.resources.attached_files unless @note.resources.attached_files.empty?
 
-  = render 'tags', :tags => @tags
+  = render 'tag_list', :tags => @tags
 
   = render 'books_list', :books => @note.sources
 

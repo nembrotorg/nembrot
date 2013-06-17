@@ -16,7 +16,6 @@ describe Note do
   it { should respond_to(:body) }
   it { should respond_to(:external_updated_at) }
   it { should respond_to(:blurb) }
-  it { should respond_to(:diffed_version) }
   it { should respond_to(:active) }
   it { should respond_to(:author) }
   it { should respond_to(:source) }
@@ -108,19 +107,6 @@ describe Note do
   # describe 'saves versions on every update', versioning: true do
   #  before { @note.update_attributes(title: 'New Title') }
   #  its(:versions) { should > 0 }
-  # end
-
-  # describe "diffed_version should return title and previous_title", :versioning => true do
-  #  note = FactoryGirl.create(:note, :title => 'First Title', :tag_list => "tag1, tag2, tag3")
-  #  note.update_attributes( :title => 'Second Title', :tag_list => "tag4, tag5, tag6")
-    # Test that tags change
-    # Test obsolete status
-    #  note.diffed_version(1).sequence.should == 1
-    #  note.diffed_version(1).title.should == 'First Title'
-    #  note.diffed_version(1).previous_title.should == ''
-    #  note.diffed_version(2).sequence.should == 2
-    #  note.diffed_version(2).title.should == 'Second Title'
-    #  note.diffed_version(2).previous_title.should == 'First Title'
   # end
 
   describe '#embeddable_source_url' do

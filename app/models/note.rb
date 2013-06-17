@@ -19,8 +19,8 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   meta: {
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
-                    tags:  proc { |note| Note.find(note.id).tags }, # Note.tag_list would store incoming tag list
-                    instructions:  proc { |note| Note.find(note.id).instructions }
+                    tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tag list
+                    instruction_list:  proc { |note| Note.find(note.id).instruction_list }
                   }
 
   scope :publishable, where('active = ? AND hide = ?', true, false)
@@ -71,69 +71,11 @@ class Note < ActiveRecord::Base
   end
 
   def fx
-    fx = (Settings.notes.instructions + instruction_list).keep_if { |i| i =~ /__FX_/ }
+    fx = (Settings.notes.instructions + Array(instruction_list)).keep_if { |i| i =~ /__FX_/ }
                                                          .join('_')
                                                          .gsub(/__FX_/, '')
                                                          .downcase
     fx == '' ? nil : fx
-  end
-
-  # Use a table-less class for this
-  #  - maybe a child of Note?
-  def diffed_version(sequence)
-    if sequence == 1
-      # If retrieveing the first version, we create an empty version object and an empty array
-      #  to enable to diff against them
-      version = versions.first.reify
-      previous = OpenStruct.new(
-        title: '',
-        body: ''
-      )
-      version_tags = versions.first.tags
-      previous_tags = []
-    elsif sequence == versions.size + 1
-      # If we're requesting the latest (current) version, we select the current note as the
-      #  version, and the last stored version as previous
-      version = self
-      previous = versions.last.reify
-      version_tags = tags
-      previous_tags = versions.last.tags
-    else
-      version = versions.find_by_sequence(sequence).reify
-      previous = version.previous_version
-      version_tags = versions.find_by_sequence(sequence).tags
-      previous_tags = previous.tags
-    end
-
-    # We calculate the difference between current and previous tag lists,
-    #  and set diff_status accordingly so we can mark up list in view
-    added_tags = (version_tags - previous_tags)
-    # removed_tags = (previous_tags - version_tags)
-    removed_tags = (version_tags - previous_tags)
-    unchanged_tags = (version_tags - added_tags - removed_tags)
-
-    added_tags.each { |tag| tag.diff_status = 1 }
-    removed_tags.each { |tag| tag.diff_status = -1 }
-
-    version_tags = (added_tags + removed_tags + unchanged_tags)
-
-    # We check whether tags are still in use and set obsolete accordingly
-    version_tags.each { |tag| tag.obsolete = true if Note.tagged_with(tag.name).size == 0 }
-
-    version_tags.sort_by { |tag| tag.name.downcase }
-
-    # We build and return the version object
-    # TODO: Use separate model without database for this (see Style Guide)
-    OpenStruct.new(
-      title: version.title,
-      body: version.body,
-      previous_title: previous.title,
-      previous_body: previous.body,
-      embeddable_source_url: version.embeddable_source_url,
-      sequence: sequence,
-      external_updated_at: version.external_updated_at,
-      tags: version_tags
-    )
   end
 
   # private

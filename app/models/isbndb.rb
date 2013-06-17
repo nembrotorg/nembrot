@@ -5,14 +5,10 @@ class Isbndb
 
   base_uri Settings.books.isbndb.domain
 
-  attr_accessor :isbn, :data, :title, :publisher, :published_city, :published_date, :isbn_10, :isbn_13, :response,
-                :dewey_decimal, :lcc_number
+  attr_accessor :metadata
 
   def initialize(isbn)
-
-    @isbn = isbn
-
-    response = self.class.get("http://isbndb.com/api/v2/json/#{ Secret.auth.isbndb.api_key }/book/#{ isbn }")
+    response = self.class.get("#{ Settings.books.isbndb.path }#{ Secret.auth.isbndb.api_key }/book/#{ isbn }")
 
     response = JSON.parse response
 
@@ -21,19 +17,21 @@ class Isbndb
 
   def populate(response)
     response = response['data'].first
-    @response = response
+    metadata = {}
 
-    @title = response['title']
-    @publisher = response['publisher_name']
-    # @title_long = response['Title'] if author_statement.nil?
-    # @author_statement = response[''] if title.nil?
+    metadata['title'] = response['title']
+    metadata['publisher'] = response['publisher_name']
+    # metadata['title_long'] = response['Title'] if author_statement.nil?
+    # metadata['author_statement'] = response[''] if title.nil?
     # Guess introducer and translator from authortext and description
     parsed_publisher_text = response['publisher_text'].scan(/(.*?) : (.*?)\, (c?\d\d\d\d)/)
-    @published_city = parsed_publisher_text[0][0] if parsed_publisher_text.size > 0
-    @published_date = parsed_publisher_text[0][2] if parsed_publisher_text.size > 0
-    @isbn_10 = response['isbn10']
-    @isbn_13 = response['isbn13']
-    @dewey_decimal = response['dewey_normal']
-    @lcc_number = response['lcc_number']
+    metadata['published_city'] = parsed_publisher_text[0][0] if parsed_publisher_text.size > 0
+    metadata['published_date'] = parsed_publisher_text[0][2] if parsed_publisher_text.size > 0
+    metadata['isbn_10'] = response['isbn10']
+    metadata['isbn_13'] = response['isbn13']
+    metadata['dewey_decimal'] = response['dewey_normal']
+    metadata['lcc_number'] = response['lcc_number']
+
+    self.metadata = metadata
   end
 end

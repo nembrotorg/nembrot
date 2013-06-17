@@ -9,17 +9,16 @@ describe OpenLibrary do
       end
     end
 
-    subject { @open_library_book }
+    subject { @open_library_book.metadata }
 
-    its (:author) { should == 'Friedrich A. Kittler' }
-    its (:dewey_decimal) { should == nil }
-    its (:isbn) { should == '0804720991' }
-    its (:lcc_number) { should == nil }
-    its (:library_thing_id) { should == '430888' }
-    its (:open_library_id) { should == '212450' }
-    its (:page_count) { should == 459 }
-    its (:publisher) { should == 'Stanford University press' }
-    its (:title) { should == 'Discourse networks, 1800-1900' }
+    its (['author']) { should == 'Friedrich A. Kittler' }
+    its (['dewey_decimal']) { should == nil }
+    its (['lcc_number']) { should == nil }
+    its (['library_thing_id']) { should == '430888' }
+    its (['open_library_id']) { should == '212450' }
+    its (['page_count']) { should == 459 }
+    its (['publisher']) { should == 'Stanford University press' }
+    its (['title']) { should == 'Discourse networks, 1800-1900' }
 
   end
 
@@ -32,14 +31,6 @@ describe OpenLibrary do
 
     subject { @open_library_book }
 
-    its (:author) { should == nil }
-    its (:dewey_decimal) { should == nil }
-    its (:lcc_number) { should == nil }
-    its (:library_thing_id) { should == nil }
-    its (:open_library_id) { should == nil }
-    its (:page_count) { should == nil }
-    its (:publisher) { should == nil }
-    its (:response) { should == nil }
-    its (:title) { should == nil }
+    its (:metadata) { should == nil }
   end
 end

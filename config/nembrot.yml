@@ -47,7 +47,7 @@ defaults: &defaults
       active?: true
     isbndb:
       domain: 'http://isbndb.com'
-      path: '/api/books.xml'
+      path: '/api/v2/json/'
       active?: true
     open_library:
       domain: 'http://openlibrary.org'
@@ -65,12 +65,12 @@ defaults: &defaults
     enface: [['Wutz', 'de', 'en'], ['Wutz RC1', 'de', 'en']]
   web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet', 'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet', 'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
   styling:
-    test_color: #666
-    css_for_instructions: ['__FX_POL'] # FX instructions are not rendered unless included in this list
+    css_for_instructions: ['__FX_POL']
     line_height: 30
     column_width: 60
     gutter_width: 30
     columns: 12
+    test_color: '#0f0'
     images:
       effects:
       name_length: 30

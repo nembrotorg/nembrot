@@ -94,40 +94,35 @@ class Resource < ActiveRecord::Base
 
       increment_attempts
 
-      if Settings.evernote.stream_binaries
-
-        # Stream binary. NOT WORKING YET
-
-        require 'net/http'
-        require 'uri'
-
-        uri = URI.parse("#{ cloud_service.evernote_url_prefix }/res/#{ cloud_resource_identifier }")
-
-        connection = Net::HTTP.new(uri.host)
-        connection.use_ssl = true if uri.scheme == 'https'
-        connection.start do |http|
-          response = connection.post_form(uri.path, { 'auth' => oauth_token })
-          File.open(raw_location, 'wb') do |file|
-            file.write(response.body)
-          end
-        end
-      else
-
-        # Download binary
-
-        # To get the binary data via the API use this method (however, this way the whole file is downloaded into memory -
-        # see http://dev.evernote.com/start/core/resources.php#downloading )
-        cloud_resource_data = note_store.getResourceData(oauth_token, cloud_resource_identifier)
-        File.open(raw_location, 'wb') do |file|
-          file.write(cloud_resource_data)
-        end
-      end
-
-      # Also how do we delete images when a resource is deleted?
-      # (A method in resource - checks file is not used by other resources first...?)
+      Settings.evernote.stream_binaries ? stream_binary : download_binary
 
       # We check that the resource has been downloaded correctly, if so we unflag the resource.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
+    end
+  end
+
+  def stream_binary
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse("#{ cloud_service.evernote_url_prefix }/res/#{ cloud_resource_identifier }")
+    connection = Net::HTTP.new(uri.host)
+    connection.use_ssl = true if uri.scheme == 'https'
+
+    connection.start do |http|
+      response = connection.post_form(uri.path, { 'auth' => oauth_token })
+      File.open(raw_location, 'wb') do |file|
+        file.write(response.body)
+      end
+    end
+  end
+
+  def download_binary
+    # This way the whole file is downloaded into memory -
+    #  see http://dev.evernote.com/start/core/resources.php#downloading
+    cloud_resource_data = note_store.getResourceData(oauth_token, cloud_resource_identifier)
+    File.open(raw_location, 'wb') do |file|
+      file.write(cloud_resource_data)
     end
   end
 

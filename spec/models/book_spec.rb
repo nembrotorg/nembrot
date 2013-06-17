@@ -45,7 +45,51 @@ describe Book do
     end
   end
 
+  def book_is_updated?
+    @book.author.should == 'Friedrich A. Kittler'
+    @book.dewey_decimal.should == '830.9357'
+    @book.dimensions.should == nil
+    @book.dirty.should == nil 
+    @book.editor.should == nil
+    @book.format.should == nil
+    @book.full_text.should == nil
+    @book.google_books_embeddable.should == true
+    @book.google_books_id.should == 'nRo0Pk8djjoC'
+    @book.introducer.should == nil
+    @book.isbn_10.should == '0804720991'
+    @book.isbn_13.should == '9780804720991'
+    @book.lang.should == 'en'
+    @book.lcc_number.should == nil
+    @book.library_thing_id.should == '430888' 
+    @book.open_library_id.should == '212450'
+    @book.page_count.should == 459
+    @book.published_city.should == 'Stanford, Calif.'
+    @book.published_date.year.should == 1990
+    @book.publisher.should == 'Stanford University Press'
+    @book.slug.should == 'kittler-1990'
+    @book.tag.should == 'Kittler 1990' 
+    @book.title.should == 'Discourse networks 1800/1900'
+    @book.translator.should == nil
+    @book.weight.should == nil
+  end
+
   describe '.sync_all' do
+    before do
+      VCR.use_cassette('model/world_cat') do
+        VCR.use_cassette('model/isbndb') do
+          VCR.use_cassette('model/google_books') do
+            VCR.use_cassette('model/open_library') do
+              @book = Book.add_task('0804720991')
+              Book.sync_all
+            end
+          end
+        end
+      end
+    end
+    it 'fetches metadata for dirty books' do
+      pending "book_is_updated?"
+      pending "@book.attempts.should == 0"
+    end
   end
 
   describe '#populate!' do
@@ -54,7 +98,6 @@ describe Book do
         VCR.use_cassette('model/isbndb') do
           VCR.use_cassette('model/google_books') do
             VCR.use_cassette('model/open_library') do
-              # Secret['auth']['isbndb']['api_key'] = 'OBSCURED'
               @book = Book.new
               @book.isbn_10 = '0804720991'
               @book.populate!
@@ -63,33 +106,9 @@ describe Book do
         end
       end
     end
-    it 'adds a dirty book when given an isbn' do
+    it 'fetches metadata from four APIs' do
+      book_is_updated?
       @book.attempts.should == 1
-      @book.author.should == 'Friedrich A. Kittler'
-      @book.dewey_decimal.should == '830.9357'
-      @book.dimensions.should == nil
-      @book.dirty.should == nil 
-      @book.editor.should == nil
-      @book.format.should == nil
-      @book.full_text.should == nil
-      @book.google_books_embeddable.should == true
-      @book.google_books_id.should == 'nRo0Pk8djjoC'
-      @book.introducer.should == nil
-      @book.isbn_10.should == '0804720991'
-      @book.isbn_13.should == '9780804720991'
-      @book.lang.should == nil
-      @book.lcc_number.should == nil
-      @book.library_thing_id.should == '430888' 
-      @book.open_library_id.should == '212450'
-      @book.page_count.should == 459
-      @book.published_city.should == 'Stanford, Calif.'
-      @book.published_date.year.should == 1990
-      @book.publisher.should == 'Stanford University Press'
-      @book.slug.should == 'kittler-1990'
-      @book.tag.should == 'Kittler 1990' 
-      @book.title.should == 'Discourse networks 1800/1900'
-      @book.translator.should == nil
-      @book.weight.should == nil
     end
   end
 

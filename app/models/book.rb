@@ -14,6 +14,7 @@ class Book < Source
     book.dirty = true
     book.attempts = 0
     book.save!
+    book
   end
 
   def self.sync_all
@@ -75,11 +76,12 @@ class Book < Source
   end
 
   def author_sort
-    author_or_editor.gsub(/([^ ]+?) ?([^ ]*)$/, '\\2, \\1')
+    (author.blank? ? editor : author).gsub(/([^ ]+?) ?([^ ]*)$/, '\\2, \\1')
   end
 
   def author_surname
-    author_or_editor.split(',')[0].scan(/([^ ]*)$/)[0][0]
+    surname = (author.blank? ? editor : author).split(',')[0].scan(/([^ ]*)$/)[0][0]
+    author.blank? ? "#{ surname } #{ I18n.t('books.editor_short') }" : surname
   end
 
   def headline

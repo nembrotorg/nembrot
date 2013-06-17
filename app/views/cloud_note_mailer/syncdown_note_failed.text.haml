@@ -2,11 +2,11 @@
 =t('email.greeting', :name => Settings.monitoring.name)
 
 
-=t('notes.sync.failed.email.body', :provider => @provider, :guid => @guid, :username => @username)
+=t('notes.sync.failed.email.body', :provider => @provider, :guid => @guid, :username => @username, :error => @error)
 
 #{ Settings.evernote.server }/Home.action#st=p&n=#{ @guid }
 
-= @error
+=@error
 
 =t('email.signature')
 =@host

@@ -37,17 +37,16 @@ describe CloudNote do
   it { should validate_presence_of(:cloud_service) }
 
   it do
-    should validate_uniqueness_of(:cloud_note_identifier)
-                                  .scoped_to(:cloud_service_id)
+    should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:cloud_service_id)
   end
 
-  describe 'dirtify should mark it dirty' do
+  describe '#dirtify marks it dirty' do
     before { @cloud_note.dirtify }
     its(:dirty) { should == true }
     its(:attempts) { should == 0 }
   end
 
-  describe 'undirtify should mark it not dirty' do
+  describe '#undirtify marks it not dirty' do
     before do
       @cloud_note = FactoryGirl.create(:cloud_note, dirty: true, attempts: 1)
       @cloud_note.undirtify
@@ -56,7 +55,7 @@ describe CloudNote do
     its(:attempts) { should == 0 }
   end
 
-  describe 'increment_attempts should increment attempts' do
+  describe '#increment_attempts increments attempts' do
     before do
       @cloud_note = FactoryGirl.create(:cloud_note, attempts: 0)
       @cloud_note.increment_attempts
@@ -64,19 +63,19 @@ describe CloudNote do
     its(:attempts) { should == 1 }
   end
 
-  describe 'max_out_attempts should increment attempts' do
+  describe '#max_out_attempts increments attempts' do
     before { @cloud_note.max_out_attempts }
     its(:attempts) { should >=  Settings.notes.attempts }
   end
 
-  describe 'need_syncdown should contain all dirty notes' do
+  describe 'scope :need_syncdown contains all dirty notes' do
     before do
       @cloud_note = FactoryGirl.create(:cloud_note, dirty: true, attempts: 0)
     end
     CloudNote.need_syncdown.last.should == @cloud_note
   end
 
-  describe 'need_syncdown should not contain dirty notes retried too often' do
+  describe 'scope :need_syncdown does not contain dirty notes retried too often' do
     before do
       @cloud_note = FactoryGirl.create(:cloud_note,
                                         dirty: true,
@@ -85,7 +84,7 @@ describe CloudNote do
     CloudNote.need_syncdown.last.should == nil
   end
 
-  describe 'is disincluded from need_syncdown after max_out_attempts' do
+  describe 'is disincluded from :need_syncdown after #max_out_attempts' do
     before do
       @cloud_note = FactoryGirl.create(:cloud_note, dirty: true)
       @cloud_note.increment_attempts

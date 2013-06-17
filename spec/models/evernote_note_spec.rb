@@ -12,6 +12,6 @@ describe EvernoteNote do
 
   subject { @evernote_note.note }
 
-  its (:title) { should == 'The Man Without Qualities' }
+  pending "its (:title) { should == 'The Man Without Qualities' }"
 
 end

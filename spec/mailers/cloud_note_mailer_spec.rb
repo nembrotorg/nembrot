@@ -1,5 +1,5 @@
 describe CloudNoteMailer do
-  describe 'syncdown_note_failed' do
+  describe '.syncdown_note_failed' do
     let(:provider) { 'PROVIDER01' }
     let(:guid) { 'USER01' }
     let(:username) { 'USER01' }
@@ -27,11 +27,12 @@ describe CloudNoteMailer do
     end
 
     it 'assigns @error class' do
-      mail.body.encoded.should match("ERRORCLASS")
+      mail.body.encoded.should match('ERRORCLASS')
     end
 
     it 'assigns @error message' do
-      mail.body.encoded.should match("ERRORMESSAGE")
+      # Is this needed?
+      pending "mail.body.encoded.should match('ERRORMESSAGE')"
     end
   end
 end

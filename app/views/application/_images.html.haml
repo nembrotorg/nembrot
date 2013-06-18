@@ -1,7 +1,7 @@
 - images.each do |image|
   %figure
-    = link_to image_tag(cut_image_path(image, :type => type), :alt => strip_tags(image.description)),
-    cut_image_path(image, :width => Settings.styling.images.expanded.width)
+    = link_to image_tag(cut_image_binary_path(image, :type => type), :alt => strip_tags(image.description)),
+    cut_image_binary_path(image, :width => Settings.styling.images.expanded.width)
     - if image.caption
       %figcaption
         = image.caption.html_safe

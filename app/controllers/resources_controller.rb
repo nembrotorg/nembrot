@@ -3,7 +3,7 @@ class ResourcesController < ApplicationController
   include ResourcesHelper
 
   def cut
-    image = cut_image(
+    image = cut_image_binary(
         params[:file_name],
         params[:format],
         params[:aspect_x].to_i,

@@ -81,7 +81,7 @@ describe 'Notes' do
       visit note_path(@note)
     end
     it 'should display attached images' do
-      page.should have_css("figure img[src*=\"#{ cut_image_path(@resource) }\"]")
+      page.should have_css("figure img[src*=\"#{ cut_image_binary_path(@resource) }\"]")
     end
     it 'should display the description in the alt attribute' do
       page.should have_css("figure img[alt*=\"#{ @resource.description }\"]")

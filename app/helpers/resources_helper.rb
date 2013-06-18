@@ -6,7 +6,9 @@ module ResourcesHelper
   include Magick
   include EffectsHelper
 
-  def cut_image_path(image, options = {})
+  # REVIEW: Does this duplicate Resource#cut_location? Or maybe this should be a separate Class?
+
+  def cut_image_binary_path(image, options = {})
     type = options[:type] || 'standard'
     x = options[:aspect_x] || Settings.styling.images[type]['aspect']['x']
     y = options[:aspect_y] || Settings.styling.images[type]['aspect']['y']
@@ -29,7 +31,7 @@ module ResourcesHelper
     )
   end
 
-  def cut_image(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
+  def cut_image_binary(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
     # TODO: add gravity
     image_record = Resource.find_by_local_file_name(local_file_name)
 

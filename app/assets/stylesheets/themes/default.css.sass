@@ -67,8 +67,6 @@ body, small
   line-height: $line-height
   color: $font-color
   font-size: $font-size
-  // SASS functions test
-  // background-color: styling-setting("test")
 
 article[dir=rtl]
   text-align: right
@@ -99,10 +97,10 @@ img
 
 ins
   text-decoration: none
-  background-color: $highlighter-yellow
+  background-color: $insert-background-color
 
 del
-  color: $gray
+  color: $delete-font-color
   text-decoration: strike-through
 
 ol, ul
@@ -116,11 +114,11 @@ li
 h1
   margin: $line-height 0
   line-height: $line-height
-  color: $title-color
+  color: $headline-font-color
   font:
-    family: $font-family-headline
+    family: $headline-font-family
     weight: normal
-    size: $font-size-headline
+    size: $headline-font-size
 
 h3, h6
   display: none
@@ -157,12 +155,11 @@ header
   position: relative
   #notice
     .success
-      background-color: $highlighter-green
+      background-color: $success-background-color
       &:before
         +icon-ok-1
     .error
-      background-color: $highlighter-red
-      color: $black
+      background-color: $error-background-color
       margin: 0
       &:before
         +icon-attention-2
@@ -247,16 +244,16 @@ ul.notes
   +column(12)
   li, li h2
     font:
-      family: $font-family-body
-      size: $font-size-body
-    color: $font-color-body
+      family: $body-font-family
+      size: $body-font-size
+    color: $body-font-color
     text-align: justify
     +hyphens
     margin-bottom: $line-height
     display: block
     +column-break-inside(avoid)
     h2
-      color: $title-color
+      color: $headline-font-color
       display: inline
 
 .notes-show
@@ -277,8 +274,8 @@ ul.notes
 
 #text
   font:
-    family: $font-family-body
-    size: $font-size-body
+    family: $body-font-family
+    size: $body-font-size
   p
     +hyphens
     margin: 0
@@ -292,7 +289,7 @@ ul.notes
   h2
     display: block
     font:
-      family: $font-family-headline
+      family: $headline-font-family
       size: 18px
     margin: $line-height 0 0 0
     // If this occurs first it should not have this margin-top
@@ -319,7 +316,7 @@ ul.notes
         a:after
           content: ""
   .count
-    color: $red
+    color: $count-color
 
 .books
   +column(12)
@@ -400,8 +397,8 @@ ul.notes
       position: relative
       #map
         +place(6, 4, 2)
-        background-color: $light-gray
-        color: $gray
+        background-color: $map-background-color
+        color:  $map-font-color
         position: absolute
         height: $line-height * 6
 
@@ -420,7 +417,7 @@ ul.notes
       counter-reset: term
       +place(0, 6, 6)
       margin-bottom: $line-height
-      color: $font-color-body
+      color: $body-font-color
       p
         position: relative
       span.annotation
@@ -436,7 +433,7 @@ ul.notes
           +push(6, 6)
           position: absolute
           font:
-            size: $font-size-small
+            size: $small-font-size
           color: #c00
           line-height: $line-height / 2
           text-indent: 0
@@ -447,11 +444,11 @@ ul.notes
           &:before
             content: counter(term)
             vertical-align: super
-            font-size: $font-size-small
+            font-size: $small-font-size
             margin-right: 5px
       &:hover
         a
-          color: $blue
+          color: $link-color
           +transition
         span.annotation
           span
@@ -487,7 +484,7 @@ ul.notes
     ol
       +column(12)
       .count
-        color: $red
+        color: $count-color
 
   .books-show
     ul.notes
@@ -496,7 +493,7 @@ ul.notes
       ol
         +column(6)
         .count
-          color: $red
+          color: $count-color
 
   .tags-index
     ul

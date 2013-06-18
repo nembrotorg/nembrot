@@ -5,10 +5,7 @@ class EvernoteNote < CloudNote
   include EvernoteHelper
 
   def self.add_task(guid)
-    self.where(cloud_note_identifier: guid,
-               cloud_service_id: cloud_service.id)
-              .first_or_create
-              .dirtify
+    self.where(cloud_note_identifier: guid, cloud_service_id: cloud_service.id).first_or_create.dirtify
   end
 
   def self.sync_all
@@ -18,18 +15,14 @@ class EvernoteNote < CloudNote
   def self.bulk_sync
     filter = Evernote::EDAM::NoteStore::NoteFilter.new(
       notebookGuid: Settings.evernote.notebooks,
-      words: Settings.evernote.instructions.required.join(' ')
-              .gsub(/^/, 'tag:')
-              .gsub(/ /, ' tag:'),
+      words: Settings.evernote.instructions.required.join(' ').gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
       order: 2,
       ascending: false
     )
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
 
     cloud_notes = cloud_service.evernote_note_store
-                  .findNotesMetadata(cloud_service
-                                      .evernote_oauth_token,
-                                      filter, 0, 999, spec)
+                  .findNotesMetadata(cloud_service.evernote_oauth_token, filter, 0, 999, spec)
     cloud_notes.notes.each do |cloud_note|
       EvernoteNote.add_task(cloud_note.guid)
     end
@@ -40,9 +33,7 @@ class EvernoteNote < CloudNote
 
     increment_attempts
 
-    cloud_note_metadata = note_store
-                          .getNote(oauth_token,
-                                   guid, false, false, false, false)
+    cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
     # File.open('evernote_metadata.json', 'w') 
     # {|f| f.write(cloud_note_metadata.to_json) }

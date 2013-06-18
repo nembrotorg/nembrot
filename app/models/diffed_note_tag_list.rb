@@ -33,7 +33,7 @@ class DiffedNoteTagList
       }
     end
 
-    @list = Hash[diffed_tag_list.sort]
+    self.list = Hash[diffed_tag_list.sort]
   end
 
   def is_obsolete?(tag)

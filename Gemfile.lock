@@ -37,6 +37,11 @@ GEM
       encryptor (>= 1.1.1)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     breadcrumbs_on_rails (2.3.0)
@@ -84,6 +89,7 @@ GEM
       thor
     daemons (1.1.9)
     database_cleaner (1.0.1)
+    debug_inspector (0.0.2)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -189,7 +195,6 @@ GEM
       addressable (~> 2.3)
     libnotify (0.8.0)
       ffi (>= 1.0.11)
-    libv8 (3.11.8.17)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -302,7 +307,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.5)
     remotipart (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -356,9 +360,6 @@ GEM
     sqlite3 (1.3.7)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
-    therubyracer (0.11.4)
-      libv8 (~> 3.11.8.12)
-      ref
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -395,6 +396,8 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   attr_encrypted
+  better_errors
+  binding_of_caller
   breadcrumbs_on_rails
   capistrano
   capybara
@@ -430,7 +433,6 @@ DEPENDENCIES
   json
   launchy
   libnotify
-  libv8 (~> 3.11.8.3)
   meta-tags
   nokogiri
   oauth
@@ -452,7 +454,6 @@ DEPENDENCIES
   simplecov
   spork-rails
   sqlite3
-  therubyracer (~> 0.11.1)
   thin
   turbo-sprockets-rails3
   uglifier

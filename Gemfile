@@ -35,6 +35,8 @@ gem 'wikipedia-client'
 gem 'wtf_lang'
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'capistrano'
   gem 'factory_girl_rails'
   gem 'flog'
@@ -92,7 +94,8 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'libv8', '~> 3.11.8.3', platform: :ruby
   gem 'pg'
-  gem 'therubyracer', '~> 0.11.1'
+  # Use node.js instead: https://github.com/joyent/node/wiki/Installation
+  # gem 'libv8', '~> 3.11.8.3', platform: :ruby
+  # gem 'therubyracer', '~> 0.11.1'
 end

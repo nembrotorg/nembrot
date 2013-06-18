@@ -12,7 +12,7 @@
     -#= render 'images', :note => @notes.first, :type => :standard
     - image = @notes.first.resources.first
     %figure
-      = link_to image_tag(cut_image_path(image, :type => :cinema),
+      = link_to image_tag(cut_image_binary_path(image, :type => :cinema),
       :alt => strip_tags(image.description)), @notes.first
       - if image.caption
         %figcaption= image.caption.html_safe

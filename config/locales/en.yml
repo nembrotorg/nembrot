@@ -1,14 +1,14 @@
 en:
 
   auth:
-    success: "Your %{ provider } key has been authenticated."
-    failure: "%{ provider } authentication failed!"
+    success: "Your %{provider} key has been authenticated."
+    failure: "%{provider} authentication failed!"
     email:
-      subject: "%{ provider } authentication required"
-      body: "%{ provider } authentication is missing. Please authenticate your key for this provider by visiting %{ url }"
+      subject: "%{provider} authentication required"
+      body: "%{provider} authentication is missing. Please authenticate your key for this provider by visiting %{url}"
 
   email:
-    greeting: "Hi %{ name }"
+    greeting: "Hi %{name}"
     signature: "joegatt.net"
 
   site:
@@ -22,53 +22,53 @@ en:
 
   notes:
     title: "Notes"
-    item: "Note %{ id }"
-    short: "Note %{ id }"
+    item: "Note %{id}"
+    short: "Note %{id}"
     versions:
       title: "Versions"
-      item: "Version %{ sequence }"
-      short: "v%{ sequence }"
-      full: "Note %{ id } v%{ sequence }"
+      item: "Version %{sequence}"
+      short: "v%{sequence}"
+      full: "Note %{id} v%{sequence}"
     untitled_synonyms: ["Untitled", "Untitled note", "New note"]
     sync:
-      updated: "%{ provider }: note %{ guid } (%{ title }) updated."
+      updated: "%{provider}: note %{guid} (%{title}) updated."
       rejected:
-        version_not_ok: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } failed! The SDK is out of date."
-        not_authenticated: "%{ provider }: note %{ guid } rejected! Your %{ provider } API key is not authenticated."
-        not_in_notebook: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } rejected! Not in required note"
-        deleted_note: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } rejected! Note has been deleted from cloud note"
-        tag_missing: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } rejected! Missing required tag."
-        ignore: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } rejected! Contains instructions to ignore."
-        not_latest: "%{ provider }: note %{ guid } (%{ title }) for user %{ username } rejected! Already have latest version."
-      update_error: "%{ provider }: note %{ guid } failed on database update!"
+        version_not_ok: "%{provider}: note %{guid} (%{title}) for user %{username} failed! The SDK is out of date."
+        not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
+        not_in_notebook: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Not in required note"
+        deleted_note: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Note has been deleted from cloud note"
+        tag_missing: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Missing required tag."
+        ignore: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Contains instructions to ignore."
+        not_latest: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Already have latest version."
+      update_error: "%{provider}: note %{guid} failed on database update!"
       failed:
-        logger: "%{ provider }: note %{ guid } (%{ title }) failed on database update!"
+        logger: "%{provider}: note %{guid} (%{title}) failed on database update!"
         email:
-          subject: "%{ provider }: note %{ guid } failed on database update!"
-          body: "%{ provider }: note %{ guid } for user %{ username } failed on database update!"
+          subject: "%{provider}: note %{guid} failed on database update!"
+          body: "%{provider}: note %{guid} for user %{username} failed on database update!"
 
   resources:
     cut:
       failed:
-        raw_image_not_found: "Raw image not found when cutting %{ local_file_name }"
-        record_not_found: "Record not found when cutting %{ local_file_name }"
+        raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
+        record_not_found: "Record not found when cutting %{local_file_name}"
 
   tags:
     title: "Tags"
-    item: "%{ name }"
-    short: "%{ name }"
+    item: "%{name}"
+    short: "%{name}"
 
   books:
     title: "Bibliography"
-    item: "%{ name }"
-    short: "%{ name }"
+    item: "%{name}"
+    short: "%{name}"
     editor_short: "(ed.)"
 
   citations:
     default:
-      inline: "%{ author_surname } %{ published_date }"
-      index: "%{ author_surname }: %{ title }"
-      full: "%{ author_sort }. %{ title }. %{ published_city }: %{ publisher }, %{ published_date }."
+      inline: "%{author_surname} %{published_date}"
+      index: "%{author_surname}: %{title}"
+      full: "%{author_sort}. %{title}. %{published_city}: %{publisher}, %{published_date}."
 
   titlecase_exceptions:
     articles: "a an the"

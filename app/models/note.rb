@@ -8,11 +8,11 @@ class Note < ActiveRecord::Base
                   :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list,
                   :hide, :active
 
-  attr_writer :tag_list, :instruction_list
+  attr_writer :tag_list, :instruction_listrs
 
   has_many :cloud_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
-  has_and_belongs_to_many :sources
+  has_and_belongs_to_many :books
 
   acts_as_taggable_on :tags, :instructions
 
@@ -107,17 +107,6 @@ class Note < ActiveRecord::Base
     update_resources_with_evernote_data(note_data)
   end
 
-  def sanitize_for_db(content)
-    content.gsub(/^(:?cap|alt|description|credit):.*$/i, '')
-           .gsub(/<b>|<h\d>/, '<strong>')
-           .gsub(/<\/b>|<h\d>/, '</strong>')
-           .gsub(/\&nbsp\;/, ' ')
-           .gsub(/[\n]+/, '\n')
-           .strip
-    ActionController::Base.helpers.sanitize(content, tags: Settings.notes.allowed_html_tags,
-                                            attributes: Settings.notes.allowed_html_attributes)
-  end
-
   def lang_from_cloud(content)
     (ActionController::Base.helpers.strip_tags(content[0..Settings.notes.wtf_sample_length])).lang
   end
@@ -138,7 +127,7 @@ class Note < ActiveRecord::Base
 
   def scan_note_for_references
     # REVIEW: Should this be in Book?
-    self.sources = Book.citable.keep_if { |book| self.body.include?(book.tag) }
+    self.books = Book.citable.keep_if { |book| self.body.include?(book.tag) }
   end
 
   def scan_note_for_isbns

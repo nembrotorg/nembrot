@@ -11,7 +11,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613184423) do
+ActiveRecord::Schema.define(:version => 20130622212026) do
+
+  create_table "books", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "translator"
+    t.string   "introducer"
+    t.string   "editor"
+    t.string   "lang"
+    t.date     "published_date"
+    t.string   "published_city"
+    t.string   "publisher"
+    t.string   "isbn_10"
+    t.string   "isbn_13"
+    t.string   "format"
+    t.integer  "page_count"
+    t.string   "dimensions"
+    t.string   "weight"
+    t.string   "google_books_id"
+    t.string   "tag"
+    t.boolean  "dirty"
+    t.integer  "attempts"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "library_thing_id"
+    t.string   "open_library_id"
+    t.string   "slug"
+    t.string   "dewey_decimal"
+    t.string   "lcc_number"
+    t.string   "full_text"
+    t.boolean  "google_books_embeddable"
+  end
+
+  add_index "books", ["slug"], :name => "index_sources_on_slug", :unique => true
+
+  create_table "books_notes", :force => true do |t|
+    t.integer "book_id"
+    t.integer "note_id"
+  end
 
   create_table "cloud_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
@@ -35,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20130613184423) do
     t.datetime "updated_at",     :null => false
     t.text     "auth"
     t.text     "encrypted_auth"
+    t.string   "type"
   end
 
   create_table "notes", :force => true do |t|
@@ -54,11 +93,6 @@ ActiveRecord::Schema.define(:version => 20130613184423) do
     t.string   "source_application"
     t.string   "last_edited_by"
     t.boolean  "hide"
-  end
-
-  create_table "notes_sources", :force => true do |t|
-    t.integer "source_id"
-    t.integer "note_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -102,40 +136,6 @@ ActiveRecord::Schema.define(:version => 20130613184423) do
   end
 
   add_index "resources", ["note_id"], :name => "index_resources_on_note_id"
-
-  create_table "sources", :force => true do |t|
-    t.string   "title"
-    t.string   "author"
-    t.string   "translator"
-    t.string   "introducer"
-    t.string   "editor"
-    t.string   "lang"
-    t.date     "published_date"
-    t.string   "published_city"
-    t.string   "publisher"
-    t.string   "isbn_10"
-    t.string   "isbn_13"
-    t.string   "format"
-    t.integer  "page_count"
-    t.string   "dimensions"
-    t.string   "weight"
-    t.string   "google_books_id"
-    t.string   "tag"
-    t.boolean  "dirty"
-    t.integer  "attempts"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.string   "library_thing_id"
-    t.string   "open_library_id"
-    t.string   "slug"
-    t.string   "type"
-    t.string   "dewey_decimal"
-    t.string   "lcc_number"
-    t.string   "full_text"
-    t.boolean  "google_books_embeddable"
-  end
-
-  add_index "sources", ["slug"], :name => "index_sources_on_slug", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

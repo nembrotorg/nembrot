@@ -13,12 +13,12 @@
     = render 'media', :note => @note unless @note.embeddable_source_url.blank?
 
     %section#text
-      = bodify(@note.body, @note.sources)
+      = bodify(@note.body, @note.books)
 
       = render 'downloads', :downloads => @note.resources.attached_files unless @note.resources.attached_files.empty?
 
   = render 'tag_list', :tags => @tags
 
-  = render 'books_list', :books => @note.sources
+  = render 'books_list', :books => @note.books
 
   = render 'versions_list', :note => @note

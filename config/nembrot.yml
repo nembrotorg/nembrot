@@ -66,6 +66,9 @@ defaults: &defaults
   web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet',
                   'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet',
                   'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
+  images:
+    default_blank_location: '/public/resources/cut/blank.png'
+
   styling:
     css_for_instructions: ['__FX_POL']
     line_height: 30

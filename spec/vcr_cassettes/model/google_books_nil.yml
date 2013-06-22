@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: https://www.googleapis.com/books/v1/volumes?country=GB&q=ISBN%3AINVALID_ISBN&maxResults=1
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
     body: 
       encoding: US-ASCII
       string: ""
@@ -13,60 +13,61 @@ http_interactions:
       code: 200
       message: OK
     headers: 
-      expires: 
-      - Wed, 12 Jun 2013 11:24:23 GMT
-      date: 
-      - Wed, 12 Jun 2013 11:24:23 GMT
-      cache-control: 
+      Expires: 
+      - Sat, 22 Jun 2013 20:16:56 GMT
+      Date: 
+      - Sat, 22 Jun 2013 20:16:56 GMT
+      Cache-Control: 
       - private, max-age=0, must-revalidate, no-transform
-      etag: 
-      - "\"I09ELXbrmOlE-RFCkDsRbIJj278/B74Ko9qJYVzgXu7dJT--6h_m-Bw\""
-      content-type: 
+      Etag: 
+      - "\"I09ELXbrmOlE-RFCkDsRbIJj278/rkqf0JRMcaQGroRBjhCuQTQf4BQ\""
+      Content-Type: 
       - application/json; charset=UTF-8
-      x-content-type-options: 
+      X-Content-Type-Options: 
       - nosniff
-      x-frame-options: 
+      X-Frame-Options: 
       - SAMEORIGIN
-      x-xss-protection: 
+      X-Xss-Protection: 
       - 1; mode=block
-      server: 
+      Server: 
       - GSE
-      connection: 
-      - close
+      Transfer-Encoding: 
+      - chunked
     body: 
       encoding: US-ASCII
       string: |
         {
          "kind": "books#volumes",
-         "totalItems": 574,
+         "totalItems": 470,
          "items": [
           {
            "kind": "books#volume",
-           "id": "QfJLkgEACAAJ",
-           "etag": "C8TCZceFcLc",
-           "selfLink": "https://www.googleapis.com/books/v1/volumes/QfJLkgEACAAJ",
+           "id": "-ml3OgAACAAJ",
+           "etag": "i/t33XUCoEQ",
+           "selfLink": "https://www.googleapis.com/books/v1/volumes/-ml3OgAACAAJ",
            "volumeInfo": {
             "title": "Invalid Isbn",
             "authors": [
-             "Random House"
+             "C. Longaker"
             ],
-            "publishedDate": "1999-01-01",
+            "publisher": "Arrow",
+            "publishedDate": "1997-03-06",
             "industryIdentifiers": [
              {
               "type": "ISBN_10",
-              "identifier": "1844136086"
+              "identifier": "1856870308"
              },
              {
               "type": "ISBN_13",
-              "identifier": "9781844136087"
+              "identifier": "9781856870306"
              }
             ],
             "printType": "BOOK",
             "contentVersion": "preview-1.0.0",
             "language": "en",
-            "previewLink": "http://books.google.co.uk/books?id=QfJLkgEACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
-            "infoLink": "http://books.google.co.uk/books?id=QfJLkgEACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
-            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=QfJLkgEACAAJ"
+            "previewLink": "http://books.google.co.uk/books?id=-ml3OgAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=-ml3OgAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=-ml3OgAACAAJ"
            },
            "saleInfo": {
             "country": "GB",
@@ -85,13 +86,13 @@ http_interactions:
             "pdf": {
              "isAvailable": false
             },
-            "webReaderLink": "http://books.google.co.uk/books/reader?id=QfJLkgEACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=-ml3OgAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
             "accessViewStatus": "NONE"
            }
           }
          ]
         }
 
-    http_version: "1.1"
-  recorded_at: Wed, 12 Jun 2013 11:24:23 GMT
+    http_version: 
+  recorded_at: Sat, 22 Jun 2013 20:16:56 GMT
 recorded_with: VCR 2.5.0

@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info%3Asrw%2Fschema%2F1%2Fdc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
     body: 
       encoding: US-ASCII
       string: ""
@@ -13,15 +13,13 @@ http_interactions:
       code: 200
       message: OK
     headers: 
-      date: 
-      - Wed, 12 Jun 2013 11:22:17 GMT
-      server: 
+      Date: 
+      - Sat, 22 Jun 2013 20:17:03 GMT
+      Server: 
       - Apache
-      content-length: 
+      Content-Length: 
       - "5738"
-      connection: 
-      - close
-      content-type: 
+      Content-Type: 
       - text/xml;charset=utf-8
     body: 
       encoding: ASCII-8BIT
@@ -71,6 +69,6 @@ http_interactions:
         <oclcterms:languageOfCataloging xsi:type=\"http://purl.org/oclc/terms/iso639-2b\">eng</oclcterms:languageOfCataloging>\n\
         <oclcterms:recordTranscribingAgency>DLC</oclcterms:recordTranscribingAgency>\n\
         </oclcdcs>\n"
-    http_version: "1.1"
-  recorded_at: Wed, 12 Jun 2013 11:22:17 GMT
+    http_version: 
+  recorded_at: Sat, 22 Jun 2013 20:17:03 GMT
 recorded_with: VCR 2.5.0

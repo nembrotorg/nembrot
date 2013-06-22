@@ -13,17 +13,15 @@ http_interactions:
       code: 200
       message: OK
     headers: 
-      date: 
-      - Wed, 12 Jun 2013 11:22:03 GMT
-      server: 
+      Date: 
+      - Sat, 22 Jun 2013 20:16:56 GMT
+      Server: 
       - Apache/2.2.3 (CentOS)
-      content-length: 
+      Content-Length: 
       - "1785"
-      x-catalyst: 
+      X-Catalyst: 
       - "5.90030"
-      connection: 
-      - close
-      content-type: 
+      Content-Type: 
       - text/plain; charset=UTF-8
     body: 
       encoding: US-ASCII
@@ -32,8 +30,34 @@ http_interactions:
            "index_searched" : "isbn",
            "data" : [
               {
-                 "publisher_id" : "stanford_university_press",
+                 "author_data" : [
+                    {
+                       "name" : "Kittler, Friedrich A.",
+                       "id" : "kittler_friedrich_a"
+                    },
+                    {
+                       "name" : "Michael Metteer",
+                       "id" : "michael_metteer"
+                    }
+                 ],
+                 "edition_info" : "",
+                 "isbn13" : "9780804720991",
+                 "language" : "eng",
+                 "summary" : "",
+                 "marc_enc_level" : "",
+                 "title" : "Discourse networks 1800/1900",
+                 "book_id" : "discourse_networks_1800_1900_a01",
+                 "title_long" : "",
+                 "dewey_normal" : "830.9357",
+                 "publisher_name" : "Stanford University Press",
+                 "dewey_decimal" : "830.9/357",
+                 "isbn10" : "0804720991",
                  "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
+                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm.",
+                 "title_latin" : "Discourse networks 1800/1900",
+                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
+                 "lcc_number" : "",
+                 "awards_text" : "",
                  "subject_ids" : [
                     "german_literature_19th_century_history_and_criticism",
                     "german_literature_20th_century_history_and_criticism",
@@ -44,38 +68,12 @@ http_interactions:
                     "literature_and_society_germany_history_19th_century",
                     "literature_and_society_germany_history_20th_century"
                  ],
-                 "book_id" : "discourse_networks_1800_1900_a01",
-                 "title_latin" : "Discourse networks 1800/1900",
-                 "isbn13" : "9780804720991",
-                 "edition_info" : "",
-                 "dewey_normal" : "830.9357",
-                 "title_long" : "",
-                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
-                 "language" : "eng",
-                 "marc_enc_level" : "",
-                 "dewey_decimal" : "830.9/357",
                  "urls_text" : "",
-                 "title" : "Discourse networks 1800/1900",
-                 "isbn10" : "0804720991",
-                 "awards_text" : "",
-                 "summary" : "",
-                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm.",
-                 "publisher_name" : "Stanford University Press",
-                 "lcc_number" : "",
-                 "author_data" : [
-                    {
-                       "name" : "Kittler, Friedrich A.",
-                       "id" : "kittler_friedrich_a"
-                    },
-                    {
-                       "name" : "Michael Metteer",
-                       "id" : "michael_metteer"
-                    }
-                 ]
+                 "publisher_id" : "stanford_university_press"
               }
            ]
         }
 
-    http_version: "1.1"
-  recorded_at: Wed, 12 Jun 2013 11:22:04 GMT
+    http_version: 
+  recorded_at: Sat, 22 Jun 2013 20:16:56 GMT
 recorded_with: VCR 2.5.0

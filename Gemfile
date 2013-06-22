@@ -64,7 +64,6 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'fakeweb'
   gem 'fuubar'
   gem 'guard'
   gem 'guard-bundler'
@@ -78,6 +77,7 @@ group :test do
   gem 'spork-rails'
   gem 'sqlite3'
   gem 'vcr'
+  gem 'webmock'
 
   # System-dependent gems
   # Linux

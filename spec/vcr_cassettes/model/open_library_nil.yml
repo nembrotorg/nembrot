@@ -2,7 +2,7 @@
 http_interactions: 
 - request: 
     method: get
-    uri: http://openlibrary.org/api/books?format=json&jscmd=details&bibkeys=ISBN%3AINVALID_ISBN
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
     body: 
       encoding: US-ASCII
       string: ""
@@ -13,21 +13,21 @@ http_interactions:
       code: 200
       message: OK
     headers: 
-      server: 
+      Server: 
       - nginx/0.8.32
-      date: 
-      - Wed, 12 Jun 2013 11:24:25 GMT
-      content-type: 
+      Date: 
+      - Sat, 22 Jun 2013 20:17:00 GMT
+      Content-Type: 
       - application/json
-      transfer-encoding: 
+      Transfer-Encoding: 
       - chunked
-      connection: 
-      - close
-      x-ol-stats: 
-      - "\"IB 1 0.037 TT 0 0.037\""
+      Connection: 
+      - keep-alive
+      X-Ol-Stats: 
+      - "\"IB 1 0.066 TT 0 0.067\""
     body: 
       encoding: US-ASCII
       string: "{}"
-    http_version: "1.1"
-  recorded_at: Wed, 12 Jun 2013 11:24:25 GMT
+    http_version: 
+  recorded_at: Sat, 22 Jun 2013 20:17:00 GMT
 recorded_with: VCR 2.5.0

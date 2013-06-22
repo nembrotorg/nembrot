@@ -87,6 +87,8 @@ GEM
       rest-client
       simplecov (>= 0.7)
       thor
+    crack (0.4.0)
+      safe_yaml (~> 0.9.0)
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
@@ -113,7 +115,6 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
-    fakeweb (1.3.0)
     ffi (1.9.0)
     flog (4.1.0)
       ruby_parser (~> 3.1, > 3.1.0)
@@ -386,6 +387,9 @@ GEM
     vcr (2.5.0)
     warden (1.2.1)
       rack (>= 1.0)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     wikipedia-client (1.1.1)
     wtf_lang (0.4.0)
       json
@@ -413,7 +417,6 @@ DEPENDENCIES
   evernote-thrift
   factory_girl_rails
   faker
-  fakeweb
   flog
   friendly_id
   fuubar
@@ -461,5 +464,6 @@ DEPENDENCIES
   uglifier
   unicorn
   vcr
+  webmock
   wikipedia-client
   wtf_lang

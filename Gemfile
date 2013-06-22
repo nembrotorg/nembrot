@@ -73,6 +73,7 @@ group :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'sass-rails'
   gem 'simplecov', require: false
   gem 'spork-rails'
   gem 'sqlite3'

@@ -54,6 +54,5 @@ guard 'livereload' do
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
 end
 
-guard 'sass', :input => 'sass', :output => 'css', :noop => true, :hide_success => true
-
-guard 'coffeescript', :input => 'app/assets/javascripts', :noop => true, :hide_success => true
+# guard 'sass', :input => 'sass', :output => 'css', :noop => true, :hide_success => true
+# guard 'coffeescript', :input => 'app/assets/javascripts', :noop => true, :hide_success => true

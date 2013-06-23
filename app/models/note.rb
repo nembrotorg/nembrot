@@ -2,8 +2,6 @@
 
 class Note < ActiveRecord::Base
 
-  include ApplicationHelper
-
   attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang, :author,
                   :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list,
                   :hide, :active
@@ -89,7 +87,7 @@ class Note < ActiveRecord::Base
   def update_with_evernote_data(note_data, cloud_note_tags)
     update_attributes!(
       title: note_data.title,
-      body: sanitize_for_db(note_data.content),
+      body: note_data.content,
       lang: lang_from_cloud("#{ note_data.title } #{ note_data.content }"),
       latitude: note_data.attributes.latitude,
       longitude: note_data.attributes.longitude,

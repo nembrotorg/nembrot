@@ -18,6 +18,12 @@ module ApplicationHelper
     end
   end
 
+  def snippet(text, characters, omission = '...')
+    text = ActionController::Base.helpers.sanitize(text, tags: ['h2'])
+    text = text.gsub(/\[.+\]/, '')
+    text = ActionController::Base.helpers.truncate(text, length: characters, separator: ' ', omission: omission)
+  end
+
   def format_blockquotes(text)
     text.gsub(/^(:?quote):(.*?) ?(--? ?.*)/i, "\n<blockquote>\\2<br>\n\\3</blockquote>\n")
       .gsub(/^(:?quote):(.*$)\n? ?(--? ?.*)/i, "\n<blockquote>\\2<br>\n\\3</blockquote>\n")
@@ -29,7 +35,7 @@ module ApplicationHelper
       .gsub(/^(:?cap|alt|description|credit):.*$/i, '')
   end
 
-  def sanitize_for_db(text)
+  def sanitize_from_db(text)
     text = text.gsub(/<b>|<h\d>/, '<strong>')
       .gsub(%r(</b>|</h\d>), '</strong>')
     text = format_blockquotes(text)
@@ -42,12 +48,6 @@ module ApplicationHelper
       .gsub(/[\n]+/, "\n")
       .gsub(/ +/, ' ')
       .strip
-  end
-
-  def snippet(text, characters, omission = '...')
-    text = ActionController::Base.helpers.sanitize(text, tags: ['h2'])
-    text = text.gsub(/\[.+\]/, '')
-    text = ActionController::Base.helpers.truncate(text, length: characters, separator: ' ', omission: omission)
   end
 
   def bookify(text, books)
@@ -92,17 +92,18 @@ module ApplicationHelper
 
   def sanitize_for_output(text, books = [])
     text = text.strip
-               .gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
-               .gsub(/^<b>(.+)<\/b>$/, '<h2>\1</h2>')
-               .gsub(/^([^<].+[^>])$/, '<p>\1</p>')
-               .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')
-               .gsub(/^(<p> *<\/p)>$/, '')
                .gsub(/^ +$/, '')
                .gsub(/[\n]+/, "\n")
+               .gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
+               .gsub(/^<b>(.+)<\/b>$/, '<h2>\1</h2>')
+               .gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')
+               .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')
+               .gsub(/^(<p> *<\/p>)$/, '')
                .html_safe
   end
 
   def bodify(text, books = [])
+    text = sanitize_from_db(text)
     text = bookify(text, books)
     text = smartify(text)
     text = notify(text)

@@ -27,7 +27,6 @@ gem 'omniauth-evernote'
 gem 'paper_trail'
 gem 'pjax_rails'
 gem 'rails-timeago'
-gem 'rails_admin'
 gem 'settingslogic'
 gem 'thin'
 gem 'unicorn'
@@ -100,3 +99,5 @@ group :staging, :production do
   # gem 'libv8', '~> 3.11.8.3', platform: :ruby
   # gem 'therubyracer', '~> 0.11.1'
 end
+
+gem 'rails_admin'

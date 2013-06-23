@@ -59,18 +59,23 @@ class Book < ActiveRecord::Base
     merge(Isbndb.new(isbn))       if Settings.books.isbndb.active?
     merge(GoogleBooks.new(isbn))  if Settings.books.google_books.active?
     merge(OpenLibrary.new(isbn))  if Settings.books.open_library.active?
-    undirtify(false) unless title.blank? || tag.blank?
+    undirtify(false) unless metadata_missing?
+    BookMailer.metadata_missing(self).deliver if metadata_missing?
     save!
   end
 
   def merge(response)
     response.metadata.each do |key, value|
       self.send("#{ key }=", value) if !value.blank? && self.send("#{ key }").blank?
-    end
+    end unless response.metadata.blank?
   end
 
   def scan_notes_for_references
     self.notes = Note.where('body LIKE ?', "%#{ tag }%")
+  end
+
+  def metadata_missing?
+    title.blank? || author.blank? || published_date.blank?
   end
 
   def make_tag

@@ -13,26 +13,32 @@ class WorldCat
                'wskey' => Secret.auth.world_cat.api_key }
     response = self.class.get("#{ Settings.books.world_cat.path }#{ isbn }", query: params)
 
-    populate(response) if response && response['oclcdcs']
+    populate(response, isbn) if response && response['oclcdcs']
+
+  rescue
+    Rails.logger.error I18n.t('books.sync.failed.logger', provider: 'WorldCat', isbn: isbn)
   end
 
-  def populate(response)
+  def populate(response, isbn)
     response = response['oclcdcs']
     metadata = {}
     # OPTIONAL:
     #  @author = response['creator']
     #  @title = response['title']
     #  @author_statement = response['Title']
-    metadata['publisher'] = Array(response['publisher']).first
-    metadata['published_date'] = "1-1-#{ response['date'].scan(/\d\d\d\d/).first }"
+    metadata['publisher']       = response.try { |r| Array(r['publisher']).first }
+    metadata['published_date']  = response.try { |r| "1-1-#{ r['date'].scan(/\d\d\d\d/).first }" }
+
     if response['description']
-      description = Array(response['description']).join(' ')
-      # OPTIMIZE: These regular expressions can be refined (by [A-Z]{1}\w)
-      metadata['editor'] = description.scan(/edited.*? by ([\w ]+\w)/i).join(', ')
-      metadata['introducer'] = description.scan(/introduc.*? by ([\w ]+\w)/i).join(', ')
-      metadata['translator'] = description.scan(/translated.*? by ([\w ]+\w)/i).join(', ')
+      response.try do |r|
+        description = Array(r['description']).join(' ')
+        # OPTIMIZE: These regular expressions can be refined (by [A-Z]{1}\w)
+        metadata['editor'] = description.scan(/edited.*? by ([\w ]+\w)/i).join(', ')
+        metadata['introducer'] = description.scan(/introduc.*? by ([\w ]+\w)/i).join(', ')
+        metadata['translator'] = description.scan(/translated.*? by ([\w ]+\w)/i).join(', ')
+      end
     end
 
-    self.metadata = metadata
+    self.metadata = metadata unless metadata.empty?
   end
 end

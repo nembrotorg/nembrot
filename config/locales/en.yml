@@ -63,6 +63,13 @@ en:
     item: "%{name}"
     short: "%{name}"
     editor_short: "(ed.)"
+    sync:
+      failed:
+        logger: "Sync failed while fetching metadata from %{provider} for ISBN %{isbn}."
+        metadata_missing:
+          email:
+            subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
+            body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
   citations:
     default:

@@ -29,6 +29,6 @@ describe GoogleBooks do
 
     subject { @google_books_book_nil }
 
-    its (:metadata) { should == {} }
+    its (:metadata) { should == nil }
   end
 end

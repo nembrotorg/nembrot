@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
-
+  config.yell_for_non_accessible_fields = false
   #  ==> Global show view settings
   # Display empty fields in show views
   # config.compact_show_view = false

@@ -17,12 +17,14 @@ guard 'rspec', cli: "--drb --format Fuubar --color", all_after_pass: false, all_
     watch(%r{^spec/controllers/.+_spec\.rb$})
     watch(%r{^spec/models/.+_spec\.rb$})
     watch(%r{^spec/helpers/.+_spec\.rb$})
+    watch(%r{^spec/mailers/.+_spec\.rb$})
     watch(%r{^spec/routing/.+_spec\.rb$})
     watch(%r{^spec/requests/.+_spec\.rb$})
     watch(%r{^spec/features/.+_spec\.rb$})
 
     watch(%r{^app/models/(.+)\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
     watch(%r{^app/helpers/(.+)\.rb$}) { |m| "spec/helpers/#{m[1]}_spec.rb" }
+    watch(%r{^app/mailers/(.+)\.rb$}) { |m| "spec/mailers/#{m[1]}_spec.rb" }
     watch(%r{^app/controllers/(.+)_(controller)\.rb$}) do |m|
       [
         "spec/routing/#{m[1]}_spec.rb",

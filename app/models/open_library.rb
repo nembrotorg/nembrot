@@ -21,7 +21,7 @@ class OpenLibrary
     # metadata['editor = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
     # metadata['introducer = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
     # metadata['translator = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
-    metadata['author'] = response['authors'][0]['name']
+    metadata['author'] = Array(response['authors'])[0]['name']
     metadata['dewey_decimal'] = response['dewey_decimal_class'].try { first }
     metadata['lcc_number'] = response['lccn'].try { first }
     metadata['library_thing_id'] = response['identifiers'].try { response['identifiers']['librarything'].first }

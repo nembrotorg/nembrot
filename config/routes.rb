@@ -6,8 +6,8 @@ Nembrot::Application.routes.draw do
 
 	root :to => 'home#index'
 
-  match 'auth/failure' => 'cloud_services#auth_failure'
-  match 'auth/:provider/callback' => 'cloud_services#auth_callback'
+  match 'auth/failure' => 'evernote_auths#auth_failure'
+  match 'auth/:provider/callback' => 'evernote_auths#auth_callback'
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
@@ -32,7 +32,7 @@ Nembrot::Application.routes.draw do
     :gravity => /0|c|n|ne|w|se|s|sw|w|nw/,
     :constraints => { :format => /(gif|jpg|jpeg|png)/ }
 
-  resources :cloud_notes, only: [:add_evernote_task]
+  resources :evernote_notes, only: [:add_evernote_task]
 
-  resources :cloud_services, only: [:auth_callback, :auth_failure]
+  resources :evernote_auths, only: [:auth_callback, :auth_failure]
 end

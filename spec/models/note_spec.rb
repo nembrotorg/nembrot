@@ -27,7 +27,7 @@ describe Note do
   it { should respond_to(:active) }
   it { should respond_to(:hide) }
 
-  it { should have_many(:cloud_notes) }
+  it { should have_many(:evernote_notes) }
   it { should have_many(:resources) }
   it { should have_many(:tags).through(:tag_taggings) }
   it { should have_many(:instructions).through(:instruction_taggings) }

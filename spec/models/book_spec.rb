@@ -112,6 +112,8 @@ describe Book do
     end
   end
 
+  pending "MERGE NEEDS TO BE UNIT TESTED"
+
   describe '#tag' do
     it 'creates a tag from author surname and published date' do
       @book.tag.should == "#{ @book.author_surname } #{ @book.published_date.year }"

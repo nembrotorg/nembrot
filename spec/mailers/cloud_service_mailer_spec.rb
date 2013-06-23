@@ -20,7 +20,7 @@ describe CloudServiceMailer do
     end
  
     it 'assigns @confirmation_url' do
-      mail.body.encoded.should match(Settings.host + '/auth/PROVIDER01')
+      mail.body.encoded.should match(Settings.host + '/auth/provider01')
     end
   end
 end

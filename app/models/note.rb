@@ -8,9 +8,9 @@ class Note < ActiveRecord::Base
                   :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list,
                   :hide, :active
 
-  attr_writer :tag_list, :instruction_listrs
+  attr_writer :tag_list, :instruction_list
 
-  has_many :cloud_notes, dependent: :destroy
+  has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_and_belongs_to_many :books
 
@@ -19,7 +19,7 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   meta: {
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
-                    tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tag list
+                    tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tags
                     instruction_list:  proc { |note| Note.find(note.id).instruction_list }
                   }
 

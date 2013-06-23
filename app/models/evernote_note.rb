@@ -1,15 +1,32 @@
 # encoding: utf-8
 
-class EvernoteNote < CloudNote
+class EvernoteNote < ActiveRecord::Base
 
   include EvernoteHelper
+  include SyncHelper
+
+  attr_accessible :cloud_note_identifier, :evernote_auth_id, :note_id, :dirty, :attempts, :content_hash, :update_sequence_number
+
+  belongs_to :note, :dependent => :destroy
+  belongs_to :evernote_auth
+
+  scope :need_syncdown, where("dirty = ? AND attempts <= ?", true, Settings.notes.attempts).order('updated_at')
+  scope :maxed_out, where("attempts > ?", Settings.notes.attempts).order('updated_at')
+
+  # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
+  #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
+  #  inflate the id number of each 'successful' note.
+  validates :evernote_auth, :presence => true
+  validates :cloud_note_identifier, :presence => true, :uniqueness => { :scope => :evernote_auth_id }
+
+  validates_associated :note, :evernote_auth
 
   def self.add_task(guid)
-    self.where(cloud_note_identifier: guid, cloud_service_id: cloud_service.id).first_or_create.dirtify
+    self.where(cloud_note_identifier: guid, evernote_auth_id: evernote_auth.id).first_or_create.dirtify
   end
 
   def self.sync_all
-    need_syncdown.each { |cloud_note| cloud_note.syncdown_one }
+    need_syncdown.each { |evernote_note| evernote_note.syncdown_one }
   end
 
   def self.bulk_sync
@@ -21,10 +38,10 @@ class EvernoteNote < CloudNote
     )
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
 
-    cloud_notes = cloud_service.evernote_note_store
-                  .findNotesMetadata(cloud_service.evernote_oauth_token, filter, 0, 999, spec)
-    cloud_notes.notes.each do |cloud_note|
-      EvernoteNote.add_task(cloud_note.guid)
+    evernote_notes = evernote_auth.note_store
+                  .findNotesMetadata(evernote_auth.oauth_token, filter, 0, 999, spec)
+    evernote_notes.notes.each do |evernote_note|
+      EvernoteNote.add_task(evernote_note.guid)
     end
   end
 
@@ -33,25 +50,25 @@ class EvernoteNote < CloudNote
 
     increment_attempts
 
-    cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
+    evernote_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
     # File.open('evernote_metadata.json', 'w') 
-    # {|f| f.write(cloud_note_metadata.to_json) }
+    # {|f| f.write(evernote_note_metadata.to_json) }
 
-    error_details = error_details(cloud_note_metadata)
+    error_details = error_details(evernote_note_metadata)
 
-    if cloud_notebook_not_required?(cloud_note_metadata.notebookGuid)
+    if evernote_notebook_not_required?(evernote_note_metadata.notebookGuid)
       destroy
       logger.info I18n.t('notes.sync.rejected.not_in_notebook', error_details)
 
-    elsif !cloud_note_metadata.active
+    elsif !evernote_note_metadata.active
       # note.update_attributes( :active => false )
       logger.info I18n.t('notes.sync.rejected.deleted_note', error_details)
 
     else
-      cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid)
+      evernote_note_tags = note_store.getNoteTagNames(oauth_token, guid)
 
-      if cloud_note_not_required?(cloud_note_tags)
+      if evernote_note_not_required?(evernote_note_tags)
 
         if note.nil?
           delete
@@ -61,11 +78,11 @@ class EvernoteNote < CloudNote
           undirtify
         end
 
-      elsif cloud_note_ignorable?(cloud_note_tags)
+      elsif evernote_note_ignorable?(evernote_note_tags)
         logger.info I18n.t('notes.sync.rejected.ignore', error_details)
         undirtify
 
-      elsif cloud_note_not_updated?(cloud_note_metadata.updateSequenceNum)
+      elsif evernote_note_not_updated?(evernote_note_metadata.updateSequenceNum)
         logger.info  I18n.t('notes.sync.rejected.not_latest', error_details)
         undirtify
 
@@ -75,9 +92,9 @@ class EvernoteNote < CloudNote
         # required.
         build_note if note.nil?
 
-        cloud_note_data = get_new_content_from_cloud(cloud_note_metadata)
-        note.update_with_evernote_data(cloud_note_data, cloud_note_tags)
-        update_with_data_from_cloud(cloud_note_data)
+        evernote_note_data = get_new_content_from_cloud(evernote_note_metadata)
+        note.update_with_evernote_data(evernote_note_data, evernote_note_tags)
+        update_with_data_from_cloud(evernote_note_data)
       end
     end
 
@@ -96,28 +113,28 @@ class EvernoteNote < CloudNote
 
   private
 
-  def self.cloud_service
-    CloudService.where(name: 'evernote').first_or_create
+  def self.evernote_auth
+    EvernoteAuth.first_or_create
   end
 
   def guid
     cloud_note_identifier
   end
 
-  def cloud_notebook_not_required?(cloud_notebook_identifier)
-    !Settings.evernote.notebooks.include?(cloud_notebook_identifier)
+  def evernote_notebook_not_required?(evernote_notebook_identifier)
+    !Settings.evernote.notebooks.include?(evernote_notebook_identifier)
   end
 
-  def cloud_note_not_required?(cloud_note_tags)
-    ((Settings.evernote.instructions.required & cloud_note_tags) != Settings.evernote.instructions.required)
+  def evernote_note_not_required?(evernote_note_tags)
+    ((Settings.evernote.instructions.required & evernote_note_tags) != Settings.evernote.instructions.required)
   end
 
-  def cloud_note_ignorable?(cloud_note_tags)
-    (!(Settings.evernote.instructions.ignore & cloud_note_tags).empty?)
+  def evernote_note_ignorable?(evernote_note_tags)
+    (!(Settings.evernote.instructions.ignore & evernote_note_tags).empty?)
   end
 
-  def cloud_note_not_updated?(cloud_note_data_update_sequence_number)
-    (note && update_sequence_number >= cloud_note_data_update_sequence_number)
+  def evernote_note_not_updated?(evernote_note_data_update_sequence_number)
+    (note && update_sequence_number >= evernote_note_data_update_sequence_number)
   end
 
   def update_with_data_from_cloud(note_data)

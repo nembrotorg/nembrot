@@ -1,7 +1,7 @@
 FactoryGirl.define do
-	factory :cloud_note do
+	factory :evernote_note do
 		sequence( :cloud_note_identifier ) { |n| "xABCDEF#{n}" }
 		note
-		cloud_service
+		evernote_auth
 	end
 end

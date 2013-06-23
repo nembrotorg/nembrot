@@ -6,6 +6,7 @@ class EvernoteNotesController < ApplicationController
     if Settings.evernote.synchronous
       EvernoteNote.sync_all
       Resource.sync_all_binaries
+      Book.sync_all
     end
 
     render :json => { "status" => 'OK' }

@@ -42,7 +42,7 @@ class Resource < ActiveRecord::Base
     require 'net/http'
     require 'uri'
 
-    uri = URI.parse("#{ cloud_service.evernote_url_prefix }/res/#{ cloud_resource_identifier }")
+    uri = URI.parse("#{ evernote_auth.url_prefix }/res/#{ cloud_resource_identifier }")
     connection = Net::HTTP.new(uri.host)
     connection.use_ssl = true if uri.scheme == 'https'
 
@@ -63,8 +63,8 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  def cloud_service
-    CloudNote.find_by_note_id(note.id).cloud_service
+  def evernote_auth
+    EvernoteNote.find_by_note_id(note.id).evernote_auth
   end
 
   def file_ext

@@ -52,8 +52,7 @@ module ApplicationHelper
 
   def bookify(text, books)
     books.each do |book|
-      text.gsub!(/#{ book.tag }/, (ActionController::Base.helpers.link_to book.title,
-                                   Rails.application.routes.url_helpers.book_path))
+      text.gsub!(/#{ book.tag }/, (link_to book.title, book))
     end
     text
   end

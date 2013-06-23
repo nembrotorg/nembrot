@@ -15,8 +15,8 @@ class Book < ActiveRecord::Base
   # See http://stackoverflow.com/questions/3875564
   scope :citable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
   scope :publishable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
-    .joins('left outer join notes_books on books.id = notes_books.book_id')
-    .where('notes_books.book_id IS NOT ?', nil)
+    .joins('left outer join books_notes on books.id = books_notes.book_id')
+    .where('books_notes.book_id IS NOT ?', nil)
     .uniq
   scope :need_syncdown, where("dirty = ? AND attempts <= ?", true, Settings.notes.attempts)
   scope :maxed_out, where("attempts > ?", Settings.notes.attempts).order('updated_at')

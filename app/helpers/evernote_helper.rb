@@ -11,15 +11,15 @@ module EvernoteHelper
   include ApplicationHelper
 
   def oauth_token
-    cloud_service.evernote_oauth_token
+    evernote_auth.oauth_token
   end
 
   def note_store
-    cloud_service.evernote_note_store
+    evernote_auth.note_store
   end
 
   def user_nickname
-    cloud_service.evernote_nickname
+    evernote_auth.nickname
   end
 
   def error_details(cloud_note_metadata)

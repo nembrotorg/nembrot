@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130622212026) do
+ActiveRecord::Schema.define(:version => 20130623003402) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -51,30 +51,27 @@ ActiveRecord::Schema.define(:version => 20130622212026) do
     t.integer "note_id"
   end
 
-  create_table "cloud_notes", :force => true do |t|
+  create_table "evernote_auths", :force => true do |t|
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.text     "auth"
+    t.text     "encrypted_auth"
+  end
+
+  create_table "evernote_notes", :force => true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.integer  "cloud_service_id"
+    t.integer  "evernote_auth_id"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.boolean  "dirty"
     t.integer  "attempts"
     t.binary   "content_hash",           :limit => 255
-    t.string   "type"
     t.integer  "update_sequence_number"
   end
 
-  add_index "cloud_notes", ["cloud_note_identifier", "cloud_service_id"], :name => "index_cloud_notes_on_identifier_service_id", :unique => true
-  add_index "cloud_notes", ["note_id"], :name => "index_cloud_notes_on_note_id"
-
-  create_table "cloud_services", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.text     "auth"
-    t.text     "encrypted_auth"
-    t.string   "type"
-  end
+  add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], :name => "index_cloud_notes_on_identifier_service_id", :unique => true
+  add_index "evernote_notes", ["note_id"], :name => "index_cloud_notes_on_note_id"
 
   create_table "notes", :force => true do |t|
     t.string   "title",                            :null => false

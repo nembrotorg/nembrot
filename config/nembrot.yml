@@ -25,6 +25,7 @@ defaults: &defaults
       required: ['__PUBLISH']
       ignore: ['__IGNORE', '__HOLD']
       reset: ['__RESET']
+    daemon_frequency: 30
   lang:
     rtl_langs: ['ar', 'fa']
   home:
@@ -126,6 +127,19 @@ defaults: &defaults
 development:
   <<: *defaults
   host: localhost:3000
+  evernote:
+    server: https://sandbox.evernote.com
+    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    stream_binaries: false
+    synchronous: true
+    reset: true
+    daemon_frequency: 30
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+    instructions:
+      required: ['__PUBLISH']
+      ignore: ['__IGNORE', '__HOLD']
+      reset: ['__RESET']
+    daemon_frequency: 30
 
 test:
   <<: *defaults

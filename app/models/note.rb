@@ -135,9 +135,12 @@ class Note < ActiveRecord::Base
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
     cloud_resources = cloud_note_data.resources
-    captions = cloud_note_data.content.scan(/^\s*cap:\s*(.*?)\s*$/i)
-    descriptions = cloud_note_data.content.scan(/^\s*(?:alt|description):\s*(.*?)\s*$/i)
-    credits = cloud_note_data.content.scan(/^\s*credit:\s*(.*?)\s*$/i)
+
+    # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
+    #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
+    captions = cloud_note_data.content.scan(/<div>\s*cap:\s*(.*?)\s*<\/div>/i)
+    descriptions = cloud_note_data.content.scan(/<div>\s*(?:alt|description):\s*(.*?)\s*<\/div>/i)
+    credits = cloud_note_data.content.scan(/<div>\s*credit:\s*(.*?)\s*<\/div>/i)
 
     # First we remove all resources (to make sure deleted resources disappear -
     #  but we don't want to delete binaries so we use #delete rather than #destroy)

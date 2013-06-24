@@ -1,5 +1,8 @@
 # From http://stackoverflow.com/questions/11377460
 
+# To avoid Sass error in Travis CI
+ENV['SKIP_RAILS_ADMIN_INITIALIZER']='false'
+
 require 'rubygems'
 require 'spork'
 require 'simplecov'

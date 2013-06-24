@@ -43,10 +43,12 @@ class Book < ActiveRecord::Base
     book = self.where(isbn_10: possible_isbn).first_or_create if possible_isbn.length == 10
     book = self.where(isbn_13: possible_isbn).first_or_create if possible_isbn.length == 13
     # We can't use dirtify here because this is a class method
-    book.dirty = true
-    book.attempts = 0
-    book.save!
-    book
+    if book
+      book.dirty = true
+      book.attempts = 0
+      book.save!
+      book
+    end
   end
 
   def self.sync_all
@@ -99,7 +101,8 @@ class Book < ActiveRecord::Base
   end
 
   def author_surname
-    surname = (author.blank? ? editor : author).split(',')[0].scan(/([^ ]*)$/)[0][0]
+    # OPTIMIZE
+    surname = (author.blank? ? editor : author).split(',')[0].scan(/([^ ]*)$/)[0][0] if (author || editor)
     author.blank? ? "#{ surname } #{ I18n.t('books.editor_short') }" : surname
   end
 

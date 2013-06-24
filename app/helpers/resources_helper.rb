@@ -5,6 +5,8 @@ module ResourcesHelper
   include EffectsHelper
 
   # REVIEW: Does this duplicate Resource#cut_location? Or maybe this should be a separate Class?
+  #  Dervie from: https://github.com/carrierwaveuploader/carrierwave/blob/92c817bb7b1c821d8021d3fd1ded06551b1d9a01/lib/carrierwave/processing/mini_magick.rb
+  #  And: https://gist.github.com/tonycoco/2910540
 
   def cut_image_binary_path(image, options = {})
     type = options[:type] || 'standard'
@@ -30,7 +32,7 @@ module ResourcesHelper
   end
 
   def cut_image_binary(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
-    # TODO: add gravity
+
     image_record = Resource.find_by_local_file_name(local_file_name)
 
     if image_record.nil?
@@ -48,7 +50,7 @@ module ResourcesHelper
     height = (width * aspect_y) / aspect_x
 
     # We snap the height to nearest baseline to maintain a vertical grid.
-    height = round_nearest(height, Settings.styling.line_height) if snap == 1
+    height = round_nearest(height, Settings.styling.line_height) if snap == '1'
 
     # We check if a (manually-cropped) template exists.
     file_name_in = (File.exists?(file_name_template) ? file_name_template : image_record.raw_location)
@@ -58,7 +60,10 @@ module ResourcesHelper
       image = pre_fx(image, effects)
 
       # TODO: This needs to do crop/resize, not just resize.
-      image.resize "#{ width }x#{ height }"
+      # image.resize "#{ width }x#{ height }"
+
+      gravity_options = { :gravity => gravity } unless (gravity == '0' || gravity == '')
+      resize_with_crop(image, width, height, gravity_options = {})
 
       image = fx(image, effects)
       image = post_fx(image, effects, image_record)
@@ -86,5 +91,62 @@ module ResourcesHelper
 
   def column_width(columns)
     (Settings.styling.column_width * columns) + (Settings.styling.gutter_width * (columns - 1))
+  end
+
+  # FROM: http://maxivak.com/crop-and-resize-an-image-using-minimagick-ruby-on-rails/
+  def resize_with_crop(img, w, h, options = {})
+    gravity = options[:gravity] || :center
+
+    w_original, h_original = [img[:width].to_f, img[:height].to_f]
+
+    op_resize = ''
+
+    # check proportions
+    if w_original * h < h_original * w
+      op_resize = "#{w.to_i}x"
+      w_result = w
+      h_result = (h_original * w / w_original)
+    else
+      op_resize = "x#{h.to_i}"
+      w_result = (w_original * h / h_original)
+      h_result = h
+    end
+
+    w_offset, h_offset = crop_offsets_by_gravity(gravity, [w_result, h_result], [ w, h])
+
+    img.combine_options do |i|
+      i.resize(op_resize)
+      i.gravity(gravity)
+      i.crop "#{w.to_i}x#{h.to_i}+#{w_offset}+#{h_offset}!"
+    end
+
+    img
+  end
+
+  # from http://www.dweebd.com/ruby/resizing-and-cropping-images-to-fixed-dimensions/
+
+  GRAVITY_TYPES = [ :north_west, :north, :north_east, :east, :south_east, :south, :south_west, :west, :center ]
+
+  def crop_offsets_by_gravity(gravity, original_dimensions, cropped_dimensions)
+    raise(ArgumentError, "Gravity must be one of #{GRAVITY_TYPES.inspect}") unless GRAVITY_TYPES.include?(gravity.to_sym)
+    raise(ArgumentError, "Original dimensions must be supplied as a [ width, height ] array") unless original_dimensions.kind_of?(Enumerable) && original_dimensions.size == 2
+    raise(ArgumentError, "Cropped dimensions must be supplied as a [ width, height ] array") unless cropped_dimensions.kind_of?(Enumerable) && cropped_dimensions.size == 2
+
+    original_width, original_height = original_dimensions
+    cropped_width, cropped_height = cropped_dimensions
+
+    vertical_offset = case gravity
+      when :north_west, :north, :north_east then 0
+      when :center, :east, :west then [ ((original_height - cropped_height) / 2.0).to_i, 0 ].max
+      when :south_west, :south, :south_east then (original_height - cropped_height).to_i
+    end
+
+    horizontal_offset = case gravity
+      when :north_west, :west, :south_west then 0
+      when :center, :north, :south then [ ((original_width - cropped_width) / 2.0).to_i, 0 ].max
+      when :north_east, :east, :south_east then (original_width - cropped_width).to_i
+    end
+
+    return [ horizontal_offset, vertical_offset ]
   end
 end

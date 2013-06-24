@@ -29,7 +29,7 @@ Nembrot::Application.routes.draw do
     :aspect_y => /\d+/,
     :width => /\d+/,
     :snap => /[01]/,
-    :gravity => /0|c|n|ne|w|se|s|sw|w|nw/,
+    :gravity => /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
     :constraints => { :format => /(gif|jpg|jpeg|png)/ }
 
   resources :evernote_notes, only: [:add_evernote_task]

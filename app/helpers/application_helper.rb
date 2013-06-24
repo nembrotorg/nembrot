@@ -18,6 +18,8 @@ module ApplicationHelper
     end
   end
 
+  # REVIEW: Should we interpret/use a Markdown flavour?
+
   def snippet(text, characters, omission = '...')
     text = ActionController::Base.helpers.sanitize(text, tags: ['h2'])
     text = text.gsub(/\[.+\]/, '')
@@ -25,41 +27,38 @@ module ApplicationHelper
   end
 
   def format_blockquotes(text)
-    text.gsub(/^(:?quote):(.*?) ?(--? ?.*)/i, "\n<blockquote>\\2<br>\n\\3</blockquote>\n")
-      .gsub(/^(:?quote):(.*$)\n? ?(--? ?.*)/i, "\n<blockquote>\\2<br>\n\\3</blockquote>\n")
-      .gsub(/^(:?quote):(.*$)/i, "\n<blockquote>\\2</blockquote>\n")
+    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i, 
+              (render 'citations/blockquote_with_reference', :quote => "\\1", :citation => "\\2"))
+        .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
   def remove_instructions(text)
     text.gsub(/^(:?fork\w*):.*$/i, '')
-      .gsub(/^(:?cap|alt|description|credit):.*$/i, '')
+        .gsub(/^(:?cap|alt|description|credit):.*$/i, '')
   end
 
   def sanitize_from_db(text)
     text = text.gsub(/<b>|<h\d>/, '<strong>')
-      .gsub(%r(</b>|</h\d>), '</strong>')
-    text = format_blockquotes(text)
+               .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = ActionController::Base.helpers.sanitize(text, tags: Settings.notes.allowed_html_tags - ['span'],
                                                          attributes: Settings.notes.allowed_html_attributes)
+    text = format_blockquotes(text)
     text = remove_instructions(text)
-    text.gsub(/\&nbsp\;/, ' ')
-      .gsub(/[\n]+/, "\n")
-      .gsub(/ +/, ' ')
-      .strip
   end
 
   def bookify(text, books)
     books.each do |book|
-      text.gsub!(/#{ book.tag }/, (link_to book.title, book))
+      text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
+      text.gsub!(/#{ book.tag }/, (render 'citations/inline', :book => book))
     end
     text
   end
 
   def smartify_hyphens(text)
     text.gsub(/ - ([^-^.]+) - /, "\u2013\\1\u2013")
-      .gsub(/ - /, "\u2014")
+        .gsub(/(^|>| )--?( )/, "\u2014")
   end
 
   def smartify_quotation_marks(text)
@@ -79,7 +78,6 @@ module ApplicationHelper
   end
 
   def smartify(text)
-    text = text.strip.gsub(/  /, ' ')
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
     text = smartify_numbers(text)
@@ -90,16 +88,22 @@ module ApplicationHelper
               '<span class="annotation instapaper_ignore"><span>\\2\\3\\4\\5</span></span> ')
   end
 
-  def sanitize_for_output(text, books = [])
-    text = text.strip
-               .gsub(/^ +$/, '')
-               .gsub(/[\n]+/, "\n")
-               .gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
-               .gsub(/^<b>(.+)<\/b>$/, '<h2>\1</h2>')
-               .gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')
-               .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')
-               .gsub(/^(<p> *<\/p>)$/, '')
-               .html_safe
+  def clean_whitespace(text)
+    text.gsub(/\&nbsp\;/, ' ')
+        .gsub(/\r\n?/, "\n")
+        .gsub(/\n\n+/, "\n")
+        .gsub(/ +/, ' ')
+        .gsub(/^ +$/, '')
+        .strip
+  end
+
+  def sanitize_for_output(text)
+    text.gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
+        .gsub(/^<b>(.+)<\/b>$/, '<h2>\1</h2>')
+        .gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')
+        .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')
+        .gsub(/^(<p> *<\/p>)$/, '')
+        .html_safe
   end
 
   def bodify(text, books = [])
@@ -107,6 +111,7 @@ module ApplicationHelper
     text = bookify(text, books)
     text = smartify(text)
     text = notify(text)
+    text = clean_whitespace(text)
     text = sanitize_for_output(text)
   end
 end

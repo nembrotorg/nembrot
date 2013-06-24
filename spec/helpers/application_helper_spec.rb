@@ -56,11 +56,11 @@ describe ApplicationHelper do
     end
     it 'converts quotes to block quote and includes attribution if present' do
       format_blockquotes("Some text.\nquote:Long quote.-- Kittler 2001\nMore text.")
-        .should == "Some text.\n\n<blockquote>Long quote.<br>\n-- Kittler 2001</blockquote>\n\nMore text."
+        .should == "Some text.\n<figure class='citation'>\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
     end
     it 'converts quotes to block quote and includes attribution if present on next paragraph' do
       format_blockquotes("Some text.\nquote:Long quote.\n-- Kittler 2001\nMore text.")
-        .should == "Some text.\n\n<blockquote>Long quote.<br>\n-- Kittler 2001</blockquote>\n\nMore text."
+        .should == "Some text.\n<figure class='citation'>\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
     end
   end
 
@@ -89,15 +89,6 @@ describe ApplicationHelper do
     end
     it 'converts headline tags to strong' do
       sanitize_from_db("Text.\n<h3>Bold.</h3>More.").should == "Text.\n<strong>Bold.</strong>More."
-    end
-    it 'converts non-breaking spaces to ordinary spaces' do
-      sanitize_from_db('Some&nbsp;text').should == 'Some text'
-    end
-    it 'replaces multiple new lines with a single new line' do
-      sanitize_from_db("Some text.\n\nMore text.").should == "Some text.\nMore text."
-    end
-    it 'replaces multiple spaces with a single space' do
-      sanitize_from_db('Some  text.').should == 'Some text.'
     end
   end
 
@@ -173,12 +164,7 @@ describe ApplicationHelper do
   end
 
   describe '#smartify' do
-    it 'strips leading and trailing spaces' do
-      smartify(' Text. More text.  ').should == 'Text. More text.'
-    end
-    it 'replaces extra whitespace with a single space' do
-      smartify('Text.  More text.').should == 'Text. More text.'
-    end
+    pending "Tests."
   end
 
   describe '#notify' do
@@ -196,8 +182,23 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#clean_whitespace' do
+    it 'replaces multiple new lines with a single new line' do
+      clean_whitespace("Some text.\n\nMore text.").should == "Some text.\nMore text."
+    end
+    it 'strips leading and trailing spaces' do
+      clean_whitespace(' Text. More text.  ').should == 'Text. More text.'
+    end
+    it 'replaces extra whitespace with a single space' do
+      clean_whitespace('Text.  More text.').should == 'Text. More text.'
+    end
+    it 'converts non-breaking spaces to ordinary spaces' do
+      clean_whitespace('Some&nbsp;text').should == 'Some text'
+    end
+  end
+
   describe '#sanitize_for_output' do
-    it 'wraps converts <strong> paragraphs to headers' do
+    it 'converts <strong> paragraphs to headers' do
       sanitize_for_output("Plain text\n<strong>Header</strong>\nMore plain text")
         .should == "<p>Plain text</p>\n<h2>Header</h2>\n<p>More plain text</p>"
     end

@@ -40,11 +40,31 @@
 
 ///////////////////////////////
 //
-// Embed fonts
+// Fonts
 //
 ///////////////////////////////
 
 +embed-font($headline-font)
+
+=dashboard-font
+  color: $font-color
+  font-family: $font-family
+  font-size: $font-size
+
+=body-font
+  +hyphens
+  color: $body-font-color
+  font:
+    family: $body-font-family
+    size: $body-font-size
+  text-align: justify
+
+=body-font-citation
+  color: $body-font-color
+  font:
+    family: $font-family
+    size: $font-size
+  text-align: justify
 
 ///////////////////////////////
 //
@@ -64,9 +84,8 @@ html
   -webkit-text-size-adjust: auto
 
 body, small
+  +dashboard-font
   line-height: $line-height
-  color: $font-color
-  font-size: $font-size
 
 article[dir=rtl]
   text-align: right
@@ -86,15 +105,6 @@ a
     &:before
       +icon-download-1
 
-iframe
-  border: 0
-  margin-bottom: $line-height
-
-img
-  display: block
-  width: 100%
-  max-width: 100%
-
 ins
   text-decoration: none
   background-color: $insert-background-color
@@ -102,6 +112,10 @@ ins
 del
   color: $delete-font-color
   text-decoration: strike-through
+
+blockquote
+  +body-font-citation
+  margin: ($line-height / 2) $text-indent
 
 ol, ul
   +no-bullets
@@ -122,6 +136,15 @@ h1
 
 h3, h6
   display: none
+
+img
+  display: block
+  width: 100%
+  max-width: 100%
+
+iframe
+  border: 0
+  margin-bottom: $line-height
 
 ///////////////////////////////
 //
@@ -243,29 +266,32 @@ ul.notes
 ul.notes
   +column(12)
   li, li h2
-    font:
-      family: $body-font-family
-      size: $body-font-size
-    color: $body-font-color
-    text-align: justify
-    +hyphens
+    +body-font
+    +column-break-inside(avoid)
     margin-bottom: $line-height
     display: block
-    +column-break-inside(avoid)
     h2
       color: $headline-font-color
       display: inline
 
 .notes-show
   figure
-    +column(12)
     margin-bottom: $line-height / 2
-    figcaption
-      // padding-top: $line-height / 2
-      // line-height: $line-height / 2
-    img
-      float: left
-      clear: both
+    &.image
+      +column(12)
+      img
+        float: left
+        clear: both
+    &.citation
+      margin: ($line-height/2) 0
+      blockquote
+        margin: 0 $text-indent
+      figcaption
+        +body-font-citation
+        margin: 0 $text-indent
+        padding: 0
+        &:before
+          content: '\2014'
 
 .notes-version
   .versions
@@ -273,14 +299,10 @@ ul.notes
       display: block
 
 #text
-  font:
-    family: $body-font-family
-    size: $body-font-size
+  +body-font
   p
-    +hyphens
     margin: 0
-    text-indent: $line-height
-    text-align: justify
+    text-indent: $text-indent
     &:first-of-type
       text-indent: 0
     a[href*=http]:after
@@ -290,7 +312,7 @@ ul.notes
     display: block
     font:
       family: $headline-font-family
-      size: 18px
+      size: $headline-font-size
     margin: $line-height 0 0 0
     // If this occurs first it should not have this margin-top
     &+p
@@ -386,15 +408,16 @@ ul.notes
 
   #note-content
     figure
-      +place(0, 8, 4)
-      margin-bottom: $line-height
-      figcaption
-        padding-top: $line-height / 2
-    &.ins-fx-pol
-      figcaption
-        display: none
-    .map_container
-      position: relative
+      &.image
+        +place(0, 8, 4)
+        margin-bottom: $line-height
+        figcaption
+          padding-top: $line-height / 2
+      &.ins-fx-pol
+        figcaption
+          display: none
+      .map_container
+        position: relative
       #map
         +place(6, 4, 2)
         background-color: $map-background-color

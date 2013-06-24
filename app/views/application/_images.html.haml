@@ -1,5 +1,5 @@
 - images.each do |image|
-  %figure
+  %figure.image
     = link_to image_tag(cut_image_binary_path(image, :type => type), :alt => strip_tags(image.description)),
     cut_image_binary_path(image, :width => Settings.styling.images.expanded.width)
     - if image.caption

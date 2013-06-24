@@ -36,7 +36,7 @@ defaults: &defaults
     blurb_length: 125
     wtf_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
-    allowed_html_attributes: ['href', 'src', 'alt']
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
     instructions: ['__TRI']
     index:
@@ -95,10 +95,10 @@ defaults: &defaults
     selected_font_color: '#000'
     selected_background_color: '#ff0'
     invalid_background_color: 'ff0'
-    insert_background_color: '#ffc'
-    delete_font_color: '#666'
-    success_background_color: '#cfc'
-    error_background_color: '#fcc'
+    insert_background_color: '#ffff45'
+    delete_font_color: '#000'
+    success_background_color: '#45ff45'
+    error_background_color: '#ff4545'
     map_background_color: '#ccc'
     map_font_color: '#333'
     images:

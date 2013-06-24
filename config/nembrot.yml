@@ -77,18 +77,21 @@ defaults: &defaults
     gutter_width: 30
     columns: 12
     total_width: '100%'
-    font_family: 'Arial, Helvetica, sans-serif'
-    font_size: '14px'
+    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    font_size: '15px'
     font_color: '#000'
     body_font_family: 'Georgia, serif'
     body_font_size: '18px'
     body_font_color: '#000'
+    body_font_citation_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    body_font_citation_size: '15px'
+    body_font_citation_color: '#000'
     count_color: '#c00'
     headline_font: 'DejaVuSansCondensed'
-    headline_font_family: 'DejaVuSansCondensed, sans-serif'
+    headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     headline_font_color: '#c00'
     headline_font_size: '24px'
-    small_font_size: '12px'
+    small_font_size: '13px'
     link_color: '#000'
     link_hover_color: '#00c'
     link_visited_color: '#000'
@@ -139,7 +142,6 @@ development:
       required: ['__PUBLISH']
       ignore: ['__IGNORE', '__HOLD']
       reset: ['__RESET']
-    daemon_frequency: 30
 
 test:
   <<: *defaults
@@ -148,6 +150,18 @@ test:
 staging:
   <<: *defaults
   host: staging.joegatt.net
+  evernote:
+    server: https://sandbox.evernote.com
+    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    stream_binaries: false
+    synchronous: true
+    reset: true
+    daemon_frequency: 30
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+    instructions:
+      required: ['__PUBLISH']
+      ignore: ['__IGNORE', '__HOLD']
+      reset: ['__RESET']
 
 production:
   <<: *defaults

@@ -3,11 +3,11 @@
                 :description => '',
                 :open_graph => { :title => document_title }
 
+= render 'header', :title => t('site.title'), :document_title => document_title 
+
 - if @notes.first
 
   %article
-
-    = render 'header', :title => t('site.title'), :document_title => document_title 
 
     -#= render 'images', :note => @notes.first, :type => :standard
     - image = @notes.first.resources.first

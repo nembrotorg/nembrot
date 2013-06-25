@@ -27,8 +27,9 @@ module ApplicationHelper
   end
 
   def format_blockquotes(text)
-    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i, 
-              (render 'citations/blockquote_with_reference', :quote => "\\1", :citation => "\\2"))
+    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i,
+              (render citation_partial('blockquote_with_attribution'),
+               citation: "\\1", attribution: "\\2"))
         .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
@@ -48,10 +49,14 @@ module ApplicationHelper
     text = remove_instructions(text)
   end
 
+  def citation_partial(partial, citation_style = Settings.styling.citation_style)
+    "citations/styles/#{ citation_style }/#{ partial }"
+  end
+
   def bookify(text, books)
     books.each do |book|
       text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
-      text.gsub!(/#{ book.tag }/, (render 'citations/inline', :book => book))
+      text.gsub!(/#{ book.tag }/, (render citation_partial('inline'), :book => book))
     end
     text
   end

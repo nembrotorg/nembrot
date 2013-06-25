@@ -1,0 +1,4 @@
+%ul.notes
+  = list_of citations do |citation|
+    = link_to bookify(smartify(citation.citation_blurb), citation.books).html_safe, citation_path(citation),
+      :lang => lang_attr(citation.lang), :dir => dir_attr(citation.lang)

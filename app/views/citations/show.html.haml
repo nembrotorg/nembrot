@@ -1,0 +1,16 @@
+- document_title = "#{ @citation.headline } | #{ t('.title') }"
+- set_meta_tags title: document_title,
+                description: @citation.body,
+                open_graph: { title: @citation.title }
+
+%article
+  %section#note-content{ lang: lang_attr(@citation.lang), dir: dir_attr(@citation.lang) }
+
+    = render 'header', title: t('.short', id: @citation.id), :document_title => document_title
+
+    %section#text
+      = bodify(@citation.body, @citation.books)
+
+  = render 'notes/tag_list', tags: @tags
+
+  = render 'books_list', books: @citation.books

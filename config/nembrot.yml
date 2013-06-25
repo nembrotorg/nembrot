@@ -72,6 +72,7 @@ defaults: &defaults
 
   styling:
     css_for_instructions: ['__FX_POL']
+    citation_style: default
     line_height: 30
     column_width: 60
     gutter_width: 30

@@ -4,6 +4,8 @@ require 'rubygems'
 require 'spork'
 require 'simplecov'
 
+require File.join(Rails.root, 'lib', 'sass.rb')
+
 # See https://coveralls.io
 require 'coveralls'
 Coveralls.wear!

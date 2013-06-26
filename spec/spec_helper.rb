@@ -4,8 +4,6 @@ require 'rubygems'
 require 'spork'
 require 'simplecov'
 
-require File.join(Rails.root, 'lib', 'sass.rb')
-
 # See https://coveralls.io
 require 'coveralls'
 Coveralls.wear!
@@ -26,7 +24,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   unless ENV['DRB']
     SimpleCov.start 'rails'
-    require File.expand_path("../../config/environment", __FILE__)
+    require File.expand_path('../../config/environment', __FILE__)
   end
 
   require 'rspec/rails'

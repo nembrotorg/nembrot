@@ -56,11 +56,11 @@ describe ApplicationHelper do
     end
     it 'converts quotes to block quote and includes attribution if present' do
       format_blockquotes("Some text.\nquote:Long quote.-- Kittler 2001\nMore text.")
-        .should == "Some text.\n<figure class='citation'>\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
+        .should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
     end
     it 'converts quotes to block quote and includes attribution if present on next paragraph' do
       format_blockquotes("Some text.\nquote:Long quote.\n-- Kittler 2001\nMore text.")
-        .should == "Some text.\n<figure class='citation'>\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
+        .should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
     end
   end
 

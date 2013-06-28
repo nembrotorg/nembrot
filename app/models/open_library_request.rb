@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-class OpenLibrary
+class OpenLibraryRequest
+
   include HTTParty
 
   base_uri Settings.books.open_library.domain
@@ -31,7 +32,7 @@ class OpenLibrary
     metadata['open_library_id']   = response.try { |r| Array(r['identifiers']['goodreads']).first }
     metadata['page_count']        = response.try { |r| r['number_of_pages'] }
     metadata['publisher']         = response.try { |r| Array(r['publishers']).first }
-    metadata['title']             = response.try { |r| r['title'] }
+    metadata['title']             = response.try { |r| r['title'].titlecase }
 
     self.metadata = metadata unless metadata.empty?
   end

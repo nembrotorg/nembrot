@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-describe Isbndb do
+describe IsbndbRequest do
 
   context 'when a book is found:' do
     before do
       VCR.use_cassette('model/isbndb') do
-        @isbndb_book = Isbndb.new('0804720991')
+        @isbndb_book = IsbndbRequest.new('0804720991')
       end
     end
 
@@ -18,13 +18,13 @@ describe Isbndb do
     its (['published_city']) { should == 'Stanford, Calif.' }
     its (['published_date']) { should == 'c1990' }
     its (['publisher']) { should == 'Stanford University Press' }
-    its (['title']) { should == 'Discourse networks 1800/1900' }
+    its (['title']) { should == 'Discourse Networks 1800/1900' }
   end
 
   context 'when a book is not found:' do
     before do
       VCR.use_cassette('model/isbndb_nil') do
-        @isbndb_book_nil = Isbndb.new('INVALID_ISBN')
+        @isbndb_book_nil = IsbndbRequest.new('INVALID_ISBN')
       end
     end
 

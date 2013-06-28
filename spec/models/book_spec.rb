@@ -50,26 +50,26 @@ describe Book do
     @book.dewey_decimal.should            == '830.9357'
     @book.dimensions.should               == nil
     @book.dirty.should                    == false
-    @book.editor.should                   == nil
+    @book.editor.should                   == ''
     @book.format.should                   == nil
     @book.full_text.should                == nil
     @book.google_books_embeddable.should  == true
     @book.google_books_id.should          == 'nRo0Pk8djjoC'
-    @book.introducer.should               == nil
+    @book.introducer.should               == ''
     @book.isbn_10.should                  == '0804720991'
     @book.isbn_13.should                  == '9780804720991'
     @book.lang.should                     == 'en'
-    @book.lcc_number.should               == nil
-    @book.library_thing_id.should         == '430888' 
+    @book.lcc_number.should               == ''
+    @book.library_thing_id.should         == '430888'
     @book.open_library_id.should          == '212450'
     @book.page_count.should               == 459
     @book.published_city.should           == 'Stanford, Calif.'
     @book.published_date.year.should      == 1990
     @book.publisher.should                == 'Stanford University Press'
     @book.slug.should                     == 'kittler-1990'
-    @book.tag.should                      == 'Kittler 1990' 
-    @book.title.should                    == 'Discourse networks 1800/1900'
-    @book.translator.should               == nil
+    @book.tag.should                      == 'Kittler 1990'
+    @book.title.should                    == 'Discourse Networks 1800/1900'
+    @book.translator.should               == ''
     @book.weight.should                   == nil
   end
 

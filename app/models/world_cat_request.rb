@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class WorldCat
+class WorldCatRequest
 
   include HTTParty
 

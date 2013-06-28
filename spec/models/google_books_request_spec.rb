@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-describe GoogleBooks do
+describe GoogleBooksRequest do
 
   context 'when a book is found' do
     before do
       VCR.use_cassette('model/google_books') do
-        @google_books_book = GoogleBooks.new('0804720991')
+        @google_books_book = GoogleBooksRequest.new('0804720991')
       end
     end
 
@@ -23,7 +23,7 @@ describe GoogleBooks do
   context 'when a book is not found' do
     before do
       VCR.use_cassette('model/google_books_nil') do
-        @google_books_book_nil = GoogleBooks.new('INVALID_ISBN')
+        @google_books_book_nil = GoogleBooksRequest.new('INVALID_ISBN')
       end
     end
 

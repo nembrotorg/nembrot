@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-class Isbndb
+class IsbndbRequest
+
   include HTTParty
 
   base_uri Settings.books.isbndb.domain
@@ -22,7 +23,7 @@ class Isbndb
     response = response['data'].first
     metadata = {}
 
-    metadata['title']           = response.try { |r| r['title'] }
+    metadata['title']           = response.try { |r| r['title'].titlecase }
     metadata['publisher']       = response.try { |r| r['publisher_name'] }
     # metadata['title_long'] = response['Title'] if author_statement.nil?
     # metadata['author_statement'] = response[''] if title.nil?

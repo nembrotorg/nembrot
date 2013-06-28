@@ -5,27 +5,27 @@ class Book < ActiveRecord::Base
   include SyncHelper
 
   attr_accessible :title, :author, :editor, :introducer, :translator, :lang, :published_date, :published_city, :pages,
-  :isbn_10, :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id, :tag, :dirty,
-  :attempts, :notes
+                  :isbn_10, :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id,
+                  :tag, :dirty, :attempts, :notes
 
   has_and_belongs_to_many :notes
 
   default_scope :order => 'tag'
 
   # See http://stackoverflow.com/questions/3875564
-  scope :citable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
-  scope :publishable, where("title IS NOT ? AND tag IS NOT ?", nil, nil)
+  scope :citable, where('title IS NOT ? AND tag IS NOT ?', nil, nil)
+  scope :publishable, where('title IS NOT ? AND tag IS NOT ?', nil, nil)
     .joins('left outer join books_notes on books.id = books_notes.book_id')
     .where('books_notes.book_id IS NOT ?', nil)
     .uniq
-  scope :need_syncdown, where("dirty = ? AND attempts <= ?", true, Settings.notes.attempts)
-  scope :maxed_out, where("attempts > ?", Settings.notes.attempts).order('updated_at')
+  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts)
+  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
 
-  validates :isbn_13, :presence => true, :if => "isbn_10.blank?"
-  validates :isbn_10, :isbn_13, :uniqueness => true, :allow_blank => true
+  validates :isbn_13, presence: true, if: 'isbn_10.blank?'
+  validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
 
-  before_validation :make_tag, :if => (:author_changed? or :editor_changed? or :published_date_changed?) && "!published_date.blank?"
-  before_validation :scan_notes_for_references, :if => :tag_changed?
+  before_validation :make_tag, if: (:author_changed? || :editor_changed? || :published_date_changed?) && "!published_date.blank?"
+  before_validation :scan_notes_for_references, if: :tag_changed?
 
   extend FriendlyId
   friendly_id :tag, use: :slugged
@@ -57,19 +57,13 @@ class Book < ActiveRecord::Base
 
   def populate!
     increment_attempts
-    merge(WorldCat.new(isbn))     if Settings.books.world_cat.active?
-    merge(Isbndb.new(isbn))       if Settings.books.isbndb.active?
-    merge(GoogleBooks.new(isbn))  if Settings.books.google_books.active?
-    merge(OpenLibrary.new(isbn))  if Settings.books.open_library.active?
+    merge(WorldCatRequest.new(isbn).metadata)      if Settings.books.world_cat.active?
+    merge(IsbndbRequest.new(isbn).metadata)        if Settings.books.isbndb.active?
+    merge(GoogleBooksRequest.new(isbn).metadata)   if Settings.books.google_books.active?
+    merge(OpenLibraryRequest.new(isbn).metadata)   if Settings.books.open_library.active?
     undirtify(false) unless metadata_missing?
-    BookMailer.metadata_missing(self).deliver if metadata_missing?
+    BookMailer.metadata_missing(self).deliver if (metadata_missing? || attempts == Settings.notes.attempts)
     save!
-  end
-
-  def merge(response)
-    response.metadata.each do |key, value|
-      self.send("#{ key }=", value) if !value.blank? && self.send("#{ key }").blank?
-    end unless response.metadata.blank?
   end
 
   def scan_notes_for_references

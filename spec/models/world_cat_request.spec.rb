@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-describe WorldCat do
+describe WorldCatRequest do
 
   context 'when a book is found:' do
     before do
       VCR.use_cassette('model/world_cat') do
-        @world_cat_book = WorldCat.new('0804720991')
+        @world_cat_book = WorldCatRequest.new('0804720991')
       end
     end
 
@@ -21,7 +21,7 @@ describe WorldCat do
   context 'when a book is not found:' do
     before do
       VCR.use_cassette('model/world_cat_nil') do
-        @world_cat_book_nil = WorldCat.new('INVALID_ISBN')
+        @world_cat_book_nil = WorldCatRequest.new('INVALID_ISBN')
       end
     end
 

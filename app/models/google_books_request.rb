@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-class GoogleBooks
+class GoogleBooksRequest
+
   include HTTParty
 
   base_uri Settings.books.google_books.domain
@@ -27,7 +28,7 @@ class GoogleBooks
     if volume_info['industryIdentifiers'].collect { |id| id['identifier'] }.include? isbn
       metadata['google_books_id']         = response.try { |r| r['id'] }
       metadata['google_books_embeddable'] = response.try { |r| r['accessInfo']['embeddable'] }
-      metadata['title']                   = volume_info.try { |v| v['title'] }
+      metadata['title']                   = volume_info.try { |v| v['title'].titlecase }
       metadata['author']                  = volume_info.try { |v| Array(v['authors']).flatten.join(', ') }
       metadata['lang']                    = volume_info.try { |v| v['language'] }
       metadata['published_date']          = volume_info.try { |v| v['publishedDate'] }

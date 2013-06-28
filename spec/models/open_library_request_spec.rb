@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-describe OpenLibrary do
+describe OpenLibraryRequest do
 
   context 'when a book is found:' do
     before do
       VCR.use_cassette('model/open_library') do
-        @open_library_book = OpenLibrary.new('0804720991')
+        @open_library_book = OpenLibraryRequest.new('0804720991')
       end
     end
 
@@ -18,14 +18,14 @@ describe OpenLibrary do
     its (['open_library_id']) { should == '212450' }
     its (['page_count']) { should == 459 }
     its (['publisher']) { should == 'Stanford University press' }
-    its (['title']) { should == 'Discourse networks, 1800-1900' }
+    its (['title']) { should == 'Discourse Networks, 1800-1900' }
 
   end
 
   context 'when a book is not found:' do
     before do
       VCR.use_cassette('model/open_library_nil') do
-        @open_library_book = OpenLibrary.new('INVALID_ISBN')
+        @open_library_book = OpenLibraryRequest.new('INVALID_ISBN')
       end
     end
 

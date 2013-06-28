@@ -35,8 +35,8 @@ en:
       rejected:
         version_not_ok: "%{provider}: note %{guid} (%{title}) for user %{username} failed! The SDK is out of date."
         not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
-        not_in_notebook: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Not in required note"
-        deleted_note: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Note has been deleted from cloud note"
+        not_in_notebook: "%{provider}: note %{guid} for user %{username} rejected! Not in required notebook."
+        deleted_note: "%{provider}: note %{guid} for user %{username} rejected! Note has been deleted from cloud notebook."
         tag_missing: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Missing required tag."
         ignore: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Contains instructions to ignore."
         not_latest: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Already have latest version."
@@ -72,10 +72,11 @@ en:
             body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
   citations:
-    default:
-      inline: "%{author_surname} %{published_date}"
-      index: "%{author_surname}: %{title}"
-      full: "%{author_sort}. %{title}. %{published_city}: %{publisher}, %{published_date}."
+    index:
+      title: 'Citations'
+    show:
+      title: 'Citations'
+      short: "Citation %{id}"
 
   titlecase_exceptions:
     articles: "a an the"

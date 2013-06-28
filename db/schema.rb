@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623003402) do
+ActiveRecord::Schema.define(:version => 20130625224348) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -74,11 +74,11 @@ ActiveRecord::Schema.define(:version => 20130623003402) do
   add_index "evernote_notes", ["note_id"], :name => "index_cloud_notes_on_note_id"
 
   create_table "notes", :force => true do |t|
-    t.string   "title",                            :null => false
+    t.string   "title",                                               :null => false
     t.text     "body"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.datetime "external_updated_at",              :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
+    t.datetime "external_updated_at",                                 :null => false
     t.float    "latitude"
     t.float    "longitude"
     t.float    "altitude"
@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(:version => 20130623003402) do
     t.string   "source_application"
     t.string   "last_edited_by"
     t.boolean  "hide"
+    t.boolean  "is_citation",                      :default => false
+    t.boolean  "listable",                         :default => true
   end
 
   create_table "rails_admin_histories", :force => true do |t|

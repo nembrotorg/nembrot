@@ -89,7 +89,7 @@ describe Resource do
   end
 
   describe '#raw_location should return path to the raw image' do
-    its(:raw_location) { should == File.join(Rails.root, 'public', 'resources', 'raw', '1.png') }
+    its(:raw_location) { should == File.join(Rails.root, 'public', 'resources', 'raw', "#{ @resource.id }.png") }
   end
 
   describe '#template_location should return path to the cut image' do

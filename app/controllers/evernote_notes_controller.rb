@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class EvernoteNotesController < ApplicationController
 
   def add_task

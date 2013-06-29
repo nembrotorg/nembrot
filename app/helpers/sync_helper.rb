@@ -2,7 +2,8 @@
 
 module SyncHelper
   def lang_from_cloud(content)
-    content[0..Settings.notes.wtf_sample_length].lang
+    response = content[0..Settings.notes.wtf_sample_length].lang
+    Array(response.match(/^\w\w$/)).size == 1 ? response : nil
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -16,7 +17,7 @@ module SyncHelper
 
   def looks_like_a_citation?(content)
     # OPTIMIZE: Replace 'quote': by i18n
-    content.scan(/quote:.*\n?--[^\n]*[\d]{4}[^\n]*$/m).size == 1
+    content.scan(/[^\w]*quote:.*\n?--[^\n]*[\d]{4}[^\n]*$[^\w]*/m).size == 1
   end
 
   def dirtify(save_it = true)

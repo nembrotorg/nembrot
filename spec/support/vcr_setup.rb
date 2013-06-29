@@ -2,7 +2,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.hook_into :webmock
   c.default_cassette_options = {
-    serialize_with: :syck,
+    serialize_with: :yaml,
     decode_compressed_response: true
   }
   Secret.auth.each do |service_key, service_value|

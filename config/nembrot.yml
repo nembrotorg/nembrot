@@ -151,8 +151,8 @@ staging:
   <<: *defaults
   host: staging.joegatt.net
   evernote:
-    server: https://sandbox.evernote.com
-    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    server: https://www.evernote.com
+    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
     stream_binaries: false
     synchronous: true
     reset: true

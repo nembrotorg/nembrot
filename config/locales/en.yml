@@ -31,15 +31,15 @@ en:
       full: "Note %{id} v%{sequence}"
     untitled_synonyms: ["Untitled", "Untitled note", "New note"]
     sync:
-      updated: "%{provider}: note %{guid} (%{title}) updated."
+      updated: "%{provider}: note %{id} (%{title}) UPDATED."
       rejected:
-        version_not_ok: "%{provider}: note %{guid} (%{title}) for user %{username} failed! The SDK is out of date."
+        version_not_ok: "%{provider}: note %{guid} failed! The SDK is out of date."
         not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
-        not_in_notebook: "%{provider}: note %{guid} for user %{username} rejected! Not in required notebook."
-        deleted_note: "%{provider}: note %{guid} for user %{username} rejected! Note has been deleted from cloud notebook."
-        tag_missing: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Missing required tag."
-        ignore: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Contains instructions to ignore."
-        not_latest: "%{provider}: note %{guid} (%{title}) for user %{username} rejected! Already have latest version."
+        not_in_notebook: "%{provider}: note %{guid} rejected! Not in required notebook."
+        deleted_note: "%{provider}: note %{guid} rejected! Note has been deleted from cloud notebook."
+        tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
+        ignore: "%{provider}: note %{guid} (%{title}) rejected! Contains instructions to ignore."
+        not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."
       update_error: "%{provider}: note %{guid} failed on database update!"
       failed:
         logger: "%{provider}: note %{guid} (%{title}) failed on database update!"
@@ -64,12 +64,14 @@ en:
     short: "%{name}"
     editor_short: "(ed.)"
     sync:
+      updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
       failed:
         logger: "Sync failed while fetching metadata from %{provider} for ISBN %{isbn}."
-        metadata_missing:
-          email:
-            subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
-            body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
+      metadata_missing:
+        logger: "Book %{id} - %{author}: %{title} ISBN %{isbn} - metadata missing!"
+        email:
+          subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
+          body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
   citations:
     index:

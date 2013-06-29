@@ -16,7 +16,7 @@ class IsbndbRequest
     populate(response) if response && response['data']
 
   rescue
-    Rails.logger.error I18n.t('books.sync.failed.logger', provider: 'Isbndb', isbn: isbn)
+    SYNC_LOG.error I18n.t('books.sync.failed.logger', provider: 'Isbndb', isbn: isbn)
   end
 
   def populate(response)

@@ -62,7 +62,11 @@ class Book < ActiveRecord::Base
     merge(GoogleBooksRequest.new(isbn).metadata)   if Settings.books.google_books.active?
     merge(OpenLibraryRequest.new(isbn).metadata)   if Settings.books.open_library.active?
     undirtify(false) unless metadata_missing?
-    BookMailer.metadata_missing(self).deliver if (metadata_missing? || attempts == Settings.notes.attempts)
+    SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
+    if metadata_missing? && attempts == Settings.notes.attempts
+      BookMailer.metadata_missing(self).deliver
+      SYNC_LOG.error I18n.t('books.sync.metadata_missing.logger', id: id, author: author, title: title, isbn: isbn)
+    end
     save!
   end
 

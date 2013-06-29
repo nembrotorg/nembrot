@@ -16,7 +16,7 @@ class WorldCatRequest
     populate(response, isbn) if response && response['oclcdcs']
 
   rescue
-    Rails.logger.error I18n.t('books.sync.failed.logger', provider: 'WorldCat', isbn: isbn)
+    SYNC_LOG.error I18n.t('books.sync.failed.logger', provider: 'WorldCat', isbn: isbn)
   end
 
   def populate(response, isbn)

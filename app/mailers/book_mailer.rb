@@ -10,7 +10,7 @@ class BookMailer < ActionMailer::Base
 
     mail(
       :to => Settings.monitoring.email,
-      :subject => I18n.t('books.sync.failed.metadata_missing.email.subject',
+      :subject => I18n.t('books.sync.metadata_missing.email.subject',
                          isbn: @isbn, details: "#{ @author } | #{ @title } | #{ @published_date }"),
       :host => Settings.host
     )

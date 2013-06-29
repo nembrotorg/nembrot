@@ -15,7 +15,7 @@ class GoogleBooksRequest
     populate(response, isbn) if response && response['items'].first['volumeInfo']
 
   rescue
-    Rails.logger.error I18n.t('books.sync.failed.logger', provider: 'GoogleBooks', isbn: isbn)
+    SYNC_LOG.error I18n.t('books.sync.failed.logger', provider: 'GoogleBooks', isbn: isbn)
   end
 
   def populate(response, isbn)

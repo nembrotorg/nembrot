@@ -24,7 +24,7 @@ class EvernoteRequest
 
     rescue Evernote::EDAM::Error => error
       max_out_attempts
-      SYNC_LOG.info I18n.t("#{ error.identifier }: #{ error.key }.", error_details)
+      SYNC_LOG.info I18n.t('notes.sync.updated', logger_details)
   end
 
   private
@@ -40,7 +40,7 @@ class EvernoteRequest
     evernote_note.note.save!
     evernote_note.note.update_resources_with_evernote_data(cloud_note_data)
     evernote_note.update_with_data_from_cloud(cloud_note_data)
-    SYNC_LOG.info "#{ error_details[:title] } saved as Note #{ (evernote_note.note.id) }."
+    SYNC_LOG.info "#{ logger_details[:title] } saved as Note #{ (evernote_note.note.id) }."
   end
 
   def update_necessary_according_to_note?
@@ -53,7 +53,7 @@ class EvernoteRequest
     result = Settings.evernote.notebooks.include?(cloud_note_metadata.notebookGuid)
     unless result
       evernote_note.destroy
-      SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', error_details)
+      SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
     end
     result
   end
@@ -62,7 +62,7 @@ class EvernoteRequest
     result = cloud_note_metadata.active
     unless result
       evernote_note.destroy
-      SYNC_LOG.info I18n.t('notes.sync.rejected.deleted_note', error_details)
+      SYNC_LOG.info I18n.t('notes.sync.rejected.deleted_note', logger_details)
     end
     result
   end
@@ -71,7 +71,7 @@ class EvernoteRequest
     result = evernote_note.update_sequence_number.nil? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
     unless result
       evernote_note.undirtify
-      SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', error_details)
+      SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', logger_details)
     end
     result
   end
@@ -85,7 +85,7 @@ class EvernoteRequest
     result = !(Array(Settings.notes.instructions.required) & cloud_note_tags).empty?
     unless result
       evernote_note.destroy
-      SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', error_details)
+      SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
     end
     result
   end
@@ -93,7 +93,7 @@ class EvernoteRequest
   def cloud_note_is_not_ignorable?
     result = (Settings.notes.instructions.ignore & cloud_note_tags).empty?
     unless result
-      SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', error_details)
+      SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', logger_details)
       evernote_note.undirtify
     end
     result

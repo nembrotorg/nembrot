@@ -17,7 +17,13 @@ module EvernoteHelper
     evernote_auth.nickname
   end
 
-  def error_details
-    { provider: 'Evernote', guid: cloud_note_metadata.guid, title: cloud_note_metadata.title, username: user_nickname }
+  def logger_details
+    {
+      provider: 'Evernote',
+      guid: cloud_note_metadata.guid,
+      title: cloud_note_metadata.title,
+      username: user_nickname,
+      id: evernote_note.id
+    }
   end
 end

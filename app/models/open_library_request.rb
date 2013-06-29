@@ -15,7 +15,7 @@ class OpenLibraryRequest
     populate(response, isbn) if response && response["ISBN:#{ isbn }"]['details']
 
   rescue
-    Rails.logger.error I18n.t('books.sync.failed.logger', provider: 'OpenLibrary', isbn: isbn)
+    SYNC_LOG.error I18n.t('books.sync.failed.logger', provider: 'OpenLibrary', isbn: isbn)
   end
 
   def populate(response, isbn)

@@ -11,13 +11,13 @@ module SyncHelper
   end
 
   def text_for_analysis(text = body)
-    #.gsub(/^\w*?\:.*$/, '')
+    # .gsub(/^\w*?\:.*$/, '')
     ActionController::Base.helpers.strip_tags(text).gsub(/\n\n*\r*/, '\n')
   end
 
   def looks_like_a_citation?(content)
     # OPTIMIZE: Replace 'quote': by i18n
-    content.scan(/[^\w]*quote:.*\n?--[^\n]*[\d]{4}[^\n]*$[^\w]*/m).size == 1
+    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1
   end
 
   def dirtify(save_it = true)

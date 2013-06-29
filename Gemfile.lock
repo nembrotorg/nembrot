@@ -387,7 +387,7 @@ GEM
     vcr (2.5.0)
     warden (1.2.1)
       rack (>= 1.0)
-    webmock (1.12.2)
+    webmock (1.12.3)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     wikipedia-client (1.2.0)

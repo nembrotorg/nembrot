@@ -10,24 +10,17 @@ module ResourcesHelper
 
   def cut_image_binary_path(image, options = {})
     type = options[:type] || 'standard'
-    x = options[:aspect_x] || Settings.styling.images[type]['aspect']['x']
-    y = options[:aspect_y] || Settings.styling.images[type]['aspect']['y']
-    width = options[:width] || Settings.styling.images[type]['width']
-    snap = options[:snap] || Settings.styling.images.snap
-    gravity = options[:gravity] || Settings.styling.images.gravity
-    effects = options[:effects] || image.note.fx
-    id = options[:id] || image.id
 
     Rails.application.routes.url_helpers.cut_resource_path(
-      file_name: image.local_file_name,
-      aspect_x: x,
-      aspect_y: y,
-      width: width,
-      snap: snap,
-      gravity: gravity,
-      effects: effects,
-      id: id,
-      format: image.file_ext.to_sym
+      file_name:  image.local_file_name,
+      aspect_x:   options[:aspect_x]  || Settings.styling.images[type][:aspect][:x],
+      aspect_y:   options[:aspect_y]  || Settings.styling.images[type][:aspect][:y],
+      width:      options[:width]     || Settings.styling.images[type][:width],
+      snap:       options[:snap]      || Settings.styling.images.snap,
+      gravity:    options[:gravity]   || Settings.styling.images.gravity,
+      effects:    options[:effects]   || image.note.fx,
+      id:         options[:id]        || image.id,
+      format:     image.file_ext.to_sym
     )
   end
 

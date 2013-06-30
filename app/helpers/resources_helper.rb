@@ -5,7 +5,7 @@ module ResourcesHelper
   include EffectsHelper
 
   # REVIEW: Does this duplicate Resource#cut_location? Or maybe this should be a separate Class?
-  #  Dervie from: https://github.com/carrierwaveuploader/carrierwave/blob/92c817bb7b1c821d8021d3fd1ded06551b1d9a01/lib/carrierwave/processing/mini_magick.rb
+  #  Derive from: https://github.com/carrierwaveuploader/carrierwave/blob/92c817bb7b1c821d8021d3fd1ded06551b1d9a01/lib/carrierwave/processing/mini_magick.rb
   #  And: https://gist.github.com/tonycoco/2910540
 
   def cut_image_binary_path(image, options = {})
@@ -13,9 +13,9 @@ module ResourcesHelper
 
     Rails.application.routes.url_helpers.cut_resource_path(
       file_name:  image.local_file_name,
-      aspect_x:   options[:aspect_x]  || Settings.styling.images[type][:aspect][:x],
-      aspect_y:   options[:aspect_y]  || Settings.styling.images[type][:aspect][:y],
-      width:      options[:width]     || Settings.styling.images[type][:width],
+      aspect_x:   options[:aspect_x]  || Settings.styling.images[type]['aspect']['x'],
+      aspect_y:   options[:aspect_y]  || Settings.styling.images[type]['aspect']['y'],
+      width:      options[:width]     || Settings.styling.images[type]['width'],
       snap:       options[:snap]      || Settings.styling.images.snap,
       gravity:    options[:gravity]   || Settings.styling.images.gravity,
       effects:    options[:effects]   || image.note.fx,

@@ -228,10 +228,9 @@ footer
 //
 ///////////////////////////////
 
-ul.notes
+ul.notes, ul.citations
   li
     position: relative
-    height: $line-height * 3
     a
       padding-right: 33%
     img
@@ -263,16 +262,26 @@ ul.notes
     &[src*='soundcloud.com%2Fplaylist']
       height: $line-height * 15
 
-ul.notes
+ul.notes, ul.citations
   +column(12)
-  li, li h2
+  li
     +body-font
-    +column-break-inside(avoid)
     margin-bottom: $line-height
     display: block
     h2
+      +body-font
+      font-family: $headline-font-family
       color: $headline-font-color
       display: inline
+
+ul.citations
+  +column(12)
+  li, li h2
+    +body-font-citation
+    cite
+      display: block
+      &:before
+        content: '\2014'
 
 .notes-show, .citations-show
   figure
@@ -340,7 +349,7 @@ ul.notes
   .count
     color: $count-color
 
-.books
+ol.books
   +column(12)
 
 .versions
@@ -376,11 +385,11 @@ ul.notes
     +column(12)
     +columns(2)
 
-///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Media-queries
 //
-///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 720px)
 
@@ -403,8 +412,8 @@ ul.notes
     height: $line-height * 2
 
   .notes-index, .citations-index
-    ul.notes
-      +columns(2)
+    ul.notes, ul.citations
+      +column(9)
 
   #note-content
     figure
@@ -503,6 +512,15 @@ ul.notes
     ol
       +place(0, 6, 6)
 
+  .home-index
+    ul
+      +columns(3)
+      +column-gap($gutter-width * 1px)
+      a
+        padding-right: 0 !important
+      img
+        display: none
+
   .books-index
     ol
       +column(12)
@@ -510,8 +528,12 @@ ul.notes
         color: $count-color
 
   .books-show
-    ul.notes
-      +column(6)
+    .details
+      +column(12)
+      .main
+        font-weight: bold
+    ul.notes, ul.citations
+      +place(0, 9, 3)
     .books
       ol
         +column(6)
@@ -524,16 +546,19 @@ ul.notes
 
   .tags-show
     ul.notes
-      +column(6)
+      +column(9)
 
     ul.tags
-      +column(6)
-      +columns(2)
+      +column(3)
 
   footer
     ul
       +columns(4)
       margin-bottom: $line-height
+
+    .citations-index
+      ul.citations
+        +column(6)
 
 @media only screen and (min-width: 1024px)
 

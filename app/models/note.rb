@@ -60,7 +60,7 @@ class Note < ActiveRecord::Base
   def citation_blurb
     citation_blurb = body.gsub(/^.*quote:/, '')
     attribution = citation_blurb.scan(/--.*?$/m).first
-    "#{ citation_blurb[0 .. Settings.notes.blurb_length] }<br>#{ attribution }"
+    "#{ citation_blurb[0 .. Settings.notes.blurb_length] }#{ attribution }"
   end
 
   def embeddable_source_url

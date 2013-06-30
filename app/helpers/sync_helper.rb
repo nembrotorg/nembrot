@@ -1,7 +1,15 @@
 # encoding: utf-8
 
 module SyncHelper
-  def lang_from_cloud(content)
+  def text_for_instructions(text = body)
+    ActionController::Base.helpers.strip_tags(text).gsub(/\n\n*\r*/, '\n').strip
+  end
+
+  def text_for_analysis(text = body)
+    text_for_instructions(text).gsub(/^\w*?\:.*$/, '')
+  end
+
+ def lang_from_cloud(content = text_for_analysis)
     response = content[0..Settings.notes.wtf_sample_length].lang
     Array(response.match(/^\w\w$/)).size == 1 ? response : nil
   end
@@ -10,14 +18,13 @@ module SyncHelper
     !((Settings.notes.instructions.default + instructions) & Settings.notes.instructions[instruction]).empty?
   end
 
-  def text_for_analysis(text = body)
-    # .gsub(/^\w*?\:.*$/, '')
-    ActionController::Base.helpers.strip_tags(text).gsub(/\n\n*\r*/, '\n')
-  end
-
-  def looks_like_a_citation?(content)
+  def looks_like_a_citation?(content = text_for_analysis)
     # OPTIMIZE: Replace 'quote': by i18n
     content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1
+  end
+
+  def word_count(content = text_for_analysis)
+    content.split.size
   end
 
   def dirtify(save_it = true)

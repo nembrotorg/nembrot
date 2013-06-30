@@ -1,0 +1,9 @@
+%section.details
+  %p.main= "#{ book.author }, <em>#{ book.title }</em>. #{ book.published_city }: #{ book.publisher } #{ book.published_date.year }.".html_safe
+  %p= "Translated by #{ book.translator }." unless book.translator.nil?
+  %p= "Edited by #{ book.editor }." unless book.editor.nil?
+  %p= "With an introduction by #{ book.introducer }." unless book.introducer.nil?
+  %p= "ISBN: #{ book.isbn_10 }, #{ book.isbn_13 }" unless book.translator.nil?
+  %p= "Dewey Decimal: #{ book.dewey_decimal }" unless book.dewey_decimal.nil?
+  %p= "Library of Congress Number: #{ book.lcc_number }" unless book.lcc_number.nil?
+  %p= "The full text of this book is available at #{ book.full_text }." unless book.full_text.nil?

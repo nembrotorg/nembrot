@@ -5,21 +5,14 @@
 
 %section
 
-  = render 'header', :title => @book.headline, :document_title => document_title
+  = render 'header', :title => t('.title'), :document_title => document_title
 
   -# %iframe{ :src => "http://books.google.de/books?id=#{ @book.google_books_id }&lpg=PR1&ots=Hfep-dhu0H&d&pg=PR1&output=embed" }
 
-  -# %section.details
-  -#  %p
-  -#    Publisher: 
-  -#    = @book.publisher
-  -#  %p
-  -#    = @book.published_date
-  -#  %p
-  -#    = @book.published_city
-  -#  %p
-  -#    = @book.page_count
+  = render citation_partial('book_details'), :book => @book
+
+  = render 'citations/citations_list', :citations => @book.notes.citations
 
   = render 'notes_list', :notes => @book.notes
 
-  = render 'books_list', :books => @books
+  = render 'books_list', :books => @related_books

@@ -2,6 +2,32 @@
 
 describe SyncHelper do
 
+  describe 'lang_from_cloud' do
+    Settings.notes['wtf_sample_length'] = 10
+    VCR.use_cassette('helper/wtf_lang') do
+      context 'when text is in Enlish' do
+        it 'returns en' do
+          lang_from_cloud('The Anatomy of Melancholy').should == 'en'
+        end
+      end
+      context 'when text is in Russian' do
+        it 'returns ru' do
+          lang_from_cloud('Анатомия меланхолии').should == 'ru'
+        end
+      end
+      context 'when text is in Malaysian' do
+        it 'returns ar' do
+          lang_from_cloud('അനാട്ടമി ഓഫ് മെലൻകൊളീ').should == 'ml'
+        end
+      end
+      context 'when text is gibberish' do
+        it 'returns nil' do
+          lang_from_cloud('hsdhasdjkahdjka').should == nil
+        end
+      end
+    end
+  end
+
   describe '#looks_like_a_citation?' do
     it 'returns false for ordinary text' do
       looks_like_a_citation?('Plain text.').should == false

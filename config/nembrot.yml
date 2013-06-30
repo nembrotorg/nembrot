@@ -29,7 +29,7 @@ defaults: &defaults
       required: ['__HOME']
   notes:
     title_length: 40
-    blurb_length: 125
+    blurb_length: 335
     wtf_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']

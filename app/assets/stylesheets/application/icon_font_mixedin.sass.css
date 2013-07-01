@@ -20,7 +20,7 @@
  *    Work: Lead Product Designer @ http://kyruus.com
  */
 
-$fontelloPath:   "fontello" !default
+$fontelloPath:   "Fontello/regular" !default
 $borderColor:       #eee !default
 $iconMuted:         #eee !default
 @mixin border-radius($radius)
@@ -222,6 +222,13 @@ ul.icons
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
  *  readers do not read off random characters that represent icons */
 
+=icon-fork
+  +icon
+  content: '\e803'
+
+=icon-quote-left-alt
+  +icon
+  content: '\e800'
 
 =icon-wikipedia
   +icon
@@ -235,7 +242,7 @@ ul.icons
   +icon
   content: '\3e'
 
-icon-evernote-1
+=icon-evernote-1
   +icon
   content: '\ea29'
 
@@ -255,10 +262,15 @@ icon-evernote-1
   +icon
   content: '\f30f'
 
-=icon-soundcloud-1
+=icon-soundcloud
   +icon
-  content: '\73'
-icon-left-1
+  content: '\e801'
+
+=icon-hash
+  +icon
+  content: '\e802'
+
+=icon-left-1
   +icon
   content: '\e88f'
 

@@ -1,4 +1,8 @@
 %ul.citations
   = list_of citations do |citation|
-    = link_to smartify(bookify(citation.citation_blurb, citation.books, 'inline_no_link')).html_safe,
-      citation_path(citation), :lang => lang_attr(citation.lang), :dir => dir_attr(citation.lang)
+
+    - citation_text, attribution = citation_blurb(citation.clean_body)
+
+    = link_to (render citation_partial('blurb'), citation_text: citation_text, attribution: attribution), citation_path(citation),
+        :lang => lang_attr(citation.lang),
+        :dir => dir_attr(citation.lang)

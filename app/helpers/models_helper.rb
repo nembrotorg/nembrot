@@ -1,5 +1,5 @@
 # encoding: utf-8
 
-describe SyncHelper do
+module ModelsHelper
 
 end

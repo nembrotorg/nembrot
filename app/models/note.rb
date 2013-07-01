@@ -34,9 +34,31 @@ class Note < ActiveRecord::Base
   # Being activated on create and throws error
   # validate :external_updated_at_must_be_latest, :before => :update
 
-  before_save :discard_versions? #, :if => :instruction_list_changed?
+  # before_save :discard_versions? #, :if => :instruction_list_changed?
+  # before_save :update_is_hidable? #, :if => :instruction_list_changed?
+  # before_save :update_is_citation? #, :if => :instruction_list_changed?
+  # before_save :update_is_listable? #, :if => :instruction_list_changed?
   before_save :scan_note_for_references, :if => :body_changed?
   after_save :scan_note_for_isbns, :if => :body_changed?
+
+  def update_metadata
+    discard_versions?
+    update_is_hidable?
+    update_is_citation?
+    update_is_listable?
+  end
+
+  def update_is_hidable?
+    self.hide = has_instruction?('hide')
+  end
+
+  def update_is_listable?
+    self.listable = !has_instruction?('unlist')
+  end
+
+  def update_is_citation?
+    self.is_citation = (has_instruction?('citation', cloud_note_instructions) || looks_like_a_citation?(body_clean_body))
+  end
 
   def body_or_source_or_resource
     if body.blank? && embeddable_source_url.blank? && resources.blank?
@@ -48,19 +70,15 @@ class Note < ActiveRecord::Base
     I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.short', id: id) : title
   end
 
-  def blurb
-    # If the title is derived from the body, we do not include it in the blurb
-    if body.index(title) == 0
-      "<h2>#{ headline }</h2> #{ body[headline.length .. Settings.notes.blurb_length * 2] }"
-    else
-      "<h2>#{ headline }</h2>: #{ body }"
-    end
+  def clean_body_with_instructions
+    ActionController::Base.helpers.strip_tags(body).gsub(/\n\n*\r*/, "\n").strip
   end
 
-  def citation_blurb
-    citation_blurb = body.gsub(/^.*quote:/, '')
-    attribution = citation_blurb.scan(/--.*?$/m).first
-    "#{ citation_blurb[0 .. Settings.notes.blurb_length] }#{ attribution }"
+  def clean_body
+    clean_body_with_instructions
+      .gsub(/^\w*?\:.*$/, '')
+      .gsub(/\([^\]]*?\)|\[[^\]]*?\]|\n|\r/, ' ')
+      .gsub(/\s+/, ' ')
   end
 
   def embeddable_source_url
@@ -88,6 +106,21 @@ class Note < ActiveRecord::Base
     #     end
     # end
 
+  def has_instruction?(instruction, instructions = instruction_list)
+    !((Settings.notes.instructions.default + instructions) & Settings.notes.instructions[instruction]).empty?
+  end
+
+  def looks_like_a_citation?(content = clean_body)
+    # OPTIMIZE: Replace 'quote': by i18n
+    #  and put it as_before save method
+    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1
+  end
+
+  def lang_from_cloud(content = clean_body)
+    response = DetectLanguage.simple_detect(content[0..Settings.notes.wtf_sample_length])
+    Array(response.match(/^\w\w$/)).size == 1 ? response : nil
+  end
+
   def scan_note_for_references
     # REVIEW: Should this be in Book?
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
@@ -101,6 +134,7 @@ class Note < ActiveRecord::Base
     versions.destroy_all if has_instruction?('reset')
   end
 
+  # REVIEW: Move this to Evernote Request
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
     cloud_resources = cloud_note_data.resources

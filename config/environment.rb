@@ -12,6 +12,3 @@ Haml::Template.options[:format] = :html5
 # Enforcing UTF-8
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
-
-# Detect Language
-WtfLang::API.key = Secret.auth.detect_language.api_key

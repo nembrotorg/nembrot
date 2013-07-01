@@ -15,7 +15,6 @@ describe Note do
   it { should respond_to(:title) }
   it { should respond_to(:body) }
   it { should respond_to(:external_updated_at) }
-  it { should respond_to(:blurb) }
   it { should respond_to(:active) }
   it { should respond_to(:author) }
   it { should respond_to(:source) }
@@ -77,14 +76,14 @@ describe Note do
     its(:headline) { should == I18n.t('notes.short', id: @note.id) }
   end
 
-  describe 'uses title and body for blurb' do
-    its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
-  end
+  # describe 'uses title and body for blurb' do
+  #   its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
+  # end
 
-  describe 'omits title in blurb when title is derived from body' do
-    before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
-    its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
-  end
+  # describe 'omits title in blurb when title is derived from body' do
+  #   before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
+  #   its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
+  # end
 
   describe 'is taggable' do
     before { @note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
@@ -97,10 +96,10 @@ describe Note do
   end
 
   describe 'accepts special characters in tags' do
-    before {
+    before do
       @note.tag_list = %w(Žižek Café 井戸端)
       @note.save
-    }
+    end
     its(:tag_list) { should == ['Žižek', 'Café', '井戸端'] }
   end
 
@@ -132,6 +131,77 @@ describe Note do
   describe '#fx should return fx for images' do
     before { @note.instruction_list = %w(__FX_ABC __FX_DEF) }
     its (:fx) { should == 'abc_def' }
+  end
+
+  describe '#looks_like_a_citation?' do
+    it 'returns false for ordinary text' do
+      @note = FactoryGirl.create(:note, body: 'Plain text.')
+      @note.looks_like_a_citation?.should == false
+    end
+    it 'recognises one-line citations' do
+      @note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
+      pending "@note.looks_like_a_citation?.should == true"
+    end
+    it 'recognises two-line citations' do
+      @note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
+      pending "@note.looks_like_a_citation?.should == true"
+    end
+    context 'when a note merely contains a citation' do
+      context 'when text precedes quote' do
+        it 'does not return a false positive' do
+          @note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\n")
+          @note.looks_like_a_citation?.should == false
+        end
+      end
+      context 'when text succeeds quote' do
+        it 'does not return a false positive' do
+          @note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          @note.looks_like_a_citation?.should == false
+        end
+      end
+      context 'when text surrounds quote' do
+        it 'does not return a false positive' do
+          @note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          @note.looks_like_a_citation?.should == false
+        end
+      end
+    end
+  end
+
+  describe 'lang_from_cloud' do
+    Settings.notes['wtf_sample_length'] = 100
+    context 'when text is in Enlish' do
+      it 'returns en' do
+      @note = FactoryGirl.create(:note, body: 'The Anatomy of Melancholy')
+      VCR.use_cassette('helper/wtf_lang_en') do
+        @note.lang_from_cloud.should == 'en'
+      end
+      end
+    end
+    context 'when text is in Russian' do
+      it 'returns ru' do
+        @note = FactoryGirl.create(:note, body: 'Анатомия меланхолии')
+        VCR.use_cassette('helper/wtf_lang_ru') do
+          @note.lang_from_cloud.should == 'ru'
+        end
+      end
+    end
+    context 'when text is in Malaysian' do
+      it 'returns ar' do
+        @note = FactoryGirl.create(:note, body: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ')
+        VCR.use_cassette('helper/wtf_lang_ml') do
+          @note.lang_from_cloud.should == 'ml'
+        end
+      end
+    end
+   # context 'when text is gibberish' do
+   #   it 'returns nil' do
+   #     @note = FactoryGirl.create(:note, body: 'hsdhasdjkahdjka')
+   #     VCR.use_cassette('helper/wtf_lang_nil') do
+   #       @note.lang_from_cloud.should == nil
+   #     end
+   #   end
+   # end
   end
 
 # TEST PUBLISHABLE & Listable !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

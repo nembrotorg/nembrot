@@ -6,6 +6,7 @@ gem 'acts-as-taggable-on'
 gem 'attr_encrypted'
 gem 'breadcrumbs_on_rails'
 gem 'coveralls', require: false
+gem 'detect_language'
 gem 'devise'
 gem 'differ'
 gem 'evernote-thrift'
@@ -32,7 +33,6 @@ gem 'settingslogic'
 gem 'thin'
 gem 'unicorn'
 gem 'wikipedia-client'
-gem 'wtf_lang'
 
 group :development do
   gem 'better_errors'

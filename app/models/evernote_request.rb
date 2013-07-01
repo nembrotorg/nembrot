@@ -120,12 +120,9 @@ class EvernoteRequest
 
     tag_list_from_note_data = cloud_note_tags.grep(/^[^_]/)
     cloud_note_instructions = cloud_note_tags.grep(/^_/)
-    body_text_for_analysis = text_for_analysis(cloud_note_data.content)
-    #.gsub(/^\w*?\:.*$/, '')
 
     data['title']               = cloud_note_data.title
     data['body']                = cloud_note_data.content
-    data['lang']                = lang_from_cloud("#{ cloud_note_data.title } #{ cloud_note_data.content }")
     data['latitude']            = cloud_note_data.attributes.latitude
     data['longitude']           = cloud_note_data.attributes.longitude
     data['external_updated_at'] = calculate_updated_at
@@ -136,9 +133,7 @@ class EvernoteRequest
     data['source_url']          = cloud_note_data.attributes.sourceURL
     data['tag_list']            = tag_list_from_note_data
     data['instruction_list']    = cloud_note_instructions
-    data['hide']                = has_instruction?('hide', cloud_note_instructions)
-    data['is_citation']         = (has_instruction?('citation', cloud_note_instructions) || looks_like_a_citation?(body_text_for_analysis))
-    data['listable']            = !has_instruction?('unlist', cloud_note_instructions)
+    data['lang']                = lang_from_cloud("#{ cloud_note_data.title } #{ cloud_note_data.content }")
     data['active']              = true
 
     self.data = data unless data.empty?

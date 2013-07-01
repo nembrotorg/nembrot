@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Mon, 01 Jul 2013 22:50:42 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":0.01303780964797914}]}}'
+    http_version: 
+  recorded_at: Mon, 01 Jul 2013 22:50:42 GMT
+recorded_with: VCR 2.5.0

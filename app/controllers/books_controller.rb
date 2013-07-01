@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   def show
     @books = Book.publishable
     @book = @books.find_by_slug(params[:slug])
-    @related_books = @books.where(:author => @book.author)
+    @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
 
     add_breadcrumb @book.headline, book_path(params[:slug])
 

@@ -29,7 +29,8 @@ defaults: &defaults
       required: ['__HOME']
   notes:
     title_length: 40
-    blurb_length: 335
+    blurb_length: 300
+    blurb_omission: '...'
     wtf_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
@@ -81,18 +82,19 @@ defaults: &defaults
     gutter_width: 30
     columns: 12
     total_width: '100%'
-    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    font_family: 'CartoGothicSTD, Arial, Helvetica, sans-serif'
     font_size: '15px'
     font_color: '#000'
     body_font_family: 'Georgia, serif'
     body_font_size: '18px'
     body_font_color: '#000'
-    body_font_citation_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    body_font_citation_family: 'CartoGothicSTD, Arial, Helvetica, sans-serif'
     body_font_citation_size: '15px'
     body_font_citation_color: '#000'
     count_color: '#c00'
-    headline_font: 'DejaVuSansCondensed'
-    headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    headline_font: 'CartoGothicSTD'
+    headline_font_variant: 'book'
+    headline_font_family: 'CartoGothicSTD, Arial, Helvetica, sans-serif'
     headline_font_color: '#c00'
     headline_font_size: '24px'
     small_font_size: '13px'

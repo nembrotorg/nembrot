@@ -12,11 +12,11 @@
 //
 ///////////////////////////////
 
-=embed-font($font-name)
+=embed-font($font-name, $font-variant)
   @font-face
     font-family: $font-name
-    src: font-url('#{$font-name}.eot')
-    src: font-url('#{$font-name}.eot?#iefix') format("embedded-opentype"), font-url('#{$font-name}.woff') format("woff"), font-url('#{$font-name}.ttf') format("truetype")
+    src: font-url('#{$font-name}/#{$font-variant}.eot')
+    src: font-url('#{$font-name}/#{$font-variant}.eot?#iefix') format("embedded-opentype"), font-url('#{$font-name}/#{$font-variant}.woff') format("woff"), font-url('#{$font-name}/#{$font-variant}.ttf') format("truetype")
     font-weight: normal
     font-style: normal
 
@@ -44,7 +44,7 @@
 //
 ///////////////////////////////
 
-+embed-font($headline-font)
++embed-font($headline-font, $headline-font-variant)
 
 =dashboard-font
   color: $font-color
@@ -104,6 +104,10 @@ a
     color: $link-hover-color
     &:before
       +icon-download-1
+  &[rel=tag]:before
+    color: #999
+    content: '#'
+//    +icon-hash
 
 ins
   text-decoration: none
@@ -133,6 +137,9 @@ h1
     family: $headline-font-family
     weight: normal
     size: $headline-font-size
+
+h2
+  color: $headline-font-color
 
 h3, h6
   display: none
@@ -208,7 +215,7 @@ footer
     a[href*=vimeo]:before
       +icon-vimeo
     a[href*=soundcloud]:before
-      +icon-soundcloud-1
+      +icon-soundcloud
     a[href*=github]:before
       +icon-github-circled-1
     a[href*=googleplus]:before
@@ -269,9 +276,10 @@ ul.notes, ul.citations
     margin-bottom: $line-height
     display: block
     h2
-      +body-font
-      font-family: $headline-font-family
-      color: $headline-font-color
+      font:
+        family: $headline-font-family
+        size: $body-font-size - 2
+        weight: normal
       display: inline
 
 ul.citations
@@ -281,7 +289,7 @@ ul.citations
     cite
       display: block
       &:before
-        content: '\2014'
+        content: '\2014' // make hyphen mixin
 
 .notes-show, .citations-show
   figure
@@ -301,6 +309,18 @@ ul.citations
         padding: 0
         &:before
           content: '\2014'
+
+.books-show, .citations-show
+  figure
+    blockquote
+      &:before
+        +icon-quote-left-alt
+        color: #ccc
+        font-size: $body-font-size
+        position: absolute
+        left: 0
+      figcaption
+        margin: $line-height 0 0 0
 
 .notes-version
   .versions

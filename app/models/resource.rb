@@ -93,9 +93,9 @@ class Resource < ActiveRecord::Base
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
     elsif caption
-      new_name = snippet(caption, Settings.styling.images.name_length, '')
+      new_name = caption[0..Settings.styling.images.name_length]
     elsif description
-      new_name = snippet(description, Settings.styling.images.name_length, '')
+      new_name = description[0..Settings.styling.images.name_length]
     elsif file_name && file_name != ''
       new_name = File.basename(file_name, File.extname(file_name))
     end

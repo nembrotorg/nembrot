@@ -18,18 +18,10 @@ module ApplicationHelper
     end
   end
 
-  # REVIEW: Should we interpret/use a Markdown flavour?
-
-  def snippet(text, characters, omission = '...')
-    text = ActionController::Base.helpers.sanitize(text, tags: ['h2'])
-    text = text.gsub(/\[.+\]/, '')
-    text = ActionController::Base.helpers.truncate(text, length: characters, separator: ' ', omission: omission)
-  end
-
   def format_blockquotes(text)
     text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i,
               (render citation_partial('blockquote_with_attribution'),
-               citation: "\\1", attribution: "\\2"))
+               citation_text: "\\1", attribution: "\\2"))
         .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
@@ -105,18 +97,23 @@ module ApplicationHelper
   def sanitize_for_output(text)
     text.gsub(/^<strong>(.+)<\/strong>$/, '<h2>\1</h2>')
         .gsub(/^<b>(.+)<\/b>$/, '<h2>\1</h2>')
-        .gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')
-        .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')
-        .gsub(/^(<p> *<\/p>)$/, '')
+        .gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')    # Wraps lines in <p> tags, except if they're already wrapped
+        .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span in <p> tags
+        .gsub(/^(<p> *<\/p>)$/, '')                       # Removes empty paragraphs 
         .html_safe
   end
 
-  def bodify(text, books = [])
+  def bodify(text, books = [], citation_partial = 'inline')
     text = sanitize_from_db(text)
-    text = bookify(text, books)
+    text = bookify(text, books, citation_partial)
     text = smartify(text)
     text = notify(text)
     text = clean_whitespace(text)
     text = sanitize_for_output(text)
+  end
+
+  def blurbify(text, books = {}, citation_partial = 'inline')
+    text = bookify(text, books, citation_partial)
+    text = smartify(text)
   end
 end

@@ -94,20 +94,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe '#snippet' do
-    it 'does not truncate string if it contains fewer characters than required' do
-      snippet('1234 1234 1234', 20).should == '1234 1234 1234'
-    end
-
-    it 'does not truncate string if it contains as many characters as required' do
-      snippet('1234 1234 1234', 14).should == '1234 1234 1234'
-    end
-
-    it 'truncates string without breaking any words and add ellipses if it contains more words than required' do
-      snippet('1234 1234 1234', 13).should == '1234 1234...'
-    end
-  end
-
 # This should be tested in views.
 #  describe '#bookify' do
 #    before do

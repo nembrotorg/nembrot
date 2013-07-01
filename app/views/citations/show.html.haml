@@ -9,6 +9,6 @@
     = render 'header', title: t('.short', id: @citation.id), :document_title => document_title
 
     %section#text
-      = bodify(@citation.body, @citation.books)
+      = bodify(@citation.body, @citation.books, 'book_main_details')
 
-  = render 'notes/tag_list', tags: @tags
+  = render 'notes/tag_list', tags: @tags unless @tags.blank?

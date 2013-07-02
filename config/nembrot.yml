@@ -31,7 +31,7 @@ defaults: &defaults
     title_length: 40
     blurb_length: 300
     blurb_omission: '...'
-    wtf_sample_length: 250
+    detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3

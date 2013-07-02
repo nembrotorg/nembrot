@@ -169,7 +169,7 @@ describe Note do
   end
 
   describe 'lang_from_cloud' do
-    Settings.notes['wtf_sample_length'] = 100
+    Settings.notes['detect_language_sample_length'] = 100
     context 'when text is in Enlish' do
       it 'returns en' do
       @note = FactoryGirl.create(:note, body: 'The Anatomy of Melancholy')

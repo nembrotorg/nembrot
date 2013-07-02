@@ -118,7 +118,7 @@ class Note < ActiveRecord::Base
   end
 
   def lang_from_cloud(content = clean_body)
-    response = DetectLanguage.simple_detect(content[0..Settings.notes.wtf_sample_length])
+    response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
     Array(response.match(/^\w\w$/)).size == 1 ? response : nil
   end
 

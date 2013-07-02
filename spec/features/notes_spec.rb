@@ -17,7 +17,7 @@ describe 'Notes' do
       page.should have_selector('h1', text: I18n.t('notes.title'))
     end
     it 'should have a link to note' do
-      page.should have_link('New title: New body', href: note_path(@note))
+      page.should have_selector('a', note_path(@note))
     end
   end
 

@@ -291,7 +291,7 @@ ul.citations
   +column(12)
   li, li h2
     +body-font-citation
-    cite
+    figcaption
       display: block
       &:before
         content: '\2014' // make hyphen mixin
@@ -316,8 +316,8 @@ ul.citations
         &:before
           content: '\2014'
 
-.books-show, .citations-show
-  figure
+.books-show, .citations-index, .citations-show
+  figure.citation
     blockquote
       &:before
         +icon-quote-left-alt
@@ -325,8 +325,8 @@ ul.citations
         font-size: $body-font-size
         position: absolute
         left: 0
-      figcaption
-        margin: $line-height 0 0 0
+    figcaption
+      margin: $line-height 0 0 0
 
 .notes-version
   .versions

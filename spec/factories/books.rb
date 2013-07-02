@@ -5,9 +5,9 @@ FactoryGirl.define do
     attempts 0
     author { Faker::Lorem.words(2).join(' ') }
     dirty false
-    editor { Faker::Lorem.words(2) }
+    editor { Faker::Lorem.words(2).join(' ') }
     google_books_id { Faker::Lorem.characters(10) }
-    introducer { Faker::Lorem.words(2) }
+    introducer { Faker::Lorem.words(2).join(' ') }
     isbn_10 '0123456789'
     isbn_13 '0123456789012'
     lang 'en'
@@ -16,9 +16,9 @@ FactoryGirl.define do
     page_count Random.rand(500)
     published_city { Faker::Lorem.word }
     published_date 1.year.ago
-    publisher { Faker::Lorem.words(3) }
+    publisher { Faker::Lorem.words(3).join(' ') }
     sequence(:id) { |n| "#{n}" }
     title { Faker::Lorem.sentence }
-    translator { Faker::Lorem.words(2) }
+    translator { Faker::Lorem.words(2).join(' ') }
   end
 end

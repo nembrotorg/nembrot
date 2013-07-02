@@ -75,6 +75,10 @@ defaults: &defaults
     default_blank_location: '/public/resources/cut/blank.png'
 
   styling:
+    colors:
+      red: '#c00'
+      green: '#0c0'
+      blue: '#00c'
     css_for_instructions: ['__FX_POL']
     citation_style: default
     line_height: 30

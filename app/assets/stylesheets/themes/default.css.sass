@@ -108,6 +108,11 @@ a
     color: #999
     content: '#'
 //    +icon-hash
+  &[href*=http]:after
+    +icon-link-ext
+a[href*=http]:after
+  padding-left: 5px
+  +icon-link-ext
 
 ins
   text-decoration: none
@@ -291,6 +296,7 @@ ul.citations
       &:before
         content: '\2014' // make hyphen mixin
 
+// GENERALISE
 .notes-show, .citations-show
   figure
     margin-bottom: $line-height / 2

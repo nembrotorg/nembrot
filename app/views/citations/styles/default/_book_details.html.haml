@@ -1,9 +1,5 @@
 %section.details
   %p.main= render citation_partial('book_main_details'), book: book
-  %p= "Translated by #{ book.translator }." unless book.translator.blank?
-  %p= "Edited by #{ book.editor }." unless book.editor.blank?
-  %p= "With an introduction by #{ book.introducer }." unless book.introducer.blank?
-  %p= "ISBN: #{ book.isbn_10 }, #{ book.isbn_13 }" unless book.translator.blank?
-  %p= "Dewey Decimal: #{ book.dewey_decimal }" unless book.dewey_decimal.blank?
-  %p= "Library of Congress Number: #{ book.lcc_number }" unless book.lcc_number.blank?
-  %p= "The full text of this book is available at #{ book.full_text }." unless book.full_text.blank?
+  %p= contributors(book)
+  %p= classification(book)
+  %p= links(book)

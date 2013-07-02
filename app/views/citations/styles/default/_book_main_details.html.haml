@@ -1,1 +1,1 @@
-=link_to "#{ book.author }, <em>#{ book.title }</em>. #{ book.published_city }: #{ book.publisher } #{ book.published_date.year }.".html_safe, book
+=link_to_unless_current main_details(book).html_safe, book

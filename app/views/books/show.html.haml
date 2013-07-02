@@ -11,7 +11,8 @@
 
   = render citation_partial('book_details'), :book => @book
 
-  = render 'citations/citations_list', :citations => @book.notes.publishable.citations
+  = render 'citations/citations_list', :citations => @book.notes.publishable.citations, books: @books
+  -# Citations for a book should be in page number (but consider Roman numerals)
 
   = render 'notes_list', :notes => @book.notes.publishable.listable
 

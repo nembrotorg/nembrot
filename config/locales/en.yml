@@ -63,6 +63,16 @@ en:
     item: "%{name}"
     short: "%{name}"
     editor_short: "(ed.)"
+    show:
+      translator_editor_introducer:
+        false_false_true: "Introduced by %{introducer}."
+        false_true_false: "Edited by %{editor}."
+        false_true_true: "Edited by %{editor}, with an introduction by %{introducer}."
+        true_false_false: "Translated by %{translator}."
+        true_false_true: "Translated by %{translator}, with an introduction by %{introducer}."
+        true_true_false: "Translated by %{translator}, edited by %{editor}."
+        true_true_true: "Translated by %{translator}. Edited by %{editor}, with an introduction by %{introducer}."
+
     sync:
       updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
       failed:

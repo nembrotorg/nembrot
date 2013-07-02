@@ -14,10 +14,8 @@ module OutputHelper
   end
 
   def citation_blurb(clean_body)
-    citation_text = clean_body[0 .. clean_body.length]
-              .gsub(/^\W*?quote\:/, '')
-              .truncate(Settings.notes.blurb_length, separator: ' ', omission: Settings.notes.blurb_omission)
-              .gsub(/\W#{ Settings.notes.blurb_omission }$/, '')
+    citation_text = clean_body.truncate(Settings.notes.blurb_length, separator: ' ', omission: Settings.notes.blurb_omission)
+                              .gsub(/\W*#{ Settings.notes.blurb_omission }\Z/m, '')
     attribution = Array(clean_body.scan(/\-\-(.*?)$/).first).first
     [citation_text, attribution]
   end

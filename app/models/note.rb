@@ -76,6 +76,7 @@ class Note < ActiveRecord::Base
 
   def clean_body
     clean_body_with_instructions
+      .gsub(/^\W*?quote\:/, '')
       .gsub(/^\w*?\:.*$/, '')
       .gsub(/\([^\]]*?\)|\[[^\]]*?\]|\n|\r/, ' ')
       .gsub(/\s+/, ' ')

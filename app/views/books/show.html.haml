@@ -11,8 +11,8 @@
 
   = render citation_partial('book_details'), :book => @book
 
-  = render 'citations/citations_list', :citations => @book.notes.citations
+  = render 'citations/citations_list', :citations => @book.notes.publishable.citations
 
-  = render 'notes_list', :notes => @book.notes
+  = render 'notes_list', :notes => @book.notes.publishable.listable
 
   = render 'books_list', :books => @related_books

@@ -18,7 +18,7 @@ defaults: &defaults
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
     stream_binaries: false
     synchronous: false
-    reset: true
+    always_reset_on_create: true
     daemon_frequency: 30
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
     daemon_frequency: 30
@@ -36,6 +36,7 @@ defaults: &defaults
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
     instructions:
+      home: ['__HOME']
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']
       hide: ['__HIDE']
@@ -145,7 +146,7 @@ development:
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
     stream_binaries: false
     synchronous: true
-    reset: true
+    always_reset_on_create: true
     daemon_frequency: 30
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
 
@@ -161,8 +162,8 @@ staging:
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
     stream_binaries: false
     synchronous: true
-    reset: true
-    daemon_frequency: 30
+    always_reset_on_create: true
+    daemon_frequency: 3600
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
 
 production:
@@ -173,6 +174,6 @@ production:
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
     stream_binaries: false
     synchronous: false
-    reset: true
+    always_reset_on_create: true
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
     daemon_frequency: 30

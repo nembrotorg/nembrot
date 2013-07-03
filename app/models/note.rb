@@ -17,6 +17,7 @@ class Note < ActiveRecord::Base
   acts_as_taggable_on :tags, :instructions
 
   has_paper_trail on: [:update],
+                  only: [:title, :body, :tag_list],
                   unless: proc { |note| note.has_instruction?('reset') },
                   meta: {
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number

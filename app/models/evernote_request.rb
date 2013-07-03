@@ -110,8 +110,8 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Settings.evernote.reset && evernote_note.note.versions.size == 0 
-    use_date = (reset_new_note || has_instruction?('reset', cloud_note_tags)) ?  cloud_note_data.created : cloud_note_data.updated
+    reset_new_note = Settings.evernote.always_reset_on_create && evernote_note.note.versions.empty? 
+    use_date = reset_new_note ?  cloud_note_data.created : cloud_note_data.updated
     Time.at(use_date / 1000).to_datetime
   end
 

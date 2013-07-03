@@ -104,12 +104,6 @@ a
     color: $link-hover-color
     &:before
       +icon-download-1
-  &[rel=tag]:before
-    color: #999
-    content: '#'
-//    +icon-hash
-  &[href*=http]:after
-    +icon-link-ext
 a[href*=http]:after
   padding-left: 5px
   +icon-link-ext
@@ -137,11 +131,13 @@ li
 h1
   margin: $line-height 0
   line-height: $line-height
-  color: $headline-font-color
   font:
     family: $headline-font-family
     weight: normal
     size: $headline-font-size
+.home-index, .notes-show, .notes-version
+  hgroup
+    color: $headline-font-color
 
 h2
   color: $headline-font-color
@@ -202,39 +198,43 @@ header
 footer
   ul
     +columns(2)
-    a:before
-      +icon-right-4
-      +icon-small
-    a[href*=http]:before
-      +icon-link-ext
-      +icon-regular
-    a[href*=mailto]:before
-      +icon-mail
-      +icon-regular
-    a[href*=facebook]:before
-      +icon-facebook-1
-    a[href*=twitter]:before
-      +icon-twitter-1
-    a[href*=youtube]:before
-      +icon-youtube-1
-    a[href*=vimeo]:before
-      +icon-vimeo
-    a[href*=soundcloud]:before
-      +icon-soundcloud
-    a[href*=github]:before
-      +icon-github-circled-1
-    a[href*=googleplus]:before
-      +icon-gplus-1
-    a[href*=spotify]:before
-      +icon-spotify
-    a[href*=rss]:before
-      +icon-rss
-      +icon-regular
+    a
+      &:before
+        +icon-right-4
+        +icon-small
+      &[href*=http]
+        &:before
+          +icon-link-ext
+          +icon-regular
+        &:after
+          content: ''
+      &[href*=mailto]:before
+        +icon-mail
+        +icon-regular
+      &[href*=facebook]:before
+        +icon-facebook-1
+      &[href*=twitter]:before
+        +icon-twitter-1
+      &[href*=youtube]:before
+        +icon-youtube-1
+      &[href*=vimeo]:before
+        +icon-vimeo
+      &[href*=soundcloud]:before
+        +icon-soundcloud
+      &[href*=github]:before
+        +icon-github-circled-1
+      &[href*=googleplus]:before
+        +icon-gplus-1
+      &[href*=spotify]:before
+        +icon-spotify
+      &[href*=rss]:before
+        +icon-rss
+        +icon-regular
   small:before
     +icon-cc-by-nc-sa
     letter-spacing: 0.25em
 
-///////////////////////////////
+  ///////////////////////////////
 //
 // Elements
 //
@@ -316,7 +316,7 @@ ul.citations
         &:before
           content: '\2014'
 
-.books-show, .citations-index, .citations-show
+.books-show, .citations-index, .citations-show, .tags-show
   figure.citation
     blockquote
       &:before
@@ -357,23 +357,20 @@ ul.citations
       margin-top: 0
       text-indent: 0
 
-.tags
-  ul
-    +column(12)
-    +horizontal-list
-    margin-bottom: $line-height
-    // Also, what tags above means is ambiguous
-    // Causes a line-break
-    // &:before
-    // +icon-tags
-    li
-      a:after
-        content: ", "
-      &:last-child
+.notes-show, .citations-show
+  .tags
+    &:before
+      +icon-tags
+    ul
+      +column(12)
+      +horizontal-list
+      margin-bottom: $line-height
+      li
         a:after
-          content: ""
-  .count
-    color: $count-color
+          content: ", "
+        &:last-child
+          a:after
+            content: ""
 
 ol.books
   +column(12)
@@ -400,6 +397,8 @@ ol.books
     +columns(2)
     &.cloud
       +inline-block-list
+    .count
+      color: $count-color
 
 .tags-show
   h1:before

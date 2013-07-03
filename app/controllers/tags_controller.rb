@@ -20,7 +20,8 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_slug(params[:slug])
-    @notes = Note.publishable.tagged_with(@tag.name)
+    @notes = Note.listable.tagged_with(@tag.name)
+    @citations = Note.publishable.citations.tagged_with(@tag.name)
 
     if Settings.tags.index.style == 'cloud'
       @tags = Note.publishable.tag_counts_on(:tags)

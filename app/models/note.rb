@@ -109,7 +109,7 @@ class Note < ActiveRecord::Base
     # end
 
   def has_instruction?(instruction, instructions = instruction_list)
-    !((Settings.notes.instructions.default + instructions) & Settings.notes.instructions[instruction]).empty?
+    !((Settings.notes.instructions.default + instructions) & Array(Settings.notes.instructions[instruction])).empty?
   end
 
   def looks_like_a_citation?(content = clean_body)

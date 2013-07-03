@@ -133,7 +133,6 @@ class EvernoteRequest
     data['source_url']          = cloud_note_data.attributes.sourceURL
     data['tag_list']            = tag_list_from_note_data
     data['instruction_list']    = cloud_note_instructions
-    data['lang']                = lang_from_cloud("#{ cloud_note_data.title } #{ cloud_note_data.content }")
     data['active']              = true
 
     self.data = data unless data.empty?

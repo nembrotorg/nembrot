@@ -46,6 +46,7 @@ class Note < ActiveRecord::Base
     update_is_hidable?
     update_is_citation?
     update_is_listable?
+    update_lang_from_cloud
   end
 
   def update_is_hidable?
@@ -117,9 +118,9 @@ class Note < ActiveRecord::Base
     content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1
   end
 
-  def lang_from_cloud(content = clean_body)
+  def update_lang_from_cloud(content = "#{ title } #{ clean_body }")
     response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
-    Array(response.match(/^\w\w$/)).size == 1 ? response : nil
+    self.lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
   end
 
   def scan_note_for_references

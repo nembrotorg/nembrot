@@ -14,9 +14,10 @@ module OutputHelper
   end
 
   def citation_blurb(clean_body)
+    return [clean_body, nil] if clean_body.scan(/\-\-/).empty? 
     citation_text = Array(clean_body.scan(/^(.*?)\-\-/).first).first
                                     .truncate(Settings.notes.blurb_length, separator: ' ', omission: Settings.notes.blurb_omission)
-                                    .gsub(/\W*#{ Settings.notes.blurb_omission }\Z/m, '')
+                                    # .gsub(/\W*#{ Settings.notes.blurb_omission }\Z/m, '') REVIEW
     attribution = Array(clean_body.scan(/\-\- *(.*?)$/).first).first
     [citation_text, attribution]
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625224348) do
+ActiveRecord::Schema.define(:version => 20130704114710) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20130625224348) do
     t.boolean  "hide"
     t.boolean  "is_citation",                      :default => false
     t.boolean  "listable",                         :default => true
+    t.integer  "word_count"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -184,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20130625224348) do
     t.integer  "sequence"
     t.text     "tag_list"
     t.text     "instruction_list", :limit => 255
+    t.integer  "word_count"
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"

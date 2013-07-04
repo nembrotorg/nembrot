@@ -5,11 +5,8 @@ include ApplicationHelper
 
 describe Note do
 
-  before do
-    @note = FactoryGirl.create(:note)
-  end
-
-  subject { @note }
+  let(:note) { FactoryGirl.create(:note) }
+  subject { note }
 
   it { should be_valid }
   it { should respond_to(:title) }
@@ -37,10 +34,9 @@ describe Note do
 
   describe 'rejects update when body, embeddable url and resources are all nil' do
     before do
-      @note.update_attributes(
-        body: nil,
-        source_url: nil
-      )
+      note.body = nil
+      notesource_url = nil
+      note.save
     end
     it { should_not be_valid }
     it { should have(1).error_on(:note) }
@@ -49,9 +45,9 @@ describe Note do
   # Not yet implemented
   # describe "refuses update when external_updated_at is unchanged" do
   #   before do
-  #     @note.update_attributes(
+  #     note.update_attributes(
   #         :title => "New Title",
-  #         :external_updated_at => @note.external_updated_at
+  #         :external_updated_at => note.external_updated_at
   #       )
   #   end
   #   it { should_not be_valid }
@@ -61,108 +57,215 @@ describe Note do
   # Not yet implemented
   # describe "refuses update when external_updated_at is older" do
   #   before {
-  #     @note.update_attributes(
+  #     note.update_attributes(
   #         :title => "New Title",
-  #         :external_updated_at => @note.external_updated_at - 1
+  #         :external_updated_at => note.external_updated_at - 1
   #       )
   #   }
   #   it { should_not be_valid }
   #   it { should have(1).error_on(:external_updated_at) }
   # end
 
-  # REVIEW: Headlines, blurbs and titles need to be simplified.
-  describe 'uses body when title is missing' do
-    before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
-    its(:headline) { should == I18n.t('notes.short', id: @note.id) }
+  describe 'versioning', versioning: true do
+    context 'when title is changed' do
+      before do
+        note.title = 'New Title'
+        note.save
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+    context 'when title is changed' do
+      before do
+        note.title = 'New Title'
+        note.save
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+    context 'when body is changed' do
+      before do
+        note.body = 'New Body'
+        note.save
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+    context 'when other attributes (e.g. altitude) is changed' do
+      before do
+        note.altitude = 1
+        note.save
+      end
+      it 'does not save a version' do
+        note.versions.should be_empty
+      end
+    end
+    context 'when note is tagged to __RESET' do
+      before do
+        note.instruction_list = %w(__RESET)
+        note.body = 'New Body'
+        note.save
+      end
+      it 'does not save a version' do
+        note.versions.should be_empty
+      end
+    end
+    context 'when a version is saved' do
+      before do
+        note.body = 'First Body'
+        note.tag_list = %w(first_tag)
+        note.instruction_list = %w(__FIRST_INSTRUCTION)
+        note.save
+        note.body = 'Second Body with more words'
+        note.tag_list = %w(second_tag)
+        note.instruction_list = %w(__SECOND_INSTRUCTION)
+        note.save
+      end
+      it 'saves metadata' do
+        note.versions.last.sequence.should == note.versions.size
+        note.versions.last.word_count.should == 2
+        note.versions.last.tag_list = %w(first_tag)
+        note.versions.last.instruction_list = %w(__FIRST_INSTRUCTION)
+      end
+    end
   end
 
-  # describe 'uses title and body for blurb' do
-  #   its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
-  # end
+  describe '#has_instruction?' do
+    before do
+      Settings.notes['instructions']['hide'] = %w(__HIDESYNONYM)
+      Settings.notes['instructions']['default'] = %w(__DEFAULT_INSTRUCTION)
+      note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
+    end
+    context 'when an instruction has synonyms in Settings' do
+      it 'returns true' do
+        note.has_instruction?('hide').should be_true
+      end
+    end
+    context 'when an instruction is set as a synonym' do
+      it 'returns true' do
+        note.has_instruction?('hidesynonym').should be_true
+      end
+    end
+    context 'when an instruction is set in default for all' do
+      it 'returns true' do
+        note.has_instruction?('default_instruction').should be_true
+      end
+    end
+    context 'when a note is tagged with an instruction' do
+      it 'returns true' do
+        note.has_instruction?('noteinstruction').should be_true
+      end
+    end
+    context 'when an instruction is not present' do
+      it 'returns false' do
+        note.has_instruction?('notpresent').should be_false
+      end
+    end
+  end
 
-  # describe 'omits title in blurb when title is derived from body' do
-  #   before { @note.update_attributes(title: I18n.t('notes.untitled_synonyms').first) }
-  #   its(:blurb) { should == '<h2>' + @note.headline + '</h2>: ' + @note.body }
-  # end
+  describe '#headline' do
+    context 'when title is present' do
+      it 'returns title' do
+        note.headline.should == note.title
+      end
+    end
+    context 'when title is missing' do
+      before do
+        note.title = I18n.t('notes.untitled_synonyms').first
+      end
+      it 'returns preformatted title (e.g. Note 1)' do
+        note.headline.should == I18n.t('notes.short', id: note.id)
+      end
+    end
+  end
 
   describe 'is taggable' do
-    before { @note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
+    before { note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
     its(:tag_list) { should == %w(tag1 tag2 tag3) }
   end
 
   describe 'is findable by tag' do
-    before { @note.update_attributes(tag_list: 'tag4') }
-    Note.tagged_with('tag4').last.should == @note
+    before { note.update_attributes(tag_list: 'tag4') }
+    # Note.tagged_with('tag4').last.should == note
   end
 
   describe 'accepts special characters in tags' do
     before do
-      @note.tag_list = %w(Žižek Café 井戸端)
-      @note.save
+      note.tag_list = %w(Žižek Café 井戸端)
+      note.save
     end
     its(:tag_list) { should == ['Žižek', 'Café', '井戸端'] }
   end
 
-  # describe 'saves versions on every update', versioning: true do
-  #  before { @note.update_attributes(title: 'New Title') }
-  #  its(:versions) { should > 0 }
-  # end
+
+  describe '#clean_body_with_instructions' do
+    pending "TODO"
+  end
+
+  describe '#clean_body' do
+    pending "TODO"
+  end
 
   describe '#embeddable_source_url' do
-    before { @note.source_url = 'http://www.example.com' }
-    its(:embeddable_source_url) { should be_nil }
-  end
+    context 'when source_url is not known to be embeddable' do
+      before { note.source_url = 'http://www.example.com' }
+      its(:embeddable_source_url) { should be_nil }
+    end
 
-  describe '#embeddable_source_url returns an embeddable youtube link if source_url is a youtube link' do
-    before { @note.source_url = 'http://youtube.com?v=ABCDEF' }
-    its(:embeddable_source_url) { should == 'http://www.youtube.com/embed/ABCDEF?rel=0' }
-  end
+    context 'when source_url is a youtube link' do
+      before { note.source_url = 'http://youtube.com?v=ABCDEF' }
+      its(:embeddable_source_url) { should == 'http://www.youtube.com/embed/ABCDEF?rel=0' }
+    end
 
-  describe '#embeddable_source_url returns an embeddable vimeo link if source_url is a vimeo link' do
-    before { @note.source_url = 'http://vimeo.com/video/ABCDEF' }
-    its(:embeddable_source_url) { should == 'http://player.vimeo.com/video/ABCDEF' }
-  end
+    context 'when source_url is a vimeo link' do
+      before { note.source_url = 'http://vimeo.com/video/ABCDEF' }
+      its(:embeddable_source_url) { should == 'http://player.vimeo.com/video/ABCDEF' }
+    end
 
-  describe '#embeddable_source_url returns an embeddable soundcloud link if source_url is a soundcloud link' do
-    before { @note.source_url = 'http://soundcloud.com?v=ABCDEF' }
-    its (:embeddable_source_url) { should == 'http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF' }
+    context 'when source_url is a soundcloud link' do
+      before { note.source_url = 'http://soundcloud.com?v=ABCDEF' }
+      its (:embeddable_source_url) { should == 'http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF' }
+    end
   end
 
   describe '#fx should return fx for images' do
-    before { @note.instruction_list = %w(__FX_ABC __FX_DEF) }
+    before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
     its (:fx) { should == 'abc_def' }
   end
 
   describe '#looks_like_a_citation?' do
     it 'returns false for ordinary text' do
-      @note = FactoryGirl.create(:note, body: 'Plain text.')
-      @note.looks_like_a_citation?.should == false
+      note = FactoryGirl.create(:note, body: 'Plain text.')
+      note.is_citation.should == false
     end
     it 'recognises one-line citations' do
-      @note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
-      pending "@note.looks_like_a_citation?.should == true"
+      note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
+      pending "note.looks_like_a_citation?.should == true"
     end
     it 'recognises two-line citations' do
-      @note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
-      pending "@note.looks_like_a_citation?.should == true"
+      note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
+      pending "note.looks_like_a_citation?.should == true"
     end
     context 'when a note merely contains a citation' do
       context 'when text precedes quote' do
         it 'does not return a false positive' do
-          @note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\n")
-          @note.looks_like_a_citation?.should == false
+          note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\n")
+          note.is_citation.should == false
         end
       end
       context 'when text succeeds quote' do
         it 'does not return a false positive' do
-          @note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\nPlain text.")
-          @note.looks_like_a_citation?.should == false
+          note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          note.is_citation.should == false
         end
       end
       context 'when text surrounds quote' do
         it 'does not return a false positive' do
-          @note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\nPlain text.")
-          @note.looks_like_a_citation?.should == false
+          note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          note.is_citation.should == false
         end
       end
     end
@@ -171,34 +274,41 @@ describe Note do
   describe 'lang_from_cloud' do
     Settings.notes['detect_language_sample_length'] = 100
     context 'when text is in Enlish' do
-      it 'returns en' do
-      @note = FactoryGirl.create(:note, body: 'The Anatomy of Melancholy')
-      VCR.use_cassette('helper/wtf_lang_en') do
-        @note.lang_from_cloud.should == 'en'
+      before do
+        VCR.use_cassette('helper/detect_lang_en') do
+          note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.")
+        end
       end
+      it 'returns en' do
+        note.lang.should == 'en'
       end
     end
     context 'when text is in Russian' do
-      it 'returns ru' do
-        @note = FactoryGirl.create(:note, body: 'Анатомия меланхолии')
-        VCR.use_cassette('helper/wtf_lang_ru') do
-          @note.lang_from_cloud.should == 'ru'
+      before do
+        VCR.use_cassette('helper/detect_lang_ru') do
+          note.update_attributes(title: 'Анатомия меланхолии', body: "Гигантский том in-quarto толщиной в 900.")
+          note.save!
         end
+      end
+      it 'returns ru' do
+        note.lang.should == 'ru'
       end
     end
     context 'when text is in Malaysian' do
-      it 'returns ar' do
-        @note = FactoryGirl.create(:note, body: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ')
-        VCR.use_cassette('helper/wtf_lang_ml') do
-          @note.lang_from_cloud.should == 'ml'
+      before do
+        VCR.use_cassette('helper/detect_lang_ml') do
+          note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ")
         end
+      end
+      it 'returns ml' do
+        note.lang.should == 'ml'
       end
     end
    # context 'when text is gibberish' do
    #   it 'returns nil' do
-   #     @note = FactoryGirl.create(:note, body: 'hsdhasdjkahdjka')
+   #     note = FactoryGirl.create(:note, body: 'hsdhasdjkahdjka')
    #     VCR.use_cassette('helper/wtf_lang_nil') do
-   #       @note.lang_from_cloud.should == nil
+   #       note.lang_from_cloud.should == nil
    #     end
    #   end
    # end

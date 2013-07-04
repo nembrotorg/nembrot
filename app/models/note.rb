@@ -17,9 +17,10 @@ class Note < ActiveRecord::Base
   acts_as_taggable_on :tags, :instructions
 
   has_paper_trail on: [:update],
-                  only: [:title, :body, :tag_list],
+                  only: [:title, :body],
                   unless: proc { |note| note.has_instruction?('reset') },
                   meta: {
+                    word_count:  proc { |note| Note.find(note.id).word_count },
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
                     tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tags
                     instruction_list:  proc { |note| Note.find(note.id).instruction_list }
@@ -32,40 +33,22 @@ class Note < ActiveRecord::Base
 
   validates :title, :external_updated_at, presence: true
   validate :body_or_source_or_resource, before: :update
-  # Being activated on create and throws error
-  # validate :external_updated_at_must_be_latest, :before => :update
+  # validate :external_updated_is_latest?, before: :update
 
-  # before_save :discard_versions? #, :if => :instruction_list_changed?
-  # before_save :update_is_hidable? #, :if => :instruction_list_changed?
-  # before_save :update_is_citation? #, :if => :instruction_list_changed?
-  # before_save :update_is_listable? #, :if => :instruction_list_changed?
-  before_save :scan_note_for_references, :if => :body_changed?
-  after_save :scan_note_for_isbns, :if => :body_changed?
+  before_save :update_metadata
+  before_save :scan_note_for_references, if: :body_changed?
+  after_save :scan_note_for_isbns, if: :body_changed?
 
-  def update_metadata
-    discard_versions?
-    update_is_hidable?
-    update_is_citation?
-    update_is_listable?
-    update_lang_from_cloud
-  end
+  def has_instruction?(instruction, instructions = instruction_list)
+    instruction_to_find = ["__#{ instruction.upcase }"]
+    instruction_to_find.push(Settings.notes['instructions'][instruction]) unless Settings.notes['instructions'][instruction].nil?
+    instruction_to_find.flatten!
 
-  def update_is_hidable?
-    self.hide = has_instruction?('hide')
-  end
+    places_to_search = Array(instructions)
+    places_to_search.push(Settings.notes.instructions.default)
+    places_to_search.flatten!
 
-  def update_is_listable?
-    self.listable = !has_instruction?('unlist')
-  end
-
-  def update_is_citation?
-    self.is_citation = (has_instruction?('citation', cloud_note_instructions) || looks_like_a_citation?(body_clean_body))
-  end
-
-  def body_or_source_or_resource
-    if body.blank? && embeddable_source_url.blank? && resources.blank?
-      errors.add(:note, 'Note needs one of body, source or resource.')
-    end
+    !(places_to_search & instruction_to_find).empty?
   end
 
   def headline
@@ -101,42 +84,6 @@ class Note < ActiveRecord::Base
     fx.empty? ? nil : fx
   end
 
-  # private
-    # def external_updated_at_must_be_latest
-    #     if !external_updated_at_was.blank? && external_updated_at <= external_updated_at_was
-    #       errors.add( :external_updated_at, 'must be more recent than any other version' )
-    #       return false
-    #     end
-    # end
-
-  def has_instruction?(instruction, instructions = instruction_list)
-    !((Settings.notes.instructions.default + instructions) & Array(Settings.notes.instructions[instruction])).empty?
-  end
-
-  def looks_like_a_citation?(content = clean_body)
-    # OPTIMIZE: Replace 'quote': by i18n
-    #  and put it as_before save method
-    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1
-  end
-
-  def update_lang_from_cloud(content = "#{ title } #{ clean_body }")
-    response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
-    self.lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
-  end
-
-  def scan_note_for_references
-    # REVIEW: Should this be in Book?
-    self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-  end
-
-  def scan_note_for_isbns
-    Book.grab_isbns(body) unless body.blank?
-  end
-
-  def discard_versions?
-    versions.destroy_all if has_instruction?('reset')
-  end
-
   # REVIEW: Move this to Evernote Request
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
@@ -165,4 +112,73 @@ class Note < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+  def external_updated_is_latest?
+    return true if external_updated_at_was.blank?
+    if external_updated_at <= external_updated_at_was
+      errors.add( :external_updated_at, 'must be more recent than any other version' )
+      return false
+    end
+  end
+
+  def update_lang_from_cloud(content = "#{ title } #{ clean_body }")
+    response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
+    self.lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
+  end
+
+  def scan_note_for_references
+    self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
+  end
+
+  def scan_note_for_isbns
+    Book.grab_isbns(body) unless body.blank?
+  end
+
+  def body_or_source_or_resource
+    if body.blank? && embeddable_source_url.blank? && resources.blank?
+      errors.add(:note, 'Note needs one of body, source or resource.')
+    end
+  end
+
+  def update_metadata
+    discard_versions?
+    update_is_hidable?
+    update_is_a_citation?
+    update_is_listable?
+    keep_old_date?
+    update_lang_from_cloud
+    update_word_count
+  end
+
+  def discard_versions?
+    versions.destroy_all if has_instruction?('reset')
+  end
+
+  def update_is_a_citation?
+    self.is_citation = has_instruction?('citation') || looks_like_a_citation?(clean_body)
+  end
+
+  def looks_like_a_citation?(content = clean_body)
+    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1 # OPTIMIZE: Replace 'quote': by i18n
+  end
+
+  def update_is_listable?
+    self.listable = !has_instruction?('unlist')
+  end
+
+  def keep_old_date?
+    # If this is a minor update (i.e. we're not creating a new version), we keep the old date.
+    self.external_updated_at = external_updated_at_was unless title_changed? || body_changed?
+  end
+
+  def update_is_hidable?
+    self.hide = has_instruction?('hide')
+  end
+
+  def update_word_count
+    self.word_count = clean_body.split.size
+  end
+
 end

@@ -24,12 +24,13 @@ en:
     title: "Notes"
     item: "Note %{id}"
     short: "Note %{id}"
+    word_count: "%{word_count} words"
     versions:
       title: "Versions"
       item: "Version %{sequence}"
       short: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
-    untitled_synonyms: ["Untitled", "Untitled note", "New note"]
+    untitled_synonyms: ["Untitled", "Untitled Note", "New note"]
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."
       rejected:

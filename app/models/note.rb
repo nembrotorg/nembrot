@@ -153,7 +153,10 @@ class Note < ActiveRecord::Base
   end
 
   def discard_versions?
-    versions.destroy_all if has_instruction?('reset')
+    if has_instruction?('reset') && !versions.empty?
+      self.external_updated_at = versions.first.external_updated_at if Settings.evernote.always_reset_on_create
+      versions.destroy_all 
+    end
   end
 
   def update_is_a_citation?

@@ -1,11 +1,11 @@
 AllCops:
   Includes:
-    - 'Rakefile'
-    - 'config.ru'
+    - Rakefile
+    - config.ru
   Excludes:
-    - 'db/**'
-    - 'config/**'
-    - 'script/**'
+    - db/**
+    - config/**
+    - script/**
 
 LineLength:
   Enabled: true

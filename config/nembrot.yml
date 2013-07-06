@@ -36,14 +36,15 @@ defaults: &defaults
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
     instructions:
-      home: ['__HOME']
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']
       hide: ['__HIDE']
+      home: ['__HOME']
       ignore: ['__IGNORE', '__HOLD']
       required: ['__PUBLISH']
       reset: ['__RESET']
-      unlist: ['__UNLIST', '__NOLIST']
+      unlist: ['__UNLIST', '__NO_LIST']
+      unversion: ['__UNVERSION', '__NO_VERSION']
     index:
       page_size: 30
   books:

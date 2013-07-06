@@ -18,7 +18,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  unless: proc { |note| note.has_instruction?('reset') },
+                  unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     word_count:  proc { |note| Note.find(note.id).word_count },
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number

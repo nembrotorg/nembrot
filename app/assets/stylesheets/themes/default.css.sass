@@ -2,7 +2,7 @@
 //
 // Default theme
 //
-// Over-specific vs ... [etc, find links]
+// Over-specific vs [find links]
 //
 ///////////////////////////////
 
@@ -38,11 +38,16 @@
 =push($offset: 1, $columns: $columns)
   margin-left: $total-width * ($gutter-width + $column-width) * $offset / gridsystem-width($columns) + $total-width * $gutter-width * 0.5 / gridsystem-width($columns)
 
+=debug-bg
+  background: url('/resources/static/debug-bg.png') 0 0 repeat
+
 ///////////////////////////////
 //
 // Fonts
 //
 ///////////////////////////////
+
+// +embed-font($body-font, $body-font-variant)
 
 +embed-font($headline-font, $headline-font-variant)
 
@@ -107,6 +112,7 @@ a
 a[href*=http]:after
   padding-left: 5px
   +icon-link-ext
+  +icon-medium
 
 ins
   text-decoration: none
@@ -283,7 +289,7 @@ ul.notes, ul.citations
     h2
       font:
         family: $headline-font-family
-        size: $body-font-size - 2
+        size: $body-font-size
         weight: normal
       display: inline
 
@@ -319,14 +325,23 @@ ul.citations
 .books-show, .citations-index, .citations-show, .tags-show
   figure.citation
     blockquote
+      // text-align: left
       &:before
         +icon-quote-left-alt
         color: #ccc
         font-size: $body-font-size
         position: absolute
         left: 0
+
+.citations-show
+  figure.citation
     figcaption
       margin: $line-height 0 0 0
+
+.books-show
+  figure.citation
+    cite
+      display: none
 
 .notes-version
   .versions
@@ -359,12 +374,12 @@ ul.citations
 
 .notes-show, .citations-show
   .tags
-    &:before
-      +icon-tags
     ul
       +column(12)
       +horizontal-list
       margin-bottom: $line-height
+      &:before
+        +icon-tags
       li
         a:after
           content: ", "
@@ -425,6 +440,8 @@ ol.books
   footer
     margin: 0 auto $line-height auto
     overflow: hidden
+    // +debug-bg
+
 
   header
     position: relative
@@ -555,8 +572,12 @@ ol.books
   .books-show
     .details
       +column(12)
-      .main
-        font-weight: bold
+      margin-bottom: $line-height
+      p
+        margin: 0
+        &.main
+          font-weight: bold
+
     ul.notes, ul.citations
       +place(0, 9, 3)
     .books

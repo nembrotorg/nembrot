@@ -82,6 +82,10 @@ a
   vertical-align: 5%
   font-size: 0.6666666666666666em
 
+=icon-medium
+  vertical-align: 2.5%
+  font-size: 0.85em
+
 /* For resetting: */
 =icon-regular
   vertical-align: 0

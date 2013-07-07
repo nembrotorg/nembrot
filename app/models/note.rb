@@ -123,9 +123,15 @@ class Note < ActiveRecord::Base
     end
   end
 
-  def update_lang_from_cloud(content = "#{ title } #{ clean_body }")
-    response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
-    self.lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
+  def update_lang(content = "#{ title } #{ clean_body }")
+    lang_instruction = Array(instruction_list).select { |v| v =~ /__LANG_/ } .first
+    if lang_instruction
+     lang = lang_instruction.gsub(/__LANG_/, '').downcase
+    else
+      response = DetectLanguage.simple_detect(content[0..Settings.notes.detect_language_sample_length])
+      lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
+    end
+    self.lang = lang
   end
 
   def scan_note_for_references
@@ -148,7 +154,7 @@ class Note < ActiveRecord::Base
     update_is_a_citation?
     update_is_listable?
     keep_old_date?
-    update_lang_from_cloud
+    update_lang
     update_word_count
   end
 

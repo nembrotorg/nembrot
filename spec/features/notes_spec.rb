@@ -9,8 +9,8 @@ describe 'Notes' do
   end
 
   describe 'index page' do
-  	before do
-      @note.update_attributes( :title => 'New title', :body => 'New body' )
+    before do
+      @note.update_attributes(title: 'New title', body: 'New body')
       visit notes_path
     end
     it 'should have the title Notes' do
@@ -23,7 +23,7 @@ describe 'Notes' do
 
   describe 'index page' do
     before do
-      @note.update_attributes( :title => 'New title', :body => 'New body', :active => false )
+      @note.update_attributes(title: 'New title', body: 'New body', active: false)
       visit notes_path
     end
     it 'should not have a link to an inactive note' do
@@ -50,7 +50,7 @@ describe 'Notes' do
   end
 
   describe 'show page' do
-  	before do
+    before do
       @note.tag_list = ['tag1']
       @note.save
       visit note_path(@note)
@@ -80,7 +80,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      @resource = FactoryGirl.create(:resource, :note => @note)
+      @resource = FactoryGirl.create(:resource, note: @note)
       visit note_path(@note)
     end
     it 'should display attached images' do
@@ -95,19 +95,19 @@ describe 'Notes' do
   end
 
   describe 'show page' do
-    before {
-      @resource = FactoryGirl.create(:resource, :note => @note, :mime => 'application/pdf')
+    before do
+      @resource = FactoryGirl.create(:resource, note: @note, mime: 'application/pdf')
       visit note_path(@resource.note)
-    }
+    end
     it 'should display downloadable files' do
-      @note.resources.size.should == 1
-      #page.should have_css('a[href*="#{ @resource.local_file_name }"]')
+      @note.resources.size.should eq(1)
+      page.should have_css("a[href *= #{ @resource.local_file_name }]")
     end
   end
 
   describe 'show page' do
     before do
-      @note.update_attributes( :source_url => 'http://youtube.com/?v=ABCDEF' )
+      @note.update_attributes(source_url: 'http://youtube.com/?v=ABCDEF')
       visit note_path(@note)
     end
     it 'should have an iframe with an embedded youtube video' do
@@ -117,7 +117,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      @note.update_attributes( :source_url => 'http://vimeo.com/video/ABCDEF' )
+      @note.update_attributes(source_url: 'http://vimeo.com/video/ABCDEF')
       visit note_path(@note)
     end
     it 'should have an iframe with an embedded vimeo video' do
@@ -127,7 +127,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      @note.update_attributes( :source_url => 'http://soundcloud.com/ABCDEF' )
+      @note.update_attributes(source_url: 'http://soundcloud.com/ABCDEF')
       visit note_path(@note)
     end
     it 'should have an iframe with an embedded soundcloud video' do
@@ -153,7 +153,7 @@ describe 'Notes' do
     end
   end
 
-  describe 'version page', :versioning => true do
+  describe 'version page', versioning: true do
     before do
       @note.title = 'Newer title'
       @note.body = 'Newer body'
@@ -197,8 +197,8 @@ describe 'Notes' do
     end
   end
 
-  describe 'version page', :versioning => true do
-    before {
+  describe 'version page', versioning: true do
+    before do
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
       @note.instruction_list = ['__LANG_AR']
@@ -209,7 +209,7 @@ describe 'Notes' do
       @note.title = 'تشريح الكآبة الثالث'
       @note.save
       visit note_version_path(@note, 3)
-    }
+    end
     it 'has the language attribute if note is not in default language' do
       page.should have_css('#note-content[lang=ar]')
     end

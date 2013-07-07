@@ -15,6 +15,7 @@ end
 
 RSpec.configure do |c|
   c.around(:each) do |example|
+    # SEE https://github.com/vcr/vcr/issues/8
     VCR.use_cassette(example.metadata[:type], record: :new_episodes, match_requests_on: [:uri, :body]) do
       example.run
     end

@@ -44,16 +44,6 @@ class EvernoteNote < ActiveRecord::Base
     evernote_notes.notes.each { |evernote_note| EvernoteNote.add_task(evernote_note.guid) }
   end
 
-  def update_with_data_from_cloud(cloud_note_data)
-    update_attributes!(
-      note_id: note.id,
-      attempts: 0,
-      content_hash: cloud_note_data.contentHash,
-      update_sequence_number: cloud_note_data.updateSequenceNum,
-      dirty: false
-    )
-  end
-
   private
 
   def self.evernote_auth

@@ -84,35 +84,6 @@ class Note < ActiveRecord::Base
     fx.empty? ? nil : fx
   end
 
-  # REVIEW: Move this to Evernote Request
-  # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
-  def update_resources_with_evernote_data(cloud_note_data)
-    cloud_resources = cloud_note_data.resources
-
-    # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
-    #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
-    captions = cloud_note_data.content.scan(/<div>\s*cap:\s*(.*?)\s*<\/div>/i)
-    descriptions = cloud_note_data.content.scan(/<div>\s*(?:alt|description):\s*(.*?)\s*<\/div>/i)
-    credits = cloud_note_data.content.scan(/<div>\s*credit:\s*(.*?)\s*<\/div>/i)
-
-    # First we remove all resources (to make sure deleted resources disappear -
-    #  but we don't want to delete binaries so we use #delete rather than #destroy)
-    resources.delete_all
-
-    if cloud_resources
-      cloud_resources.each_with_index do |cloud_resource, index|
-
-        resource = resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_create
-
-        caption = captions[index] ? captions[index][0] : ''
-        description = descriptions[index] ? descriptions[index][0] : ''
-        credit = credits[index] ? credits[index][0] : ''
-
-        resource.update_with_evernote_data(cloud_resource, caption, description, credit)
-      end
-    end
-  end
-
   private
 
   def external_updated_is_latest?

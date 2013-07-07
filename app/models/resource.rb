@@ -72,7 +72,7 @@ class Resource < ActiveRecord::Base
   end
 
   def raw_location
-    File.join(Rails.root, 'public', 'resources', 'raw', "#{ id }.#{ file_ext }")
+    File.join(Rails.root, 'public', 'resources', 'raw', "#{ mime == 'application/pdf' ? local_file_name : id }.#{ file_ext }")
   end
 
   def template_location(aspect_x, aspect_y)

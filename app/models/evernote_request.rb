@@ -38,8 +38,8 @@ class EvernoteRequest
     populate
     evernote_note.note.merge(data, true)
     evernote_note.note.save!
-    evernote_note.note.update_resources_with_evernote_data(cloud_note_data)
-    evernote_note.update_with_data_from_cloud(cloud_note_data)
+    update_resources_with_evernote_data(cloud_note_data)
+    update_evernote_note_with_evernote_data(cloud_note_data)
     SYNC_LOG.info "#{ logger_details[:title] } saved as Note #{ (evernote_note.note.id) }."
   end
 
@@ -137,4 +137,45 @@ class EvernoteRequest
 
     self.data = data unless data.empty?
   end
+
+  def update_evernote_note_with_evernote_data(cloud_note_data)
+    evernote_note.update_attributes!(
+      note_id: evernote_note.note.id,
+      attempts: 0,
+      content_hash: cloud_note_data.contentHash,
+      update_sequence_number: cloud_note_data.updateSequenceNum,
+      dirty: false
+    )
+  end
+
+  # REVIEW: Move this to Evernote Request
+  # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
+  def update_resources_with_evernote_data(cloud_note_data)
+    cloud_resources = cloud_note_data.resources
+
+    # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
+    #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
+    captions = cloud_note_data.content.scan(/<div>\s*cap:\s*(.*?)\s*<\/div>/i)
+    descriptions = cloud_note_data.content.scan(/<div>\s*(?:alt|description):\s*(.*?)\s*<\/div>/i)
+    credits = cloud_note_data.content.scan(/<div>\s*credit:\s*(.*?)\s*<\/div>/i)
+
+    # First we remove all resources (to make sure deleted resources disappear -
+    #  but we don't want to delete binaries so we use #delete rather than #destroy)
+    evernote_note.note.resources.delete_all
+
+    if cloud_resources
+      cloud_resources.each_with_index do |cloud_resource, index|
+
+        resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_create
+
+        caption = captions[index] ? captions[index][0] : ''
+        description = descriptions[index] ? descriptions[index][0] : ''
+        credit = credits[index] ? credits[index][0] : ''
+
+        # REVIEW (see comment in Resource)
+        resource.update_with_evernote_data(cloud_resource, caption, description, credit)
+      end
+    end
+  end
+
 end

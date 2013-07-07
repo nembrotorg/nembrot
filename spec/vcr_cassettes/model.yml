@@ -1,0 +1,1202 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Jul 2013 10:24:02 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '5738'
+      Content-Type:
+      - text/xml;charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxv
+        bmU9Im5vIj8+CjxvY2xjZGNzIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcv
+        ZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6b2NsY3Rlcm1zPSJodHRwOi8vcHVy
+        bC5vcmcvb2NsYy90ZXJtcy8iIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5v
+        cmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiPgo8ZGM6Y3JlYXRvcj5LaXR0
+        bGVyLCBGcmllZHJpY2ggQS48L2RjOmNyZWF0b3I+CjxkYzpkYXRlPmMxOTkw
+        PC9kYzpkYXRlPgo8ZGM6ZGVzY3JpcHRpb24+VHJhbnNsYXRpb24gb2Y6IEF1
+        ZnNjaHJlaWJlc3lzdGVtZSAxODAwLzE5MDAuPC9kYzpkZXNjcmlwdGlvbj4K
+        PGRjOmRlc2NyaXB0aW9uPkluY2x1ZGVzIGJpYmxpb2dyYXBoaWNhbCByZWZl
+        cmVuY2VzIChwLiBbNDE5XS00NDcpIGFuZCBpbmRleC48L2RjOmRlc2NyaXB0
+        aW9uPgo8ZGM6ZGVzY3JpcHRpb24+VGhpcyBpcyBhIGhpZ2hseSBvcmlnaW5h
+        bCBib29rIGFib3V0IHRoZSBjb25uZWN0aW9ucyBiZXR3ZWVuIGhpc3Rvcmlj
+        YWwgbW9tZW50LCBzb2NpYWwgc3RydWN0dXJlLCB0ZWNobm9sb2d5LCBjb21t
+        dW5pY2F0aW9uIHN5c3RlbXMsIGFuZCB3aGF0IGlzIHNhaWQgYW5kIHRob3Vn
+        aHQgdXNpbmcgdGhlc2Ugc3lzdGVtcy0tbm90YWJseSBsaXRlcmF0dXJlLiBU
+        aGUgYXV0aG9yIGZvY3VzZXMgb24gdGhlIGRpZmZlcmVuY2VzIGJldHdlZW4g
+        J2Rpc2NvdXJzZSBuZXR3b3JrcycgaW4gMTgwMCBhbmQgaW4gMTkwMCwgaW4g
+        dGhlIHByb2Nlc3MgZGV2ZWxvcGluZyBhIG5ldyBhbmFseXNpcyBvZiB0aGUg
+        c2hpZnQgZnJvbSByb21hbnRpY2lzbSB0byBtb2Rlcm5pc20uIFRoZSB3b3Jr
+        IG1pZ2h0IGJlIGNsYXNzaWZpZWQgYXMgYSBHZXJtYW4gZXF1aXZhbGVudCB0
+        byB0aGUgTmV3IEhpc3RvcmljaXNtIHRoYXQgaXMgY3VycmVudGx5IG9mIGdy
+        ZWF0IGludGVyZXN0IGFtb25nIEFtZXJpY2FuIGxpdGVyYXJ5IHNjaG9sYXJz
+        LCBib3RoIGluIHRoZSBpbnRlbGxlY3R1YWwgaW5mbHVlbmNlcyB0byB3aGlj
+        aCBLaXR0bGVyIHJlc3BvbmRzIGFuZCBpbiBoaXMgY29uY2VybiB0byBncm91
+        bmQgbGl0ZXJhdHVyZSBpbiB0aGUgbW9zdCBjb25jcmV0ZSBkZXRhaWxzIG9m
+        IGhpc3RvcmljYWwgcmVhbGl0eS4gVGhlIGFydGZ1bCBzdHJ1Y3R1cmUgb2Yg
+        dGhlIGJvb2sgYmVnaW5zIHdpdGggR29ldGhlJ3MgRmF1c3QgYW5kIGVuZHMg
+        d2l0aCBWYWxlzIFyeSdzIEZhdXN0LiBJbiB0aGUgMTgwMCBzZWN0aW9uLCB0
+        aGUgYXV0aG9yIGRpc2N1c3NlcyBob3cgbGFuZ3VhZ2Ugd2FzIGxlYXJuZWQs
+        IHRoZSBlbWVyZ2VuY2Ugb2YgdGhlIG1vZGVybiB1bml2ZXJzaXR5LCB0aGUg
+        YXNzb2NpYXRlZCBiZWdpbm5pbmcgb2YgdGhlIGludGVycHJldGF0aW9uIG9m
+        IGNvbnRlbXBvcmFyeSBsaXRlcmF0dXJlLCBhbmQgdGhlIGNhbm9uaXphdGlv
+        biBvZiBsaXRlcmF0dXJlLiBBbW9uZyB0aGUgd3JpdGVycyBhbmQgd29ya3Mg
+        S2l0dGxlciBhbmFseXplcyBpbiBhZGRpdGlvbiB0byBHb2V0aGUncyBGYXVz
+        dCBhcmUgU2NobGVnZWwsIEhlZ2VsLCBFLlQuQS4gSG9mZm1hbidzICdUaGUg
+        R29sZGVuIFBvdCcsIGFuZCBHb2V0aGUncyBUYXNzby4gVGhlIDE5MDAgc2Vj
+        dGlvbiBhcmd1ZXMgdGhhdCB0aGUgbmV3IGRpc2NvdXJzZSBuZXR3b3JrIGlu
+        IHdoaWNoIGxpdGVyYXR1cmUgaXMgc2l0dWF0ZWQgaW4gdGhlIG1vZGVybiBw
+        ZXJpb2QgaXMgY2hhcmFjdGVyaXplZCBieSBuZXcgdGVjaG5vbG9naWNhbCBt
+        ZWRpYS0tZmlsbSwgdGhlIHBob3RvZ3JhcGgsIGFuZCB0aGUgdHlwZXdyaXR0
+        ZW4gcGFnZS0tYW5kIHRoZSBjcmlzaXMgdGhhdCB0aGVzZSBjYXVzZWQgZm9y
+        IGxpdGVyYXJ5IHByb2R1Y3Rpb24uIEFsb25nIHRoZSB3YXksIHRoZSBhdXRo
+        b3IgZGlzY3Vzc2VzIHRoZSB3b3JrIG9mIE5pZXR6c2NoZSwgR2VydHJ1ZGUg
+        U3RlaW4sIE1hbGxhcm1lzIEsIEJyYW0gU3Ryb2tlciwgdGhlIFN1cnJlYWxp
+        c3RzLCBSaWxrZSwgS2Fma2EsIGFuZCBGcmV1ZCwgYW1vbmcgb3RoZXJzLjwv
+        ZGM6ZGVzY3JpcHRpb24+CjxkYzpkZXNjcmlwdGlvbj5Gb3Jld29yZCAtLSBJ
+        LiAxODAwIC0tIFRoZSBzY2hvbGFyJ3MgdHJhZ2VkeTogcHJlbHVkZSBpbiB0
+        aGUgdGhlYXRlciAtLSBUaGUgbW90aGVyJ3MgbW91dGguIExlYXJuaW5nIHRv
+        IHJlYWQgaW4gMTgwMCA7IE1vdGhlcmxpbmVzcyBhbmQgY2l2aWwgc2Vydmlj
+        ZSAtLSBMYW5ndWFnZSBjaGFubmVscy4gVGhlIGltLXBvc3NpYmlsaXR5IG9m
+        IHRyYW5zbGF0aW9ucyA7ICJUaGUgZ29sZGVuIHBvdCIgOyBBdXRob3JzLCBy
+        ZWFkZXJzLCBhdXRob3JzIC0tIFRoZSB0b2FzdC4gRnVuY3Rpb246IGZlbWlu
+        aW5lIHJlYWRlciA7IC4uLiBhbmQgdGhlIEtpbmdkb20gb2YgR29kIC0tIElJ
+        LiAxOTAwIC0tIE5pZXR6c2NoZTogaW5jaXBpdCB0cmFnb2VkaWEgLS0gVGhl
+        IGdyZWF0IExhbHVsYcyELiBQc3ljaG9waHlzaWNzIDsgVGVjaG5vbG9naWNh
+        bCBtZWRpYSAtLSBSZWJ1cy4gVW50cmFuc2xhdGFiaWxpdHkgYW5kIHRoZSB0
+        cmFuc3Bvc2l0aW9uIG9mIG1lZGlhIDsgUHN5Y2hvYW5hbHlzaXMgYW5kIGl0
+        cyBzaGFkb3cgOyBBIHNpbXVsYWNydW0gb2YgbWFkbmVzcyAtLSBRdWVlbidz
+        IHNhY3JpZmljZSAtLSBBZnRlcndvcmQgdG8gdGhlIHNlY29uZCBwcmludGlu
+        Zy48L2RjOmRlc2NyaXB0aW9uPgo8ZGM6Zm9ybWF0Pnh4eGlpaSwgNDU5IHAu
+        IDogaWxsLiA7IDI1IGNtLjwvZGM6Zm9ybWF0Pgo8ZGM6aWRlbnRpZmllcj45
+        NzgwODA0NzIwOTkxIChwYmsuIDogYWxrLiBwYXBlcik8L2RjOmlkZW50aWZp
+        ZXI+CjxkYzppZGVudGlmaWVyPjA4MDQ3MjA5OTEgKHBiay4gOiBhbGsuIHBh
+        cGVyKTwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXI+MDgwNDcxNjE2
+        MSAoY2wuIDogYWxrLiBwYXBlcik8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVu
+        dGlmaWVyPjk3ODA4MDQ3MTYxNjEgKGNsLiA6IGFsay4gcGFwZXIpPC9kYzpp
+        ZGVudGlmaWVyPgo8ZGM6bGFuZ3VhZ2UgeHNpOnR5cGU9Imh0dHA6Ly9wdXJs
+        Lm9yZy9kYy90ZXJtcy9JU082MzktMiI+ZW5nPC9kYzpsYW5ndWFnZT4KPGRj
+        OnB1Ymxpc2hlcj5TdGFuZm9yZCBVbml2ZXJzaXR5IFByZXNzPC9kYzpwdWJs
+        aXNoZXI+CjxkYzpyZWxhdGlvbiB4c2k6dHlwZT0iaHR0cDovL3B1cmwub3Jn
+        L2RjL3Rlcm1zL1VSSSI+aHR0cDovL2NhdGRpci5sb2MuZ292L2NhdGRpci90
+        b2MvY2FtMDI3Lzg5MDI2MjkxLmh0bWw8L2RjOnJlbGF0aW9uPgo8ZGM6cmVs
+        YXRpb24geHNpOnR5cGU9Imh0dHA6Ly9wdXJsLm9yZy9kYy90ZXJtcy9VUkki
+        Pmh0dHA6Ly9jYXRkaXIubG9jLmdvdi9jYXRkaXIvZGVzY3JpcHRpb24vY2Ft
+        MDIzLzg5MDI2MjkxLmh0bWw8L2RjOnJlbGF0aW9uPgo8ZGM6c3ViamVjdD5M
+        aXRlcmF0dXJhIGFsZW1hbmEtLVNpZ2xvIFhYLS1IaXN0b3JpYSB5IGNyacyB
+        dGljYS48L2RjOnN1YmplY3Q+CjxkYzpzdWJqZWN0PkF1dGhvcnNoaXA8L2Rj
+        OnN1YmplY3Q+CjxkYzpzdWJqZWN0PkJvb2tzIGFuZCByZWFkaW5nLEhpc3Rv
+        cnksMTl0aCBjZW50dXJ5LEdlcm1hbnk8L2RjOnN1YmplY3Q+CjxkYzpzdWJq
+        ZWN0PkJvb2tzIGFuZCByZWFkaW5nLEhpc3RvcnksMjB0aCBjZW50dXJ5LEdl
+        cm1hbnk8L2RjOnN1YmplY3Q+CjxkYzpzdWJqZWN0PkJvb2tzIGFuZCByZWFk
+        aW5nIGluIGxpdGVyYXR1cmU8L2RjOnN1YmplY3Q+CjxkYzpzdWJqZWN0Pkdl
+        cm1hbiBsaXRlcmF0dXJlLEhpc3RvcnkgYW5kIGNyaXRpY2lzbSwxOXRoIGNl
+        bnR1cnk8L2RjOnN1YmplY3Q+CjxkYzpzdWJqZWN0Pkdlcm1hbiBsaXRlcmF0
+        dXJlLEhpc3RvcnkgYW5kIGNyaXRpY2lzbSwyMHRoIGNlbnR1cnk8L2RjOnN1
+        YmplY3Q+CjxkYzpzdWJqZWN0PkxpdGVyYXR1cmUgYW5kIHNvY2lldHksSGlz
+        dG9yeSwxOXRoIGNlbnR1cnksR2VybWFueTwvZGM6c3ViamVjdD4KPGRjOnN1
+        YmplY3Q+TGl0ZXJhdHVyZSBhbmQgc29jaWV0eSxIaXN0b3J5LDIwdGggY2Vu
+        dHVyeSxHZXJtYW55PC9kYzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4c2k6dHlw
+        ZT0iaHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zL0REQyI+ODMwLjkvMzU3PC9k
+        YzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4c2k6dHlwZT0iaHR0cDovL3B1cmwu
+        b3JnL2RjL3Rlcm1zL0xDQyI+UFQzNDUgLks1ODEzIDE5OTA8L2RjOnN1Ympl
+        Y3Q+CjxkYzpzdWJqZWN0IHhzaTp0eXBlPSJodHRwOi8vcHVybC5vcmcvZGMv
+        dGVybXMvTENTSCI+R2VybWFuIGxpdGVyYXR1cmUtLTE5dGggY2VudHVyeS0t
+        SGlzdG9yeSBhbmQgY3JpdGljaXNtLjwvZGM6c3ViamVjdD4KPGRjOnN1Ympl
+        Y3QgeHNpOnR5cGU9Imh0dHA6Ly9wdXJsLm9yZy9kYy90ZXJtcy9MQ1NIIj5H
+        ZXJtYW4gbGl0ZXJhdHVyZS0tMjB0aCBjZW50dXJ5LS1IaXN0b3J5IGFuZCBj
+        cml0aWNpc20uPC9kYzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4c2k6dHlwZT0i
+        aHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zL0xDU0giPkJvb2tzIGFuZCByZWFk
+        aW5nIGluIGxpdGVyYXR1cmUuPC9kYzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4
+        c2k6dHlwZT0iaHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zL0xDU0giPkF1dGhv
+        cnNoaXAuPC9kYzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4c2k6dHlwZT0iaHR0
+        cDovL3B1cmwub3JnL2RjL3Rlcm1zL0xDU0giPkJvb2tzIGFuZCByZWFkaW5n
+        LS1HZXJtYW55LS1IaXN0b3J5LS0xOXRoIGNlbnR1cnkuPC9kYzpzdWJqZWN0
+        Pgo8ZGM6c3ViamVjdCB4c2k6dHlwZT0iaHR0cDovL3B1cmwub3JnL2RjL3Rl
+        cm1zL0xDU0giPkJvb2tzIGFuZCByZWFkaW5nLS1HZXJtYW55LS1IaXN0b3J5
+        LS0yMHRoIGNlbnR1cnkuPC9kYzpzdWJqZWN0Pgo8ZGM6c3ViamVjdCB4c2k6
+        dHlwZT0iaHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zL0xDU0giPkxpdGVyYXR1
+        cmUgYW5kIHNvY2lldHktLUdlcm1hbnktLUhpc3RvcnktLTE5dGggY2VudHVy
+        eS48L2RjOnN1YmplY3Q+CjxkYzpzdWJqZWN0IHhzaTp0eXBlPSJodHRwOi8v
+        cHVybC5vcmcvZGMvdGVybXMvTENTSCI+TGl0ZXJhdHVyZSBhbmQgc29jaWV0
+        eS0tR2VybWFueS0tSGlzdG9yeS0tMjB0aCBjZW50dXJ5LjwvZGM6c3ViamVj
+        dD4KPGRjOnRpdGxlPkRpc2NvdXJzZSBuZXR3b3JrcyAxODAwLzE5MDAgPC9k
+        Yzp0aXRsZT4KPGRjOnRpdGxlPkF1ZnNjaHJlaWJlc3lzdGVtZSAxODAwLzE5
+        MDAuPC9kYzp0aXRsZT4KPGRjOnR5cGU+VGV4dDwvZGM6dHlwZT4KPG9jbGN0
+        ZXJtczpyZWNvcmRDb250ZW50U291cmNlPkRMQzwvb2NsY3Rlcm1zOnJlY29y
+        ZENvbnRlbnRTb3VyY2U+CjxvY2xjdGVybXM6cmVjb3JkQ3JlYXRpb25EYXRl
+        IHhzaTp0eXBlPSJodHRwOi8vcHVybC5vcmcvb2NsYy90ZXJtcy9tYXJjMDA4
+        ZGF0ZSI+ODkxMjA1PC9vY2xjdGVybXM6cmVjb3JkQ3JlYXRpb25EYXRlPgo8
+        b2NsY3Rlcm1zOnJlY29yZElkZW50aWZpZXIgeHNpOnR5cGU9Imh0dHA6Ly9w
+        dXJsLm9yZy9vY2xjL3Rlcm1zL2xjY24iPiAgIDg5MDI2MjkxIDwvb2NsY3Rl
+        cm1zOnJlY29yZElkZW50aWZpZXI+CjxvY2xjdGVybXM6cmVjb3JkSWRlbnRp
+        Zmllcj4yMDgyNzkyMDwvb2NsY3Rlcm1zOnJlY29yZElkZW50aWZpZXI+Cjxv
+        Y2xjdGVybXM6bGFuZ3VhZ2VPZkNhdGFsb2dpbmcgeHNpOnR5cGU9Imh0dHA6
+        Ly9wdXJsLm9yZy9vY2xjL3Rlcm1zL2lzbzYzOS0yYiI+ZW5nPC9vY2xjdGVy
+        bXM6bGFuZ3VhZ2VPZkNhdGFsb2dpbmc+CjxvY2xjdGVybXM6cmVjb3JkVHJh
+        bnNjcmliaW5nQWdlbmN5PkRMQzwvb2NsY3Rlcm1zOnJlY29yZFRyYW5zY3Jp
+        YmluZ0FnZW5jeT4KPC9vY2xjZGNzPgo=
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:02 GMT
+- request:
+    method: get
+    uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/0804720991
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Jul 2013 10:24:04 GMT
+      Server:
+      - Apache/2.2.3 (CentOS)
+      Content-Length:
+      - '1785'
+      X-Catalyst:
+      - '5.90030'
+      Content-Type:
+      - text/plain; charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "index_searched" : "isbn",
+           "data" : [
+              {
+                 "book_id" : "discourse_networks_1800_1900_a01",
+                 "title" : "Discourse networks 1800/1900",
+                 "publisher_id" : "stanford_university_press",
+                 "subject_ids" : [
+                    "german_literature_19th_century_history_and_criticism",
+                    "german_literature_20th_century_history_and_criticism",
+                    "books_and_reading_in_literature",
+                    "authorship",
+                    "books_and_reading_germany_history_19th_century",
+                    "books_and_reading_germany_history_20th_century",
+                    "literature_and_society_germany_history_19th_century",
+                    "literature_and_society_germany_history_20th_century"
+                 ],
+                 "title_latin" : "Discourse networks 1800/1900",
+                 "urls_text" : "",
+                 "isbn13" : "9780804720991",
+                 "author_data" : [
+                    {
+                       "name" : "Kittler, Friedrich A.",
+                       "id" : "kittler_friedrich_a"
+                    },
+                    {
+                       "name" : "Michael Metteer",
+                       "id" : "michael_metteer"
+                    }
+                 ],
+                 "summary" : "",
+                 "isbn10" : "0804720991",
+                 "dewey_normal" : "830.9357",
+                 "edition_info" : "",
+                 "dewey_decimal" : "830.9/357",
+                 "publisher_name" : "Stanford University Press",
+                 "title_long" : "",
+                 "lcc_number" : "",
+                 "marc_enc_level" : "",
+                 "awards_text" : "",
+                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
+                 "language" : "eng",
+                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
+                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm."
+              }
+           ]
+        }
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:04 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:0804720991
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Sun, 07 Jul 2013 10:24:05 GMT
+      Date:
+      - Sun, 07 Jul 2013 10:24:05 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/JoGq8QnP6bf5uKDcF5SOPmABYQ8"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogImtpbmQiOiAiYm9va3Mjdm9sdW1lcyIsCiAidG90YWxJdGVtcyI6IDEx
+        MSwKICJpdGVtcyI6IFsKICB7CiAgICJraW5kIjogImJvb2tzI3ZvbHVtZSIs
+        CiAgICJpZCI6ICJuUm8wUGs4ZGpqb0MiLAogICAiZXRhZyI6ICJvRTl2RnhR
+        RUViMCIsCiAgICJzZWxmTGluayI6ICJodHRwczovL3d3dy5nb29nbGVhcGlz
+        LmNvbS9ib29rcy92MS92b2x1bWVzL25SbzBQazhkampvQyIsCiAgICJ2b2x1
+        bWVJbmZvIjogewogICAgInRpdGxlIjogIkRpc2NvdXJzZSBOZXR3b3JrcyAx
+        ODAwLzE5MDAiLAogICAgImF1dGhvcnMiOiBbCiAgICAgIkZyaWVkcmljaCBB
+        LiBLaXR0bGVyIgogICAgXSwKICAgICJwdWJsaXNoZXIiOiAiU3RhbmZvcmQg
+        VW5pdmVyc2l0eSBQcmVzcyIsCiAgICAicHVibGlzaGVkRGF0ZSI6ICIxOTky
+        IiwKICAgICJkZXNjcmlwdGlvbiI6ICJUaGlzIGlzIGEgaGlnaGx5IG9yaWdp
+        bmFsIGJvb2sgYWJvdXQgdGhlIGNvbm5lY3Rpb25zIGJldHdlZW4gaGlzdG9y
+        aWNhbCBtb21lbnQsIHNvY2lhbCBzdHJ1Y3R1cmUsIHRlY2hub2xvZ3ksIGNv
+        bW11bmljYXRpb24gc3lzdGVtcywgYW5kIHdoYXQgaXMgc2FpZCBhbmQgdGhv
+        dWdodCB1c2luZyB0aGVzZSBzeXN0ZW1zLS1ub3RhYmx5IGxpdGVyYXR1cmUu
+        IFRoZSBhdXRob3IgZm9jdXNlcyBvbiB0aGUgZGlmZmVyZW5jZXMgYmV0d2Vl
+        biAnZGlzY291cnNlIG5ldHdvcmtzJyBpbiAxODAwIGFuZCBpbiAxOTAwLCBp
+        biB0aGUgcHJvY2VzcyBkZXZlbG9waW5nIGEgbmV3IGFuYWx5c2lzIG9mIHRo
+        ZSBzaGlmdCBmcm9tIHJvbWFudGljaXNtIHRvIG1vZGVybmlzbS4gVGhlIHdv
+        cmsgbWlnaHQgYmUgY2xhc3NpZmllZCBhcyBhIEdlcm1hbiBlcXVpdmFsZW50
+        IHRvIHRoZSBOZXcgSGlzdG9yaWNpc20gdGhhdCBpcyBjdXJyZW50bHkgb2Yg
+        Z3JlYXQgaW50ZXJlc3QgYW1vbmcgQW1lcmljYW4gbGl0ZXJhcnkgc2Nob2xh
+        cnMsIGJvdGggaW4gdGhlIGludGVsbGVjdHVhbCBpbmZsdWVuY2VzIHRvIHdo
+        aWNoIEtpdHRsZXIgcmVzcG9uZHMgYW5kIGluIGhpcyBjb25jZXJuIHRvIGdy
+        b3VuZCBsaXRlcmF0dXJlIGluIHRoZSBtb3N0IGNvbmNyZXRlIGRldGFpbHMg
+        b2YgaGlzdG9yaWNhbCByZWFsaXR5LiBUaGUgYXJ0ZnVsIHN0cnVjdHVyZSBv
+        ZiB0aGUgYm9vayBiZWdpbnMgd2l0aCBHb2V0aGUncyBGYXVzdCBhbmQgZW5k
+        cyB3aXRoIFZhbMOpcnkncyBGYXVzdC4gSW4gdGhlIDE4MDAgc2VjdGlvbiwg
+        dGhlIGF1dGhvciBkaXNjdXNzZXMgaG93IGxhbmd1YWdlIHdhcyBsZWFybmVk
+        LCB0aGUgZW1lcmdlbmNlIG9mIHRoZSBtb2Rlcm4gdW5pdmVyc2l0eSwgdGhl
+        IGFzc29jaWF0ZWQgYmVnaW5uaW5nIG9mIHRoZSBpbnRlcnByZXRhdGlvbiBv
+        ZiBjb250ZW1wb3JhcnkgbGl0ZXJhdHVyZSwgYW5kIHRoZSBjYW5vbml6YXRp
+        b24gb2YgbGl0ZXJhdHVyZS4gQW1vbmcgdGhlIHdyaXRlcnMgYW5kIHdvcmtz
+        IEtpdHRsZXIgYW5hbHl6ZXMgaW4gYWRkaXRpb24gdG8gR29ldGhlJ3MgRmF1
+        c3QgYXJlIFNjaGxlZ2VsLCBIZWdlbCwgRS5ULkEuIEhvZmZtYW4ncyAnVGhl
+        IEdvbGRlbiBQb3QnLCBhbmQgR29ldGhlJ3MgVGFzc28uIFRoZSAxOTAwIHNl
+        Y3Rpb24gYXJndWVzIHRoYXQgdGhlIG5ldyBkaXNjb3Vyc2UgbmV0d29yayBp
+        biB3aGljaCBsaXRlcmF0dXJlIGlzIHNpdHVhdGVkIGluIHRoZSBtb2Rlcm4g
+        cGVyaW9kIGlzIGNoYXJhY3Rlcml6ZWQgYnkgbmV3IHRlY2hub2xvZ2ljYWwg
+        bWVkaWEtLWZpbG0sIHRoZSBwaG90b2dyYXBoLCBhbmQgdGhlIHR5cGV3cml0
+        dGVuIHBhZ2UtLWFuZCB0aGUgY3Jpc2lzIHRoYXQgdGhlc2UgY2F1c2VkIGZv
+        ciBsaXRlcmFyeSBwcm9kdWN0aW9uLiBBbG9uZyB0aGUgd2F5LCB0aGUgYXV0
+        aG9yIGRpc2N1c3NlcyB0aGUgd29yayBvZiBOaWV0enNjaGUsIEdlcnRydWRl
+        IFN0ZWluLCBNYWxsYXJtw6ksIEJyYW0gU3Ryb2tlciwgdGhlIFN1cnJlYWxp
+        c3RzLCBSaWxrZSwgS2Fma2EsIGFuZCBGcmV1ZCwgYW1vbmcgb3RoZXJzLiIs
+        CiAgICAiaW5kdXN0cnlJZGVudGlmaWVycyI6IFsKICAgICB7CiAgICAgICJ0
+        eXBlIjogIklTQk5fMTAiLAogICAgICAiaWRlbnRpZmllciI6ICIwODA0NzIw
+        OTkxIgogICAgIH0sCiAgICAgewogICAgICAidHlwZSI6ICJJU0JOXzEzIiwK
+        ICAgICAgImlkZW50aWZpZXIiOiAiOTc4MDgwNDcyMDk5MSIKICAgICB9CiAg
+        ICBdLAogICAgInBhZ2VDb3VudCI6IDQ1OSwKICAgICJwcmludFR5cGUiOiAi
+        Qk9PSyIsCiAgICAiY2F0ZWdvcmllcyI6IFsKICAgICAiTGl0ZXJhcnkgQ3Jp
+        dGljaXNtIgogICAgXSwKICAgICJjb250ZW50VmVyc2lvbiI6ICIwLjAuMS4w
+        LnByZXZpZXcuMyIsCiAgICAiaW1hZ2VMaW5rcyI6IHsKICAgICAic21hbGxU
+        aHVtYm5haWwiOiAiaHR0cDovL2JrczkuYm9va3MuZ29vZ2xlLmNvLnVrL2Jv
+        b2tzP2lkPW5SbzBQazhkampvQyZwcmludHNlYz1mcm9udGNvdmVyJmltZz0x
+        Jnpvb209NSZlZGdlPWN1cmwmc291cmNlPWdic19hcGkiLAogICAgICJ0aHVt
+        Ym5haWwiOiAiaHR0cDovL2JrczkuYm9va3MuZ29vZ2xlLmNvLnVrL2Jvb2tz
+        P2lkPW5SbzBQazhkampvQyZwcmludHNlYz1mcm9udGNvdmVyJmltZz0xJnpv
+        b209MSZlZGdlPWN1cmwmc291cmNlPWdic19hcGkiCiAgICB9LAogICAgImxh
+        bmd1YWdlIjogImVuIiwKICAgICJwcmV2aWV3TGluayI6ICJodHRwOi8vYm9v
+        a3MuZ29vZ2xlLmNvLnVrL2Jvb2tzP2lkPW5SbzBQazhkampvQyZwcmludHNl
+        Yz1mcm9udGNvdmVyJmRxPUlTQk46MDgwNDcyMDk5MSZobD0mY2Q9MSZzb3Vy
+        Y2U9Z2JzX2FwaSIsCiAgICAiaW5mb0xpbmsiOiAiaHR0cDovL2Jvb2tzLmdv
+        b2dsZS5jby51ay9ib29rcz9pZD1uUm8wUGs4ZGpqb0MmZHE9SVNCTjowODA0
+        NzIwOTkxJmhsPSZzb3VyY2U9Z2JzX2FwaSIsCiAgICAiY2Fub25pY2FsVm9s
+        dW1lTGluayI6ICJodHRwOi8vYm9va3MuZ29vZ2xlLmNvLnVrL2Jvb2tzL2Fi
+        b3V0L0Rpc2NvdXJzZV9OZXR3b3Jrc18xODAwXzE5MDAuaHRtbD9obD0maWQ9
+        blJvMFBrOGRqam9DIgogICB9LAogICAic2FsZUluZm8iOiB7CiAgICAiY291
+        bnRyeSI6ICJHQiIsCiAgICAic2FsZWFiaWxpdHkiOiAiTk9UX0ZPUl9TQUxF
+        IiwKICAgICJpc0Vib29rIjogZmFsc2UKICAgfSwKICAgImFjY2Vzc0luZm8i
+        OiB7CiAgICAiY291bnRyeSI6ICJHQiIsCiAgICAidmlld2FiaWxpdHkiOiAi
+        UEFSVElBTCIsCiAgICAiZW1iZWRkYWJsZSI6IHRydWUsCiAgICAicHVibGlj
+        RG9tYWluIjogZmFsc2UsCiAgICAidGV4dFRvU3BlZWNoUGVybWlzc2lvbiI6
+        ICJBTExPV0VEIiwKICAgICJlcHViIjogewogICAgICJpc0F2YWlsYWJsZSI6
+        IHRydWUsCiAgICAgImFjc1Rva2VuTGluayI6ICJodHRwOi8vYm9va3MuZ29v
+        Z2xlLmNvLnVrL2Jvb2tzL2Rvd25sb2FkL0Rpc2NvdXJzZV9OZXR3b3Jrc18x
+        ODAwXzE5MDAtc2FtcGxlLWVwdWIuYWNzbT9pZD1uUm8wUGs4ZGpqb0MmZm9y
+        bWF0PWVwdWImb3V0cHV0PWFjczRfZnVsZmlsbG1lbnRfdG9rZW4mZGxfdHlw
+        ZT1zYW1wbGUmc291cmNlPWdic19hcGkiCiAgICB9LAogICAgInBkZiI6IHsK
+        ICAgICAiaXNBdmFpbGFibGUiOiBmYWxzZQogICAgfSwKICAgICJ3ZWJSZWFk
+        ZXJMaW5rIjogImh0dHA6Ly9ib29rcy5nb29nbGUuY28udWsvYm9va3MvcmVh
+        ZGVyP2lkPW5SbzBQazhkampvQyZobD0mcHJpbnRzZWM9ZnJvbnRjb3ZlciZv
+        dXRwdXQ9cmVhZGVyJnNvdXJjZT1nYnNfYXBpIiwKICAgICJhY2Nlc3NWaWV3
+        U3RhdHVzIjogIlNBTVBMRSIKICAgfSwKICAgInNlYXJjaEluZm8iOiB7CiAg
+        ICAidGV4dFNuaXBwZXQiOiAiVGhpcyBpcyBhIGhpZ2hseSBvcmlnaW5hbCBi
+        b29rIGFib3V0IHRoZSBjb25uZWN0aW9ucyBiZXR3ZWVuIGhpc3RvcmljYWwg
+        bW9tZW50LCBzb2NpYWwgc3RydWN0dXJlLCB0ZWNobm9sb2d5LCBjb21tdW5p
+        Y2F0aW9uIHN5c3RlbXMsIGFuZCB3aGF0IGlzIHNhaWQgYW5kIHRob3VnaHQg
+        dXNpbmcgdGhlc2Ugc3lzdGVtcy0tbm90YWJseSBsaXRlcmF0dXJlLiIKICAg
+        fQogIH0KIF0KfQo=
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:04 GMT
+- request:
+    method: get
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:0804720991&format=json&jscmd=details
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.8.32
+      Date:
+      - Sun, 07 Jul 2013 10:24:06 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB 1 0.039 MC 2 0.002 TT 0 0.043"'
+    body:
+      encoding: UTF-8
+      string: '{"ISBN:0804720991": {"bib_key": "ISBN:0804720991", "preview": "noview",
+        "preview_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
+        "info_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
+        "details": {"publishers": ["Stanford University press"], "pagination": "xxxiii,
+        459 p. :", "number_of_pages": 459, "key": "/books/OL20093119M", "title": "Discourse
+        networks, 1800-1900", "notes": {"type": "/type/text", "value": "Translation
+        of, Aufschreibesysteme 1800/1900.\n\nOriginally published: Fink Verlag, 1985."},
+        "identifiers": {"librarything": ["430888"], "goodreads": ["212450"]}, "created":
+        {"type": "/type/datetime", "value": "2008-10-25T21:32:21.671026"}, "languages":
+        [{"key": "/languages/eng"}], "isbn_10": ["0804720991"], "latest_revision":
+        4, "publish_country": "xxu", "last_modified": {"type": "/type/datetime", "value":
+        "2010-08-18T14:02:19.870129"}, "authors": [{"name": "Friedrich A. Kittler",
+        "key": "/authors/OL77726A"}], "publish_date": "1990", "by_statement": "Friedrich
+        A. Kittler ; translated by Michael Metteer, with Chris Cullens ; foreword
+        by David A. Wellbery.", "publish_places": ["Stanford, Calif"], "works": [{"key":
+        "/works/OL882892W"}], "type": {"key": "/type/edition"}, "subjects": ["German
+        literature -- 19th century -- History and criticism.", "German literature
+        -- 20th century -- History and criticism.", "Books and reading -- Germany
+        -- History -- 20th century.", "Books and reading -- Germany -- History --
+        19th century.", "Literature and society -- Germany -- History -- 20th century.",
+        "Literature and society -- Germany -- History -- 19th century.", "Books and
+        reading in literature.", "Critical studies.", "Authorship."], "revision":
+        4}}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:06 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:24:07 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '93'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:07 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Second+Title+Second+body.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:24:08 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '150'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.1053484602917342},{"language":"xxx","isReliable":false,"confidence":0.13}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:08 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Third+Title+Third+body.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:24:08 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '152'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.13},{"language":"en","isReliable":false,"confidence":0.040518638573743916}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:08 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Sun, 07 Jul 2013 10:24:16 GMT
+      Date:
+      - Sun, 07 Jul 2013 10:24:16 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/-zPIJ3tY7aBUY2FCcG72k6unhn8"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "books#volumes",
+         "totalItems": 461,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "2zHKNwAACAAJ",
+           "etag": "VAH4Gc+nTqQ",
+           "selfLink": "https://www.googleapis.com/books/v1/volumes/2zHKNwAACAAJ",
+           "volumeInfo": {
+            "title": "Invalid Isbn",
+            "subtitle": "See 0318y48320",
+            "authors": [
+             "Invalid Isbn: See 0318y48320"
+            ],
+            "industryIdentifiers": [
+             {
+              "type": "OTHER",
+              "identifier": "OCLC:227768596"
+             }
+            ],
+            "printType": "BOOK",
+            "contentVersion": "preview-1.0.0",
+            "language": "en",
+            "previewLink": "http://books.google.co.uk/books?id=2zHKNwAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=2zHKNwAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=2zHKNwAACAAJ"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": false
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "NO_PAGES",
+            "embeddable": false,
+            "publicDomain": false,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": false
+            },
+            "pdf": {
+             "isAvailable": false
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=2zHKNwAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "NONE"
+           }
+          }
+         ]
+        }
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:16 GMT
+- request:
+    method: get
+    uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/INVALID_ISBN
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Jul 2013 10:24:17 GMT
+      Server:
+      - Apache/2.2.3 (CentOS)
+      Content-Length:
+      - '49'
+      X-Catalyst:
+      - '5.90030'
+      Content-Type:
+      - text/plain; charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "error" : "Unable to locate INVALID_ISBN"
+        }
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:17 GMT
+- request:
+    method: get
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.8.32
+      Date:
+      - Sun, 07 Jul 2013 10:24:22 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB 1 0.039 TT 0 0.040"'
+    body:
+      encoding: UTF-8
+      string: '{}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:24:22 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=First+Title+First+body.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:50:53 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '152'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.13},{"language":"en","isReliable":false,"confidence":0.040518638573743916}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:50:53 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=New+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:03 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '93'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.5429497568881686}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:03 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+New+Body&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:05 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '150'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.17017828200972449},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:04 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:05 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '93'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:05 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+First+Body&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:06 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '150'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.17017828200972449},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:06 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Second+Body+with+more+words&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:06 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.42949756888168555}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:06 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:11 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.23500810372771475}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:11 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:12 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.29983792544570503}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:11 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:12 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.29983792544570503}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:12 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:13 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.36466774716369527}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:13 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:14 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.36466774716369527}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:14 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:14 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '92'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.413290113452188}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:14 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:15 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":0.2998696219035202},{"language":"en","isReliable":false,"confidence":0.008103727714748784}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:15 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:51:16 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":0.2998696219035202},{"language":"en","isReliable":false,"confidence":0.008103727714748784}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:51:16 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 07 Jul 2013 10:54:30 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '79'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ml","isReliable":true,"confidence":1.23}]}}'
+    http_version: 
+  recorded_at: Sun, 07 Jul 2013 10:54:30 GMT
+recorded_with: VCR 2.5.0

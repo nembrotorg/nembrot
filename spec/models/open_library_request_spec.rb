@@ -4,9 +4,7 @@ describe OpenLibraryRequest do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/open_library') do
-        @open_library_book = OpenLibraryRequest.new('0804720991')
-      end
+      @open_library_book = OpenLibraryRequest.new('0804720991')
     end
 
     subject { @open_library_book.metadata }
@@ -24,9 +22,7 @@ describe OpenLibraryRequest do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/open_library_nil') do
-        @open_library_book = OpenLibraryRequest.new('INVALID_ISBN')
-      end
+      @open_library_book = OpenLibraryRequest.new('INVALID_ISBN')
     end
 
     subject { @open_library_book }

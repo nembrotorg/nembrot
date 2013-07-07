@@ -4,9 +4,7 @@ describe WorldCatRequest do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/world_cat') do
-        @world_cat_book = WorldCatRequest.new('0804720991')
-      end
+      @world_cat_book = WorldCatRequest.new('0804720991')
     end
 
     subject { @world_cat_book.metadata }
@@ -20,9 +18,7 @@ describe WorldCatRequest do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/world_cat_nil') do
-        @world_cat_book_nil = WorldCatRequest.new('INVALID_ISBN')
-      end
+      @world_cat_book_nil = WorldCatRequest.new('INVALID_ISBN')
     end
 
     # TODO: This fails!

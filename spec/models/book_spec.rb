@@ -75,16 +75,8 @@ describe Book do
 
   describe '.sync_all' do
     before do
-      VCR.use_cassette('model/world_cat') do
-        VCR.use_cassette('model/isbndb') do
-          VCR.use_cassette('model/google_books') do
-            VCR.use_cassette('model/open_library') do
-              @book = Book.add_task('0804720991')
-              Book.sync_all
-            end
-          end
-        end
-      end
+      @book = Book.add_task('0804720991')
+      Book.sync_all
     end
     it 'fetches metadata for dirty books' do
       pending "book_is_updated?"
@@ -94,17 +86,9 @@ describe Book do
 
   describe '#populate!' do
     before do
-      VCR.use_cassette('model/world_cat') do
-        VCR.use_cassette('model/isbndb') do
-          VCR.use_cassette('model/google_books') do
-            VCR.use_cassette('model/open_library') do
-              @book = Book.new
-              @book.isbn_10 = '0804720991'
-              @book.populate!
-            end
-          end
-        end
-      end
+      @book = Book.new
+      @book.isbn_10 = '0804720991'
+      @book.populate!
     end
     it 'fetches metadata from four APIs' do
       book_is_updated?

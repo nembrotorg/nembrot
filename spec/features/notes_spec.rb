@@ -35,13 +35,16 @@ describe 'Notes' do
     before do
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
-      @note.update_attributes( :title => 'New title', :body => 'New body', :lang => 'ar' )
+      @note.instruction_list = ['__LANG_AR']
+      @note.title = 'تشريح الكآبة'
+      @note.body = 'القارئ لطيف، أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
+      @note.save
       visit notes_path
     end
-    it 'should have the language attribute if note is not in default language' do
+    it 'has the language attribute if note is not in default language' do
       page.should have_css('ul li a[lang=ar]')
     end
-    it 'should have the text direction if note is not in default languagex' do
+    it 'has the text direction if note is not in default languagex' do
       page.should have_css('ul li a[dir=rtl]')
     end
   end
@@ -103,53 +106,55 @@ describe 'Notes' do
   end
 
   describe 'show page' do
-    before {
+    before do
       @note.update_attributes( :source_url => 'http://youtube.com/?v=ABCDEF' )
       visit note_path(@note)
-    }
+    end
     it 'should have an iframe with an embedded youtube video' do
       page.should have_css('iframe[src="http://www.youtube.com/embed/ABCDEF?rel=0"]')
     end
   end
 
   describe 'show page' do
-    before {
+    before do
       @note.update_attributes( :source_url => 'http://vimeo.com/video/ABCDEF' )
       visit note_path(@note)
-    }
+    end
     it 'should have an iframe with an embedded vimeo video' do
       page.should have_css('iframe[src="http://player.vimeo.com/video/ABCDEF"]')
     end
   end
 
   describe 'show page' do
-    before {
+    before do
       @note.update_attributes( :source_url => 'http://soundcloud.com/ABCDEF' )
       visit note_path(@note)
-    }
+    end
     it 'should have an iframe with an embedded soundcloud video' do
       page.should have_css('iframe[src="http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF"]')
     end
   end
 
   describe 'show page' do
-    before {
+    before do
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
-      @note.lang = 'ar'
+      @note.instruction_list = ['__LANG_AR']
+      @note.title = 'تشريح الكآبة'
+      @note.body = 'القارئ لطيف، أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
       @note.save
       visit note_path(@note)
-    }
-    it 'should have the language attribute if note is not in default language' do
+    end
+    it 'has the language attribute if note is not in default language' do
       page.should have_css('#note-content[lang=ar]')
     end
-    it 'should have the text direction if note is not in default language' do
+    it 'has the text direction if note is not in default language' do
       page.should have_css('#note-content[dir=rtl]')
     end
   end
 
   describe 'version page', :versioning => true do
-    before {
+    before do
       @note.title = 'Newer title'
       @note.body = 'Newer body'
       @note.tag_list = ['tag1']
@@ -159,7 +164,7 @@ describe 'Notes' do
       @note.tag_list = ['tag2']
       @note.save
       visit note_version_path(@note, 3)
-    }
+    end
     it 'should have the note title as title' do
       page.should have_selector('h1', text: @note.title)
     end
@@ -196,17 +201,19 @@ describe 'Notes' do
     before {
       Settings.lang['rtl_langs'] = ['ar']
       I18n.locale = 'en'
-      @note.lang = 'ar'
-      @note.title = 'Newer title'
+      @note.instruction_list = ['__LANG_AR']
+      @note.title = 'تشريح الكآبة'
+      @note.body = 'القارئ لطيف، أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
+      @note.title = 'تشريح الكآبة الثاني'
       @note.save
-      @note.title = 'Newest title'
+      @note.title = 'تشريح الكآبة الثالث'
       @note.save
       visit note_version_path(@note, 3)
     }
-    it 'should have the language attribute if note is not in default language' do
+    it 'has the language attribute if note is not in default language' do
       page.should have_css('#note-content[lang=ar]')
     end
-    it 'should have the text direction if note is not in default languagex' do
+    it 'has the text direction if note is not in default languagex' do
       page.should have_css('#note-content[dir=rtl]')
     end
   end

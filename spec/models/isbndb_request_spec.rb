@@ -4,9 +4,7 @@ describe IsbndbRequest do
 
   context 'when a book is found:' do
     before do
-      VCR.use_cassette('model/isbndb') do
-        @isbndb_book = IsbndbRequest.new('0804720991')
-      end
+      @isbndb_book = IsbndbRequest.new('0804720991')
     end
 
     subject { @isbndb_book.metadata }
@@ -23,9 +21,7 @@ describe IsbndbRequest do
 
   context 'when a book is not found:' do
     before do
-      VCR.use_cassette('model/isbndb_nil') do
-        @isbndb_book_nil = IsbndbRequest.new('INVALID_ISBN')
-      end
+      @isbndb_book_nil = IsbndbRequest.new('INVALID_ISBN')
     end
 
     subject { @isbndb_book_nil }

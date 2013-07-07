@@ -12,3 +12,11 @@ VCR.configure do |c|
     end
   end
 end
+
+RSpec.configure do |c|
+  c.around(:each) do |example|
+    VCR.use_cassette(example.metadata[:type], record: :new_episodes, match_requests_on: [:uri, :body]) do
+      example.run
+    end
+  end
+end

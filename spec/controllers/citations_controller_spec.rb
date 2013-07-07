@@ -3,7 +3,7 @@
 describe CitationsController do
 
   before do
-    @citation = FactoryGirl.create(:note, is_citation: true)
+    @citation = FactoryGirl.create(:note, instruction_list: %w(__QUOTE))
   end
 
   describe 'GET #index' do

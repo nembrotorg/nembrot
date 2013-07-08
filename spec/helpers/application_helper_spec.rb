@@ -111,8 +111,11 @@ describe ApplicationHelper do
 #  end
 
   describe '#smartify_hyphens' do
+    # it 'converts parenthetical hyphens to en dashes' do
+    #   smartify_hyphens('Text is - in a way - just here.').should == "Text is\u2013in a way\u2013just here."
+    # end
     it 'converts parenthetical hyphens to en dashes' do
-      smartify_hyphens('Text is - in a way - just here.').should == "Text is\u2013in a way\u2013just here."
+      smartify_hyphens('Text is - in a way - just here.').should == "Text is\u2014in a way\u2014just here."
     end
     it 'converts colon hyphens to em dashes' do
       smartify_hyphens('Text - more text!').should == "Text\u2014more text!"
@@ -185,23 +188,40 @@ describe ApplicationHelper do
     end
   end
 
-  describe '#sanitize_for_output' do
+  describe '#headerize' do
     it 'converts <strong> paragraphs to headers' do
-      sanitize_for_output("Plain text\n<strong>Header</strong>\nMore plain text")
-        .should == "<p>Plain text</p>\n<h2>Header</h2>\n<p>More plain text</p>"
+      headerize("Plain text\n<strong>Header</strong>\nMore plain text")
+        .should == "Plain text\n<h2>Header</h2>\nMore plain text"
     end
+  end
+
+  describe '#denumber_headers' do
+    it 'removes numbers from headers' do
+      denumber_headers("Plain text\n<h2>1. Header</h2>\nMore plain text")
+        .should == "Plain text\n<h2>Header</h2>\nMore plain text"
+    end
+  end
+
+  describe '#sectionize' do
+    it 'wraps text under <h2> in a <section>' do
+      sectionize("<h2>Header</h2>\nMore text\n<h2>Header</h2>\nMore text")
+        .should == "<section><h2>Header</h2>\nMore text\n</section><section><h2>Header</h2>\nMore text</section>"
+    end
+  end
+
+  describe '#paragraphize' do
     it 'wraps paragraphs in <p> tags' do
-      sanitize_for_output("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
+      paragraphize("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
     end
     it 'wraps paragraphs in <p> tags even when they start with <strong>' do
-      sanitize_for_output("<strong>Plain</strong> text\nMore plain text")
+      paragraphize("<strong>Plain</strong> text\nMore plain text")
         .should == "<p><strong>Plain</strong> text</p>\n<p>More plain text</p>"
     end
     it 'does not wrap headers in <p> tags' do
-      sanitize_for_output("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
+      paragraphize("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
     end
     it 'does not wrap lists in <p> tags' do
-      sanitize_for_output("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
+      paragraphize("Plain text\nMore plain text").should == "<p>Plain text</p>\n<p>More plain text</p>"
     end
   end
 end

@@ -2,7 +2,7 @@
 //
 // Default theme
 //
-// Over-specific vs [find links]
+// Over-specific vs ... [find links]
 //
 ///////////////////////////////
 
@@ -16,7 +16,7 @@
   @font-face
     font-family: $font-name
     src: font-url('#{$font-name}/#{$font-variant}.eot')
-    src: font-url('#{$font-name}/#{$font-variant}.eot?#iefix') format("embedded-opentype"), font-url('#{$font-name}/#{$font-variant}.woff') format("woff"), font-url('#{$font-name}/#{$font-variant}.ttf') format("truetype")
+    src: font-url('#{$font-name}/#{$font-variant}.eot?#iefix') format('embedded-opentype'), font-url('#{$font-name}/#{$font-variant}.woff') format('woff'), font-url('#{$font-name}/#{$font-variant}.ttf') format('truetype')
     font-weight: normal
     font-style: normal
 
@@ -106,7 +106,7 @@ a
   &:focus
     outline: 0
   &[href*=pdf]
-    color: $link-hover-color
+    +body-font-citation
     &:before
       +icon-download-1
 a[href*=http]:after
@@ -141,7 +141,7 @@ h1
     family: $headline-font-family
     weight: normal
     size: $headline-font-size
-.home-index, .notes-show, .notes-version
+.home-index, .notes-index, .notes-show, .notes-version
   hgroup
     color: $headline-font-color
 
@@ -328,7 +328,7 @@ ul.citations
       // text-align: left
       &:before
         +icon-quote-left-alt
-        color: #ccc
+        color: $secondary-color
         font-size: $body-font-size
         position: absolute
         left: 0
@@ -358,34 +358,40 @@ ul.citations
     a[href*=http]:after
       //+icon-external-link
       padding: 0 0 0 0.5em
-  h2
-    display: block
-    font:
-      family: $headline-font-family
-      size: $headline-font-size
-    margin: $line-height 0 0 0
-    // If this occurs first it should not have this margin-top
-    &+p
-      margin-top: ($line-height / 2)
-      text-indent: 0
-    &+p:first-of-type
-      margin-top: 0
+  section
+    margin-bottom: $line-height
+    h2
+      color: $body-font-color
+      display: block
+      margin: 0
+      font:
+        family: $headline-font-family
+        size: $body-font-size
+    &:first-of-type
+      h2
+        display: none
+    &:last-of-type
+      margin-bottom: 0
+    p:first-of-type
       text-indent: 0
 
 .notes-show, .citations-show
-  .tags
+  nav.tags
+    +place(0, 12, 0)
     ul
-      +column(12)
       +horizontal-list
       margin-bottom: $line-height
       &:before
         +icon-tags
+        color: $secondary-color
+        display: inline
+        float: left
       li
         a:after
-          content: ", "
+          content: ', '
         &:last-child
           a:after
-            content: ""
+            content: ''
 
 ol.books
   +column(12)
@@ -418,6 +424,7 @@ ol.books
 .tags-show
   h1:before
     +icon-tag-2
+    color: $secondary-color
   ul.notes
     +column(12)
 
@@ -507,19 +514,21 @@ ol.books
           +push(6, 6)
           position: absolute
           font:
-            size: $small-font-size
+            size: $small-font-size + 1px
           color: #c00
-          line-height: $line-height / 2
+          line-height: $line-height * 2/3
           text-indent: 0
           text-align: left
           display: block
-          margin-top: $line-height * (14/23) * -1
+          margin-top: $line-height * ( ($small-font-size + 1px) / ($line-height * 2/3) ) * -1
           +fade
           &:before
             content: counter(term)
             vertical-align: super
             font-size: $small-font-size
             margin-right: 5px
+          &:first-line
+            text-indent: -5px
       &:hover
         a
           color: $link-color

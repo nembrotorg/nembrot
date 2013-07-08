@@ -78,9 +78,9 @@ defaults: &defaults
 
   styling:
     colors:
-      red: '#c00'
-      green: '#0c0'
-      blue: '#00c'
+      red: '#900'
+      green: '#090'
+      blue: '#009'
     css_for_instructions: ['__FX_POL']
     citation_style: default
     line_height: 30
@@ -88,9 +88,10 @@ defaults: &defaults
     gutter_width: 30
     columns: 12
     total_width: '100%'
-    font_family: 'Junction, Arial, Helvetica, sans-serif'
+    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     font_size: '15px'
     font_color: '#000'
+    secondary_color: '#666'
     body_font: 'NOT USED'
     body_font_variant: 'regular'
     body_font_family: 'Georgia, serif'
@@ -107,7 +108,7 @@ defaults: &defaults
     headline_font_size: '36px'
     small_font_size: '13px'
     link_color: '#000'
-    link_hover_color: '#00c'
+    link_hover_color: '#009'
     link_visited_color: '#000'
     selected_font_color: '#000'
     selected_background_color: '#ff0'

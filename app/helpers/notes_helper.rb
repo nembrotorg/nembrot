@@ -2,7 +2,8 @@
 
 module NotesHelper
 
-  include FormattingHelper
   include BlurbHelper
+  include CitationsHelper
+  include FormattingHelper
 
 end

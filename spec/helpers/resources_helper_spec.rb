@@ -2,7 +2,7 @@
 
 describe ResourcesHelper do
 
-  describe 'cut_image_binary_path' do
+  describe '#cut_image_binary_path' do
     before do
       @note = FactoryGirl.create(:note)
       @resource = FactoryGirl.create(:resource, note: @note)
@@ -38,7 +38,7 @@ describe ResourcesHelper do
     end
   end
 
-  describe 'cut_image_binary' do
+  describe '#cut_image_binary' do
     before do
       note = FactoryGirl.create(:note)
       @resource = FactoryGirl.create(:resource, note: note)
@@ -70,13 +70,26 @@ describe ResourcesHelper do
     end
   end
 
-  describe 'round_nearest' do
-    it 'rounds the number down if nearer' do
-      instance_eval { round_nearest(33, 30) } .should == 30
+  describe '#round_nearest' do
+    context 'when number is closer to lower snap' do
+      it 'rounds the number down if nearer' do
+        round_nearest(33, 30).should == 30
+      end
     end
+    context 'when number is closer to higher snap' do
+      it 'rounds number up if nearer' do
+        round_nearest(57, 30).should == 60
+      end
+    end
+  end
 
-    it 'rounds number up if nearer' do
-      instance_eval { round_nearest(57, 30) } .should == 60
+  describe '#column_width' do
+    before do
+      Settings.styling['column_width'] = 60
+      Settings.styling['gutter_width'] = 30
+    end
+    it 'calculates the right width' do
+      column_width(3).should == 240
     end
   end
 end

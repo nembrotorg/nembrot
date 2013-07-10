@@ -22,20 +22,18 @@ describe CitationsHelper do
   describe '#contributors' do
     it 'returns a string containing all the contributors' do
       contributors(@book).should ==  I18n.t('books.show.translator_editor_introducer.true_true_true',
-                                              translator: @book.translator,
-                                              editor: @book.editor,
-                                              introducer: @book.introducer
-                                            )
+                                            translator: @book.translator,
+                                            editor: @book.editor,
+                                            introducer: @book.introducer)
     end
 
     context 'when a book has no translator' do
       before { @book.translator = nil }
       it 'adjusts the punctuation' do
-      contributors(@book).should ==  I18n.t('books.show.translator_editor_introducer.false_true_true',
+        contributors(@book).should ==  I18n.t('books.show.translator_editor_introducer.false_true_true',
                                               translator: @book.translator,
                                               editor: @book.editor,
-                                              introducer: @book.introducer
-                                            )
+                                              introducer: @book.introducer)
       end
     end
 
@@ -45,10 +43,36 @@ describe CitationsHelper do
         @book.editor = nil
         @book.introducer = nil
       end
-      it 'adjusts the punctuation' do
-      contributors(@book).should == nil
+      it 'returns nil' do
+        contributors(@book).should == nil
       end
     end
   end
 
+  describe '#classification' do
+    context 'when no classification data is available' do
+      before do
+        @book.translator = nil
+        @book.editor = nil
+        @book.introducer = nil
+      end
+      it 'returns just the ISBNs' do
+        classification(@book).should == "ISBN: #{ [@book.isbn_10, @book.isbn_13].compact.join(', ') }."
+      end
+    end
+  end
+
+  describe '#links' do
+    context 'when no links are available' do
+      before do
+        @book.isbn_13 = nil
+        @book.google_books_id = nil
+        @book.library_thing_id = nil
+        @book.open_library_id = nil
+      end
+      it 'returns nil' do
+        links(@book).should == ''
+      end
+    end
+  end
 end

@@ -17,5 +17,4 @@ module ApplicationHelper
       this_direction if page_direction != this_direction
     end
   end
-
 end

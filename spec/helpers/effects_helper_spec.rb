@@ -10,7 +10,7 @@ describe EffectsHelper do
     @image.resize '160x90'
   end
 
-  describe 'pre_fx' do
+  describe '#pre_fx' do
     it 'exists' do
       @image.should { have_dimensions(160, 90) }
     end
@@ -32,7 +32,7 @@ describe EffectsHelper do
     end
   end
 
-  describe 'fx' do
+  describe '#fx' do
     it 'cha' do
       fx(@image, 'cha').should { have_dimensions(160, 90) }
     end
@@ -154,7 +154,7 @@ describe EffectsHelper do
     end
   end
 
-  describe 'post_fx' do
+  describe '#post_fx' do
     before do
       note = FactoryGirl.create(:note)
       @resource = FactoryGirl.create(:resource, note: note)

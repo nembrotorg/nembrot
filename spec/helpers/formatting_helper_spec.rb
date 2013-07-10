@@ -111,6 +111,14 @@ describe FormattingHelper do
     pending "Tests."
   end
 
+  describe '#bookify' do
+    pending "Tests."
+  end
+
+  describe '#citation_partial' do
+    pending "Tests."
+  end
+
   describe '#notify' do
     it 'wraps [notes] into html tags' do
       notify('Plain [A side-note.] text. Plain text')

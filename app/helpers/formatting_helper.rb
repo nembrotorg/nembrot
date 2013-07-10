@@ -25,16 +25,16 @@ module FormattingHelper
     text = remove_instructions(text)
   end
 
-  def citation_partial(partial, citation_style = Settings.styling.citation_style)
-    "citations/styles/#{ citation_style }/#{ partial }"
-  end
-
   def bookify(text, books, citation_partial = 'inline')
     books.each do |book|
       text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
       text.gsub!(/#{ book.tag }/, (render citation_partial(citation_partial), :book => book))
     end
     text
+  end
+
+  def citation_partial(partial, citation_style = Settings.styling.citation_style)
+    "citations/styles/#{ citation_style }/#{ partial }"
   end
 
   def smartify_hyphens(text)

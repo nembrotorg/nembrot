@@ -25,5 +25,8 @@ secret*
 /public/resources/*/*.*
 !/public/resources/cut/blank.*
 
+* Ignore trial folders
+trial
+
 * Ignore coverage
 coverage

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module OutputHelper
+module BlurbHelper
 
   def blurb(headline, clean_body)
     # If the title is derived from the body, we do not include it in the blurb

@@ -2,8 +2,8 @@
 
 class EvernoteNote < ActiveRecord::Base
 
-  include EvernoteHelper
-  include SyncHelper
+  include Evernotable
+  include Syncable
 
   attr_accessible :cloud_note_identifier, :evernote_auth_id, :note_id, :dirty, :attempts, :content_hash, :update_sequence_number
 

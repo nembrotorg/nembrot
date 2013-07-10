@@ -2,7 +2,7 @@
 
 class Book < ActiveRecord::Base
 
-  include SyncHelper
+  include Syncable
 
   attr_accessible :title, :author, :editor, :introducer, :translator, :lang, :published_date, :published_city, :pages,
                   :isbn_10, :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id,

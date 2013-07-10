@@ -2,8 +2,8 @@
 
 class Resource < ActiveRecord::Base
 
-  include EvernoteHelper
-  include SyncHelper
+  include Evernotable
+  include Syncable
 
   attr_accessible :note_id, :cloud_resource_identifier, :mime, :width, :height, :caption, :description, :credit, 
   :source_url, :external_updated_at, :latitude, :longitude, :altitude, :camera_make, :camera_model, :file_name, 

@@ -2,8 +2,8 @@
 
 class EvernoteRequest
 
-  include EvernoteHelper
-  include SyncHelper
+  include Evernotable
+  include Syncable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
                 :cloud_note_tags, :offline
@@ -24,7 +24,7 @@ class EvernoteRequest
 
     rescue Evernote::EDAM::Error => error
       max_out_attempts
-      SYNC_LOG.info I18n.t('notes.sync.updated', logger_details)
+      SYNC_LOG.info I18n.t('notes.sync.updated', logger_details) # ??? GET RESCUES FROM OLD & TEST
   end
 
   private

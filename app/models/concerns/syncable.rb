@@ -1,6 +1,8 @@
 # encoding: utf-8
 
-module SyncHelper
+module Syncable
+  extend ActiveSupport::Concern
+
   def dirtify(save_it = true)
     self.dirty = true
     self.attempts = 0
@@ -27,4 +29,5 @@ module SyncHelper
       object.send("#{ key }=", value) if !value.nil? && (object.send("#{ key }").nil? || overwrite)
     end unless new_values.blank?
   end
+
 end

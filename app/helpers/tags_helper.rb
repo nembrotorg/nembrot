@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module NotesHelper
+module TagsHelper
 
   include FormattingHelper
   include BlurbHelper

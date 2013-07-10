@@ -2,6 +2,9 @@
 
 module CitationsHelper
 
+  include FormattingHelper
+  include BlurbHelper
+
   def main_details(book)
     join_text = ': ' unless book.published_city.blank?
     "#{ book.author }, <cite>#{ book.title }</cite>. #{ book.published_city }#{ join_text }#{ book.publisher } #{ book.published_date.year }."

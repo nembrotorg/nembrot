@@ -4,6 +4,8 @@ module ResourcesHelper
 
   include EffectsHelper
 
+  # If this is used in model make it a concern rather than a helper
+
   # REVIEW: Does this duplicate Resource#cut_location? Or maybe this should be a separate Class?
   #  Derive from: https://github.com/carrierwaveuploader/carrierwave/blob/92c817bb7b1c821d8021d3fd1ded06551b1d9a01/lib/carrierwave/processing/mini_magick.rb
   #  And: https://gist.github.com/tonycoco/2910540

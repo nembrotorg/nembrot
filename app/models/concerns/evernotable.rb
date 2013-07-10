@@ -1,9 +1,9 @@
 # encoding: utf-8
 
-module EvernoteHelper
-  # http://discussion.evernote.com/topic/15321-evernote-ruby-thrift-client-error/
+module Evernotable
+  extend ActiveSupport::Concern
 
-  include ApplicationHelper
+  # SEE http://discussion.evernote.com/topic/15321-evernote-ruby-thrift-client-error/
 
   def oauth_token
     evernote_auth.oauth_token

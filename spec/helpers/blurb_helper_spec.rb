@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe OutputHelper do
+describe BlurbHelper do
 
   describe '#citation_blurb' do
     it 'returns a quote and an attribution' do

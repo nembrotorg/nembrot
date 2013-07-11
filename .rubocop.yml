@@ -6,6 +6,7 @@ AllCops:
     - db/**
     - config/**
     - script/**
+    - spec/vcr_cassettes/**
 
 LineLength:
   Enabled: true

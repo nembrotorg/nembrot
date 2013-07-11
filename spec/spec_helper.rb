@@ -21,7 +21,7 @@ AbstractController::Helpers::ClassMethods.module_eval do
 end if Spork.using_spork?
 
 Spork.prefork do
-  ENV["RAILS_ENV"] ||= 'test'
+  ENV['RAILS_ENV'] ||= 'test'
   unless ENV['DRB']
     SimpleCov.start 'rails'
     require File.expand_path('../../config/environment', __FILE__)
@@ -168,7 +168,7 @@ Spork.each_run do
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+  Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
   FactoryGirl.reload
   I18n.backend.reload!
 end

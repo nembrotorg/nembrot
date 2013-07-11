@@ -79,8 +79,8 @@ describe Book do
       Book.sync_all
     end
     it 'fetches metadata for dirty books' do
-      pending "book_is_updated?"
-      pending "@book.attempts.should == 0"
+      pending 'book_is_updated?'
+      pending '@book.attempts.should == 0'
     end
   end
 
@@ -96,7 +96,7 @@ describe Book do
     end
   end
 
-  pending "MERGE NEEDS TO BE UNIT TESTED"
+  pending 'MERGE NEEDS TO BE UNIT TESTED'
 
   describe '#tag' do
     it 'creates a tag from author surname and published date' do

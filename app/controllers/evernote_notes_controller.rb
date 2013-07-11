@@ -11,6 +11,6 @@ class EvernoteNotesController < ApplicationController
       Book.sync_all
     end
 
-    render :json => { "status" => 'OK' }
+    render :json => { 'status' => 'OK' }
   end
 end

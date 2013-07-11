@@ -22,6 +22,6 @@ describe WorldCatRequest do
     end
 
     # TODO: This fails!
-    pending "its (:metadata) { should == nil }"
+    pending 'its (:metadata) { should == nil }'
   end
 end

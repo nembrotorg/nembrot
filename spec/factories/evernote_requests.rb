@@ -2,20 +2,18 @@ FactoryGirl.define do
   factory :evernote_request do
 
     ignore do
-#      evernote_note
-      offline true
+#      evernote_note evernote_note
+      cloud_note_metadata OpenStruct.new({
+        title: 'Evernote title!',
+        content: 'Evernote content.',
+        attributes: OpenStruct.new({
+            latitude: 1,
+            longitude: 2
+          })
+        })
+      cloud_note_tags %w(tag1 tag2)
     end
 
-    cloud_note_metadata OpenStruct.new({ 
-      :title => 'Help!',
-      :content => 'CCCC',
-      :attributes => OpenStruct.new({ 
-          :latitude => 1,
-          :longitude => 2
-        })
-    })
-    cloud_note_tags ['tag1', 'tag2']
     initialize_with { new(evernote_note) }
-    initialize_with { new(offline) }
   end
 end

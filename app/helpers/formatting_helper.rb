@@ -4,7 +4,7 @@ module FormattingHelper
 
   def format_blockquotes(text)
     text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i,
-              (render citation_partial('blockquote_with_attribution'), citation_text: "\\1", attribution: "\\2"))
+              (render citation_partial('blockquote_with_attribution'), citation_text: '\\1', attribution: '\\2'))
         .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
   end
 

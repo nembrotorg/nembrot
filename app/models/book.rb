@@ -24,7 +24,7 @@ class Book < ActiveRecord::Base
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
 
-  before_validation :make_tag, if: (:author_changed? || :editor_changed? || :published_date_changed?) && "!published_date.blank?"
+  before_validation :make_tag, if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
   extend FriendlyId

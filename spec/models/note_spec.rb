@@ -205,11 +205,11 @@ describe Note do
 
 
   describe '#clean_body_with_instructions' do
-    pending "TODO"
+    pending 'TODO'
   end
 
   describe '#clean_body' do
-    pending "TODO"
+    pending 'TODO'
   end
 
   describe '#embeddable_source_url' do
@@ -246,11 +246,11 @@ describe Note do
     end
     it 'recognises one-line citations' do
       note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
-      pending "note.looks_like_a_citation?.should == true"
+      pending 'note.looks_like_a_citation?.should == true'
     end
     it 'recognises two-line citations' do
       note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
-      pending "note.looks_like_a_citation?.should == true"
+      pending 'note.looks_like_a_citation?.should == true'
     end
     context 'when a note merely contains a citation' do
       context 'when text precedes quote' do
@@ -294,7 +294,7 @@ describe Note do
     end
     context 'when text is in Russian' do
      before do
-       note.update_attributes(title: 'Анатомия меланхолии', body: "Гигантский том in-quarto толщиной в 900.")
+       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.')
        note.save!
      end
      it 'returns ru' do

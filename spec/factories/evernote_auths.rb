@@ -5,13 +5,13 @@ FactoryGirl.define do
           :access_token =>
             OpenStruct.new({
               :params => {
-                :edam_noteStoreUrl => "MOCK_URL",
-                :oauth_token => "MOCK_TOKEN"
+                :edam_noteStoreUrl => 'MOCK_URL',
+                :oauth_token => 'MOCK_TOKEN'
               }
             })
         }),
         :info => OpenStruct.new({ 
-          :nickname => "MOCK_NICKNAME"
+          :nickname => 'MOCK_NICKNAME'
         })
       })
 	end

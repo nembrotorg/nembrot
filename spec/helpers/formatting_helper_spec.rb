@@ -108,15 +108,15 @@ describe FormattingHelper do
   end
 
   describe '#smartify' do
-    pending "Tests."
+    pending 'Tests.'
   end
 
   describe '#bookify' do
-    pending "Tests."
+    pending 'Tests.'
   end
 
   describe '#citation_partial' do
-    pending "Tests."
+    pending 'Tests.'
   end
 
   describe '#notify' do

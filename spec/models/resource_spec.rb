@@ -145,5 +145,5 @@ describe Resource do
     its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
   end
 
-  pending "#delete_binaries"
+  pending '#delete_binaries'
 end

@@ -10,8 +10,8 @@ class EvernoteNote < ActiveRecord::Base
   belongs_to :note, :dependent => :destroy
   belongs_to :evernote_auth
 
-  scope :need_syncdown, where("dirty = ? AND attempts <= ?", true, Settings.notes.attempts).order('updated_at')
-  scope :maxed_out, where("attempts > ?", Settings.notes.attempts).order('updated_at')
+  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
+  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
 
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily

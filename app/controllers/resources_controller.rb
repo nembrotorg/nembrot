@@ -14,7 +14,7 @@ class ResourcesController < ApplicationController
         params[:effects]
       )
 
-    send_file(image, :disposition => 'inline')
+    send_file(image, disposition: 'inline')
     rescue
       redirect_to "/resources/cut/blank.#{ params[:format]}"
   end

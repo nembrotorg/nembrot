@@ -35,8 +35,8 @@ class TagsController < ApplicationController
       format.html
       format.json { render :json => @notes }
     end
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Tag: #{ params[:slug] } does not exist."
+    rescue
+      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
       redirect_to tags_path
   end
 end

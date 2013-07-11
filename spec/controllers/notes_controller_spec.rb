@@ -36,6 +36,15 @@ describe NotesController do
       response.should render_template :show
     end
 
+    context 'when the note is not available' do
+      before do
+        get :show, id: 0
+      end
+      it { should respond_with(:redirect) }
+      it 'sets the flash' do
+        flash[:error].should == I18n.t('notes.show.not_found', id: 0)
+      end
+    end
   end
 
   describe 'GET #version' do
@@ -53,6 +62,25 @@ describe NotesController do
       get :version, id: @note, sequence: 1
       response.should render_template :version
     end
-  end
 
+    context 'when the note is not available' do
+      before do
+        get :version, id: 0, sequence: 1
+      end
+      it { should respond_with(:redirect) }
+      it 'sets the flash' do
+        flash[:error].should == I18n.t('notes.show.not_found', id: 0)
+      end
+    end
+
+    context 'when the version is not available' do
+      before do
+        get :version, id: @note, sequence: 999
+      end
+      it { should respond_with(:redirect) }
+      it 'sets the flash' do
+        flash[:error].should == I18n.t('notes.versions.not_found', id: @note.id, sequence: 999)
+      end
+    end
+  end
 end

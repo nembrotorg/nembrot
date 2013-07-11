@@ -25,11 +25,14 @@ en:
     item: "Note %{id}"
     short: "Note %{id}"
     word_count: "%{word_count} words"
+    show:
+      not_found: "Note %{id} is not available."
     versions:
       title: "Versions"
       item: "Version %{sequence}"
       short: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
+      not_found: "Note %{id} v%{sequence} is not available."
     untitled_synonyms: ["Untitled", "Untitled Note", "New note"]
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."
@@ -58,6 +61,8 @@ en:
     title: "Tags"
     item: "%{name}"
     short: "%{name}"
+    show:
+      not_found: "Tag: %{slug} is not available."
 
   books:
     title: "Bibliography"
@@ -65,6 +70,7 @@ en:
     short: "%{name}"
     editor_short: "(ed.)"
     show:
+      not_found: "Book: %{slug} is not available."
       translator_editor_introducer:
         false_false_true: "Introduced by %{introducer}."
         false_true_false: "Edited by %{editor}."
@@ -90,6 +96,7 @@ en:
     show:
       title: 'Citations'
       short: "Citation %{id}"
+      not_found: "Citation %{id} is not available."
 
   titlecase_exceptions:
     articles: "a an the"

@@ -22,8 +22,8 @@ class BooksController < ApplicationController
       format.html
       format.json { render :json => @notes }
     end
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Book: #{ params[:slug] } does not exist."
+    rescue
+      flash[:error] = t('books.show.not_found', slug: params[:slug])
       redirect_to books_path
   end
 end

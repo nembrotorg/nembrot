@@ -24,7 +24,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:23:48 GMT
+      - Thu, 11 Jul 2013 12:55:00 GMT
       Content-Type:
       - application/json
       Connection:
@@ -35,7 +35,43 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.17017828200972449},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:23:47 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:00 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Thu, 11 Jul 2013 12:55:02 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '93'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
+    http_version: 
+  recorded_at: Thu, 11 Jul 2013 12:55:02 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -60,7 +96,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:23:48 GMT
+      - Thu, 11 Jul 2013 12:55:03 GMT
       Content-Type:
       - application/json
       Connection:
@@ -71,43 +107,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.23},{"language":"en","isReliable":false,"confidence":0.13776337115072934}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:23:48 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Newest+title+Newest+body&key=<DETECT_LANGUAGE_API_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx/0.7.65
-      Date:
-      - Sun, 07 Jul 2013 10:23:51 GMT
-      Content-Type:
-      - application/json
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '151'
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.23},{"language":"en","isReliable":false,"confidence":0.13776337115072934}]}}'
-    http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:23:51 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:03 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -132,7 +132,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:50:38 GMT
+      - Thu, 11 Jul 2013 12:55:04 GMT
       Content-Type:
       - application/json
       Connection:
@@ -143,43 +143,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:50:37 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx/0.7.65
-      Date:
-      - Sun, 07 Jul 2013 10:50:39 GMT
-      Content-Type:
-      - application/json
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '93'
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
-    http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:50:38 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:04 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -204,7 +168,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:50:41 GMT
+      - Thu, 11 Jul 2013 12:55:06 GMT
       Content-Type:
       - application/json
       Connection:
@@ -215,7 +179,43 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.2025931928687196},{"language":"xxx","isReliable":false,"confidence":0.23}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:50:41 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:06 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Newest+title+Newest+body&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Thu, 11 Jul 2013 12:55:07 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.23},{"language":"en","isReliable":false,"confidence":0.13776337115072934}]}}'
+    http_version: 
+  recorded_at: Thu, 11 Jul 2013 12:55:07 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -240,7 +240,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:50:44 GMT
+      - Thu, 11 Jul 2013 12:55:10 GMT
       Content-Type:
       - application/json
       Connection:
@@ -251,5 +251,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:50:44 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:09 GMT
 recorded_with: VCR 2.5.0

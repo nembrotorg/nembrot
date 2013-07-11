@@ -1,7 +1,5 @@
 class NotesController < ApplicationController
 
-  include ActionView::Helpers::SanitizeHelper
-
   add_breadcrumb I18n.t('notes.title'), :notes_path
 
   def index
@@ -27,7 +25,7 @@ class NotesController < ApplicationController
       format.json { render :json => @note }
     end
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Note #{ params[:id] } is not available."
+      flash[:error] = t('notes.show.not_found', id: params[:id])
       redirect_to notes_path
   end
 
@@ -44,7 +42,10 @@ class NotesController < ApplicationController
       format.json { render :json => @diffed_version }
     end
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Note #{ params[:id] } v#{ params[:sequence] } is not available."
+      flash[:error] = t('notes.show.not_found', id: params[:id])
+      redirect_to notes_path
+    rescue
+      flash[:error] = t('notes.versions.not_found', id: params[:id], sequence: params[:sequence])
       redirect_to note_path(@note)
   end
 end

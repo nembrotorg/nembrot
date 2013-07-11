@@ -33,5 +33,15 @@ describe CitationsController do
       get :show, id: @citation
       response.should render_template :show
     end
+
+    context 'when the citation is not available' do
+      before do
+        get :show, id: 0
+      end
+      it { should respond_with(:redirect) }
+      it 'sets the flash' do
+        flash[:error].should == I18n.t('citations.show.not_found', id: 0)
+      end
+    end
   end
 end

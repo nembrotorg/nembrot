@@ -3,7 +3,7 @@
 describe BooksController do
 
   before do
-    @book = FactoryGirl.create(:book)
+    @book = FactoryGirl.create(:book, tag: 'Author 2001')
     @note = FactoryGirl.create(:note, body: @book.tag)
   end
 
@@ -39,6 +39,16 @@ describe BooksController do
     it 'renders the #show view' do
       get :show, slug: @book.slug
       response.should render_template :show
+    end
+
+    context 'when book is not available' do
+      before do
+        get :show, slug: 'nonexistent'
+      end
+      it { should respond_with(:redirect) }
+      it 'sets the flash' do
+        flash[:error].should == I18n.t('books.show.not_found', slug: 'nonexistent')
+      end
     end
   end
 end

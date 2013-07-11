@@ -26,7 +26,7 @@ class CitationsController < ApplicationController
     end
 
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Citation #{ params[:id] } is not available."
+      flash[:error] = I18n.t('citations.show.not_found', id: params[:id])
       redirect_to citations_path
   end
 

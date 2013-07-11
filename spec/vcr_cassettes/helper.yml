@@ -24,7 +24,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:24:00 GMT
+      - Thu, 11 Jul 2013 12:55:14 GMT
       Content-Type:
       - application/json
       Connection:
@@ -35,5 +35,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:00 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:14 GMT
 recorded_with: VCR 2.5.0

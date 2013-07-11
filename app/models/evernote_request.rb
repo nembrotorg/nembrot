@@ -8,11 +8,10 @@ class EvernoteRequest
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
                 :cloud_note_tags, :offline
 
-  def initialize(evernote_note, offline = false)
+  def initialize(evernote_note)
     evernote_note.build_note if evernote_note.note.nil?
 
     self.evernote_note = evernote_note
-    self.offline = offline
     self.guid = evernote_note.cloud_note_identifier
     self.evernote_auth = evernote_note.evernote_auth
 
@@ -22,9 +21,17 @@ class EvernoteRequest
 
     update_note if update_necessary?
 
-    rescue Evernote::EDAM::Error => error
+    rescue Evernote::EDAM::Error::EDAMUserException => error
       max_out_attempts
-      SYNC_LOG.info I18n.t('notes.sync.updated', logger_details) # ??? GET RESCUES FROM OLD & TEST
+      sync_error('Evernote', guid, user_nickname,
+                 "User Exception: #{ Settings.evernote.errors[error.errorCode] } (#{ error.parameter }).")
+
+    rescue Evernote::EDAM::Error::EDAMNotFoundException => error
+      max_out_attempts
+      sync_error('Evernote', guid, user_nickname, "Not Found Exception: #{ error.identifier }: #{ error.key }.")
+
+    rescue Evernote::EDAM::Error::EDAMSystemException => error
+      sync_error('Evernote', guid, user_nickname, "User Exception: error #{ error.errorCode }: #{ error.message }.")
   end
 
   private
@@ -104,7 +111,7 @@ class EvernoteRequest
     cloud_note_data.content = evernote_note.note.body
     if cloud_note_data.contentHash != evernote_note.content_hash
       note_data = note_store.getNote(oauth_token, guid, true, false, false, false) unless offline
-      cloud_note_data.content = Nokogiri::XML(note_data.content).css('en-note').inner_html
+      cloud_note_data.content = Nokogiri.XML(note_data.content).css('en-note').inner_html
     end
     self.cloud_note_data = cloud_note_data
   end

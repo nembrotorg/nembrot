@@ -13,7 +13,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 07 Jul 2013 10:24:02 GMT
+      - Thu, 11 Jul 2013 12:55:17 GMT
       Server:
       - Apache
       Content-Length:
@@ -152,7 +152,7 @@ http_interactions:
         bnNjcmliaW5nQWdlbmN5PkRMQzwvb2NsY3Rlcm1zOnJlY29yZFRyYW5zY3Jp
         YmluZ0FnZW5jeT4KPC9vY2xjZGNzPgo=
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:02 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:17 GMT
 - request:
     method: get
     uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/0804720991
@@ -166,7 +166,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 07 Jul 2013 10:24:04 GMT
+      - Thu, 11 Jul 2013 12:55:19 GMT
       Server:
       - Apache/2.2.3 (CentOS)
       Content-Length:
@@ -179,12 +179,28 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-           "index_searched" : "isbn",
            "data" : [
               {
-                 "book_id" : "discourse_networks_1800_1900_a01",
-                 "title" : "Discourse networks 1800/1900",
+                 "title_latin" : "Discourse networks 1800/1900",
+                 "dewey_decimal" : "830.9/357",
+                 "urls_text" : "",
                  "publisher_id" : "stanford_university_press",
+                 "title" : "Discourse networks 1800/1900",
+                 "summary" : "",
+                 "title_long" : "",
+                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
+                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
+                 "isbn10" : "0804720991",
+                 "dewey_normal" : "830.9357",
+                 "lcc_number" : "",
+                 "book_id" : "discourse_networks_1800_1900_a01",
+                 "publisher_name" : "Stanford University Press",
+                 "isbn13" : "9780804720991",
+                 "language" : "eng",
+                 "marc_enc_level" : "",
+                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm.",
+                 "awards_text" : "",
+                 "edition_info" : "",
                  "subject_ids" : [
                     "german_literature_19th_century_history_and_criticism",
                     "german_literature_20th_century_history_and_criticism",
@@ -195,38 +211,22 @@ http_interactions:
                     "literature_and_society_germany_history_19th_century",
                     "literature_and_society_germany_history_20th_century"
                  ],
-                 "title_latin" : "Discourse networks 1800/1900",
-                 "urls_text" : "",
-                 "isbn13" : "9780804720991",
                  "author_data" : [
                     {
-                       "name" : "Kittler, Friedrich A.",
-                       "id" : "kittler_friedrich_a"
+                       "id" : "kittler_friedrich_a",
+                       "name" : "Kittler, Friedrich A."
                     },
                     {
-                       "name" : "Michael Metteer",
-                       "id" : "michael_metteer"
+                       "id" : "michael_metteer",
+                       "name" : "Michael Metteer"
                     }
-                 ],
-                 "summary" : "",
-                 "isbn10" : "0804720991",
-                 "dewey_normal" : "830.9357",
-                 "edition_info" : "",
-                 "dewey_decimal" : "830.9/357",
-                 "publisher_name" : "Stanford University Press",
-                 "title_long" : "",
-                 "lcc_number" : "",
-                 "marc_enc_level" : "",
-                 "awards_text" : "",
-                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
-                 "language" : "eng",
-                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
-                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm."
+                 ]
               }
-           ]
+           ],
+           "index_searched" : "isbn"
         }
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:04 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:22 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:0804720991
@@ -240,13 +240,13 @@ http_interactions:
       message: OK
     headers:
       Expires:
-      - Sun, 07 Jul 2013 10:24:05 GMT
+      - Thu, 11 Jul 2013 12:55:23 GMT
       Date:
-      - Sun, 07 Jul 2013 10:24:05 GMT
+      - Thu, 11 Jul 2013 12:55:23 GMT
       Cache-Control:
       - private, max-age=0, must-revalidate, no-transform
       Etag:
-      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/JoGq8QnP6bf5uKDcF5SOPmABYQ8"'
+      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/93riwyOdGCl-8OaJ1pUcGtf257A"'
       Content-Type:
       - application/json; charset=UTF-8
       X-Content-Type-Options:
@@ -262,8 +262,8 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        ewogImtpbmQiOiAiYm9va3Mjdm9sdW1lcyIsCiAidG90YWxJdGVtcyI6IDEx
-        MSwKICJpdGVtcyI6IFsKICB7CiAgICJraW5kIjogImJvb2tzI3ZvbHVtZSIs
+        ewogImtpbmQiOiAiYm9va3Mjdm9sdW1lcyIsCiAidG90YWxJdGVtcyI6IDEw
+        OSwKICJpdGVtcyI6IFsKICB7CiAgICJraW5kIjogImJvb2tzI3ZvbHVtZSIs
         CiAgICJpZCI6ICJuUm8wUGs4ZGpqb0MiLAogICAiZXRhZyI6ICJvRTl2RnhR
         RUViMCIsCiAgICJzZWxmTGluayI6ICJodHRwczovL3d3dy5nb29nbGVhcGlz
         LmNvbS9ib29rcy92MS92b2x1bWVzL25SbzBQazhkampvQyIsCiAgICJ2b2x1
@@ -352,7 +352,7 @@ http_interactions:
         dXNpbmcgdGhlc2Ugc3lzdGVtcy0tbm90YWJseSBsaXRlcmF0dXJlLiIKICAg
         fQogIH0KIF0KfQo=
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:04 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:23 GMT
 - request:
     method: get
     uri: http://openlibrary.org/api/books?bibkeys=ISBN:0804720991&format=json&jscmd=details
@@ -368,7 +368,7 @@ http_interactions:
       Server:
       - nginx/0.8.32
       Date:
-      - Sun, 07 Jul 2013 10:24:06 GMT
+      - Thu, 11 Jul 2013 12:55:24 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -376,7 +376,7 @@ http_interactions:
       Connection:
       - keep-alive
       X-Ol-Stats:
-      - '"IB 1 0.039 MC 2 0.002 TT 0 0.043"'
+      - '"IB 1 0.058 MC 2 0.001 TT 0 0.061"'
     body:
       encoding: UTF-8
       string: '{"ISBN:0804720991": {"bib_key": "ISBN:0804720991", "preview": "noview",
@@ -403,7 +403,7 @@ http_interactions:
         reading in literature.", "Critical studies.", "Authorship."], "revision":
         4}}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:06 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:24 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -428,7 +428,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:24:07 GMT
+      - Thu, 11 Jul 2013 12:55:25 GMT
       Content-Type:
       - application/json
       Connection:
@@ -439,7 +439,43 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:07 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:24 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=First+Title+First+body.&key=<DETECT_LANGUAGE_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Thu, 11 Jul 2013 12:55:25 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '152'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.13},{"language":"en","isReliable":false,"confidence":0.040518638573743916}]}}'
+    http_version: 
+  recorded_at: Thu, 11 Jul 2013 12:55:25 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -464,7 +500,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:24:08 GMT
+      - Thu, 11 Jul 2013 12:55:26 GMT
       Content-Type:
       - application/json
       Connection:
@@ -475,7 +511,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.1053484602917342},{"language":"xxx","isReliable":false,"confidence":0.13}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:08 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:26 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -500,7 +536,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:24:08 GMT
+      - Thu, 11 Jul 2013 12:55:27 GMT
       Content-Type:
       - application/json
       Connection:
@@ -511,7 +547,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.13},{"language":"en","isReliable":false,"confidence":0.040518638573743916}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:08 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:26 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
@@ -525,13 +561,13 @@ http_interactions:
       message: OK
     headers:
       Expires:
-      - Sun, 07 Jul 2013 10:24:16 GMT
+      - Thu, 11 Jul 2013 12:55:34 GMT
       Date:
-      - Sun, 07 Jul 2013 10:24:16 GMT
+      - Thu, 11 Jul 2013 12:55:34 GMT
       Cache-Control:
       - private, max-age=0, must-revalidate, no-transform
       Etag:
-      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/-zPIJ3tY7aBUY2FCcG72k6unhn8"'
+      - '"mOjxE_r_hmp_WuehNOxaG-Xbl8M/ouV9UullGdoR-H97u7DeNh6CXOY"'
       Content-Type:
       - application/json; charset=UTF-8
       X-Content-Type-Options:
@@ -549,7 +585,7 @@ http_interactions:
       string: |
         {
          "kind": "books#volumes",
-         "totalItems": 461,
+         "totalItems": 471,
          "items": [
           {
            "kind": "books#volume",
@@ -599,7 +635,7 @@ http_interactions:
          ]
         }
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:16 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:34 GMT
 - request:
     method: get
     uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/INVALID_ISBN
@@ -613,7 +649,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 07 Jul 2013 10:24:17 GMT
+      - Thu, 11 Jul 2013 12:55:36 GMT
       Server:
       - Apache/2.2.3 (CentOS)
       Content-Length:
@@ -629,72 +665,7 @@ http_interactions:
            "error" : "Unable to locate INVALID_ISBN"
         }
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:17 GMT
-- request:
-    method: get
-    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx/0.8.32
-      Date:
-      - Sun, 07 Jul 2013 10:24:22 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Ol-Stats:
-      - '"IB 1 0.039 TT 0 0.040"'
-    body:
-      encoding: UTF-8
-      string: '{}'
-    http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:24:22 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=First+Title+First+body.&key=<DETECT_LANGUAGE_API_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx/0.7.65
-      Date:
-      - Sun, 07 Jul 2013 10:50:53 GMT
-      Content-Type:
-      - application/json
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '152'
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"xxx","isReliable":false,"confidence":0.13},{"language":"en","isReliable":false,"confidence":0.040518638573743916}]}}'
-    http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:50:53 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:36 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -719,7 +690,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:03 GMT
+      - Thu, 11 Jul 2013 12:55:38 GMT
       Content-Type:
       - application/json
       Connection:
@@ -730,7 +701,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.5429497568881686}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:03 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:38 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -755,7 +726,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:05 GMT
+      - Thu, 11 Jul 2013 12:55:39 GMT
       Content-Type:
       - application/json
       Connection:
@@ -766,7 +737,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.17017828200972449},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:04 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:39 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -791,7 +762,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:05 GMT
+      - Thu, 11 Jul 2013 12:55:39 GMT
       Content-Type:
       - application/json
       Connection:
@@ -802,7 +773,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:05 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:39 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -827,7 +798,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:06 GMT
+      - Thu, 11 Jul 2013 12:55:40 GMT
       Content-Type:
       - application/json
       Connection:
@@ -838,7 +809,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.17017828200972449},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:06 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:40 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -863,7 +834,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:06 GMT
+      - Thu, 11 Jul 2013 12:55:40 GMT
       Content-Type:
       - application/json
       Connection:
@@ -874,7 +845,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.42949756888168555}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:06 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:40 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -899,7 +870,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:11 GMT
+      - Thu, 11 Jul 2013 12:55:42 GMT
       Content-Type:
       - application/json
       Connection:
@@ -910,7 +881,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.23500810372771475}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:11 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:42 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -935,7 +906,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:12 GMT
+      - Thu, 11 Jul 2013 12:55:43 GMT
       Content-Type:
       - application/json
       Connection:
@@ -946,7 +917,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.29983792544570503}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:11 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:42 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -971,7 +942,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:12 GMT
+      - Thu, 11 Jul 2013 12:55:43 GMT
       Content-Type:
       - application/json
       Connection:
@@ -982,7 +953,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.29983792544570503}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:12 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:43 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1007,7 +978,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:13 GMT
+      - Thu, 11 Jul 2013 12:55:44 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1018,7 +989,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.36466774716369527}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:13 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:44 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1043,7 +1014,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:14 GMT
+      - Thu, 11 Jul 2013 12:55:44 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1054,7 +1025,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.36466774716369527}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:14 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:44 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1079,7 +1050,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:14 GMT
+      - Thu, 11 Jul 2013 12:55:45 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1090,7 +1061,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.413290113452188}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:14 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:45 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1115,7 +1086,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:15 GMT
+      - Thu, 11 Jul 2013 12:55:46 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1126,7 +1097,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":0.2998696219035202},{"language":"en","isReliable":false,"confidence":0.008103727714748784}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:15 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:46 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1151,7 +1122,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:51:16 GMT
+      - Thu, 11 Jul 2013 12:55:46 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1162,7 +1133,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":0.2998696219035202},{"language":"en","isReliable":false,"confidence":0.008103727714748784}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:51:16 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:46 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -1187,7 +1158,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Sun, 07 Jul 2013 10:54:30 GMT
+      - Thu, 11 Jul 2013 12:55:47 GMT
       Content-Type:
       - application/json
       Connection:
@@ -1198,5 +1169,34 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"ml","isReliable":true,"confidence":1.23}]}}'
     http_version: 
-  recorded_at: Sun, 07 Jul 2013 10:54:30 GMT
+  recorded_at: Thu, 11 Jul 2013 12:55:47 GMT
+- request:
+    method: get
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.8.32
+      Date:
+      - Thu, 11 Jul 2013 12:55:48 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB 1 0.048 TT 0 0.048"'
+    body:
+      encoding: UTF-8
+      string: '{}'
+    http_version: 
+  recorded_at: Thu, 11 Jul 2013 12:55:48 GMT
 recorded_with: VCR 2.5.0

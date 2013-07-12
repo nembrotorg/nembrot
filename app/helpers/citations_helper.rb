@@ -2,9 +2,11 @@
 
 module CitationsHelper
 
+  include FormattingHelper
+
   def main_details(book)
     join_text = ': ' unless book.published_city.blank?
-    "#{ book.author }, <cite>#{ book.title }</cite>. #{ book.published_city }#{ join_text }#{ book.publisher } #{ book.published_date.year }."
+    simple_blurbify("#{ book.author }, <cite>#{ book.title }</cite>. #{ book.published_city }#{ join_text }#{ book.publisher } #{ book.published_date.year }.")
   end
 
   def contributors(book)
@@ -12,18 +14,18 @@ module CitationsHelper
 
     matrix = [!book.translator.blank?, !book.editor.blank?, !book.introducer.blank?].join('_')
 
-    I18n.t("books.show.translator_editor_introducer.#{ matrix }",
+    simple_blurbify(I18n.t("books.show.translator_editor_introducer.#{ matrix }",
         translator: book.translator,
         editor: book.editor,
         introducer: book.introducer
-      )
+      ))
   end
 
   def classification(book)
     response = "ISBN: #{ [book.isbn_10, book.isbn_13].compact.join(', ') }."
     response += " Dewey Decimal: #{ book.dewey_decimal }." unless book.dewey_decimal.blank?
     response += " Library of Congress Number: #{ book.lcc_number }." unless book.lcc_number.blank?
-    response
+    simple_blurbify(response)
   end
 
   def links(book)
@@ -34,6 +36,6 @@ module CitationsHelper
     response.push link_to 'OpenLibrary', "http://openlibrary.org/works/#{ book.open_library_id }" unless book.open_library_id.blank?
     response.push link_to "Full text at #{ book.full_text.scan(%r(http://(.*?)/))[0][0] }",
                           book.full_text unless book.full_text.blank?
-    response.join(' ').html_safe
+    simple_blurbify(response.join(' '))
   end
 end

@@ -131,4 +131,10 @@ module FormattingHelper
     text = smartify(text)
     clean_up(text)
   end
+
+  def simple_blurbify(text)
+    text = clean_whitespace(text)
+    text = smartify(text)
+    clean_up(text)
+  end
 end

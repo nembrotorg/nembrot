@@ -22,7 +22,6 @@ en:
 
   notes:
     title: "Notes"
-    item: "Note %{id}"
     short: "Note %{id}"
     word_count: "%{word_count} words"
     show:
@@ -91,11 +90,11 @@ en:
           body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
   citations:
+    short: "Citation %{id}"
     index:
       title: 'Citations'
     show:
       title: 'Citations'
-      short: "Citation %{id}"
       not_found: "Citation %{id} is not available."
 
   titlecase_exceptions:

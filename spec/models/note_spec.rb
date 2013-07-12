@@ -182,6 +182,24 @@ describe Note do
       it 'returns preformatted title (e.g. Note 1)' do
         note.headline.should == I18n.t('notes.short', id: note.id)
       end
+      context 'when note is a citation' do
+        before do
+          note.is_citation = true
+        end
+        it 'returns preformatted title (e.g. Citation 1)' do
+          note.headline.should == I18n.t('citations.short', id: note.id)
+        end
+      end
+    end
+  end
+
+  describe '#type' do
+    its(:type) { should == 'Note' } 
+    context 'when note is a citation' do
+      before do
+        note.is_citation = true
+      end
+      its(:type) { should == 'Citation' } 
     end
   end
 

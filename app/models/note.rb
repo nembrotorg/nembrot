@@ -52,7 +52,12 @@ class Note < ActiveRecord::Base
   end
 
   def headline
+    return I18n.t('citations.short', id: id) if is_citation
     I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.short', id: id) : title
+  end
+
+  def type
+    is_citation ? 'Citation' : 'Note'
   end
 
   def clean_body_with_instructions
@@ -122,7 +127,7 @@ class Note < ActiveRecord::Base
   def update_metadata
     discard_versions?
     update_is_hidable?
-    update_is_a_citation?
+    update_is_citation?
     update_is_listable?
     keep_old_date?
     update_lang
@@ -136,7 +141,7 @@ class Note < ActiveRecord::Base
     end
   end
 
-  def update_is_a_citation?
+  def update_is_citation?
     self.is_citation = has_instruction?('citation') || looks_like_a_citation?(clean_body)
   end
 

@@ -1,4 +1,4 @@
-- document_title = "#{ @note.headline } | #{ t('notes.item', :id => @note.id) }"
+- document_title = "#{ @note.headline } | #{ t('notes.short', :id => @note.id) }"
 - set_meta_tags :title => document_title,
                 :description => @note.body,
                 :open_graph => { :title => @note.title }

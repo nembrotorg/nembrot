@@ -17,4 +17,12 @@ module ApplicationHelper
       this_direction if page_direction != this_direction
     end
   end
+
+  def current_url
+    "#{ request.protocol }#{ request.host_with_port }#{ request.fullpath }"
+  end
+
+  def qr_code_image_url(size = Settings.styling.qr_code_image_size)
+    "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
+  end
 end

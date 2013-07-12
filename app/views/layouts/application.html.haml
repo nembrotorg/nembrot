@@ -1,18 +1,21 @@
 !!! 5
 -# http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither
-- html_tag :class => "no-js", :lang => I18n.locale do
+- html_tag class: 'no-js', lang: I18n.locale do
 
   = render 'head'
 
-  %body{ :dir => body_dir_attr(I18n.locale.to_s) }
+  %body{ dir: body_dir_attr(I18n.locale.to_s) }
     = render 'chromeframe'
     -#= render 'header'
 
-    #main{ :role => 'main', :data => { "pjax-container" => true } }
-      %div{ :class => controller.controller_name + '-' + controller.action_name  }
+    #main{ role: 'main', data: { 'pjax-container' => true } }
+      %div{ class: controller.controller_name + '-' + controller.action_name  }
         -# = render 'flashes'
-        %nav= render_breadcrumbs :builder => ::OrderedListBuilder
+        %nav= render_breadcrumbs builder: ::OrderedListBuilder
+
         = yield
+
+        = image_tag(qr_code_image_url, size: Settings.styling.qr_code_image_size, alt: 'QR code.', class: 'qr_code')
 
     = render 'footer'
 

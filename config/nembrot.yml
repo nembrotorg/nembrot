@@ -119,6 +119,7 @@ defaults: &defaults
     error_background_color: '#ff4545'
     map_background_color: '#ccc'
     map_font_color: '#333'
+    qr_code_image_size: 100
     images:
       effects:
       name_length: 30

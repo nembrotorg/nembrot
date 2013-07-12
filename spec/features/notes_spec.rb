@@ -217,5 +217,10 @@ describe 'Notes' do
     end
   end
 
+  describe 'qr image' do
+    it 'should have the title Notes' do
+      pending 'page.should have_css(a[href=#{ qr_code_image_url }])'
+    end
+  end
   # Test images and embedded media
 end

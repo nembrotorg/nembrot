@@ -92,28 +92,4 @@ describe EvernoteNote do
     end
     EvernoteNote.need_syncdown.last.should == nil
   end
-
-  describe 'run_evernote_tasks should syncdown pending notes' do
-    it 'should de-activate a note that is not in a required notebook' do
-      pending 'Need to add this test.'
-    end
-    it 'should de-activate a note that has been deleted in the cloud' do
-      pending 'Need to add this test.'
-    end
-    it 'should de-activate a note not tagged with __PUBLISH (or synonyms)' do
-      pending 'Need to add this test.'
-    end
-    it 'should not update a note tagged with __IGNORE (or synonyms)' do
-      pending 'Need to add this test.'
-    end
-    it 'should not request full data if content hash has not changed' do
-      pending 'Need to add this test.'
-    end
-    it 'should request full data if content hash has changed' do
-      pending 'Need to add this test.'
-    end
-    it 'should syncdown resource if it has changed' do
-      pending 'Need to add this test.'
-    end
-  end
 end

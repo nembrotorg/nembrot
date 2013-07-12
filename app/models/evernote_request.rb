@@ -8,7 +8,7 @@ class EvernoteRequest
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
                 :cloud_note_tags, :offline
 
-  def initialize(evernote_note)
+  def sync_down(evernote_note)
     evernote_note.build_note if evernote_note.note.nil?
 
     self.evernote_note = evernote_note
@@ -17,7 +17,7 @@ class EvernoteRequest
 
     evernote_note.increment_attempts
 
-    self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false) unless offline
+    self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
     update_note if update_necessary?
 
@@ -34,11 +34,11 @@ class EvernoteRequest
       sync_error('Evernote', guid, user_nickname, "User Exception: error #{ error.errorCode }: #{ error.message }.")
   end
 
-  private
-
   def update_necessary?
     update_necessary_according_to_note? && update_necessary_according_to_tags?
   end
+
+  private
 
   def update_note
     get_new_content_from_cloud_if_updated
@@ -47,17 +47,17 @@ class EvernoteRequest
     evernote_note.note.save!
     update_resources_with_evernote_data(cloud_note_data)
     update_evernote_note_with_evernote_data(cloud_note_data)
-    SYNC_LOG.info "#{ logger_details[:title] } saved as Note #{ (evernote_note.note.id) }."
+    SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
   end
 
   def update_necessary_according_to_note?
     result = (evernote_notebook_required? && cloud_note_active? && cloud_note_updated?)
-    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) unless result
+    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) if result.blank? && cloud_note_tags.blank?
     result
   end
 
   def evernote_notebook_required?
-    result = Settings.evernote.notebooks.include?(cloud_note_metadata.notebookGuid)
+    result = Array(Settings.evernote.notebooks).include?(cloud_note_metadata.notebookGuid)
     unless result
       evernote_note.destroy
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
@@ -84,7 +84,7 @@ class EvernoteRequest
   end
 
   def update_necessary_according_to_tags?
-    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) unless offline
+    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) if cloud_note_tags.blank?
     cloud_note_has_required_tags? && cloud_note_is_not_ignorable?
   end
 
@@ -117,7 +117,7 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Settings.evernote.always_reset_on_create && evernote_note.note.new_record? 
+    reset_new_note = Settings.evernote.always_reset_on_create && evernote_note.note.new_record?
     use_date = reset_new_note ?  cloud_note_data.created : cloud_note_data.updated
     Time.at(use_date / 1000).to_datetime
   end
@@ -155,7 +155,6 @@ class EvernoteRequest
     )
   end
 
-  # REVIEW: Move this to Evernote Request
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
     cloud_resources = cloud_note_data.resources

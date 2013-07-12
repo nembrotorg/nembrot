@@ -7,7 +7,7 @@ class EvernoteNote < ActiveRecord::Base
 
   attr_accessible :cloud_note_identifier, :evernote_auth_id, :note_id, :dirty, :attempts, :content_hash, :update_sequence_number
 
-  belongs_to :note, :dependent => :destroy
+  belongs_to :note, dependent: :destroy
   belongs_to :evernote_auth
 
   scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
@@ -16,8 +16,8 @@ class EvernoteNote < ActiveRecord::Base
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
   #  inflate the id number of each 'successful' note.
-  validates :evernote_auth, :presence => true
-  validates :cloud_note_identifier, :presence => true, :uniqueness => { :scope => :evernote_auth_id }
+  validates :evernote_auth, presence: true
+  validates :cloud_note_identifier, presence: true, uniqueness: { scope: :evernote_auth_id }
 
   validates_associated :note, :evernote_auth
 
@@ -27,7 +27,7 @@ class EvernoteNote < ActiveRecord::Base
 
   def self.sync_all
     need_syncdown.each do |evernote_note|
-      EvernoteRequest.new(evernote_note)
+      EvernoteRequest.new.sync_down(evernote_note)
     end
   end
 

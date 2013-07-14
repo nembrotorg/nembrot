@@ -35,7 +35,7 @@ class NotesController < ApplicationController
     @diffed_tag_list = DiffedNoteTagList.new(@diffed_version.previous_tag_list, @diffed_version.tag_list).list
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
-    add_breadcrumb I18n.t('notes.versions.title', sequence: @diffed_version.sequence), note_version_path(@note, @diffed_version.sequence)
+    add_breadcrumb I18n.t('notes.version.title', sequence: @diffed_version.sequence), note_version_path(@note, @diffed_version.sequence)
 
     respond_to do |format|
       format.html

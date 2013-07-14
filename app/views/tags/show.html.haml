@@ -5,7 +5,7 @@
 
 %section
 
-  = render 'header', title: t('tags.item', name: @tag.name), document_title: document_title 
+  = render 'header', title: t('.title', name: @tag.name), document_title: document_title 
 
   = render 'notes_list', notes: @notes
 

@@ -26,10 +26,8 @@ en:
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
-    versions:
-      title: "Versions"
-      item: "Version %{sequence}"
-      short: "v%{sequence}"
+    version:
+      title: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
       not_found: "Note %{id} v%{sequence} is not available."
     word_count: "%{word_count} words"

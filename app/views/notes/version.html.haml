@@ -8,7 +8,7 @@
 %article
   %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
 
-    = render 'header', :title => "#{ Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title) } #{ t('notes.versions.short', :sequence => @diffed_version.sequence) }", :document_title => document_title
+    = render 'header', :title => "#{ Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title) } #{ t('.title', :sequence => @diffed_version.sequence) }", :document_title => document_title
 
     = render 'media', :note => @diffed_version
 

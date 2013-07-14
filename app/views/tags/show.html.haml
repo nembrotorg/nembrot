@@ -1,12 +1,12 @@
-- document_title = t('tags.item', :name => @tag.name)
-- set_meta_tags :title => document_title,
-                :description => '',
-                :open_graph => { :title => document_title }
+- document_title = t('tags.item', name: @tag.name)
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
 %section
 
-  = render 'header', :title => t('tags.item', :name => @tag.name), :document_title => document_title 
+  = render 'header', title: t('tags.item', name: @tag.name), document_title: document_title 
 
-  = render 'notes_list', :notes => @notes
+  = render 'notes_list', notes: @notes
 
-  = render 'citations/citations_list', :citations => @citations, books: @books
+  = render 'citations/citations_list', citations: @citations, books: @books

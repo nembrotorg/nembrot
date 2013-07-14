@@ -1,24 +1,24 @@
-- document_title = "#{ @note.headline } | #{ t('notes.short', :id => @note.id) }"
-- set_meta_tags :title => document_title,
-                :description => @note.body,
-                :open_graph => { :title => @note.title }
+- document_title = "#{ @note.headline } | #{ t('notes.short', id: @note.id) }"
+- set_meta_tags title: document_title,
+                description: @note.body,
+                open_graph: { title: @note.title }
 
-%article{ :class => (@note.instruction_list & Settings.styling.css_for_instructions).collect { |c| 'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase } }
-  %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
+%article{ class: (@note.instruction_list & Settings.styling.css_for_instructions).collect { |c| 'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase } }
+  %section#note-content{ lang: lang_attr(@note.lang), dir: dir_attr(@note.lang) }
 
-    = render 'header', :title => @note.headline, :document_title => document_title
+    = render 'header', title: @note.headline, document_title: document_title
 
-    = render 'images', :images => @note.resources.attached_images, :type => :standard unless @note.resources.attached_images.empty?
+    = render 'images', images: @note.resources.attached_images, type: :standard unless @note.resources.attached_images.empty?
 
-    = render 'media', :note => @note unless @note.embeddable_source_url.blank?
+    = render 'media', note: @note unless @note.embeddable_source_url.blank?
 
     %section#text
       = bodify(@note.body, @note.books)
 
-      = render 'downloads', :downloads => @note.resources.attached_files unless @note.resources.attached_files.empty?
+      = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 
-  = render 'tag_list', :tags => @tags unless @tags.empty?
+  = render 'tag_list', tags: @tags unless @tags.empty?
 
-  = render 'books_list', :books => @note.books unless @note.books.empty?
+  = render 'books_list', books: @note.books unless @note.books.empty?
 
-  = render 'versions_list', :note => @note
+  = render 'versions_list', note: @note

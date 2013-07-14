@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
 
-  add_breadcrumb I18n.t('tags.title'), :tags_path
+  add_breadcrumb I18n.t('tags.index.title'), :tags_path
 
   def index
 

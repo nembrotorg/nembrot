@@ -21,9 +21,9 @@ en:
     title: "Home"
 
   notes:
-    title: "Notes"
     short: "Note %{id}"
-    word_count: "%{word_count} words"
+    index:
+      title: "Notes"
     show:
       not_found: "Note %{id} is not available."
     versions:
@@ -32,6 +32,7 @@ en:
       short: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
       not_found: "Note %{id} v%{sequence} is not available."
+    word_count: "%{word_count} words"
     untitled_synonyms: ["Untitled", "Untitled Note", "New note"]
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."
@@ -57,17 +58,19 @@ en:
         record_not_found: "Record not found when cutting %{local_file_name}"
 
   tags:
-    title: "Tags"
     item: "%{name}"
     short: "%{name}"
+    index:
+      title: "Tags"
     show:
       not_found: "Tag: %{slug} is not available."
 
   books:
-    title: "Bibliography"
     item: "%{name}"
     short: "%{name}"
     editor_short: "(ed.)"
+    index:
+      title: "Bibliography"
     show:
       not_found: "Book: %{slug} is not available."
       translator_editor_introducer:

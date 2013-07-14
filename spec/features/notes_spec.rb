@@ -4,9 +4,7 @@ describe 'Notes' do
 
   include ResourcesHelper
 
-  before do
-    @note = FactoryGirl.create(:note)
-  end
+  before { @note = FactoryGirl.create(:note) }
 
   describe 'index page' do
     before do
@@ -14,7 +12,7 @@ describe 'Notes' do
       visit notes_path
     end
     it 'should have the title Notes' do
-      page.should have_selector('h1', text: I18n.t('notes.title'))
+      page.should have_selector('h1', text: I18n.t('notes.index.title'))
     end
     it 'should have a link to note' do
       page.should have_selector('a', note_path(@note))
@@ -65,10 +63,10 @@ describe 'Notes' do
       page.should_not have_css('#note-content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.title'), href: notes_path)
+      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.title'), href: tags_path)
+      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a link to tag1' do
       page.should have_link('tag1', href: '/tags/tag1')
@@ -174,10 +172,10 @@ describe 'Notes' do
       page.should_not have_css('#note-content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.title'), href: notes_path)
+      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.title'), href: tags_path)
+      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a diffed title' do
       page.should have_selector('del', text: 'Newer')

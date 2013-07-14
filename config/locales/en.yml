@@ -26,7 +26,7 @@ en:
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
-    version:
+    versions:
       title: "v%{sequence}"
       full: "Note %{id} v%{sequence}"
       not_found: "Note %{id} v%{sequence} is not available."

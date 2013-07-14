@@ -6,7 +6,7 @@
 %article
   %section#note-content{ lang: lang_attr(@citation.lang), dir: dir_attr(@citation.lang) }
 
-    = render 'header', title: t('.short', id: @citation.id), :document_title => document_title
+    = render 'header', title: t('.title', id: @citation.id), :document_title => document_title
 
     %section#text
       = bodify(@citation.body, @citation.books, 'book_main_details')

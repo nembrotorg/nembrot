@@ -180,14 +180,14 @@ describe Note do
         note.title = I18n.t('notes.untitled_synonyms').first
       end
       it 'returns preformatted title (e.g. Note 1)' do
-        note.headline.should == I18n.t('notes.short', id: note.id)
+        note.headline.should == I18n.t('notes.show.title', id: note.id)
       end
       context 'when note is a citation' do
         before do
           note.is_citation = true
         end
         it 'returns preformatted title (e.g. Citation 1)' do
-          note.headline.should == I18n.t('citations.short', id: note.id)
+          note.headline.should == I18n.t('citations.show.title', id: note.id)
         end
       end
     end

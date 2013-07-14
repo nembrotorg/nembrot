@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  add_breadcrumb I18n.t('books.title'), :books_path
+  add_breadcrumb I18n.t('books.index.title'), :books_path
 
   def index
     @books = Book.publishable

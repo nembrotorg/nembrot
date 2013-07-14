@@ -52,8 +52,8 @@ class Note < ActiveRecord::Base
   end
 
   def headline
-    return I18n.t('citations.short', id: id) if is_citation
-    I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.short', id: id) : title
+    return I18n.t('citations.show.title', id: id) if is_citation
+    I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.show.title', id: id) : title
   end
 
   def type

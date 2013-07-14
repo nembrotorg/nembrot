@@ -21,10 +21,10 @@ en:
     title: "Home"
 
   notes:
-    short: "Note %{id}"
     index:
       title: "Notes"
     show:
+      title: "Note %{id}"
       not_found: "Note %{id} is not available."
     versions:
       title: "Versions"
@@ -58,21 +58,19 @@ en:
         record_not_found: "Record not found when cutting %{local_file_name}"
 
   tags:
-    item: "%{name}"
-    short: "%{name}"
     index:
       title: "Tags"
     show:
+      title: "%{name}"
       not_found: "Tag: %{slug} is not available."
 
   books:
-    item: "%{name}"
-    short: "%{name}"
-    editor_short: "(ed.)"
     index:
       title: "Bibliography"
     show:
+      title: "Bibliography"
       not_found: "Book: %{slug} is not available."
+      editor_short: "(ed.)"
       translator_editor_introducer:
         false_false_true: "Introduced by %{introducer}."
         false_true_false: "Edited by %{editor}."
@@ -93,11 +91,10 @@ en:
           body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
   citations:
-    short: "Citation %{id}"
     index:
       title: 'Citations'
     show:
-      title: 'Citations'
+      title: 'Citation %{id}'
       not_found: "Citation %{id} is not available."
 
   titlecase_exceptions:

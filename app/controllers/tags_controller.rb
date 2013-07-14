@@ -4,13 +4,7 @@ class TagsController < ApplicationController
 
   def index
 
-    # Do these need to be different?
-
-    if Settings.tags.index.style == 'cloud'
-      @tags = Note.publishable.tag_counts_on(:tags)
-    else
-      @tags = Note.publishable.tag_counts
-    end
+    @tags = Note.publishable.tag_counts_on(:tags)
 
     respond_to do |format|
       format.html
@@ -22,12 +16,7 @@ class TagsController < ApplicationController
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.publishable.listable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
-
-    if Settings.tags.index.style == 'cloud'
-      @tags = Note.publishable.tag_counts_on(:tags)
-    else
-      @tags = Note.publishable.tag_counts
-    end
+    @tags = Note.publishable.tag_counts_on(:tags)
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 

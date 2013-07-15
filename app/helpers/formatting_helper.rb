@@ -26,6 +26,8 @@ module FormattingHelper
   end
 
   def bookify(text, books, citation_partial = 'inline')
+    # REVIEW: This is very inefficient if we have many books. However, doing it the other way round - 
+    #   i.e. books.find_by_tag(text[/\w+ \d{4}/].first) - would miss out tags like 'von Goethe 1990'
     books.each do |book|
       text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
       text.gsub!(/#{ book.tag }/, (render citation_partial(citation_partial), :book => book))
@@ -71,8 +73,17 @@ module FormattingHelper
               '<span class="annotation instapaper_ignore"><span>\\2\\3\\4\\5</span></span> ')
   end
 
+  def annotate(text)
+    annotations = text.scan(/( ?\[)([^\.].*? .*?)(\])/)
+    text.gsub!(/( ?\[)([^\.].*? .*?)(\])/).each_with_index do |match, index|
+      %Q(<a href="#annotation-#{ index + 1 }" id="annotation-mark-#{ index + 1 }">#{ index + 1 }</a>)
+    end
+    render 'annotated_text', text: text, annotations: annotations
+  end
+
   def clean_whitespace(text)
-    text.gsub(%r(&nbsp;), ' ')
+    text.gsub(%r(&quot;), '"')
+        .gsub(%r(&nbsp;), ' ')
         .gsub(/ +/m, ' ')
         .gsub(/\r\n?/, "\n")
         .gsub(/\n\n+/, "\n")
@@ -115,7 +126,7 @@ module FormattingHelper
     text = clean_whitespace(text)
     text = bookify(text, books, citation_partial)
     text = smartify(text)
-    text = notify(text)
+    text = annotate(text)
     text = headerize(text)
     text = paragraphize(text)
     text = denumber_headers(text)

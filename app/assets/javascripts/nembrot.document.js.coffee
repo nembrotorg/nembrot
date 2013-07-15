@@ -9,6 +9,18 @@ content_initializers = () ->
   if $('hgroup').data('title')
     document.title = $('hgroup').data('title')
 
+  format_annotations()
+
+format_annotations = () ->
+  minimum = 0
+  new_top = undefined
+  corrected_top = undefined
+  $("li[id*=annotation-]").each (i) ->
+    new_top = $("a[id=annotation-mark-" + (i + 1) + "]").offset().top
+    corrected_top = (if new_top <= minimum then minimum else new_top)
+    minimum = new_top + $(this).outerHeight(true)
+    $(this).offset top: corrected_top
+
 $ ->
   page_initializers()
   content_initializers()

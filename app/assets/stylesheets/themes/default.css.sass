@@ -241,21 +241,22 @@ footer
     +icon-cc-by-nc-sa
     letter-spacing: 0.25em
 
-  ///////////////////////////////
+///////////////////////////////
 //
 // Elements
 //
 ///////////////////////////////
 
-ul.notes, ul.citations
+.annotations
   li
-    position: relative
+    padding-left: $text-indent
+    text-indent: $text-indent * -1
+    &:target
+      background-color: $selected-background-color
     a
-      padding-right: 33%
-    img
-      position: absolute
-      width: 28%
-      right: 2%
+      display: inline-block
+      text-indent: 0
+      width:  $text-indent
 
 ///////////////////////////////
 //
@@ -439,6 +440,28 @@ ol.books
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+@media only print
+
+  nav
+    display: none
+
+  a
+    text-decoration: none
+
+  hgroup
+    display: block
+
+  #text
+    +columns(2)
+
+  img.qr_code
+    +column(2)
+    width: $qr_code_image_size
+    height: $qr_code_image_size
+
+  small
+    +columns(10)
+
 @media only screen
 
   // More can go here
@@ -456,7 +479,6 @@ ol.books
     overflow: hidden
     // +debug-bg
 
-
   header
     position: relative
     #notice
@@ -469,12 +491,22 @@ ol.books
 
   .notes-index, .citations-index
     ul.notes, ul.citations
-      +column(9)
+      +column(12)
+
+  ul.notes, ul.citations
+    li
+      position: relative
+      a
+        padding-right: 33%
+      img
+        position: absolute
+        width: 28%
+        right: 2%
 
   #note-content
     figure
       &.image
-        +place(0, 8, 4)
+        +place(0, 12, 0)
         margin-bottom: $line-height
         figcaption
           padding-top: $line-height / 2
@@ -484,14 +516,14 @@ ol.books
       .map_container
         position: relative
       #map
-        +place(6, 4, 2)
+        +place(9, 3, 0)
         background-color: $map-background-color
         color:  $map-font-color
         position: absolute
         height: $line-height * 6
 
     iframe
-      +place(0, 9, 3)
+      +place(0, 12, 0)
       &[src*='vimeo'],
       &[src*='youtube']
         height: $line-height * 16
@@ -503,46 +535,43 @@ ol.books
     #text
       position: relative
       counter-reset: term
-      +place(0, 6, 6)
+      +place(0, 9, 3)
       margin-bottom: $line-height
       color: $body-font-color
       p
         position: relative
-      span.annotation
-        &:before
-          counter-increment: term
-          content: counter(term)
-          vertical-align: super
-          font-size: 14px
-          margin-right: 5px
-        span
-          +hyphens
-          +column(3, 6)
-          +push(6, 6)
+      a[id*=annotation-mark]
+        font-size: $small-font-size
+        vertical-align: super
+      section.annotations
+        +hyphens
+        +column(3, 9)
+        +push(9, 9)
+        color: $headline-font-color
+        display: block
+        font:
+          size: $small-font-size + 1px
+        line-height: $line-height * 2/3
+        margin-top: $line-height * ( ($small-font-size + 1px) / ($line-height * 2/3) ) * -1
+        position: absolute
+        text-align: left
+        text-indent: 0
+        top: 0
+        li
           position: absolute
-          font:
-            size: $small-font-size + 1px
-          color: #c00
-          line-height: $line-height * 2/3
-          text-indent: 0
-          text-align: left
-          display: block
-          margin-top: $line-height * ( ($small-font-size + 1px) / ($line-height * 2/3) ) * -1
-          +fade
-          &:before
-            content: counter(term)
+          a:first-of-type
+            color: $headline-font-color
+            padding-right: 3px
+            text-align: right
             vertical-align: super
-            font-size: $small-font-size
-            margin-right: 5px
-          &:first-line
-            text-indent: -5px
-      &:hover
+            width: $text-indent - 3px
         a
           color: $link-color
           +transition
-        span.annotation
-          span
-            +fade(1)
+        a[id*=annotation-mark]
+          color: $count-color
+
+
   // Undo all...
   // Make sure this only applies to ltr pages
   // Maybe we need to always write dir in body / html
@@ -572,7 +601,7 @@ ol.books
 
   .home-index
     ul
-      +columns(3)
+      +columns(2)
       +column-gap($gutter-width * 1px)
       a
         padding-right: 0 !important
@@ -628,6 +657,14 @@ ol.books
   footer
     width: 1080px
 
+  .home-index
+    ul
+      +columns(3)
+
+  .notes-index, .citations-index
+    ul.notes, ul.citations
+      +column(9)
+
   .books-index
     ol
       +columns(2)
@@ -639,6 +676,28 @@ ol.books
   .tags-show
     ul.tags
       +columns(3)
+
+  #note-content
+    figure
+      &.image
+        +place(0, 8, 4)
+        margin-bottom: $line-height
+      #map
+        +place(6, 4, 2)
+
+    iframe
+      +place(0, 9, 3)
+
+    #text
+      +place(0, 6, 6)
+      section.annotations
+        +fade(0)
+        +hyphens
+        +column(3, 6)
+        +push(6, 6)
+      &:hover
+        section.annotations
+          +fade(1)
 
   footer
     ul

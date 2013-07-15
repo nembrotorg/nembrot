@@ -1,0 +1,10 @@
+= text.html_safe
+%section.annotations
+  %h3 Annotations
+  %ol
+    - annotations.each_with_index do |annotation, index|
+      %li{ id: "annotation-#{ index + 1 }" }><
+        %a{ href: "#annotation-mark-#{ index + 1 }" }><
+          = index + 1
+        = annotation[1]
+

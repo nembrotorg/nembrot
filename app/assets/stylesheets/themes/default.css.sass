@@ -41,6 +41,13 @@
 =debug-bg
   background: url('/resources/static/debug-bg.png') 0 0 repeat
 
+=pass_media_query($media-query)
+  body
+    &:after
+      content: $media-query
+      // line-height: 0
+      // visibility: hidden
+
 ///////////////////////////////
 //
 // Fonts
@@ -167,6 +174,8 @@ iframe
 //
 ///////////////////////////////
 
++pass_media_query('default')
+
 #main, footer
   width: 90%
   margin: 0 5% $line-height 5%
@@ -248,6 +257,11 @@ footer
 ///////////////////////////////
 
 .annotations
+  font:
+    size: $small-font-size + 1px
+  line-height: $line-height * 2/3
+  text-align: left
+  text-indent: 0
   li
     padding-left: $text-indent
     text-indent: $text-indent * -1
@@ -257,6 +271,9 @@ footer
       display: inline-block
       text-indent: 0
       width:  $text-indent
+      &:first-of-type
+        width: $text-indent
+
 
 ///////////////////////////////
 //
@@ -357,9 +374,13 @@ ul.citations
     text-indent: $text-indent
     &:first-of-type
       text-indent: 0
-    a[href*=http]:after
+  a
+    &[href*=http]:after
       //+icon-external-link
       padding: 0 0 0 0.5em
+    &[id*=annotation-mark]
+      font-size: $small-font-size
+      vertical-align: super
   section
     margin-bottom: $line-height
     h2
@@ -442,6 +463,8 @@ ol.books
 
 @media only print
 
+  +pass_media_query('print')
+
   nav
     display: none
 
@@ -469,6 +492,8 @@ ol.books
     display: none
 
 @media only screen and (min-width: 720px)
+
+  +pass_media_query('screen-and-min-width-720px')
 
   body
     padding-top: $line-height / 2
@@ -535,27 +560,19 @@ ol.books
     #text
       position: relative
       counter-reset: term
-      +place(0, 9, 3)
+      +place(0, 8, 4)
       margin-bottom: $line-height
       color: $body-font-color
       p
         position: relative
-      a[id*=annotation-mark]
-        font-size: $small-font-size
-        vertical-align: super
-      section.annotations
+      .annotations
         +hyphens
-        +column(3, 9)
+        +column(5, 9)
         +push(9, 9)
         color: $headline-font-color
         display: block
-        font:
-          size: $small-font-size + 1px
-        line-height: $line-height * 2/3
         margin-top: $line-height * ( ($small-font-size + 1px) / ($line-height * 2/3) ) * -1
         position: absolute
-        text-align: left
-        text-indent: 0
         top: 0
         li
           position: absolute
@@ -570,7 +587,6 @@ ol.books
           +transition
         a[id*=annotation-mark]
           color: $count-color
-
 
   // Undo all...
   // Make sure this only applies to ltr pages
@@ -653,6 +669,8 @@ ol.books
 
 @media only screen and (min-width: 1024px)
 
+  +pass_media_query('screen-and-min-width-1024px')
+
   #main,
   footer
     width: 1080px
@@ -704,6 +722,8 @@ ol.books
       +columns(6)
 
 //@media only screen and (min-width: 1200px)
+
+//+pass_media_query('screen-and-min-width-1200px')
 
 //  #main,
 //  footer

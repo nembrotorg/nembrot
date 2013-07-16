@@ -95,21 +95,19 @@ namespace :deploy do
     end
   end
 
-  desc "Zero-downtime restart of Unicorn (&god)"
+  desc "Zero-downtime restart of Unicorn"
   task :restart, :except => { :no_release => true } do
     run "kill -s USR2 `cat /tmp/unicorn.#{application}.pid`"
   end
 
-  desc "Start unicorn (& god)"
+  desc "Start unicorn"
   task :start, :except => { :no_release => true } do
     run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -D"
-    start_god
   end
 
-  desc "Stop unicorn (& god)"
+  desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
     run "kill -s QUIT `cat /tmp/unicorn.#{application}.pid`;rm -r #{latest_release}/tmp/pids"
-    stop_god
   end
 
   desc "Restart god"
@@ -134,7 +132,7 @@ namespace :deploy do
   end
 
   desc "Stop & start unicorn"
-  task :stopstart, :except => { :no_release => true } do
+  task :stop_start, :except => { :no_release => true } do
     stop
     start
   end

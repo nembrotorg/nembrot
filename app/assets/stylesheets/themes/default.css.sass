@@ -45,8 +45,8 @@
   body
     &:after
       content: $media-query
-      // line-height: 0
-      // visibility: hidden
+      line-height: 0
+      visibility: hidden
 
 ///////////////////////////////
 //
@@ -258,7 +258,7 @@ footer
 
 .annotations
   font:
-    size: $small-font-size + 1px
+    size: $small-font-size
   line-height: $line-height * 2/3
   text-align: left
   text-indent: 0
@@ -578,6 +578,8 @@ ol.books
           position: absolute
           a:first-of-type
             color: $headline-font-color
+            font:
+              size: $small-font-size
             padding-right: 3px
             text-align: right
             vertical-align: super
@@ -585,14 +587,13 @@ ol.books
         a
           color: $link-color
           +transition
-        a[id*=annotation-mark]
-          color: $count-color
+          // Use single blue line (border) for internal on hover, double for external
 
   // Undo all...
   // Make sure this only applies to ltr pages
   // Maybe we need to always write dir in body / html
   [dir=ltr]
-    section#note-content[dir=rtl]
+    #note-content[dir=rtl]
       #text
         +place(6, 6, 0)
       .map_container
@@ -708,13 +709,13 @@ ol.books
 
     #text
       +place(0, 6, 6)
-      section.annotations
+      .annotations
         +fade(0)
         +hyphens
         +column(3, 6)
         +push(6, 6)
       &:hover
-        section.annotations
+        .annotations
           +fade(1)
 
   footer

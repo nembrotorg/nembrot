@@ -10,13 +10,13 @@ content_initializers = () ->
     document.title = $('hgroup').data('title')
 
   # needs to happen on resize
-  format_annotations()
+  place_annotations()
 
-format_annotations = () ->
-  (if media_query('screen-and-min-width-1024px') then format_annotations_do() else format_annotations_undo())
+place_annotations = () ->
+  (if media_query('screen-and-min-width-1024px') then _place_annotations_do() else _place_annotations_undo())
   true
 
-format_annotations_do = () ->
+_place_annotations_do = () ->
   minimum = 0
   new_top = undefined
   corrected_top = undefined
@@ -26,7 +26,7 @@ format_annotations_do = () ->
     minimum = new_top + $(this).outerHeight(true)
     $(this).offset top: corrected_top
 
-format_annotations_undo = () ->
+_place_annotations_undo = () ->
   $("li[id*=annotation-]").offset top: 'auto'
 
 media_query = (media_query_string) ->
@@ -44,4 +44,4 @@ $(document).on 'pjax:end', ->
   content_initializers()
 
 $(document).on 'resize', ->
-  format_annotations()
+  place_annotations()

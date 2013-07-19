@@ -258,7 +258,7 @@ footer
 
 .annotations
   font:
-    size: $small-font-size
+    size: $small-font-size + 1px
   line-height: $line-height * 2/3
   text-align: left
   text-indent: 0
@@ -267,6 +267,7 @@ footer
     text-indent: $text-indent * -1
     &:target
       background-color: $selected-background-color
+      +transition
     a
       display: inline-block
       text-indent: 0
@@ -377,9 +378,9 @@ ul.citations
   a
     &[href*=http]:after
       //+icon-external-link
-      padding: 0 0 0 0.5em
+      // padding: 0 0 0 0.5em
     &[id*=annotation-mark]
-      font-size: $small-font-size
+      font-size: $small-font-size - 2px
       vertical-align: super
   section
     margin-bottom: $line-height
@@ -571,15 +572,16 @@ ol.books
         +push(9, 9)
         color: $headline-font-color
         display: block
-        margin-top: $line-height * ( ($small-font-size + 1px) / ($line-height * 2/3) ) * -1
         position: absolute
         top: 0
         li
+          font:
+            size: $small-font-size + 1px
           position: absolute
           a:first-of-type
             color: $headline-font-color
             font:
-              size: $small-font-size
+              size: $small-font-size - 2px
             padding-right: 3px
             text-align: right
             vertical-align: super
@@ -592,6 +594,7 @@ ol.books
   // Undo all...
   // Make sure this only applies to ltr pages
   // Maybe we need to always write dir in body / html
+  // Also annotations.
   [dir=ltr]
     #note-content[dir=rtl]
       #text
@@ -713,7 +716,7 @@ ol.books
         +fade(0)
         +hyphens
         +column(3, 6)
-        +push(6, 6)
+        +push(3, 6)
       &:hover
         .annotations
           +fade(1)

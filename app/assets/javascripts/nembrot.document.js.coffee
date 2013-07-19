@@ -9,17 +9,19 @@ content_initializers = () ->
   if $('hgroup').data('title')
     document.title = $('hgroup').data('title')
 
-  # needs to happen on resize
+  place_annotations()
+
+resize_initializers = () ->
   place_annotations()
 
 place_annotations = () ->
-  (if media_query('screen-and-min-width-1024px') then _place_annotations_do() else _place_annotations_undo())
+  (if _media_query('default') then _place_annotations_undo() else _place_annotations_do())
   true
 
 _place_annotations_do = () ->
   minimum = 0
-  new_top = undefined
-  corrected_top = undefined
+  new_top = 0
+  corrected_top = 0
   $("li[id*=annotation-]").each (i) ->
     new_top = $("a[id=annotation-mark-" + (i + 1) + "]").offset().top
     corrected_top = (if new_top <= minimum then minimum else new_top)
@@ -29,11 +31,12 @@ _place_annotations_do = () ->
 _place_annotations_undo = () ->
   $("li[id*=annotation-]").offset top: 'auto'
 
-media_query = (media_query_string) ->
+_media_query = (media_query_string) ->
   style = null
   if window.getComputedStyle and window.getComputedStyle(document.body, '::after')
     style = window.getComputedStyle(document.body, '::after')
     style = style.content.replace /"/g, ''
+    console.log style
   style is media_query_string
 
 $ ->
@@ -43,5 +46,5 @@ $ ->
 $(document).on 'pjax:end', ->
   content_initializers()
 
-$(document).on 'resize', ->
-  place_annotations()
+$(window).on 'resize', ->
+  resize_initializers()

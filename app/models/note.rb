@@ -100,7 +100,7 @@ class Note < ActiveRecord::Base
   def external_updated_is_latest?
     return true if external_updated_at_was.blank?
     if external_updated_at <= external_updated_at_was
-      errors.add( :external_updated_at, 'must be more recent than any other version' )
+      errors.add(:external_updated_at, 'must be more recent than any other version')
       return false
     end
   end
@@ -127,7 +127,7 @@ class Note < ActiveRecord::Base
   end
 
   def scan_note_for_urls
-    Link.grab_urls(body, source_url) unless clean_body.blank? and source_url.blank?
+    Link.grab_urls(body, source_url) unless clean_body.blank? && source_url.blank?
   end
 
   def body_or_source_or_resource?

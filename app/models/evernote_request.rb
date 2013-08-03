@@ -178,7 +178,7 @@ class EvernoteRequest
         description = descriptions[index] ? descriptions[index][0] : ''
         credit = credits[index] ? credits[index][0] : ''
 
-        # REVIEW (see comment in Resource)
+        # REVIEW: see comment in Resource
         resource.update_with_evernote_data(cloud_resource, caption, description, credit)
       end
     end

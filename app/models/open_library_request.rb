@@ -21,10 +21,10 @@ class OpenLibraryRequest
   def populate(response, isbn)
     response = response["ISBN:#{ isbn }"]['details']
     metadata = {}
-    # TODO:
-    # metadata['editor = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
-    # metadata['introducer = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
-    # metadata['translator = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
+    # TODO: add other contributors.
+    #  metadata['editor = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
+    #  metadata['introducer = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
+    #  metadata['translator = response['by_statement'].try { scan(/translated by (.*?)[.]/) }
     metadata['author']            = response.try { |r| Array(r['authors']).first['name'] }
     metadata['dewey_decimal']     = response.try { |r| Array(r['dewey_decimal_class']).first }
     metadata['lcc_number']        = response.try { |r| Array(r['lccn']).first }

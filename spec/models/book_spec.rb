@@ -7,12 +7,14 @@ describe Book do
 
   it { should respond_to(:attempts) }
   it { should respond_to(:author) }
+  it { should respond_to(:author_or_editor) }
   it { should respond_to(:dewey_decimal) }
   it { should respond_to(:dirty) }
   it { should respond_to(:editor) }
   it { should respond_to(:google_books_embeddable) }
   it { should respond_to(:google_books_id) }
   it { should respond_to(:introducer) }
+  it { should respond_to(:isbn) }
   it { should respond_to(:isbn_10) }
   it { should respond_to(:isbn_13) }
   it { should respond_to(:lang) }
@@ -23,6 +25,7 @@ describe Book do
   it { should respond_to(:published_city) }
   it { should respond_to(:published_date) }
   it { should respond_to(:publisher) }
+  it { should respond_to(:slug) }
   it { should respond_to(:tag) }
   it { should respond_to(:title) }
   it { should respond_to(:translator) }
@@ -47,6 +50,7 @@ describe Book do
 
   def book_is_updated?
     @book.author.should                   == 'Friedrich A. Kittler'
+    @book.attempts.should                 == 0
     @book.dewey_decimal.should            == '830.9357'
     @book.dimensions.should               == nil
     @book.dirty.should                    == false
@@ -73,21 +77,9 @@ describe Book do
     @book.weight.should                   == nil
   end
 
-  describe '.sync_all' do
-    before do
-      @book = Book.add_task('0804720991')
-      Book.sync_all
-    end
-    it 'fetches metadata for dirty books' do
-      pending 'book_is_updated?'
-      pending '@book.attempts.should == 0'
-    end
-  end
-
   describe '#populate!' do
     before do
-      @book = Book.new
-      @book.isbn_10 = '0804720991'
+      @book = Book.add_task('0804720991')
       @book.populate!
     end
     it 'fetches metadata from four APIs' do
@@ -95,8 +87,6 @@ describe Book do
       @book.attempts.should == 0
     end
   end
-
-  pending 'MERGE NEEDS TO BE UNIT TESTED'
 
   describe '#tag' do
     it 'creates a tag from author surname and published date' do
@@ -111,16 +101,17 @@ describe Book do
   end
 
   describe '#isbn' do
-    before { @book.update_attributes(isbn_10: nil) }
-    it 'returns isbn_13 as isbn when isbn_10 is nil' do
-      @book.isbn.should == @book.isbn_13
+    context 'when isbn_10 is nil' do
+      before { @book.update_attributes(isbn_10: nil) }
+      it 'returns isbn_13 as isbn' do
+        @book.isbn.should == @book.isbn_13
+      end
     end
-  end
-
-  describe '#isbn' do
-    before { @book.update_attributes(isbn_13: nil) }
-    it 'returns isbn_10 as isbn when isbn_13 is nil' do
-      @book.isbn.should == @book.isbn_10
+    context 'when isbn_13 is nil' do
+      before { @book.update_attributes(isbn_13: nil) }
+      it 'returns isbn_10 as isbn' do
+        @book.isbn.should == @book.isbn_10
+      end
     end
   end
 
@@ -141,16 +132,16 @@ describe Book do
   describe '#headline' do
     before { @book.update_attributes(author: 'Name Surname', title: 'Short Title: Long Title') }
     it 'returns author and short book title' do
-      @book.headline.should == 'Surname: Short Title'
+      @book.headline.should == 'Surname: <cite>Short Title</cite>'
     end
   end
 
   describe '#editor' do
     before { @book.update_attributes(author: nil, editor: 'Name2 Surname2', title: 'Short Title: Long Title') }
     it 'returns editor when author is nil' do
-      @book.author_or_editor.should == "Name2 Surname2 #{ I18n.t('books.editor_short') }"
-      @book.author_surname.should == "Surname2 #{ I18n.t('books.editor_short') }"
-      @book.headline.should == "Surname2 #{ I18n.t('books.editor_short') }: Short Title"
+      @book.author_or_editor.should == "Name2 Surname2 #{ I18n.t('books.show.editor_short') }"
+      @book.author_surname.should == "Surname2 #{ I18n.t('books.show.editor_short') }"
+      @book.headline.should == "Surname2 #{ I18n.t('books.show.editor_short') }: <cite>Short Title</cite>"
     end
   end
 end

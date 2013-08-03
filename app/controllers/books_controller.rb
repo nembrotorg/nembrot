@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @notes }
+      format.json { render :json => @book }
     end
     rescue
       flash[:error] = t('books.show.not_found', slug: params[:slug])

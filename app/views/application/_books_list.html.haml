@@ -1,6 +1,6 @@
 %section.books
   %header
     %h6=t('books.title')
-  %ol
+  %ul
     = list_of books do |book|
       = link_to_unless_current "#{ book.headline } <span class=\"count\">#{ book.notes.size }</span>".html_safe, book

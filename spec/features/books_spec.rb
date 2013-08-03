@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'Citations' do
+describe 'Books' do
 
   before do
     @book = FactoryGirl.create(:book)
@@ -21,7 +21,7 @@ describe 'Citations' do
 
   describe 'show page' do
     before do
-      visit book_path(@citation)
+      visit book_path(@book)
     end
     it 'has the citation title' do
       page.should have_selector('h1', @citation.headline)

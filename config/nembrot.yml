@@ -29,7 +29,7 @@ defaults: &defaults
       required: ['__HOME']
   notes:
     title_length: 40
-    blurb_length: 300
+    blurb_length: 350
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
@@ -110,6 +110,7 @@ defaults: &defaults
     link_color: '#000'
     link_hover_color: '#009'
     link_visited_color: '#000'
+    static_url_color: '#090'
     selected_font_color: '#000'
     selected_background_color: '#ff0'
     invalid_background_color: 'ff0'

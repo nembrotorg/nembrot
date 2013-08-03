@@ -2,6 +2,17 @@
 
 describe FormattingHelper do
 
+# let(:doc) { IO.read(Rails.root.join('spec', 'support', 'api_response.xml')) }
+# let(:doc) { File.read(File.expand_path '../../inputs/input1.txt', __FILE__) }
+
+  describe '#bodify' do
+    Dir.glob(Rails.root.join('spec', 'support', 'formatting_samples', 'evernote_*_input.txt')) do |sample_file|
+      let(:input) { IO.read(sample_file) }
+      let(:expected) { IO.read(sample_file.gsub(/input/, 'expected')) }
+      specify { bodify(input).should == expected }
+    end
+  end
+
   describe '#format_blockquotes' do
     it 'converts quotes to block quote' do
       format_blockquotes("Some text.\nquote:Long quote.\nMore text.")
@@ -103,7 +114,7 @@ describe FormattingHelper do
 
   describe '#smartify_numbers' do
     it 'changes exponents to <sup>' do
-      smartify_numbers('1^2').should == '1<sup>2</sup>'
+      smartify_numbers('1^2').should eq('1<sup>2</sup>')
     end
   end
 
@@ -119,33 +130,18 @@ describe FormattingHelper do
     pending 'Tests.'
   end
 
-  describe '#notify' do
-    it 'wraps [notes] into html tags' do
-      notify('Plain [A side-note.] text. Plain text')
-        .should == 'Plain<span class="annotation instapaper_ignore"><span>A side-note.</span></span>  text. Plain text'
-    end
-    it 'does not wrap ellipses [...] into html tags' do
-      notify('Plain [...] text. More plain text')
-        .should == 'Plain [...] text. More plain text'
-    end
-    it 'does not wrap single [words] into html tags' do
-      notify('Plain [unheimlich] text. More plain text')
-        .should == 'Plain [unheimlich] text. More plain text'
-    end
-  end
-
   describe '#clean_whitespace' do
     it 'replaces multiple new lines with a single new line' do
-      clean_whitespace("Some text.\n\nMore text.").should == "Some text.\nMore text."
+      clean_whitespace("Some text.\n\nMore text.").should  eq("Some text.\nMore text.")
     end
     it 'strips leading and trailing spaces' do
-      clean_whitespace(' Text. More text.  ').should == 'Text. More text.'
+      clean_whitespace(' Text. More text.  ').should eq('Text. More text.')
     end
     it 'replaces extra whitespace with a single space' do
-      clean_whitespace('Text.  More text.').should == 'Text. More text.'
+      clean_whitespace('Text.  More text.').should eq('Text. More text.')
     end
     it 'converts non-breaking spaces to ordinary spaces' do
-      clean_whitespace('Some&nbsp;text').should == 'Some text'
+      clean_whitespace('Some&nbsp;text').should eq('Some text')
     end
   end
 

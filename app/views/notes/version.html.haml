@@ -1,19 +1,23 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', :id => @note.id, :sequence => @diffed_version.sequence) }"
-- set_meta_tags :title => document_title,
-                :canonical => note_path(@note),
-                :description => @diffed_version.body,
-                :open_graph => { :title => @diffed_version.title },
-                :noindex => true
+- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) }"
+- set_meta_tags title: document_title,
+                canonical: note_path(@note),
+                description: @diffed_version.body,
+                open_graph: { title: @diffed_version.title },
+                noindex: true
 
 %article
-  %section#note-content{ :lang => lang_attr(@note.lang), :dir => dir_attr(@note.lang) }
+  %section#note-content{ lang: lang_attr(@note.lang), dir: dir_attr(@note.lang) }
 
-    = render 'header', :title => "#{ Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title) } #{ t('.title', :sequence => @diffed_version.sequence) }", :document_title => document_title
+    - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
+    - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
 
-    = render 'media', :note => @diffed_version
+    = render 'header', title: title, document_title: document_title
 
+    = render 'media', note: @diffed_version
+
+    -#    %section#text!= bodify(Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body))
     %section#text!= Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
-  = render 'diffed_tag_list', :diffed_tag_list => @diffed_tag_list
+  = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list
 
-  = render 'versions_list', :note => @note
+  = render 'versions_list', note: @note

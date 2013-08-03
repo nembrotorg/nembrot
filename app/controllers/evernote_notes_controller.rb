@@ -9,6 +9,7 @@ class EvernoteNotesController < ApplicationController
       EvernoteNote.sync_all
       Resource.sync_all_binaries
       Book.sync_all
+      Link.sync_all
     end
 
     render :json => { 'status' => 'OK' }

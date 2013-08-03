@@ -394,10 +394,6 @@ ul.icons
   +icon
   content: '\f08e'
 
-=icon-gplus-1
-  +icon
-  content: '\f0d5'
-
 =icon-rss
   +icon
   content: '\f09e'
@@ -405,3 +401,11 @@ ul.icons
 =icon-rss-alt
   +icon
   content: '\e73b'
+
+=icon-plus
+  +icon
+  content: '\e804'
+
+=icon-minus
+  +icon
+  content: '\e805'

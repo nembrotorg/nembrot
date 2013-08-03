@@ -7,12 +7,16 @@
 
   = render 'header', :title => t('.title'), :document_title => document_title
 
+  %section.details
+    %p.main= link_to_unless_current main_details(@book).html_safe, @book
+    %p= contributors(@book)
+    %p= classification(@book)
+    %p= links(@book)
+
   -# %iframe{ :src => "http://books.google.de/books?id=#{ @book.google_books_id }&lpg=PR1&ots=Hfep-dhu0H&d&pg=PR1&output=embed" }
 
-  = render citation_partial('book_details'), :book => @book
-
   = render 'citations/citations_list', :citations => @book.notes.publishable.citations, books: @books
-  -# Citations for a book should be in page number (but consider Roman numerals)
+  -# Citations for a book should be in page number order (but consider Roman numerals)
 
   = render 'notes_list', :notes => @book.notes.publishable.listable
 

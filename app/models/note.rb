@@ -13,6 +13,7 @@ class Note < ActiveRecord::Base
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_and_belongs_to_many :books
+  has_and_belongs_to_many :links
 
   acts_as_taggable_on :tags, :instructions
 
@@ -30,14 +31,17 @@ class Note < ActiveRecord::Base
   scope :publishable, where(active: true, hide: false)
   scope :listable, where(listable: true, is_citation: false)
   scope :citations, where(is_citation: true)
+  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
+  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
 
   validates :title, :external_updated_at, presence: true
-  validate :body_or_source_or_resource, before: :update
+  validate :body_or_source_or_resource?, before: :update
   # validate :external_updated_is_latest?, before: :update
 
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
+  after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
 
   def has_instruction?(instruction, instructions = instruction_list)
     instruction_to_find = ["__#{ instruction.upcase }"]
@@ -61,7 +65,9 @@ class Note < ActiveRecord::Base
   end
 
   def clean_body_with_instructions
-    ActionController::Base.helpers.strip_tags(body).gsub(/\n\n*\r*/, "\n").strip
+    ActionController::Base.helpers.strip_tags(body.gsub(/<(b|h2|strong)>.*?<\/(b|h2|strong)>/, ''))
+      .gsub(/\n\n*\r*/, "\n")
+      .strip
   end
 
   def clean_body
@@ -110,15 +116,21 @@ class Note < ActiveRecord::Base
     self.lang = lang
   end
 
+  # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
+    self.links = Link.publishable.keep_if { |link| body.include?(link.url) }
   end
 
   def scan_note_for_isbns
     Book.grab_isbns(body) unless body.blank?
   end
 
-  def body_or_source_or_resource
+  def scan_note_for_urls
+    Link.grab_urls(body, source_url) unless clean_body.blank? and source_url.blank?
+  end
+
+  def body_or_source_or_resource?
     if body.blank? && embeddable_source_url.blank? && resources.blank?
       errors.add(:note, 'Note needs one of body, source or resource.')
     end

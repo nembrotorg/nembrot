@@ -25,4 +25,10 @@ module ApplicationHelper
   def qr_code_image_url(size = Settings.styling.qr_code_image_size)
     "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
   end
+
+  def css_instructions(note_instructions)
+    (note_instructions & Settings.styling.css_for_instructions).collect do |c|
+        'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
+    end
+  end
 end

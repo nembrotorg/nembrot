@@ -9,29 +9,30 @@ en:
 
   email:
     greeting: "Hi %{name}"
-    signature: "joegatt.net"
+    signature: 'joegatt.net'
 
   site:
-    title: "joegatt.net"
-    breadcrumbs: "Breadcrumbs"
-    copyright_html: "Except as otherwise stated, all content on this site is <span class=\"byline author vcard\">by <span class=\"fn\">Joe Gatt</span></span> and licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported licence</a>."
-    chromeframe_html: "Your browser is <em>ancient!</em> <a href=\"http://browsehappy.com/\">Upgrade to a different browser</a> or <a href=\"http://www.google.com/chromeframe/?redirect=true\">install Google Chrome Frame</a> to experience this site."
+    title: 'joegatt.net'
+    breadcrumbs: 'Breadcrumbs'
+    copyright_html: 'Except as otherwise stated, all content on this site is <span class="byline author vcard">by <span class="fn">Joe Gatt</span></span> and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported licence</a>.'
+    chromeframe_html: 'Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.'
 
   home:
-    title: "Home"
+    title: 'Home'
 
   notes:
     index:
-      title: "Notes"
+      title: 'Notes'
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
     version:
       title: "v%{sequence}"
+      title_html: "%{title} v%{sequence}"
       full: "Note %{id} v%{sequence}"
       not_found: "Note %{id} v%{sequence} is not available."
     word_count: "%{word_count} words"
-    untitled_synonyms: ["Untitled", "Untitled Note", "New note"]
+    untitled_synonyms: ['Untitled', 'Untitled Note', 'New note']
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."
       rejected:
@@ -57,27 +58,18 @@ en:
 
   tags:
     index:
-      title: "Tags"
+      title: 'Tags'
     show:
       title: "%{name}"
       not_found: "Tag: %{slug} is not available."
 
   books:
     index:
-      title: "Bibliography"
+      title: 'Bibliography'
     show:
-      title: "Bibliography"
+      title: 'Bibliography'
       not_found: "Book: %{slug} is not available."
       editor_short: "(ed.)"
-      translator_editor_introducer:
-        false_false_true: "Introduced by %{introducer}."
-        false_true_false: "Edited by %{editor}."
-        false_true_true: "Edited by %{editor}, with an introduction by %{introducer}."
-        true_false_false: "Translated by %{translator}."
-        true_false_true: "Translated by %{translator}, with an introduction by %{introducer}."
-        true_true_false: "Translated by %{translator}, edited by %{editor}."
-        true_true_true: "Translated by %{translator}. Edited by %{editor}, with an introduction by %{introducer}."
-
     sync:
       updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
       failed:
@@ -88,15 +80,22 @@ en:
           subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
           body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
+  links:
+    index:
+      title: 'Links'
+    show_channel:
+      title: 'Links'
+      not_found: "Links for %{channel} are not available."
+
   citations:
     index:
       title: 'Citations'
     show:
-      title: 'Citation %{id}'
+      title: "Citation %{id}"
       not_found: "Citation %{id} is not available."
 
   titlecase_exceptions:
-    articles: "a an the"
-    coordinating_conjunctions: "and but for nor or so yet"
-    common_prepositions: "about beneath in regarding above beside inside round across between into since after beyond like through against by near to among concerning of toward around despite off under as down on unlike at during out until before except outside up behind for over upon below from past with via"
-    latin_abbreviations: "v vs id est"
+    articles: 'a an the'
+    coordinating_conjunctions: 'and but for nor or so yet'
+    common_prepositions: 'about beneath in regarding above beside inside round across between into since after beyond like through against by near to among concerning of toward around despite off under as down on unlike at during out until before except outside up behind for over upon below from past with via'
+    latin_abbreviations: 'v vs id est'

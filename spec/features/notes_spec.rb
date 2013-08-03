@@ -163,7 +163,7 @@ describe 'Notes' do
       visit note_version_path(@note, 3)
     end
     it 'should have the note title as title' do
-      page.should have_selector('h1', text: @note.title)
+      page.should have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
     end
     it 'should not have the language attribute (if note is in default language)' do
       page.should_not have_css('#note-content[lang=en]')

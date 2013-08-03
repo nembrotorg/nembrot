@@ -48,6 +48,23 @@
       line-height: 0
       visibility: hidden
 
+// .home-index ul a:after {
+=blurb($lines: 3)
+  height: $line-height * $lines
+  overflow: hidden
+  &:after
+    background-color: #FFFFFF
+    border-left: 1px solid #000
+    bottom: -3px
+    content: ""
+    font-family: fontello
+    font-size: 14px
+    padding-left: 5px
+    position: absolute
+    right: 0
+    &:hover
+      border-color: $link-hover-color // DOESN'T WORK
+
 ///////////////////////////////
 //
 // Fonts
@@ -122,6 +139,9 @@ a[href*=http]:after
   +icon-link-ext
   +icon-medium
 
+.url
+  color: $static-url-color
+
 ins
   text-decoration: none
   background-color: $insert-background-color
@@ -133,6 +153,9 @@ del
 blockquote
   +body-font-citation
   margin: ($line-height / 2) $text-indent
+
+cite + a[href*=annotation]
+  margin-left: 3px
 
 ol, ul
   +no-bullets
@@ -192,6 +215,8 @@ footer small
   a:before
     +icon-right-4
     +icon-small
+  cite
+    font-style: normal
   li:last-child
     &:before
       +icon-right-4
@@ -271,7 +296,6 @@ footer
     a
       display: inline-block
       text-indent: 0
-      width:  $text-indent
       &:first-of-type
         width: $text-indent
 
@@ -320,7 +344,11 @@ ul.citations
     figcaption
       display: block
       &:before
-        content: '\2014' // make hyphen mixin
+        content: '\2014 ' // make hyphen mixin
+blockquote
+  footer:before
+    content: '\2014 ' // make hyphen mixin
+    margin: 0
 
 // GENERALISE
 .notes-show, .citations-show
@@ -342,23 +370,25 @@ ul.citations
         &:before
           content: '\2014'
 
-.books-show, .citations-index, .citations-show, .tags-show
-  figure.citation
-    blockquote
-      // text-align: left
-      &:before
-        +icon-quote-left-alt
-        color: $secondary-color
-        font-size: $body-font-size
-        position: absolute
-        left: 0
+// TODO: genericise
+.books-show, .links-show_channel, .citations-index, .citations-show, .tags-show
+  //on citations show, figures are not used, why?
+  //figure.citation
+  blockquote
+    // text-align: left
+    &:before
+      +icon-quote-left-alt
+      color: $secondary-color
+      font-size: $body-font-size
+      position: absolute
+      left: 0
 
 .citations-show
   figure.citation
     figcaption
       margin: $line-height 0 0 0
 
-.books-show
+.books-show, .links-show_channel
   figure.citation
     cite
       display: none
@@ -417,8 +447,20 @@ ul.citations
           a:after
             content: ''
 
-ol.books
+ul.books, ul.links
   +column(12)
+
+section.links
+  +column(12)
+  ul li
+    margin-bottom: $line-height
+    p
+      margin: 0
+      padding: 0
+    ul
+      display: block
+      clear: both
+      +clearfix
 
 .versions
   ol
@@ -426,7 +468,7 @@ ol.books
     li
       &:first-child
         a:before
-          +icon-angle-double-down
+          +icon-plus
       &:nth-child(n+2)
         display: none
 
@@ -524,6 +566,7 @@ ol.books
       position: relative
       a
         padding-right: 33%
+        // +blurb(4)
       img
         position: absolute
         width: 28%
@@ -570,22 +613,26 @@ ol.books
         +hyphens
         +column(5, 9)
         +push(9, 9)
-        color: $headline-font-color
         display: block
         position: absolute
         top: 0
         li
+          color: $headline-font-color
           font:
             size: $small-font-size + 1px
           position: absolute
-          a:first-of-type
+          a
             color: $headline-font-color
-            font:
-              size: $small-font-size - 2px
-            padding-right: 3px
-            text-align: right
-            vertical-align: super
-            width: $text-indent - 3px
+            &:hover
+              color: $link-hover-color
+            &:first-of-type
+              color: $headline-font-color
+              font:
+                size: $small-font-size - 2px
+              padding-right: 3px
+              text-align: right
+              vertical-align: super
+              width: $text-indent - 3px
         a
           color: $link-color
           +transition
@@ -610,8 +657,8 @@ ol.books
       +place(0, 6, 6)
       margin-bottom: $line-height
   
-  .books
-    ol
+  .books //, .links - contains two more lists
+    ul
       +place(0, 6, 6)
       margin-bottom: $line-height
 
@@ -620,21 +667,23 @@ ol.books
       +place(0, 6, 6)
 
   .home-index
-    ul
-      +columns(2)
-      +column-gap($gutter-width * 1px)
-      a
-        padding-right: 0 !important
-      img
-        display: none
+    ul.notes
+      li
+        // +columns(2)
+        +column-gap($gutter-width * 1px)
+        a
+          padding-right: 0 !important
+          +blurb(7)
+        img
+          display: none
 
-  .books-index
-    ol
+  .books-index, .links-index
+    ul
       +column(12)
       .count
         color: $count-color
 
-  .books-show
+  .books-show, .links-show_channel
     .details
       +column(12)
       margin-bottom: $line-height
@@ -646,10 +695,20 @@ ol.books
     ul.notes, ul.citations
       +place(0, 9, 3)
     .books
-      ol
+      ul
         +column(6)
         .count
           color: $count-color
+
+  .links-show_channel
+    ul.notes, ul.citations
+      margin-left: 0
+
+  .links-show_channel
+    section.links
+      //+column(12)
+      .notes, .citations
+        //+column(6, 12)
 
   .tags-index
     ul
@@ -687,8 +746,8 @@ ol.books
     ul.notes, ul.citations
       +column(9)
 
-  .books-index
-    ol
+  .books-index, .links-index
+    ul
       +columns(2)
 
   .tags-index

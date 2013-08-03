@@ -2,7 +2,9 @@
   = list_of notes do |note|
 
     - headline, blurb = blurb(note.headline, note.clean_body)
+    - image = note.resources.attached_images.first
 
-    = link_to (render 'blurb', headline: headline, blurb: blurb, image: note.resources.attached_images.first), note, 
-        lang: lang_attr(note.lang),
-        dir: dir_attr(note.lang)
+    %a{ href: note_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) }
+      = image_tag(cut_image_binary_path(image, type: :thumbnail), alt: strip_tags(image.description)) unless image.nil?
+      %h2= blurbify(headline, note.books, note.links) 
+      ~ blurbify(blurb, note.books, note.links)

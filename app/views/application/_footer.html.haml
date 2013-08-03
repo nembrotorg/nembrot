@@ -5,6 +5,7 @@
       %li= link_to_unless_current t('notes.index.title'), notes_path
       %li= link_to_unless_current t('citations.index.title'), citations_path
       %li= link_to_unless_current t('books.index.title'), books_path
+      %li= link_to_unless_current t('links.index.title'), links_path
       %li= link_to_unless_current t('tags.index.title'), tags_path
 
       = list_of Settings.web_channels do |link|

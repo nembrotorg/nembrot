@@ -79,7 +79,7 @@ describe NotesController do
       end
       it { should respond_with(:redirect) }
       it 'sets the flash' do
-        flash[:error].should == I18n.t('notes.versions.not_found', id: @note.id, sequence: 999)
+        flash[:error].should == I18n.t('notes.version.not_found', id: @note.id, sequence: 999)
       end
     end
   end

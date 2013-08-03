@@ -4,7 +4,7 @@ describe CloudServiceMailer do
     let(:mail) { CloudServiceMailer.auth_not_found(provider) }
  
     it 'renders the subject' do
-      mail.subject.should == I18n.t('auth.email.subject', :provider => provider.titlecase)
+      mail.subject.should == I18n.t('auth.email.subject', provider: provider.titlecase)
     end
  
     it 'renders the receiver email' do

@@ -7,5 +7,6 @@ loop do
   EvernoteNote.sync_all
   Resource.sync_all_binaries
   Book.sync_all
+  Link.sync_all
   sleep Settings.evernote.daemon_frequency
 end

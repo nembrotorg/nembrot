@@ -21,7 +21,7 @@ describe CitationsHelper do
 
   describe '#contributors' do
     it 'returns a string containing all the contributors' do
-      contributors(@book).should ==  I18n.t('books.show.translator_editor_introducer.true_true_true',
+      contributors(@book).should ==  I18n.t('citation.book.translator_editor_introducer.true_true_true',
                                             translator: @book.translator,
                                             editor: @book.editor,
                                             introducer: @book.introducer)
@@ -30,7 +30,7 @@ describe CitationsHelper do
     context 'when a book has no translator' do
       before { @book.translator = nil }
       it 'adjusts the punctuation' do
-        contributors(@book).should ==  I18n.t('books.show.translator_editor_introducer.false_true_true',
+        contributors(@book).should ==  I18n.t('citation.book.translator_editor_introducer.false_true_true',
                                               translator: @book.translator,
                                               editor: @book.editor,
                                               introducer: @book.introducer)

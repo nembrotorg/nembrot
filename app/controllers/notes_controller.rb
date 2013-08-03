@@ -45,7 +45,7 @@ class NotesController < ApplicationController
       flash[:error] = t('notes.show.not_found', id: params[:id])
       redirect_to notes_path
     rescue
-      flash[:error] = t('notes.versions.not_found', id: params[:id], sequence: params[:sequence])
+      flash[:error] = t('notes.version.not_found', id: params[:id], sequence: params[:sequence])
       redirect_to note_path(@note)
   end
 end

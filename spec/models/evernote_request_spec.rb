@@ -3,12 +3,12 @@
 describe EvernoteNote do
 
   before do
-    Settings.evernote['notebooks'] = %w(NOTEBOOK_GUID)
-    Settings.notes['instructions']['required'] = %w(__PUBLISH)
+    Settings.evernote[:notebooks] = %w(NOTEBOOK_GUID)
+    Settings.notes[:instructions][:required] = %w(__PUBLISH)
     @note = FactoryGirl.build(:note)
     @evernote_note = FactoryGirl.build(:evernote_note, note: @note)
     @evernote_request = FactoryGirl.build(:evernote_request, evernote_note: @evernote_note)
-    @evernote_request.cloud_note_metadata['guid'] = @evernote_note.cloud_note_identifier
+    @evernote_request.cloud_note_metadata[:guid] = @evernote_note.cloud_note_identifier
   end
 
   subject { @evernote_request }
@@ -17,21 +17,21 @@ describe EvernoteNote do
 
     context 'when note is in a required notebook' do
       before do
-        @evernote_request.cloud_note_metadata['notebookGuid'] = 'NOTEBOOK_GUID'
+        @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
       end
       its(:update_necessary?) { should be_true }
     end
 
     context 'when note is not in a required notebook' do
       before do
-        @evernote_request.cloud_note_metadata['notebookGuid'] = 'ANOTHER_NOTEBOOK_GUID'
+        @evernote_request.cloud_note_metadata[:notebookGuid] = 'ANOTHER_NOTEBOOK_GUID'
       end
       its(:update_necessary?) { should be_false }
     end
 
     context 'when cloud note is not active' do
       before do
-        @evernote_request.cloud_note_metadata['active'] = false
+        @evernote_request.cloud_note_metadata[:active] = false
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
@@ -42,7 +42,7 @@ describe EvernoteNote do
     context 'when cloud note has not been updated' do
       before do
         @note.external_updated_at = 0
-        @evernote_request.cloud_note_metadata['updated'] = 0
+        @evernote_request.cloud_note_metadata[:updated] = 0
       end
       its(:update_necessary?) { should be_false }
       it 'undirtifies evernote_note' do
@@ -63,7 +63,7 @@ describe EvernoteNote do
 
     context 'when cloud note has an instruction to ignore' do
       before do
-        Settings.notes['instructions']['ignore'] = %w(__IGNORE)
+        Settings.notes[:instructions][:ignore] = %w(__IGNORE)
         @evernote_request.cloud_note_tags = %w(__IGNORE)
       end
       its(:update_necessary?) { should be_false }

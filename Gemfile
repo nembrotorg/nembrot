@@ -60,7 +60,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'fuubar'

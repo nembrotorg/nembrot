@@ -33,18 +33,25 @@ describe Book do
   it { should have_and_belong_to_many(:notes) }
 
   describe '.grab_isbns' do
-    before { Book.grab_isbns('Body text (0123456789, 0123456780, 0123456789012) and more text.') }
+    before { Book.grab_isbns('Body text (0804720991, 9780804720991) and more text.') }
     it 'adds dirty books from an isbn inside a block of text' do
-      Book.where(isbn_10: '0123456789', dirty: true).exists?.should eq(true)
-      Book.where(isbn_10: '0123456780', dirty: true).exists?.should eq(true)
-      Book.where(isbn_13: '0123456789012', dirty: true).exists?.should eq(true)
+      Book.where(isbn_10: '0804720991', dirty: true).exists?.should eq(true)
+      Book.where(isbn_13: '9780804720991', dirty: true).exists?.should eq(true)
+    end
+
+    context 'when the isbn numbers are not valid (invalid check digits)' do
+      before { Book.grab_isbns('Body text (0804720990, 9780804720990) and more text.') }
+      it 'adds dirty books from an isbn inside a block of text' do
+        Book.where(isbn_10: '0804720990').exists?.should eq(false)
+        Book.where(isbn_13: '9780804720990').exists?.should eq(false)
+      end
     end
   end
 
   describe '.add_task' do
-    before { Book.add_task('0123456789') }
+    before { Book.add_task('0804720991') }
     it 'adds a dirty book when given an isbn' do
-      Book.where(isbn_10: '0123456789', dirty: true).exists?.should eq(true)
+      Book.where(isbn_10: '0804720991', dirty: true).exists?.should eq(true)
     end
   end
 
@@ -139,9 +146,9 @@ describe Book do
   describe '#editor' do
     before { @book.update_attributes(author: nil, editor: 'Name2 Surname2', title: 'Short Title: Long Title') }
     it 'returns editor when author is nil' do
-      @book.author_or_editor.should == "Name2 Surname2 #{ I18n.t('books.show.editor_short') }"
-      @book.author_surname.should == "Surname2 #{ I18n.t('books.show.editor_short') }"
-      @book.headline.should == "Surname2 #{ I18n.t('books.show.editor_short') }: <cite>Short Title</cite>"
+      @book.author_or_editor.should eq("Name2 Surname2 #{ I18n.t('books.show.editor_short') }")
+      @book.author_surname.should eq("Surname2 #{ I18n.t('books.show.editor_short') }")
+      @book.headline.should eq("Surname2 #{ I18n.t('books.show.editor_short') }: <cite>Short Title</cite>")
     end
   end
 end

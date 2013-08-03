@@ -23,8 +23,10 @@ class Book < ActiveRecord::Base
   scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
   scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
 
-  validates :isbn_13, presence: true, if: 'isbn_10.blank?'
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
+  validates :isbn_13, presence: true, if: 'isbn_10.blank?'
+  validates :isbn_10, isbn_format: { with: :isbn10 }, unless: 'isbn_10.blank?'
+  validates :isbn_13, isbn_format: { with: :isbn13 }, unless: 'isbn_13.blank?'
 
   before_validation :update_tag, if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
@@ -48,7 +50,7 @@ class Book < ActiveRecord::Base
     if book
       book.dirty = true
       book.attempts = 0
-      book.save!
+      book.save
       book
     end
   end
@@ -92,7 +94,7 @@ class Book < ActiveRecord::Base
     merge(OpenLibraryRequest.new(isbn).metadata)   if Settings.books.open_library.active?
     undirtify(false) unless metadata_missing?
     SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_metadata_missing if metadata_missing? and attempts == Settings.notes.attempts
+    announce_metadata_missing if metadata_missing? && attempts == Settings.notes.attempts
     save!
   end
 

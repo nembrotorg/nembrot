@@ -25,10 +25,11 @@ class Book < ActiveRecord::Base
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
-  validates :isbn_10, isbn_format: { with: :isbn10 }, unless: 'isbn_10.blank?'
-  validates :isbn_13, isbn_format: { with: :isbn13 }, unless: 'isbn_13.blank?'
+  validates :isbn_10, isbn_format: { with: :isbn10 }, allow_blank: true
+  validates :isbn_13, isbn_format: { with: :isbn13 }, allow_blank: true
 
-  before_validation :update_tag, if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'
+  before_validation :update_tag,
+                    if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
   extend FriendlyId
@@ -76,8 +77,8 @@ class Book < ActiveRecord::Base
   end
 
   def author_surname
-    return nil if author.blank? and editor.blank?
-    surname = (author.blank? ? editor : author).split(',')[0].scan(/([^ ]*)$/)[0][0] 
+    return nil if author.blank? && editor.blank?
+    surname = (author.blank? ? editor : author).split(',')[0].scan(/([^ ]*)$/)[0][0]
     author.blank? ? "#{ surname } #{ I18n.t('books.show.editor_short') }" : surname
   end
 

@@ -33,6 +33,7 @@ gem 'sass-rails'
 gem 'settingslogic'
 gem 'thin'
 gem 'unicorn'
+gem 'validate_url'
 gem 'wikipedia-client'
 
 group :development do

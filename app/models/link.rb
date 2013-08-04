@@ -20,6 +20,9 @@ class Link < ActiveRecord::Base
   scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
 
   validates :url, presence: true, uniqueness: true
+  validates :url, url: true
+  validates :canonical_url, uniqueness: true, allow_blank: true
+  validates :canonical_url, url: true, allow_blank: true
 
   before_validation :update_channel, if: :url_changed?
   before_validation :scan_notes_for_references, if: :url_changed?

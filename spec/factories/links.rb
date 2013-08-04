@@ -14,7 +14,7 @@ FactoryGirl.define do
     publisher { Faker::Lorem.words(2).join(' ') }
     slug 'example3.com'
     title { Faker::Lorem.words(2).join(' ') }
-    url { Faker::Lorem.words(2).join('/') }
+    url  { "http://example3.com/#{ Faker::Lorem.words(2).join('/') }" }
     website_name { Faker::Lorem.words(2).join(' ') }
   end
 end

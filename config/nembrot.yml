@@ -140,7 +140,7 @@ defaults: &defaults
         aspect:
           x: 16
           y: 9
-        width: 2
+        width: 3
       expanded:
         width: 1400
 

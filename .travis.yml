@@ -1,5 +1,7 @@
-language: ruby
 rvm:
-  - 2.0.0
+  - 2.0.0p247
 
-script: bundle exec rspec spec
+script:
+  - "rake db:migrate RAILS_ENV=test"
+  - "rake db:test:prepare"
+  - "bundle exec rspec"

@@ -28,11 +28,12 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope order: 'external_updated_at DESC'
-  scope :publishable, where(active: true, hide: false)
-  scope :listable, where(listable: true, is_citation: false)
+  scope :blurbable, where('word_count > ?', (Settings.notes.blurb_length / Settings.lang.average_word_length))
   scope :citations, where(is_citation: true)
-  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
+  scope :listable, where(listable: true, is_citation: false)
   scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
+  scope :publishable, where(active: true, hide: false)
 
   validates :title, :external_updated_at, presence: true
   validate :body_or_source_or_resource?, before: :update

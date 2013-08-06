@@ -568,21 +568,21 @@ section.links
     margin: $line-height 0
     height: $line-height * 2
 
-  .notes-index, .citations-index
-    ul.notes, ul.citations
-      +column(12)
+  ul.notes, ul.citations
+    +column(12)
 
-  ul.notes
-    li
-      position: relative
-      a
-        padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
-        +blurb(4, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
-      img
-        position: absolute
-        width: auto
-        right: 0
-        height: $line-height * 4
+  ul
+    &.notes
+      li
+        position: relative
+        a
+          padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
+          +blurb(4, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
+        img
+          position: absolute
+          width: auto
+          right: 0
+          height: $line-height * 4
     &.citations
       li
         position: relative
@@ -590,6 +590,8 @@ section.links
           padding-right: 34.38889%
 
   #note-content
+    +clearfix
+    margin-bottom: $line-height
     figure
       &.image
         +place(0, 12, 0)
@@ -707,8 +709,6 @@ section.links
         &.main
           font-weight: bold
 
-    ul.notes, ul.citations
-      +place(0, 9, 3)
     .books
       ul
         +column(6)
@@ -741,10 +741,6 @@ section.links
       +columns(4)
       margin-bottom: $line-height
 
-    .citations-index
-      ul.citations
-        +column(6)
-
 @media only screen and (min-width: 1024px)
 
   +pass_media_query('screen-and-min-width-1024px')
@@ -755,20 +751,26 @@ section.links
 
   .home-index
     ul.notes
+      +column(12)
       +columns(3)
       +fixed-column-gap
       a
-        +blurb(7)
+        +blurb(12)
 
-  .notes-index, .citations-index
-    ul.notes, ul.citations
-      +column(9)
-      li
-        a
-          +blurb(5, 34.38889%)
-        img
-          width: 240px // OPTIMIZE: We get these measurements from the columns.
-          height: $line-height * 5
+  ul.notes
+    +place(0, 9, 3)
+    li
+      a
+        +blurb(5, 34.38889%)
+      img
+        width: 240px // OPTIMIZE: We get these measurements from the columns.
+        height: $line-height * 5
+
+  ul.citations
+    +place(0, 9, 3)
+    li
+      a
+        padding-right: 34.38889%
 
   .books-index, .links-index
     ul

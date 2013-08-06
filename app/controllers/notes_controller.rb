@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
   def index
 
-    @notes = Note.publishable.listable.all
+    @notes = Note.publishable.listable.blurbable.all
 
     respond_to do |format|
       format.html

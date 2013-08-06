@@ -1,11 +1,11 @@
-- document_title = t('.title', name: @tag.name)
+- document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
 %section
 
-  = render 'header', title: t('.title', name: @tag.name), document_title: document_title 
+  = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title 
 
   = render 'notes_list', notes: @notes
 

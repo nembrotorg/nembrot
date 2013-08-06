@@ -60,7 +60,8 @@ en:
     index:
       title: 'Tags'
     show:
-      title: "%{name}"
+      title: "Tag: \"%{name}\""
+      title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
 
   books:

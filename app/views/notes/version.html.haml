@@ -1,4 +1,4 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) }"
+- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 canonical: note_path(@note),
                 description: @diffed_version.body,

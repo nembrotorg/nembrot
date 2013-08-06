@@ -1,7 +1,8 @@
 %ul.notes
   = list_of notes do |note|
 
-    - headline, blurb = blurb(note.headline, note.clean_body)
+    - blurb_length = blurb_length || Settings.notes.blurb_length
+    - headline, blurb = blurb(note.headline, note.clean_body, blurb_length)
     - image = note.resources.attached_images.first
 
     %a{ href: note_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) }

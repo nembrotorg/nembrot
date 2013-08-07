@@ -27,6 +27,7 @@ class Book < ActiveRecord::Base
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
   validates :isbn_10, isbn_format: { with: :isbn10 }, allow_blank: true
   validates :isbn_13, isbn_format: { with: :isbn13 }, allow_blank: true
+  validates :full_text_url, url: true, allow_blank: true
 
   before_validation :update_tag,
                     if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'

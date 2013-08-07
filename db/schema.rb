@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802184837) do
+ActiveRecord::Schema.define(:version => 20130807144400) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130802184837) do
     t.string   "slug"
     t.string   "dewey_decimal"
     t.string   "lcc_number"
-    t.string   "full_text"
+    t.string   "full_text_url"
     t.boolean  "google_books_embeddable"
   end
 

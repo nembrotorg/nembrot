@@ -63,7 +63,7 @@ describe Book do
     @book.dirty.should                    == false
     @book.editor.should                   == ''
     @book.format.should                   == nil
-    @book.full_text.should                == nil
+    @book.full_text_url.should            == nil
     @book.google_books_embeddable.should  == true
     @book.google_books_id.should          == 'nRo0Pk8djjoC'
     @book.introducer.should               == ''

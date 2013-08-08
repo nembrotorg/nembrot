@@ -49,6 +49,11 @@ en:
         email:
           subject: "%{provider}: note %{guid} failed on database update!"
           body: "%{provider}: note %{guid} for user %{username} failed on database update!"
+      conflicted:
+        logger: "%{provider}: conflicted note %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: conflicted note %{guid} failed on database update!"
+          body: "%{provider}: note %{guid} for user %{username} failed on database update!\\n\\nThere is a synchronisation conflict in the note content."
 
   resources:
     cut:

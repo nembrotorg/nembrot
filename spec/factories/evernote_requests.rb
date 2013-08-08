@@ -17,6 +17,10 @@ FactoryGirl.define do
           longitude: 2
         })
       })
+    cloud_note_data OpenStruct.new({
+      content: 'Plain text.'
+    })
     cloud_note_tags %w(__PUBLISH)
+    evernote_note
   end
 end

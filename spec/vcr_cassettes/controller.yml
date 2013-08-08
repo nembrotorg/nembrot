@@ -24,7 +24,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Thu, 11 Jul 2013 13:26:38 GMT
+      - Thu, 08 Aug 2013 15:51:16 GMT
       Content-Type:
       - application/json
       Connection:
@@ -35,7 +35,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.23500810372771475},{"language":"xxx","isReliable":false,"confidence":0.2}]}}'
     http_version: 
-  recorded_at: Thu, 11 Jul 2013 13:26:37 GMT
+  recorded_at: Thu, 08 Aug 2013 15:51:15 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -60,7 +60,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Thu, 11 Jul 2013 13:26:39 GMT
+      - Thu, 08 Aug 2013 15:51:17 GMT
       Content-Type:
       - application/json
       Connection:
@@ -71,7 +71,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Thu, 11 Jul 2013 13:26:38 GMT
+  recorded_at: Thu, 08 Aug 2013 15:51:16 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -96,7 +96,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Thu, 11 Jul 2013 13:26:39 GMT
+      - Thu, 08 Aug 2013 15:51:18 GMT
       Content-Type:
       - application/json
       Connection:
@@ -107,7 +107,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.7050243111831442}]}}'
     http_version: 
-  recorded_at: Thu, 11 Jul 2013 13:26:39 GMT
+  recorded_at: Thu, 08 Aug 2013 15:51:17 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -132,7 +132,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Thu, 11 Jul 2013 13:26:40 GMT
+      - Thu, 08 Aug 2013 15:51:18 GMT
       Content-Type:
       - application/json
       Connection:
@@ -143,7 +143,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.5429497568881686}]}}'
     http_version: 
-  recorded_at: Thu, 11 Jul 2013 13:26:40 GMT
+  recorded_at: Thu, 08 Aug 2013 15:51:18 GMT
 - request:
     method: post
     uri: http://ws.detectlanguage.com/0.2/detect
@@ -168,7 +168,7 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
-      - Thu, 11 Jul 2013 13:26:40 GMT
+      - Thu, 08 Aug 2013 15:51:19 GMT
       Content-Type:
       - application/json
       Connection:
@@ -179,5 +179,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":0.5753646677471637}]}}'
     http_version: 
-  recorded_at: Thu, 11 Jul 2013 13:26:40 GMT
+  recorded_at: Thu, 08 Aug 2013 15:51:18 GMT
 recorded_with: VCR 2.5.0

@@ -23,15 +23,14 @@ class EvernoteRequest
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       max_out_attempts
-      sync_error('Evernote', guid, user_nickname,
-                 "User Exception: #{ Settings.evernote.errors[error.errorCode] } (#{ error.parameter }).")
+      SYNC_LOG.error I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
 
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       max_out_attempts
-      sync_error('Evernote', guid, user_nickname, "Not Found Exception: #{ error.identifier }: #{ error.key }.")
+      SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }.")
 
     rescue Evernote::EDAM::Error::EDAMSystemException => error
-      sync_error('Evernote', guid, user_nickname, "User Exception: error #{ error.errorCode }: #{ error.message }.")
+      SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }.")
   end
 
   def update_necessary?
@@ -43,11 +42,16 @@ class EvernoteRequest
   def update_note
     get_new_content_from_cloud_if_updated
     populate
-    evernote_note.note.merge(data, true)
-    evernote_note.note.save!
-    update_resources_with_evernote_data(cloud_note_data)
-    update_evernote_note_with_evernote_data(cloud_note_data)
-    SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
+    if data.text.scan('<hr/>Conflicting modification on').empty?
+      evernote_note.note.merge(data, true)
+      evernote_note.note.save!
+      update_resources_with_evernote_data(cloud_note_data)
+      update_evernote_note_with_evernote_data(cloud_note_data)
+      SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
+    else
+      CloudNoteMailer.sync_down_failed('Evernote', cloud_note_metadata.guid, user_nickname, 'conflicted').deliver
+      SYNC_LOG.error I18n.t('notes.sync.conflicted.logger', logger_details)
+    end
   end
 
   def update_necessary_according_to_note?

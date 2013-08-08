@@ -42,7 +42,7 @@ describe 'Notes' do
     it 'has the language attribute if note is not in default language' do
       page.should have_css('ul li a[lang=ar]')
     end
-    it 'has the text direction if note is not in default languagex' do
+    it 'has the text direction if note is not in default language' do
       page.should have_css('ul li a[dir=rtl]')
     end
   end

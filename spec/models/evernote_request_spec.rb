@@ -5,10 +5,7 @@ describe EvernoteNote do
   before do
     Settings.evernote[:notebooks] = %w(NOTEBOOK_GUID)
     Settings.notes[:instructions][:required] = %w(__PUBLISH)
-    @note = FactoryGirl.build(:note)
-    @evernote_note = FactoryGirl.build(:evernote_note, note: @note)
-    @evernote_request = FactoryGirl.build(:evernote_request, evernote_note: @evernote_note)
-    @evernote_request.cloud_note_metadata[:guid] = @evernote_note.cloud_note_identifier
+    @evernote_request = FactoryGirl.build(:evernote_request)
   end
 
   subject { @evernote_request }
@@ -41,13 +38,13 @@ describe EvernoteNote do
 
     context 'when cloud note has not been updated' do
       before do
-        @note.external_updated_at = 0
+        @evernote_request.evernote_note.note.external_updated_at = 0
         @evernote_request.cloud_note_metadata[:updated] = 0
       end
       its(:update_necessary?) { should be_false }
       it 'undirtifies evernote_note' do
-        @evernote_note.dirty == false
-        @evernote_note.attempts == 0
+        @evernote_request.evernote_note.dirty == false
+        @evernote_request.evernote_note.attempts == 0
       end
     end
 
@@ -70,6 +67,24 @@ describe EvernoteNote do
       it 'destroys evernote_note' do
         pending "@evernote_note.should == nil"
       end
+    end
+  end
+
+  describe '#note_is_not_conflicted?' do
+
+    context 'when note content does not contain a conflict warning' do
+      before do
+        @evernote_request.cloud_note_data[:content] = 'Plain text.'
+      end
+      its(:note_is_not_conflicted?) { should be_true }
+    end
+
+    context 'when note content contains a conflict warning' do
+      before do
+        @evernote_request.cloud_note_data[:content] = 'Plain text.<hr/>Conflicting modification on 01.01.2001'
+      end
+      # These tests are flawed. Content is not being changed at all.
+      pending "its(:note_is_not_conflicted?) { should be_false }"
     end
   end
 

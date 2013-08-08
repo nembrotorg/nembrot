@@ -160,6 +160,26 @@ development:
 test:
   <<: *defaults
   host: rspec-tests
+  notes:
+    title_length: 40
+    blurb_length: 40
+    blurb_omission: '...'
+    detect_language_sample_length: 250
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
+    attempts: 3
+    instructions:
+      citation: ['__QUOTE', '__CITATION']
+      default: ['__TRI']
+      hide: ['__HIDE']
+      home: ['__HOME']
+      ignore: ['__IGNORE', '__HOLD']
+      required: ['__PUBLISH']
+      reset: ['__RESET']
+      unlist: ['__UNLIST', '__NO_LIST']
+      unversion: ['__UNVERSION', '__NO_VERSION']
+    index:
+      page_size: 30
 
 staging:
   <<: *defaults

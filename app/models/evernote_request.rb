@@ -19,18 +19,16 @@ class EvernoteRequest
 
     self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
-    update_note if update_necessary?
+    update_note if update_necessary? && note_is_not_conflicted?
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       max_out_attempts
       SYNC_LOG.error I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
-
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       max_out_attempts
-      SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }.")
-
+      SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }."
     rescue Evernote::EDAM::Error::EDAMSystemException => error
-      SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }.")
+      SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }."
   end
 
   def update_necessary?
@@ -40,51 +38,45 @@ class EvernoteRequest
   private
 
   def update_note
-    get_new_content_from_cloud_if_updated
     populate
-    if data.text.scan('<hr/>Conflicting modification on').empty?
-      evernote_note.note.merge(data, true)
-      evernote_note.note.save!
-      update_resources_with_evernote_data(cloud_note_data)
-      update_evernote_note_with_evernote_data(cloud_note_data)
-      SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
-    else
-      CloudNoteMailer.sync_down_failed('Evernote', cloud_note_metadata.guid, user_nickname, 'conflicted').deliver
-      SYNC_LOG.error I18n.t('notes.sync.conflicted.logger', logger_details)
-    end
+    evernote_note.note.merge(data, true)
+    evernote_note.note.save!
+    update_resources_with_evernote_data(cloud_note_data)
+    update_evernote_note_with_evernote_data(cloud_note_data)
+    SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
   end
 
   def update_necessary_according_to_note?
-    result = (evernote_notebook_required? && cloud_note_active? && cloud_note_updated?)
-    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) if result.blank? && cloud_note_tags.blank?
-    result
+    necessary = (evernote_notebook_required? && cloud_note_active? && cloud_note_updated?)
+    self.cloud_note_tags = note_store.getNoteTagNames(oauth_token, guid) if necessary.blank? && cloud_note_tags.blank?
+    necessary
   end
 
   def evernote_notebook_required?
-    result = Array(Settings.evernote.notebooks).include?(cloud_note_metadata.notebookGuid)
-    unless result
+    required = Array(Settings.evernote.notebooks).include?(cloud_note_metadata.notebookGuid)
+    unless required
       evernote_note.destroy
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
     end
-    result
+    required
   end
 
   def cloud_note_active?
-    result = cloud_note_metadata.active
-    unless result
+    active = cloud_note_metadata.active
+    unless active
       evernote_note.destroy
       SYNC_LOG.info I18n.t('notes.sync.rejected.deleted_note', logger_details)
     end
-    result
+    active
   end
 
   def cloud_note_updated?
-    result = evernote_note.update_sequence_number.nil? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
-    unless result
+    updated = evernote_note.update_sequence_number.nil? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    unless updated
       evernote_note.undirtify
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', logger_details)
     end
-    result
+    updated
   end
 
   def update_necessary_according_to_tags?
@@ -93,21 +85,31 @@ class EvernoteRequest
   end
 
   def cloud_note_has_required_tags?
-    result = !(Array(Settings.notes.instructions.required) & cloud_note_tags).empty?
-    unless result
+    has_required_tags = !(Array(Settings.notes.instructions.required) & cloud_note_tags).empty?
+    unless has_required_tags
       evernote_note.destroy
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
     end
-    result
+    has_required_tags
   end
 
   def cloud_note_is_not_ignorable?
-    result = (Settings.notes.instructions.ignore & cloud_note_tags).empty?
-    unless result
+    not_ignorable = (Settings.notes.instructions.ignore & cloud_note_tags).empty?
+    unless not_ignorable
       SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', logger_details)
       evernote_note.undirtify
     end
-    result
+    not_ignorable
+  end
+
+  def note_is_not_conflicted?
+    get_new_content_from_cloud_if_updated
+    not_conflicted = cloud_note_data.content.scan(/Conflicting modification on/).empty?
+    unless not_conflicted
+      CloudNoteMailer.syncdown_note_failed('Evernote', cloud_note_metadata.guid, user_nickname, 'conflicted').deliver
+      SYNC_LOG.error I18n.t('notes.sync.conflicted.logger', logger_details)
+    end
+    not_conflicted    
   end
 
   def get_new_content_from_cloud_if_updated

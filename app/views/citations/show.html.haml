@@ -9,6 +9,6 @@
     = render 'header', title: t('citations.index.title', id: @citation.id), :document_title => document_title
 
     %section#text
-      = bodify(@citation.body, @citation.books, @citation.links, 'book_main_details', 'link_main_details')
+      = bodify(@citation.body, @citation.books, @citation.links)
 
   = render 'notes/tag_list', tags: @tags unless @tags.blank?

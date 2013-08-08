@@ -45,11 +45,7 @@ module FormattingHelper
   end
 
   def format_blockquotes(text)
-# This only works for books
-#    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*[\d]{4}.*?)$/i,
-#              (render citation_style('blockquote_with_attribution'), citation_text: '\\1', attribution: '\\2'))
-    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*?)$/i,
-              (render 'notes/blockquote_with_attribution_inline', citation_text: '\\1', attribution: '\\2'))
+    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*?)$/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
         .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
@@ -153,15 +149,21 @@ module FormattingHelper
 
   def smartify_quotation_marks(text)
     # TODO: This needs to be language dependent
+    # The following assumes we are not running this on HTML text. This is not hugely concerning since for body text we
+    #  run this via Nokogiri and other strings should not be marked up. (But: cite links in headers?)
     text.html_safe.gsub(/'([\d]{2})/, "\u2019\\1")
         .gsub(/s' /, "s\u2019 ")
+        .gsub(/\&\#x27\;/, "\u2019")
         .gsub(/(\b)'(\b)/, "\u2019")
         .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
-        .gsub(/(<[^>]*?)'([^']+?)'([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3')
-        .gsub(/(<[^>]*?)"([^"]+?)"([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3')
         .gsub(/'([^']+)'/, "\u2018\\1\u2019") # If quotes are not closed this would trip up.
         .gsub(/"([^"]+)"/, "\u201C\\1\u201D") # Same here.
-        .gsub(/ATTRIBUTE_QUOTES/, '"')
+
+#        .gsub(/(<[^>]*?)'([^']+?)'([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3') # IS THIS STILL NECESSARY SINCE WE@RE DOING IT THROUGH DOM?
+#        .gsub(/(<[^>]*?)"([^"]+?)"([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3')
+#        .gsub(/'([^']+)'/, "\u2018\\1\u2019") # If quotes are not closed this would trip up.
+#        .gsub(/"([^"]+)"/, "\u201C\\1\u201D") # Same here.
+#        .gsub(/ATTRIBUTE_QUOTES/, '"')
   end
 
   def smartify_numbers(text)
@@ -188,6 +190,7 @@ module FormattingHelper
 
   def sectionize(text)
     text = text.split(/\*\*+/)
+               .reject(&:empty?)
                .map { |content| "<section>#{ content }</section>" }
                .join unless text[/\*\*+/].blank?
     text = text.split('<h2>')

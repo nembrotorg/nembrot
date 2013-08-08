@@ -143,10 +143,6 @@ body, small
   +dashboard-font
   line-height: $line-height
 
-blockquote
-  +body-font-citation
-  margin: ($line-height / 2) $text-indent
-
 cite + a[href*=annotation]
   margin-left: 3px
 
@@ -306,6 +302,81 @@ footer
         display: inline-block
         width: $text-indent
 
+ul.notes, ul.citations
+  +column(12)
+  li
+    +body-font
+    display: block
+    margin-bottom: $line-height
+    h2
+      display: inline
+      font:
+        family: $headline-font-family
+        size: $body-font-size
+        weight: normal
+    a
+      &:hover
+        h2
+          color: $link-hover-color
+        &:after
+          border-color: $link-hover-color
+
+nav.tags
+  +place(0, 12, 0)
+  ul
+    +horizontal-list
+    margin-bottom: $line-height
+    &:before
+      +icon-tags
+      color: $secondary-color
+      display: inline
+      float: left
+    li
+      a:after
+        content: ', '
+      &:last-child
+        a:after
+          content: ''
+
+ul.citations
+  +column(12)
+  li, li h2
+    +body-font-citation
+    figcaption
+      +prefix-with-emdash
+      display: block
+
+blockquote
+  footer
+    +prefix-with-emdash
+    margin: 0
+
+figure
+  // margin-bottom: $line-height / 2
+  &.image
+    +column(12)
+    img
+      float: left
+      clear: both
+  &.citation
+    margin: ($line-height/2) 0
+    blockquote
+      margin: 0 0 0 $text-indent
+      text-align: left
+      &:before
+        +icon-quote-left-alt
+        color: $secondary-color
+        font-size: $body-font-size
+        position: absolute
+        left: 0
+        top: -2px
+    figcaption
+      +body-font-citation
+      margin-left: $text-indent
+      padding: 0
+      &:before
+        content: '\2014'
+
 ///////////////////////////////
 //
 // Pages
@@ -329,71 +400,6 @@ footer
       height: $line-height * 6
     &[src*='soundcloud.com%2Fplaylist']
       height: $line-height * 15
-
-ul.notes, ul.citations
-  +column(12)
-  li
-    +body-font
-    display: block
-    margin-bottom: $line-height
-    h2
-      display: inline
-      font:
-        family: $headline-font-family
-        size: $body-font-size
-        weight: normal
-    a
-      &:hover
-        h2
-          color: $link-hover-color
-        &:after
-          border-color: $link-hover-color
-
-ul.citations
-  +column(12)
-  li, li h2
-    +body-font-citation
-    figcaption
-      +prefix-with-emdash
-      display: block
-
-blockquote
-  footer
-    +prefix-with-emdash
-    margin: 0
-
-// GENERALISE
-.notes-show, .citations-show
-  figure
-    margin-bottom: $line-height / 2
-    &.image
-      +column(12)
-      img
-        float: left
-        clear: both
-    &.citation
-      margin: ($line-height/2) 0
-      blockquote
-        margin: 0 $text-indent
-      figcaption
-        +body-font-citation
-        margin: 0 $text-indent
-        padding: 0
-        &:before
-          content: '\2014'
-
-// TODO: genericise
-.books-show, .links-show_channel, .citations-index, .citations-show, .tags-show
-  //on citations show, figures are not used, why?
-  //figure.citation
-  blockquote
-    // text-align: left
-    &:before
-      +icon-quote-left-alt
-      color: $secondary-color
-      font-size: $body-font-size
-      position: absolute
-      left: 0
 
 .citations-show
   figure.citation
@@ -423,6 +429,9 @@ blockquote
     &[id*=annotation-mark]
       font-size: $small-font-size - 2px
       vertical-align: super
+  blockquote
+    +body-font-citation
+    margin: ($line-height / 2) $text-indent
   section
     margin-bottom: $line-height
     h2
@@ -439,24 +448,6 @@ blockquote
       margin-bottom: 0
     p:first-of-type
       text-indent: 0
-
-.notes-show, .citations-show
-  nav.tags
-    +place(0, 12, 0)
-    ul
-      +horizontal-list
-      margin-bottom: $line-height
-      &:before
-        +icon-tags
-        color: $secondary-color
-        display: inline
-        float: left
-      li
-        a:after
-          content: ', '
-        &:last-child
-          a:after
-            content: ''
 
 ul.books, ul.links
   +column(12)
@@ -661,7 +652,7 @@ section.links
   // Undo all...
   // Make sure this only applies to ltr pages
   // Maybe we need to always write dir in body / html
-  // Also annotations.
+  // Also annotations, blurb arrows, and quotes
   [dir=ltr]
     #note-content[dir=rtl]
       #text
@@ -804,7 +795,7 @@ section.links
         +fade(0)
         +hyphens
         +column(3, 6)
-        +push(3, 6)
+        +push(6, 6)
 
     &:hover
       #text

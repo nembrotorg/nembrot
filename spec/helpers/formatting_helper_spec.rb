@@ -58,21 +58,32 @@ describe FormattingHelper do
     end
   end
 
-# This should be tested in views.
-#  describe '#bookify' do
-#    before do
-#      @book = FactoryGirl.create(:book, title: 'Discourse Networks 1800/1900',
-#                                 author: 'Friedrich Kittler',
-#                                 published_date: '21 Jan 2000')
-#      @book.valid?
-#      @book.save
-#      @books = Book.all
-#    end
-#    it 'converts inline references' do
-#      bookify('Text is -- Kittler 2000.', @books)
-#        .should == 'Text is -- <a href="/bibliography/kittler-2000">Kittler: Discourse Metworks 1800/1900</a>.'
-#    end
-#  end
+  # This should be tested in views.
+  #  describe '#bookify' do
+  #    before do
+  #      @book = FactoryGirl.create(:book, title: 'Discourse Networks 1800/1900',
+  #                                 author: 'Friedrich Kittler',
+  #                                 published_date: '21 Jan 2000')
+  #      @book.valid?
+  #      @book.save
+  #      @books = Book.all
+  #    end
+  #    it 'converts inline references' do
+  #      bookify('Text is -- Kittler 2000.', @books)
+  #        .should == 'Text is -- <a href="/bibliography/kittler-2000">Kittler: Discourse Metworks 1800/1900</a>.'
+  #    end
+  #  end
+
+  # describe '#smartify' do
+  #   it 'does not convert double quotes inside html tags' do
+  #     smartify('Plain text with <a href="link">link</a> does "nothing silly".')
+  #       .should == "Plain text with <a href=\"link\">link</a> does \u201Cnothing silly\u201D."
+  #   end
+  #   it 'does not convert double quotes inside html tags' do
+  #     smartify('Plain "text with <a href="link">link</a> is OK."')
+  #       .should == "Plain \u201Ctext with <a href=\"link\">link</a> is OK.\u201D"
+  #   end
+  # end
 
   describe '#smartify_hyphens' do
     # it 'converts parenthetical hyphens to en dashes' do
@@ -101,14 +112,6 @@ describe FormattingHelper do
     end
     it 'converts double quotes to 66 and 99' do
       smartify_quotation_marks("Text \"I'm ironic\" quotes.").should == "Text \u201CI\u2019m ironic\u201D quotes."
-    end
-    it 'does not convert double quotes inside html tags' do
-      smartify_quotation_marks('Plain text with <a href="link">link</a> does "nothing silly".')
-        .should == "Plain text with <a href=\"link\">link</a> does \u201Cnothing silly\u201D."
-    end
-    it 'does not convert double quotes inside html tags' do
-      smartify_quotation_marks('Plain "text with <a href="link">link</a> is OK."')
-        .should == "Plain \u201Ctext with <a href=\"link\">link</a> is OK.\u201D"
     end
   end
 

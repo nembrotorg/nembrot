@@ -5,6 +5,7 @@ class NotesController < ApplicationController
   def index
 
     @notes = Note.publishable.listable.blurbable.all
+    @word_count = Note.publishable.listable.blurbable.sum(:word_count)
 
     respond_to do |format|
       format.html

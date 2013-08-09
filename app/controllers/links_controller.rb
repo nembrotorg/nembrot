@@ -8,6 +8,7 @@ class LinksController < ApplicationController
     # REVIEW: This gives the count of links per channel, what we really want is number of citations
     # @channels = Link.publishable.group(:channel).count(:channel)
     @channels = Link.publishable.group(:channel)
+    @references_count = @channels.sum { |l| l.notes.size }
 
     respond_to do |format|
       format.html

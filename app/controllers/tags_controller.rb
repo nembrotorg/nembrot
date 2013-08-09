@@ -5,6 +5,7 @@ class TagsController < ApplicationController
   def index
 
     @tags = Note.publishable.tag_counts_on(:tags)
+    @references_count = @tags.sum { |t| t.count }
 
     respond_to do |format|
       format.html

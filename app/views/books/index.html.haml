@@ -1,11 +1,14 @@
 - document_title = "#{ t('.title') } | #{ t('site.title') }"
-- set_meta_tags :title => document_title,
-                :description => '',
-                :open_graph => { :title => document_title },
-                :noindex => true
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title },
+                noindex: true
 
 %section
 
-  = render 'header', :title => t('.title'), :document_title => document_title 
+  = render 'header', title: t('.title'), document_title: document_title 
 
-  = render 'books_list', :books => @books
+  = render 'books_list', books: @books
+
+  %aside.statistics
+    = t('.statistics', count: number_with_delimiter(@books.size), references_count: number_with_delimiter(@references_count))

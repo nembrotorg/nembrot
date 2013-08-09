@@ -139,6 +139,9 @@ article[dir=rtl]
   text-align: right
   float: right
 
+aside
+  font-style: italic
+
 body, small
   +dashboard-font
   line-height: $line-height
@@ -338,6 +341,13 @@ nav.tags
         a:after
           content: ''
 
+#main
+  .books-index, .links-index, .tags-index // Genericise index lists to avoid this
+    section
+      ul, ol
+        +clearfix
+        margin-bottom: $line-height
+
 ul.citations
   +column(12)
   li, li h2
@@ -376,6 +386,9 @@ figure
       padding: 0
       &:before
         content: '\2014'
+
+.statistics
+  +column(12)
 
 ///////////////////////////////
 //

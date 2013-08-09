@@ -23,6 +23,7 @@ en:
   notes:
     index:
       title: 'Notes'
+      statistics: "%{count} notes (%{word_count} words)."
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
@@ -64,6 +65,7 @@ en:
   tags:
     index:
       title: 'Tags'
+      statistics: "%{count} tags (%{references_count} references)."
     show:
       title: "Tag: \"%{name}\""
       title_short: "%{name}"
@@ -72,6 +74,7 @@ en:
   books:
     index:
       title: 'Bibliography'
+      statistics: "%{count} books (%{references_count} references)."
     show:
       title: 'Bibliography'
       not_found: "Book: %{slug} is not available."
@@ -89,6 +92,7 @@ en:
   links:
     index:
       title: 'Links'
+      statistics: "%{count} links (%{references_count} references)."
     show_channel:
       title: 'Links'
       not_found: "Links for %{channel} are not available."
@@ -96,6 +100,7 @@ en:
   citations:
     index:
       title: 'Citations'
+      statistics: "%{count} citations."
     show:
       title: "Citation %{id}"
       not_found: "Citation %{id} is not available."

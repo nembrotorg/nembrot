@@ -40,4 +40,10 @@ module CitationsHelper
                           book.full_text_url unless book.full_text_url.blank?
     response.join(' ').html_safe
   end
+
+  def sort_by_page_reference(list)
+    list.sort_by do |citation|
+      citation.clean_body.scan(/\-\-.*?p\.? *(.*)$/).flatten.first.to_i
+    end
+  end
 end

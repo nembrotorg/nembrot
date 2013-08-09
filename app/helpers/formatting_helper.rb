@@ -116,6 +116,7 @@ module FormattingHelper
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
     text = hyper_conform(text)
     text = text.gsub(/  +/m, ' ') # FIXME
+               .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
                .gsub(/'/, "\u2018") # Same here
                .html_safe
@@ -134,7 +135,8 @@ module FormattingHelper
     # dom = tidy.transform(dom)
 
     # PATCH: Moves annotations to the end
-    dom.at_css('.annotations').parent = dom.at_css('body') unless dom.at_css('.annotations').blank?
+    annotations = dom.at_css('.annotations')
+    annotations.parent = dom.at_css('body') unless annotations.blank?
     dom.css('body').children.to_html.html_safe
   end
 

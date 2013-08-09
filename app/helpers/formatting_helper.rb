@@ -132,6 +132,9 @@ module FormattingHelper
     end
     # tidy = Nokogiri::XSLT File.open('vendor/tidy.xsl')
     # dom = tidy.transform(dom)
+
+    # PATCH: Moves annotations to the end
+    dom.at_css('.annotations').parent = dom.at_css('body') unless dom.at_css('.annotations').blank?
     dom.css('body').children.to_html.html_safe
   end
 

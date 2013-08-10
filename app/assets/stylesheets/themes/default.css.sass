@@ -352,6 +352,8 @@ ul.citations
   +column(12)
   li, li h2
     +body-font-citation
+    blockquote
+      +blurb(3, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
     figcaption
       +prefix-with-emdash
       display: block
@@ -461,6 +463,13 @@ figure
       margin-bottom: 0
     p:first-of-type
       text-indent: 0
+
+ul
+  &.notes
+    li
+      position: relative
+      a
+        +blurb(8)
 
 ul.books, ul.links
   +column(12)

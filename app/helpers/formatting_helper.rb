@@ -116,7 +116,7 @@ module FormattingHelper
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
     text = hyper_conform(text)
     text = text.gsub(/  +/m, ' ') # FIXME
-               .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers
+               .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
                .gsub(/'/, "\u2018") # Same here
                .html_safe
@@ -190,7 +190,8 @@ module FormattingHelper
 
   def paragraphize(text)
     text.gsub(/(^|\A)([^<].+[^>])($|\Z)/, '<p>\2</p>')    # Wraps lines in <p> tags, except if they're already wrapped
-        .gsub(/^<(strong|em|span)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span in <p> tags
+        .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
+        .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
   end
 
   def sectionize(text)

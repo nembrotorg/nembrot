@@ -353,7 +353,7 @@ ul.citations
   li, li h2
     +body-font-citation
     blockquote
-      +blurb(3, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
+      +blurb(3, 34.38889%)     //  Ideally, we would use the semantic.gs algorithm itself.
     figcaption
       +prefix-with-emdash
       display: block
@@ -378,10 +378,11 @@ figure
       &:before
         +icon-quote-left-alt
         color: $secondary-color
+        display: inline-block
         font-size: $body-font-size
-        position: absolute
-        left: 0
-        top: -2px
+        margin-left: $line-height * -1
+        padding: 0
+        width: $line-height
     figcaption
       +body-font-citation
       margin-left: $text-indent
@@ -418,6 +419,7 @@ figure
 
 .citations-show
   figure.citation
+    +column(12)
     figcaption
       margin: $line-height 0 0 0
 
@@ -590,12 +592,12 @@ section.links
         position: relative
         a
           padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
-          +blurb(4, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
+          +blurb(5, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
         img
           position: absolute
           width: auto
           right: 0
-          height: $line-height * 4
+          height: $line-height * 5 // Use variable
     &.citations
       li
         position: relative
@@ -727,6 +729,11 @@ section.links
         +column(6)
         .count
           color: $count-color
+
+  .citations-show
+    figure.citation
+      +place(0, 6, 0)
+
 
   .links-show_channel
     ul.notes, ul.citations

@@ -92,11 +92,11 @@ class Resource < ActiveRecord::Base
   def make_local_file_name
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
-    elsif caption
+    elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is latin and at least 5 characters long
       new_name = caption[0..Settings.styling.images.name_length]
-    elsif description
+    elsif description && !description[/[a-zA-Z\-]{5,}/].blank?
       new_name = description[0..Settings.styling.images.name_length]
-    elsif file_name && file_name != ''
+    elsif file_name && !file_name.empty?
       new_name = File.basename(file_name, File.extname(file_name))
     end
     new_name = cloud_resource_identifier if new_name.blank?

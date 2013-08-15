@@ -137,8 +137,8 @@ describe Note do
 
   describe '#has_instruction?' do
     before do
-      Settings.notes['instructions']['hide'] = %w(__HIDESYNONYM)
-      Settings.notes['instructions']['default'] = %w(__DEFAULT_INSTRUCTION)
+      Settings['notes']['instructions']['hide'] = %w(__HIDESYNONYM)
+      Settings['notes']['instructions']['default'] = %w(__DEFAULT_INSTRUCTION)
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
@@ -154,7 +154,7 @@ describe Note do
     context 'when an instruction is set in default for all' do
       it 'returns true' do
         # FIXME: Settings are not being changed
-        pending "note.has_instruction?('default_instruction').should == true"
+        pending "note.has_instruction?('default_instruction').should == Settings.notes.instructions.default"
       end
     end
     context 'when a note is tagged with an instruction' do
@@ -182,13 +182,21 @@ describe Note do
       it 'returns preformatted title (e.g. Note 1)' do
         note.headline.should == I18n.t('notes.show.title', id: note.id)
       end
-      context 'when note is a citation' do
-        before do
-          note.is_citation = true
-        end
-        it 'returns preformatted title (e.g. Citation 1)' do
-          note.headline.should == I18n.t('citations.show.title', id: note.id)
-        end
+    end
+    context 'when title is missing (but in a different case from untitled synonyms)' do
+      before do
+        note.title = I18n.t('notes.untitled_synonyms').first.upcase
+      end
+      it 'returns preformatted title (e.g. Note 1)' do
+        note.headline.should == I18n.t('notes.show.title', id: note.id)
+      end
+    end
+    context 'when note is a citation' do
+      before do
+        note.is_citation = true
+      end
+      it 'returns preformatted title (e.g. Citation 1)' do
+        note.headline.should == I18n.t('citations.show.title', id: note.id)
       end
     end
   end

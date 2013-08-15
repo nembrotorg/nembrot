@@ -49,16 +49,17 @@ class Note < ActiveRecord::Base
     instruction_to_find.push(Settings.notes['instructions'][instruction]) unless Settings.notes['instructions'][instruction].nil?
     instruction_to_find.flatten!
 
-    places_to_search = Array(instructions)
-    places_to_search.push(Settings.notes.instructions.default)
-    places_to_search.flatten!
+    all_relevant_instructions = Array(instructions)
+    all_relevant_instructions.push(Settings.notes.instructions.default)
+    all_relevant_instructions.flatten!
 
-    !(places_to_search & instruction_to_find).empty?
+    !(all_relevant_instructions & instruction_to_find).empty?
   end
 
   def headline
     return I18n.t('citations.show.title', id: id) if is_citation
-    I18n.t('notes.untitled_synonyms').include?(title) ? I18n.t('notes.show.title', id: id) : title
+    I18n.t('notes.untitled_synonyms').map(&:downcase)
+                                     .include?(title.downcase) ? I18n.t('notes.show.title', id: id) : title
   end
 
   def type

@@ -247,7 +247,7 @@ GEM
     pjax_rails (0.3.4)
       jquery-rails
     polyglot (0.3.3)
-    powerpack (0.0.3)
+    powerpack (0.0.4)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)

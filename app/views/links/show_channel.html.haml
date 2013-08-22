@@ -9,7 +9,7 @@
 
   %section.details
     %p.main= @name
-    %p.url= @channel
+    = link_to @channel, @channel, class: 'url'
 
     -# %p= link_to @channel, "#{ @links_channel.first.protocol }://#{ @channel }"
 

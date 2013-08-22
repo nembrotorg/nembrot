@@ -1,13 +1,18 @@
-%ul.citations
-  = list_of citations do |citation|
+%section.citations
 
-    - citation_text, attribution = citation_blurb(citation.clean_body)
+  %header
+    %h6=t('citations.index.title')
 
-    -#= link_to (render citation_partial('blockquote_with_attribution'), citation_text: citation_text, attribution: attribution), citation_path(citation),
-    -#    :lang => lang_attr(citation.lang),
-    -#    :dir => dir_attr(citation.lang)
+  %ul
+    = list_of citations do |citation|
 
-    %a{ href: citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) }
-      %figure.citation
-        %blockquote= blurbify(citation_text, citation.books, citation.links)
-        %figcaption= blurbify(attribution, citation.books, citation.links)
+      - citation_text, attribution = citation_blurb(citation.clean_body)
+
+      -#= link_to (render citation_partial('blockquote_with_attribution'), citation_text: citation_text, attribution: attribution), citation_path(citation),
+      -#    :lang => lang_attr(citation.lang),
+      -#    :dir => dir_attr(citation.lang)
+
+      %a{ href: citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) }
+        %figure.citation
+          %blockquote= blurbify(citation_text, citation.books, citation.links)
+          %figcaption= blurbify(attribution, citation.books, citation.links)

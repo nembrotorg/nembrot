@@ -6,7 +6,7 @@
                 noindex: true
 
 %article
-  %section#note-content{ lang: lang_attr(@note.lang), dir: dir_attr(@note.lang) }
+  %section#content{ lang: lang_attr(@note.lang), dir: dir_attr(@note.lang) }
 
     - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
     - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)

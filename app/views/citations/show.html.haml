@@ -4,11 +4,16 @@
                 open_graph: { title: @citation.title }
 
 %article
-  %section#note-content{ lang: lang_attr(@citation.lang), dir: dir_attr(@citation.lang) }
+  %section#content{ lang: lang_attr(@citation.lang), dir: dir_attr(@citation.lang) }
 
     = render 'header', title: t('citations.index.title', id: @citation.id), :document_title => document_title
 
-    %section#text
-      = bodify(@citation.body, @citation.books, @citation.links)
+    %section{ lang: lang_attr(@citation.lang), dir: dir_attr(@citation.lang) }
+
+      - citation_text, attribution = citation_blurb(@citation.clean_body, -1)
+
+      %figure.citation
+        %blockquote= blurbify(citation_text, @citation.books, @citation.links)
+        %figcaption= blurbify(attribution, @citation.books, @citation.links, 'citation.book.inline_html', 'citation.link.inline_html')
 
   = render 'notes/tag_list', tags: @tags unless @tags.blank?

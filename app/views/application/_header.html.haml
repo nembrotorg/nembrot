@@ -1,6 +1,5 @@
-%header
-  %hgroup{ :data => {:title => document_title} }
-    %h1!= title
+%header{ :data => {:title => document_title} }
+  %h1!= title
   - if flash
     %aside#notice
       - flash.each do |type, message|

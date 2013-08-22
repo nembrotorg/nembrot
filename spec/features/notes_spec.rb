@@ -57,10 +57,10 @@ describe 'Notes' do
       page.should have_selector('h1', text: @note.title)
     end
     it 'should not have the language attribute (if note is in default language)' do
-      page.should_not have_css('#note-content[lang=en]')
+      page.should_not have_css('#content[lang=en]')
     end
     it 'should not have the text direction (if note is in default language)' do
-      page.should_not have_css('#note-content[dir=rtl]')
+      page.should_not have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
       page.should have_link(I18n.t('notes.index.title'), href: notes_path)
@@ -143,10 +143,10 @@ describe 'Notes' do
       visit note_path(@note)
     end
     it 'has the language attribute if note is not in default language' do
-      page.should have_css('#note-content[lang=ar]')
+      page.should have_css('#content[lang=ar]')
     end
     it 'has the text direction if note is not in default language' do
-      page.should have_css('#note-content[dir=rtl]')
+      page.should have_css('#content[dir=rtl]')
     end
   end
 
@@ -166,10 +166,10 @@ describe 'Notes' do
       page.should have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
     end
     it 'should not have the language attribute (if note is in default language)' do
-      page.should_not have_css('#note-content[lang=en]')
+      page.should_not have_css('#content[lang=en]')
     end
     it 'should not have the text direction (if note is in default language)' do
-      page.should_not have_css('#note-content[dir=rtl]')
+      page.should_not have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
       page.should have_link(I18n.t('notes.index.title'), href: notes_path)
@@ -208,10 +208,10 @@ describe 'Notes' do
       visit note_version_path(@note, 3)
     end
     it 'has the language attribute if note is not in default language' do
-      page.should have_css('#note-content[lang=ar]')
+      page.should have_css('#content[lang=ar]')
     end
     it 'has the text direction if note is not in default languagex' do
-      page.should have_css('#note-content[dir=rtl]')
+      page.should have_css('#content[dir=rtl]')
     end
   end
 

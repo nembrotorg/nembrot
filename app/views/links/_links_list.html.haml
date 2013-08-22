@@ -1,16 +1,17 @@
 %section.links
+
   %header
     %h6=t('links.index.title')
+
   %ul
     = list_of links do |link|
 
       %cite= link_to link.title, link.url
       = t('citation.link.accessed_at_html', accessed_at: (timeago_tag link.updated_at))
-      %p
-        %span.url= link.url.gsub(%r(https?://), '')
+      %p= link_to link.url.gsub(%r(https?://), ''), link.url, class: 'url'
 
-      = render 'citations/citations_list', 
-        citations: link.notes.publishable.citations, 
+      = render 'citations/citations_list',
+        citations: link.notes.publishable.citations,
         books: '',
         links: [link] unless link.notes.publishable.citations.blank?
 

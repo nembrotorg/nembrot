@@ -1,6 +1,11 @@
-%ul.downloads
-  = list_of downloads do |download|
-    - file_loc = File.join(Rails.root, 'public', 'resources', 'raw', "#{ download.local_file_name }.#{ download.file_ext }")
-    - if File.file?(file_loc)
-      - size = number_to_human_size(File.size( file_loc )).titlecase
-      = link_to "#{ download.local_file_name }.#{ download.file_ext } (#{ size })", "/resources/raw/#{ download.local_file_name }.#{ download.file_ext }", :title => "Right-click to download", :download => "#{ download.local_file_name }.#{ download.file_ext }" 
+%section.downloads
+
+  %header
+    %h6 Downloads
+
+  %ul 
+    = list_of downloads do |download|
+      - file_loc = File.join(Rails.root, 'public', 'resources', 'raw', "#{ download.local_file_name }.#{ download.file_ext }")
+      - if File.file?(file_loc)
+        - size = number_to_human_size(File.size( file_loc )).titlecase
+        = link_to "#{ download.local_file_name }.#{ download.file_ext } (#{ size })", "/resources/raw/#{ download.local_file_name }.#{ download.file_ext }", :title => "Right-click to download", :download => "#{ download.local_file_name }.#{ download.file_ext }" 

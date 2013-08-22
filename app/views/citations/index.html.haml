@@ -11,4 +11,4 @@
   = render 'citations_list', citations: @citations.first(Settings.notes.index.page_size)
 
   %aside.statistics
-    = t('.statistics', count: number_with_delimiter(@citations.size))
+    = t('.statistics', count: number_with_delimiter(@citations.size), books_count: 0, links_count: 0)

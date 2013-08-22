@@ -31,6 +31,7 @@ defaults: &defaults
   notes:
     title_length: 40
     blurb_length: 400
+    citation_blurb_length: 230
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
@@ -92,7 +93,7 @@ defaults: &defaults
     font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     font_size: '15px'
     font_color: '#000'
-    secondary_color: '#666'
+    secondary_color: '#333'
     body_font: 'NOT USED'
     body_font_variant: 'regular'
     body_font_family: 'Georgia, serif'
@@ -102,6 +103,7 @@ defaults: &defaults
     body_font_citation_size: '15px'
     body_font_citation_color: '#000'
     count_color: '#900'
+    caption_color: '#454545'
     headline_font: 'DejaVuSansCondensed'
     headline_font_variant: 'condensed_book'
     headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
@@ -163,6 +165,7 @@ test:
   notes:
     title_length: 40
     blurb_length: 40
+    citation_blurb_length: 30
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']

@@ -15,7 +15,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_slug(params[:slug])
-    @notes = Note.publishable.listable.tagged_with(@tag.name)
+    @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
     @tags = Note.publishable.tag_counts_on(:tags)
 

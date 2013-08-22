@@ -5,8 +5,8 @@
 
 %section
 
-  = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title 
+  = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title
 
-  = render 'notes_list', notes: @notes
+  = render 'notes_list', notes: @notes unless @notes.empty?
 
-  = render 'citations/citations_list', citations: @citations, books: @books
+  = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?

@@ -13,7 +13,7 @@
       = render 'citations/citations_list',
         citations: link.notes.publishable.citations,
         books: '',
-        links: [link] unless link.notes.publishable.citations.blank?
+        links: [link] unless link.notes.publishable.citations.empty?
 
       = render 'notes_list', 
-        notes: link.notes.publishable.listable unless link.notes.publishable.listable.blank?
+        notes: link.notes.publishable.listable unless link.notes.publishable.listable.empty?

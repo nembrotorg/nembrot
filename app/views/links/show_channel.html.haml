@@ -13,4 +13,4 @@
 
     -# %p= link_to @channel, "#{ @links_channel.first.protocol }://#{ @channel }"
 
-  = render 'links_list', links: @links_channel unless @links_channel.blank?
+  = render 'links_list', links: @links_channel unless @links_channel.empty?

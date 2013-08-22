@@ -18,6 +18,6 @@
     -#    %section#text!= bodify(Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body))
     %section#text!= Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
-  = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list
+  = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
 
   = render 'versions_list', note: @note

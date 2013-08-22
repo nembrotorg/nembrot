@@ -8,7 +8,7 @@
 
   = render 'header', title: t('.title'), document_title: document_title 
 
-  = render 'tags_list', tags: @tags
+  = render 'tags_list', tags: @tags unless @tags.empty?
 
   %aside.statistics
     = t('.statistics', count: number_with_delimiter(@tags.size), references_count: number_with_delimiter(@references_count))

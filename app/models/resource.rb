@@ -92,7 +92,7 @@ class Resource < ActiveRecord::Base
   def make_local_file_name
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
-    elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is latin and at least 5 characters long
+    elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is in Latin script and at least 5 characters
       new_name = caption[0..Settings.styling.images.name_length]
     elsif description && !description[/[a-zA-Z\-]{5,}/].blank?
       new_name = description[0..Settings.styling.images.name_length]

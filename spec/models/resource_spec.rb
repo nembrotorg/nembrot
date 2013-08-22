@@ -134,7 +134,7 @@ describe Resource do
       its(:local_file_name) { should == 'original-file-name' }
     end
 
-    context 'when caption is not in a latin script' do
+    context 'when caption is not in Latin script' do
       before { @resource.update_attributes(caption: 'نين السياسة', description: nil, file_name: 'ORIGINAL FILE NAME') }
       its(:local_file_name) { should == 'original-file-name' }
     end

@@ -104,12 +104,12 @@ class EvernoteRequest
 
   def note_is_not_conflicted?
     get_new_content_from_cloud_if_updated
-    not_conflicted = cloud_note_data.content.scan(/Conflicting modification on/).empty?
+    not_conflicted = cloud_note_data.content.scan(I18n.t('notes.sync.conflicted.warning_string')).empty?
     unless not_conflicted
-      CloudNoteMailer.syncdown_note_failed('Evernote', cloud_note_metadata.guid, user_nickname, 'conflicted').deliver
+      CloudNoteMailer.syncdown_note_failed('Evernote', cloud_note_metadata.guid, cloud_note_metadata.title, user_nickname, 'conflicted').deliver
       SYNC_LOG.error I18n.t('notes.sync.conflicted.logger', logger_details)
     end
-    not_conflicted    
+    not_conflicted
   end
 
   def get_new_content_from_cloud_if_updated

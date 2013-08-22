@@ -51,10 +51,11 @@ en:
           subject: "%{provider}: note %{guid} failed on database update!"
           body: "%{provider}: note %{guid} for user %{username} failed on database update!"
       conflicted:
+        warning_string: 'Conflicting modification on'
         logger: "%{provider}: conflicted note %{guid} (%{title}) failed on database update!"
         email:
-          subject: "%{provider}: conflicted note %{guid} failed on database update!"
-          body: "%{provider}: note %{guid} for user %{username} failed on database update!\\n\\nThere is a synchronisation conflict in the note content."
+          subject: "%{provider}: conflicted note '%{title}' failed on database update!"
+          body: "%{provider}: note '%{title}' [%{guid}] for user %{username} failed on database update!\\n\\nThere is a synchronisation conflict in the note content."
 
   resources:
     cut:
@@ -100,7 +101,7 @@ en:
   citations:
     index:
       title: 'Citations'
-      statistics: "%{count} citations."
+      statistics: "%{count} citations from %{books_count} books and %{links_count} websites."
     show:
       title: "Citation %{id}"
       not_found: "Citation %{id} is not available."

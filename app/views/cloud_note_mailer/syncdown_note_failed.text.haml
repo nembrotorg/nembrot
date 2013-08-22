@@ -1,7 +1,7 @@
 :plain
-=t('email.greeting', :name => Settings.monitoring.name)
+=t('email.greeting', name: Settings.monitoring.name)
 \
-=t('notes.sync.failed.email.body', :provider => @provider, :guid => @guid, :username => @username, :error => @error)
+=t("notes.sync.#{ @error }.email.body", provider: @provider, guid: @guid, title: @title, username: @username)
 \
 #{ Settings.evernote.server }/Home.action#st=p&n=#{ @guid }
 \

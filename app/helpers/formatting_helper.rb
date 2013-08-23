@@ -218,7 +218,7 @@ module FormattingHelper
   def hyper_conform(text)
     text.gsub!(/\s+([\)\n\.\,\?\!])/m, '\1') # Ensure no space before certain punctuation
     text.gsub!(/([\(])\s+/m, '\1') # Ensure no space after certain elements
-    text.gsub!(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
+    # text.gsub!(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
     text.gsub!(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
     text.gsub!(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
     # text.gsub!(/(<p>|<li>)([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital

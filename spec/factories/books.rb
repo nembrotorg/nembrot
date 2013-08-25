@@ -15,10 +15,10 @@ FactoryGirl.define do
     open_library_id { Faker::Lorem.characters(10) }
     page_count Random.rand(500)
     published_city { Faker::Lorem.word }
-    published_date '1-1-2001'
+    published_date '2001-1-1'
     publisher { Faker::Lorem.words(3).join(' ') }
     sequence(:id) { |n| "#{n}" }
-    title { Faker::Lorem.sentence }
+    title { 'Book title' }
     translator { Faker::Lorem.words(2).join(' ') }
   end
 end

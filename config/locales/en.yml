@@ -76,6 +76,16 @@ en:
     index:
       title: 'Bibliography'
       statistics: "%{count} books (%{references_count} references)."
+    admin:
+      title: "Bibliography admin: %{mode}"
+      title_short: 'Admin'
+      statistics: "%{count} books."
+    edit:
+      title: "Edit book (ISBN %{isbn})"
+      not_found: "Book: %{slug} is not available."
+      editor_short: "(ed.)"
+      success: "%{title} saved!"
+      failure: 'Update failed!'
     show:
       title: 'Bibliography'
       not_found: "Book: %{slug} is not available."

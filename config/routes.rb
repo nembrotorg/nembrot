@@ -11,25 +11,22 @@ Nembrot::Application.routes.draw do
   get 'auth/failure' => 'evernote_auths#auth_failure'
   get 'auth/:provider/callback' => 'evernote_auths#auth_callback'
 
-  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+  put 'bibliography/update' => 'books#update', as: :update_book
+  get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
+  get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|all|citable|cited|missing_metadata/
+  get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
+  get 'bibliography' => 'books#index', as: :books
 
   get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
   get 'citations' => 'citations#index'
+
+  get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
+  get 'links' => 'links#index', as: :links
 
   get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
   get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
   get 'notes/map' => 'notes#map'
   get 'notes' => 'notes#index'
-
-  get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
-  get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
-  get 'tags' => 'tags#index'
-
-  get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
-  get 'bibliography' => 'books#index', as: :books
-
-  get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
-  get 'links' => 'links#index', as: :links
 
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,
@@ -40,7 +37,12 @@ Nembrot::Application.routes.draw do
     gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
     constraints: { format: /(gif|jpg|jpeg|png)/ }
 
-  resources :evernote_notes, only: [:add_evernote_task]
+  get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
+  get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
+  get 'tags' => 'tags#index'
 
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+
+  resources :evernote_notes, only: [:add_evernote_task]
   resources :evernote_auths, only: [:auth_callback, :auth_failure]
 end

@@ -6,22 +6,22 @@ class Book < ActiveRecord::Base
 
   attr_accessible :title, :author, :editor, :introducer, :translator, :lang, :published_date, :published_city, :pages,
                   :isbn_10, :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id,
-                  :tag, :dirty, :attempts, :notes
+                  :tag, :dirty, :attempts, :notes, :format, :dimensions, :weight, :dewey_decimal, :lcc_number,
+                  :full_text_url
 
   has_and_belongs_to_many :notes
 
   default_scope order: 'tag'
 
-  # See http://stackoverflow.com/questions/3875564
-  scope :citable, where('title IS NOT ? AND tag IS NOT ?', nil, nil)
-
-  # OPTIMIZE: Notes must be active and not hidden (publishable)
-  scope :publishable, where('title IS NOT ? AND tag IS NOT ?', nil, nil)
+  scope :citable, where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil)
+  scope :editable, order: 'updated_at DESC'
+  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+  scope :metadata_missing, where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC')
+  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
+  scope :cited, where('title IS NOT ? AND tag IS NOT ?', nil, nil)
     .joins('left outer join books_notes on books.id = books_notes.book_id')
     .where('books_notes.book_id IS NOT ?', nil)
-    .uniq
-  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
-  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+    .uniq # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
@@ -30,7 +30,8 @@ class Book < ActiveRecord::Base
   validates :full_text_url, url: true, allow_blank: true
 
   before_validation :update_tag,
-                    if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?'
+                    if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?',
+                     unless: :tag_changed? # || '!tag.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
   extend FriendlyId

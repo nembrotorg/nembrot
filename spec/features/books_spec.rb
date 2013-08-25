@@ -4,7 +4,8 @@ describe 'Books' do
 
   before do
     @book = FactoryGirl.create(:book)
-    @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Text. -- (#{ @book.tag }), p. 1")
+    @note = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Note text.")
+    @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "quote:Text. -- (#{ @book.tag }), p. 1")
   end
 
   describe 'index page' do
@@ -15,22 +16,48 @@ describe 'Books' do
       page.should have_selector('h1', text: I18n.t('books.index.title'))
     end
     it 'has a link to the book' do
-      page.should have_selector('a', citation_path(@book.id))
+      page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
+      page.should have_selector("a[href='#{ book_path(@book.slug) }']")
     end
   end
 
   describe 'show page' do
     before do
-      visit book_path(@book)
+      visit book_path(@book.slug)
     end
-    it 'has the citation title' do
-      page.should have_selector('h1', @citation.headline)
+    specify { page.should have_content(@book.title) }
+    specify { page.should have_content(@book.author) }
+    specify { page.should have_content(@book.translator) }
+    specify { page.should have_content(@book.editor) }
+    specify { page.should have_content(@book.introducer) }
+    specify { page.should have_content(@citation.headline) }
+
+    it 'has a link to the citation' do
+      page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
+      pending "page.should have_selector(\"a[href='#{ note_path(@note) }']\") FIXME: Citation is being shown as a note"
+      pending "page.should have_selector(\"a[href='#{ citation_path(@citation) }']\") FIXME: Citation is being shown as a note"
     end
-    it 'has a link to the book cited' do
-      page.should have_selector('a', book_path(@book.slug))
+  end
+
+  describe 'edit page' do
+    before do
+      visit edit_book_path(@book.id)
     end
-    it 'has a blockquote' do
-      pending "page.should have_css('blockquote')"
+    it 'can be updated' do
+      fill_in 'Author', with: 'New Author'
+      click_button('Save')
+      page.should have_content I18n.t('books.edit.success', title: @book.title)
+      @book.reload
+      @book.author.should eq('New Author')
+    end
+    it 'rejects invalid changes' do
+      fill_in 'ISBN 10', with: ''
+      fill_in 'ISBN 13', with: ''
+      click_button('Save')
+      page.should have_content I18n.t('books.edit.failure')
+      @book.reload
+      @book.isbn_10.should_not eq('')
+      @book.isbn_13.should_not eq('')
     end
   end
 end

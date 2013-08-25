@@ -7,6 +7,22 @@ describe BooksController do
     @note = FactoryGirl.create(:note, body: @book.tag)
   end
 
+  describe 'GET #admin' do
+    before do
+      put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: nil)
+      @book.reload
+    end
+    it 'populates an array of books' do
+      get :admin
+      assigns(:books).should eq([@book])
+    end
+
+    it 'renders the :admin view' do
+      get :admin
+      response.should render_template :admin
+    end
+  end
+
   describe 'GET #index' do
     it 'populates an array of books' do
       get :index
@@ -21,7 +37,7 @@ describe BooksController do
 
   describe 'GET #show' do
     before do
-      @related_book = FactoryGirl.build(:book, author: @book.author)
+      @related_book = FactoryGirl.create(:book, isbn_10: '0679768025', isbn_13: nil, author: @book.author)
       get :show, slug: @book.slug
     end
     it 'assigns the requested book to @book' do
@@ -29,11 +45,11 @@ describe BooksController do
     end
 
     it 'assigns books to @books' do
-      assigns(:books).should eq([@book])
+      assigns(:books).should eq([@book, @related_book])
     end
 
     it 'assigns related books to @related_books' do
-      pending "assigns(:related_books).should eq([@related_book])"
+      assigns(:related_books).should eq([@related_book])
     end
 
     it 'renders the #show view' do
@@ -51,4 +67,45 @@ describe BooksController do
       end
     end
   end
+
+  describe 'PUT update' do
+    context 'valid attributes' do
+      it 'located the requested @book' do
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book)
+        assigns(:book).should eq(@book)
+      end
+
+      it 'changes @books attributes' do
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: 'New Author')
+        @book.reload
+        @book.author.should eq('New Author')
+      end
+
+      it 'redirects to books admin index' do
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book)
+        @book.reload
+        response.should redirect_to books_admin_path
+        flash[:success].should == I18n.t('books.edit.success', title: @book.title)
+      end
+    end
+
+    context 'invalid attributes' do
+      before do
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: 'New Author', isbn_10: nil, isbn_13: nil)
+        @book.reload
+      end
+      it 'rejects invalid attributes' do
+        @book.author.should_not eq('New Author')
+      end
+
+      it 'rejects invalid attributes' do
+        response.should render_template :edit
+      end
+
+      it 'rejects invalid attributes' do
+        flash[:error].should == I18n.t('books.edit.failure')
+      end
+    end
+  end
+
 end

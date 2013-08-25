@@ -5,7 +5,7 @@ FactoryGirl.define do
     active true
     body { 'Fixed note content used to prevent multiple calls to VCR.' }
     hide false
-    is_citation false
+    is_citation true
     lang 'en'
     listable true
     sequence(:external_updated_at) { |n| (1000 - n).days.ago }

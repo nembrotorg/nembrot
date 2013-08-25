@@ -11,6 +11,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 =blurb($lines: 3, $margin-right: 0)
+  display: block
   height: $line-height * $lines
   overflow: hidden
   &:after
@@ -149,6 +150,20 @@ del
   color: $delete-font-color
   text-decoration: strike-through
 
+form
+  fieldset
+    border: none
+    padding: 0
+  label
+    display: block
+    height: $line-height
+    line-height: $line-height
+  input[type=text]
+    border-radius: 0
+    border: 1px solid #ccc
+    &.important:not([value])
+      border-color: $error-background-color
+
 h1
   margin: $line-height 0
   line-height: $line-height
@@ -173,13 +188,19 @@ ins
   text-decoration: none
   background-color: $insert-background-color
 
-li
-  a
-    display: block
-
 ol, ul
   +no-bullets
   padding: 0
+
+table
+  margin-bottom: $line-height
+  width: 100%
+  td
+    margin-left: $gutter-width
+    &:empty
+      background-color: $error-background-color
+    &:first-child
+      margin-left: 0
 
 .hidden-for-calculations
   +fade(1) // FIXME: opacity doesn't work
@@ -222,16 +243,18 @@ ol, ul, .statistics
 .breadcrumb
   +horizontal-list
   text-transform: lowercase
-  a:before
-    +icon-right
-    +icon-small
   cite
     font-style: normal
-  li:last-child
-    &:before
-      +icon-right
-      +icon-small
-      font-weight: normal
+  li
+    &:not(:last-child)
+      a:before
+        +icon-right
+        +icon-small
+    &:last-child
+      &:before
+        +icon-right
+        +icon-small
+        font-weight: normal
 
 header
   position: relative
@@ -451,6 +474,23 @@ figure
     &:nth-child(n+2)
       display: none
 
+.books-admin
+  section
+    nav
+      ul
+        +horizontal-list
+        margin-bottom: $line-height
+        li
+          float: right
+          text-transform: lowercase
+          a:before
+            +icon-right
+            +icon-small
+
+.books-admin, .books-edit
+  .breadcrumb
+    background-color: $selected-background-color
+
 .books-show
   iframe[src*='books.google']
     height: $line-height * 24
@@ -601,6 +641,17 @@ figure
         width: auto
         right: 0
         height: $line-height * 5 // Use variable
+
+  .books-edit, .books-update
+    form
+      +column(6, 12)
+      +first-column
+      input
+        float: right
+    .tools
+      +column(6, 12)
+      ul
+        margin: 0
 
   .notes-show article
     figure

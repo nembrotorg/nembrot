@@ -3,17 +3,40 @@ class BooksController < ApplicationController
   add_breadcrumb I18n.t('books.index.title'), :books_path
 
   def index
-    @books = Book.publishable
+    @books = Book.cited
     @references_count = @books.sum { |b| b.notes.size }
 
     respond_to do |format|
       format.html
-      format.json { render :json => @books }
+      format.json { render json: @books }
+    end
+  end
+
+  def admin
+    case params[:mode]
+    when 'all'
+      @books = Book.editable
+    when 'citable'
+      @books = Book.citable
+    when 'cited'
+      @books = Book.cited
+    else
+      @books = Book.metadata_missing
+    end
+
+    @mode = params[:mode].nil? ? 'missing metadata' : params[:mode]
+
+    add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
+    add_breadcrumb @mode, request.original_url
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @books }
     end
   end
 
   def show
-    @books = Book.publishable
+    @books = Book.cited
     @book = @books.find_by_slug(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
 
@@ -21,10 +44,37 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @book }
+      format.json { render json: @book }
     end
     rescue
       flash[:error] = t('books.show.not_found', slug: params[:slug])
       redirect_to books_path
   end
+
+  def edit
+    @book = Book.find params[:id]
+
+    add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
+    add_breadcrumb "ISBN #{ @book.isbn }", edit_book_path(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def update
+    @book = Book.find_by_id(params[:id])
+   
+    add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
+    add_breadcrumb "ISBN #{ @book.isbn }", edit_book_path(params[:id])
+
+    if @book.update_attributes(params[:book])
+      flash[:success] = I18n.t('books.edit.success', title: @book.title)
+      redirect_to books_admin_path
+    else
+      flash[:error] = I18n.t('books.edit.failure')
+      render :edit
+    end
+  end
+
 end

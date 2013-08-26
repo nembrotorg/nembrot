@@ -8,16 +8,30 @@ describe 'Books' do
     @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "quote:Text. -- (#{ @book.tag }), p. 1")
   end
 
+  describe 'admin page' do
+    before do
+      visit '/bibliography/admin/all'
+    end
+    it 'has the title' do
+      page.should have_css('h1', text: I18n.t('books.admin.title', mode: 'all'))
+    end
+    it 'has a link to the book' do
+      page.should have_text(@book.title)
+      page.should have_text(@book.author)
+      page.should have_selector("a[href='#{ edit_book_path(@book.id) }']")
+    end
+  end
+
   describe 'index page' do
     before do
       visit books_path
     end
     it 'has the title Bibliography' do
-      page.should have_selector('h1', text: I18n.t('books.index.title'))
+      page.should have_css('h1', text: I18n.t('books.index.title'))
     end
     it 'has a link to the book' do
       page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
-      page.should have_selector("a[href='#{ book_path(@book.slug) }']")
+      page.should have_css("a[href='#{ book_path(@book.slug) }']")
     end
   end
 

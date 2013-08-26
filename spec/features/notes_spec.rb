@@ -4,7 +4,7 @@ describe 'Notes' do
 
   include ResourcesHelper
 
-  before { @note = FactoryGirl.create(:note) }
+  before { @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
 
   describe 'index page' do
     before do
@@ -155,10 +155,12 @@ describe 'Notes' do
       @note.title = 'Newer title'
       @note.body = 'Newer body'
       @note.tag_list = ['tag1']
+      @note.external_updated_at = 100.minutes.ago
       @note.save
       @note.title = 'Newest title'
       @note.body = 'Newest body'
       @note.tag_list = ['tag2']
+      @note.external_updated_at = 1.minute.ago
       @note.save
       visit note_version_path(@note, 3)
     end

@@ -5,7 +5,7 @@ include ApplicationHelper
 
 describe Note do
 
-  let(:note) { FactoryGirl.create(:note) }
+  let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
   subject { note }
 
   it { should be_valid }
@@ -72,6 +72,7 @@ describe Note do
     context 'when title is changed' do
       before do
         note.title = 'New Title'
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'saves a version' do
@@ -81,6 +82,7 @@ describe Note do
     context 'when title is changed' do
       before do
         note.title = 'New Title'
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'saves a version' do
@@ -90,6 +92,7 @@ describe Note do
     context 'when body is changed' do
       before do
         note.body = 'New Body'
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'saves a version' do
@@ -99,6 +102,7 @@ describe Note do
     context 'when other attributes (e.g. altitude) is changed' do
       before do
         note.altitude = 1
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'does not save a version' do
@@ -109,21 +113,47 @@ describe Note do
       before do
         note.instruction_list = %w(__RESET)
         note.body = 'New Body'
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'does not save a version' do
         note.versions.should be_empty
       end
     end
+
+    context 'when a note is not much older or different than the last version' do
+      before do
+        note.body = note.body + ' Extra word.'
+        note.external_updated_at = 199.minutes.ago
+        note.save
+      end
+      it 'does not save a version' do
+        note.versions.should be_empty
+      end
+    end
+
+    context 'when a note is not much older than but is different from the last version' do
+      before do
+        note.body = note.body + ' More than ten words, enough to go over threshold in settings.'
+        note.external_updated_at = 199.minutes.ago
+        note.save
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+
     context 'when a version is saved' do
       before do
         note.body = 'First Body'
         note.tag_list = %w(first_tag)
         note.instruction_list = %w(__FIRST_INSTRUCTION)
+        note.external_updated_at = 100.minutes.ago
         note.save
         note.body = 'Second Body with more words'
         note.tag_list = %w(second_tag)
         note.instruction_list = %w(__SECOND_INSTRUCTION)
+        note.external_updated_at = 1.minute.ago
         note.save
       end
       it 'saves metadata' do

@@ -3,9 +3,9 @@
 describe NotesController do
 
   before(:each) do
-    @note = FactoryGirl.create(:note)
-    @note.update_attributes(title: 'New Title')
-    @note.update_attributes(title: 'Newer Title')
+    @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
+    @note.update_attributes(title: 'New Title', external_updated_at: 100.minutes.ago)
+    @note.update_attributes(title: 'Newer Title', external_updated_at: 1.minute.ago)
   end
 
   describe 'GET #index' do

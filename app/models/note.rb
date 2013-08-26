@@ -19,6 +19,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
+                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Settings.notes.version_gap_minutes.minutes || (Note.find(note.id).word_count - note.word_count).abs > Settings.notes.version_gap_word_count  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     word_count:  proc { |note| Note.find(note.id).word_count },

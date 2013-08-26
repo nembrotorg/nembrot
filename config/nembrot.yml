@@ -37,6 +37,8 @@ defaults: &defaults
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
+    version_gap_minutes: 60
+    version_gap_word_count: 100
     instructions:
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']
@@ -171,6 +173,8 @@ test:
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
+    version_gap_minutes: 60
+    version_gap_word_count: 5
     instructions:
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']

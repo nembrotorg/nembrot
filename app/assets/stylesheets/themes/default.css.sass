@@ -158,11 +158,14 @@ form
     display: block
     height: $line-height
     line-height: $line-height
-  input[type=text]
-    border-radius: 0
-    border: 1px solid #ccc
-    &.important:not([value])
-      border-color: $error-background-color
+  input
+    &[type=text],
+    &[type=url],
+    &[type=number]
+      border-radius: 0
+      border: 1px solid #ccc
+      &.important:not([value])
+        border-color: $error-background-color
 
 h1
   margin: $line-height 0
@@ -474,7 +477,7 @@ figure
     &:nth-child(n+2)
       display: none
 
-.books-admin
+.books-admin, .links-admin
   section
     nav
       ul
@@ -487,7 +490,7 @@ figure
             +icon-right
             +icon-small
 
-.books-admin, .books-edit
+.books-admin, .books-edit, .links-admin, .links-edit
   .breadcrumb
     background-color: $selected-background-color
 
@@ -642,12 +645,18 @@ figure
         right: 0
         height: $line-height * 5 // Use variable
 
-  .books-edit, .books-update
+  .books-edit, .books-update, .links-edit, .links-update
     form
       +column(6, 12)
       +first-column
       input
-        float: right
+        &[type=text],
+        &[type=url],
+        &[type=number]
+          float: right
+          width: 66.66%
+        &[type=submit]
+          margin-top: $line-height
     .tools
       +column(6, 12)
       ul

@@ -2,30 +2,55 @@
 
 describe 'Links' do
 
-  let(:link) { FactoryGirl.create(:link) }
-  let(:citation) { FactoryGirl.build(:note, links: [link], is_citation: true, body: 'Text. -- http://example.com') }
+  before do
+    @note = FactoryGirl.create(:note)
+    @link = FactoryGirl.create(:link)
+    @link.notes << @note
+  end
+
+  describe 'admin page' do
+    before do
+      visit links_admin_path
+    end
+    specify { page.should have_css('h1', text: I18n.t('links.admin.title')) }
+    specify { page.should have_text(@link.title) }
+    specify { page.should have_text(@link.url) }
+    specify { page.should have_text(@link.channel) }
+    specify { page.should have_selector("a[href='#{ edit_link_path(@link.id) }']") }
+  end
 
   describe 'index page' do
     before do
       visit links_path
     end
-    it 'has the title Links' do
-      page.should have_selector('h1', text: I18n.t('links.index.title'))
-    end
-    it 'has a link to the link' do
-      page.should have_selector('a', link_path(link))
-    end
+    specify { page.should have_css('h1', text: I18n.t('links.index.title')) }
+    specify { page.should have_selector("a[href='#{ link_path(@link) }']") }
   end
 
   describe 'show_channel page' do
     before do
-      visit link_path(link.slug)
+      visit link_path(@link.channel)
     end
-    it 'has a link to the link cited' do
-      page.should have_selector('a', citation_path(citation))
+    specify { page.should have_selector("a[href='#{ note_path(@note) }']") }
+  end
+
+  describe 'edit page' do
+    before do
+      visit edit_link_path(@link.id)
     end
-    it 'has a blockquote' do
-      "page.should have_css('figure')"
+    it 'can be updated' do
+      fill_in 'Title', with: 'New Title'
+      click_button('Save')
+      page.should have_content I18n.t('links.edit.success', channel: @link.channel)
+      @link.reload
+      @link.title.should eq('New Title')
+    end
+    it 'rejects invalid changes' do
+      fill_in 'link[url]', with: ''
+      click_button('Save')
+      page.should have_content I18n.t('links.edit.failure')
+      @link.reload
+      @link.url.should_not eq('')
     end
   end
 end

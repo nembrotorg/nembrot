@@ -4,6 +4,28 @@ class LinksController < ApplicationController
 
   add_breadcrumb I18n.t('links.index.title'), :links_path
 
+  def admin
+    @links = Link.publishable
+
+    add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @books }
+    end
+  end
+
+  def edit
+    @link = Link.find params[:id]
+
+    add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
+    add_breadcrumb @link.channel, edit_link_path(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def index
     # REVIEW: This gives the count of links per channel, what we really want is number of citations
     # @channels = Link.publishable.group(:channel).count(:channel)
@@ -30,5 +52,20 @@ class LinksController < ApplicationController
     rescue
       flash[:error] = t('links.show_channel.not_found', channel: params[:slug])
       redirect_to links_path
+  end
+
+  def update
+    @link = Link.find_by_id(params[:id])
+   
+    add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
+    add_breadcrumb @link.channel, edit_link_path(params[:id])
+
+    if @link.update_attributes(params[:link])
+      flash[:success] = I18n.t('links.edit.success', channel: @link.channel)
+      redirect_to links_admin_path
+    else
+      flash[:error] = I18n.t('links.edit.failure')
+      render :edit
+    end
   end
 end

@@ -1,0 +1,14 @@
+- document_title = "#{ t('.title', mode: @mode) } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title },
+                noindex: true
+
+%section
+
+  = render 'header', title: t('.title', mode: @mode), document_title: document_title
+
+  = render 'links_admin_list', links: @links unless @links.empty?
+
+  %aside.statistics
+    = t('.statistics', count: number_with_delimiter(@links.size))

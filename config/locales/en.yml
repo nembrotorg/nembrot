@@ -104,6 +104,15 @@ en:
     index:
       title: 'Links'
       statistics: "%{count} links (%{references_count} references)."
+    admin:
+      title: 'Links admin'
+      title_short: 'Admin'
+      statistics: "%{count} links."
+    edit:
+      title: "Edit url from %{channel}"
+      not_found: "Url: %{url} is not available."
+      success: "Url from %{channel} saved!"
+      failure: 'Update failed!'
     show_channel:
       title: 'Links'
       not_found: "Links for %{channel} are not available."

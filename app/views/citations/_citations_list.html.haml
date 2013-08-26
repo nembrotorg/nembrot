@@ -6,7 +6,7 @@
   %ul
     = list_of citations do |citation|
 
-      - citation_text, attribution = citation_blurb(citation.clean_body)
+      - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
 
       -#= link_to (render citation_partial('blockquote_with_attribution'), citation_text: citation_text, attribution: attribution), citation_path(citation),
       -#    :lang => lang_attr(citation.lang),

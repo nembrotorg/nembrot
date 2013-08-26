@@ -73,10 +73,16 @@ class Note < ActiveRecord::Base
       .strip
   end
 
-  def clean_body
+  def clean_body_with_parentheses
     clean_body_with_instructions
       .gsub(/^\W*?quote\:/, '')
       .gsub(/^\w*?\:.*$/, '')
+      .gsub(/\n|\r/, ' ')
+      .gsub(/\s+/, ' ')
+  end
+
+  def clean_body
+    clean_body_with_parentheses
       .gsub(/\([^\]]*?\)|\[[^\]]*?\]|\n|\r/, ' ')
       .gsub(/\s+/, ' ')
   end

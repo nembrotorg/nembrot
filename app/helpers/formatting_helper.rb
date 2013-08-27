@@ -3,6 +3,7 @@
 module FormattingHelper
 
   def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html')
+    return '' if text.blank?
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style)
@@ -16,6 +17,7 @@ module FormattingHelper
   end
 
   def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+    return '' if text.blank?
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -26,6 +28,7 @@ module FormattingHelper
   end
 
   def simple_blurbify(text)
+    return '' if text.blank?
     text = clean_whitespace(text)
     text = smartify(text)
     clean_up(text)

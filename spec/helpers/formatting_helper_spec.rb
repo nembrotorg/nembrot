@@ -8,6 +8,24 @@ describe FormattingHelper do
       let(:expected) { IO.read(sample_file.gsub(/input/, 'expected')) }
       pending "specify { bodify(input).should == expected }"
     end
+    context 'when text is empty or nil' do
+      specify { bodify('').should eq('') }
+      specify { bodify(nil).should eq('') }
+    end
+  end
+
+  describe '#blurbify' do
+    context 'when text is empty or nil' do
+      specify { blurbify('').should eq('') }
+      specify { blurbify(nil).should eq('') }
+    end
+  end
+
+  describe '#simple_blurbify' do
+    context 'when text is empty or nil' do
+      specify { simple_blurbify('').should eq('') }
+      specify { simple_blurbify(nil).should eq('') }
+    end
   end
 
   describe '#format_blockquotes' do

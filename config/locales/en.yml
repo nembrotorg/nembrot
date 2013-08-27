@@ -103,7 +103,7 @@ en:
   links:
     index:
       title: 'Links'
-      statistics: "%{count} links (%{references_count} references)."
+      statistics: "%{links_count} links (%{channels_count} channels)."
     admin:
       title: 'Links admin'
       title_short: 'Admin'

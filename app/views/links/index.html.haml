@@ -11,4 +11,4 @@
   = render 'channels_list', channels: @channels
 
   %aside.statistics
-    = t('.statistics', count: number_with_delimiter(@channels.size), references_count: number_with_delimiter(@references_count))
+    = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels.size))

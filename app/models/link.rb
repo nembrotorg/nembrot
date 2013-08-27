@@ -10,7 +10,7 @@ class Link < ActiveRecord::Base
 
   has_and_belongs_to_many :notes
 
-  default_scope order: 'url'
+  default_scope order: 'channel'
 
   # OPTIMIZE: Notes must be active and not hidden (publishable)
   scope :publishable, where(dirty: false)

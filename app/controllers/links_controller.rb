@@ -27,7 +27,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @channels = Link.publishable.count(group: :channel)
+    @channels = Link.publishable.select(:channel).count(group: :channel)
     @links_count = Link.publishable.size
 
     respond_to do |format|

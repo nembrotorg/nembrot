@@ -1,2 +1,1 @@
-- if note.embeddable_source_url =~ /youtube|vimeo|soundcloud/
-  %iframe{ :src => note.embeddable_source_url, :allowfullscreen => 'true', :webkitAllowFullScreen => 'true', :webkitAllowFullScreen => 'true' }
+%iframe{ src: embeddable_url(url), allowfullscreen: 'true', webkitAllowFullScreen: 'true', webkitAllowFullScreen: 'true' }

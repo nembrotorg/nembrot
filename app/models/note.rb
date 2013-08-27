@@ -87,15 +87,10 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
-  def embeddable_source_url
-    if source_url && source_url =~ /youtube|vimeo|soundcloud/
-      source_url
-        .gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
-        .gsub(%r(^.*vimeo.*/video/(\d*)\b), 'http://player.vimeo.com/video/\\1')
-        .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
-    else
-      nil
-    end
+  # REVIEW: If we named this embeddable_source_url? then we can't do 
+  #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
+  def is_embeddable_source_url
+    (source_url && source_url =~ /youtube|vimeo|soundcloud/)
   end
 
   def fx
@@ -140,7 +135,7 @@ class Note < ActiveRecord::Base
   end
 
   def body_or_source_or_resource?
-    if body.blank? && embeddable_source_url.blank? && resources.blank?
+    if body.blank? && !is_embeddable_source_url && resources.blank?
       errors.add(:note, 'Note needs one of body, source or resource.')
     end
   end

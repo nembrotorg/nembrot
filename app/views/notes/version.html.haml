@@ -13,7 +13,7 @@
 
     = render 'header', title: title, document_title: document_title
 
-    = render 'media', note: @diffed_version
+    = render 'media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
 
     -#    %section#text!= bodify(Differ.diff_by_word(@diffed_version.body, @diffed_version.previous_body))
     %section#text!= Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))

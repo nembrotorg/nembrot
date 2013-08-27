@@ -182,7 +182,7 @@ iframe
   border: 0
   margin-bottom: $line-height
 
-img
+img, iframe
   display: block
   width: 100%
   max-width: 100%
@@ -357,6 +357,15 @@ figure
       &:before
         content: '\2014'
 
+iframe
+  &[src*='vimeo'],
+  &[src*='youtube']
+    height: $line-height * 8
+  &[src*='soundcloud.com']
+    height: $line-height * 2
+  &[src*='soundcloud.com%2Fplaylist']
+    height: $line-height * 8
+
 .annotations
   font:
     size: $small-font-size + 1px
@@ -503,16 +512,6 @@ figure
     cite
       display: none
 
-.home-index
-  iframe
-    &[src*='vimeo'],
-    &[src*='youtube']
-      height: $line-height * 25
-    &[src*='soundcloud.com']
-      height: $line-height * 6
-    &[src*='soundcloud.com%2Fplaylist']
-      height: $line-height * 15
-
 .links-show_channel .links
   & > ul
     margin-bottom: 0
@@ -570,7 +569,7 @@ figure
 
   +pass_media_query('print')
 
-  nav
+  iframe, nav
     display: none
 
   a
@@ -626,6 +625,17 @@ figure
     height: $line-height * 2
     margin: $line-height 0
 
+  iframe
+    +column(12, 12)
+    +first-column
+    &[src*='vimeo'],
+    &[src*='youtube']
+      height: $line-height * 16
+    &[src*='soundcloud.com']
+      height: $line-height * 6
+    &[src*='soundcloud.com%2Fplaylist']
+      height: $line-height * 15
+
   .citations
     +column(8, 12)
     +pull(4, 12)
@@ -639,11 +649,12 @@ figure
       a
         padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
         +blurb(5, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
-      img
-        position: absolute
-        width: auto
-        right: 0
+      img, iframe
         height: $line-height * 5 // Use variable
+        margin: 0
+        position: absolute
+        right: 0
+        width: auto
 
   .books-edit, .books-update, .links-edit, .links-update
     form
@@ -679,15 +690,6 @@ figure
           color:  $map-font-color
           position: absolute
           height: $line-height * 6
-
-    iframe
-      &[src*='vimeo'],
-      &[src*='youtube']
-        height: $line-height * 16
-      &[src*='soundcloud.com']
-        height: $line-height * 6
-      &[src*='soundcloud.com%2Fplaylist']
-        height: $line-height * 15
 
     section#content
       #text
@@ -790,6 +792,11 @@ figure
 
   +pass_media_query('screen-and-min-width-1024px')
 
+  iframe
+    +column(9, 12)
+    +first-column
+    +pull(3, 12)
+
   img
     &[src*='16-9-8']
       height: 390px
@@ -809,7 +816,7 @@ figure
     li
       a
         +blurb(5, 34.38889%)
-      img
+      img, iframe
         width: 240px // OPTIMIZE: We get these measurements from the columns.
         height: $line-height * 5
 
@@ -843,9 +850,6 @@ figure
           +first-column
         #map
           +column(3, 12)
-      iframe
-        +column(9, 12)
-
       #text
         .body
           +column(6, 12)

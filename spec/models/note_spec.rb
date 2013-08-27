@@ -18,7 +18,7 @@ describe Note do
   it { should respond_to(:source_url) }
   it { should respond_to(:source_application) }
   it { should respond_to(:last_edited_by) }
-  it { should respond_to(:embeddable_source_url) }
+  it { should respond_to(:is_embeddable_source_url) }
   it { should respond_to(:fx) }
   it { should respond_to(:active) }
   it { should respond_to(:hide) }
@@ -268,25 +268,25 @@ describe Note do
     pending 'TODO'
   end
 
-  describe '#embeddable_source_url' do
+  describe '#is_embeddable_source_url' do
     context 'when source_url is not known to be embeddable' do
       before { note.source_url = 'http://www.example.com' }
-      its(:embeddable_source_url) { should be_nil }
+      its(:is_embeddable_source_url) { should be_false }
     end
 
     context 'when source_url is a youtube link' do
       before { note.source_url = 'http://youtube.com?v=ABCDEF' }
-      its(:embeddable_source_url) { should == 'http://www.youtube.com/embed/ABCDEF?rel=0' }
+      its(:is_embeddable_source_url) { should be_true }
     end
 
     context 'when source_url is a vimeo link' do
       before { note.source_url = 'http://vimeo.com/video/ABCDEF' }
-      its(:embeddable_source_url) { should == 'http://player.vimeo.com/video/ABCDEF' }
+      its(:is_embeddable_source_url) { should be_true }
     end
 
     context 'when source_url is a soundcloud link' do
       before { note.source_url = 'http://soundcloud.com?v=ABCDEF' }
-      its (:embeddable_source_url) { should == 'http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF' }
+      its (:is_embeddable_source_url) { should be_true }
     end
   end
 

@@ -22,6 +22,12 @@ module ApplicationHelper
     "#{ request.protocol }#{ request.host_with_port }#{ request.fullpath }"
   end
 
+  def embeddable_url(url)
+    url.gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
+       .gsub(%r(^.*vimeo.*/(\d*)\b), 'http://player.vimeo.com/video/\\1')
+       .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
+  end
+
   def qr_code_image_url(size = Settings.styling.qr_code_image_size)
     "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
   end

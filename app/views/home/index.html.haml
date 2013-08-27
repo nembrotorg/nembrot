@@ -15,7 +15,7 @@
     - if image.caption
       %figcaption= image.caption.html_safe
 
-  = render 'media', note: @notes.first
+  = render 'media', url: @notes.first.source_url if @note.is_embeddable_source_url
 
 - elsif @notes.size > 1
 

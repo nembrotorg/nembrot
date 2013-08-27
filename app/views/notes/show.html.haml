@@ -11,7 +11,7 @@
 
     = render 'images', images: @note.resources.attached_images, type: :standard unless @note.resources.attached_images.empty?
 
-    = render 'media', note: @note unless @note.embeddable_source_url.blank?
+    = render 'media', url: @note.source_url if @note.is_embeddable_source_url
 
     %section#text
       = bodify(@note.body, @note.books, @note.links)

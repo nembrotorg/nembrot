@@ -18,7 +18,7 @@ describe DiffedNoteVersion, versioning: true do
   it { should respond_to(:previous_title) }
   it { should respond_to(:previous_body) }
   it { should respond_to(:previous_tag_list) }
-  it { should respond_to(:embeddable_source_url) }
+  it { should respond_to(:is_embeddable_source_url) }
   it { should respond_to(:external_updated_at) }
 
   context 'when the first version is requested' do

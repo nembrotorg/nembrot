@@ -452,6 +452,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   spork-rails!
+  sprockets-rails
   sqlite3
   thin
   uglifier

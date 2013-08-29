@@ -19,6 +19,7 @@ doc/
 # Ignore files with passwords etc (except sample and model files)
 secret*
 !secret.rb
+!secret_token.rb
 !secret*.example
 
 # Ignore resource files

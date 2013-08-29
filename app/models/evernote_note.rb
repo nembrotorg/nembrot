@@ -7,11 +7,13 @@ class EvernoteNote < ActiveRecord::Base
 
   attr_accessible :cloud_note_identifier, :evernote_auth_id, :note_id, :dirty, :attempts, :content_hash, :update_sequence_number
 
-  belongs_to :note, dependent: :destroy
+  # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.
+  #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
+  belongs_to :note 
   belongs_to :evernote_auth
 
-  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
-  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
 
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily

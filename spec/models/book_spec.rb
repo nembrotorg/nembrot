@@ -35,15 +35,15 @@ describe Book do
   describe '.grab_isbns' do
     before { Book.grab_isbns('Body text (0804720991, 9780804720991) and more text.') }
     it 'adds dirty books from an isbn inside a block of text' do
-      Book.where(isbn_10: '0804720991', dirty: true).exists?.should eq(true)
-      Book.where(isbn_13: '9780804720991', dirty: true).exists?.should eq(true)
+      Book.where(isbn_10: '0804720991', dirty: true).exists?.should be_true
+      Book.where(isbn_13: '9780804720991', dirty: true).exists?.should be_true
     end
 
     context 'when the isbn numbers are not valid (invalid check digits)' do
       before { Book.grab_isbns('Body text (0804720990, 9780804720990) and more text.') }
       it 'adds dirty books from an isbn inside a block of text' do
-        Book.where(isbn_10: '0804720990').exists?.should eq(false)
-        Book.where(isbn_13: '9780804720990').exists?.should eq(false)
+        Book.where(isbn_10: '0804720990').exists?.should be_false
+        Book.where(isbn_13: '9780804720990').exists?.should be_false
       end
     end
   end
@@ -51,7 +51,7 @@ describe Book do
   describe '.add_task' do
     before { Book.add_task('0804720991') }
     it 'adds a dirty book when given an isbn' do
-      Book.where(isbn_10: '0804720991', dirty: true).exists?.should eq(true)
+      Book.where(isbn_10: '0804720991', dirty: true).exists?.should be_true
     end
   end
 

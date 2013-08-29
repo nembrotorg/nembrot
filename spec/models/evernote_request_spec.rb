@@ -43,8 +43,8 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'undirtifies evernote_note' do
-        @evernote_request.evernote_note.dirty == false
-        @evernote_request.evernote_note.attempts == 0
+        @evernote_request.evernote_note.dirty { should be_false }
+        @evernote_request.evernote_note.attempts { should == 0 }
       end
     end
 

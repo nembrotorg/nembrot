@@ -6,7 +6,7 @@ class CitationsController < ApplicationController
 
   def index
 
-    @citations = Note.publishable.citations.all
+    @citations = Note.publishable.citations.to_a
 
     respond_to do |format|
       format.html

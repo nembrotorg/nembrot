@@ -1,16 +1,20 @@
 source 'https://rubygems.org'
 
-gem 'rails',          '3.2.13'
+gem 'rails',          '4.0.0'
 
 gem 'acts-as-taggable-on'
 gem 'attr_encrypted'
 gem 'breadcrumbs_on_rails'
+gem 'coffee-rails'
+# gem 'compass-rails'- TEMPORARY: This is to enable Rails 4 upgrade
+gem 'compass-rails', github: 'milgner/compass-rails', ref: '1749c06f15dc4b058427e7969810457213647fb8'
+gem 'compass-h5bp'
 gem 'coveralls', require: false
 gem 'detect_language'
 gem 'devise'
 gem 'differ'
 gem 'evernote-thrift'
-gem 'friendly_id'
+gem 'friendly_id', github: 'norman/friendly_id', branch: 'master'
 gem 'gmaps4rails'
 gem 'god'
 gem 'haml'
@@ -26,13 +30,16 @@ gem 'nokogiri'
 gem 'oauth'
 gem 'omniauth'
 gem 'omniauth-evernote'
-gem 'paper_trail'
+gem 'paper_trail', github: 'airblade/paper_trail', branch: 'master'
 gem 'pjax_rails'
+gem 'protected_attributes' # TEMPORARY: This is to enable Rails 4 upgrade
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails'
 gem 'settingslogic'
 gem 'thin'
+gem 'turbo-sprockets-rails3'
+gem 'uglifier'
 gem 'unicorn'
 gem 'validate_url'
 gem 'wikipedia-client'
@@ -53,14 +60,6 @@ group :development do
   gem 'sqlite3'
 end
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'compass-rails'
-  gem 'compass-h5bp'
-  gem 'turbo-sprockets-rails3'
-  gem 'uglifier'
-end
-
 group :test do
   gem 'capybara'
   gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
@@ -76,7 +75,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'sass-rails'
   gem 'simplecov', require: false
-  gem 'spork-rails'
+  gem 'spork-rails', :github => 'sporkrb/spork-rails'
   gem 'sqlite3'
   gem 'vcr'
   gem 'webmock'

@@ -10,15 +10,15 @@ class Link < ActiveRecord::Base
 
   has_and_belongs_to_many :notes
 
-  default_scope order: 'channel'
+  default_scope { order('channel') }
 
   # OPTIMIZE: Notes must be active and not hidden (publishable)
-  scope :publishable, where(dirty: false)
+  scope :publishable, -> { where(dirty: false)
     .joins('left outer join links_notes on links.id = links_notes.link_id')
     .where('links_notes.link_id IS NOT ?', nil)
-    .uniq
-  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
-  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+    .uniq }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
 
   validates :url, presence: true, uniqueness: true
   validates :url, url: true

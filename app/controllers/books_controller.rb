@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.cited
-    @references_count = @books.sum { |b| b.notes.size }
+    @references_count = @books.to_a.sum { |b| b.notes.size }
 
     respond_to do |format|
       format.html

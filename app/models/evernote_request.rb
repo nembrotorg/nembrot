@@ -55,7 +55,7 @@ class EvernoteRequest
   def evernote_notebook_required?
     required = Array(Settings.evernote.notebooks).include?(cloud_note_metadata.notebookGuid)
     unless required
-      evernote_note.destroy
+      evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
     end
     required
@@ -64,14 +64,14 @@ class EvernoteRequest
   def cloud_note_active?
     active = cloud_note_metadata.active
     unless active
-      evernote_note.destroy
+      evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.deleted_note', logger_details)
     end
     active
   end
 
   def cloud_note_updated?
-    updated = evernote_note.update_sequence_number.nil? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    updated = evernote_note.update_sequence_number.blank? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
     unless updated
       evernote_note.undirtify
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', logger_details)
@@ -87,7 +87,7 @@ class EvernoteRequest
   def cloud_note_has_required_tags?
     has_required_tags = !(Array(Settings.notes.instructions.required) & cloud_note_tags).empty?
     unless has_required_tags
-      evernote_note.destroy
+      evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
     end
     has_required_tags

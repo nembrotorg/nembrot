@@ -12,10 +12,10 @@ class Resource < ActiveRecord::Base
 
   belongs_to :note
 
-  scope :attached_images, where("mime LIKE 'image%'").where(attachment: nil)
-  scope :attached_files, where(mime: 'application/pdf')
-  scope :need_syncdown, where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at')
-  scope :maxed_out, where('attempts > ?', Settings.notes.attempts).order('updated_at')
+  scope :attached_images, -> { where("mime LIKE 'image%'").where(attachment: nil) }
+  scope :attached_files, -> { where(mime: 'application/pdf') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
 
   validates :note, presence: true
   validates :cloud_resource_identifier, presence: true, uniqueness: true

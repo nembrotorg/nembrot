@@ -30,7 +30,7 @@ describe Link do
   describe '.grab_urls' do
     before { Link.grab_urls('Body text http://en.wikipedia.org/wiki/Valletta and more text.') }
     it 'adds url' do
-      Link.where(url: 'http://en.wikipedia.org/wiki/Valletta', dirty: true).exists?.should eq(true)
+      Link.where(url: 'http://en.wikipedia.org/wiki/Valletta', dirty: true).exists?.should be_true
     end
   end
 

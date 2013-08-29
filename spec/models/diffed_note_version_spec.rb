@@ -21,6 +21,9 @@ describe DiffedNoteVersion, versioning: true do
   it { should respond_to(:is_embeddable_source_url) }
   it { should respond_to(:external_updated_at) }
 
+  specify { PaperTrail.should be_enabled }
+  specify { @note.versions.size.should == 2 }
+
   context 'when the first version is requested' do
     its(:sequence) { should == 1 }
     its(:title) { should == 'First Title' }
@@ -58,4 +61,5 @@ describe DiffedNoteVersion, versioning: true do
     its(:tag_list) { should == %w(tag3 tag4 tag5) }
     its(:previous_tag_list) { should == %w(tag2 tag3 tag4) }
   end
+
 end

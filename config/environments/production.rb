@@ -13,6 +13,7 @@ Nembrot::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
+  config.assets.js_compressor = :uglify
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -60,22 +61,6 @@ Nembrot::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
-  # Mailer
-  # If we put these in application.rb, Settings is not read.
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              Settings.mailer.address,
-    port:                 Settings.mailer.port,
-    domain:               Settings.mailer.domain,
-    user_name:            Secret.mailer.user_name,
-    password:             Secret.mailer.password,
-    authentication:       'plain',
-    enable_starttls_auto: true
-  }
-  config.action_mailer.default_url_options = {
-    host: Settings.host
-  }
 
   config.eager_load = true
 end

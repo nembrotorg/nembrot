@@ -367,9 +367,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbo-sprockets-rails3 (0.2.9)
-      railties (>= 3.1.0)
-      sprockets (>= 2.0.0)
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -457,7 +454,6 @@ DEPENDENCIES
   spork-rails!
   sqlite3
   thin
-  turbo-sprockets-rails3
   uglifier
   unicorn
   validate_url

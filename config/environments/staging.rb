@@ -69,4 +69,6 @@ Nembrot::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  config.cache_store = :dalli_store
 end

@@ -117,6 +117,7 @@ GEM
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     daemons (1.1.9)
+    dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     detect_language (1.0.3)
@@ -402,6 +403,7 @@ DEPENDENCIES
   compass-h5bp
   compass-rails!
   coveralls
+  dalli
   database_cleaner (= 1.0.1)
   detect_language
   devise
@@ -429,6 +431,7 @@ DEPENDENCIES
   isbn_validation
   jquery-rails
   json
+  kgio
   launchy
   libnotify
   meta-tags

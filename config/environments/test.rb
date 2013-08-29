@@ -30,7 +30,7 @@ Nembrot::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = {
-    :host => Settings.host
+    host: Settings.host
   }
 
   # Raise exception on mass assignment protection for Active Record models

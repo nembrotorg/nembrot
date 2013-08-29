@@ -9,7 +9,7 @@ Nembrot::Application.configure do
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  config.action_controller.default_url_options = { :host => Settings.host }
+  config.action_controller.default_url_options = { host: Settings.host }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -33,16 +33,16 @@ Nembrot::Application.configure do
   # If we put these in application.rb, Settings is not read.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => Settings.mailer.address,
-    :port                 => Settings.mailer.port,
-    :domain               => Settings.mailer.domain,
-    :user_name            => Secret.mailer.user_name,
-    :password             => Secret.mailer.password,
-    :authentication       => 'plain',
-    :enable_starttls_auto => true
+    address:              Settings.mailer.address,
+    port:                 Settings.mailer.port,
+    domain:               Settings.mailer.domain,
+    user_name:            Secret.mailer.user_name,
+    password:             Secret.mailer.password,
+    authentication:       'plain',
+    enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = {
-    :host => Settings.host
+    host: Settings.host
   }
 
   config.eager_load = false

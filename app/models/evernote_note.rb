@@ -5,8 +5,6 @@ class EvernoteNote < ActiveRecord::Base
   include Evernotable
   include Syncable
 
-  attr_accessible :cloud_note_identifier, :evernote_auth_id, :note_id, :dirty, :attempts, :content_hash, :update_sequence_number
-
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
   belongs_to :note 

@@ -58,7 +58,7 @@ class LinksController < ApplicationController
     add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
     add_breadcrumb @link.channel, edit_link_path(params[:id])
 
-    if @link.update_attributes(params[:link])
+    if @link.update_attributes(link_params)
       flash[:success] = I18n.t('links.edit.success', channel: @link.channel)
       redirect_to links_admin_path
     else
@@ -66,4 +66,13 @@ class LinksController < ApplicationController
       render :edit
     end
   end
+
+  private
+
+  def link_params
+    params.require(:link).permit(:altitude, :attempts, :author, :canonical_url, :channel, :dirty, :domain, :error, 
+                                 :lang, :latitude, :longitude, :modified, :name, :paywall, :protocol, :publisher, 
+                                 :title, :url, :website_name) 
+  end
+
 end

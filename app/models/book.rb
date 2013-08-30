@@ -4,11 +4,6 @@ class Book < ActiveRecord::Base
 
   include Syncable
 
-  attr_accessible :title, :author, :editor, :introducer, :translator, :lang, :published_date, :published_city, :pages,
-                  :isbn_10, :isbn_13, :page_count, :google_books_id, :publisher, :library_thing_id, :open_library_id,
-                  :tag, :dirty, :attempts, :notes, :format, :dimensions, :weight, :dewey_decimal, :lcc_number,
-                  :full_text_url
-
   has_and_belongs_to_many :notes
 
   default_scope { order('tag') }

@@ -10,8 +10,5 @@ describe EvernoteAuth do
 
   it { should be_valid }
   it { should respond_to(:auth) }
-
-  it { should_not allow_mass_assignment_of(:auth) }
-
   it { should have_many(:evernote_notes) }
 end

@@ -4,10 +4,6 @@ class Link < ActiveRecord::Base
 
   include Syncable
 
-  attr_accessible :protocol, :channel, :domain, :url_or_canonical_url, :name, :title, :website_name, :author, :lang,
-                  :modified, :url, :canonical_url, :error, :paywall, :publisher, :dirty, :attempts, :longitude, 
-                  :latitude, :altitude
-
   has_and_belongs_to_many :notes
 
   default_scope { order('channel') }

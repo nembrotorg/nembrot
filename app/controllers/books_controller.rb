@@ -68,13 +68,22 @@ class BooksController < ApplicationController
     add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
     add_breadcrumb "ISBN #{ @book.isbn }", edit_book_path(params[:id])
 
-    if @book.update_attributes(params[:book])
+    if @book.update_attributes(book_params)
       flash[:success] = I18n.t('books.edit.success', title: @book.title)
       redirect_to books_admin_path
     else
       flash[:error] = I18n.t('books.edit.failure')
       render :edit
     end
+  end
+
+  private
+
+  def book_params
+    params.require(:book).permit(:attempts, :author, :dewey_decimal, :dimensions, :dirty, :editor, :format,
+                                 :full_text_url, :google_books_id, :introducer, :isbn_10, :isbn_13, :lang, :lcc_number,
+                                 :library_thing_id, :notes, :open_library_id, :page_count, :pages, :published_city, 
+                                 :published_date, :publisher, :tag, :title, :translator, :weight)
   end
 
 end

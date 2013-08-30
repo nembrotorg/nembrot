@@ -5,11 +5,6 @@ class Resource < ActiveRecord::Base
   include Evernotable
   include Syncable
 
-  attr_accessible :note_id, :cloud_resource_identifier, :mime, :width, :height, :caption, :description, :credit, 
-  :source_url, :external_updated_at, :latitude, :longitude, :altitude, :camera_make, :camera_model, :file_name, 
-  :local_file_name, :attachment, :data_hash, :dirty, :attempts,
-  :raw_location, :template_location, :cut_location, :blank_location
-
   belongs_to :note
 
   scope :attached_images, -> { where("mime LIKE 'image%'").where(attachment: nil) }

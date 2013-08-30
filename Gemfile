@@ -34,7 +34,6 @@ gem 'omniauth'
 gem 'omniauth-evernote'
 gem 'paper_trail', github: 'airblade/paper_trail', branch: 'master'
 gem 'pjax_rails'
-gem 'protected_attributes' # TEMPORARY: This is to enable Rails 4 upgrade
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails'

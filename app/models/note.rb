@@ -4,10 +4,6 @@ class Note < ActiveRecord::Base
 
   include Syncable
 
-  attr_accessible :title, :body, :external_updated_at, :resources, :latitude, :longitude, :lang, :author,
-                  :last_edited_by, :source, :source_application, :source_url, :sources, :tag_list, :instruction_list,
-                  :hide, :active, :is_citation, :listable
-
   attr_writer :tag_list, :instruction_list
 
   has_many :evernote_notes, dependent: :destroy

@@ -1,5 +1,5 @@
 %section.details
-  %p.main= link_to_unless_current simple_blurbify(main_details(book)), book
+  %p.main= link_to_unless_current_or_wrap simple_blurbify(main_details(book)), book
   %p= contributors(book)
   %p= classification(book)
   %p= links(book)

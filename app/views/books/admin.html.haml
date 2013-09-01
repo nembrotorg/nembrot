@@ -10,10 +10,10 @@
 
   %nav
     %ul
-      %li= link_to_unless_current 'Missing Metadata', '/bibliography/admin'
-      %li= link_to_unless_current 'Cited', '/bibliography/admin/cited'
-      %li= link_to_unless_current 'Citable', '/bibliography/admin/citable'
-      %li= link_to_unless_current 'All', '/bibliography/admin/all'
+      %li= link_to_unless_current_or_wrap 'Missing Metadata', '/bibliography/admin'
+      %li= link_to_unless_current_or_wrap 'Cited', '/bibliography/admin/cited'
+      %li= link_to_unless_current_or_wrap 'Citable', '/bibliography/admin/citable'
+      %li= link_to_unless_current_or_wrap 'All', '/bibliography/admin/all'
 
   = render 'books_admin_list', books: @books, mode: @mode unless @books.empty?
 

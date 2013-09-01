@@ -2,12 +2,12 @@
 
   %nav
     %ul
-      %li= link_to_unless_current t('home.title'), root_path
-      %li= link_to_unless_current t('notes.index.title'), notes_path
-      %li= link_to_unless_current t('citations.index.title'), citations_path
-      %li= link_to_unless_current t('books.index.title'), books_path
-      %li= link_to_unless_current t('links.index.title'), links_path
-      %li= link_to_unless_current t('tags.index.title'), tags_path
+      %li= link_to_unless_current_or_wrap t('home.title'), root_path
+      %li= link_to_unless_current_or_wrap t('notes.index.title'), notes_path
+      %li= link_to_unless_current_or_wrap t('citations.index.title'), citations_path
+      %li= link_to_unless_current_or_wrap t('books.index.title'), books_path
+      %li= link_to_unless_current_or_wrap t('links.index.title'), links_path
+      %li= link_to_unless_current_or_wrap t('tags.index.title'), tags_path
 
       = list_of Settings.web_channels do |link|
         = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"

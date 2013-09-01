@@ -28,7 +28,7 @@ module ApplicationHelper
        .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
   end
 
-  def link_to_unless_current_or_wrap(name, options = {}, html_options = {}, &block)
+  def link_to_unless_current_or_wrap(name, options = {}, html_options = {})
     link_to_unless_current name, options, html_options do
       "<span class=\"current\" data-href=\"#{ url_for(options) }\">#{ name }</span>".html_safe
     end

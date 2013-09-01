@@ -8,6 +8,6 @@
       %li
         v#{ note.versions.length + 1 } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })
     - else
-      %li= link_to_unless_current "#{ t('notes.version.title', :sequence => note.versions.length + 1) } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })".html_safe, note_version_path(note, note.versions.length + 1)
+      %li= link_to_unless_current_or_wrap "#{ t('notes.version.title', :sequence => note.versions.length + 1) } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })".html_safe, note_version_path(note, note.versions.length + 1)
       = list_of note.versions.reverse do |version|
-        = link_to_unless_current "#{ t('notes.version.title', :sequence => version.sequence) } (#{ timeago_tag version.reify.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(version.word_count)) })".html_safe, note_version_path(note, version.sequence)
+        = link_to_unless_current_or_wrap "#{ t('notes.version.title', :sequence => version.sequence) } (#{ timeago_tag version.reify.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(version.word_count)) })".html_safe, note_version_path(note, version.sequence)

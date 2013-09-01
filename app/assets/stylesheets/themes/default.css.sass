@@ -16,6 +16,8 @@
     &:before
       +icon-right
       +icon-small
+      display: inline-block
+      width: 12px
   .current
     font-weight: bold
 
@@ -253,18 +255,14 @@ ol, ul, .statistics
   margin-bottom: $line-height
 
 .breadcrumb
+  +arrow-links
   +horizontal-list
   text-transform: lowercase
-  cite
-    font-style: normal
   li
-    &:not(:last-child)
-      +arrow-links
-    &:last-child // use link_to_unless_current_or_wrapped
-      &:before
-        +icon-right
-        +icon-small
-        font-weight: normal
+    .current
+      font-weight: normal
+    cite
+      font-style: normal
 
 header
   position: relative
@@ -284,14 +282,10 @@ header
 
 footer
   ul
+    +arrow-links
     +columns(2)
     text-transform: lowercase
     a
-      &:before
-        +icon-right
-        +icon-small
-        display: inline-block
-        width: 12px
       &[href*=http]
         &:before
           +icon-link-ext

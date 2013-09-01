@@ -8,7 +8,7 @@
   = render 'header', title: t('.title'), document_title: document_title
 
   %section.details
-    %p.main= link_to_unless_current main_details(@book).html_safe, @book
+    %p.main= link_to_unless_current_or_wrap main_details(@book).html_safe, @book
     %p= contributors(@book)
     %p= classification(@book)
     %p= links(@book)

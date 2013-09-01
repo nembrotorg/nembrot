@@ -8,18 +8,40 @@ describe BooksController do
   end
 
   describe 'GET #admin' do
-    before do
-      put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: nil)
-      @book.reload
+    context 'when no user is signed in' do
+      before do
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: nil)
+        @book.reload
+        get :admin
+      end
+      it { should respond_with(:redirect) }
     end
-    it 'populates an array of books' do
-      get :admin
-      assigns(:books).should eq([@book])
+    context 'when a non-admin user is signed in' do
+      before do
+        @user = FactoryGirl.create(:user, role: 'other')
+        sign_in @user
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: nil)
+        @book.reload
+        get :admin
+      end
+      it { should respond_with(:redirect) }
     end
+    context 'when an admin user is signed in' do
+      before do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+        put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: nil)
+        @book.reload
+      end
+      it 'populates an array of books' do
+        get :admin
+        assigns(:books).should eq([@book])
+      end
 
-    it 'renders the :admin view' do
-      get :admin
-      response.should render_template :admin
+      it 'renders the :admin view' do
+        get :admin
+        response.should render_template :admin
+      end
     end
   end
 
@@ -69,6 +91,10 @@ describe BooksController do
   end
 
   describe 'PUT update' do
+    before do 
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
     context 'valid attributes' do
       it 'located the requested @book' do
         put :update, id: @book.id, book: FactoryGirl.attributes_for(:book)

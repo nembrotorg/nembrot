@@ -28,6 +28,12 @@ module ApplicationHelper
        .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
   end
 
+  def link_to_unless_current_or_wrap(name, options = {}, html_options = {}, &block)
+    link_to_unless_current name, options, html_options do
+      "<span class=\"current\" data-href=\"#{ url_for(options) }\">#{ name }</span>".html_safe
+    end
+  end
+
   def qr_code_image_url(size = Settings.styling.qr_code_image_size)
     "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
   end
@@ -37,4 +43,16 @@ module ApplicationHelper
         'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
     end
   end
+
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end  
 end

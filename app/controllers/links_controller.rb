@@ -2,6 +2,8 @@
 
 class LinksController < ApplicationController
 
+  load_and_authorize_resource
+
   add_breadcrumb I18n.t('links.index.title'), :links_path
 
   def admin

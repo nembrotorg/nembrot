@@ -75,6 +75,7 @@ GEM
       debug_inspector (>= 0.0.1)
     breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
+    cancan (1.6.10)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -395,6 +396,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   breadcrumbs_on_rails
+  cancan
   capistrano
   capybara
   coffee-rails

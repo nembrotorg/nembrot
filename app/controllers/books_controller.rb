@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
 
+  load_and_authorize_resource
+
   add_breadcrumb I18n.t('books.index.title'), :books_path
 
   def index

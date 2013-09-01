@@ -9,6 +9,10 @@ describe LinksController do
   end
 
   describe 'GET #admin' do
+    before do 
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
     it 'populates an array of @links' do
       get :admin
       assigns(:links).should eq([@link])
@@ -17,6 +21,38 @@ describe LinksController do
     it 'renders the :admin view' do
       get :admin
       response.should render_template :admin
+    end
+  end
+
+  describe 'GET #admin' do
+    context 'when no user is signed in' do
+      before do
+        get :admin
+      end
+      it { should respond_with(:redirect) }
+    end
+    context 'when a non-admin user is signed in' do
+      before do
+        @user = FactoryGirl.create(:user, role: 'other')
+        sign_in @user
+        get :admin
+      end
+      it { should respond_with(:redirect) }
+    end
+    context 'when an admin user is signed in' do
+      before do 
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+      end
+      it 'populates an array of @links' do
+        get :admin
+        assigns(:links).should eq([@link])
+      end
+
+      it 'renders the :admin view' do
+        get :admin
+        response.should render_template :admin
+      end
     end
   end
 
@@ -62,6 +98,10 @@ describe LinksController do
   end
 
   describe 'PUT update' do
+    before do 
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
     context 'valid attributes' do
       it 'located the requested @link' do
         put :update, id: @link.id, link: FactoryGirl.attributes_for(:link)

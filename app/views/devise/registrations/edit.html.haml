@@ -1,0 +1,35 @@
+- document_title = "#{ t('users.registrations.edit.title') } | #{ t('users.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title
+
+- add_breadcrumb t('users.registrations.edit.title'), new_user_registration_path
+
+= render 'header', title: t('users.registrations.edit.title'), document_title: document_title 
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = devise_error_messages!
+
+  = f.label :email do
+    = :email.to_s.humanize
+    = f.email_field :email, autofocus: true
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    %div
+      Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+  = f.label :password do
+    = :password.to_s.humanize
+    = f.password_field :password, autocomplete: 'off', placeholder: t('users.registrations.edit.keep_password')
+
+  = f.label :password_confirmation do
+    = :password_confirmation.to_s.humanize
+    = f.password_field :password_confirmation
+
+  = f.label :current_password do
+    = :current_password.to_s.humanize
+    = f.password_field :current_password, placeholder: t('users.registrations.edit.current_password_reason')
+
+  = f.submit t('users.registrations.edit.title')
+
+%ul.user
+  %li= link_to t('users.registrations.edit.cancel'), registration_path(resource_name), data: { confirm: t('users.registrations.edit.cancel_confirm') }, method: :delete
+  %li= link_to t('back'), :back, class: 'back'

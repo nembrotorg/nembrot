@@ -3,6 +3,11 @@
 describe 'Books' do
 
   before do
+    @user = FactoryGirl.create(:user)
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'changeme'
+    click_button('Sign in')
     @book = FactoryGirl.create(:book)
     @note = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Note text.")
     @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "quote:Text. -- (#{ @book.tag }), p. 1")

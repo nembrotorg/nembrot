@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
     #  And: http://stackoverflow.com/questions/10865962/rails-breadcrumb-and-i18n
     add_breadcrumb I18n.t('home.title'), :root_path
   end
+
+  rescue_from CanCan::AccessDenied do |exception| 
+    redirect_to new_user_session_path, :alert => exception.message
+  end
+
 end

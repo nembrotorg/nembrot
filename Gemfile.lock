@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/airblade/paper_trail.git
-  revision: 98848bb9b2db2bb4e1cbf18ba4a5a3b748451485
+  revision: 4b70fde8d3cae8840477643d5485138b5a4dfa16
   branch: master
   specs:
-    paper_trail (3.0.0.beta)
+    paper_trail (3.0.0.beta1)
       activerecord (>= 3.0, < 5.0)
 
 GIT
@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: git://github.com/norman/friendly_id.git
-  revision: 684c43ea161fa0f43c8c95e75cff1cf437ba51c7
+  revision: 939b9ca18381a6e50e18fdf68eb04a7a408ae144
   branch: master
   specs:
-    friendly_id (5.0.0.rc1)
+    friendly_id (5.0.0.rc2)
       activerecord (~> 4.0.0)
 
 GIT
@@ -226,7 +226,7 @@ GEM
     meta-tags (1.5.0)
       actionpack
     method_source (0.8.2)
-    mime-types (1.24)
+    mime-types (1.25)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.1)

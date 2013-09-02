@@ -126,18 +126,27 @@ module ResourcesHelper
     original_width, original_height = original_dimensions
     cropped_width, cropped_height = cropped_dimensions
 
-    vertical_offset = case gravity
-      when :north_west, :north, :north_east then 0
-      when :center, :east, :west then [ ((original_height - cropped_height) / 2.0).to_i, 0 ].max
-      when :south_west, :south, :south_east then (original_height - cropped_height).to_i
-    end
 
-    horizontal_offset = case gravity
-      when :north_west, :west, :south_west then 0
-      when :center, :north, :south then [ ((original_width - cropped_width) / 2.0).to_i, 0 ].max
-      when :north_east, :east, :south_east then (original_width - cropped_width).to_i
-    end
 
-    return [ horizontal_offset, vertical_offset ]
+    return [
+             _horizontal_offset(gravity, original_width, cropped_width),
+             _vertical_offset(gravity, original_height, cropped_height)
+           ]
+  end
+
+  def _horizontal_offset(gravity, original_width, cropped_width)
+    case gravity
+    when :north_west, :west, :south_west then 0
+    when :center, :north, :south then [((original_width - cropped_width) / 2.0).to_i, 0].max
+    when :north_east, :east, :south_east then (original_width - cropped_width).to_i
+    end
+  end
+
+  def _vertical_offset(gravity, original_height, cropped_height)
+    case gravity
+    when :north_west, :north, :north_east then 0
+    when :center, :east, :west then [((original_height - cropped_height) / 2.0).to_i, 0].max
+    when :south_west, :south, :south_east then (original_height - cropped_height).to_i
+    end
   end
 end

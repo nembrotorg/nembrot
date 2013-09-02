@@ -32,7 +32,7 @@ defaults: &defaults
   html:
     pretty: true
     sort_attrs: true
-    tab_size: 2
+    tabsize: 2
     format: html5
   notes:
     title_length: 40

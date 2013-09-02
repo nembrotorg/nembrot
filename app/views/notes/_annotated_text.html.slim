@@ -1,0 +1,13 @@
+section.body = text.html_safe
+
+section.annotations
+
+  header
+    h6 = t('notes.sections.annotations')
+
+  ol
+    - annotations.each_with_index do |annotation, index|
+      li id="annotation-#{ index + 1 }"  
+        = link_to "#annotation-mark-#{ index + 1 }" do
+          = index + 1
+          = annotation.html_safe

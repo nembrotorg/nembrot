@@ -94,6 +94,9 @@ en:
       not_found: "Note %{id} v%{sequence} is not available."
     word_count: "%{word_count} words"
     untitled_synonyms: ['Untitled', 'Untitled Note', 'New note']
+    sections:
+      annotations: 'Annotations'
+      downloads: 'Downloads'
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."
       rejected:

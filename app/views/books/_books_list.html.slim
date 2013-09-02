@@ -1,0 +1,8 @@
+section.books
+
+  header
+    h6=t('books.title')
+
+  ul
+    - books.each do |book|
+      li = link_to_unless_current_or_wrap "#{ book.headline } <span class=\"count\">#{ book.notes.size }</span>".html_safe, book

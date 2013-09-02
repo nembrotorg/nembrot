@@ -1,0 +1,8 @@
+- if Settings.tags.index.style == 'cloud'
+  ul.cloud
+    - tag_cloud(tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+      = link_to tag.name, tag_path(tag), class: css_class, title: tag.count
+- else
+  ul.tags
+    - tags.each do |tag|
+      li = link_to "#{ tag.name } <span class=\"count\">#{ tag.count }</span>".html_safe, tag_path(tag), rel: 'tag'

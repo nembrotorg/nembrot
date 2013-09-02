@@ -1,0 +1,16 @@
+- document_title = "#{ @channel } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { :title => document_title }
+
+section
+
+  = render 'header', :title => t('.title'), :document_title => document_title
+
+  section.details
+    p.main= @name.titlecase
+    = link_to @channel, @channel, class: 'url'
+
+    / %p= link_to @channel, "#{ @links_channel.first.protocol }://#{ @channel }"
+
+  = render 'links_list', links: @links_channel unless @links_channel.empty?

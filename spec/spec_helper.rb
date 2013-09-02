@@ -46,7 +46,7 @@ Spork.prefork do
   #require 'tilt'
   #require 'journey'
   #require 'journey/router'
-  require 'haml/template'
+  #require 'haml/template'
 
   RSpec.configure do |config|
     config.mock_with :rspec

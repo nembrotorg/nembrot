@@ -1,0 +1,16 @@
+nav#tools
+
+  header
+    h6= t('tools.title')
+
+  ul
+    - if user_signed_in?
+      li
+        = link_to_unless_current_or_wrap current_user.email, edit_user_registration_path
+        = link_to '', destroy_user_session_path, method: :delete, title: t('users.sessions.delete.title')
+      - if current_user.admin?
+        li= link_to_unless_current_or_wrap t('books.admin.title_no_mode'), books_admin_path
+        li= link_to_unless_current_or_wrap t('links.admin.title'), links_admin_path
+
+    - else
+      li= link_to_unless_current_or_wrap t('tools.sign_in'), new_user_session_path

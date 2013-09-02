@@ -32,8 +32,8 @@ guard 'rspec', cli: "--drb --format Fuubar --color", all_after_pass: false, all_
       ]
     end
 
-    watch(%r{^app/views/(.+)\.\.html\.haml$}) { |m| "spec/requests/#{m[1]}_spec.rb" }
-    watch(%r{^app/views/(.+)\.\.html\.haml$}) { |m| "spec/features/#{m[1]}_spec.rb" }
+    watch(%r{^app/views/(.+)\.\.html\.slim$}) { |m| "spec/requests/#{m[1]}_spec.rb" }
+    watch(%r{^app/views/(.+)\.\.html\.slim$}) { |m| "spec/features/#{m[1]}_spec.rb" }
 
     watch(%r{^spec/support/(.+)\.rb$}) { "spec" }
     watch('config/routes.rb') { "spec/routing" }
@@ -48,7 +48,7 @@ guard 'rubocop', all_on_start: false, notification: true do
 end
 
 guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/views/.+\.slim$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
   watch(%r{config/locales/.+\.yml})

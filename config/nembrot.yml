@@ -29,6 +29,11 @@ defaults: &defaults
   home:
     instructions:
       required: ['__HOME']
+  html:
+    pretty: true
+    sort_attrs: true
+    tab_size: 2
+    format: html5
   notes:
     title_length: 40
     blurb_length: 400

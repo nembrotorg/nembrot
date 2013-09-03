@@ -330,6 +330,7 @@ footer
   li
     a[href*='users/sign_out']
       display: none
+      margin-left: 5px
     &:hover
       a[href*='users/sign_out']
         text-indent: '-999px'
@@ -351,23 +352,6 @@ footer
 // Elements
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-ul.user li a
-  &.back
-    text-transform: lowercase
-    &:before
-      +icon-left
-      +icon-small
-    &:after
-      content: ''
-  &[data-method=delete]:before
-    +icon-signout
-    +icon-regular
-
-blockquote
-  footer
-    +prefix-with-emdash
-    margin: 0
 
 figure
   &.image
@@ -471,6 +455,23 @@ article
         &:last-child
           a:after
             content: ''
+
+ul.user li a
+  &.back
+    text-transform: lowercase
+    &:before
+      +icon-left
+      +icon-small
+    &:after
+      content: ''
+  &[data-method=delete]:before
+    +icon-signout
+    +icon-regular
+
+blockquote
+  footer
+    +prefix-with-emdash
+    margin: 0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -713,7 +714,7 @@ article
       position: relative
       a
         padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
-        +blurb(5, 34.38889%)     //  Ideally, we would sue the semantic.gs algorithm.
+        +blurb(5, 34.38889%)     //  Ideally, we would use the semantic.gs algorithm.
       img, iframe
         height: $line-height * 5 // Use variable
         margin: 0
@@ -801,6 +802,9 @@ article
         #text
           a
             color: $link-hover-color
+      &[dir=rtl]
+        header
+          +column(6, 12)
 
   .books-index, .links-index
     ul

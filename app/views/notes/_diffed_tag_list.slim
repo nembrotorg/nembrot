@@ -1,7 +1,7 @@
 nav.tags
 
   header
-    h6= link_to t('tags.title'), tags_path
+    h6 = link_to t('tags.index.title'), tags_path
 
   ul
     - diffed_tag_list.each do |key, value|

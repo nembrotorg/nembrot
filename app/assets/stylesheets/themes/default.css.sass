@@ -446,14 +446,9 @@ iframe
         size: $body-font-size
         weight: normal
     a
-      &:hover
-        h2
-          color: $link-hover-color
+      &:hover *
+        color: $link-hover-color
         blockquote
-          &:before
-            color: $link-hover-color
-        figcaption
-          color: $link-hover-color
           &:before
             color: $link-hover-color
         &:after
@@ -461,20 +456,21 @@ iframe
     &:last-child
       margin-bottom: 0
 
-.tags
-  ul
-    +horizontal-list
-    &:before
-      +icon-tags
-      color: $secondary-color
-      display: inline
-      float: left
-    li
-      a:after
-        content: ', '
-      &:last-child
+article
+  .tags
+    ul
+      +horizontal-list
+      &:before
+        +icon-tags
+        color: $secondary-color
+        display: inline
+        float: left
+      li
         a:after
-          content: ''
+          content: ', '
+        &:last-child
+          a:after
+            content: ''
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -709,6 +705,7 @@ iframe
     +pull(4, 12)
     +first-column
     a
+      display: block
       padding-right: 34.38889%
 
   .notes

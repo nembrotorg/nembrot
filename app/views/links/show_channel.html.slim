@@ -11,6 +11,4 @@ section
     p.main= @name.titlecase
     = link_to @channel, @channel, class: 'url'
 
-    / %p= link_to @channel, "#{ @links_channel.first.protocol }://#{ @channel }"
-
   = render 'links_list', links: @links_channel unless @links_channel.empty?

@@ -13,7 +13,7 @@ section
     p= classification(@book)
     p= links(@book)
 
-  / %iframe{ src: "http://books.google.de/books?id=#{ @book.google_books_id }&lpg=PR1&ots=Hfep-dhu0H&d&pg=PR1&output=embed" }
+  / iframe src="http://books.google.de/books?id=#{ @book.google_books_id }&lpg=PR1&ots=Hfep-dhu0H&d&pg=PR1&output=embed"
 
   = render 'citations/citations_list', citations: sort_by_page_reference(@book.notes.publishable.citations), books: @books unless @book.notes.publishable.citations.empty?
 

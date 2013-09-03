@@ -1,7 +1,7 @@
 section.notes
 
   header
-    h6= t('notes.index.title')
+    h6 = link_to_unless_current t('notes.index.title'), notes_path
 
   ul
     - notes.each do |note|

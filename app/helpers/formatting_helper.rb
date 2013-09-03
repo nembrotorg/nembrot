@@ -23,8 +23,7 @@ module FormattingHelper
     text = deheaderize(text)
     text = bookify(text, books, books_citation_style)
     text = linkify(text, links, links_citation_style)
-    text = smartify(text)
-    clean_up(text)
+    clean_up_via_dom(text, true)
   end
 
   def simple_blurbify(text)
@@ -91,7 +90,7 @@ module FormattingHelper
                  path: link_path(link), 
                  accessed_at: (timeago_tag link.updated_at)))
       # We replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
-      text.gsub!(/(?<=[^"])(#{ link.url })(?=[^"])/,
+      text.gsub!(/(?!<=")(#{ link.url })(?!=")/,
                  t(citation_style,
                  link_text: link.headline,
                  title: link.headline,
@@ -103,7 +102,6 @@ module FormattingHelper
   end
 
   def annotate(text)
-    # text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1(\2)\3') # Remove any nested annotations
     text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
     annotations = text.scan(/\[([^\.].*? .*?)\]/)
     if !annotations.empty?
@@ -126,24 +124,30 @@ module FormattingHelper
                .html_safe
   end
 
-  def clean_up_via_dom(text)
+  def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
     text = hyper_conform(text)
     dom = Nokogiri::HTML(text)
-    dom.css('cite cite').find_all.each { |e| e.replace e.inner_html }
-    dom.css('a').find_all.each { |e| e.replace e.inner_html if e.attr('href').blank? and e.attr('href').blank? }
-    dom.css('p').find_all.each { |e| e.remove if e.content.blank? }
-    dom.css('h2').find_all.each { |e| e.remove if e.content.blank? }
-    dom.css('header').find_all.each { |e| e.remove if e.content.blank? }
-    dom.css('section').find_all.each { |e| e.remove if e.content.blank? }
+    dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
+    dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
     # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
     dom.xpath('//text()').find_all.each do |t|
       t.content = smartify(t.content)
       # t.content = hyper_conform(t.content)
     end
-    # tidy = Nokogiri::XSLT File.open('vendor/tidy.xsl')
-    # dom = tidy.transform(dom)
+    dom = indent_dom(dom) if Settings.html.pretty
+    unwrap_from_paragraph_tag(dom) if unwrap_p
     dom.css('body').children.to_html.html_safe
+  end
+
+  def indent_dom(dom)
+    tidy = Nokogiri::XSLT File.open('vendor/tidy.xsl')
+    dom = tidy.transform(dom)
+  end
+
+  def unwrap_from_paragraph_tag(dom)
+    e = dom.at_css('body p')
+    e ? e.replace(e.inner_html) : dom
   end
 
   def smartify(text)
@@ -172,15 +176,6 @@ module FormattingHelper
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
         .gsub(/(\u2019|\u201C)([\.\,<])/, "\\2\\1")
-
-#        .gsub(/'([^']+)'/, "\u2018\\1\u2019") # If quotes are not closed this would trip up.
-#        .gsub(/"([^"]+)"/, "\u201C\\1\u201D") # Same here.
-
-#        .gsub(/(<[^>]*?)'([^']+?)'([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3') # IS THIS STILL NECESSARY SINCE WE@RE DOING IT THROUGH DOM?
-#        .gsub(/(<[^>]*?)"([^"]+?)"([^<]*?\>)/, '\\1ATTRIBUTE_QUOTES\\2ATTRIBUTE_QUOTES\\3')
-#        .gsub(/'([^']+)'/, "\u2018\\1\u2019") # If quotes are not closed this would trip up.
-#        .gsub(/"([^"]+)"/, "\u201C\\1\u201D") # Same here.
-#        .gsub(/ATTRIBUTE_QUOTES/, '"')
   end
 
   def smartify_numbers(text)
@@ -219,18 +214,17 @@ module FormattingHelper
   end
 
   def hyper_conform(text)
-    text.gsub!(/\s+([\)\n\.\,\?\!])/m, '\1') # Ensure no space before certain punctuation
-    text.gsub!(/([\(])\s+/m, '\1') # Ensure no space after certain elements
-    # text.gsub!(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
-    text.gsub!(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
-    text.gsub!(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
-    # text.gsub!(/(<p>|<li>)([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
-    # text.gsub!(/(\.|\?|\!) ([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
-    text.gsub!(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
-    text.gsub!(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')
-    text.gsub!(/ +(<a href=\"#annotation-)/, '\1')
-
-    # text.gsub!(/([\.\?\!])(<\/cite>)([\.\?\!])/, '\1\2') # Ensure no double punctuation after titles
-    text.html_safe
+    text.gsub(/\s+([\)\n\.\,\?\!])/m, '\1') # Ensure no space before certain punctuation
+        .gsub(/([\(])\s+/m, '\1') # Ensure no space after certain elements
+        .gsub(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
+        .gsub(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
+        .gsub(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
+        .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
+        .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
+        .gsub(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
+        .gsub(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')
+        .gsub(/ +(<a href=\"#annotation-)/, '\1')
+        .gsub(/([\.\?\!])(<\/cite>)([\.\?\!])/, '\1\2') # Ensure no double punctuation after titles
+        .html_safe
   end
 end

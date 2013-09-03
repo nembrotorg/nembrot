@@ -1,8 +1,8 @@
 nav.tags
 
   header
-    h6 = link_to t('tags.title'), tags_path
+    h6 = link_to t('tags.index.title'), tags_path
 
   ul
     - tags.each do |tag|
-      li = link_to tag.name, tag_path(tag)
+      li = link_to tag.name, tag_path(tag), rel: 'tag'

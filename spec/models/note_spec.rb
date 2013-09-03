@@ -157,10 +157,11 @@ describe Note do
         note.save
       end
       it 'saves metadata' do
-        note.versions.last.sequence.should == note.versions.size
-        note.versions.last.word_count.should == 2
-        note.versions.last.tag_list = %w(first_tag)
+        note.versions.last.external_updated_at.to_i.should == note.versions.last.reify.external_updated_at.to_i
         note.versions.last.instruction_list = %w(__FIRST_INSTRUCTION)
+        note.versions.last.sequence.should == note.versions.size
+        note.versions.last.tag_list = %w(first_tag)
+        note.versions.last.word_count.should == 2
       end
     end
   end

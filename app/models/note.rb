@@ -18,10 +18,11 @@ class Note < ActiveRecord::Base
                   if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Settings.notes.version_gap_minutes.minutes || (Note.find(note.id).word_count - note.word_count).abs > Settings.notes.version_gap_word_count  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
-                    word_count:  proc { |note| Note.find(note.id).word_count },
+                    external_updated_at:  proc { |note| Note.find(note.id).external_updated_at },
+                    instruction_list:  proc { |note| Note.find(note.id).instruction_list },
                     sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
                     tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tags
-                    instruction_list:  proc { |note| Note.find(note.id).instruction_list }
+                    word_count:  proc { |note| Note.find(note.id).word_count }
                   }
 
   default_scope { order('external_updated_at DESC') }

@@ -5,7 +5,7 @@ nav.versions
 
   ol
     - if note.versions.length == 0
-      li = "v#{ note.versions.length + 1 } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })"
+      li = "v#{ note.versions.length + 1 } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })".html_safe
     - else
       li = link_to_unless_current_or_wrap "#{ t('notes.version.title', sequence: note.versions.length + 1) } (#{ timeago_tag note.external_updated_at }), #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count)) })".html_safe, note_version_path(note, note.versions.length + 1)
       - note.versions.reverse.each do |version|

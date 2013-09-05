@@ -49,6 +49,7 @@ defaults: &defaults
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']
       hide: ['__HIDE']
+      hide_image: ['__HIDE_IMAGE', '__NO_IMAGE']
       home: ['__HOME']
       ignore: ['__IGNORE', '__HOLD']
       required: ['__PUBLISH']

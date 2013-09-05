@@ -216,11 +216,6 @@ table
     &:first-child
       margin-left: 0
 
-.hidden-for-calculations
-  +fade(1) // FIXME: opacity doesn't work
-  opacity: 1
-  visibility: hidden
-
 .home-index, .notes-index, .notes-show, .notes-version
   h1
     color: $headline-font-color
@@ -235,6 +230,12 @@ table
       padding-left: 5px
       +icon-link-ext
       +icon-medium
+
+// TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ol
+  li.green
+    a
+      color: #060 !important
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -417,6 +418,9 @@ iframe
 .citation
   +body-font-citation
 
+.count
+  color: $count-color
+
 .notes, .citations
   li
     +body-font
@@ -591,8 +595,6 @@ blockquote
     +columns(2)
     &.cloud
       +inline-block-list
-    .count
-      color: $count-color
 
 .tags-show
   h1:before
@@ -929,11 +931,12 @@ blockquote
           +pull(6, 12)
         .side-annotations
           +column(3, 12)
-          +fade(0)
-      &:hover
-        #text
+        &.fadeable-annotations
           .side-annotations
-            +fade(1)
+            +fade(0)
+          &:hover
+            .side-annotations
+              +fade(1)
 
   footer
     ul

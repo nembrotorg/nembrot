@@ -6,8 +6,7 @@ page_initializers = () ->
 content_initializers = () ->
   $('time').timeago()
 
-  # THIS SHOULD NOT BE NECESSARY
-  # NEEDS TO BE MORE THOROUGH, INCLUDE OVERALL TITLE AND UPDATE OTHER TAGS
+  # REVIEW: Either use pjax-rack, or loop through title and all meta tags
   title_data = $('#main section:first-of-type').data('title')
   if title_data
     document.title = title_data
@@ -19,9 +18,8 @@ resize_initializers = () ->
 
 place_annotations = () ->
   if $('.annotations')
-    $('.annotations').addClass('hidden-for-calculations')
     (if _media_query('default') then _place_annotations_undo() else _place_annotations_do())
-    $('.annotations').removeClass('hidden-for-calculations')
+    $('#text').addClass('fadeable-annotations')
   true
 
 _place_annotations_do = () ->
@@ -32,17 +30,16 @@ _place_annotations_do = () ->
   corrected_top = minimum
 
   annotations.each (i) ->
-    new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top # - annotations_top
+    new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top
     corrected_top = (if new_top <= minimum then minimum else new_top)
     minimum = new_top + $(this).outerHeight(true)
     $(this).offset top: corrected_top
 
-  # maximum = $('#text').position().top + $('#text').outerHeight(false)
-  # annotations.reverse().each (i) ->
-  #   console.log($(this).position().top + $(this).outerHeight(true), maximum)
-  #   corrected_top = maximum - $(this).outerHeight(true)
-  #   (if ($(this).position().top + $(this).outerHeight(true)) > maximum then $(this).offset top: corrected_top)
-  #   maximum = $(this).position().top
+  maximum = $('#text').offset().top + $('#text').outerHeight(false)
+  annotations.reverse().each () ->
+    if $(this).offset().top + $(this).outerHeight(true) >= maximum 
+      maximum = $(this).offset().top - $(this).outerHeight(true)
+      $(this).offset top: maximum
 
 _place_annotations_undo = () ->
   $('.annotations').removeClass('side-annotations')

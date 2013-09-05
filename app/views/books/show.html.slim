@@ -19,4 +19,4 @@ section
 
   = render 'shared/notes_list', notes: @book.notes.publishable.listable unless @book.notes.publishable.listable.empty?
 
-  = render 'books_list', books: @related_books unless @related_books.empty?
+  = render 'books_list', title: t('.related_books'), books: @related_books unless @related_books.empty?

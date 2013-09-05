@@ -45,6 +45,7 @@ en:
       title: 'Bibliography'
       not_found: "Book: %{slug} is not available."
       editor_short: "(ed.)"
+      related_books: 'Other books by this author referenced on this site'
     sync:
       updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
       failed:

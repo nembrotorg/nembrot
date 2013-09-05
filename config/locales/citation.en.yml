@@ -10,9 +10,10 @@ en:
         true_false_true: "Translated by %{translator}, with an introduction by %{introducer}."
         true_true_false: "Translated by %{translator}, edited by %{editor}."
         true_true_true: "Translated by %{translator}. Edited by %{editor}, with an introduction by %{introducer}."
-      inline_html: " <cite><a href=\"%{path}\">%{title}</a></cite>"
-      inline_unlinked_html: " <cite>%{title}</cite> "
-      inline_annotated_html: " <cite><a href=\"%{path}\">%{title}</a></cite>[<a href=\"%{path}\">%{title}, %{publisher} %{published_year}.</a>]"
+      inline_html: "<cite><a href=\"%{path}\">%{title}</a></cite>"
+      inline_annotated_html: "<cite><a href=\"%{path}\">%{title}</a></cite>[<a href=\"%{path}\">%{title}, %{publisher} %{published_year}.</a>]"
+      inline_title_html: "<cite><a href=\"%{path}\">%{title}</a></cite>"
+      inline_unlinked_html: "<cite>%{title}</cite>"
     link:
       accessed_at_html: "(Accessed %{accessed_at}.)"
       inline_html: "<cite><a href=\"%{url}\">%{link_text}</a></cite>"

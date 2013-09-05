@@ -1,7 +1,7 @@
 section.books
 
   header
-    h6 = link_to_unless_current t('books.index.title'), books_path
+    h6 = title ||= t('books.index.title')
 
   ul
     - books.each do |book|

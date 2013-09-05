@@ -1,0 +1,26 @@
+- document_title = t('site.title')
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
+
+= render 'header', title: t('site.title'), document_title: document_title
+
+- if @notes.size == 1
+
+  - image = @notes.first.resources.first
+  figure
+    = link_to image_tag(cut_image_binary_path(image, type: :cinema), alt: strip_tags(image.description)), @notes.first
+    - if image.caption
+      figcaption= image.caption.html_safe
+
+  = render 'shared/media', url: @notes.first.source_url if @note.is_embeddable_source_url
+
+- elsif @notes.size > 1
+
+  = render 'shared/notes_list', notes: @notes.first(3), blurb_length: Settings.notes.blurb_length * 1.5
+
+- else
+
+  ul
+    li= link_to t('notes.title'), notes_path
+    li= link_to t('tags.title'), tags_path

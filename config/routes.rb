@@ -1,58 +1,49 @@
+# encoding: utf-8
+
 Nembrot::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+  devise_for :users, :controllers => { sessions: 'sessions' }
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  root to: 'home#index'
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  get 'auth/failure' => 'evernote_auths#auth_failure'
+  get 'auth/:provider/callback' => 'evernote_auths#auth_callback'
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  put 'bibliography/update' => 'books#update', as: :update_book
+  get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
+  get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|all|citable|cited|missing_metadata/
+  get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
+  get 'bibliography' => 'books#index', as: :books
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
+  get 'citations' => 'citations#index'
 
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+  put 'links/update' => 'links#update', as: :update_link
+  get 'links/admin' => 'links#admin', as: :links_admin
+  get 'links/:id/edit' => 'links#edit', as: :edit_link
+  get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
+  get 'links' => 'links#index', as: :links
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
+  get 'notes/map' => 'notes#map'
+  get 'notes' => 'notes#index'
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
+    as: :cut_resource,
+    aspect_x: /\d+/,
+    aspect_y: /\d+/,
+    width: /\d+/,
+    snap: /[01]/,
+    gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
+    constraints: { format: /(gif|jpg|jpeg|png)/ }
 
-  # See how all your routes lay out with "rake routes"
+  get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
+  get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
+  get 'tags' => 'tags#index'
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+
+  resources :evernote_notes, only: [:add_evernote_task]
+  resources :evernote_auths, only: [:auth_callback, :auth_failure]
 end

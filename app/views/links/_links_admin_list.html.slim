@@ -1,0 +1,12 @@
+section.books
+
+  header
+    h6=t('links.index.title')
+
+  table
+    - links.each do |link|
+      tr
+        td= link.channel
+        td= link.title.truncate(50) unless link.title.blank?
+        td= link_to link.url.truncate(50), link.url, target: '_blank'
+        td= link_to_unless_current_or_wrap 'Edit', edit_link_path(link.id)

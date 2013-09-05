@@ -1,0 +1,261 @@
+/*  Font Awesome 3.0
+ *    the iconic font designed for use with Twitter Bootstrap
+ *    -------------------------------------------------------
+ *    The full suite of pictographic icons, examples, and documentation
+ *    can be found at: http://fortawesome.github.com/Font-Awesome/
+ *
+ *    License
+ *    -------------------------------------------------------
+ *    • The Font Awesome font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL
+ *    • Font Awesome CSS, LESS, and SASS files are licensed under the MIT License -
+ *      http://opensource.org/licenses/mit-license.html
+ *    • The Font Awesome pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/
+ *    • Attribution is no longer required in Font Awesome 3.0, but much appreciated:
+ *      "Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome"
+ *
+ *    Contact
+ *    -------------------------------------------------------
+ *    Email: dave@davegandy.com
+ *    Twitter: http://twitter.com/fortaweso_me
+ *    Work: Lead Product Designer @ http://kyruus.com
+ */
+
+$fontelloPath:   "Fontello/regular" !default
+$borderColor:       #eee !default
+$iconMuted:         #eee !default
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  border-radius: $radius
+
+
+@font-face
+  font-family: 'fontello'
+  src: font-url('#{$fontelloPath}.eot')
+  src: font-url('#{$fontelloPath}.eot?#iefix') format("embedded-opentype"), font-url('#{$fontelloPath}.woff') format("woff"), font-url('#{$fontelloPath}.ttf') format("truetype")
+  font-weight: normal
+  font-style: normal
+
+
+/*  Font Awesome styles
+ *  -------------------------------------------------------
+ * includes sprites.less reset */
+
+=icon
+  font-family: fontello
+  font-weight: normal
+  font-style: normal
+  padding-right: 0.5em
+
+
+/* makes the font 33% larger relative to the icon container */
+
+=icon-large
+  vertical-align: -10%
+  font-size: 1.3333333333333333em
+
+=icon-small
+  vertical-align: 5%
+  font-size: 0.6666666666666666em
+
+=icon-medium
+  vertical-align: 2.5%
+  font-size: 0.85em
+
+/* For resetting: */
+=icon-regular
+  vertical-align: 0
+  font-size: 1em
+
+
+=icon-fork
+  +icon
+  content: '\e803'
+
+=icon-quote-left
+  +icon
+  content: '\e800'
+
+=icon-wikipedia
+  +icon
+  content: '\2c'
+
+=icon-cancel
+  +icon
+  content: '\e806'
+
+=icon-digg
+  +icon
+  content: '\ea22'
+
+=icon-reddit
+  +icon
+  content: '\3e'
+
+=icon-evernote
+  +icon
+  content: '\ea29'
+
+=icon-flickr
+  +icon
+  content: '\ea2a'
+
+=icon-instapaper
+  +icon
+  content: '\ea2d'
+
+=icon-youtube
+  +icon
+  content: '\ea38'
+
+=icon-vimeo
+  +icon
+  content: '\f30f'
+
+=icon-signout
+  +icon
+  content: '\e807'
+
+=icon-soundcloud
+  +icon
+  content: '\e801'
+
+=icon-hash
+  +icon
+  content: '\e802'
+
+=icon-left
+  +icon
+  content: '\e88f'
+
+=icon-left
+  +icon
+  content: '\e9c9'
+
+=icon-right
+  +icon
+  content: '\e890'
+
+=icon-right
+  +icon
+  content: '\e9ca'
+
+=icon-attention
+  +icon
+  content: '\e872'
+
+=icon-ok
+  +icon
+  content: '\e853'
+
+=icon-tag
+  +icon
+  content: '\e863'
+
+=icon-tags
+  +icon
+  content: '\e70d'
+
+=icon-cc
+  +icon
+  content: '\e7a5'
+
+=icon-cc-by
+  +icon
+  content: '\e83a'
+
+=icon-cc-nc
+  +icon
+  content: '\e7a7'
+
+=icon-cc-nc-eu
+  +icon
+  content: '\e7a8'
+
+=icon-cc-nc-jp
+  +icon
+  content: '\e7a9'
+
+=icon-cc-sa
+  +icon
+  content: '\e7aa'
+
+=icon-cc-share
+  +icon
+  content: '\e7ae'
+
+=icon-cc-remix
+  +icon
+  content: '\e7af'
+
+=icon-right-open
+  +icon
+  content: '\f006'
+
+=icon-left-open
+  +icon
+  content: '\f007'
+
+=icon-twitter
+  +icon
+  content: '\f099'
+
+=icon-facebook
+  +icon
+  content: '\f09a'
+
+=icon-github-circled
+  +icon
+  content: '\f09b'
+
+=icon-gplus
+  +icon
+  content: '\f0d5'
+
+=icon-angle-double-down
+  +icon
+  content: '\f103'
+
+=icon-lastfm
+  +icon
+  content: '\f321'
+
+=icon-spotify
+  +icon
+  content: '\f327'
+
+=icon-user
+  +icon
+  content: '\e84b'
+
+=icon-download
+  +icon
+  content: '\e868'
+
+=icon-cc-by-nc-sa
+  +icon
+  content: '\e7a5\e83a\e7a7\e7aa'
+
+=icon-mail
+  +icon
+  content: '\2709'
+
+=icon-link-ext
+  +icon
+  content: '\f08e'
+
+=icon-rss
+  +icon
+  content: '\f09e'
+
+=icon-rss-alt
+  +icon
+  content: '\e73b'
+
+=icon-plus
+  +icon
+  content: '\e804'
+
+=icon-minus
+  +icon
+  content: '\e805'

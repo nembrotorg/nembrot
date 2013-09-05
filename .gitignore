@@ -1,0 +1,33 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore other unneeded files.
+.rvmrc
+doc/
+*.swp
+*~
+.project
+.DS_Store
+
+# Ignore files with passwords etc (except sample and model files)
+secret*
+!secret.rb
+!secret_token.rb
+!secret*.example
+
+# Ignore resource files
+/public/resources/*/*.*
+!/public/resources/cut/blank.*
+
+* Ignore trial folders
+trial
+
+* Ignore coverage
+coverage

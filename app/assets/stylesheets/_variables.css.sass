@@ -1,0 +1,58 @@
+// Variables are picked up from /config/nembrot.yml via the Settings class and the settings_styling method defines in
+//  /config/initializers/sass.rb.
+// This enables us to use common settings in css and images (and snap images to the baseline, for instance), and write
+//  out the colophon details. 
+
+// Semantic.gs grid system
+
+$column-width:              settings_styling('column_width')
+$gutter-width:              settings_styling('gutter_width')
+$columns:                   settings_styling('columns')
+$total-width:               settings_styling('total_width')
+
+// Other variables
+
+$line-height:               settings_styling('line_height') * 1px
+$text-indent:               settings_styling('gutter_width') * 1px
+
+$font-family:               settings_styling('headline_font_family')
+$font-size:                 settings_styling('font_size')
+$font-color:                settings_styling('font_color')
+$secondary-color:           settings_styling('secondary_color')
+
+$body-font:                 settings_styling('body_font')
+$body-font-variant:         settings_styling('body_font_variant')
+$body-font-family:          settings_styling('body_font_family')
+$body-font-size:            settings_styling('body_font_size')
+$body-font-color:           settings_styling('body_font_color')
+$count-color:               settings_styling('count_color')
+$caption-color:             settings_styling('caption_color')
+
+$body-font-citation-family: settings_styling('body_font_citation_family')
+$body-font-citation-size:   settings_styling('body_font_citation_size')
+$body-font-citation-color:  settings_styling('body_font_citation_color')
+
+$headline-font:             settings_styling('headline_font')
+$headline-font-variant:     settings_styling('headline_font_variant')
+$headline-font-family:      settings_styling('headline_font_family')
+$headline-font-color:       settings_styling('headline_font_color')
+$headline-font-size:        settings_styling('headline_font_size')
+$small-font-size:           settings_styling('small_font_size')
+
+$link-color:                settings_styling('link_color')
+$link-hover-color:          settings_styling('link_hover_color')
+$link-visited-color:        settings_styling('link_visited_color')
+$static-url-color:          settings_styling('static_url_color')
+$selected-font-color:       settings_styling('selected_font_color')
+$selected-background-color: settings_styling('selected_background_color')
+$invalid-background-color:  settings_styling('invalid_background_color')
+
+$insert-background-color:   settings_styling('insert_background_color')
+$delete-font-color:         settings_styling('delete_font_color')
+$success-background-color:  settings_styling('success_background_color')
+$error-background-color:    settings_styling('error_background_color')
+
+$map-background-color:      settings_styling('map_background_color')
+$map-font-color:            settings_styling('map_font_color')
+
+$qr_code_image_size:        settings_styling('qr_code_image_size')

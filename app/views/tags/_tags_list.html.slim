@@ -1,0 +1,8 @@
+section.tags
+
+  header
+    h6 = link_to_unless_current t('tags.index.title'), tags_path
+
+  ul
+    - tags.each do |tag|
+      li = link_to "#{ tag.name } <span class=\"count\">#{ tag.count }</span>".html_safe, tag_path(tag)

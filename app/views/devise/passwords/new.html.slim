@@ -1,0 +1,17 @@
+- document_title = "#{ t('users.passwords.new.title') } | #{ t('users.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title
+
+- add_breadcrumb t('users.passwords.new.title'), new_user_password_path
+
+= render 'header', title: t('users.passwords.new.title'), document_title: document_title
+
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = devise_error_messages!
+
+  = f.label :email do
+    = :email.to_s.humanize
+    = f.email_field :email, autofocus: true
+
+  = f.submit t('users.passwords.new.submit')
+
+= render 'devise/shared/links'

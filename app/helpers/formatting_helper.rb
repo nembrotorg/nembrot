@@ -105,7 +105,7 @@ module FormattingHelper
     text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
     annotations = text.scan(/\[([^\.].*? .*?)\]/)
     if !annotations.empty?
-      text.gsub!(/( *\[)([^\.].*? .*?)(\])/).each_with_index do |match, index|
+      text.gsub!(/\s*( *\[)([^\.].*? .*?)(\])/m).each_with_index do |match, index|
         %Q(<a href="#annotation-#{ index + 1 }" id="annotation-mark-#{ index + 1 }">#{ index + 1 }</a>)
       end
       render 'notes/annotated_text', text: text, annotations: annotations.flatten
@@ -222,8 +222,8 @@ module FormattingHelper
         .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
         .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
         .gsub(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
+        .gsub(/\s+(<a href=\"#annotation-)/m, '\1')
         .gsub(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')
-        .gsub(/ +(<a href=\"#annotation-)/, '\1')
         .gsub(/([\.\?\!])(<\/cite>)([\.\?\!])/, '\1\2') # Ensure no double punctuation after titles
         .html_safe
   end

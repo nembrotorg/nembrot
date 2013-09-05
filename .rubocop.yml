@@ -1,0 +1,13 @@
+AllCops:
+  Includes:
+    - Rakefile
+    - config.ru
+  Excludes:
+    - db/**
+    - config/**
+    - script/**
+    - spec/vcr_cassettes/**
+
+LineLength:
+  Enabled: true
+  Max: 119

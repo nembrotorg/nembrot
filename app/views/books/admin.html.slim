@@ -1,0 +1,20 @@
+- document_title = "#{ t('.title', mode: @mode) } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
+
+section
+
+  = render 'header', title: t('.title', mode: @mode), document_title: document_title
+
+  nav
+    ul
+      li= link_to_unless_current_or_wrap 'Missing Metadata', '/bibliography/admin'
+      li= link_to_unless_current_or_wrap 'Cited', '/bibliography/admin/cited'
+      li= link_to_unless_current_or_wrap 'Citable', '/bibliography/admin/citable'
+      li= link_to_unless_current_or_wrap 'All', '/bibliography/admin/all'
+
+  = render 'books_admin_list', books: @books, mode: @mode unless @books.empty?
+
+  aside.statistics
+    = t('.statistics', count: number_with_delimiter(@books.size))

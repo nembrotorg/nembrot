@@ -1,0 +1,7 @@
+rvm:
+  - 2.0.0
+
+script:
+  - "rake db:migrate RAILS_ENV=test"
+  - "rake db:test:prepare"
+  - "bundle exec rspec"

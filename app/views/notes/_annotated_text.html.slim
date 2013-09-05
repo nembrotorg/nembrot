@@ -1,0 +1,15 @@
+section.body = text.html_safe
+
+section.annotations
+
+  header
+    / h6 =t('notes.sections.annotations')
+    = "<h6>#{ t('notes.sections.annotations') }</h6>".html_safe
+
+  ol
+    - annotations.each_with_index do |annotation, index|
+      = "<li id=\"annotation-#{ index + 1 }\"><a href=\"#annotation-mark-#{ index + 1 }\">#{ index + 1 }</a>#{ annotation.html_safe }</li> ".html_safe
+      / Problematic whitespace
+      / li id="annotation-#{ index + 1 }"
+      /   a href="#annotation-mark-#{ index + 1 }" = index + 1  
+      /   = annotation.html_safe

@@ -1,0 +1,14 @@
+section.citations
+
+  header
+    h6 = link_to_unless_current t('citations.index.title'), citations_path
+
+  ul
+    - citations.each do |citation|
+
+      - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
+
+      li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
+        figure.citation
+          blockquote= blurbify(citation_text, citation.books, citation.links)
+          figcaption= blurbify(attribution, citation.books, citation.links)

@@ -1,0 +1,220 @@
+# All Nembrot settings go here except for secret strings
+
+defaults: &defaults
+  version: '0.9'
+  locale: 'en'
+  admin:
+    name: Joe
+    email: joe@joegatt.net
+  monitoring:
+    name: Joe
+    email: joe@joegatt.net
+  mailer:
+    address: smtp.gmail.com
+    port: 587
+    domain: mail.joegatt.net
+  evernote:
+    server: https://sandbox.evernote.com
+    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    stream_binaries: false
+    synchronous: false
+    always_reset_on_create: true
+    daemon_frequency: 30
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+    daemon_frequency: 30
+  assets_version: '1.1'
+  lang:
+    average_word_length: 5.5
+    rtl_langs: ['ar', 'fa']
+  home:
+    instructions:
+      required: ['__HOME']
+  html:
+    pretty: true
+    sort_attrs: true
+    tabsize: 2
+    format: html5
+  notes:
+    title_length: 40
+    blurb_length: 400
+    citation_blurb_length: 230
+    blurb_omission: '...'
+    detect_language_sample_length: 250
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
+    attempts: 3
+    version_gap_minutes: 60
+    version_gap_word_count: 100
+    instructions:
+      citation: ['__QUOTE', '__CITATION']
+      default: ['__TRI']
+      hide: ['__HIDE']
+      hide_image: ['__HIDE_IMAGE', '__NO_IMAGE']
+      home: ['__HOME']
+      ignore: ['__IGNORE', '__HOLD']
+      required: ['__PUBLISH']
+      reset: ['__RESET']
+      unlist: ['__UNLIST', '__NO_LIST']
+      unversion: ['__UNVERSION', '__NO_VERSION']
+    index:
+      page_size: 30
+  books:
+    google_books:
+      domain: 'https://www.googleapis.com'
+      path: '/books/v1/volumes'
+      active?: true
+    isbndb:
+      domain: 'http://isbndb.com'
+      path: '/api/v2/json/'
+      active?: true
+    open_library:
+      domain: 'http://openlibrary.org'
+      path: '/api/books'
+      active?: true
+    world_cat:
+      domain: 'http://www.worldcat.org'
+      path: '/webservices/catalog/content/isbn/'
+      active?: true
+  tags:
+    index:
+      style: false
+  sections:
+    tags: ['A Typology of Philistinism', 'Nimrod', 'Wutz']
+    enface: [['Wutz', 'de', 'en'], ['Wutz RC1', 'de', 'en']]
+  web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet',
+                  'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet',
+                  'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
+  images:
+    default_blank_location: '/public/resources/cut/blank.png'
+
+  styling:
+    colors:
+      red: '#900'
+      green: '#090'
+      blue: '#009'
+    css_for_instructions: ['__FX_POL']
+    citation_style: default
+    line_height: 30
+    column_width: 60
+    gutter_width: 30
+    columns: 12
+    total_width: '100%'
+    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    font_size: '15px'
+    font_color: '#000'
+    secondary_color: '#333'
+    body_font: 'NOT USED'
+    body_font_variant: 'regular'
+    body_font_family: 'Georgia, serif'
+    body_font_size: '18px'
+    body_font_color: '#000'
+    body_font_citation_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    body_font_citation_size: '15px'
+    body_font_citation_color: '#000'
+    count_color: '#900'
+    caption_color: '#454545'
+    headline_font: 'DejaVuSansCondensed'
+    headline_font_variant: 'condensed_book'
+    headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    headline_font_color: '#900'
+    headline_font_size: '36px'
+    small_font_size: '13px'
+    link_color: '#000'
+    link_hover_color: '#009'
+    link_visited_color: '#000'
+    static_url_color: '#090'
+    selected_font_color: '#000'
+    selected_background_color: '#ff0'
+    invalid_background_color: 'ff0'
+    insert_background_color: '#ffff45'
+    delete_font_color: '#000'
+    success_background_color: '#45ff45'
+    error_background_color: '#ff4545'
+    map_background_color: '#ccc'
+    map_font_color: '#333'
+    qr_code_image_size: 150
+    images:
+      effects:
+      name_length: 30
+      snap: 1
+      gravity: 0
+      standard:
+        aspect:
+          x: 16
+          y: 9
+        width: 8
+      cinema:
+        aspect:
+          x: 27
+          y: 10
+        width: 12
+      thumbnail:
+        aspect:
+          x: 16
+          y: 9
+        width: 3
+      expanded:
+        width: 1400
+
+development:
+  <<: *defaults
+  host: localhost:3000
+  evernote:
+    server: https://sandbox.evernote.com
+    notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    stream_binaries: false
+    synchronous: true
+    always_reset_on_create: true
+    daemon_frequency: 30
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+
+test:
+  <<: *defaults
+  host: rspec-tests
+  notes:
+    title_length: 40
+    blurb_length: 40
+    citation_blurb_length: 30
+    blurb_omission: '...'
+    detect_language_sample_length: 250
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
+    attempts: 3
+    version_gap_minutes: 60
+    version_gap_word_count: 5
+    instructions:
+      citation: ['__QUOTE', '__CITATION']
+      default: ['__TRI']
+      hide: ['__HIDE']
+      home: ['__HOME']
+      ignore: ['__IGNORE', '__HOLD']
+      required: ['__PUBLISH']
+      reset: ['__RESET']
+      unlist: ['__UNLIST', '__NO_LIST']
+      unversion: ['__UNVERSION', '__NO_VERSION']
+    index:
+      page_size: 30
+
+staging:
+  <<: *defaults
+  host: staging.joegatt.net
+  evernote:
+    server: https://www.evernote.com
+    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    stream_binaries: false
+    synchronous: true
+    always_reset_on_create: true
+    daemon_frequency: 3600
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+
+production:
+  <<: *defaults
+  host: joegatt.net
+  evernote:
+    server: https://www.evernote.com
+    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    stream_binaries: false
+    synchronous: false
+    always_reset_on_create: true
+    errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+    daemon_frequency: 30

@@ -1,0 +1,8 @@
+nav.links
+
+  header
+    h6= link_to t('links.title'), links_path
+
+  ul
+    - channels.each do |channel, count|
+      li = link_to %Q(#{ channel } <span class="count">#{ count }</span>).html_safe, link_path(channel)

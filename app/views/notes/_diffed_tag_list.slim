@@ -1,0 +1,19 @@
+nav.tags
+
+  header
+    h6 = link_to t('tags.index.title'), tags_path
+
+  ul
+    - diffed_tag_list.each do |key, value|
+      li
+        - if value['status'] == 1
+          ins= link_to key, tag_path(key.parameterize)
+
+        - elsif value['status'] == -1
+          - if value['obsolete']
+            del= key
+          - else
+            del= link_to key, tag_path(key.parameterize)
+
+        - else
+          = link_to key, tag_path(key.parameterize)

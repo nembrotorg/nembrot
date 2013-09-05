@@ -1,5 +1,180 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+
+  back: 'Back'
+
+  auth:
+    success: "Your %{provider} key has been authenticated."
+    failure: "%{provider} authentication failed!"
+    email:
+      subject: "%{provider} authentication required"
+      body: "%{provider} authentication is missing. Please authenticate your key for this provider by visiting %{url}"
+
+  email:
+    greeting: "Hi %{name}"
+    signature: 'joegatt.net'
+
+  site:
+    title: 'joegatt.net'
+    breadcrumbs: 'Breadcrumbs'
+    copyright_html: 'Except as otherwise stated, all content on this site is <span class="byline author vcard">by <span class="fn">Joe Gatt</span></span> and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported licence</a>.'
+    chromeframe_html: 'Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.'
+
+  tools:
+    title: 'Tools'
+    sign_in: 'Sign in'
+
+  home:
+    title: 'Home'
+
+  books:
+    index:
+      title: 'Bibliography'
+      statistics: "%{count} books (%{references_count} references)."
+    admin:
+      title: "Bibliography admin: %{mode}"
+      title_no_mode: "Bibliography admin"
+      title_short: 'Admin'
+      statistics: "%{count} books."
+    edit:
+      title: "Edit book (ISBN %{isbn})"
+      not_found: "Book: %{slug} is not available."
+      editor_short: "(ed.)"
+      success: "%{title} saved!"
+      failure: 'Update failed!'
+    show:
+      title: 'Bibliography'
+      not_found: "Book: %{slug} is not available."
+      editor_short: "(ed.)"
+      related_books: 'Other books by this author referenced on this site'
+    sync:
+      updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
+      failed:
+        logger: "Sync failed while fetching metadata from %{provider} for ISBN %{isbn}."
+      metadata_missing:
+        logger: "Book %{id} - %{author}: %{title} ISBN %{isbn} - metadata missing!"
+        email:
+          subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
+          body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
+
+  citations:
+    index:
+      title: 'Citations'
+      statistics: "%{count} citations from %{books_count} books and %{links_count} websites."
+    show:
+      title: "Citation %{id}"
+      not_found: "Citation %{id} is not available."
+
+  links:
+    index:
+      title: 'Links'
+      statistics: "%{links_count} links (%{channels_count} websites)."
+    admin:
+      title: 'Links admin'
+      title_short: 'Admin'
+      statistics: "%{count} links."
+    edit:
+      title: "Edit url from %{channel}"
+      not_found: "Url: %{url} is not available."
+      success: "Url from %{channel} saved!"
+      failure: 'Update failed!'
+    show_channel:
+      title: 'Links'
+      not_found: "Links for %{channel} are not available."
+
+  notes:
+    index:
+      title: 'Notes'
+      statistics: "%{count} notes (%{word_count} words)."
+    show:
+      title: "Note %{id}"
+      not_found: "Note %{id} is not available."
+    version:
+      title: "v%{sequence}"
+      title_html: "%{title} v%{sequence}"
+      full: "Note %{id} v%{sequence}"
+      not_found: "Note %{id} v%{sequence} is not available."
+    word_count: "%{word_count} words"
+    untitled_synonyms: ['Untitled', 'Untitled Note', 'New note']
+    sections:
+      annotations: 'Annotations'
+      downloads: 'Downloads'
+    sync:
+      updated: "%{provider}: note %{id} (%{title}) UPDATED."
+      rejected:
+        version_not_ok: "%{provider}: note %{guid} failed! The SDK is out of date."
+        not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
+        not_in_notebook: "%{provider}: note %{guid} rejected! Not in required notebook."
+        deleted_note: "%{provider}: note %{guid} rejected! Note has been deleted from cloud notebook."
+        tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
+        ignore: "%{provider}: note %{guid} (%{title}) rejected! Contains instructions to ignore."
+        not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."
+      update_error: "%{provider}: note %{guid} failed on database update!"
+      failed:
+        logger: "%{provider}: note %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: note %{guid} failed on database update!"
+          body: "%{provider}: note %{guid} for user %{username} failed on database update!"
+      conflicted:
+        warning_string: 'Conflicting modification on'
+        logger: "%{provider}: conflicted note %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: conflicted note '%{title}' failed on database update!"
+          body: "%{provider}: note '%{title}' [%{guid}] for user %{username} failed on database update!\\n\\nThere is a synchronisation conflict in the note content."
+
+  resources:
+    cut:
+      failed:
+        raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
+        record_not_found: "Record not found when cutting %{local_file_name}"
+
+  tags:
+    index:
+      title: 'Tags'
+      statistics: "%{count} tags (%{references_count} references)."
+    show:
+      title: "Tag: \"%{name}\""
+      title_short: "%{name}"
+      not_found: "Tag: %{slug} is not available."
+
+  titlecase_exceptions:
+    articles: 'a an the'
+    coordinating_conjunctions: 'and but for nor or so yet'
+    common_prepositions: 'about beneath in regarding above beside inside round across between into since after beyond like through against by near to among concerning of toward around despite off under as down on unlike at during out until before except outside up behind for over upon below from past with via'
+    latin_abbreviations: 'v vs id est'
+
+  users:
+    title: 'Users'
+    confirmations:
+      new:
+        title: 'Re-send confirmation instructions'
+        submit: 'Re-send'
+    passwords:
+      new:
+        title: 'Forgot your password?'
+        submit: 'Send'
+      edit:
+        title: 'Change your password'
+        new_password: 'New password'
+        confirm_new_password: 'Confirm new password'
+        submit: 'Change'
+    registrations:
+      edit:
+        title: 'Edit registration'
+        submit: 'Update'
+        keep_password: 'Leave blank to keep exisiting one'
+        current_password_reason: 'Required to confirm changes'
+        cancel: 'Cancel my account'
+        cancel_confirm: 'Are you sure?'
+      new:
+        title: 'Sign up'
+        submit: 'Sign up'
+    sessions:
+      delete:
+        title: 'Sign out'
+      new:
+        title: 'Sign in'
+        submit: 'Sign in'
+        title_provider: "Sign in with #{provider.to_s.titleize}"
+    links:
+      no_confirmation: "Didn't receive confirmation instructions?"
+      no_unlock: "Didn't receive unlock instructions?"

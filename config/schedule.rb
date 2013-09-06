@@ -1,4 +1,4 @@
-set :output, "#{ Whenever.path }/log/sync.log"
+set :output, "#{ path }/log/sync.log"
 
 # REVIEW:
 #  require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
@@ -6,8 +6,5 @@ set :output, "#{ Whenever.path }/log/sync.log"
 #  every Settings.notes.synch_every_minutes.minutes do
 
 every 1.minute do
-  runner 'EvernoteNote.sync_all'
-  runner 'Resource.sync_all_binaries'
-  runner 'Book.sync_all'
-  runner 'Link.sync_all'
+  rake 'RAILS_ENV=production sync:all'
 end

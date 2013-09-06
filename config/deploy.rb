@@ -1,10 +1,11 @@
 # Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
 
 set :stages, %w(production staging)
-set :default_stage, "staging"
+set :default_stage, 'staging'
 
-require "bundler/capistrano"
+require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
+require 'whenever/capistrano'
 
 set :scm,             :git
 set :migrate_target,  :current
@@ -28,6 +29,10 @@ set(:current_release) { fetch(:current_path) }
 set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
+
+# set :whenever_command, 'bundle exec whenever'
+# set :whenever_environment, defer { stage }
+# set :whenever_identifier, defer { "#{application}_#{stage}" }
 
 default_run_options[:shell] = 'bash'
 
@@ -155,6 +160,17 @@ namespace :deploy do
       rollback.cleanup
     end
   end
+end
+
+Capistrano::Configuration.instance(true).load do
+  namespace :whenever do
+    desc "Update the crontab file"
+    task :update_crontab, :roles => :db do
+      run "cd #{release_path} && whenever --update-crontab #{application}"
+    end
+  end
+  
+  after "deploy:update_code", "whenever:update_crontab"
 end
 
 def run_rake(cmd)

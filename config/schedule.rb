@@ -6,5 +6,5 @@ set :output, "#{ path }/log/sync.log"
 #  every Settings.notes.synch_every_minutes.minutes do
 
 every 1.minute do
-  rake 'RAILS_ENV=production sync:all'
+  rake 'sync:all'
 end

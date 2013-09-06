@@ -15,12 +15,13 @@ doc/
 *~
 .project
 .DS_Store
+.ruby-*
 
 # Ignore files with passwords etc (except sample and model files)
-secret*
+/config/secret.yml
 !secret.rb
 !secret_token.rb
-!secret*.example
+!secret.sample.yml
 
 # Ignore resource files
 /public/resources/*/*.*

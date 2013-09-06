@@ -30,10 +30,6 @@ set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEA
 set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
 
-# set :whenever_command, 'bundle exec whenever'
-# set :whenever_environment, defer { stage }
-# set :whenever_identifier, defer { "#{application}_#{stage}" }
-
 default_run_options[:shell] = 'bash'
 
 namespace :deploy do
@@ -162,16 +158,26 @@ namespace :deploy do
   end
 end
 
-Capistrano::Configuration.instance(true).load do
-  namespace :whenever do
-    desc "Update the crontab file"
-    task :update_crontab, :roles => :db do
-      run "cd #{release_path} && whenever --update-crontab #{application}"
+namespace :whenever do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+  end
+
+  desc "Update the crontab file only in production"
+  task :update_crontab_in_production, :roles => :db, :except => { :no_release => true } do
+    if :rails_env == 'production'
+      run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
     end
   end
-  
-  after "deploy:update_code", "whenever:update_crontab"
+
+  desc "Clear the crontab file"
+  task :clear_crontab, :roles => :db, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle exec whenever --clear-crontab #{application}"
+  end
 end
+
+after 'deploy:update_code', 'whenever:update_crontab_in_production'
 
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"

@@ -1,5 +1,3 @@
-# See https://github.com/javan/whenever/pull/332
-job_type :runner, "cd :path && bin/rails runner -e :environment ':task' :output"
 set :output, "#{ Whenever.path }/log/sync.log"
 
 # REVIEW:

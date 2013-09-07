@@ -19,9 +19,6 @@ doc/
 
 # Ignore files with passwords etc (except sample and model files)
 /config/secret.yml
-!secret.rb
-!secret_token.rb
-!secret.sample.yml
 
 # Ignore resource files
 /public/resources/*/*.*

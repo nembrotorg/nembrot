@@ -70,7 +70,7 @@ class Pantograph < ActiveRecord::Base
 
   def self.get_timeline(min_id)
     authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id).each do |tweet|
-    user = Pantographer.first_or_create(twitter_user_id: tweet.user.id)
+    user = Pantographer.where(twitter_user_id: tweet.user.id).first_or_create
     create(
           body: sanitize(tweet.text),
           external_created_at: tweet.created_at,

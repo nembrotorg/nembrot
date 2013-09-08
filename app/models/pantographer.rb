@@ -16,8 +16,8 @@ class Pantographer < ActiveRecord::Base
     client = Pantographer.authenticated_twitter_client
     followers = client.followers(skip_status: true, include_user_entities: false).to_a
     friends = client.friends(skip_status: true, include_user_entities: false).to_a
-    (followers - friends).each { |user| client.follow(user.id) }
     (friends - followers).each { |user| client.unfollow(user.id) }
+    (followers - friends).each { |user| client.follow(user.id) }
   end
 
   protected

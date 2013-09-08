@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903210802) do
+ActiveRecord::Schema.define(version: 20130907160036) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -122,6 +122,24 @@ ActiveRecord::Schema.define(version: 20130903210802) do
     t.boolean  "is_citation",                   default: false
     t.boolean  "listable",                      default: true
     t.integer  "word_count"
+  end
+
+  create_table "pantographers", force: true do |t|
+    t.string   "twitter_screen_name"
+    t.string   "twitter_real_name"
+    t.integer  "twitter_user_id"
+    t.integer  "pantographs_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pantographs", force: true do |t|
+    t.string   "body",                limit: 140
+    t.datetime "external_created_at"
+    t.integer  "tweet_id"
+    t.integer  "pantographer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "resources", force: true do |t|

@@ -58,6 +58,9 @@ defaults: &defaults
       unversion: ['__UNVERSION', '__NO_VERSION']
     index:
       page_size: 30
+  pantography:
+    alphabet: 0123456789.,;:_@!?/#()%'-+= abcdefghijklmnopqrstuvwxyz
+    twitter_user_id: 237443494
   books:
     google_books:
       domain: 'https://www.googleapis.com'

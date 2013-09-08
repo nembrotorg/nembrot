@@ -6,5 +6,13 @@ set :output, "#{ path }/log/sync.log"
 #  every Settings.notes.synch_every_minutes.minutes do
 
 every 1.minute do
-  rake 'sync:all'
+  rake 'joegattnet:one_minute'
 end
+
+every '*/10 * * * *' do
+  rake 'joegattnet:ten_minutes'
+end
+
+# every '0 * * * *' do
+#   rake 'joegattnet:one_hour'
+# end

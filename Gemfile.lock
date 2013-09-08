@@ -30,6 +30,14 @@ GIT
       rails (>= 3.0.0, < 5)
       spork (>= 1.0rc0)
 
+GIT
+  remote: https://github.com/sferik/twitter.git
+  revision: 88bdab8a7737e2fe2af1dc862dd73785537f7220
+  specs:
+    twitter (4.8.1)
+      faraday (~> 0.8, < 0.10)
+      simple_oauth (~> 0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -145,6 +153,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.0)
     flog (4.1.1)
       ruby_parser (~> 3.1, > 3.1.0)
@@ -223,6 +233,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.9)
     multi_xml (0.5.5)
+    multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -329,6 +340,7 @@ GEM
     sexp_processor (4.3.0)
     shoulda-matchers (2.3.0)
       activesupport (>= 3.0.0)
+    simple_oauth (0.2.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -458,6 +470,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3
   thin
+  twitter!
   uglifier
   unicorn
   validate_url

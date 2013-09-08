@@ -60,7 +60,7 @@ defaults: &defaults
       page_size: 30
   pantography:
     alphabet: 0123456789.,;:_@!?/#()%'-+= abcdefghijklmnopqrstuvwxyz
-    twitter_user_id: 237443494
+    twitter_user_id: 394339242
   books:
     google_books:
       domain: 'https://www.googleapis.com'
@@ -170,6 +170,9 @@ development:
     always_reset_on_create: true
     daemon_frequency: 30
     errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']
+  pantography:
+    alphabet: 0123456789.,;:_@!?/#()%'-+= abcdefghijklmnopqrstuvwxyz
+    twitter_user_id: 237443494
 
 test:
   <<: *defaults
@@ -197,6 +200,10 @@ test:
       unversion: ['__UNVERSION', '__NO_VERSION']
     index:
       page_size: 30
+  pantography:
+    alphabet: 0123456789.,;:_@!?/#()%'-+= abcdefghijklmnopqrstuvwxyz
+    twitter_user_id: 237443494
+
 
 staging:
   <<: *defaults

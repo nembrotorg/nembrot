@@ -14,6 +14,8 @@ class Pantographer < ActiveRecord::Base
 
   def self.follow_followers
     client = Pantographer.authenticated_twitter_client
+    # REVIEW: Can we just get id using frinds_ids?
+    #  Can we send the array straight to follow/unfollow
     followers = client.followers(skip_status: true, include_user_entities: false).to_a
     friends = client.friends(skip_status: true, include_user_entities: false).to_a
     (friends - followers).each { |user| client.unfollow(user.id) }
@@ -23,7 +25,7 @@ class Pantographer < ActiveRecord::Base
   protected
 
   def get_user_details
-    twitter_user = Pantographer.authenticated_twitter_client.user(id: twitter_user_id)
+    twitter_user = Pantographer.authenticated_twitter_client.user(twitter_user_id)
     self.twitter_screen_name = twitter_user.screen_name
     self.twitter_real_name = twitter_user.name
   end

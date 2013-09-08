@@ -64,20 +64,19 @@ class Pantograph < ActiveRecord::Base
   def self.update_saved_timeline
     min_id = first.nil? ? 0 : first.tweet_id
     get_timeline(min_id)
-    min_id
   end
 
   private
 
   def self.get_timeline(min_id)
     authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id).each do |tweet|
-      user = Pantographer.first_or_create(twitter_user_id: tweet.user.id)
-      create(
-            body: sanitize(tweet.text),
-            external_created_at: tweet.created_at,
-            tweet_id: tweet.id,
-            pantographer_id: user.id
-          )
+    user = Pantographer.first_or_create(twitter_user_id: tweet.user.id)
+    create(
+          body: sanitize(tweet.text),
+          external_created_at: tweet.created_at,
+          tweet_id: tweet.id,
+          pantographer_id: user.id
+        )
     end
   end
 

@@ -29,6 +29,10 @@ describe Pantograph do
     specify { Pantograph.calculate_after('.zz').should eq(',00') }
   end
 
+  describe '.sanitize' do
+    specify { Pantograph.sanitize(Settings.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
+  end
+
   # describe '.publish_next' do
   #   Pantograph.publish_next.should == ''
   # end

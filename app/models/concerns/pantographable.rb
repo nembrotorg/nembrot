@@ -14,7 +14,7 @@ module Pantographable
           .gsub(/\[\{/, '(')
           .gsub(/\]\}/, ')')
           .downcase
-          .gsub(/[^#{ self.alphabet }]/, '')
+          .gsub(/[^#{ Settings.pantography.alphabet_escaped }]/, '')
     end
 
     def authenticated_twitter_client

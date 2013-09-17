@@ -13,6 +13,6 @@ every '*/10 * * * *' do
   rake 'joegattnet:ten_minutes'
 end
 
-# every '0 * * * *' do
-#   rake 'joegattnet:one_hour'
-# end
+every '0 * * * *' do
+  rake 'joegattnet:one_hour'
+end

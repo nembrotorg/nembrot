@@ -8,8 +8,8 @@ namespace :joegattnet do
   end
 
   task ten_minutes: :environment do |t, args|
-    Pantograph.publish_next
     Pantograph.update_saved_timeline
+    Pantograph.publish_next
   end
 
   task one_hour: :environment do |t, args|

@@ -23,10 +23,14 @@ class Pantograph < ActiveRecord::Base
     begin
       authenticated_twitter_client.update(message)
     rescue Twitter::Error => error
-      error_message = "Twitter rejected message #{ message } with error, \"#{ error }\"."
-      PANTOGRAPHY_LOG.error error_message
-      PantographMailer.tweet_failed(error_message).deliver
-      false
+      unless error == 'Over capacity'
+        error_message = "Twitter rejected message #{ message } with error, \"#{ error }\"."
+        PANTOGRAPHY_LOG.error error_message
+        PantographMailer.tweet_failed(error_message).deliver
+        false
+      else
+        true
+      end
     else
       true
     end

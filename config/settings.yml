@@ -8,7 +8,7 @@ defaults: &defaults
     email: joe@joegatt.net
   monitoring:
     name: Joe
-    email: joe@joegatt.net
+    email: monitoring@joegatt.net
   mailer:
     address: smtp.gmail.com
     port: 587

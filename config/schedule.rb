@@ -1,4 +1,4 @@
-set :output, "#{ path }/log/sync.log"
+set :output, "#{ path }/log/daemons.log"
 
 # REVIEW:
 #  require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))

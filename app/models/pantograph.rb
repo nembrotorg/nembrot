@@ -12,7 +12,24 @@ class Pantograph < ActiveRecord::Base
   default_scope { order('external_created_at DESC') }
 
   def self.publish_next
-    authenticated_twitter_client.update(calculate_next)
+    next_pantograph = calculate_next
+    while !tweet(next_pantograph) do
+      # If the next pantograph fails, we log it and try the following one
+      next_pantograph = calculate_after(next_pantograph)
+    end
+  end
+
+  def self.tweet(message)
+    begin
+      authenticated_twitter_client.update(message)
+    rescue Twitter::Error => error
+      error_message = "Twitter rejected message #{ message } with error, \"#{ error }\"."
+      PANTOGRAPHY_LOG.error error_message
+      PantographMailer.tweet_failed(error_message).deliver
+      false
+    else
+      true
+    end
   end
 
   def self.calculate_next

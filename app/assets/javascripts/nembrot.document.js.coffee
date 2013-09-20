@@ -17,7 +17,7 @@ resize_initializers = () ->
   place_annotations()
 
 place_annotations = () ->
-  if $('.annotations')
+  if $('.annotations').length
     (if _media_query('default') then _place_annotations_undo() else _place_annotations_do())
     $('#text').addClass('fadeable-annotations')
   true

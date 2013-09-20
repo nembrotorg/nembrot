@@ -17,23 +17,31 @@ class Pantograph < ActiveRecord::Base
       # If the next pantograph fails, we log it and try the following one
       next_pantograph = calculate_after(next_pantograph)
     end
+    next_pantograph
   end
 
   def self.tweet(message)
-    begin
-      authenticated_twitter_client.update(message)
-    rescue Twitter::Error => error
-      unless error == 'Over capacity'
-        error_message = "Twitter rejected message #{ message } with error, \"#{ error }\"."
-        PANTOGRAPHY_LOG.error error_message
-        PantographMailer.tweet_failed(error_message).deliver
-        false
-      else
-        true
-      end
+    tweet = authenticated_twitter_client.update(message)
+
+    if tweet.text == message
+      true # Tweet was successful
     else
-      true
+      report_error("Twitter rejected message #{ message } with no error message.")
+      false
     end
+
+    rescue Twitter::Error => error
+      if error == 'Over capacity'
+        true # Although the tweet failed, we do not skip a pantograph
+      else
+        report_error("Twitter rejected message #{ message } with error, \"#{ error }\".")
+        false
+      end
+  end
+
+  def self.report_error(error_message)
+    PANTOGRAPHY_LOG.error error_message
+    PantographMailer.tweet_failed(error_message).deliver
   end
 
   def self.calculate_next

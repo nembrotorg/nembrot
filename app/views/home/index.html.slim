@@ -15,12 +15,6 @@
 
   = render 'shared/media', url: @notes.first.source_url if @note.is_embeddable_source_url
 
-- elsif @notes.size > 1
+- else @notes.size > 1
 
   = render 'shared/notes_list', notes: @notes.first(3), blurb_length: Settings.notes.blurb_length * 1.5
-
-- else
-
-  ul
-    li= link_to t('notes.title'), notes_path
-    li= link_to t('tags.title'), tags_path

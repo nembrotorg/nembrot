@@ -15,7 +15,6 @@ doc/
 *~
 .project
 .DS_Store
-.ruby-*
 
 # Ignore files with passwords etc (except sample and model files)
 /config/secret.yml

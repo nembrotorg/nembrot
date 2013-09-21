@@ -5,18 +5,23 @@
                 open_graph: { title: @diffed_version.title },
                 noindex: true
 
-article
-  section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-    - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
-    - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: title, document_title: document_title
+  article
 
-    = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
+    section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-    section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
+      - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
+      - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
 
-  = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
+      = render 'header', title: title, document_title: document_title
 
-  = render 'versions_list', note: @note
+      = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
+
+      section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
+
+    = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
+
+    = render 'versions_list', note: @note

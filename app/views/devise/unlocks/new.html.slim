@@ -1,9 +1,21 @@
-h2 Resend unlock instructions
-= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
-  = devise_error_messages!
-  div
-    = f.label :email
-    br/
-    = f.email_field :email, :autofocus => true
-  div= f.submit "Resend unlock instructions"
-= render "devise/shared/links"
+- document_title = "#{ t('users.registrations.resend_unlock.title') } | #{ t('users.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title
+
+- add_breadcrumb t('users.registrations.resend_unlock.title'), new_user_registration_path
+
+div class="#{ controller.controller_name }-#{ controller.action_name }"
+
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+  = render 'header', title: t('users.registrations.resend_unlock.title'), document_title: document_title
+
+  h2 Resend unlock instructions
+  = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+    = devise_error_messages!
+  
+      = f.label :email do
+        = f.email_field :email, autofocus: true
+
+      = f.submit t('users.registrations.resend_unlock.submit')
+
+  = render "devise/shared/links"

@@ -3,10 +3,14 @@
                 description: '',
                 open_graph: { title: document_title }
 
-section
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'shared/notes_list', notes: @notes unless @notes.empty?
+  section
 
-  = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?
+    = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title
+
+    = render 'shared/notes_list', notes: @notes unless @notes.empty?
+
+    = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?

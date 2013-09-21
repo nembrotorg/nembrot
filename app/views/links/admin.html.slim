@@ -4,11 +4,15 @@
                 open_graph: { title: document_title },
                 noindex: true
 
-section
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title', mode: @mode), document_title: document_title
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'links_admin_list', links: @links unless @links.empty?
+  section
 
-  aside.statistics
-    = t('.statistics', count: number_with_delimiter(@links.size))
+    = render 'header', title: t('.title', mode: @mode), document_title: document_title
+
+    = render 'links_admin_list', links: @links unless @links.empty?
+
+    aside.statistics
+      = t('.statistics', count: number_with_delimiter(@links.size))

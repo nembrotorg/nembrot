@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/airblade/paper_trail.git
-  revision: 2c3f330521b74d6411f941cd790281dac0f9688b
+  revision: f95c61c467054dc334dc6b36d499c4f04d8b88bc
   branch: master
   specs:
     paper_trail (3.0.0.beta1)
@@ -343,7 +343,7 @@ GEM
       sprockets-rails (~> 2.0.0)
     settingslogic (2.0.9)
     sexp_processor (4.3.0)
-    shoulda-matchers (2.3.0)
+    shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
     simple_oauth (0.2.0)
     simplecov (0.7.1)

@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.string   "tag"
     t.boolean  "dirty"
     t.integer  "attempts"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "library_thing_id"
     t.string   "open_library_id"
     t.string   "slug"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.boolean  "google_books_embeddable"
   end
 
-  add_index "books", ["slug"], name: "index_sources_on_slug", unique: true
+  add_index "books", ["slug"], name: "index_books_on_slug", unique: true
 
   create_table "books_notes", force: true do |t|
     t.integer "book_id"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
   end
 
   create_table "evernote_auths", force: true do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "auth"
     t.text     "encrypted_auth"
   end
@@ -62,16 +62,16 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
     t.integer  "evernote_auth_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "dirty"
     t.integer  "attempts"
     t.binary   "content_hash",           limit: 255
     t.integer  "update_sequence_number"
   end
 
-  add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_identifier_service_id", unique: true
-  add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id"
+  add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
+  add_index "evernote_notes", ["note_id"], name: "index_evernote_notes_on_note_id"
 
   create_table "links", force: true do |t|
     t.string   "title"
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.string   "publisher"
     t.boolean  "dirty"
     t.integer  "attempts"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
     t.float    "altitude"
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
   create_table "notes", force: true do |t|
     t.string   "title",                                         null: false
     t.text     "body"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "external_updated_at",                           null: false
     t.float    "latitude"
     t.float    "longitude"
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.boolean  "dirty"
     t.integer  "attempts"
     t.integer  "note_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.binary   "data_hash"
     t.integer  "width"
     t.integer  "height"
@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(version: 20130908190027) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "role"
   end
 

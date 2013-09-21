@@ -1,13 +1,12 @@
 jQuery.fn.reverse = [].reverse
 
 page_initializers = () ->
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]');
+  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
 content_initializers = () ->
   $('time').timeago()
 
-  # REVIEW: Either use pjax-rack, or loop through title and all meta tags
-  title_data = $('#main section:first-of-type').data('title')
+  title_data = $('#main header:first-of-type').data('title')
   if title_data
     document.title = title_data
 
@@ -24,7 +23,7 @@ place_annotations = () ->
 
 _place_annotations_do = () ->
   $('.annotations').addClass('side-annotations')
-  annotations = $('li[id*=annotation-]')
+  annotations = $('li[id^=annotation-]')
   minimum = 0
   new_top = minimum
   corrected_top = minimum

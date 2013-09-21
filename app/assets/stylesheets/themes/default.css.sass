@@ -245,11 +245,11 @@ ol
 
 +pass_media_query('default')
 
-#main, #tools, footer
+#main, #tools, .hello_world, footer
   width: 90%
   margin: 0 5% $line-height 5%
 
-#main > div, #tools ul, footer nav, footer small
+#main > div, #tools ul, .hello_world p, footer nav, footer small
   +column(12)
 
 ol, ul, .statistics
@@ -654,6 +654,7 @@ blockquote
 
   #main,
   #tools,
+  .hello_world,
   footer
     margin: 0 auto $line-height auto
     overflow: hidden
@@ -667,7 +668,7 @@ blockquote
     ul
       +column(12, 12)
       li
-        // We don't use horizontal list here becaus eit cancels all margins
+        // We don't use horizontal list here because it cancels all margins
         display: inline-block
         margin-right: 5px
 
@@ -878,6 +879,7 @@ blockquote
 
   #main,
   #tools,
+  .hello_world,
   footer
     width: 1080px
 

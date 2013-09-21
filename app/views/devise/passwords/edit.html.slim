@@ -3,20 +3,24 @@
 
 - add_breadcrumb t('users.passwords.edit.title'), new_user_password_path
 
-= render 'header', title: t('users.passwords.edit.title'), document_title: document_title
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  = f.hidden_field :reset_password_token
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = f.label :password do
-    = t('users.passwords.edit.new_passowrd')
-    = f.password_field :password, autofocus: true
+  = render 'header', title: t('users.passwords.edit.title'), document_title: document_title
 
-  = f.label :password_confirmation do
-    = t('users.passwords.edit.confirm_new_passowrd')
-    = f.password_field :password_confirmation
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+    = devise_error_messages!
+    = f.hidden_field :reset_password_token
 
-  = f.submit t('users.passwords.edit.submit')
+    = f.label :password do
+      = t('users.passwords.edit.new_passowrd')
+      = f.password_field :password, autofocus: true
 
-= render 'devise/shared/links'
+    = f.label :password_confirmation do
+      = t('users.passwords.edit.confirm_new_passowrd')
+      = f.password_field :password_confirmation
+
+    = f.submit t('users.passwords.edit.submit')
+
+  = render 'devise/shared/links'

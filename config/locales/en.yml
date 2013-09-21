@@ -168,6 +168,9 @@ en:
       new:
         title: 'Sign up'
         submit: 'Sign up'
+      resend_unlock:
+        title: 'Resend unlock instructions'
+        submit: 'Resend'
     sessions:
       delete:
         title: 'Sign out'

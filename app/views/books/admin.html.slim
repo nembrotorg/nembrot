@@ -3,18 +3,22 @@
                 description: '',
                 open_graph: { title: document_title }
 
-section
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title', mode: @mode), document_title: document_title
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  nav
-    ul
-      li= link_to_unless_current_or_wrap 'Missing Metadata', '/bibliography/admin'
-      li= link_to_unless_current_or_wrap 'Cited', '/bibliography/admin/cited'
-      li= link_to_unless_current_or_wrap 'Citable', '/bibliography/admin/citable'
-      li= link_to_unless_current_or_wrap 'All', '/bibliography/admin/all'
+  section
 
-  = render 'books_admin_list', books: @books, mode: @mode unless @books.empty?
+    = render 'header', title: t('.title', mode: @mode), document_title: document_title
 
-  aside.statistics
-    = t('.statistics', count: number_with_delimiter(@books.size))
+    nav
+      ul
+        li= link_to_unless_current_or_wrap 'Missing Metadata', '/bibliography/admin'
+        li= link_to_unless_current_or_wrap 'Cited', '/bibliography/admin/cited'
+        li= link_to_unless_current_or_wrap 'Citable', '/bibliography/admin/citable'
+        li= link_to_unless_current_or_wrap 'All', '/bibliography/admin/all'
+
+    = render 'books_admin_list', books: @books, mode: @mode unless @books.empty?
+
+    aside.statistics
+      = t('.statistics', count: number_with_delimiter(@books.size))

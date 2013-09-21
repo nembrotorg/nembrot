@@ -1,10 +1,11 @@
 # Based on https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn
 
 set :stages, %w(production staging)
-set :default_stage, "staging"
+set :default_stage, 'staging'
 
-require "bundler/capistrano"
+require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
+require 'whenever/capistrano'
 
 set :scm,             :git
 set :migrate_target,  :current
@@ -156,6 +157,27 @@ namespace :deploy do
     end
   end
 end
+
+namespace :whenever do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+  end
+
+  desc "Update the crontab file only in production"
+  task :update_crontab_in_production, :roles => :db, :except => { :no_release => true } do
+    if :rails_env == 'production'
+      run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+    end
+  end
+
+  desc "Clear the crontab file"
+  task :clear_crontab, :roles => :db, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle exec whenever --clear-crontab #{application}"
+  end
+end
+
+after 'deploy:update_code', 'whenever:update_crontab_in_production'
 
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"

@@ -43,6 +43,7 @@ gem 'thin'
 gem 'uglifier'
 gem 'unicorn'
 gem 'validate_url'
+gem 'whenever', require: false
 gem 'wikipedia-client'
 
 group :development do

@@ -1,6 +1,8 @@
 jQuery.fn.reverse = [].reverse
 
 page_initializers = () ->
+  # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
+  $.pjax.defaults.timeout = false
   $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
 content_initializers = () ->

@@ -1,14 +1,20 @@
 # All Nembrot settings go here except for secret strings
 
 defaults: &defaults
-  version: '0.9'
-  locale: 'en'
+  version: 0.9
+  app_name: joegattnet_v3
+  role_name: joegatt.org
+  repository: git://github.com/joegattnet/joegattnet_v3.git
+  locale: en
   admin:
     name: Joe
     email: joe@joegatt.net
   monitoring:
     name: Joe
     email: monitoring@joegatt.net
+  contact:
+    name: Joe
+    email: joe@joegatt.net
   mailer:
     address: smtp.gmail.com
     port: 587
@@ -211,6 +217,7 @@ test:
 staging:
   <<: *defaults
   host: staging.joegatt.net
+  asset_host: http://a4.joegatt.org
   evernote:
     server: https://www.evernote.com
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
@@ -223,6 +230,7 @@ staging:
 production:
   <<: *defaults
   host: joegatt.net
+  asset_host: http://a3.joegatt.org
   evernote:
     server: https://www.evernote.com
     notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce

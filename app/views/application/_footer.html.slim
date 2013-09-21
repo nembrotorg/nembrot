@@ -13,6 +13,6 @@ footer
         li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
 
       li = link_to 'RSS feed', '/rss'
-      li = link_to 'joe@joegatt.net', 'mailto:joe@joegatt.net'
+      li = link_to Settings.contact.email, "mailto:#{ Settings.contact.email }"
 
   small.copyright = t('site.copyright_html')

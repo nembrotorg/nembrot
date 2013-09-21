@@ -12,15 +12,15 @@ set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
 set :normalize_asset_timestamps, false
 
-set :repository,      "git://github.com/joegattnet/joegattnet_v3.git"
+set :repository,      Settings.repository
 
 set :user,            "deployer"
 set :group,           "staff"
 set :use_sudo,        false
 
-role :web,    "joegatt.org"
-role :app,    "joegatt.org"
-role :db,     "joegatt.org", :primary => true
+role :web,    Settings.role_name
+role :app,    Settings.role_name
+role :db,     Settings.role_name, :primary => true
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }

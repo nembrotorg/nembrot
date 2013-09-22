@@ -5,4 +5,5 @@ class Secret < Settingslogic
 
   source source_file
   namespace Rails.env
+  load!
 end

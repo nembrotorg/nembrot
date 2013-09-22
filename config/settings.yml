@@ -2,9 +2,6 @@
 
 defaults: &defaults
   version: 0.9
-  app_name: joegattnet_v3
-  role_name: joegatt.org
-  repository: git://github.com/joegattnet/joegattnet_v3.git
   locale: en
   admin:
     name: Joe

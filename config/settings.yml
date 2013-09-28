@@ -19,6 +19,7 @@ defaults: &defaults
     address: smtp.gmail.com
     port: 587
     domain: mail.joegatt.net
+  google_analytics_key: 'UA-1346274-1'
   evernote:
     server: https://sandbox.evernote.com
     notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b

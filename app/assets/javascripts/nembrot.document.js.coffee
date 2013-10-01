@@ -1,21 +1,25 @@
 jQuery.fn.reverse = [].reverse
 
-page_initializers = () ->
-  # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
-  $.pjax.defaults.timeout = false
-  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
-
-content_initializers = () ->
-  $('time').timeago()
-
+update_titles = () ->
   title_data = $('#main header:first-of-type').data('title')
   if title_data
     document.title = title_data
 
-  place_annotations()
+track_page_view = () ->
+  _gaq = window._gaq ?= []
+  _gaq.push(['_trackPageview', location.pathname])
 
-resize_initializers = () ->
-  place_annotations()
+track_outbound_link = (link, category, action) ->
+  try
+    _gaq.push ['_trackEvent', category, action, link]
+
+  setTimeout (->
+    document.location.href = link
+  ), 100
+
+track_download = (link, category, action, which) ->
+  try
+    _gaq.push ['_trackEvent', category, action, link, which]
 
 place_annotations = () ->
   if $('.annotations').length
@@ -26,7 +30,8 @@ place_annotations = () ->
 _place_annotations_do = () ->
   $('.annotations').addClass('side-annotations')
   annotations = $('li[id^=annotation-]')
-  minimum = 0
+  minimum = $('.body').offset().top
+  if $('#map').length then minimum += $('#map').outerHeight(true)
   new_top = minimum
   corrected_top = minimum
 
@@ -53,12 +58,38 @@ _media_query = (media_query_string) ->
     style = style.content.replace /"/g, ''
   style is media_query_string
 
+# Document hooks ******************************************************************************************************
+
 $ ->
-  page_initializers()
-  content_initializers()
+  document_initializers()
 
 $(document).on 'pjax:end', ->
   content_initializers()
 
 $(window).on 'resize', ->
   resize_initializers()
+
+# Initializers ********************************************************************************************************
+
+document_initializers = () ->
+  # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
+  $.pjax.defaults.timeout = false
+  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+
+  $(document).on 'click', 'a[href^=http]', ->
+    track_outbound_link(this.href, 'Outbound Link', this.href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
+    false
+
+  $(document).on 'mousedown', "a[href$='.pdf'], a[href$='.zip']", (event) ->
+    track_download(this.href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', this.text, event.which)
+
+  content_initializers()
+
+content_initializers = () ->
+  $('time').timeago()
+  update_titles()
+  track_page_view()
+  resize_initializers()
+
+resize_initializers = () ->
+  place_annotations()

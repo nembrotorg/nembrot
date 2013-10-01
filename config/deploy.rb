@@ -27,10 +27,9 @@ set :user,            'deployer'
 set :group,           'staff'
 set :use_sudo,        false
 
-set :role_name,     'joegatt.org'
-role :web,    role_name
-role :app,    role_name
-role :db,     role_name, primary: true
+role :web,    'joegatt.org'
+role :app,    'joegatt.org'
+role :db,     'joegatt.org', primary: true
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }

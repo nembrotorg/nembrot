@@ -19,6 +19,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'shared/media', url: @notes.first.source_url if @note.is_embeddable_source_url
 
-  - else @notes.size > 1
+  - elsif @notes.size > 1
 
     = render 'shared/notes_list', notes: @notes.first(3), blurb_length: Settings.notes.blurb_length * 1.5

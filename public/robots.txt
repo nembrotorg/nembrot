@@ -1,2 +1,1 @@
-User-Agent: *
-Disallow: /
+Sitemap: http://nembrot.org/sitemap.xml.gz

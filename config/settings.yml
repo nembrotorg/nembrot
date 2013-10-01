@@ -1,4 +1,5 @@
 defaults: &defaults
+  app_name: joegattnet_v3
   version: 0.9
   locale: en
   admin:
@@ -143,6 +144,7 @@ test:
 
 staging:
   <<: *defaults
+  app_name: joegattnet_v3_staging
   host: staging.joegatt.net
   asset_host: http://a4.joegatt.org
   evernote:

@@ -7,21 +7,12 @@ require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'whenever/capistrano'
 
-set :ruby_version,  'ruby-2.0.0-p195'
-set (:deploy_to)     { "/home/deployer/apps/#{ application }" }
-
-default_environment['RAILS_ENV']    = rails_env
-default_environment['RUBY_VERSION'] = ruby_version
-default_environment['PATH']         = "/usr/local/rvm/gems/#{ ruby_version }@#{ application }/bin:/usr/local/rvm/gems/#{ ruby_version }@#{ application }/bin:/usr/local/rvm/rubies/#{ ruby_version }/bin:/usr/local/rvm/bin:$PATH"
-default_environment['GEM_HOME']     = "/usr/local/rvm/gems/#{ ruby_version }@#{ application }"
-default_environment['GEM_PATH']     = "/usr/local/rvm/gems/#{ ruby_version }@#{ application }:/usr/local/rvm/gems/#{ ruby_version }@#{ application }"
-
 set :scm,             :git
 set :migrate_target,  :current
 set :ssh_options,     { forward_agent: true }
 set :normalize_asset_timestamps, false
 
-set :repository,    'git://github.com/joegattnet/joegattnet_v3.git'
+set :repository,      'git://github.com/joegattnet/joegattnet_v3.git'
 
 set :user,            'deployer'
 set :group,           'staff'
@@ -35,9 +26,9 @@ set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
 set(:current_release) { fetch(:current_path) }
 
-set(:current_revision)  { capture("cd #{ current_path }; git rev-parse --short HEAD").strip }
-set(:latest_revision)   { capture("cd #{ current_path }; git rev-parse --short HEAD").strip }
-set(:previous_revision) { capture("cd #{ current_path }; git rev-parse --short HEAD@{1 }").strip }
+set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
+set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
+set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
 
 default_run_options[:shell] = 'bash'
 

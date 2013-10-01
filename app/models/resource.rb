@@ -7,8 +7,8 @@ class Resource < ActiveRecord::Base
 
   belongs_to :note
 
-  scope :attached_images, -> { where("mime LIKE 'image%' AND dirty = ?", false).where(attachment: nil) }
-  scope :attached_files, -> { where(mime: 'application/pdf AND dirty = ?', false) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
+  scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
   scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
   scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
 

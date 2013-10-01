@@ -6,49 +6,49 @@ defaults: &defaults
       red: '#900'
       green: '#090'
       blue: '#009'
-    css_for_instructions: ['__FX_POL']
-    citation_style: default
-    line_height: 30
-    column_width: 60
-    gutter_width: 30
-    columns: 12
-    total_width: '100%'
-    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
-    font_size: '15px'
-    font_color: '#000'
-    secondary_color: '#333'
+    background_color: '#fff'
     body_font: 'NOT USED'
-    body_font_variant: 'regular'
-    body_font_family: 'Georgia, serif'
-    body_font_size: '18px'
-    body_font_color: '#000'
+    body_font_citation_color: '#000'
     body_font_citation_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     body_font_citation_size: '15px'
-    body_font_citation_color: '#000'
-    count_color: '#900'
+    body_font_color: '#000'
+    body_font_family: 'Georgia, serif'
+    body_font_size: '18px'
+    body_font_variant: 'regular'
     caption_color: '#454545'
+    citation_style: 'default'
+    column_width: 60
+    columns: 12
+    count_color: '#900'
+    css_for_instructions: ['__FX_POL']
+    delete_font_color: '#000'
+    error_background_color: '#ff4545'
+    font_color: '#000'
+    font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
+    font_size: '15px'
+    gutter_width: 30
     headline_font: 'DejaVuSansCondensed'
-    headline_font_variant: 'condensed_book'
-    headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     headline_font_color: '#900'
+    headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     headline_font_size: '36px'
-    small_font_size: '13px'
+    headline_font_variant: 'condensed_book'
+    insert_background_color: '#ffff45'
+    invalid_background_color: 'ff0'
+    line_height: 30
     link_color: '#000'
     link_hover_color: '#009'
     link_visited_color: '#000'
-    static_url_color: '#090'
-    selected_font_color: '#000'
-    selected_background_color: '#ff0'
-    invalid_background_color: 'ff0'
-    insert_background_color: '#ffff45'
-    delete_font_color: '#000'
-    success_background_color: '#45ff45'
-    error_background_color: '#ff4545'
     map_background_color: '#ccc'
     map_font_color: '#333'
     qr_code_image_size: 150
+    secondary_color: '#333'
+    selected_background_color: '#ff0'
+    selected_font_color: '#000'
+    small_font_size: '13px'
+    static_url_color: '#090'
+    success_background_color: '#45ff45'
+    total_width: '100%'
     images:
-      effects:
       name_length: 30
       snap: 1
       gravity: 0

@@ -4,105 +4,7 @@
 //                          //
 //////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Functions, Mix-ins
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-=arrow-links
-  a:first-of-type, .current
-    text-transform: lowercase
-    &:before
-      +icon-right
-      +icon-small
-      display: inline-block
-      width: 12px
-  .current
-    font-weight: bold
-
-=blurb($lines: 3, $margin-right: 0)
-  display: block
-  height: $line-height * $lines
-  overflow: hidden
-  &:after
-    background-color: #FFFFFF
-    border-left: 1px solid #000
-    bottom: -3px
-    content: ''
-    font-family: fontello
-    font-size: 14px
-    margin-right: $margin-right
-    padding-left: 5px
-    position: absolute
-    right: 0
-
-=debug-bg
-  background: url('/resources/static/debug-bg.png') 0 0 repeat
-
-=embed-font($font-name, $font-variant)
-  @font-face
-    font-family: $font-name
-    src: font-url('#{$font-name}/#{$font-variant}.eot')
-    src: font-url('#{$font-name}/#{$font-variant}.eot?#iefix') format('embedded-opentype'), font-url('#{$font-name}/#{$font-variant}.woff') format('woff'), font-url('#{$font-name}/#{$font-variant}.ttf') format('truetype')
-    font-weight: normal
-    font-style: normal
-
-=fade($opacity: 0)
-  opacity: $opacity
-  +transition
-
-=fixed-column-gap
-  +column-gap($gutter-width * 1px)
-
-=pass_media_query($media-query)
-  body
-    &:after
-      content: $media-query
-      line-height: 0
-      visibility: hidden
-
-=push($offset: 1, $columns: $columns)
-  margin-left: $total-width * ($gutter-width + $column-width) * $offset / gridsystem-width($columns) + $total-width * $gutter-width * 0.5 / gridsystem-width($columns)
-
-=transition($duration: 1s)
-  transition: all $duration ease-out
-  -webkit-transition: all $duration ease-out
-  -moz-transition: all $duration ease-out
-  -o-transition: all $duration ease-out
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Fonts
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-+embed-font($headline-font, $headline-font-variant)
-
-=body-font
-  +hyphens
-  color: $body-font-color
-  font:
-    family: $body-font-family
-    size: $body-font-size
-  text-align: justify
-  ms-text-justify: auto
-
-=body-font-citation
-  color: $body-font-citation-color
-  font:
-    family: $body-font-citation-family
-    size: $body-font-citation-size
-  text-align: justify
-
-=dashboard-font
-  color: $font-color
-  font-family: $font-family
-  font-size: $font-size
-
-=prefix-with-emdash
-  &:before
-    content: '\2014 '
+@import mixins.default
 
 ///////////////////////////////
 //
@@ -250,7 +152,7 @@ ol
   margin: 0 5% $line-height 5%
 
 #main > div, #tools ul, .hello_world p, footer nav, footer small
-  +column(12)
+  +span-columns(12)
 
 ol, ul, .statistics
   margin-bottom: $line-height
@@ -357,7 +259,7 @@ footer
 figure
   &.image
     img
-      float: left
+      float: left // REQUIRED???
       clear: both
     figcaption
       color: $caption-color
@@ -474,7 +376,7 @@ ul.user li a
 
 blockquote
   footer
-    +prefix-with-emdash
+    +pre-with-emdash
     margin: 0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -584,10 +486,10 @@ blockquote
 .tags-map
   #map
     height: $line-height * 20
+    margin-bottom: $line-height * 2/3
 
 .statistics
-  +column(12, 12)
-  +first-column
+  +span-columns(12, 12)
   font-style: italic
 
 .tags-index
@@ -626,12 +528,12 @@ blockquote
     +columns(2)
 
   img.qr_code
-    +column(2)
-    height: $qr_code_image_size
-    width: $qr_code_image_size
+    +span-columns(2)
+    height: $qr-code-image-size
+    width: $qr-code-image-size
 
   small
-    +column(10)
+    +span-columns(10)
 
 // Screen /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -662,23 +564,22 @@ blockquote
 
   #main
     & > section
-      +row(12)
+      // +row(12)
 
   #tools
     ul
-      +column(12, 12)
+      +span-columns(12, 12)
       li
         // We don't use horizontal list here because it cancels all margins
         display: inline-block
         margin-right: 5px
 
   form
-    +column(6, 12)
-    +first-column
+    +span-columns(6, 12)
     label
       input
         float: right
-        width: 66.66%
+        width: space(6, 12)
     input[type=button],
     input[type=submit]    
       margin-top: $line-height
@@ -694,8 +595,7 @@ blockquote
     margin: $line-height 0
 
   iframe
-    +column(12, 12)
-    +first-column
+    +span-columns(12, 12)
     &[src*='vimeo'],
     &[src*='youtube']
       height: $line-height * 16
@@ -705,29 +605,18 @@ blockquote
       height: $line-height * 15
 
   .citations
-    +column(8, 12)
-    +pull(4, 12)
-    +first-column
+    +span-columns(8, 12)
+    +post(4)
     a
       display: block
-      padding-right: 34.38889%
+      // padding-right: 34.38889%
 
   .notes
     li
-      position: relative
-      a
-        padding-right: 34.38889% // OPTIMIZE: We get these measurements from the columns.
-        +blurb(5, 34.38889%)     //  Ideally, we would use the semantic.gs algorithm.
-      img, iframe
-        height: $line-height * 5 // Use variable
-        margin: 0
-        position: absolute
-        right: 0
-        width: auto
+      +blurb(5, 5)
 
   ul.user
-    +column(12, 12)
-    +first-column
+    +span-columns(12, 12)
     margin-top: $line-height
     li
       a
@@ -738,76 +627,77 @@ blockquote
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools
-      +column(6, 12)
+      +span-columns(6, 12)
       ul
         margin: 0
 
-  .notes-show article
-    figure
-      &.image
-        margin-bottom: $line-height
-        figcaption
-          padding-top: $line-height / 2
-      &.ins-fx-pol
-        figcaption
-          display: none
-      .map_container
-        position: relative
-        #map
-          // +place(9, 3, 0)
-          background-color: $map-background-color
-          color:  $map-font-color
-          position: absolute
-          height: $line-height * 6
-
-    section#content
-      #text
-        +clearfix
-        color: $body-font-color
-        counter-reset: term
-        margin-bottom: $line-height
-        position: relative
-        p
+  .notes-show
+    article
+      figure
+        &.image
+          margin-bottom: $line-height
+          figcaption
+            padding-top: $line-height / 2
+        &.ins-fx-pol
+          figcaption
+            display: none
+        .map_container
           position: relative
-        .body
-          +column(8, 12)
-          +first-column
-        .annotations
-          +column(8, 12)
-          +pull(4, 12)
-          li
-            +hyphens
-            font:
-              size: $small-font-size + 1px
-        .side-annotations
-          +column(4, 12)
-          ol
-            display: block
-            padding-left: 0
-            position: relative
-            li
-              color: $headline-font-color
-              display: block
-              position: absolute
-              a
-                color: $headline-font-color
-                &:hover
-                  color: $link-hover-color
-                &[href*=annotation-mark]
-                  color: $headline-font-color
-                  font:
-                    size: $small-font-size - 2px
-                  padding-right: 3px
-                  text-align: right
-                  vertical-align: super
-                  width: $text-indent - 3px
-      &:hover
+          #map
+            background-color: $map-background-color
+            color:  $map-font-color
+            height: $line-height * 6
+      section#content
         #text
-          a
-            color: $link-hover-color
-      &[dir=rtl]
-        header
-          +column(6, 12)
+          +clearfix
+          +span-columns(8, 12)
+          color: $body-font-color
+          counter-reset: term
+          margin-bottom: $line-height
+          overflow: visible
+          position: relative
+          p
+            position: relative
+          .body
+            +span-columns(8, 8)
+          .annotations
+            +prefix(8, 8)
+            +span-columns(4, 8)
+            li
+              +hyphens
+              font:
+                size: $small-font-size + 1px
+          .side-annotations
+            +span-columns(4, 12)
+            ol
+              display: block
+              padding-left: 0
+              position: relative
+              li
+                color: $headline-font-color
+                display: block
+                position: absolute
+                a
+                  color: $headline-font-color
+                  &:hover
+                    color: $link-hover-color
+                  &[href*=annotation-mark]
+                    color: $headline-font-color
+                    font:
+                      size: $small-font-size - 2px
+                    padding-right: 3px
+                    text-align: right
+                    vertical-align: super
+                    width: $text-indent - 3px
+          .aside
+            +span-columns(12, 12)
+        &:hover
+          #text
+            a
+              color: $link-hover-color
+        &[dir=rtl]
+          header
+            +span-columns(6, 12)
 
   .books-index, .links-index
     ul
@@ -828,22 +718,19 @@ blockquote
 
   .citations-show
     figure.citation
-      +column(6, 12)
-      +pull(6, 12)
+      +span-columns(6, 12)
+      +post(6)
       margin-bottom: $line-height
       blockquote
         margin-bottom: $line-height
 
   .home-index
     .notes
-      +column(12)
-      +first-column
-      +last-column
-      a
-        +blurb(4)
-        padding-right: 0
-      img
-        display: none
+      +span-columns(12)
+      li
+        +blurb(4, 0)
+        img
+          display: none
 
   .links-index
     ul
@@ -865,14 +752,13 @@ blockquote
   +pass_media_query('screen-and-min-width-1024px')
 
   iframe
-    +column(9, 12)
-    +first-column
-    +pull(3, 12)
+    +span-columns(9, 12)
+    +post(3)
 
-  img
-    &[src*='16-9-8']
-      height: 390px
-      width: 690px
+  // img
+  //   &[src*='16-9-8']
+  //     height: 390px
+  //     width: 690px
 
   ul
     +fixed-column-gap
@@ -884,14 +770,13 @@ blockquote
     width: 1080px
 
   .notes
-    +column(9, 12)
-    +pull(3, 12)
-    +first-column
+    +span-columns(9, 12)
+    +post(3)
     li
       a
-        +blurb(5, 34.38889%)
+      +blurb(5, 3, 9)
       img, iframe
-        width: 240px // OPTIMIZE: We get these measurements from the columns.
+        width: auto // OPTIMIZE: We get these measurements from the columns.
         height: $line-height * 5
 
   .books-index
@@ -915,30 +800,36 @@ blockquote
     ul
       +columns(6)
 
-  #main
-    section#content
-      figure
-        &.image
-          +column(8, 12)
-          +pull(4, 12)
-          +first-column
-        #map
-          +column(3, 12)
-      #text
-        .body
-          +column(6, 12)
-          +first-column
-        .annotations
-          +column(6, 12)
-          +pull(6, 12)
-        .side-annotations
-          +column(3, 12)
-        &.fadeable-annotations
+  .notes-show
+    article
+      header
+        +span-columns(12, 12)
+      section#content
+        +span-columns(9, 12)
+        figure
+          &.image
+            +suffix(1, 9)
+            +span-columns(8, 9)
+        #text
+          +span-columns(6, 9)
+          overflow: visible
+          .body
+            +span-columns(6, 6)
           .side-annotations
-            +fade(0)
-          &:hover
+            +prefix(6, 6) // Since side-annotations are positioned absolutely, they need this margin
+            +span-columns(3, 6)
+          &.fadeable-annotations // this should be determined by media not by class
             .side-annotations
-              +fade(1)
+              +fade(0)
+            &:hover
+              .side-annotations
+                +fade(1)
+          aside
+            +span-columns(6, 9)
+        #map
+          +span-columns(3 omega, 9)
+      #extra
+        +span-columns(3 omega)
 
   footer
     ul

@@ -432,4 +432,140 @@ http_interactions:
       string: '{"data":{"detections":[{"language":"en","isReliable":false,"confidence":0.29983792544570503},{"language":"xxx","isReliable":false,"confidence":0.34}]}}'
     http_version: 
   recorded_at: Mon, 26 Aug 2013 18:40:50 GMT
-recorded_with: VCR 2.5.0
+- request:
+    method: get
+    uri: https://api.twitter.com/1.1/users/show.json?user_id=394339242
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Twitter Ruby Gem 5.0.0.rc.1
+      Authorization:
+      - OAuth oauth_consumer_key="LcP5KZsVECxlI7Z7aWz86g", oauth_nonce="f062d8f1bd13d4a6e6182c83486c4347",
+        oauth_signature="JEzmq0kkvWpquADO2lpBJF48%2F8U%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1380734481", oauth_token="237443494-Up97qun1nvHfxO79kWlGbt6lvQIFY71vWgMjyTR4",
+        oauth_version="1.0"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      Content-Length:
+      - '912'
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 02 Oct 2013 17:21:23 GMT
+      Expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      Last-Modified:
+      - Wed, 02 Oct 2013 17:21:23 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - tfe
+      Set-Cookie:
+      - guest_id=v1%3A138073448310632915; Domain=.twitter.com; Path=/; Expires=Fri,
+        02-Oct-2015 17:21:23 UTC
+      - lang=en
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read-write
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - '180'
+      X-Rate-Limit-Remaining:
+      - '179'
+      X-Rate-Limit-Reset:
+      - '1380735383'
+      X-Transaction:
+      - 0de0f535b4b12384
+    body:
+      encoding: UTF-8
+      string: '{"id":394339242,"id_str":"394339242","name":"Pantography","screen_name":"pantography","location":"","description":"Pantography
+        tweets a message every hour. Each one is consecutive: the first was ''0''
+        and the last will consist of 140 zeds.","url":"http:\/\/t.co\/Vq0pyCOpDR","entities":{"url":{"urls":[{"url":"http:\/\/t.co\/Vq0pyCOpDR","expanded_url":"http:\/\/joegatt.net\/pantography\/","display_url":"joegatt.net\/pantography\/","indices":[0,22]}]},"description":{"urls":[]}},"protected":false,"followers_count":7,"friends_count":7,"listed_count":0,"created_at":"Wed
+        Oct 19 22:46:34 +0000 2011","favourites_count":0,"utc_offset":3600,"time_zone":"London","geo_enabled":false,"verified":false,"statuses_count":34154,"lang":"en","status":{"created_at":"Wed
+        Oct 02 17:20:12 +0000 2013","id":385454178644283392,"id_str":"385454178644283392","text":",sv","source":"\u003ca
+        href=\"http:\/\/joegatt.net\/pantography\/\" rel=\"nofollow\"\u003ejoegatt.net\/pantography\/\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[],"symbols":[],"urls":[],"user_mentions":[]},"favorited":false,"retweeted":false,"lang":"und"},"contributors_enabled":false,"is_translator":false,"profile_background_color":"FFFFFF","profile_background_image_url":"http:\/\/a0.twimg.com\/profile_background_images\/370599943\/mechanical_duck_background_purple.png","profile_background_image_url_https":"https:\/\/si0.twimg.com\/profile_background_images\/370599943\/mechanical_duck_background_purple.png","profile_background_tile":true,"profile_image_url":"http:\/\/a0.twimg.com\/profile_images\/1610055811\/logo_normal.gif","profile_image_url_https":"https:\/\/si0.twimg.com\/profile_images\/1610055811\/logo_normal.gif","profile_banner_url":"https:\/\/pbs.twimg.com\/profile_banners\/394339242\/1379626868","profile_link_color":"336699","profile_sidebar_border_color":"D5D5D5","profile_sidebar_fill_color":"FFFFFF","profile_text_color":"333333","profile_use_background_image":true,"default_profile":false,"default_profile_image":false,"following":false,"follow_request_sent":false,"notifications":false}'
+    http_version: 
+  recorded_at: Wed, 02 Oct 2013 17:21:22 GMT
+- request:
+    method: get
+    uri: https://api.twitter.com/1.1/users/show.json?user_id=237443494
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Twitter Ruby Gem 5.0.0.rc.1
+      Authorization:
+      - OAuth oauth_consumer_key="LcP5KZsVECxlI7Z7aWz86g", oauth_nonce="f1e33fbbc7ff9f514f4c23748ae8caa1",
+        oauth_signature="ztTZl%2BZSWJJeSWQvLO7es5QaIZ4%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1380748186", oauth_token="237443494-Up97qun1nvHfxO79kWlGbt6lvQIFY71vWgMjyTR4",
+        oauth_version="1.0"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      Content-Length:
+      - '713'
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 02 Oct 2013 21:09:46 GMT
+      Expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      Last-Modified:
+      - Wed, 02 Oct 2013 21:09:46 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - tfe
+      Set-Cookie:
+      - guest_id=v1%3A138074818688552967; Domain=.twitter.com; Path=/; Expires=Fri,
+        02-Oct-2015 21:09:46 UTC
+      - lang=en
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read-write
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - '180'
+      X-Rate-Limit-Remaining:
+      - '179'
+      X-Rate-Limit-Reset:
+      - '1380749086'
+      X-Transaction:
+      - a6dae89a3553af3a
+    body:
+      encoding: UTF-8
+      string: '{"id":237443494,"id_str":"237443494","name":"Catholicon 140","screen_name":"catholicon140","location":"","description":"","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":0,"friends_count":4,"listed_count":0,"created_at":"Wed
+        Jan 12 21:22:18 +0000 2011","favourites_count":0,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":1521,"lang":"en","status":{"created_at":"Wed
+        Oct 02 20:16:44 +0000 2013","id":385498607270772736,"id_str":"385498607270772736","text":"4","source":"\u003ca
+        href=\"http:\/\/nembrot.org\" rel=\"nofollow\"\u003ecatholicon140\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[],"symbols":[],"urls":[],"user_mentions":[]},"favorited":false,"retweeted":false,"lang":"und"},"contributors_enabled":false,"is_translator":false,"profile_background_color":"C0DEED","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_tile":false,"profile_image_url":"http:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_image_url_https":"https:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"default_profile":true,"default_profile_image":true,"following":false,"follow_request_sent":false,"notifications":false}'
+    http_version: 
+  recorded_at: Wed, 02 Oct 2013 21:09:46 GMT
+recorded_with: VCR 2.6.0

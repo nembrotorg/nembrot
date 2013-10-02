@@ -18,7 +18,9 @@ defaults: &defaults
     caption_color: '#454545'
     citation_style: 'default'
     column_width: 60
-    columns: 12
+    total_columns: 12
+    container_style: magic
+    grid_padding: 0
     count_color: '#900'
     css_for_instructions: ['__FX_POL']
     delete_font_color: '#000'
@@ -26,6 +28,7 @@ defaults: &defaults
     font_color: '#000'
     font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     font_size: '15px'
+    furniture_color: '#666'
     gutter_width: 30
     headline_font: 'DejaVuSansCondensed'
     headline_font_color: '#900'
@@ -40,6 +43,10 @@ defaults: &defaults
     link_visited_color: '#000'
     map_background_color: '#ccc'
     map_font_color: '#333'
+    monospace_font: 'DejaVuMonoBook'
+    monospace_font_variant: 'mono_book'
+    monospace_font_family: 'DejaVuMonoBook, monospace'
+    off_color: '#999'
     qr_code_image_size: 150
     secondary_color: '#333'
     selected_background_color: '#ff0'

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.slider
 //=	require jquery.pjax
 //= require rails-timeago
 //= require nembrot.document

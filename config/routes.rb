@@ -29,6 +29,10 @@ Nembrot::Application.routes.draw do
   get 'notes/map' => 'notes#map'
   get 'notes' => 'notes#index'
 
+  # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'pantography/:body' => 'pantograph#show', as: :pantograph # , body: /[a-zA-F0-9\%]+/
+  get 'pantography' => 'pantograph#index', as: :pantographs
+
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,
     aspect_x: /\d+/,

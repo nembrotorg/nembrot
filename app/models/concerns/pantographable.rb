@@ -4,19 +4,6 @@ module Pantographable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def alphabet
-      Settings.pantography.alphabet
-    end
-
-    def sanitize(text)
-      text.gsub(/"|“|”|\‘|\’/, "'")
-          .gsub(/\&/, '+')
-          .gsub(/\[\{/, '(')
-          .gsub(/\]\}/, ')')
-          .downcase
-          .gsub(/[^#{ Settings.pantography.alphabet_escaped }]/, '')
-    end
-
     def authenticated_twitter_client
       Twitter::REST::Client.new do |config|
         config.consumer_key = Secret.auth.twitter.pantography.consumer_key

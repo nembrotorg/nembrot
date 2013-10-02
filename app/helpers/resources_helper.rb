@@ -37,7 +37,7 @@ module ResourcesHelper
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
     # Shorthand: small integers are taken to be number of columns rather than absolute width 
-    width = column_width(width) if width <= Settings.styling.columns
+    width = column_width(width) if width <= Settings.styling.total_columns
 
     # The height is derived from the aspect ratio and width.
     height = (width * aspect_y) / aspect_x
@@ -125,8 +125,6 @@ module ResourcesHelper
 
     original_width, original_height = original_dimensions
     cropped_width, cropped_height = cropped_dimensions
-
-
 
     return [
              _horizontal_offset(gravity, original_width, cropped_width),

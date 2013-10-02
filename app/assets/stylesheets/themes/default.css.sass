@@ -24,8 +24,10 @@ html
   overflow-y: scroll
   -webkit-text-size-adjust: auto
 
+body
+  +font-color
+
 a
-  color: $link-color
   text-decoration: none
   &[href*=http]:after
     padding-left: 5px
@@ -41,8 +43,6 @@ a
     text-transform: lowercase
   &:focus
     outline: 0
-  &:hover
-    color: $link-hover-color
 
 abbr
   font-variant: small-caps
@@ -60,7 +60,7 @@ cite + a[href*=annotation]
   margin-left: 3px
 
 del
-  color: $delete-font-color
+  +font-color($delete-font-color)
   text-decoration: strike-through
 
 form
@@ -89,7 +89,7 @@ h1
     size: $headline-font-size
 
 h2
-  color: $headline-font-color
+  +font-color($headline-font-color)
 
 iframe
   border: 0
@@ -120,7 +120,7 @@ table
 
 .home-index, .notes-index, .notes-show, .notes-version
   h1
-    color: $headline-font-color
+    +font-color($headline-font-color)
 
 .url
   color: $static-url-color
@@ -132,12 +132,6 @@ table
       padding-left: 5px
       +icon-link-ext
       +icon-medium
-
-// TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-ol
-  li.green
-    a
-      color: #060 !important
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -152,7 +146,7 @@ ol
   margin: 0 5% $line-height 5%
 
 #main > div, #tools ul, .hello_world p, footer nav, footer small
-  +span-columns(12)
+  clear: both
 
 ol, ul, .statistics
   margin-bottom: $line-height
@@ -259,10 +253,9 @@ footer
 figure
   &.image
     img
-      float: left // REQUIRED???
       clear: both
     figcaption
-      color: $caption-color
+      +font-color($caption-color)
       .credit
         &:before
           content: '('
@@ -335,14 +328,6 @@ iframe
         family: $headline-font-family
         size: $body-font-size
         weight: normal
-    a
-      &:hover *
-        color: $link-hover-color
-        blockquote
-          &:before
-            color: $link-hover-color
-        &:after
-          border-color: $link-hover-color
     &:last-child
       margin-bottom: 0
 
@@ -420,9 +405,8 @@ blockquote
 
 .notes
   li
+    +blurb(8)
     position: relative
-    a
-      +blurb(8)
 
 .versions
   li
@@ -489,7 +473,7 @@ blockquote
     margin-bottom: $line-height * 2/3
 
 .statistics
-  +span-columns(12, 12)
+  clear: both
   font-style: italic
 
 .tags-index
@@ -568,18 +552,18 @@ blockquote
 
   #tools
     ul
-      +span-columns(12, 12)
+      clear: both
       li
         // We don't use horizontal list here because it cancels all margins
         display: inline-block
         margin-right: 5px
 
   form
-    +span-columns(6, 12)
+    +span-columns(6)
     label
       input
         float: right
-        width: space(6, 12)
+        width: space(6)
     input[type=button],
     input[type=submit]    
       margin-top: $line-height
@@ -595,7 +579,7 @@ blockquote
     margin: $line-height 0
 
   iframe
-    +span-columns(12, 12)
+    clear: both
     &[src*='vimeo'],
     &[src*='youtube']
       height: $line-height * 16
@@ -605,18 +589,18 @@ blockquote
       height: $line-height * 15
 
   .citations
-    +span-columns(8, 12)
-    +post(4)
+    +span-columns(6)
+    +suffix(6)
     a
       display: block
       // padding-right: 34.38889%
 
   .notes
     li
-      +blurb(5, 5)
+      +blurb(5, 4)
 
   ul.user
-    +span-columns(12, 12)
+    clear: both
     margin-top: $line-height
     li
       a
@@ -625,84 +609,73 @@ blockquote
           +icon-right
           +icon-small
 
+  article
+    figure
+      &.image
+        margin-bottom: $line-height
+        figcaption
+          padding-top: $line-height / 2
+      &.ins-fx-pol
+        figcaption
+          display: none
+      .map_container
+        position: relative
+        #map
+          background-color: $map-background-color
+          color:  $map-font-color
+          height: $line-height * 6
+
+    section#content
+      #text
+        +span-columns(8)
+        +font-color($body-font-color)
+        counter-reset: term
+        margin-bottom: $line-height
+        overflow: visible
+        position: relative
+        p
+          position: relative
+        .body
+          +span-columns(8, 8)
+        .annotations
+          +prefix(8, 8)
+          +span-columns(4, 8)
+          li
+            +hyphens
+            font:
+              size: $small-font-size + 1px
+        .side-annotations
+          +span-columns(4)
+          ol
+            display: block
+            padding-left: 0
+            position: relative
+            li
+              +font-color($headline-font-color, $headline-font-color)
+              display: block
+              position: absolute
+              a[href*=annotation-mark]
+                font:
+                  size: $small-font-size - 2px
+                padding-right: 3px
+                text-align: right
+                vertical-align: super
+                width: $text-indent - 3px
+        .aside
+          clear: both
+      &:hover
+        #text
+          a
+            color: $link-hover-color
+      &[dir=rtl]
+        header
+          +span-columns(6)
+
   .books-edit, .books-update, .links-edit, .links-update
     .tools
-      +span-columns(6, 12)
+      +span-columns(6)
       ul
         margin: 0
-
-  .notes-show
-    article
-      figure
-        &.image
-          margin-bottom: $line-height
-          figcaption
-            padding-top: $line-height / 2
-        &.ins-fx-pol
-          figcaption
-            display: none
-        .map_container
-          position: relative
-          #map
-            background-color: $map-background-color
-            color:  $map-font-color
-            height: $line-height * 6
-      section#content
-        #text
-          +clearfix
-          +span-columns(8, 12)
-          color: $body-font-color
-          counter-reset: term
-          margin-bottom: $line-height
-          overflow: visible
-          position: relative
-          p
-            position: relative
-          .body
-            +span-columns(8, 8)
-          .annotations
-            +prefix(8, 8)
-            +span-columns(4, 8)
-            li
-              +hyphens
-              font:
-                size: $small-font-size + 1px
-          .side-annotations
-            +span-columns(4, 12)
-            ol
-              display: block
-              padding-left: 0
-              position: relative
-              li
-                color: $headline-font-color
-                display: block
-                position: absolute
-                a
-                  color: $headline-font-color
-                  &:hover
-                    color: $link-hover-color
-                  &[href*=annotation-mark]
-                    color: $headline-font-color
-                    font:
-                      size: $small-font-size - 2px
-                    padding-right: 3px
-                    text-align: right
-                    vertical-align: super
-                    width: $text-indent - 3px
-          .aside
-            +span-columns(12, 12)
-        &:hover
-          #text
-            a
-              color: $link-hover-color
-        &[dir=rtl]
-          header
-            +span-columns(6, 12)
-
-  .books-index, .links-index
-    ul
-      .count
-        color: $count-color
 
   .books-show, .links-show_channel
     .details
@@ -712,21 +685,17 @@ blockquote
         &.main
           font-weight: bold
 
-    .books
-      .count
-        color: $count-color
-
   .citations-show
     figure.citation
-      +span-columns(6, 12)
-      +post(6)
+      +span-columns(6, 9)
+      +suffix(3, 9)
       margin-bottom: $line-height
       blockquote
         margin-bottom: $line-height
 
   .home-index
     .notes
-      +span-columns(12)
+      clear: both
       li
         +blurb(4, 0)
         img
@@ -752,16 +721,38 @@ blockquote
   +pass_media_query('screen-and-min-width-1024px')
 
   iframe
-    +span-columns(9, 12)
-    +post(3)
+    +span-columns(9)
+    +suffix(3)
 
-  // img
-  //   &[src*='16-9-8']
-  //     height: 390px
-  //     width: 690px
-
-  ul
-    +fixed-column-gap
+  article
+    header
+      clear: both
+    section#content
+      +span-columns(9)
+      figure
+        &.image
+          +suffix(1, 9)
+          +span-columns(8, 9)
+      #text
+        +span-columns(6, 9)
+        overflow: visible
+        .body
+          +span-columns(6, 6)
+        .side-annotations
+          +prefix(6, 6) // Since side-annotations are positioned absolutely, they need this margin
+          +span-columns(3, 6)
+        &.fadeable-annotations // this should be determined by media not by class
+          .side-annotations
+            +fade(0)
+          &:hover
+            .side-annotations
+              +fade(1)
+        aside
+          +span-columns(6, 9)
+      #map
+        +span-columns(3 omega, 9)
+    #extra
+      +span-columns(3 omega)
 
   #main,
   #tools,
@@ -770,10 +761,9 @@ blockquote
     width: 1080px
 
   .notes
-    +span-columns(9, 12)
-    +post(3)
+    +span-columns(9)
+    +suffix(3)
     li
-      a
       +blurb(5, 3, 9)
       img, iframe
         width: auto // OPTIMIZE: We get these measurements from the columns.
@@ -789,47 +779,17 @@ blockquote
 
   .home-index
     .notes
+      +span-columns(12)
       ul
         +columns(3)
+        +column-gap($gutter-width * 1px)
         li
           margin-bottom: 0
-          a
-            +blurb(12)
+          +blurb(12)
 
   .tags-index
     ul
       +columns(6)
-
-  .notes-show
-    article
-      header
-        +span-columns(12, 12)
-      section#content
-        +span-columns(9, 12)
-        figure
-          &.image
-            +suffix(1, 9)
-            +span-columns(8, 9)
-        #text
-          +span-columns(6, 9)
-          overflow: visible
-          .body
-            +span-columns(6, 6)
-          .side-annotations
-            +prefix(6, 6) // Since side-annotations are positioned absolutely, they need this margin
-            +span-columns(3, 6)
-          &.fadeable-annotations // this should be determined by media not by class
-            .side-annotations
-              +fade(0)
-            &:hover
-              .side-annotations
-                +fade(1)
-          aside
-            +span-columns(6, 9)
-        #map
-          +span-columns(3 omega, 9)
-      #extra
-        +span-columns(3 omega)
 
   footer
     ul

@@ -1,0 +1,74 @@
+.pantograph-index, .pantograph-show
+  h1
+    color: $headline-font-color
+  a[href*=http]
+    &:before, &:after
+      display: none
+
++embed-font($monospace-font, $monospace-font-variant)
+
+#pantograph
+  clear: both
+  margin-bottom: $line-height * 2
+  blockquote
+    +font-color($caption-color)
+    +rule-once($background-color, 2px, $line-top: 50%)
+    background-color: #9ff
+    font:
+      family: $monospace-font-family
+      size: 25px
+    height: $line-height * 2
+    margin: 0
+    word-wrap: break-word
+    &.tweeted
+      color: $font-color
+  figcaption
+    +font-color($caption-color)
+    ul
+      margin-bottom: 0
+    #details
+      +span-columns(10, 12)
+    #percentage, #length
+      +span-columns(1 omega, 12)
+      text-align: right
+  nav
+    +sequential_nav(lighten($caption-color, 15%))
+
+#pantographs
+  +span-columns(12, 12)
+  ol
+    +compact-text
+    font-size: 14px
+    list-style-type: none
+    li
+      margin-bottom: $line-height * 2/3
+      blockquote
+        font:
+          family: monospace
+        margin: 0
+        word-wrap: break-word
+        a
+          background-color: #9ff
+      figcaption
+        color: $caption-color
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Media-queries
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only print
+
+// Screen /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen
+
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Screen > 1024px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1024px)
+
+  #pantographs
+    +span-columns(3 omega, 12)

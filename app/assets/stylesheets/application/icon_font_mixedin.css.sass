@@ -126,15 +126,7 @@ $iconMuted:         #eee !default
 
 =icon-left
   +icon
-  content: '\e88f'
-
-=icon-left
-  +icon
   content: '\e9c9'
-
-=icon-right
-  +icon
-  content: '\e890'
 
 =icon-right
   +icon
@@ -259,3 +251,24 @@ $iconMuted:         #eee !default
 =icon-minus
   +icon
   content: '\e805'
+
+=icon-to-start
+  +icon-left
+  border:
+    width: 0 0 0 2px
+    style: solid 
+    color: inherit
+  padding-left: 1px
+
+=icon-to-end
+  +icon-right
+  border:
+    width: 0 2px 0 0
+    style: solid 
+    color: inherit
+  padding-right: 1px
+  text-align: right
+
+=icon-circle
+  +icon
+  content: '\e808'

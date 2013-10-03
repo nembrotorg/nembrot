@@ -7,7 +7,8 @@ gem 'attr_encrypted'
 gem 'breadcrumbs_on_rails'
 gem 'coffee-rails'
 # gem 'compass-rails'- TEMPORARY: This is to enable Rails 4 upgrade
-gem 'compass-rails', github: 'milgner/compass-rails', ref: '1749c06f15dc4b058427e7969810457213647fb8'
+# gem 'compass-rails', github: 'milgner/compass-rails', ref: '1749c06f15dc4b058427e7969810457213647fb8'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
 gem 'compass-h5bp'
 gem 'coveralls', require: false
 gem 'cancan'

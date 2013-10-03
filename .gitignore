@@ -16,6 +16,7 @@ doc/
 .project
 .DS_Store
 sitemap.*
+!sitemap.rb
 
 # Ignore files with passwords etc (except sample and model files)
 /config/secret.yml

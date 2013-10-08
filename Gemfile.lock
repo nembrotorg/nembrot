@@ -1,18 +1,18 @@
 GIT
+  remote: git://github.com/Compass/compass-rails.git
+  revision: 32c16cb90f78053310b35199a970c53355bcd300
+  branch: rails4-hack
+  specs:
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+
+GIT
   remote: git://github.com/airblade/paper_trail.git
   revision: 379506ada3caa25c5f2330c5ccc120fd0babfea2
   branch: master
   specs:
     paper_trail (3.0.0.beta1)
       activerecord (>= 3.0, < 5.0)
-
-GIT
-  remote: git://github.com/milgner/compass-rails.git
-  revision: 1749c06f15dc4b058427e7969810457213647fb8
-  ref: 1749c06f15dc4b058427e7969810457213647fb8
-  specs:
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
 
 GIT
   remote: git://github.com/norman/friendly_id.git

@@ -1,9 +1,11 @@
 class ChangeCloudNotesContentHashToBinary < ActiveRecord::Migration
   def up
-    change_column :cloud_notes, :content_hash, :binary
+    remove_column :cloud_notes, :content_hash, :string
+    add_column :cloud_notes, :content_hash, :binary
   end
 
   def down
-    change_column :cloud_notes, :content_hash, :string
+    remove_column :cloud_notes, :content_hash, :binary
+    add_column :cloud_notes, :content_hash, :string
   end
 end

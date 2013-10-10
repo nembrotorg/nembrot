@@ -9,12 +9,15 @@
 /tmp
 
 # Ignore other unneeded files.
-.rvmrc
-doc/
+!sitemap.rb
 *.swp
 *~
-.project
 .DS_Store
+.project
+.ruby-gemset
+.ruby-version
+.rvmrc
+doc/
 sitemap.*
 !sitemap.rb
 

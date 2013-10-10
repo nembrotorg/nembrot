@@ -10,6 +10,7 @@
     font-weight: bold
 
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
+  +font-color
   a
     display: block
     height: $line-height * $lines
@@ -17,7 +18,9 @@
     padding-right: space($image-width, $context)
     &:after
       background-color: $background-color
-      border-left: 1px solid inherit
+      border-left:
+        width: 1px
+        style: solid
       bottom: -3px
       content: ''
       font-family: fontello
@@ -26,13 +29,16 @@
       padding-left: 5px
       position: absolute
       right: 0
-      position: relative
     img, iframe
       height: auto
       margin: 0
       position: absolute
       right: 0
       width: columns($image-width, $context)
+
+=compact-text
+  line-height: $line-height * 2/3
+  margin-top: $line-height * 1/3
 
 =debug-bg
   background: url('/resources/static/debug-bg.png') 0 0 repeat
@@ -49,8 +55,27 @@
   opacity: $opacity
   +transition
 
-=fixed-column-gap
-  +column-gap($gutter-width)
+=font-color($color: $font-color, $hover-color: $link-hover-color)
+  border-color: $color
+  color: $color
+  a
+    border-color: $color
+    color: $color
+    &:before
+      border-color: $color
+      color: $color
+    &:after
+      border-color: $color
+      color: $color
+    &:hover
+      border-color: $hover-color
+      color: $hover-color
+      &:before
+        border-color: $hover-color
+        color: $hover-color
+      &:after
+        border-color: $hover-color
+        color: $hover-color
 
 =pass_media_query($media-query)
   body
@@ -58,6 +83,77 @@
       content: $media-query
       line-height: 0
       visibility: hidden
+
+=rule-once($line-color: $furniture-color, $line-thickness: 1px, $line-top: 50%)
+  position: relative
+  z-index: 1
+  &:before
+    background-color: $line-color
+    height: $line-thickness
+    content: ''
+    left: 0
+    position: absolute
+    right: 0
+    top: $line-top
+    z-index: -1
+
+=sequential_nav($line-color: $furniture-color, $button-width: $text-indent)
+  +font-color($line-color)
+  clear: both
+  margin-bottom: $line-height
+  ol
+    position: relative
+    li
+      display: inline-block
+      height: $line-height
+      overflow: hidden
+      position: absolute
+      width: $button-width
+      .current
+        color: $off-color
+        &:before
+          border-color: $off-color
+      a, .current
+        &:before
+          +icon-left
+          display: block
+          line-height: $line-height / 2
+          margin: ($line-height / 4) 0
+          width: $button-width - 5px
+      &:first-child
+        a, .current
+          &:before
+            +icon-to-start
+      &:nth-child(2)
+        left: $button-width
+        a,.current
+          &:before
+            +icon-left
+      &:nth-last-child(2)
+        right: $button-width
+        a, .current
+          margin-right: 1px
+          &:before
+            +icon-right
+            text-align: right
+      &:last-child
+        right: 0
+        a, .current
+          &:before
+            +icon-to-end
+      &.ui-slider
+        +rule-once($line-color, 2px, $line-height / 2 - 1)
+        display: block
+        left: $button-width * 2
+        position: absolute
+        right: $button-width * 2
+        width: auto
+        a.ui-slider-handle
+          position: absolute
+          width: $button-width
+          &:before
+            +icon-circle
+            cursor: pointer
 
 =transition($duration: 1s)
   transition: all $duration ease-out

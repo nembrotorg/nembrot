@@ -1,60 +1,60 @@
 // Variables are picked up from /config/nembrot.yml via the Settings class and the settings_styling method defines in
 //  /config/initializers/sass.rb.
 // This enables us to use common settings in css and images (and snap images to the baseline, for instance), and write
-//  out the colophon details. 
-
-// Semantic.gs grid system
+//  out the colophon details.
 
 $column-width:              settings_styling('column_width')
+$container-style:           settings_styling('container_style')
+$grid-padding:              settings_styling('grid_padding')
 $gutter-width:              settings_styling('gutter_width')
-$columns:                   settings_styling('columns')
+$total-columns:             settings_styling('total_columns')
 $total-width:               settings_styling('total_width')
+// $container-width: 1080px
+
+// #main, footer
+//  +susy-grid-background
 
 // Other variables
-
 $background-color:          settings_styling('background_color')
-
-$line-height:               settings_styling('line_height') * 1px
-$text-indent:               settings_styling('gutter_width') * 1px
-
-$font-family:               settings_styling('headline_font_family')
-$font-size:                 settings_styling('font_size')
-$font-color:                settings_styling('font_color')
-$secondary-color:           settings_styling('secondary_color')
-
-$body-font:                 settings_styling('body_font')
-$body-font-variant:         settings_styling('body_font_variant')
-$body-font-family:          settings_styling('body_font_family')
-$body-font-size:            settings_styling('body_font_size')
-$body-font-color:           settings_styling('body_font_color')
-$count-color:               settings_styling('count_color')
-$caption-color:             settings_styling('caption_color')
-
+$body-font-citation-color:  settings_styling('body_font_citation_color')
 $body-font-citation-family: settings_styling('body_font_citation_family')
 $body-font-citation-size:   settings_styling('body_font_citation_size')
-$body-font-citation-color:  settings_styling('body_font_citation_color')
-
-$headline-font:             settings_styling('headline_font')
-$headline-font-variant:     settings_styling('headline_font_variant')
-$headline-font-family:      settings_styling('headline_font_family')
+$body-font-color:           settings_styling('body_font_color')
+$body-font-family:          settings_styling('body_font_family')
+$body-font-size:            settings_styling('body_font_size')
+$body-font-variant:         settings_styling('body_font_variant')
+$body-font:                 settings_styling('body_font')
+$caption-color:             settings_styling('caption_color')
+$count-color:               settings_styling('count_color')
+$delete-font-color:         settings_styling('delete_font_color')
+$error-background-color:    settings_styling('error_background_color')
+$font-color:                settings_styling('font_color')
+$font-family:               settings_styling('headline_font_family')
+$font-size:                 settings_styling('font_size')
+$furniture-color:           settings_styling('furniture_color')
+$furniture-color:           settings_styling('furniture_color')
 $headline-font-color:       settings_styling('headline_font_color')
+$headline-font-family:      settings_styling('headline_font_family')
 $headline-font-size:        settings_styling('headline_font_size')
-$small-font-size:           settings_styling('small_font_size')
-
+$headline-font-variant:     settings_styling('headline_font_variant')
+$headline-font:             settings_styling('headline_font')
+$insert-background-color:   settings_styling('insert_background_color')
+$invalid-background-color:  settings_styling('invalid_background_color')
+$line-height:               settings_styling('line_height') * 1px
 $link-color:                settings_styling('link_color')
 $link-hover-color:          settings_styling('link_hover_color')
 $link-visited-color:        settings_styling('link_visited_color')
-$static-url-color:          settings_styling('static_url_color')
-$selected-font-color:       settings_styling('selected_font_color')
-$selected-background-color: settings_styling('selected_background_color')
-$invalid-background-color:  settings_styling('invalid_background_color')
-
-$insert-background-color:   settings_styling('insert_background_color')
-$delete-font-color:         settings_styling('delete_font_color')
-$success-background-color:  settings_styling('success_background_color')
-$error-background-color:    settings_styling('error_background_color')
-
 $map-background-color:      settings_styling('map_background_color')
 $map-font-color:            settings_styling('map_font_color')
-
+$monospace-font-family:      settings_styling('monospace_font_family')
+$monospace-font-variant:     settings_styling('monospace_font_variant')
+$monospace-font:             settings_styling('monospace_font')
+$off-color:                 settings_styling('off_color')
 $qr_code_image_size:        settings_styling('qr_code_image_size')
+$secondary-color:           settings_styling('secondary_color')
+$selected-background-color: settings_styling('selected_background_color')
+$selected-font-color:       settings_styling('selected_font_color')
+$small-font-size:           settings_styling('small_font_size')
+$static-url-color:          settings_styling('static_url_color')
+$success-background-color:  settings_styling('success_background_color')
+$text-indent:               settings_styling('gutter_width') * 1px

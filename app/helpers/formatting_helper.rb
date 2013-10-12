@@ -135,7 +135,7 @@ module FormattingHelper
       t.content = smartify(t.content)
       # t.content = hyper_conform(t.content)
     end
-    dom = indent_dom(dom) if Settings.html.pretty
+    dom = indent_dom(dom) if Settings.html.pretty_body
     unwrap_from_paragraph_tag(dom) if unwrap_p
     dom.css('body').children.to_html.html_safe
   end

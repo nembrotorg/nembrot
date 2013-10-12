@@ -4,6 +4,7 @@ defaults: &defaults
   role_name: nembrot.org
   repository: git://github.com/joegattnet/joegattnet_v3.git
   locale: en
+  share: true
   admin:
     name: Joe
     email: joe@joegatt.net
@@ -35,6 +36,7 @@ defaults: &defaults
       required: ['__HOME']
   html:
     pretty: true
+    pretty_body: false
     sort_attrs: true
     tabsize: 2
     format: html5

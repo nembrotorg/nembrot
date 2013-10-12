@@ -35,6 +35,7 @@ defaults: &defaults
     headline_font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     headline_font_size: '36px'
     headline_font_variant: 'condensed_book'
+    hyper_conform: false
     insert_background_color: '#ffff45'
     invalid_background_color: 'ff0'
     line_height: 30

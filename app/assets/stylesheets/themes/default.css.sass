@@ -371,37 +371,38 @@ blockquote
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #text
-  +body-font
-  p
-    margin: 0
-    text-indent: $text-indent
-    &:first-of-type
-      text-indent: 0
-  a
-    &[href*=http]:after
-      display: none
-    &[id*=annotation-mark]
-      font-size: $small-font-size - 2px
-      vertical-align: super
-  blockquote
-    +body-font-citation
-    margin: ($line-height / 2) $text-indent
-  section
-    margin-bottom: $line-height
-    h2
-      color: $body-font-color
-      display: block
+  .body, .annotations
+    +body-font
+    p
       margin: 0
-      font:
-        family: $headline-font-family
-        size: $body-font-size
-    &.body section:first-of-type
-      h2
+      text-indent: $text-indent
+      &:first-of-type
+        text-indent: 0
+    a
+      &[href*=http]:after
         display: none
-    &:last-of-type
-      margin-bottom: 0
-    p:first-of-type
-      text-indent: 0
+      &[id*=annotation-mark]
+        font-size: $small-font-size - 2px
+        vertical-align: super
+    blockquote
+      +body-font-citation
+      margin: ($line-height / 2) $text-indent
+    section
+      margin-bottom: $line-height
+      h2
+        color: $body-font-color
+        display: block
+        margin: 0
+        font:
+          family: $headline-font-family
+          size: $body-font-size
+      &.body section:first-of-type
+        h2
+          display: none
+      &:last-of-type
+        margin-bottom: 0
+      p:first-of-type
+        text-indent: 0
 
 .notes
   li

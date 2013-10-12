@@ -90,7 +90,7 @@ module FormattingHelper
                  path: link_path(link), 
                  accessed_at: (timeago_tag link.updated_at)))
       # We replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
-      text.gsub!(/(?!<=")(#{ link.url })(?!=")/,
+      text.gsub!(/(?<!")(#{ link.url })(?!")/,
                  t(citation_style,
                  link_text: link.headline,
                  title: link.headline,

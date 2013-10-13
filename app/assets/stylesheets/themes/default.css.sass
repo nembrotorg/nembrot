@@ -293,7 +293,7 @@ iframe
   font:
     size: $small-font-size + 1px
   line-height: $line-height * 2/3
-  text-align: left
+  text-align: left !important
   text-indent: 0
   ol
     padding-left: $text-indent
@@ -396,7 +396,7 @@ blockquote
         font:
           family: $headline-font-family
           size: $body-font-size
-      &.body section:first-of-type
+      &:first-of-type
         h2
           display: none
       &:last-of-type
@@ -659,7 +659,6 @@ blockquote
             font:
               size: $small-font-size + 1px
         .side-annotations
-          +span-columns(4)
           ol
             display: block
             padding-left: 0

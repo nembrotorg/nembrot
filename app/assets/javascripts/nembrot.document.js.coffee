@@ -58,6 +58,16 @@ _media_query = (media_query_string) ->
     style = style.content.replace /"/g, ''
   style is media_query_string
 
+reload_shares = () ->
+  FB.XFBML.parse()
+  gapi.plusone.go()
+  twttr.widgets.load()
+
+fix_facebook_dialog = () ->
+  $('.fb-like span').css('width', $('.fb-like').data('width'))
+  alert('innit')
+
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -65,6 +75,7 @@ $ ->
 
 $(document).on 'pjax:end', ->
   content_initializers()
+  content_initializers_reload_only()
 
 $(window).on 'resize', ->
   resize_initializers()
@@ -83,6 +94,9 @@ document_initializers = () ->
   $(document).on 'mousedown', "a[href$='.pdf'], a[href$='.zip']", (event) ->
     track_download(this.href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', this.text, event.which)
 
+  $(document).on 'click', '.fb-like', ->
+    fix_facebook_dialog()
+
   content_initializers()
 
 content_initializers = () ->
@@ -90,6 +104,9 @@ content_initializers = () ->
   update_titles()
   track_page_view()
   resize_initializers()
+
+content_initializers_reload_only = () ->
+  reload_shares()
 
 resize_initializers = () ->
   place_annotations()

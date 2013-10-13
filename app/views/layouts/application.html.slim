@@ -23,3 +23,5 @@ html class="no-js" lang="#{ I18n.locale }"
     = javascript_include_tag 'application'
 
     = render 'google_analytics' unless Settings.google_analytics_key.blank?
+
+    = render 'async_share_scripts' if Settings.share

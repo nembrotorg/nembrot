@@ -1,0 +1,18 @@
+# All Nembrot settings go here except for secret strings
+
+defaults: &defaults
+  facebook_app_id: 142214389156795
+  google_analytics_key: 'UA-1346274-1'
+  twitter_user_name: nembrot
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

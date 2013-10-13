@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/airblade/paper_trail.git
-  revision: 548577711801af19c31125a0559eeafea2bcd58b
+  revision: 617c203a897f934f9f4b7964bddeedfa63863eae
   branch: master
   specs:
     paper_trail (3.0.0.beta1)
@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/norman/friendly_id.git
-  revision: 495b5cd0b395a2eabb8b00bd244e589d99de105a
+  revision: ec3464025ff2c412077b31d7bcb1c5bf07ad4c6e
   branch: master
   specs:
     friendly_id (5.0.0.rc3)
@@ -156,7 +156,7 @@ GEM
       ruby-progressbar (~> 1.0)
     gmaps4rails (1.5.6)
     god (0.13.3)
-    guard (2.0.4)
+    guard (2.0.5)
       formatador (>= 0.2.4)
       listen (~> 2.0)
       lumberjack (~> 1.0)
@@ -172,9 +172,9 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.0)
       multi_json (~> 1.8)
-    guard-rspec (3.1.0)
-      guard (>= 1.8)
-      rspec (~> 2.13)
+    guard-rspec (4.0.0)
+      guard (~> 2.0)
+      rspec (~> 2.14)
     guard-rubocop (1.0.0)
       guard (~> 2.0)
       rubocop (~> 0.10)
@@ -203,7 +203,7 @@ GEM
       addressable (~> 2.3)
     libnotify (0.8.2)
       ffi (>= 1.0.11)
-    listen (2.0.4)
+    listen (2.1.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)

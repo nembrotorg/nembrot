@@ -139,7 +139,7 @@ staging:
   asset_host: http://a4.joegatt.org
   evernote:
     server: https://www.evernote.com
-    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
     stream_binaries: false
     synchronous: true
     always_reset_on_create: true
@@ -152,7 +152,7 @@ production:
   asset_host: http://a3.joegatt.org
   evernote:
     server: https://www.evernote.com
-    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
     stream_binaries: false
     synchronous: false
     always_reset_on_create: true

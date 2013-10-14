@@ -38,7 +38,7 @@ _place_annotations_do = () ->
   annotations.each (i) ->
     new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top
     corrected_top = (if new_top <= minimum then minimum else new_top)
-    minimum = new_top + $(this).outerHeight(true)
+    minimum = corrected_top + $(this).outerHeight(true)
     $(this).offset top: corrected_top
 
   maximum = $('#text').offset().top + $('#text').outerHeight(false)

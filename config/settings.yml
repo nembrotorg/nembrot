@@ -7,17 +7,17 @@ defaults: &defaults
   share: true
   admin:
     name: Joe
-    email: joe@joegatt.net
+    email: joe@nembrot.org
   monitoring:
     name: Joe
-    email: joe@joegatt.net
+    email: joe@nembrot.org
   contact:
     name: Joe
-    email: joe@joegatt.net
+    email: joe@nembrot.org
   mailer:
     address: smtp.gmail.com
     port: 587
-    domain: mail.joegatt.net
+    domain: mail.nembrot.org
   google_analytics_key: 'UA-1346274-1'
   evernote:
     server: https://sandbox.evernote.com
@@ -135,8 +135,8 @@ test:
 
 staging:
   <<: *defaults
-  host: staging.joegatt.net
-  asset_host: http://a4.joegatt.org
+  host: staging.nembrot.org
+  asset_host: http://a6.joegatt.org
   evernote:
     server: https://www.evernote.com
     notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
@@ -148,7 +148,7 @@ staging:
 
 production:
   <<: *defaults
-  host: joegatt.net
+  host: nembrot.org
   asset_host: http://a3.joegatt.org
   evernote:
     server: https://www.evernote.com

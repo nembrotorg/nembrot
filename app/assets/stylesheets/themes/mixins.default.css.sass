@@ -11,6 +11,12 @@
 
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
   +font-color
+  h2
+    display: inline
+    font:
+      family: $headline-font-family
+      size: $body-font-size
+      weight: normal
   a
     display: block
     height: $line-height * $lines
@@ -84,6 +90,19 @@
       content: $media-query
       line-height: 0
       visibility: hidden
+
+=reset
+  margin: 0
+  padding: 0
+  a
+    &:before
+      content: ''
+      margin: 0
+      padding: 0
+    &:after
+      content: ''
+      margin: 0
+      padding: 0
 
 =rule-once($line-color: $furniture-color, $line-thickness: 1px, $line-top: 50%)
   position: relative

@@ -17,7 +17,7 @@ class TagsController < ApplicationController
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
-    @tags = Note.publishable.tag_counts_on(:tags)
+    @word_count = @notes.sum(:word_count)
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 
@@ -25,8 +25,23 @@ class TagsController < ApplicationController
       format.html
       format.json { render :json => @notes }
     end
-    rescue
-      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
-      redirect_to tags_path
+    # rescue
+    #  flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
+    #  redirect_to tags_path
+  end
+
+  def map
+    @tag = Tag.find_by_slug(params[:slug])
+    @notes = Note.publishable.listable.tagged_with(@tag.name)
+    @map = @notes.to_gmaps4rails
+    @word_count = @notes.sum(:word_count)
+
+    add_breadcrumb @tag.name, tag_path(params[:slug])
+    add_breadcrumb 'map', tag_map_path(params[:slug])
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @tag }
+    end
   end
 end

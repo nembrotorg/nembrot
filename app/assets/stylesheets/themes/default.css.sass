@@ -251,6 +251,7 @@ footer
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 figure
+  +reset
   &.image
     img
       clear: both
@@ -316,20 +317,23 @@ iframe
 .count
   color: $count-color
 
-.notes, .citations
-  li
-    +body-font
-    +clearfix
-    display: block
-    margin-bottom: $line-height
-    h2
-      display: inline
-      font:
-        family: $headline-font-family
-        size: $body-font-size
-        weight: normal
-    &:last-child
-      margin-bottom: 0
+.map_container
+  +reset
+  #map
+    +reset
+  img, object, embed
+    max-width: none
+
+.notes li, .citations li, .map-infowindow
+  +body-font
+  +clearfix
+  display: block
+  margin-bottom: $line-height
+  &:last-child
+    margin-bottom: 0
+
+.map-infowindow
+  +blurb(3, 3)
 
 article
   .tags
@@ -483,7 +487,7 @@ blockquote
     &.cloud
       +inline-block-list
 
-.tags-show
+.tags-show, .tags-map
   h1:before
     +icon-tag
     color: $secondary-color

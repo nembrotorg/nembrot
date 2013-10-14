@@ -29,3 +29,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
           / REVIEW: Consider listing books and links here but avoid duplication from side-notes
 
           = render 'versions_list', note: @note
+
+      - if @note.latitude # && __SHOWMAPS
+        figure
+          = gmaps4rails(@map)
+          -#= gmaps(markers: { data: @map }, map_options: { auto_adjust: false, zoom: 6 }, last_map: false, scripts: :api)
+
+= yield :scripts

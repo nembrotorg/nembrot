@@ -52,7 +52,7 @@ gem 'wikipedia-client'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano', '2.11.2'
+  gem 'capistrano', '2.15.5'
   gem 'factory_girl_rails'
   gem 'flog'
   gem 'fuubar'

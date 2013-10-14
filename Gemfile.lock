@@ -75,7 +75,7 @@ GEM
     breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
     cancan (1.6.10)
-    capistrano (2.11.2)
+    capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -406,7 +406,7 @@ DEPENDENCIES
   binding_of_caller
   breadcrumbs_on_rails
   cancan
-  capistrano (= 2.11.2)
+  capistrano (= 2.15.5)
   capybara
   coffee-rails
   compass-h5bp

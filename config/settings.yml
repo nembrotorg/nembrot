@@ -149,7 +149,7 @@ staging:
 production:
   <<: *defaults
   host: nembrot.org
-  asset_host: http://a3.joegatt.org
+  asset_host: http://a5.joegatt.org
   evernote:
     server: https://www.evernote.com
     notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd

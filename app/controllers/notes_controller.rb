@@ -18,7 +18,7 @@ class NotesController < ApplicationController
 
     @map = @notes.to_gmaps4rails do |note, marker|
       marker.infowindow render_to_string(partial: '/notes/maps_infowindow', locals: { note: note})
-      marker.title   note.title
+      marker.title note.title
     end
 
     add_breadcrumb I18n.t('notes.map.title'), notes_path
@@ -32,7 +32,10 @@ class NotesController < ApplicationController
   def show
     @note = Note.publishable.find(params[:id])
     @tags = @note.tags
-    @map = [@note.to_gmaps4rails] # + [@note.resources.to_gmaps4rails]
+    @map_notes = @note.to_gmaps4rails
+    @map_images = @note.resources.to_gmaps4rails
+
+    @map = (JSON.parse(@map_notes) + JSON.parse(@map_images)).to_json # REVIEW
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
     # add_breadcrumb I18n.t('notes.versions.show.title', sequence: @note.versions.size),

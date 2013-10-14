@@ -84,6 +84,10 @@ class Resource < ActiveRecord::Base
     File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
   end
 
+  def gmaps4rails_title
+    caption
+  end
+
   # private
 
   def make_local_file_name

@@ -102,12 +102,6 @@ class Note < ActiveRecord::Base
     title
   end
 
-  def gmaps4rails_infowindow
-    # image_path = cut_image_binary_path(resources.attached_images.first, width: 160)
-    #{ }"<img src=\"#{ image_path }\" width=\160\" height=\"90\"><br>#{ title }"
-    headline
-  end
-
   private
 
   def external_updated_is_latest?

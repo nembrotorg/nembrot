@@ -321,8 +321,12 @@ iframe
   +reset
   #map
     +reset
-  img, object, embed
-    max-width: none
+    background-color: $map-background-color
+    color:  $map-font-color
+    img, object, embed
+      max-width: none
+    .infowindow
+      +blurb(3, 3)
 
 .notes li, .citations li, .map-infowindow
   +body-font
@@ -331,9 +335,6 @@ iframe
   margin-bottom: $line-height
   &:last-child
     margin-bottom: 0
-
-.map-infowindow
-  +blurb(3, 3)
 
 article
   .tags
@@ -475,7 +476,7 @@ blockquote
 .tags-map
   #map
     height: $line-height * 20
-    margin-bottom: $line-height * 2/3
+    margin-bottom: $line-height
 
 .statistics
   clear: both
@@ -637,11 +638,9 @@ blockquote
         figcaption
           display: none
       .map_container
-        position: relative
         #map
-          background-color: $map-background-color
-          color:  $map-font-color
           height: $line-height * 6
+          margin-bottom: $line-height * 2/3
 
     section#content
       #text

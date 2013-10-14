@@ -2,7 +2,7 @@
 - headline, blurb = blurb(note.headline, note.clean_body, blurb_length)
 - image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
 
-.map-infowindow
+.infowindow
   = link_to note_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) do
     - if image
       figure.image= image_tag(cut_image_binary_path(image, type: :thumbnail), alt: strip_tags(image.description))

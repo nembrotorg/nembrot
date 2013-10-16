@@ -84,10 +84,12 @@ en:
   notes:
     index:
       title: 'Notes'
-      statistics_html: "%{count} notes (%{word_count} words). <a href=\"%{other_view_path}\">See map</a>."
+      statistics: "%{count} notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
     map:
       title: 'Notes'
-      statistics_html: "%{count} mapped notes (%{word_count} words). <a href=\"%{other_view_path}\">See list</a>."
+      statistics: "%{count} mapped notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See list</a>."
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
@@ -138,12 +140,14 @@ en:
       title: "Tag: \"%{name}\""
       title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
-      statistics_html: "%{count} notes (%{word_count} words). <a href=\"%{other_view_path}\">See map</a>."
+      statistics: "%{count} notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
     map:
       title: 'Notes'
       title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
-      statistics_html: "%{count} mapped notes (%{word_count} words). <a href=\"%{other_view_path}\">See list</a>."
+      statistics: "%{count} mapped notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See list</a>."
 
   titlecase_exceptions:
     articles: 'a an the'

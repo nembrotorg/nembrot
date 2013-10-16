@@ -104,11 +104,9 @@ content_initializers = () ->
   update_titles()
   track_page_view()
   resize_initializers()
-  # Gmaps.loadMaps()
 
 content_initializers_reload_only = () ->
   reload_shares()
-  Gmaps.loadMaps()
 
 resize_initializers = () ->
   place_annotations()

@@ -5,6 +5,7 @@ class NotesController < ApplicationController
   def index
     @notes = Note.publishable.listable.blurbable.load
     @word_count = @notes.sum(:word_count)
+    @map = @notes.to_gmaps4rails
 
     respond_to do |format|
       format.html
@@ -13,7 +14,7 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.publishable.listable.mappable.load
+    @notes = Note.publishable.listable.load
     @word_count = @notes.sum(:word_count)
 
     @map = @notes.to_gmaps4rails do |note, marker|

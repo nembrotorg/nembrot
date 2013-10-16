@@ -16,4 +16,4 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     aside.statistics
       = t('.statistics', count: number_with_delimiter(@notes.size), word_count: number_with_delimiter(@word_count))
-      = t('.other_view_html', other_view_path: notes_map_path) unless @map.empty?
+      = t('.other_view_html', path: notes_map_path) unless @map.empty?

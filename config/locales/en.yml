@@ -1,6 +1,7 @@
 en:
 
   back: 'Back'
+  map: 'Map'
 
   auth:
     success: "Your %{provider} key has been authenticated."

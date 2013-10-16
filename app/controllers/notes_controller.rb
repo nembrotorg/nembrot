@@ -22,7 +22,7 @@ class NotesController < ApplicationController
       marker.title note.title
     end
 
-    add_breadcrumb I18n.t('notes.map.title'), notes_path
+    add_breadcrumb I18n.t('map'), notes_map_path
 
     respond_to do |format|
       format.html

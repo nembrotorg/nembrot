@@ -13,6 +13,7 @@
 *.swp
 *~
 .DS_Store
+.gitattributes
 .project
 .ruby-gemset
 .ruby-version

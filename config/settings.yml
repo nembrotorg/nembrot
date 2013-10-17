@@ -142,7 +142,7 @@ staging:
   asset_host: http://a4.joegatt.org
   evernote:
     server: https://www.evernote.com
-    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
+    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
     stream_binaries: false
     synchronous: true
     always_reset_on_create: true
@@ -153,10 +153,9 @@ production:
   <<: *defaults
   host: joegatt.net
   asset_host: http://a3.joegatt.org
-  google_analytics_key: 'UA-16898823-1'
   evernote:
     server: https://www.evernote.com
-    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
+    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
     stream_binaries: false
     synchronous: false
     always_reset_on_create: true

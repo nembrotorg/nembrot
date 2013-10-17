@@ -3,7 +3,7 @@
 defaults: &defaults
   facebook_app_id: 142214389156795
   google_analytics_key: 'UA-1346274-1'
-  twitter_user_name: nembrot
+  twitter_user_name: joegattnet
 
 development:
   <<: *defaults

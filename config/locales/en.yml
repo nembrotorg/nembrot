@@ -12,7 +12,7 @@ en:
 
   email:
     greeting: "Hi %{name}"
-    signature: 'nembrot.org'
+    signature: 'joegatt.net'
 
   site:
     title: 'joegatt.net'

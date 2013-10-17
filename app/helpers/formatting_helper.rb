@@ -90,7 +90,7 @@ module FormattingHelper
                  path: link_path(link), 
                  accessed_at: (timeago_tag link.updated_at)))
       # We replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
-      text.gsub!(/(?!<=")(#{ link.url })(?!=")/,
+      text.gsub!(/(?<!")(#{ link.url })(?!")/,
                  t(citation_style,
                  link_text: link.headline,
                  title: link.headline,
@@ -116,7 +116,7 @@ module FormattingHelper
 
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text)
+    text = hyper_conform(text) if Settings.styling.hyper_conform
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -126,7 +126,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text)
+    text = hyper_conform(text) if Settings.styling.hyper_conform
     dom = Nokogiri::HTML(text)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
@@ -135,7 +135,7 @@ module FormattingHelper
       t.content = smartify(t.content)
       # t.content = hyper_conform(t.content)
     end
-    dom = indent_dom(dom) if Settings.html.pretty
+    dom = indent_dom(dom) if Settings.html.pretty_body
     unwrap_from_paragraph_tag(dom) if unwrap_p
     dom.css('body').children.to_html.html_safe
   end

@@ -36,7 +36,7 @@ module ResourcesHelper
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
-    # Shorthand: small integers are taken to be number of columns rather than absolute width 
+    # Shorthand: small integers are taken to be number of columns rather than absolute width
     width = column_width(width) if width <= Settings.styling.total_columns
 
     # The height is derived from the aspect ratio and width.

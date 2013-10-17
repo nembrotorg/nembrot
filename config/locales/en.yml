@@ -1,6 +1,7 @@
 en:
 
   back: 'Back'
+  map: 'Map'
 
   auth:
     success: "Your %{provider} key has been authenticated."
@@ -11,7 +12,7 @@ en:
 
   email:
     greeting: "Hi %{name}"
-    signature: 'joegatt.net'
+    signature: 'nembrot.org'
 
   site:
     title: 'joegatt.net'
@@ -90,6 +91,11 @@ en:
     index:
       title: 'Notes'
       statistics: "%{count} notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
+    map:
+      title: 'Notes'
+      statistics: "%{count} mapped notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See list</a>."
     show:
       title: "Note %{id}"
       not_found: "Note %{id} is not available."
@@ -140,6 +146,14 @@ en:
       title: "Tag: \"%{name}\""
       title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
+      statistics: "%{count} notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
+    map:
+      title: 'Notes'
+      title_short: "%{name}"
+      not_found: "Tag: %{slug} is not available."
+      statistics: "%{count} mapped notes (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See list</a>."
 
   titlecase_exceptions:
     articles: 'a an the'

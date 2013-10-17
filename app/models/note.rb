@@ -12,6 +12,7 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :links
 
   acts_as_taggable_on :tags, :instructions
+  acts_as_gmappable process_geocoding: false, check_process: false
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
@@ -29,6 +30,7 @@ class Note < ActiveRecord::Base
   scope :blurbable, -> { where('word_count > ?', (Settings.notes.blurb_length / Settings.lang.average_word_length)) }
   scope :citations, -> { where(is_citation: true) }
   scope :listable, -> { where(listable: true, is_citation: false) }
+  scope :mappable, -> { where('latitude IS NOT ?', nil) }
   scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
   scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
   scope :publishable, -> { where(active: true, hide: false) }
@@ -94,6 +96,10 @@ class Note < ActiveRecord::Base
     instructions = Settings.notes.instructions.default + Array(instruction_list)
     fx = instructions.keep_if { |i| i =~ /__FX_/ } .join('_').gsub(/__FX_/, '').downcase
     fx.empty? ? nil : fx
+  end
+
+  def gmaps4rails_title
+    title
   end
 
   private

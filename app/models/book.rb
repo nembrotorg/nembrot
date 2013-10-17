@@ -70,6 +70,7 @@ class Book < ActiveRecord::Base
   end
 
   def author_sort
+    return nil if author.blank? && editor.blank?
     (author.blank? ? editor : author).gsub(/([^ ]+?) ?([^ ]*)$/, '\\2, \\1')
   end
 

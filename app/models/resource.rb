@@ -7,6 +7,8 @@ class Resource < ActiveRecord::Base
 
   belongs_to :note
 
+  acts_as_gmappable process_geocoding: false, check_process: false
+
   scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
   scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
@@ -80,6 +82,10 @@ class Resource < ActiveRecord::Base
 
   def blank_location
     File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
+  end
+
+  def gmaps4rails_title
+    caption
   end
 
   # private

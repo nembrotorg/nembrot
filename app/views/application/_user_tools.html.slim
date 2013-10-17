@@ -4,13 +4,28 @@ nav#tools
     h6= t('tools.title')
 
   ul
-    - if user_signed_in?
-      li
-        = link_to_unless_current_or_wrap current_user.email, edit_user_registration_path
-        = link_to '', destroy_user_session_path, method: :delete, title: t('users.sessions.delete.title')
-      - if current_user.admin?
-        li= link_to_unless_current_or_wrap t('books.admin.title_no_mode'), books_admin_path
-        li= link_to_unless_current_or_wrap t('links.admin.title'), links_admin_path
 
-    - else
-      li= link_to_unless_current_or_wrap t('tools.sign_in'), new_user_session_path
+    - if Settings.share
+      li.share
+        ul
+          li.fb-like data-colorscheme='light' data-layout='button_count' data-action='like' data-show-faces='false' data-send='false' data-width='450px'
+
+          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Settings.twitter_user_name }
+
+          li
+            div.g-plusone data-size='medium'
+
+    - if user_signed_in? && current_user.admin?
+      li.admin
+        ul
+          li= link_to_unless_current_or_wrap t('books.admin.title_no_mode'), books_admin_path
+          li= link_to_unless_current_or_wrap t('links.admin.title'), links_admin_path
+
+    li.user
+      ul
+        - if user_signed_in?
+          li
+            = link_to_unless_current_or_wrap current_user.email, edit_user_registration_path
+            = link_to '', destroy_user_session_path, method: :delete, title: t('users.sessions.delete.title')
+        - else
+          li= link_to_unless_current_or_wrap t('tools.sign_in'), new_user_session_path

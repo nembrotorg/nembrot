@@ -6,10 +6,15 @@ head
 
   meta name="viewport" content="width=device-width" initial-scale="1.0" maximum-scale="1.0"
 
+  - if Settings.facebook_app_id
+    meta property="fb:app_id" content="#{ Settings.facebook_app_id }"
+
   = display_meta_tags
 
   = csrf_meta_tag
 
   = stylesheet_link_tag 'application'
 
-  = javascript_include_tag 'polyfills'
+  = javascript_include_tag 'head_scripts'
+
+  script src="//maps.google.com/maps/api/js?v=3.5&sensor=false"

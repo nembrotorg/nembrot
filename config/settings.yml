@@ -2,19 +2,20 @@ defaults: &defaults
   app_name: joegattnet_v3
   version: 0.9
   locale: en
+  share: true
   admin:
     name: Joe
-    email: joe@joegatt.net
+    email: joe@nembrot.org
   monitoring:
     name: Joe
     email: monitoring@joegatt.net
   contact:
     name: Joe
-    email: joe@joegatt.net
+    email: joe@nembrot.org
   mailer:
     address: smtp.gmail.com
     port: 587
-    domain: mail.joegatt.net
+    domain: mail.nembrot.org
   google_analytics_key: 'UA-1346274-1'
   evernote:
     server: https://sandbox.evernote.com
@@ -33,6 +34,7 @@ defaults: &defaults
       required: ['__HOME']
   html:
     pretty: true
+    pretty_body: false
     sort_attrs: true
     tabsize: 2
     format: html5
@@ -140,7 +142,7 @@ staging:
   asset_host: http://a4.joegatt.org
   evernote:
     server: https://www.evernote.com
-    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
     stream_binaries: false
     synchronous: true
     always_reset_on_create: true
@@ -154,7 +156,7 @@ production:
   google_analytics_key: 'UA-16898823-1'
   evernote:
     server: https://www.evernote.com
-    notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
     stream_binaries: false
     synchronous: false
     always_reset_on_create: true

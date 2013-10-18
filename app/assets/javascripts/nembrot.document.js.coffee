@@ -67,6 +67,10 @@ fix_facebook_dialog = () ->
   $('.fb-like span').css('width', $('.fb-like').data('width'))
   alert('innit')
 
+insert_qr_code = () ->
+  # Get image size from settings
+  $('footer img.qr_code').remove()
+  $('footer').prepend('<img class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + location.href + '" alt="QR code">')
 
 # Document hooks ******************************************************************************************************
 
@@ -104,6 +108,7 @@ content_initializers = () ->
   update_titles()
   track_page_view()
   resize_initializers()
+  insert_qr_code()
 
 content_initializers_reload_only = () ->
   reload_shares()

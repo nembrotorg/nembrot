@@ -30,4 +30,4 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
           = render 'versions_list', note: @note
 
-      = render 'shared/map', map: @map unless @map.empty?
+      = render 'shared/map', map: @map unless @map == '[]'

@@ -31,7 +31,7 @@ describe 'Notes' do
 
   describe 'index page' do
     before do
-      Settings.lang['rtl_langs'] = ['ar']
+      Settings.deep_merge!({ 'lang' => { 'rtl_langs' => { ['ar'] } })
       I18n.locale = 'en'
       @note.instruction_list = ['__LANG_AR']
       @note.title = 'تشريح الكآبة'
@@ -223,4 +223,6 @@ describe 'Notes' do
     end
   end
   # Test images and embedded media
+
+  Settings.reload!
 end

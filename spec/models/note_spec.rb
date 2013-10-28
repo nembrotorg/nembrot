@@ -367,6 +367,4 @@ describe Note do
       end
     end
   end
-
-  Settings.reload!
 end

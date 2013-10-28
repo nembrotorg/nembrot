@@ -168,34 +168,34 @@ describe Note do
 
   describe '#has_instruction?' do
     before do
-      Settings['notes']['instructions']['hide'] = %w(__HIDESYNONYM)
-      Settings['notes']['instructions']['default'] = %w(__DEFAULT_INSTRUCTION)
+      Settings.deep_merge!({ 'notes' => { 
+        'instructions' => { 'hide' => ['__HIDESYNONYM'], 'default' => ['__DEFAULT_INSTRUCTION'] } } 
+      })
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
       it 'returns true' do
-        note.has_instruction?('hide').should == true
+        note.has_instruction?('hide').should be_true
       end
     end
     context 'when an instruction is set as a synonym' do
       it 'returns true' do
-        note.has_instruction?('hidesynonym').should == true
+        note.has_instruction?('hidesynonym').should be_true
       end
     end
     context 'when an instruction is set in default for all' do
       it 'returns true' do
-        # FIXME: Settings are not being changed
-        pending "note.has_instruction?('default_instruction').should == Settings.notes.instructions.default"
+        note.has_instruction?('default_instruction').should be_true
       end
     end
     context 'when a note is tagged with an instruction' do
       it 'returns true' do
-        note.has_instruction?('noteinstruction').should == true
+        note.has_instruction?('noteinstruction').should be_true
       end
     end
     context 'when an instruction is not present' do
       it 'returns false' do
-        note.has_instruction?('notpresent').should == false
+        note.has_instruction?('notpresent').should be_false
       end
     end
   end
@@ -299,33 +299,33 @@ describe Note do
   describe '#looks_like_a_citation?' do
     it 'returns false for ordinary text' do
       note = FactoryGirl.create(:note, body: 'Plain text.')
-      note.is_citation.should == false
+      note.is_citation.should be_false
     end
     it 'recognises one-line citations' do
       note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
-      pending 'note.looks_like_a_citation?.should == true'
+      pending 'note.looks_like_a_citation?.should be_true'
     end
     it 'recognises two-line citations' do
       note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
-      pending 'note.looks_like_a_citation?.should == true'
+      pending 'note.looks_like_a_citation?.should be_true'
     end
     context 'when a note merely contains a citation' do
       context 'when text precedes quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\n")
-          note.is_citation.should == false
+          note.is_citation.should be_false
         end
       end
       context 'when text succeeds quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\nPlain text.")
-          note.is_citation.should == false
+          note.is_citation.should be_false
         end
       end
       context 'when text surrounds quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\nPlain text.")
-          note.is_citation.should == false
+          note.is_citation.should be_false
         end
       end
     end
@@ -367,5 +367,4 @@ describe Note do
       end
     end
   end
-
 end

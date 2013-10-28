@@ -14,7 +14,7 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.publishable.listable.load
+    @notes = Note.publishable.listable.mappable.load
     @word_count = @notes.sum(:word_count)
 
     @map = @notes.to_gmaps4rails do |note, marker|

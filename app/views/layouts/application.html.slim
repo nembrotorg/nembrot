@@ -14,8 +14,6 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'hello_world' if Secret.auth.evernote.consumer_key == 'CHANGE_ME' or Secret.auth.evernote.consumer_secret == 'CHANGE_ME'
 
-    -# = image_tag(qr_code_image_url, size: Settings.styling.qr_code_image_size, alt: 'QR code.', class: 'qr_code')
-
     = render 'user_tools'
 
     = render 'footer'

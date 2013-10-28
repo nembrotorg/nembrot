@@ -15,6 +15,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     aside.statistics
       = t('.statistics', count: number_with_delimiter(@notes.size), word_count: number_with_delimiter(@word_count))
-      = t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map.empty?
+      = t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map == '[]'
 
     = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?

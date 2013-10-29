@@ -44,6 +44,7 @@ gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'susy'
 gem 'thin'
 gem 'uglifier'
+gem 'underscore-rails'
 gem 'unicorn'
 gem 'validate_url'
 gem 'whenever', require: false

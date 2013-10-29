@@ -17,8 +17,9 @@ class TagsController < ApplicationController
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
+
     @word_count = @notes.sum(:word_count)
-    @map = @notes.to_gmaps4rails
+    @map = mapify(@notes.mappable)
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 
@@ -36,10 +37,7 @@ class TagsController < ApplicationController
     @notes = Note.publishable.listable.mappable.tagged_with(@tag.name)
     @word_count = @notes.sum(:word_count)
 
-    @map = @notes.to_gmaps4rails do |note, marker|
-      marker.infowindow render_to_string(partial: '/notes/maps_infowindow', locals: { note: note})
-      marker.title note.title
-    end
+    @map = mapify(@notes.mappable)
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
     add_breadcrumb I18n.t('map'), tag_map_path(params[:slug])

@@ -1,13 +1,11 @@
-figure= gmaps({last_map: false})
+figure
+  .map_container 
+    #map
 
-javascript:
-  Gmaps.map = new Gmaps4RailsGoogle();
-  Gmaps.load_map = function() {
-      Gmaps.map.map_options.maxZoom = 15;
-      Gmaps.map.initialize();
-      Gmaps.map.markers = #{ raw map };
-      Gmaps.map.create_markers();
-      Gmaps.map.adjustMapToBounds();
-      Gmaps.map.callback();
-  };
-  Gmaps.loadMaps();
+  javascript:
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers(#{ raw map.to_json });
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+    });

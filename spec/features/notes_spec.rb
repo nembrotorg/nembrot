@@ -2,6 +2,8 @@
 
 describe 'Notes' do
 
+  # REVIEW: Refactor this, use describe and consistent selectors
+
   include ResourcesHelper
 
   before { @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
@@ -25,7 +27,27 @@ describe 'Notes' do
       visit notes_path
     end
     it 'should not have a link to an inactive note' do
-      page.should_not have_link('New title: New body', href: note_path(@note))
+      page.should_not have_link(text: 'New title: New body', href: note_path(@note))
+    end
+  end
+
+  describe 'index page' do
+    before do
+      @note.update_attributes(latitude: nil, longitude: nil)
+      visit notes_path
+    end
+    it 'should link to map' do
+      page.should_not have_link('See map', href: notes_map_path)
+    end
+  end
+
+  describe 'index page' do
+    before do
+      @note.update_attributes(latitude: 25, longitude: 25)
+      visit notes_path
+    end
+    it 'should link to map' do
+      page.should have_link('See map', href: notes_map_path)
     end
   end
 
@@ -147,6 +169,16 @@ describe 'Notes' do
     end
     it 'has the text direction if note is not in default language' do
       page.should have_css('#content[dir=rtl]')
+    end
+  end
+
+  describe 'show page' do
+    before do
+      @resource = FactoryGirl.create(:resource, note: @note, latitude: 25, longitude: 25)
+      visit note_path(@resource.note)
+    end
+    it 'should display map' do
+      pending "page.should have_css(\"div.map\")"
     end
   end
 

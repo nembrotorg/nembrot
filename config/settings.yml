@@ -44,6 +44,7 @@ defaults: &defaults
     title_length: 40
     blurb_length: 400
     citation_blurb_length: 230
+    citation_max_length: 9999
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
@@ -113,6 +114,7 @@ test:
     title_length: 40
     blurb_length: 40
     citation_blurb_length: 30
+    citation_max_length: 9999
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']

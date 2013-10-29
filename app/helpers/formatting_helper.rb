@@ -34,7 +34,8 @@ module FormattingHelper
   end
 
   def sanitize_from_db(text)
-    text = text.gsub(/<br[^>]*?>/, "\n")
+    text = text.gsub(%r(#{ Settings.notes.truncate_after_regexp }.*), '')
+               .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output

@@ -250,6 +250,17 @@ describe 'Notes' do
     end
   end
 
+  # REVIEW: Test this on all pages using behaves like
+  # describe 'promotions' do
+  #   before do
+  #     @note = FactoryGirl.create(:note, instruction_list: ['__PROMOTE'])
+  #     visit notes_path
+  #   end
+  #   it 'should have a link to promoted note' do
+  #     page.should have_selector('.promoted a', note_path(@note))
+  #   end
+  # end
+
   describe 'qr image' do
     it 'should have the title Notes' do
       # Test this with javascript

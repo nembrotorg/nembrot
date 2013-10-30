@@ -180,7 +180,7 @@ header
 footer
   ul
     +arrow-links
-    +columns(2)
+    // +columns(2)
     text-transform: lowercase
     a
       &[href*=http]
@@ -369,6 +369,24 @@ blockquote
     +pre-with-emdash
     margin: 0
 
+footer
+  nav
+    ul
+      &.promoted
+        +span-columns(12)
+        li
+          a
+            text-transform: none
+      &.sections
+        +columns(2)
+        +span-columns(12)
+      &.channels
+        +columns(2)
+        +span-columns(12)
+  small
+    +span-columns(12)
+    margin-bottom: $line-height
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Pages
@@ -549,8 +567,6 @@ blockquote
   .hello_world,
   footer
     margin: 0 auto $line-height auto
-    // overflow: hidden
-    // +debug-bg
 
   #main
     & > section
@@ -726,9 +742,21 @@ blockquote
       +columns(4)
 
   footer
-    ul
-      +columns(4)
-      margin-bottom: $line-height
+    nav
+      ul
+        &.promoted
+          +span-columns(4)
+          li
+            a
+              text-transform: none
+        &.sections
+          +columns(2)
+          +span-columns(4)
+        &.channels
+          +columns(2)
+          +span-columns(4 omega)
+    small
+      +span-columns(12)
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -801,13 +829,9 @@ blockquote
         +column-gap($gutter-width * 1px)
         li
           margin-bottom: 0
-          +blurb(12)
+          +blurb(9)
 
   .tags-index
-    ul
-      +columns(6)
-
-  footer
     ul
       +columns(6)
 

@@ -78,19 +78,21 @@ module FormattingHelper
   end
 
   def linkify(text, links, citation_style)
-    # We sort the links by reverse length order of the url to avoid catching partial urls.
+    # Make all local links relative
+    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host }), '')
+    # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
-      # We simplify links wrapped around themselves.
+      # Simplify links wrapped around themselves.
       text.gsub!(/<a href="#{ link.url }">\s*#{ link.url }\s*<\/a>/, link.url)
-      # We replace linked text 
+      # Replace linked text 
       text.gsub!(/(<a href="#{ link.url }">)(.*?)(<\/a>)/,
                  t('citation.link.inline_annotated_link_text_html',
                  link_text: '\2',
                  title: link.headline,
                  url: link.url_or_canonical_url,
-                 path: link_path(link), 
+                 path: link_path(link),
                  accessed_at: (timeago_tag link.updated_at)))
-      # We replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
+      # Replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
       text.gsub!(/(?<!")(#{ link.url })(?!")/,
                  t(citation_style,
                  link_text: link.headline,

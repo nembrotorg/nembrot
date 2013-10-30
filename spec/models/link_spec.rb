@@ -32,6 +32,20 @@ describe Link do
     it 'adds url' do
       Link.where(url: 'http://en.wikipedia.org/wiki/Valletta', dirty: true).exists?.should be_true
     end
+
+    context 'when url is local' do
+      before { Link.grab_urls("Body text http://#{ Settings.host }/path and more text.") }
+      it 'does not add url' do
+        Link.where(url: "http://#{ Settings.host }/path").exists?.should be_false
+      end
+    end
+
+    context 'when url is on a subdomain of local' do
+      before { Link.grab_urls("Body text http://#{ Settings.host }/path and more text.") }
+      it 'does not add url' do
+        Link.where(url: "http://v1.#{ Settings.host }/path").exists?.should be_false
+      end
+    end
   end
 
   def link_is_updated?

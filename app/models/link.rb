@@ -36,7 +36,11 @@ class Link < ActiveRecord::Base
     url_candidates.push(source_url) unless source_url.blank?
     url_candidates_in_text = text.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten
     url_candidates.push(url_candidates_in_text) unless url_candidates_in_text.empty?
-    url_candidates.flatten.each { |url_candidate| add_task(url_candidate) } unless url_candidates.empty?
+    unless url_candidates.empty?
+      url_candidates.flatten!
+      url_candidates = url_candidates.reject { |url_candidate| url_candidate.match(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host })) } # Remove local
+      url_candidates.each { |url_candidate| add_task(url_candidate) }
+    end
   end
 
   def self.add_task(url_candidate)

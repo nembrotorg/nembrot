@@ -143,7 +143,7 @@ class EvernoteRequest
       'tag_list'            => cloud_note_tags.grep(/^[^_]/),
       'instruction_list'    => cloud_note_tags.grep(/^_/),
       'active'              => true
-    } unless data.empty?
+    }
   end
 
   def update_evernote_note_with_evernote_data(cloud_note_data)

@@ -12,7 +12,6 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :links
 
   acts_as_taggable_on :tags, :instructions
-  acts_as_gmappable process_geocoding: false, check_process: false
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
@@ -43,6 +42,10 @@ class Note < ActiveRecord::Base
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
   after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
+
+  def self.promotable
+    all.keep_if { |note| note.has_instruction?('home') }
+  end
 
   def has_instruction?(instruction, instructions = instruction_list)
     instruction_to_find = ["__#{ instruction.upcase }"]

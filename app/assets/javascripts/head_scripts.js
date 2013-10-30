@@ -3,5 +3,5 @@
 //
 //  modernizer.minimal or modernizer.dev or customise your own at http://modernizr.com/download
 //= require modernizr.minimal
-//= require gmaps4rails/gmaps4rails.base
-//= require gmaps4rails/gmaps4rails.googlemaps
+//= require underscore
+//= require gmaps/google

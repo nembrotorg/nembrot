@@ -65,7 +65,6 @@ reload_shares = () ->
 
 fix_facebook_dialog = () ->
   $('.fb-like span').css('width', $('.fb-like').data('width'))
-  alert('innit')
 
 insert_qr_code = () ->
   # Get image size from settings

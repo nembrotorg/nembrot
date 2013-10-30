@@ -61,6 +61,10 @@ describe FormattingHelper do
   end
 
   describe '#sanitize_from_db' do
+    it 'truncates all text after --30-- or similar' do
+      sanitize_from_db("Text.#{ Settings.notes.truncate_after_regexp }THIS SHOULD NOT BE INCLUDED.")
+        .should == 'Text.'
+    end
     it 'removes superfluous html tags and attributes' do
       sanitize_from_db('Text. <font>More.</font> <strong id="extra">Even more.</strong> <a href="link">Link</a>.')
         .should == 'Text. More. <strong>Even more.</strong> <a href="link">Link</a>.'

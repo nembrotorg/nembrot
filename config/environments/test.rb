@@ -39,6 +39,6 @@ Nembrot::Application.configure do
   config.eager_load = false
 
   config.after_initialize do
-    PaperTrail.enabled = true
+    PaperTrail.enabled = false
   end
 end

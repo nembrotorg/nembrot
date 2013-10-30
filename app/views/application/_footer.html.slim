@@ -2,18 +2,28 @@ footer
 
   nav
     ul
-      li = link_to t('pantographs.index.title'), pantographs_path
-      li = link_to t('home.title'), root_path
-      li = link_to t('notes.index.title'), notes_path
-      li = link_to t('citations.index.title'), citations_path
-      li = link_to t('books.index.title'), books_path
-      li = link_to t('links.index.title'), links_path
-      li = link_to t('tags.index.title'), tags_path
+      li
+        ul.promoted
+          - @promoted_notes.first(Settings.promote.footer).each do |note|
+            li
+              = link_to note.headline, note_path(note)
 
-      - Settings.web_channels.each do |link|
-        li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
+      li
+        ul.sections
+          li = link_to t('home.title'), root_path
+          li = link_to t('notes.index.title'), notes_path
+          li = link_to t('citations.index.title'), citations_path
+          li = link_to t('books.index.title'), books_path
+          li = link_to t('links.index.title'), links_path
+          li = link_to t('tags.index.title'), tags_path
 
-      li = link_to 'RSS feed', '/rss'
-      li = link_to Settings.contact.email, "mailto:#{ Settings.contact.email }"
+      li
+        ul.channels
+
+          - Settings.web_channels.each do |link|
+            li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
+
+          li = link_to 'RSS feed', '/rss'
+          li = link_to Settings.contact.email, "mailto:#{ Settings.contact.email }"
 
   small.copyright = t('site.copyright_html')

@@ -129,26 +129,21 @@ class EvernoteRequest
   end
 
   def populate
-    data = {}
-
-    tag_list_from_note_data = cloud_note_tags.grep(/^[^_]/)
-    cloud_note_instructions = cloud_note_tags.grep(/^_/)
-
-    data['title']               = cloud_note_data.title
-    data['body']                = cloud_note_data.content
-    data['latitude']            = cloud_note_data.attributes.latitude
-    data['longitude']           = cloud_note_data.attributes.longitude
-    data['external_updated_at'] = calculate_updated_at
-    data['author']              = cloud_note_data.attributes.author
-    data['last_edited_by']      = cloud_note_data.attributes.lastEditedBy
-    data['source']              = cloud_note_data.attributes.source
-    data['source_application']  = cloud_note_data.attributes.sourceApplication
-    data['source_url']          = cloud_note_data.attributes.sourceURL
-    data['tag_list']            = tag_list_from_note_data
-    data['instruction_list']    = cloud_note_instructions
-    data['active']              = true
-
-    self.data = data unless data.empty?
+    self.data = {
+      'title'               => cloud_note_data.title,
+      'body'                => cloud_note_data.content,
+      'latitude'            => cloud_note_data.attributes.latitude,
+      'longitude'           => cloud_note_data.attributes.longitude,
+      'external_updated_at' => calculate_updated_at,
+      'author'              => cloud_note_data.attributes.author,
+      'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
+      'source'              => cloud_note_data.attributes.source,
+      'source_application'  => cloud_note_data.attributes.sourceApplication,
+      'source_url'          => cloud_note_data.attributes.sourceURL,
+      'tag_list'            => cloud_note_tags.grep(/^[^_]/),
+      'instruction_list'    => cloud_note_tags.grep(/^_/),
+      'active'              => true
+    } unless data.empty?
   end
 
   def update_evernote_note_with_evernote_data(cloud_note_data)

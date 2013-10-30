@@ -3,6 +3,9 @@ defaults: &defaults
   version: 0.9
   locale: en
   share: true
+  promote:
+    home: 3
+    footer: 3
   admin:
     name: Joe
     email: joe@joegatt.net
@@ -29,9 +32,6 @@ defaults: &defaults
   lang:
     average_word_length: 5.5
     rtl_langs: ['ar', 'fa']
-  home:
-    instructions:
-      required: ['__HOME']
   html:
     pretty: true
     pretty_body: false
@@ -42,11 +42,13 @@ defaults: &defaults
     title_length: 40
     blurb_length: 400
     citation_blurb_length: 230
+    citation_max_length: 9999
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
+    truncate_after_regexp: '--30--'
     version_gap_minutes: 60
     version_gap_word_count: 100
     synch_every_minutes: 1
@@ -55,8 +57,8 @@ defaults: &defaults
       default: ['__TRI']
       hide: ['__HIDE']
       hide_image: ['__HIDE_IMAGE', '__NO_IMAGE']
-      home: ['__HOME']
       ignore: ['__IGNORE', '__HOLD']
+      promote: ['__PROMOTE']
       required: ['__PUBLISH']
       reset: ['__RESET']
       unlist: ['__UNLIST', '__NO_LIST']
@@ -115,19 +117,21 @@ test:
     title_length: 40
     blurb_length: 40
     citation_blurb_length: 30
+    citation_max_length: 9999
     blurb_omission: '...'
     detect_language_sample_length: 250
     allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
     allowed_html_attributes: ['href', 'src', 'alt', 'cite']
     attempts: 3
+    truncate_after_regexp: '--30--'
     version_gap_minutes: 60
     version_gap_word_count: 5
     instructions:
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']
       hide: ['__HIDE']
-      home: ['__HOME']
       ignore: ['__IGNORE', '__HOLD']
+      promote: ['__PROMOTE']
       required: ['__PUBLISH']
       reset: ['__RESET']
       unlist: ['__UNLIST', '__NO_LIST']

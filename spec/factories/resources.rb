@@ -9,8 +9,6 @@ FactoryGirl.define do
     dirty false
     file_name { Faker::Lorem.word + '.png' }
     height 90
-    latitude Random.rand(50)
-    longitude Random.rand(50)
     mime 'image/png'
     note
     sequence(:cloud_resource_identifier) { |n| "xABCDEF#{n}" }

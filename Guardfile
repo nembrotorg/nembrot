@@ -2,7 +2,7 @@ guard 'bundler' do
   watch('Gemfile')
 end
 
-guard 'spork', wait: 60, cucumber: false, rspec: true, test_unit: false do
+guard :spork, wait: 60, cucumber: false, rspec: true, test_unit: false do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
@@ -11,8 +11,8 @@ guard 'spork', wait: 60, cucumber: false, rspec: true, test_unit: false do
   watch('spec/spec_helper.rb')
 end
 
-guard 'rspec', cli: "--drb --format Fuubar --color", all_after_pass: false, all_after_fail: false do
-    watch('spec/spec_helper.rb') { "spec" }
+guard :rspec, cmd: 'rspec --drb --format Fuubar --color', all_after_pass: false, all_after_fail: false do
+    watch('spec/spec_helper.rb') { 'spec' }
 
     watch(%r{^spec/controllers/.+_spec\.rb$})
     watch(%r{^spec/models/.+_spec\.rb$})
@@ -42,12 +42,12 @@ guard 'rspec', cli: "--drb --format Fuubar --color", all_after_pass: false, all_
     watch(%r{^spec/lib/.+_integration_spec\.rb$})
 end
 
-guard 'rubocop', all_on_start: false, notification: true do
+guard :rubocop, all_on_start: false, notification: true do
   watch(%r{.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end
 
-guard 'livereload' do
+guard :livereload do
   watch(%r{app/views/.+\.slim$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})

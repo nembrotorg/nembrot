@@ -228,7 +228,7 @@ describe 'Notes' do
       page.should have_link('v1', href: note_version_path(@note, 1))
     end
 
-    context 'when a note is in an RTL language', versioning: true do
+    context 'when a note is in an RTL language' do
       before do
         Settings.deep_merge!({ 'lang' => { 'rtl_langs' => ['ar'] } })
         I18n.locale = 'en'

@@ -31,6 +31,7 @@ Spork.prefork do
   require 'rspec/autorun'
   require 'capybara/rails'
   require 'capybara/rspec'
+  require 'paper_trail/frameworks/rspec'
 
   # files to preload based on results of Kernel override code below
   # ie they took more than 100 ms to load

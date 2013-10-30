@@ -44,7 +44,7 @@ class Note < ActiveRecord::Base
   after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
 
   def self.promotable
-    all.keep_if { |note| note.has_instruction?('home') }
+    all.keep_if { |note| note.has_instruction?('promote') }
   end
 
   def has_instruction?(instruction, instructions = instruction_list)

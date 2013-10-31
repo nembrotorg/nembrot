@@ -6,10 +6,11 @@ class NotesController < ApplicationController
     @notes = Note.publishable.listable.blurbable.load
     @word_count = @notes.sum(:word_count)
 
-    @map = mapify(@notes.mappable)
+    @map = @notes.mappable
 
     respond_to do |format|
       format.html
+      format.atom
       format.json { render json: @notes }
     end
   end

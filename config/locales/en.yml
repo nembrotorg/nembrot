@@ -2,6 +2,7 @@ en:
 
   back: 'Back'
   map: 'Map'
+  atom_feed: 'Atom feed'
 
   auth:
     success: "Your %{provider} key has been authenticated."

@@ -13,6 +13,8 @@ head
 
   = csrf_meta_tag
 
+  = auto_discovery_link_tag :atom, notes_url(:atom), title: Settings.title
+
   = stylesheet_link_tag 'application'
 
   = javascript_include_tag 'head_scripts'

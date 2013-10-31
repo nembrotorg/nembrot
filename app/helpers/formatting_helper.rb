@@ -2,7 +2,7 @@
 
 module FormattingHelper
 
-  def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html')
+  def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
@@ -10,7 +10,7 @@ module FormattingHelper
     text = linkify(text, links, links_citation_style)
     text = headerize(text)
     text = sectionize(text)
-    text = annotate(text)
+    text = annotated ? annotate(text) : remove_annotations(text)
     text = paragraphize(text)
     text = denumber_headers(text)
     clean_up_via_dom(text)
@@ -115,6 +115,12 @@ module FormattingHelper
     else
       render 'notes/text', text: text
     end
+  end
+
+  def remove_annotations(text)
+    text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
+    text.gsub!(/\[([^\.].*? .*?)\]/, '')
+    "<section class=\"body\">#{ text.html_safe }</section>"
   end
 
   def clean_up(text, clean_up_dom = true)

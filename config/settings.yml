@@ -8,6 +8,8 @@ defaults: &defaults
   promote:
     home: 3
     footer: 3
+  author: Joe Gatt
+  title: Nembrot
   admin:
     name: Joe
     email: joe@nembrot.org

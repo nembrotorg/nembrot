@@ -90,7 +90,10 @@ en:
       other_view_html: " <a href=\"%{path}\">See map</a>."
     map:
       title: 'Notes'
-      statistics: "%{count} mapped notes (%{word_count} words)."
+      statistics:
+        zero: "0 mapped notes."
+        one: "1 mapped note."
+        other:  "%{count} mapped notes."
       other_view_html: " <a href=\"%{path}\">See list</a>."
     show:
       title: "Note %{id}"

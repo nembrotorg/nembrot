@@ -29,7 +29,6 @@ class Note < ActiveRecord::Base
   scope :blurbable, -> { where('word_count > ?', (Settings.notes.blurb_length / Settings.lang.average_word_length)) }
   scope :citations, -> { where(is_citation: true) }
   scope :listable, -> { where(listable: true, is_citation: false) }
-  scope :mappable, -> { where('latitude IS NOT ?', nil) }
   scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
   scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
   scope :publishable, -> { where(active: true, hide: false) }
@@ -42,6 +41,10 @@ class Note < ActiveRecord::Base
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
   after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
+
+  def self.mappable
+    all.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
+  end
 
   def self.promotable
     all.keep_if { |note| note.has_instruction?('promote') }
@@ -103,6 +106,19 @@ class Note < ActiveRecord::Base
 
   def gmaps4rails_title
     title
+  end
+
+  # If the note has no geo information then we try to infer it from the image
+  def inferred_latitude
+    latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude 
+  end
+
+  def inferred_longitude
+    longitude.nil? ? (resources.first.nil? ? nil : resources.first.longitude) : longitude 
+  end
+
+  def inferred_altitude
+    altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude 
   end
 
   private

@@ -40,7 +40,18 @@ describe 'Notes' do
 
     context 'when a mappable note exists' do
       before do
-        @note.update_attributes(latitude: 25, longitude: 25, active: true)
+        @note.update_attributes(latitude: 25, longitude: 25, active: true, instruction_list: ['__PUBLISH', '__MAP'])
+        visit notes_path
+      end
+      it 'should link to map' do
+        page.should have_link('See map', href: notes_map_path)
+      end
+    end
+
+    context 'when a mappable note exists via image' do
+      before do
+        @note.update_attributes(latitude: nil, longitude: nil, active: true, instruction_list: ['__PUBLISH', '__MAP'])
+        @resource = FactoryGirl.create(:resource, latitude: 25, longitude: 25, note: @note)
         visit notes_path
       end
       it 'should link to map' do
@@ -173,8 +184,19 @@ describe 'Notes' do
 
     context 'when a note has a map' do
       before do
-        @resource = FactoryGirl.create(:resource, note: @note, latitude: 25, longitude: 25)
-        visit note_path(@resource.note)
+        @note.update_attributes(latitude: 25, longitude: 25, active: true, instruction_list: ['__PUBLISH', '__MAP'])
+        visit note_path(@note)
+      end
+      it 'should display map' do
+        pending "page.should have_css(\"div.map\")"
+      end
+    end
+
+    context 'when a note has a map via an image' do
+      before do
+        @note.update_attributes(latitude: nil, longitude: nil, active: true, instruction_list: ['__PUBLISH', '__MAP'])
+        @resource = FactoryGirl.create(:resource, latitude: 25, longitude: 25, note: @note)
+        visit note_path(@note)
       end
       it 'should display map' do
         pending "page.should have_css(\"div.map\")"

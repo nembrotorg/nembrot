@@ -16,10 +16,10 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.publishable.listable.mappable.load
+    @notes = Note.publishable.listable.blurbable.mappable
     @word_count = @notes.sum(:word_count)
 
-    @map = mapify(@notes.mappable)
+    @map = mapify(@notes)
 
     add_breadcrumb I18n.t('map'), notes_map_path
 
@@ -33,7 +33,7 @@ class NotesController < ApplicationController
     @note = Note.publishable.find(params[:id])
     @tags = @note.tags
 
-    @map = mapify(@notes) unless @note.latitude.nil?
+    @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
     # add_breadcrumb I18n.t('notes.versions.show.title', sequence: @note.versions.size),

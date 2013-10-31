@@ -15,5 +15,5 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
     = render 'shared/notes_list', notes: @notes.first(Settings.notes.index.page_size) unless @notes.empty?
 
     aside.statistics
-      = t('.statistics', count: number_with_delimiter(@notes.size), word_count: number_with_delimiter(@word_count))
+      = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
       = t('.other_view_html', path: notes_map_path) unless @map.blank?

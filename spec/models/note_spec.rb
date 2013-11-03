@@ -123,20 +123,31 @@ describe Note do
 
     context 'when a note is not much older or different than the last version' do
       before do
-        note.body = note.body + ' Extra word.'
+        note.body = note.body + 'a'
         note.external_updated_at = 199.minutes.ago
-        note.save
+        note.save!
       end
       it 'does not save a version' do
         note.versions.should be_empty
       end
     end
 
-    context 'when a note is not much older than but is different from the last version' do
+    context 'when a note is not much older but is longer from the last version' do
       before do
         note.body = note.body + ' More than ten words, enough to go over threshold in settings.'
         note.external_updated_at = 199.minutes.ago
-        note.save
+        note.save!
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+
+    context 'when a note is not much older, is the same length, but is different from the last version' do
+      before do
+        note.body = note.body.split("").shuffle.join
+        note.external_updated_at = 199.minutes.ago
+        note.save!
       end
       it 'saves a version' do
         note.versions.should_not be_empty
@@ -162,6 +173,7 @@ describe Note do
         note.versions.last.sequence.should == note.versions.size
         note.versions.last.tag_list = %w(first_tag)
         note.versions.last.word_count.should == 2
+        note.versions.last.distance.should == 51
       end
     end
   end

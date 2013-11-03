@@ -15,14 +15,15 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Settings.notes.version_gap_minutes.minutes || (Note.find(note.id).word_count - note.word_count).abs > Settings.notes.version_gap_word_count  },
+                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Settings.notes.version_gap_minutes.minutes || note.distance > Settings.notes.version_gap_distance  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
-                    external_updated_at:  proc { |note| Note.find(note.id).external_updated_at },
-                    instruction_list:  proc { |note| Note.find(note.id).instruction_list },
-                    sequence:  proc { |note| note.versions.length + 1 },  # To retrieve by version number
-                    tag_list:  proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tags
-                    word_count:  proc { |note| Note.find(note.id).word_count }
+                    external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
+                    instruction_list: proc { |note| Note.find(note.id).instruction_list },
+                    sequence: proc { |note| note.versions.length + 1 },  # To retrieve by version number
+                    tag_list: proc { |note| Note.find(note.id).tag_list }, # Note.tag_list would store incoming tags
+                    word_count: proc { |note| Note.find(note.id).word_count },
+                    distance: proc { |note| Note.find(note.id).distance }
                   }
 
   default_scope { order('external_updated_at DESC') }
@@ -170,6 +171,7 @@ class Note < ActiveRecord::Base
     keep_old_date?
     update_lang
     update_word_count
+    update_distance
   end
 
   def discard_versions?
@@ -204,4 +206,9 @@ class Note < ActiveRecord::Base
     self.word_count = clean_body.split.size
   end
 
+  def update_distance
+    # This crashes Ruby
+    previous_title_and_body = body_was.nil? ? '' : title_was + body_was
+    self.distance = Levenshtein.distance(previous_title_and_body, title + body)
+  end
 end

@@ -194,6 +194,9 @@ GEM
     kgio (2.8.1)
     launchy (2.3.0)
       addressable (~> 2.3)
+    levenshtein-ffi (1.0.2)
+      ffi
+      ffi
     libnotify (0.8.2)
       ffi (>= 1.0.11)
     listen (2.2.0)
@@ -432,6 +435,7 @@ DEPENDENCIES
   json
   kgio
   launchy
+  levenshtein-ffi
   libnotify
   meta-tags
   mini_magick

@@ -54,7 +54,7 @@ defaults: &defaults
     attempts: 3
     truncate_after_regexp: '--30--'
     version_gap_minutes: 60
-    version_gap_word_count: 100
+    version_gap_distance: 1000
     synch_every_minutes: 1
     instructions:
       citation: ['__QUOTE', '__CITATION']
@@ -126,7 +126,7 @@ test:
     attempts: 3
     truncate_after_regexp: '--30--'
     version_gap_minutes: 60
-    version_gap_word_count: 5
+    version_gap_distance: 10
     instructions:
       citation: ['__QUOTE', '__CITATION']
       default: ['__TRI']

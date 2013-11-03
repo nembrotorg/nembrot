@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903210802) do
+ActiveRecord::Schema.define(version: 20131103155255) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20130903210802) do
     t.boolean  "is_citation",                   default: false
     t.boolean  "listable",                      default: true
     t.integer  "word_count"
+    t.integer  "distance"
   end
 
   create_table "resources", force: true do |t|
@@ -204,6 +205,7 @@ ActiveRecord::Schema.define(version: 20130903210802) do
     t.text     "instruction_list",    limit: 255
     t.integer  "word_count"
     t.datetime "external_updated_at"
+    t.integer  "distance"
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"

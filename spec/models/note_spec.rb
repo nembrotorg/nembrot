@@ -22,6 +22,11 @@ describe Note do
   it { should respond_to(:fx) }
   it { should respond_to(:active) }
   it { should respond_to(:hide) }
+  it { should respond_to(:place) }
+  it { should respond_to(:latitude) }
+  it { should respond_to(:longitude) }
+  it { should respond_to(:altitude) }
+  it { should respond_to(:content_class) }
 
   it { should have_many(:evernote_notes) }
   it { should have_many(:resources) }

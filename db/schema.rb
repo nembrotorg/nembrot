@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103155255) do
+ActiveRecord::Schema.define(version: 20131103214906) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 20131103155255) do
     t.boolean  "listable",                      default: true
     t.integer  "word_count"
     t.integer  "distance"
+    t.string   "place"
+    t.string   "content_class"
   end
 
   create_table "resources", force: true do |t|

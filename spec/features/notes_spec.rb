@@ -61,7 +61,7 @@ describe 'Notes' do
 
     context 'when a note is not in the default language' do
       before do
-        Settings.deep_merge!({ 'lang' => { 'rtl_langs' => ['ar'] } })
+        Settings.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'
@@ -166,7 +166,7 @@ describe 'Notes' do
     context 'when a note is in an RTL language' do
       before do
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
-        Settings.deep_merge!({ 'lang' => { 'rtl_langs' => ['ar'] } })
+        Settings.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'
@@ -252,7 +252,7 @@ describe 'Notes' do
 
     context 'when a note is in an RTL language' do
       before do
-        Settings.deep_merge!({ 'lang' => { 'rtl_langs' => ['ar'] } })
+        Settings.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'

@@ -22,4 +22,4 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'google_analytics' unless Settings.google_analytics_key.blank?
 
-    = render 'async_share_scripts' if Settings.share
+    = render 'async_share_scripts' if Settings.channel.share

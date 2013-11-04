@@ -1,13 +1,6 @@
-# All Nembrot settings go here except for secret strings
-
 defaults: &defaults
   styling:
-    colors:
-      red: '#900'
-      green: '#090'
-      blue: '#009'
     background_color: '#fff'
-    body_font: 'NOT USED'
     body_font_citation_color: '#000'
     body_font_citation_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     body_font_citation_size: '15px'
@@ -18,9 +11,7 @@ defaults: &defaults
     caption_color: '#454545'
     citation_style: 'default'
     column_width: 60
-    total_columns: 12
     container_style: magic
-    grid_padding: 0
     count_color: '#900'
     css_for_instructions: ['__FX_POL']
     delete_font_color: '#000'
@@ -29,6 +20,7 @@ defaults: &defaults
     font_family: 'DejaVuSansCondensed, Arial, Helvetica, sans-serif'
     font_size: '15px'
     furniture_color: '#666'
+    grid_padding: 0
     gutter_width: 30
     headline_font: 'DejaVuSansCondensed'
     headline_font_color: '#900'
@@ -45,8 +37,8 @@ defaults: &defaults
     map_background_color: '#ccc'
     map_font_color: '#333'
     monospace_font: 'DejaVuMonoBook'
-    monospace_font_variant: 'mono_book'
     monospace_font_family: 'DejaVuMonoBook, monospace'
+    monospace_font_variant: 'mono_book'
     off_color: '#999'
     qr_code_image_size: 150
     secondary_color: '#333'
@@ -55,6 +47,7 @@ defaults: &defaults
     small_font_size: '13px'
     static_url_color: '#090'
     success_background_color: '#45ff45'
+    total_columns: 12
     total_width: '100%'
     images:
       effects:

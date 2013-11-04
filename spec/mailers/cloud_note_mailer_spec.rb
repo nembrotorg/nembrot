@@ -15,15 +15,15 @@ describe CloudNoteMailer do
     end
 
     it 'renders the receiver email' do
-      mail.to.should == [Settings.monitoring.email]
+      mail.to.should == [Settings.channel.monitoring_email]
     end
 
     it 'renders the sender email' do
-      mail.from.should == [Settings.admin.email]
+      mail.from.should == [Settings.admin_email]
     end
 
     it 'assigns @name' do
-      mail.body.encoded.should match(Settings.monitoring.name)
+      mail.body.encoded.should match(Settings.channel.monitoring_name)
     end
 
     it 'assigns @user' do

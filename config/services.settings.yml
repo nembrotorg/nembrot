@@ -1,9 +1,27 @@
 # All Nembrot settings go here except for secret strings
 
 defaults: &defaults
+  evernote_server: https://sandbox.evernote.com
   facebook_app_id: 142214389156795
   google_analytics_key: 'UA-1346274-1'
   twitter_user_name: nembrot
+  books:
+    google_books:
+      domain: 'https://www.googleapis.com'
+      path: '/books/v1/volumes'
+      active?: true
+    isbndb:
+      domain: 'http://isbndb.com'
+      path: '/api/v2/json/'
+      active?: true
+    open_library:
+      domain: 'http://openlibrary.org'
+      path: '/api/books'
+      active?: true
+    world_cat:
+      domain: 'http://www.worldcat.org'
+      path: '/webservices/catalog/content/isbn/'
+      active?: true
 
 development:
   <<: *defaults
@@ -13,6 +31,8 @@ test:
 
 staging:
   <<: *defaults
+  evernote_server: https://www.evernote.com
 
 production:
   <<: *defaults
+  evernote_server: https://www.evernote.com

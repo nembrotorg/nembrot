@@ -1,0 +1,105 @@
+defaults: &defaults
+  channel:
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    always_reset_on_create: true
+    assets_version: '1.1'
+    attempts: 3
+    author: Joe Gatt
+    average_word_length: 5.5
+    blurb_length: 400
+    blurb_omission: '...'
+    citation_blurb_length: 230
+    citation_max_length: 9999
+    citations_index_page_size: 30
+    contact_email: joe@nembrot.org
+    contact_name: Joe
+    detect_language_sample_length: 250
+    evernote_notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    instructions_citation: ['__QUOTE', '__CITATION']
+    instructions_default: ['__TRI']
+    instructions_hide: ['__HIDE']
+    instructions_hide_image: ['__HIDE_IMAGE', '__NO_IMAGE']
+    instructions_ignore: ['__IGNORE', '__HOLD']
+    instructions_map: ['__MAP']
+    instructions_promote: ['__PROMOTE']
+    instructions_required: ['__PUBLISH']
+    instructions_reset: ['__RESET']
+    instructions_unlist: ['__UNLIST', '__NO_LIST']
+    instructions_unversion: ['__UNVERSION', '__NO_VERSION']
+    locale: en
+    monitoring_email: joe@nembrot.org
+    monitoring_name: Joe
+    notes_index_page_size: 30
+    promote_footer: 3
+    promote_home: 3
+    share: true
+    tags_index_minimum_count: 2
+    tags_index_style: false
+    title: Nembrot
+    title_length: 40
+    truncate_after_regexp: '--30--'
+    version_gap_distance: 1000
+    version_gap_minutes: 60
+    web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet',
+                    'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet',
+                    'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  channel:
+    allowed_html_attributes: ['href', 'src', 'alt', 'cite']
+    allowed_html_tags: ['a', 'blockquote', 'del', 'ins', 'li', 'ol', 'ul', 'img', 'strong']
+    always_reset_on_create: true
+    assets_version: '1.1'
+    attempts: 3
+    author: Joe Gatt
+    average_word_length: 5.5
+    blurb_length: 40
+    blurb_omission: '...'
+    citation_blurb_length: 230
+    citation_max_length: 9999
+    citations_index_page_size: 30
+    contact_email: joe@nembrot.org
+    contact_name: Joe
+    detect_language_sample_length: 250
+    evernote_notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    instructions_citation: ['__QUOTE', '__CITATION']
+    instructions_default: ['__TRI']
+    instructions_hide: ['__HIDE']
+    instructions_hide_image: ['__HIDE_IMAGE', '__NO_IMAGE']
+    instructions_ignore: ['__IGNORE', '__HOLD']
+    instructions_map: ['__MAP']
+    instructions_promote: ['__PROMOTE']
+    instructions_required: ['__PUBLISH']
+    instructions_reset: ['__RESET']
+    instructions_unlist: ['__UNLIST', '__NO_LIST']
+    instructions_unversion: ['__UNVERSION', '__NO_VERSION']
+    locale: en
+    monitoring_email: joe@nembrot.org
+    monitoring_name: Joe
+    notes_index_page_size: 30
+    promote_footer: 3
+    promote_home: 3
+    share: true
+    tags_index_minimum_count: 2
+    tags_index_style: false
+    title: Nembrot
+    title_length: 40
+    truncate_after_regexp: '--30--'
+    version_gap_distance: 10
+    version_gap_minutes: 60
+    web_channels: ['facebook.com/joegattnet', 'twitter.com/joegattnet', 'github.com/joegattnet',
+                    'googleplus.com/joegattnet', 'youtube.com/joegattnet', 'vimeo.com/joegattnet',
+                    'soundcloud.com/joegattnet', 'spotify.com/joegattnet']
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  channel:
+    evernote_notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd

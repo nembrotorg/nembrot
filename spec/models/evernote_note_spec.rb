@@ -65,7 +65,7 @@ describe EvernoteNote do
 
   describe '#max_out_attempts increments attempts' do
     before { @evernote_note.max_out_attempts }
-    its(:attempts) { should >=  Settings.notes.attempts }
+    its(:attempts) { should >=  Settings.channel.attempts }
   end
 
   describe 'scope :need_syncdown contains all dirty notes' do
@@ -79,7 +79,7 @@ describe EvernoteNote do
     before do
       @evernote_note = FactoryGirl.create(:evernote_note,
                                         dirty: true,
-                                        attempts: Settings.notes.attempts + 1)
+                                        attempts: Settings.channel.attempts + 1)
     end
     EvernoteNote.need_syncdown.last.should == nil
   end

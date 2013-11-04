@@ -62,7 +62,7 @@ describe FormattingHelper do
 
   describe '#sanitize_from_db' do
     it 'truncates all text after --30-- or similar' do
-      sanitize_from_db("Text.#{ Settings.notes.truncate_after_regexp }THIS SHOULD NOT\n BE INCLUDED.")
+      sanitize_from_db("Text.#{ Settings.channel.truncate_after_regexp }THIS SHOULD NOT\n BE INCLUDED.")
         .should == 'Text.'
     end
     it 'removes superfluous html tags and attributes' do

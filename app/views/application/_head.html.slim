@@ -13,7 +13,7 @@ head
 
   = csrf_meta_tag
 
-  = auto_discovery_link_tag :atom, notes_url(:atom), title: Settings.title
+  = auto_discovery_link_tag :atom, notes_url(:atom), title: Settings.channel.title
 
   = stylesheet_link_tag 'application'
 

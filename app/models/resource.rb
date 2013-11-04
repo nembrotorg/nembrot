@@ -9,8 +9,8 @@ class Resource < ActiveRecord::Base
 
   scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.channel.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Settings.channel.attempts).order('updated_at') }
 
   validates :note, presence: true
   validates :cloud_resource_identifier, presence: true, uniqueness: true
@@ -27,7 +27,7 @@ class Resource < ActiveRecord::Base
   def sync_binary
     unless File.file?(raw_location)
       increment_attempts
-      Settings.evernote.stream_binaries ? stream_binary : download_binary
+      Settings.stream_binaries ? stream_binary : download_binary
       # We check that the resource has been downloaded correctly, if so we unflag the resource.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
     end

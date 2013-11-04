@@ -13,8 +13,8 @@ class Link < ActiveRecord::Base
     .joins('left outer join links_notes on links.id = links_notes.link_id')
     .where('links_notes.link_id IS NOT ?', nil)
     .uniq }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.channel.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Settings.channel.attempts).order('updated_at') }
 
   validates :url, presence: true, uniqueness: true
   validates :url, url: true

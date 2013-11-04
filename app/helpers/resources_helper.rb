@@ -30,7 +30,7 @@ module ResourcesHelper
 
     if image_record.nil?
       logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
-      return Settings.images.default_blank_location
+      return Settings.blank_image_location
     end
 
     file_name_template = image_record.template_location(aspect_x, aspect_y)

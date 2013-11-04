@@ -126,7 +126,7 @@ describe 'Notes' do
     context 'when a note has an attachment' do
       before do
         @resource = FactoryGirl.create(:resource, note: @note, mime: 'application/pdf')
-        visit note_path(@resource.note)
+        visit note_path(@note)
       end
       it 'should display downloadable files' do
         pending "page.should have_css(\"a[href*=#{@resource.local_file_name}]\")"

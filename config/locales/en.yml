@@ -31,12 +31,18 @@ en:
   books:
     index:
       title: 'Bibliography'
-      statistics: "%{count} books (%{references_count} references)."
+      statistics:
+        zero: "0 books."
+        one: "1 book (%{references_count} references)."
+        other: "%{count} books (%{references_count} references)."
     admin:
       title: "Bibliography admin: %{mode}"
       title_no_mode: "Bibliography admin"
       title_short: 'Admin'
       statistics: "%{count} books."
+        zero: "0 books."
+        one: "1 book."
+        other: "%{count} books."
     edit:
       title: "Edit book (ISBN %{isbn})"
       not_found: "Book: %{slug} is not available."
@@ -61,7 +67,10 @@ en:
   citations:
     index:
       title: 'Citations'
-      statistics: "%{count} citations from %{books_count} books and %{links_count} websites."
+      statistics:
+        zero: "0 citations."
+        one: "1 citation."
+        other: "%{count} citations from %{books_count} books and %{links_count} websites."
     show:
       title: "Citation %{id}"
       not_found: "Citation %{id} is not available."
@@ -73,7 +82,10 @@ en:
     admin:
       title: 'Links admin'
       title_short: 'Admin'
-      statistics: "%{count} links."
+      statistics:
+        zero: "0 links."
+        one: "1 link."
+        other: "%{count} links."
     edit:
       title: "Edit url from %{channel}"
       not_found: "Url: %{url} is not available."
@@ -86,7 +98,10 @@ en:
   notes:
     index:
       title: 'Notes'
-      statistics: "%{count} notes (%{word_count} words)."
+      statistics:
+        zero: "0 notes."
+        one: "1 note (%{word_count} words)."
+        other: "%{count} notes (%{word_count} words)."
       other_view_html: " <a href=\"%{path}\">See map</a>."
     map:
       title: 'Notes'
@@ -137,15 +152,33 @@ en:
         raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
         record_not_found: "Record not found when cutting %{local_file_name}"
 
+  settings:
+    edit:
+      title: 'Settings'
+      success: "Settings updated successfully!"
+      failure: 'Update failed!'
+      reset:
+        label_channel: "Reset channel settings"
+        label_style: "Reset style settings"
+    reset:
+      success_channel: "Channel settings have been reset!"
+      success_style: "Style settings have been reset!"
+
   tags:
     index:
       title: 'Tags'
       statistics: "%{count} tags (%{references_count} references)."
+        zero: "0 tags."
+        one: "1 tag (%{references_count} references)."
+        other: "%{count} tags (%{references_count} references)."
     show:
       title: "Tag: \"%{name}\""
       title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
-      statistics: "%{count} notes (%{word_count} words)."
+      statistics:
+        zero: "0 notes."
+        one: "1 note (%{word_count} words)."
+        other: "%{count} notes (%{word_count} words)."
       other_view_html: " <a href=\"%{path}\">See map</a>."
     map:
       title: 'Notes'

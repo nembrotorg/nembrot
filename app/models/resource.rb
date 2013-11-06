@@ -92,9 +92,9 @@ class Resource < ActiveRecord::Base
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
     elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is in Latin script and at least 5 characters
-      new_name = caption[0..Setting['style.images_name_length']]
+      new_name = caption[0..Setting['style.images_name_length'].to_i]
     elsif description && !description[/[a-zA-Z\-]{5,}/].blank?
-      new_name = description[0..Setting['style.images_name_length']]
+      new_name = description[0..Setting['style.images_name_length'].to_i]
     elsif file_name && !file_name.empty?
       new_name = File.basename(file_name, File.extname(file_name))
     end

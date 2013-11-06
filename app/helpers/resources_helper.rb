@@ -37,13 +37,13 @@ module ResourcesHelper
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
     # Shorthand: small integers are taken to be number of columns rather than absolute width
-    width = column_width(width) if width <= Setting['style.total_columns']
+    width = column_width(width) if width <= Setting['style.total_columns'].to_i
 
     # The height is derived from the aspect ratio and width.
     height = (width * aspect_y) / aspect_x
 
     # We snap the height to nearest baseline to maintain a vertical grid.
-    height = round_nearest(height, Setting['style.line_height']) if snap == '1'
+    height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
 
     # We check if a (manually-cropped) template exists.
     file_name_in = (File.exists?(file_name_template) ? file_name_template : image_record.raw_location)
@@ -81,7 +81,7 @@ module ResourcesHelper
   end
 
   def column_width(columns)
-    (Setting['style.column_width'] * columns) + (Setting['style.gutter_width'] * (columns - 1))
+    (Setting['style.column_width'].to_i * columns) + (Setting['style.gutter_width'].to_i * (columns - 1))
   end
 
   # FROM: http://maxivak.com/crop-and-resize-an-image-using-minimagick-ruby-on-rails/

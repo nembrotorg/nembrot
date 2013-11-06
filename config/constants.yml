@@ -18,7 +18,7 @@ defaults: &defaults
     domain: mail.nembrot.org
   repository: git://github.com/joegattnet/joegattnet_v3.git
   role_name: nembrot.org
-  rtl_langs: ['ar', 'fa']
+  rtl_langs: 'ar fa'
   stream_binaries: false
   synchronous: false
   version: 0.9

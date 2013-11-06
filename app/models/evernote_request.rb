@@ -53,7 +53,7 @@ class EvernoteRequest
   end
 
   def evernote_notebook_required?
-    required = %w(Setting['channel.evernote_notebooks']).include?(cloud_note_metadata.notebookGuid)
+    required = Setting['channel.evernote_notebooks'].split(/ |, ?/).include?(cloud_note_metadata.notebookGuid)
     unless required
       evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)

@@ -348,7 +348,7 @@ describe Note do
   end
 
   describe 'lang_from_cloud' do
-    Setting['channel.detect_language_sample_length'].to_i = 100
+    Setting['channel.detect_language_sample_length'] = 100
     context 'when text is in Enlish' do
       before do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.")

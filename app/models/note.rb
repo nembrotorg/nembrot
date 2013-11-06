@@ -137,7 +137,7 @@ class Note < ActiveRecord::Base
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
-      response = DetectLanguage.simple_detect(content[0..Constant.detect_language_sample_length])
+      response = DetectLanguage.simple_detect(content[0..Constant.detect_language_sample_length.to_i])
       lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
     end
     self.lang = lang
@@ -176,7 +176,7 @@ class Note < ActiveRecord::Base
 
   def discard_versions?
     if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Setting['channel.always_reset_on_create']
+      self.external_updated_at = versions.first.reify.external_updated_at if Setting['channel.always_reset_on_create'] == 'true'
       versions.destroy_all
     end
   end

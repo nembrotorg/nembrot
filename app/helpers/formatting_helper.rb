@@ -41,8 +41,8 @@ module FormattingHelper
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize(text,
-                    tags: %w(Setting['channel.allowed_html_tags']) - ['span'],
-                    attributes: %w(Setting['channel.allowed_html_attributes']))
+                    tags: Setting['channel.allowed_html_tags'].split(/, ?| /) - ['span'],
+                    attributes: Setting['channel.allowed_html_attributes'].split(/, ?| /))
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end
@@ -125,7 +125,7 @@ module FormattingHelper
 
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Setting['style.hyper_conform']
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -135,7 +135,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Setting['style.style.hyper_conform']
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     dom = Nokogiri::HTML(text)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }

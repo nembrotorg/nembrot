@@ -3,6 +3,7 @@
 describe NotesController do
 
   before(:each) do
+    Setting['channel.blurb_length'] = 4
     @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
     @note.update_attributes(title: 'New Title', external_updated_at: 100.minutes.ago)
     @note.update_attributes(title: 'Newer Title', external_updated_at: 1.minute.ago)

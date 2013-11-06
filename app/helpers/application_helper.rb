@@ -7,13 +7,13 @@ module ApplicationHelper
   end
 
   def body_dir_attr(language)
-    Constant.rtl_langs.include?(language) ? 'rtl' : 'ltr'
+    Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
   end
 
   def dir_attr(language)
     if language != I18n.locale.to_s
-      page_direction = Constant.rtl_langs.include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
-      this_direction = Constant.rtl_langs.include?(language) ? 'rtl' : 'ltr'
+      page_direction = Constant.rtl_langs.split(/, ?| /).include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
+      this_direction = Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
       this_direction if page_direction != this_direction
     end
   end
@@ -39,8 +39,10 @@ module ApplicationHelper
   end
 
   def css_instructions(note_instructions)
+    # If an instruction is listed in css_for_instructions, it is written out as a css class
+    # TODO: Test for this
     (note_instructions & Setting['style.css_for_instructions'].split(/, ?| /)).collect do |c|
-        'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
+      'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
     end
   end
 

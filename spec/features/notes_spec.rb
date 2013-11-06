@@ -6,6 +6,14 @@ describe 'Notes' do
 
   include ResourcesHelper
 
+  before(:each) do
+    Constant['rtl_langs'] = 'ar'
+    Setting['channel.blurb_length'] = 40
+    Setting['channel.instructions_map'] = '__MAP'
+    Setting['channel.version_gap_distance'] = 10
+    Setting['channel.version_gap_minutes'] = 60
+  end
+
   describe 'index page' do
     before do
       @note = FactoryGirl.create(:note)
@@ -61,7 +69,6 @@ describe 'Notes' do
 
     context 'when a note is not in the default language' do
       before do
-        Constant.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'
@@ -165,8 +172,8 @@ describe 'Notes' do
 
     context 'when a note is in an RTL language' do
       before do
+        Constant['rtl_langs'] = 'ar'
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
-        Constant.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'
@@ -252,7 +259,6 @@ describe 'Notes' do
 
     context 'when a note is in an RTL language' do
       before do
-        Constant.deep_merge!({ 'rtl_langs' => ['ar'] })
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
         @note.title = 'تشريح الكآبة'

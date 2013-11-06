@@ -33,7 +33,7 @@ class EvernoteNote < ActiveRecord::Base
 
   def self.bulk_sync
     filter = Evernote::EDAM::NoteStore::NoteFilter.new(
-      notebookGuid: %w(Setting['channel.evernote_notebooks']),
+      notebookGuid: Setting['channel.evernote_notebooks'].split(/ |, ?/),
       words: Setting['channel.instructions_required'].gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
       order: 2,
       ascending: false

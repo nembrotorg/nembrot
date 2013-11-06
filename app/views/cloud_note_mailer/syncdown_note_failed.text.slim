@@ -1,8 +1,8 @@
-=t('email.greeting', name: Settings.channel.monitoring_name)
+=t('email.greeting', name: Setting['channel.monitoring_name'])
 | \
 =t("notes.sync.#{ @error }.email.body", provider: @provider, guid: @guid, title: @title, username: @username)
 | \
-#{ Settings.evernote_server }/Home.action#st=p&n=#{ @guid }
+#{ Constant.evernote_server }/Home.action#st=p&n=#{ @guid }
 | \
 =@error
 | \

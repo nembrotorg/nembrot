@@ -4,13 +4,13 @@ class GoogleBooksRequest
 
   include HTTParty
 
-  base_uri Settings.books.google_books.domain
+  base_uri Constant.books.google_books.domain
 
   attr_accessor :metadata
 
   def initialize(isbn)
     params = { 'country' => 'GB', 'q' => "ISBN:#{ isbn }", 'maxResults' => 1 }
-    response = self.class.get(Settings.books.google_books.path, query: params)
+    response = self.class.get(Constant.books.google_books.path, query: params)
 
     populate(response, isbn) if response && response['items'].first['volumeInfo']
 

@@ -10,9 +10,9 @@ class Book < ActiveRecord::Base
 
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.channel.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Setting['channel.attempts'].to_i).order('updated_at') }
   scope :metadata_missing, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.channel.attempts).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['channel.attempts'].to_i).order('updated_at') }
   scope :cited, -> { where('title IS NOT ? AND tag IS NOT ?', nil, nil)
     .joins('left outer join books_notes on books.id = books_notes.book_id')
     .where('books_notes.book_id IS NOT ?', nil)
@@ -87,13 +87,13 @@ class Book < ActiveRecord::Base
   # REVIEW: this fails if protected and called through sync_all
   def populate!
     increment_attempts
-    merge(WorldCatRequest.new(isbn).metadata)      if Settings.books.world_cat.active?
-    merge(IsbndbRequest.new(isbn).metadata)        if Settings.books.isbndb.active?
-    merge(GoogleBooksRequest.new(isbn).metadata)   if Settings.books.google_books.active?
-    merge(OpenLibraryRequest.new(isbn).metadata)   if Settings.books.open_library.active?
+    merge(WorldCatRequest.new(isbn).metadata)      if Constant.books.world_cat.active?
+    merge(IsbndbRequest.new(isbn).metadata)        if Constant.books.isbndb.active?
+    merge(GoogleBooksRequest.new(isbn).metadata)   if Constant.books.google_books.active?
+    merge(OpenLibraryRequest.new(isbn).metadata)   if Constant.books.open_library.active?
     undirtify(false) unless metadata_missing?
     SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_metadata_missing if metadata_missing? && attempts == Settings.channel.attempts
+    announce_metadata_missing if metadata_missing? && attempts == Setting['channel.attempts'].to_i
     save!
   end
 

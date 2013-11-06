@@ -6,14 +6,14 @@ head
 
   meta name="viewport" content="width=device-width" initial-scale="1.0" maximum-scale="1.0"
 
-  - if Settings.facebook_app_id
-    meta property="fb:app_id" content="#{ Settings.facebook_app_id }"
+  - if Constant.facebook_app_id
+    meta property="fb:app_id" content="#{ Constant.facebook_app_id }"
 
   = display_meta_tags
 
   = csrf_meta_tag
 
-  = auto_discovery_link_tag :atom, notes_url(:atom), title: Settings.channel.title
+  = auto_discovery_link_tag :atom, notes_url(:atom), title: Setting['channel.title']
 
   = stylesheet_link_tag 'application'
 

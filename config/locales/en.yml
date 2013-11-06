@@ -39,7 +39,7 @@ en:
       title: "Bibliography admin: %{mode}"
       title_no_mode: "Bibliography admin"
       title_short: 'Admin'
-      statistics: "%{count} books."
+      statistics:
         zero: "0 books."
         one: "1 book."
         other: "%{count} books."
@@ -154,10 +154,13 @@ en:
 
   settings:
     edit:
+      label_channel: "Channel settings"
+      label_style: "Style settings"
       title: 'Settings'
       success: "Settings updated successfully!"
       failure: 'Update failed!'
       reset:
+        confirm: "Are you sure you want to reset these settings?"
         label_channel: "Reset channel settings"
         label_style: "Reset style settings"
     reset:
@@ -167,7 +170,7 @@ en:
   tags:
     index:
       title: 'Tags'
-      statistics: "%{count} tags (%{references_count} references)."
+      statistics:
         zero: "0 tags."
         one: "1 tag (%{references_count} references)."
         other: "%{count} tags (%{references_count} references)."
@@ -184,7 +187,10 @@ en:
       title: 'Notes'
       title_short: "%{name}"
       not_found: "Tag: %{slug} is not available."
-      statistics: "%{count} mapped notes (%{word_count} words)."
+      statistics:
+        zero: "0 mapped notes."
+        one: "1 mapped note (%{word_count} words)."
+        other: "%{count} mapped notes (%{word_count} words)."
       other_view_html: " <a href=\"%{path}\">See list</a>."
 
   titlecase_exceptions:

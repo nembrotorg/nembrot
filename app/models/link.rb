@@ -13,8 +13,8 @@ class Link < ActiveRecord::Base
     .joins('left outer join links_notes on links.id = links_notes.link_id')
     .where('links_notes.link_id IS NOT ?', nil)
     .uniq }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.channel.attempts).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.channel.attempts).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['channel.attempts'].to_i).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Setting['channel.attempts'].to_i).order('updated_at') }
 
   validates :url, presence: true, uniqueness: true
   validates :url, url: true
@@ -38,7 +38,7 @@ class Link < ActiveRecord::Base
     url_candidates.push(url_candidates_in_text) unless url_candidates_in_text.empty?
     unless url_candidates.empty?
       url_candidates.flatten!
-      url_candidates = url_candidates.reject { |url_candidate| url_candidate.match(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host })) } # Remove local
+      url_candidates = url_candidates.reject { |url_candidate| url_candidate.match(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host })) } # Remove local
       url_candidates.each { |url_candidate| add_task(url_candidate) }
     end
   end

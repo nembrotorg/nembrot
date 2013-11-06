@@ -15,7 +15,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Settings.channel.version_gap_minutes.minutes || note.distance > Settings.channel.version_gap_distance  },
+                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['channel.version_gap_minutes'].to_i.minutes || note.distance > Setting['channel.version_gap_distance'].to_i  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
@@ -27,11 +27,11 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope { order('external_updated_at DESC') }
-  scope :blurbable, -> { where('word_count > ?', (Settings.channel.blurb_length / Settings.channel.average_word_length)) }
+  scope :blurbable, -> { where('word_count > ?', (Setting['channel.blurb_length'].to_i / Setting['channel.average_word_length'].to_f)) }
   scope :citations, -> { where(is_citation: true) }
   scope :listable, -> { where(listable: true, is_citation: false) }
-  scope :maxed_out, -> { where('attempts > ?', Settings.channel.attempts).order('updated_at') }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.channel.attempts).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Setting['channel.attempts'].to_i).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['channel.attempts'].to_i).order('updated_at') }
   scope :publishable, -> { where(active: true, hide: false) }
 
   validates :title, :external_updated_at, presence: true
@@ -53,11 +53,11 @@ class Note < ActiveRecord::Base
 
   def has_instruction?(instruction, instructions = instruction_list)
     instruction_to_find = ["__#{ instruction.upcase }"]
-    instruction_to_find.push(Settings.channel["instructions_#{ instruction }"]) unless Settings.channel["instructions_#{ instruction }"].nil?
+    instruction_to_find.push(Setting["channel.instructions_#{ instruction }"].split(/, ?| /)) unless Setting["channel.instructions_#{ instruction }"].nil?
     instruction_to_find.flatten!
 
     all_relevant_instructions = Array(instructions)
-    all_relevant_instructions.push(Settings.channel.instructions_default)
+    all_relevant_instructions.push(Setting['channel.instructions_default'].split(/, ?| /))
     all_relevant_instructions.flatten!
 
     !(all_relevant_instructions & instruction_to_find).empty?
@@ -100,7 +100,7 @@ class Note < ActiveRecord::Base
   end
 
   def fx
-    instructions = Settings.channel.instructions_default + Array(instruction_list)
+    instructions = Setting['channel.instructions_default'].split(/, ?| /) + Array(instruction_list)
     fx = instructions.keep_if { |i| i =~ /__FX_/ } .join('_').gsub(/__FX_/, '').downcase
     fx.empty? ? nil : fx
   end
@@ -137,7 +137,7 @@ class Note < ActiveRecord::Base
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
-      response = DetectLanguage.simple_detect(content[0..Settings.detect_language_sample_length])
+      response = DetectLanguage.simple_detect(content[0..Constant.detect_language_sample_length])
       lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
     end
     self.lang = lang
@@ -176,7 +176,7 @@ class Note < ActiveRecord::Base
 
   def discard_versions?
     if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Settings.channel.always_reset_on_create
+      self.external_updated_at = versions.first.reify.external_updated_at if Setting['channel.always_reset_on_create']
       versions.destroy_all
     end
   end

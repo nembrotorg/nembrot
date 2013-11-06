@@ -5,12 +5,12 @@ nav#tools
 
   ul
 
-    - if Settings.channel.share
+    - if Setting['channel.share']
       li.share
         ul
           li.fb-like data-colorscheme='light' data-layout='button_count' data-action='like' data-show-faces='false' data-send='false' data-width='450px'
 
-          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Settings.twitter_user_name }
+          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Constant.twitter_user_name }
 
           li
             div.g-plusone data-size='medium'
@@ -18,6 +18,7 @@ nav#tools
     - if user_signed_in? && current_user.admin?
       li.admin
         ul
+          li= link_to_unless_current_or_wrap t('settings.edit.title'), edit_settings_path
           li= link_to_unless_current_or_wrap t('books.admin.title_no_mode'), books_admin_path
           li= link_to_unless_current_or_wrap t('links.admin.title'), links_admin_path
 

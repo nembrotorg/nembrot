@@ -3,8 +3,8 @@
 describe EvernoteNote do
 
   before do
-    Settings.channel[:evernote_notebooks] = %w(NOTEBOOK_GUID)
-    Settings.channel[:instructions_required] = %w(__PUBLISH)
+    Setting['channel.evernote_notebooks'] = 'NOTEBOOK_GUID'
+    Setting['channel.instructions_required'] = '__PUBLISH'
     @evernote_request = FactoryGirl.build(:evernote_request)
   end
 
@@ -60,7 +60,7 @@ describe EvernoteNote do
 
     context 'when cloud note has an instruction to ignore' do
       before do
-        Settings.channel[:instructions_ignore] = %w(__IGNORE)
+        Setting['channel.instructions_ignore'] = '__IGNORE'
         @evernote_request.cloud_note_tags = %w(__IGNORE)
       end
       its(:update_necessary?) { should be_false }

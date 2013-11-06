@@ -6,11 +6,11 @@
 
 @import mixins.default
 
-///////////////////////////////
+//////////////////////////////
 //
 // Elements
 //
-///////////////////////////////
+//////////////////////////////
 
 ::selection
   background: $selected-background-color
@@ -595,13 +595,14 @@ footer
         overflow: visible
 
   form
-    +span-columns(6)
+    margin-bottom: $line-height
+    +span-columns(9)
     label
       input
         float: right
         width: space(6)
     input[type=button],
-    input[type=submit]    
+    input[type=submit]
       margin-top: $line-height
 
   header

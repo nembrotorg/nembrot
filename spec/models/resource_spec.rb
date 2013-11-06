@@ -52,7 +52,7 @@ describe Resource do
     end
 
     context 'when resources are maxed_out or dirty' do
-      before { @resource.update_attributes(dirty: true, attempts: Settings.channel.attempts + 1) }
+      before { @resource.update_attributes(dirty: true, attempts: Setting['channel.attempts'].to_i + 1) }
       Resource.need_syncdown.last.should == nil
     end
   end
@@ -82,7 +82,7 @@ describe Resource do
 
   describe '#max_out_attempts' do
     before { @resource.max_out_attempts }
-    its(:attempts) { should >=  Settings.channel.attempts }
+    its(:attempts) { should >=  Setting['channel.attempts'].to_i }
   end
 
   describe '#file_ext' do

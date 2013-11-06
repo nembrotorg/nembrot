@@ -34,15 +34,15 @@ module FormattingHelper
   end
 
   def sanitize_from_db(text)
-    text = text.gsub(/#{ Settings.channel.truncate_after_regexp }.*\Z/m, '')
+    text = text.gsub(/#{ Setting['channel.truncate_after_regexp'] }.*\Z/m, '')
                .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize(text,
-                    tags: Settings.channel.allowed_html_tags - ['span'],
-                    attributes: Settings.channel.allowed_html_attributes)
+                    tags: %w(Setting['channel.allowed_html_tags']) - ['span'],
+                    attributes: %w(Setting['channel.allowed_html_attributes']))
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end
@@ -79,7 +79,7 @@ module FormattingHelper
 
   def linkify(text, links, citation_style)
     # Make all local links relative
-    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host }), '')
+    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
     # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
       # Simplify links wrapped around themselves.
@@ -125,7 +125,7 @@ module FormattingHelper
 
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Settings.styling.hyper_conform
+    text = hyper_conform(text) if Setting['style.hyper_conform']
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -135,7 +135,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Settings.styling.hyper_conform
+    text = hyper_conform(text) if Setting['style.style.hyper_conform']
     dom = Nokogiri::HTML(text)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
@@ -144,7 +144,7 @@ module FormattingHelper
       t.content = smartify(t.content)
       # t.content = hyper_conform(t.content)
     end
-    dom = indent_dom(dom) if Settings.html.pretty_body
+    dom = indent_dom(dom) if Constant.html.pretty_body
     unwrap_from_paragraph_tag(dom) if unwrap_p
     dom.css('body').children.to_html.html_safe
   end

@@ -4,6 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     Secret.auth.evernote.consumer_key,
     Secret.auth.evernote.consumer_secret,
     :client_options => {
-      :site => Settings.evernote_server
+      :site => Constant.evernote_server
     }
 end

@@ -1,4 +1,4 @@
-SitemapGenerator::Sitemap.default_host = "http://#{ Settings.host }"
+SitemapGenerator::Sitemap.default_host = "http://#{ Constant.host }"
 
 SitemapGenerator::Sitemap.create do
 

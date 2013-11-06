@@ -139,7 +139,7 @@ describe Note do
 
     context 'when a note is not much older but is longer from the last version' do
       before do
-        note.body = note.body + ' More than ten words, enough to go over threshold in settings.'
+        note.body = note.body + ' More than ten words, enough to go over threshold in constants.'
         note.external_updated_at = 199.minutes.ago
         note.save!
       end
@@ -185,8 +185,8 @@ describe Note do
 
   describe '#has_instruction?' do
     before do
-      Settings.channel[:instructions_hide] = ['__HIDESYNONYM']
-      Settings.channel[:instructions_default] = ['__DEFAULT_INSTRUCTION']
+      Setting['channel.instructions_hide'] = '__HIDESYNONYM'
+      Setting['channel.instructions_default'] = '__DEFAULT_INSTRUCTION'
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
@@ -348,7 +348,7 @@ describe Note do
   end
 
   describe 'lang_from_cloud' do
-    Settings.channel[:detect_language_sample_length] = 100
+    Setting['channel.detect_language_sample_length'].to_i = 100
     context 'when text is in Enlish' do
       before do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.")

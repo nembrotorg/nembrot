@@ -5,7 +5,7 @@ footer
 
       li
         ul.promoted
-          - @promoted_notes.first(Settings.channel.promote_footer).each do |note|
+          - @promoted_notes.first(Setting['channel.promote_footer'].to_i).each do |note|
             li
               = link_to note.headline, note_path(note)
 
@@ -21,10 +21,10 @@ footer
       li
         ul.channels
 
-          - Settings.channel.web_channels.each do |link|
+          - Setting['channel.web_channels'].split(/, ?| /).each do |link|
             li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
 
           li = link_to t('atom_feed'), notes_url(:atom)
-          li = link_to Settings.channel.contact_email, "mailto:#{ Settings.channel.contact_email }"
+          li = link_to Setting['channel.contact_email'], "mailto:#{ Setting['channel.contact_email'] }"
 
   small.copyright = t('site.copyright_html')

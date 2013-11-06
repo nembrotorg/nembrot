@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   = render 'header', title: t('site.title'), document_title: document_title
 
-  - if Settings.channel.promote_home == 1
+  - if Setting['channel.promote_home'].to_i == 1
 
     - image = @promoted_notes.first.resources.first
     figure
@@ -19,6 +19,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'shared/media', url: @promoted_notes.first.source_url if @note.is_embeddable_source_url
 
-  - elsif Settings.channel.promote_home == 3
+  - elsif Setting['channel.promote_home'].to_i == 3
 
-    = render 'shared/notes_list', notes: @promoted_notes.first(3), blurb_length: Settings.channel.blurb_length
+    = render 'shared/notes_list', notes: @promoted_notes.first(3), blurb_length: Setting['channel.blurb_length'].to_i

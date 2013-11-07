@@ -154,11 +154,11 @@ en:
 
   settings:
     edit:
-      label_channel: "Channel settings"
-      label_style: "Style settings"
-      title: 'Settings'
-      success: "Settings updated successfully!"
+      channel_header: "Channel settings"
       failure: 'Update failed!'
+      style_header: "Style settings"
+      success: "Settings updated successfully!"
+      title: 'Settings'
       reset:
         confirm: "Are you sure you want to reset these settings?"
         label_channel: "Reset channel settings"

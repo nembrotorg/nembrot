@@ -16,7 +16,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       fieldset
         header
-          h2 = t('.label_channel')
+          h2 = t('.channel_header')
 
         - @channel_settings.each do |key, value|
           label for="#{ key.to_param }"
@@ -27,7 +27,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       fieldset
         header
-          h2 = t('.style_channel')
+          h2 = t('.style_header')
 
         - @style_settings.each do |key, value|
           label for="#{ key.to_param }"

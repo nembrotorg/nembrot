@@ -3,7 +3,6 @@ defaults: &defaults
     allowed_html_attributes: href src alt cite
     allowed_html_tags: a blockquote del ins li ol ul img strong
     always_reset_on_create: true
-    assets_version: 1.1
     attempts: 3
     author: Joe Gatt
     average_word_length: 5.5

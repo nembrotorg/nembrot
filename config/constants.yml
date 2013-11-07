@@ -2,6 +2,7 @@ defaults: &defaults
   admin_email: joe@nembrot.org
   admin_name: Joe
   app_name: nembrot
+  assets_version: 1.1
   blank_image_location: '/public/resources/cut/blank.png'
   daemon_frequency: 30
   detect_language_sample_length: 250

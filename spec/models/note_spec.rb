@@ -150,7 +150,7 @@ describe Note do
 
     context 'when a note is not much older, is the same length, but is different from the last version' do
       before do
-        note.body = note.body[3..-1] + note.body[0..2]
+        note.body = note.body[16..-1] + note.body[0..15]
         note.external_updated_at = 199.minutes.ago
         note.save!
       end

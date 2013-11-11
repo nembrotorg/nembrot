@@ -33,6 +33,7 @@ defaults: &defaults
     promote_footer: 3
     promote_home: 3
     share: true
+    share_with_iframes: false
     tags_index_minimum_count: 2
     tags_index_style: false
     title: Nembrot

@@ -37,5 +37,4 @@ class SettingsController < ApplicationController
   def edited_params
     params.require(:settings)
   end
-
 end

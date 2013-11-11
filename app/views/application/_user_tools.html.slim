@@ -5,16 +5,6 @@ nav#tools
 
   ul
 
-    - if Setting['channel.share'] == 'true'
-      li.share
-        ul
-          li.fb-like data-colorscheme='light' data-layout='button_count' data-action='like' data-show-faces='false' data-send='false' data-width='450px'
-
-          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Constant.twitter_user_name }
-
-          li
-            div.g-plusone data-size='medium'
-
     - if user_signed_in? && current_user.admin?
       li.admin
         ul
@@ -30,3 +20,20 @@ nav#tools
             = link_to '', destroy_user_session_path, method: :delete, title: t('users.sessions.delete.title')
         - else
           li= link_to_unless_current_or_wrap t('tools.sign_in'), new_user_session_path
+
+    - if Setting['channel.share_with_iframes'] == 'true'
+      li.share
+        ul
+          li.fb-like data-colorscheme='light' data-layout='button_count' data-action='like' data-show-faces='false' data-send='false' data-width='450px'
+
+          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Constant.twitter_user_name }
+
+          li
+            div.g-plusone data-size='medium'
+    - else
+      li.share
+        ul
+          -# More from http://petragregorova.com/social-share-buttons-with-custom-icons/
+          li= link_to '', "http://www.facebook.com/share.php?u=[URL]&title=[TITLE]"
+          li= link_to '', "http://twitter.com/home?status=[TITLE]+[URL]"
+          li= link_to '', "https://plus.google.com/share?url=[URL]"

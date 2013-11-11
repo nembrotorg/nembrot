@@ -193,7 +193,7 @@ footer
         +icon-facebook
       &[href*=github]:before
         +icon-github-circled
-      &[href*=googleplus]:before
+      &[href*=google]:before
         +icon-gplus
       &[href*=mailto]:before
         +icon-mail
@@ -517,6 +517,53 @@ footer
   h1:before
     +icon-user
 
+#tools
+  .share
+    display: block
+    margin-top: $line-height
+    iframe
+      margin-bottom: 0
+    li
+      display: inline-block
+      margin-right: $text-indent / 2
+      &.fb-like
+        overflow: visible
+      a
+        font-size: $small-font-size
+        vertical-align: -23%
+        width: $text-indent
+        &:before
+          font-size: $line-height
+          vertical-align: 23%
+        &:after
+          display: none
+        &[href*=facebook]:before
+          +icon-facebook
+          padding-right: 0.035em
+          &:hover
+            color: #006
+        &[href*=twitter]
+          &:before
+            +icon-twitter
+            padding-right: 0.45em
+            &:hover
+              color: cyan
+        &[href*=google]:before
+          +icon-gplus
+          padding-right: 0.35em
+          &:hover
+            color: #600
+        &:hover
+          &[href*=facebook]:before
+            color: #3b5998
+          &[href*=google]:before
+            color: #dd4b39
+          &[href*=twitter]:before
+            color: #00ACEE
+    &.deep-link
+      a
+        color: $count-color
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Media-queries
@@ -588,11 +635,6 @@ footer
           &:after
             // display: none
             content: ''
-    .share
-      iframe
-        margin-bottom: 0
-      li.fb-like
-        overflow: visible
 
   form
     margin-bottom: $line-height
@@ -837,6 +879,10 @@ footer
     ul
       +columns(6)
 
+  .share
+    display: inline-block
+    margin-bottom: $line-height / 2
+
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1200px)
@@ -844,9 +890,11 @@ footer
   +pass_media_query('screen-and-min-width-1200px')
 
   #tools
-    bottom: $line-height
+    bottom: 0
     left: $text-indent
     margin: 0
     position: fixed
     // top: $line-height * 6
     width: $column-width * 3px
+    .share
+      margin-top: $line-height

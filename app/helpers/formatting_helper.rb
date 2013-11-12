@@ -34,15 +34,15 @@ module FormattingHelper
   end
 
   def sanitize_from_db(text)
-    text = text.gsub(/#{ Setting['channel.truncate_after_regexp'] }.*\Z/m, '')
+    text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
                .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize(text,
-                    tags: Setting['channel.allowed_html_tags'].split(/, ?| /) - ['span'],
-                    attributes: Setting['channel.allowed_html_attributes'].split(/, ?| /))
+                    tags: Setting['advanced.allowed_html_tags'].split(/, ?| /) - ['span'],
+                    attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end

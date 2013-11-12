@@ -12,7 +12,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'header', title: t('.title'), document_title: document_title
 
-    = render 'shared/notes_list', notes: @notes.first(Setting['channel.notes_index_page_size'].to_i) unless @notes.empty?
+    = render 'shared/notes_list', notes: @notes.first(Setting['advanced.notes_index_page_size'].to_i) unless @notes.empty?
 
     aside.statistics
       = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))

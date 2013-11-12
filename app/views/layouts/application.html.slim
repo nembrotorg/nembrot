@@ -22,4 +22,4 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'google_analytics' unless Constant.google_analytics_key.blank?
 
-    = render 'async_share_scripts' if Setting['channel.share_with_iframes'] == 'true'
+    = render 'async_share_scripts' if Setting['advanced.share_with_iframes'] == 'true'

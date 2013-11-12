@@ -41,6 +41,11 @@ defaults: &defaults
     monospace_font_family: DejaVuMonoBook, monospace
     monospace_font_variant: mono_book
     off_color: '#999'
+    promotions_footer: 5
+    promotions_home_columns: 3
+    promotions_home_lines: 7
+    promotions_home_rows: 2
+    promotions_home_show_image?: false
     qr_code_image_size: 150
     secondary_color: '#333'
     selected_background_color: '#ff0'

@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   def index
 
-    @tags = Note.publishable.tag_counts_on(:tags)
+    @tags = Note.publishable.tag_counts_on(:tags, at_least: Setting['advanced.tags_minimum'].to_i)
     @references_count = @tags.to_a.sum { |t| t.count }
 
     respond_to do |format|

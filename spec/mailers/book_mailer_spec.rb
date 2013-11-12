@@ -6,7 +6,7 @@ describe BookMailer do
     let(:mail) { BookMailer.metadata_missing(book) }
 
     it 'renders the receiver email' do
-      mail.to.should == [Setting['channel.monitoring_email']]
+      mail.to.should == [Setting['advanced.monitoring_email']]
     end
 
     it 'renders the sender email' do
@@ -14,7 +14,7 @@ describe BookMailer do
     end
 
     it 'assigns @name' do
-      mail.body.encoded.should match(Setting['channel.monitoring_name'])
+      mail.body.encoded.should match(Setting['advanced.monitoring_name'])
     end
 
     it 'includes book details in the subject' do

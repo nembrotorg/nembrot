@@ -29,7 +29,7 @@ Nembrot::Application.routes.draw do
   get 'notes/map' => 'notes#map'
   get 'notes' => 'notes#index'
 
-  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|style/
+  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings
   get 'settings' => 'settings#edit', as: :edit_settings
 

@@ -31,7 +31,7 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.publishable.find(params[:id])
-    @tags = @note.tags
+    @tags = @note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
 
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
 

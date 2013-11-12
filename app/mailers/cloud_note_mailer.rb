@@ -8,7 +8,7 @@ class CloudNoteMailer < ActionMailer::Base
     @username = username
 
     mail(
-      to: Setting['channel.monitoring_email'],
+      to: Setting['advanced.monitoring_email'],
       subject: I18n.t("notes.sync.#{ error }.email.subject", provider: @provider.titlecase, guid: @guid, title: @title, username: @username),
       host: Constant.host
     )

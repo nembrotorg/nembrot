@@ -3,6 +3,7 @@
 describe 'Tags pages' do
 
   before do
+    Setting['advanced.tags_minimum'] = 1
     @note = FactoryGirl.create(:note)
     @note.update_attributes(tag_list: ['tag1'])
     @tag = @note.tags[0]
@@ -15,6 +16,13 @@ describe 'Tags pages' do
     end
     it 'has a link to tag 1' do
       page.should have_link(@tag.name, href: tag_path(@tag.slug))
+    end
+
+    context 'when this tag is attached to fewer notes than threshold' do
+      before { Setting['advanced.tags_minimum'] = 10 }
+      it 'does not have a link to tag 1' do
+        page.should_not have_link(@tag.name, href: tag_path(@tag.slug))
+      end
     end
   end
 

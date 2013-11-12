@@ -20,7 +20,7 @@ module Syncable
   end
 
   def max_out_attempts
-    self.update_attributes!(attempts: Setting['channel.attempts'].to_i + 1)
+    self.update_attributes!(attempts: Setting['advanced.attempts'].to_i + 1)
   end
 
   def merge(new_values, overwrite = false, object = self)

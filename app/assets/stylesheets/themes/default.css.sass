@@ -179,6 +179,11 @@ header
 
 footer
   ul
+    &.promotions
+      +font-color($headline-font-color)
+      li
+        a
+          text-transform: none
     +arrow-links
     // +columns(2)
     text-transform: lowercase
@@ -373,11 +378,8 @@ blockquote
 footer
   nav
     ul
-      &.promoted
+      &.promotions
         +span-columns(12)
-        li
-          a
-            text-transform: none
       &.sections
         +columns(2)
         +span-columns(12)
@@ -773,7 +775,7 @@ footer
     .notes
       clear: both
       li
-        +blurb(4, 0)
+        +blurb($promotions-home-lines, 0)
         img
           display: none
 
@@ -788,11 +790,8 @@ footer
   footer
     nav
       ul
-        &.promoted
+        &.promotions
           +span-columns(4)
-          li
-            a
-              text-transform: none
         &.sections
           +columns(2)
           +span-columns(4)
@@ -869,11 +868,12 @@ footer
       +span-columns(12)
       padding-right: 0
       ul
-        +columns(3)
+        +columns($promotions-home-columns)
         +column-gap($gutter-width * 1px)
+        margin-bottom: 0
         li
-          margin-bottom: 0
-          +blurb(9)
+          margin-bottom: $line-height
+          +blurb($promotions-home-lines)
 
   .tags-index
     ul

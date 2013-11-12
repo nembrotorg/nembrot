@@ -1,6 +1,6 @@
 atom_feed do |feed|
   feed.title(Setting['channel.title'])
-  feed.language(Setting['channel.locale'])
+  feed.language(Setting['advanced.locale'])
   feed.updated(@notes[0].external_updated_at) unless @notes.empty?
 
   @notes.each do |note|
@@ -19,7 +19,7 @@ atom_feed do |feed|
       )
 
       entry.author do |author|
-        author.name(Setting['channel.author'])
+        author.name(Setting['advanced.author'])
       end
     end
   end

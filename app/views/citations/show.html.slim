@@ -15,7 +15,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-        - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['channel.citation_max_length'].to_i)
+        - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
 
         figure.citation
           blockquote= blurbify(citation_text, @citation.books, @citation.links)

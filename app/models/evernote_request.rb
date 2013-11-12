@@ -85,7 +85,7 @@ class EvernoteRequest
   end
 
   def cloud_note_has_required_tags?
-    has_required_tags = !(Setting['channel.instructions_required'].split(/, ?| /) & cloud_note_tags).empty?
+    has_required_tags = !(Setting['advanced.instructions_required'].split(/, ?| /) & cloud_note_tags).empty?
     unless has_required_tags
       evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
@@ -94,7 +94,7 @@ class EvernoteRequest
   end
 
   def cloud_note_is_not_ignorable?
-    not_ignorable = (Setting['channel.instructions_ignore'].split(/, ?| /) & cloud_note_tags).empty?
+    not_ignorable = (Setting['advanced.instructions_ignore'].split(/, ?| /) & cloud_note_tags).empty?
     unless not_ignorable
       SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', logger_details)
       evernote_note.undirtify
@@ -123,7 +123,7 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Setting['channel.always_reset_on_create'] && evernote_note.note.new_record?
+    reset_new_note = Setting['advanced.always_reset_on_create'] && evernote_note.note.new_record?
     use_date = reset_new_note ?  cloud_note_data.created : cloud_note_data.updated
     Time.at(use_date / 1000).to_datetime
   end

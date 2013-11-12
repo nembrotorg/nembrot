@@ -9,8 +9,8 @@ class Resource < ActiveRecord::Base
 
   scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['channel.attempts'].to_i).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Setting['channel.attempts'].to_i).order('updated_at') }
+  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['advanced.attempts'].to_i).order('updated_at') }
+  scope :maxed_out, -> { where('attempts > ?', Setting['advanced.attempts'].to_i).order('updated_at') }
 
   validates :note, presence: true
   validates :cloud_resource_identifier, presence: true, uniqueness: true

@@ -23,7 +23,18 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
             | #{ key.gsub(/^.*?\./, '').humanize }:
             input name="settings[#{ key }]" type="text" value="#{ value }"
 
-        p = link_to t('.reset.label_channel'), reset_settings_path(namespace: 'channel'), confirm: t('.reset.confirm')
+        p = link_to t('.reset.label_channel'), reset_settings_path(namespace: 'channel'), data: { confirm: t('.reset.confirm') }
+
+      fieldset
+        header
+          h2 = t('.advanced_header')
+
+        - @advanced_settings.each do |key, value|
+          label for="#{ key.to_param }"
+            | #{ key.gsub(/^.*?\./, '').humanize }:
+            input name="settings[#{ key }]" type="text" value="#{ value }"
+
+        p = link_to t('.reset.label_advanced'), reset_settings_path(namespace: 'advanced'), data: { confirm: t('.reset.confirm') }
 
       fieldset
         header
@@ -34,7 +45,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
             | #{ key.gsub(/^.*?\./, '').humanize }:
             input name="settings[#{ key }]" type="text" value="#{ value }"
 
-        p = link_to t('.reset.label_style'), reset_settings_path(namespace: 'style'), confirm: t('.reset.confirm')
+        p = link_to t('.reset.label_style'), reset_settings_path(namespace: 'style'), data: { confirm: t('.reset.confirm') }
 
         input name="_method" type="hidden" value="put"
         = token_tag form_authenticity_token

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_promoted_notes
 
   def set_locale
-    I18n.locale = params[:locale] || Setting['channel.locale'] || I18n.default_locale
+    I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
   end
 
   def add_home_breadcrumb

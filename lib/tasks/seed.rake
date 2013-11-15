@@ -19,4 +19,5 @@ namespace :seed do
         version.save!
       end
     end
+  end
 end

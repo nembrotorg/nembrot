@@ -1,4 +1,4 @@
-class SeedNotesAndVersionsWithDistance < ActiveRecord::Migration
+class SeedNotesAndVersionsWithLeveshteinDistance < ActiveRecord::Migration
   def up
     Note.all.each do |n|
 

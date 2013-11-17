@@ -21,7 +21,7 @@ namespace :seed do
     end
   end
 
-  task is_citation: environment do |t, args|
+  task is_citation: :environment do |t, args|
 
     desc 'Updates is_citation? for each note'
 

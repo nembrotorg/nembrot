@@ -20,4 +20,16 @@ namespace :seed do
       end
     end
   end
+
+  task is_citation: environment do |t, args|
+
+    desc 'Updates is_citation? for each note'
+
+    Note.all.each do |n|
+      n.is_citation = n.looks_like_a_citation?(n.text_for_analysis(n.body))
+      n.hide = false
+      n.listable = true
+      n.save
+    end
+  end
 end

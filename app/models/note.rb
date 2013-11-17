@@ -43,6 +43,8 @@ class Note < ActiveRecord::Base
   after_save :scan_note_for_isbns, if: :body_changed?
   after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
 
+  paginates_per Setting['advanced.notes_index_per_page'].to_i
+
   def self.mappable
     all.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
   end

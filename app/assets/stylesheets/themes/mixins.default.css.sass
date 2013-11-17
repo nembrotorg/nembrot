@@ -117,39 +117,45 @@
     top: $line-top
     z-index: -1
 
-=sequential_nav($line-color: $furniture-color, $button-width: $text-indent)
+=icon-only($button-width: $text-indent)
+  overflow: hidden
+  width: $button-width
+
+=pagination_nav($line-color: $furniture-color, $button-width: $text-indent)
   +font-color($line-color)
   clear: both
   margin-bottom: $line-height
   ol
+    margin-top: ($line-height / 2) * -1
     position: relative
     li
       display: inline-block
       height: $line-height
-      overflow: hidden
-      position: absolute
-      width: $button-width
       .current
         color: $off-color
         &:before
           border-color: $off-color
       a, .current
         &:before
-          +icon-left
           display: block
-          line-height: $line-height / 2
           margin: ($line-height / 4) 0
           width: $button-width - 5px
+      .current
+        font-weight: bold
       &:first-child
+        +icon-left
+        +icon-only($button-width)
         a, .current
           &:before
-            +icon-to-start
+            +icon-to-start-2
       &:nth-child(2)
+        +icon-only($button-width)
         left: $button-width
         a,.current
           &:before
             +icon-left
       &:nth-last-child(2)
+        +icon-only($button-width)
         right: $button-width
         a, .current
           margin-right: 1px
@@ -157,23 +163,11 @@
             +icon-right
             text-align: right
       &:last-child
+        +icon-only($button-width)
         right: 0
         a, .current
           &:before
-            +icon-to-end
-      &.ui-slider
-        +rule-once($line-color, 2px, $line-height / 2 - 1)
-        display: block
-        left: $button-width * 2
-        position: absolute
-        right: $button-width * 2
-        width: auto
-        a.ui-slider-handle
-          position: absolute
-          width: $button-width
-          &:before
-            +icon-circle
-            cursor: pointer
+            +icon-to-end-2
 
 =transition($duration: 1s)
   transition: all $duration ease-out

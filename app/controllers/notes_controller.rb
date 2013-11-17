@@ -3,10 +3,13 @@ class NotesController < ApplicationController
   add_breadcrumb I18n.t('notes.index.title'), :notes_path
 
   def index
-    @notes = Note.publishable.listable.blurbable.load
-    @word_count = @notes.sum(:word_count)
+    page_number = params[:page] ||= 1
+    all_notes = Note.publishable.listable.blurbable
 
-    @map = @notes.mappable
+    @notes = all_notes.page(page_number).load
+    @map = all_notes.mappable
+    @total_count = all_notes.size
+    @word_count = all_notes.sum(:word_count)
 
     respond_to do |format|
       format.html

@@ -12,7 +12,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'header', title: t('.title'), document_title: document_title
 
-    = render 'books_list', books: @books unless @books.empty?
+    - unless @books.empty?
+      = render 'books_list', books: @books
 
-    aside.statistics
-      = t('.statistics', count: number_with_delimiter(@books.size), references_count: number_with_delimiter(@references_count))
+      aside.statistics
+        = t('.statistics', count: number_with_delimiter(@books_count), references_count: number_with_delimiter(@references_count))
+
+      = paginate @books

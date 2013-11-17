@@ -12,7 +12,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'header', title: t('.title'), document_title: document_title
 
-    = render 'tags_list', tags: @tags unless @tags.empty?
+    - unless @tags.empty?
+      = render 'tags_list', tags: @tags
 
-    aside.statistics
-      = t('.statistics', count: number_with_delimiter(@tags.size), references_count: number_with_delimiter(@references_count))
+      aside.statistics
+        = t('.statistics', count: number_with_delimiter(@tags_count), references_count: number_with_delimiter(@references_count))
+
+      = paginate @tags

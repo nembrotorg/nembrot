@@ -8,7 +8,7 @@ class Link < ActiveRecord::Base
 
   default_scope { order('channel') }
 
-  # OPTIMIZE: Notes must be active and not hidden (publishable)
+  # OPTIMIZE: Notes must be publishable (active and not hidden)
   scope :publishable, -> { where(dirty: false)
     .joins('left outer join links_notes on links.id = links_notes.link_id')
     .where('links_notes.link_id IS NOT ?', nil)
@@ -23,6 +23,8 @@ class Link < ActiveRecord::Base
 
   before_validation :update_channel, if: :url_changed?
   before_validation :scan_notes_for_references, if: :url_changed?
+
+  paginates_per Setting['advanced.links_index_per_page'].to_i
 
   extend FriendlyId
   friendly_id :channel, use: :slugged

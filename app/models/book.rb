@@ -29,6 +29,8 @@ class Book < ActiveRecord::Base
                      unless: :tag_changed? # || '!tag.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
+  paginates_per Setting['advanced.books_index_per_page'].to_i
+
   extend FriendlyId
   friendly_id :tag, use: :slugged
 

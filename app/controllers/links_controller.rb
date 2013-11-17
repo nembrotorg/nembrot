@@ -29,7 +29,10 @@ class LinksController < ApplicationController
   end
 
   def index
-    @channels = Link.publishable.select('DISTINCT channel').group(:channel).count
+    page_number = params[:page] ||= 1
+    all_channels = Link.publishable.select('DISTINCT channel').group(:channel).count.to_a
+    @channels = Kaminari.paginate_array(all_channels).page(page_number).per(Setting['advanced.links_index_per_page'].to_i)
+    @channels_count = all_channels.size
     @links_count = Link.publishable.size
 
     respond_to do |format|

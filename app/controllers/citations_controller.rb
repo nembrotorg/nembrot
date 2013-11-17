@@ -6,7 +6,13 @@ class CitationsController < ApplicationController
 
   def index
 
-    @citations = Note.publishable.citations.to_a
+    page_number = params[:page] ||= 1
+    all_citations = Note.publishable.citations
+
+    @citations = all_citations.page(page_number).per(Setting['advanced.citations_index_per_page'].to_i).load
+    @total_count = all_citations.size
+    @books_count = all_citations.keep_if { |citation| !citation.books.nil? } .size
+    @links_count = all_citations.keep_if { |citation| !citation.links.nil? } .size
 
     respond_to do |format|
       format.html

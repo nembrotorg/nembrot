@@ -41,4 +41,16 @@ namespace :seed do
       n.save!
     end
   end
+
+  task external_updated_at: :environment do |t, args|
+
+    desc 'Add external_updated_at to notes and versions'
+
+    Note.all.each do |n|
+      n.versions.each do |v|
+        v.external_updated_at = v.reify.external_updated_at
+        v.save!
+      end
+    end
+  end
 end

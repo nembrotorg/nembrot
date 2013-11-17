@@ -32,4 +32,12 @@ namespace :seed do
       n.save
     end
   end
+
+  task update_note: :environment do |t, args|
+
+  desc 'Update word count etc by saving each note'
+
+  Note.all.each do |n|
+    n.save!
+  end
 end

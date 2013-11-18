@@ -83,6 +83,8 @@ load_share_links = () ->
     title = 'nembrot.org'
     url = 'http://' + encodeURIComponent(location.host)
 
+  console.log(url)
+
   facebook_link = $('li.share a[href*=facebook]')
   twitter_link = $('li.share a[href*=twitter]')
   googleplus_link = $('li.share a[href*=google]')
@@ -92,16 +94,21 @@ load_share_links = () ->
   googleplus_link.attr('href', 'https://plus.google.com/share?url=' + url)
 
   $.getJSON FACEBOOK_API_URL + url, (data) ->
-    count = 0
-    count = data.shares
-    if count > 0
-      facebook_link.text(shorter_total(count))
+    count = _normalize_share_count(data.shares)
+    facebook_link.text(shorter_total(count))
 
   $.getJSON TWITTER_API_URL + "?callback=?&url=" + url, (data) ->
-    count = 0
-    count = data.count
-    if count > 0
-      twitter_link.text(shorter_total(count))
+    count = _normalize_share_count(data.count)
+    twitter_link.text(shorter_total(count))
+
+  # Get googleplus: https://gist.github.com/jonathanmoore/2640302
+
+_normalize_share_count = (data) ->
+    count = ''
+    count = data
+    if count == 0 then count = ''
+    console.log(count)
+    count
 
 shorter_total = (num) ->
   if num >= 1e6

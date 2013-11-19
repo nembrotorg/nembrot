@@ -139,7 +139,7 @@ add_scrolling_class = () ->
   $('body').addClass('scrolling')
   window.scrolling = setTimeout(->
     $('body').removeClass('scrolling')
-  , 1000)
+  , 3000)
 
 # Document hooks ******************************************************************************************************
 
@@ -181,7 +181,7 @@ document_initializers = () ->
     $('body').addClass('mousemoving')
     window.mousemoving = setTimeout(->
       $('body').removeClass('mousemoving')
-    , 1000)
+    , 3000)
 
   content_initializers()
 

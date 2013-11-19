@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title(Setting['channel.title'])
+  feed.title(Setting['channel.name'])
   feed.language(Setting['advanced.locale'])
   feed.updated(@notes[0].external_updated_at) unless @notes.empty?
 

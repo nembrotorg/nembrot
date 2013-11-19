@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119171857) do
+ActiveRecord::Schema.define(version: 20131119190816) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20131119171857) do
     t.integer  "distance"
     t.string   "place"
     t.string   "content_class"
+    t.text     "introduction"
   end
 
   create_table "resources", force: true do |t|

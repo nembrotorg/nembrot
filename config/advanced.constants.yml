@@ -21,6 +21,7 @@ defaults: &defaults
     instructions_default: __TRI
     instructions_hide: __HIDE
     instructions_hide_image: __HIDE_IMAGE __NO_IMAGE
+    instructions_hide_introduction: __HIDE_INTRO __NO_INTRO
     instructions_ignore: __IGNORE __HOLD
     instructions_map: __MAP
     instructions_promote: __PROMOTE

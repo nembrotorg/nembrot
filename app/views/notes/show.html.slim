@@ -13,11 +13,16 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-      = render 'shared/images', images: @note.resources.attached_images, type: :standard unless @note.resources.attached_images.empty? or @note.has_instruction?('hide_image')
+      = render 'shared/images', images: @note.resources.attached_images, type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
 
       = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
 
       section#text
+
+        - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
+          section#introduction.body
+            p= @note.introduction
+
         = bodify(@note.body, @note.books, @note.links)
 
         = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?

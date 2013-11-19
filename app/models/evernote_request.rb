@@ -129,22 +129,23 @@ class EvernoteRequest
 
   def populate
     self.data = {
-      'title'               => cloud_note_data.title,
+      'active'              => true,
+      'altitude'            => cloud_note_data.attributes.altitude,
+      'author'              => cloud_note_data.attributes.author,
       'body'                => cloud_note_data.content,
+      'content_class'       => cloud_note_data.attributes.contentClass,
+      'external_updated_at' => calculate_updated_at,
+      'instruction_list'    => cloud_note_tags.grep(/^_/),
+      'introduction'        => cloud_note_data.content.scan(/<div>\s*intro:\s*(.*?)\s*<\/div>/i),
+      'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
       'latitude'            => cloud_note_data.attributes.latitude,
       'longitude'           => cloud_note_data.attributes.longitude,
-      'altitude'            => cloud_note_data.attributes.altitude,
       'place'               => cloud_note_data.attributes.placeName,
-      'external_updated_at' => calculate_updated_at,
-      'author'              => cloud_note_data.attributes.author,
-      'content_class'       => cloud_note_data.attributes.contentClass,
-      'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
       'source'              => cloud_note_data.attributes.source,
       'source_application'  => cloud_note_data.attributes.sourceApplication,
       'source_url'          => cloud_note_data.attributes.sourceURL,
       'tag_list'            => cloud_note_tags.grep(/^[^_]/),
-      'instruction_list'    => cloud_note_tags.grep(/^_/),
-      'active'              => true
+      'title'               => cloud_note_data.title,
     }
   end
 

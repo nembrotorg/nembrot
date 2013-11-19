@@ -2,13 +2,14 @@
 
 module BlurbHelper
 
-  def blurb(headline, clean_body, blurb_length = Setting['advanced.blurb_length'].to_i)
+  def blurb(headline, clean_body, introduction = nil, blurb_length = Setting['advanced.blurb_length'].to_i, omission: Setting['advanced.blurb_omission'])
     # If the title is derived from the body, we do not include it in the blurb
-    body_contains_headline = (clean_body.index(headline) == 0)
+    return [headline, introduction.truncate(blurb_length, separator: ' ', omission: omission)] unless introduction.blank? || introduction.length < blurb_length
+    body_contains_headline = clean_body.start_with?(headline)
     headline = body_contains_headline ? headline : "#{ headline }: "
     start_blurb_at = body_contains_headline ? headline.length : 0
     blurb = clean_body[start_blurb_at .. clean_body.length]
-              .truncate(blurb_length, separator: ' ', omission: Setting['advanced.blurb_omission'])
+              .truncate(blurb_length, separator: ' ', omission: omission)
               .gsub(/\W#{ Setting['advanced.blurb_omission'] }$/, '')
     [headline, blurb]
   end

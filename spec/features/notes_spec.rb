@@ -37,6 +37,17 @@ describe 'Notes' do
       end
     end
 
+    context 'when a note has an introduction' do
+      before do
+        @note.update_attributes(introduction: 'It has a rather long introduction, actually!')
+        visit notes_path
+      end
+      it 'should display the introduction in the blurb' do
+        # Review: give option to truncate blurb or not
+        page.should have_text('It has a rather long introduction,...')
+      end
+    end
+
     context 'when no mappable notes exist' do
       before do
         @note.update_attributes(latitude: nil, longitude: nil, active: true)
@@ -122,6 +133,29 @@ describe 'Notes' do
       end
       it 'should not have a link to tag1' do
         pending "page.should_not have_link('tag1', href: '/tags/tag1')"
+      end
+    end
+
+    context 'when a note has an introduction' do
+      before do
+        @note.introduction = 'It has a rather long introduction, actually!'
+        @note.save
+        visit note_path(@note)
+      end
+      it 'should display the introduction' do
+        page.should have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
+      end
+    end
+
+    context 'when a note has an introduction and an instruction to hide it' do
+      before do
+        @note.instruction_list = ['__PUBLISH', '__NO_INTRO']
+        @note.introduction = 'It has a rather long introduction, actually!'
+        @note.save
+        visit note_path(@note)
+      end
+      it 'should not display the introduction' do
+        page.should_not have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
       end
     end
 

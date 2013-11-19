@@ -1,6 +1,6 @@
 RSpec.configure do |config|
   config.before(:each) do
-    PaperTrail.enabled = true # REVIEW: This should be set to false but the test below is not working
+    PaperTrail.enabled = false
   end
 
   config.before(:each, versioning: true) do

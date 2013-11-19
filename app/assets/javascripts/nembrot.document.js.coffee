@@ -7,11 +7,19 @@ update_titles = () ->
 
 track_page_view = () ->
   _gaq = window._gaq ?= []
-  _gaq.push(['_trackPageview', location.pathname])
+  _gaq.push ['_trackPageview', location.pathname]
 
 track_outbound_link = (link, category, action) ->
   try
     _gaq.push ['_trackEvent', category, action, link]
+
+  setTimeout (->
+    document.location.href = link
+  ), 100
+
+track_social = (link, category, action) ->
+  try
+    _gaq.push ['_trackSocial', category, action, location.pathname]
 
   setTimeout (->
     document.location.href = link
@@ -66,8 +74,6 @@ load_share_links_in_iframes = () ->
 # From Sharrre plug-in https://raw.github.com/Julienh/Sharrre/master/jquery.sharrre.js
 # https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20tot
 #  al_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27{url}%27&callback=?"
-# _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
-# _gaq.push(['_trackSocial', 'twitter', 'tweet']);
 
 FACEBOOK_API_URL = 'http://graph.facebook.com/'
 TWITTER_API_URL = "http://cdn.api.twitter.com/1/urls/count.json"
@@ -160,12 +166,20 @@ document_initializers = () ->
   $.pjax.defaults.timeout = false
   $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
-  $(document).on 'click', 'a[href^=http]', ->
+  $(document).on 'click', 'a[href^=http]:not(.share a)', ->
     track_outbound_link(this.href, 'Outbound Link', this.href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
     false
 
   $(document).on 'mousedown', "a[href$='.pdf'], a[href$='.zip']", (event) ->
     track_download(this.href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', this.text, event.which)
+
+  $(document).on 'click', '.share a[href*=facebook]', ->
+    track_social(this.href, 'facebook', 'like')
+    false
+
+  $(document).on 'click', '.share a[href*=twitter]', ->
+    track_social(this.href, 'twitter', 'tweet')
+    false
 
   $(document).on 'click', '.fb-like', ->
     fix_facebook_dialog()

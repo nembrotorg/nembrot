@@ -1,13 +1,18 @@
-=arrow-links
+=icon-links
   a:first-of-type, .current
     text-transform: lowercase
     &:before
-      +icon-right
-      +icon-small
       display: inline-block
-      width: 12px
   .current
     font-weight: bold
+
+=arrow-links
+  +icon-links
+  a:first-of-type, .current
+    &:before
+      +icon-right
+      +icon-small
+      width: $text-indent / 2
 
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
   +font-color
@@ -117,7 +122,8 @@
     top: $line-top
     z-index: -1
 
-=icon-only($button-width: $text-indent)
+=icon-only($button-width: $text-indent, $height: $line-height)
+  height: $height
   overflow: hidden
   width: $button-width
 

@@ -12,6 +12,7 @@ defaults: &defaults
     citation_blurb_length: 230
     citation_max_length: 9999
     citations_index_per_page: 10
+    comments_native_or_disqus_or_none: disqus
     contact_email: joe@nembrot.org
     contact_name: Joe
     detect_language_sample_length: 250

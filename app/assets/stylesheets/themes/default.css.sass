@@ -29,10 +29,10 @@ body
 
 a
   text-decoration: none
-  &[href*=http]:after
-    padding-left: 5px
-    +icon-link-ext
-    +icon-medium
+  // &[href*=http]:after
+  //   padding-left: 5px
+  //   +icon-link-ext
+  //   +icon-medium
   &[href*=pdf]
     +body-font-citation
     &:before
@@ -43,6 +43,36 @@ a
     text-transform: lowercase
   &:focus
     outline: 0
+  &[href*=admin]:before
+    +icon-settings
+  &[href*=users]:before
+    +icon-user
+  &[href$='#disqus_thread']:before
+    +icon-comment-empty
+  &[href*=facebook]:before
+    +icon-facebook
+  &[href*=github]:before
+    +icon-github-circled
+  &[href*=google]:before
+    +icon-gplus
+  &[href*=mailto]:before
+    +icon-mail
+    +icon-regular
+  &[href*=rss]:before,
+  &[href*=atom]:before      
+    +icon-rss
+    +icon-regular
+  &[href*=soundcloud]:before
+    +icon-soundcloud
+  &[href*=spotify]:before
+    +icon-spotify
+  &[href*=twitter]:before
+    +icon-twitter
+  &[href*=vimeo]:before
+    +icon-vimeo
+    +icon-medium
+  &[href*=youtube]:before
+    +icon-youtube
 
 abbr
   font-variant: small-caps
@@ -133,6 +163,11 @@ table
       +icon-link-ext
       +icon-medium
 
+.deep-link
+  a[href$='#disqus_thread']:before
+    +icon-comment
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Document
@@ -141,11 +176,11 @@ table
 
 +pass_media_query('default')
 
-#main, #tools, .hello_world, footer
+#main, .hello_world, footer
   width: 90%
   margin: 0 5% $line-height 5%
 
-#main > div, #tools ul, .hello_world p, footer nav, footer small
+#main > div, .hello_world p, footer nav, footer small
   clear: both
 
 ol, ul, .statistics
@@ -184,71 +219,18 @@ footer
       li
         a
           text-transform: none
-    +arrow-links
-    // +columns(2)
+    &.promotions, &.sections
+      +arrow-links
     text-transform: lowercase
-    a
-      &[href*=http]
-        &:before
-          +icon-link-ext
-          +icon-regular
-        &:after
-          content: ''
-      &[href*=facebook]:before
-        +icon-facebook
-      &[href*=github]:before
-        +icon-github-circled
-      &[href*=google]:before
-        +icon-gplus
-      &[href*=mailto]:before
-        +icon-mail
-        +icon-regular
-      &[href*=rss]:before,
-      &[href*=atom]:before      
-        +icon-rss
-        +icon-regular
-      &[href*=soundcloud]:before
-        +icon-soundcloud
-      &[href*=spotify]:before
-        +icon-spotify
-      &[href*=twitter]:before
-        +icon-twitter
-      &[href*=vimeo]:before
-        +icon-vimeo
-        +icon-medium
-      &[href*=youtube]:before
-        +icon-youtube
+    li
+      a
+        &[href*=http]:after
+          display: none
+        &[href*=vimeo]:before
+          +icon-medium
   small:before
     +icon-cc-by-nc-sa
     letter-spacing: 0.25em
-
-#tools
-  +arrow-links
-  a
-    &[href*='users/edit']:before, &[href*='users/sign_in']:before
-      +icon-medium
-      +icon-user
-    &[href*='users/sign_in']
-      display: none
-  li
-    a[href*='users/sign_out']
-      display: none
-      margin-left: 5px
-    &:hover
-      a[href*='users/sign_out']
-        text-indent: '-999px'
-        display: inline-block !important
-        &:before
-          +icon-cancel
-
-  span
-    &[data-href*='users/edit']:before, &[data-href*='users/sign_in']:before
-      +icon-medium
-      +icon-user
-
-  ul
-    margin-bottom: 0
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -522,52 +504,70 @@ footer
   h1:before
     +icon-user
 
+.scrolling, .mousemoving
+  #tools
+    bottom: 0
+    +transition(0.35s)
+
+#tools:hover
+  bottom: 0
+
 #tools
-  .share
-    display: block
-    margin-top: $line-height
-    iframe
-      margin-bottom: 0
+  +icon-links
+  +transition(0.35s)
+  background-color: $background-color
+  border-top: 1px solid black
+  bottom: $line-height * -2.25
+  display: block
+  margin: 0
+  padding-left: $text-indent
+  position: fixed
+  width: 100%
+  iframe
+    margin-bottom: 0
+  ul
+    display: inline-block
+    margin-bottom: 0
+  li
+    display: inline-block
     li
       display: inline-block
+      height: $line-height
       margin-right: $text-indent / 2
-      &.fb-like
-        overflow: visible
-      a
-        font-size: $small-font-size
-        vertical-align: -23%
+      position: relative
+      width: $text-indent
+    &.fb-like
+      overflow: visible
+    a
+      font-size: $small-font-size
+      height: $line-height * 1/3
+      padding-bottom: $line-height * 2/3
+      position: absolute
+      text-align: right
+      top: $line-height * 2/3
+      width: $text-indent
+      &:before
+        font-size: $line-height
+        height: $line-height * 2/3
+        left: $line-height * -0.1
+        position: absolute
+        top: $line-height * 2/3 * -1
         width: $text-indent
-        &:before
-          font-size: $line-height
-          vertical-align: 23%
-        &:after
-          display: none
+      &:after
+        display: none
+      &:hover
         &[href*=facebook]:before
-          +icon-facebook
-          padding-right: 0.035em
-          &:hover
-            color: #006
-        &[href*=twitter]
-          &:before
-            +icon-twitter
-            padding-right: 0.45em
-            &:hover
-              color: cyan
+          color: #3b5998
         &[href*=google]:before
-          +icon-gplus
-          padding-right: 0.35em
-          &:hover
-            color: #600
-        &:hover
-          &[href*=facebook]:before
-            color: #3b5998
-          &[href*=google]:before
-            color: #dd4b39
-          &[href*=twitter]:before
-            color: #00ACEE
-    &.deep-link
-      a
-        color: $count-color
+          color: #dd4b39
+        &[href*=twitter]:before
+          color: #00ACEE
+    &.user
+      li
+        +icon-only
+  &.deep-link
+    a
+      color: $count-color
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -616,30 +616,9 @@ footer
     padding-top: $line-height / 2
 
   #main,
-  #tools,
   .hello_world,
   footer
     margin: 0 auto $line-height auto
-
-  #main
-    & > section
-      // +row(12)
-
-  #tools
-    ul
-      clear: both
-      li
-        // We don't use horizontal list here because it cancels all margins
-        display: inline-block
-        margin-right: 5px
-        a[href*='twitter.com/intent']
-          background-color: #9ff
-          &:before
-            +icon-twitter
-            +icon-medium
-          &:after
-            // display: none
-            content: ''
 
   form
     margin-bottom: $line-height
@@ -843,10 +822,12 @@ footer
       +span-columns(3 omega)
 
   #main,
-  #tools,
   .hello_world,
   footer
     width: 1080px
+
+  #disqus_thread
+    +span-columns(6)
 
   .notes
     +span-columns(9)
@@ -892,11 +873,6 @@ footer
   +pass_media_query('screen-and-min-width-1200px')
 
   #tools
+    background-color: transparent
+    border: none
     bottom: 0
-    left: $text-indent
-    margin: 0
-    position: fixed
-    // top: $line-height * 6
-    width: $column-width * 3px
-    .share
-      margin-top: $line-height

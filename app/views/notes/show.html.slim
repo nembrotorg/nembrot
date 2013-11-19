@@ -31,3 +31,5 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
           = render 'versions_list', note: @note
 
       = render 'shared/map', map: @map unless @map.nil?
+
+  = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'

@@ -20,9 +20,9 @@ describe 'Users' do
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
       click_button('Sign in')
+      find(:xpath, "//a[@href='/users/edit']").click
       find(:xpath, "//a[@href='/users/sign_out']").click
       page.should have_text('Signed out successfully.')
-
     end
     context 'when a wrong email is entered' do
       it 'rejects sign-in' do
@@ -57,6 +57,7 @@ describe 'Users' do
       fill_in 'Current password', with: @user.password
       click_button('Edit registration')
       page.should have_text('You updated your account successfully.')
+      find(:xpath, "//a[@href='/users/edit']").click
       find(:xpath, "//a[@href='/users/sign_out']").click
       visit new_user_session_path
       fill_in 'Email', with: @user.email

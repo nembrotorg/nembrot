@@ -64,17 +64,16 @@ load_share_links_in_iframes = () ->
   twttr.widgets.load()
 
 # From Sharrre plug-in https://raw.github.com/Julienh/Sharrre/master/jquery.sharrre.js
-# https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27{url}%27&callback=?"
+# https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20tot
+#  al_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27{url}%27&callback=?"
 # _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
 # _gaq.push(['_trackSocial', 'twitter', 'tweet']);
 
 FACEBOOK_API_URL = 'http://graph.facebook.com/'
 TWITTER_API_URL = "http://cdn.api.twitter.com/1/urls/count.json"
 
-load_share_links = () ->
-  page_class = $('#main > div').attr('class')
-
-  if page_class.indexOf('-show') > 0
+load_share_links = (page_class) ->
+  if page_class.indexOf('-show') != -1
     $('.share').addClass('deep-link')
     title = $('h1').text().trim()
     url = encodeURIComponent(location.href)
@@ -82,8 +81,6 @@ load_share_links = () ->
     $('.share').removeClass('deep-link')
     title = 'nembrot.org'
     url = 'http://' + encodeURIComponent(location.host)
-
-  console.log(url)
 
   facebook_link = $('li.share a[href*=facebook]')
   twitter_link = $('li.share a[href*=twitter]')
@@ -94,20 +91,32 @@ load_share_links = () ->
   googleplus_link.attr('href', 'https://plus.google.com/share?url=' + url)
 
   $.getJSON FACEBOOK_API_URL + url, (data) ->
-    count = _normalize_share_count(data.shares)
+    count = _normalize_count(data.shares)
     facebook_link.text(shorter_total(count))
 
   $.getJSON TWITTER_API_URL + "?callback=?&url=" + url, (data) ->
-    count = _normalize_share_count(data.count)
+    count = _normalize_count(data.count)
     twitter_link.text(shorter_total(count))
 
   # Get googleplus: https://gist.github.com/jonathanmoore/2640302
 
-_normalize_share_count = (data) ->
+DISQUS_API_KEY = 'qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLHfq'
+DISQUS_API_URL = 'https://disqus.com/api/3.0/threads/set.jsonp'
+
+load_disqus_comments_count = (page_class) ->
+  if page_class.indexOf('notes-show') != -1
+    $('.page').addClass('deep-link')
+    $.getJSON DISQUS_API_URL + "?api_key=" + DISQUS_API_KEY + "&forum=" + DISQUS_SHORT_NAME + "&thread=" + encodeURIComponent(location.href), (data) ->
+      count = _normalize_count(data.response.first)
+      $('[href$="#disqus_thread"]').text(count)
+  else
+    $('.page').removeClass('deep-link')
+    $('[href$="#disqus_thread"]').text('')
+
+_normalize_count = (data) ->
     count = ''
     count = data
     if count == 0 then count = ''
-    console.log(count)
     count
 
 shorter_total = (num) ->
@@ -154,6 +163,20 @@ document_initializers = () ->
   $(document).on 'click', '.fb-like', ->
     fix_facebook_dialog()
 
+  $(window).scroll ->
+    clearTimeout(window.scrolling)
+    $('body').addClass('scrolling')
+    window.scrolling = setTimeout(->
+      $('body').removeClass('scrolling')
+    , 1000)
+
+  $(window).mousemove ->
+    clearTimeout(window.mousemoving)
+    $('body').addClass('mousemoving')
+    window.mousemoving = setTimeout(->
+      $('body').removeClass('mousemoving')
+    , 1000)
+
   content_initializers()
 
 content_initializers = () ->
@@ -162,7 +185,10 @@ content_initializers = () ->
   track_page_view()
   resize_initializers()
   insert_qr_code()
-  load_share_links()
+
+  page_class = $('#main > div').attr('class')
+  load_share_links(page_class)
+  load_disqus_comments_count(page_class) # Check Settings first
 
 content_initializers_reload_only = () ->
 

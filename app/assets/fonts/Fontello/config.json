@@ -55,6 +55,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "85528017f1e6053b2253785c31047f44",
+      "css": "comment",
+      "code": 59410,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9c1376672bb4f1ed616fdd78a23667e9",
+      "css": "comment-empty",
+      "code": 59413,
+      "src": "fontawesome"
+    },
+    {
       "uid": "c76b7947c957c9b78b11741173c8349b",
       "css": "attention-2",
       "code": 59506,
@@ -235,6 +247,12 @@
       "src": "entypo"
     },
     {
+      "uid": "877a233d7fdca8a1d82615b96ed0d7a2",
+      "css": "right-small",
+      "code": 59411,
+      "src": "typicons"
+    },
+    {
       "uid": "3cac7625657b10cf706e7f332749c912",
       "css": "cloud-flash",
       "code": 59404,
@@ -244,6 +262,12 @@
       "uid": "96a3aff31cec6cfbe6177151b3a44d20",
       "css": "quote-left-alt",
       "code": 59392,
+      "src": "iconic"
+    },
+    {
+      "uid": "09b87624e9d9a79109429ea81ed0d02d",
+      "css": "split",
+      "code": 59412,
       "src": "iconic"
     },
     {

@@ -16,6 +16,7 @@ defaults: &defaults
     contact_email: joe@nembrot.org
     contact_name: Joe
     detect_language_sample_length: 250
+    disqus_shortname: nembrot
     instructions_citation: __QUOTE __CITATION
     instructions_default: __TRI
     instructions_hide: __HIDE

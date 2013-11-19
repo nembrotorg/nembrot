@@ -1,7 +1,7 @@
 section#disqus_thread
 
   javascript:
-    var DISQUS_SHORT_NAME = 'nembrot';
+    var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.title'].parameterize }";
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = '//' + DISQUS_SHORT_NAME + '.disqus.com/embed.js';

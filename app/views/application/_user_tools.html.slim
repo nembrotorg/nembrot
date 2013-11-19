@@ -12,6 +12,10 @@ nav#tools
           li= link_to t('books.admin.title_no_mode'), books_admin_path
           li= link_to t('links.admin.title'), links_admin_path
 
+    li.menu
+      ul
+        li= link_to 'Menu', '#menu'
+
     li.user
       ul
         - if user_signed_in?

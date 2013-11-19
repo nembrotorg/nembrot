@@ -3,7 +3,7 @@ footer
   nav
     ul
 
-      li
+      li#menu
         ul.promotions
           - @promoted_notes.first(Setting['style.promotions_footer'].to_i).each do |note|
             li

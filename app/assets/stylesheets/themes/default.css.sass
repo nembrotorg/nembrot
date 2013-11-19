@@ -47,19 +47,22 @@ a
     +icon-settings
   &[href*=users]:before
     +icon-user
-  &[href$='#disqus_thread']:before
+  &[href$='#disqus_thread']:before,
+  &[href$='#comments']:before
     +icon-comment-empty
+  &[href$='#menu']:before
+    +icon-list
   &[href*=facebook]:before
     +icon-facebook
   &[href*=github]:before
     +icon-github-circled
   &[href*=google]:before
     +icon-gplus
-  &[href*=mailto]:before
+  &[href^=mailto]:before
     +icon-mail
     +icon-regular
-  &[href*=rss]:before,
-  &[href*=atom]:before      
+  &[href$='.rss']:before,
+  &[href$='.atom']:before      
     +icon-rss
     +icon-regular
   &[href*=soundcloud]:before
@@ -562,7 +565,7 @@ footer
           color: #dd4b39
         &[href*=twitter]:before
           color: #00ACEE
-    &.user
+    &.user, &.menu
       li
         +icon-only
   &.deep-link
@@ -622,6 +625,8 @@ footer
 
   #tools
     padding-left: $text-indent
+    li.menu
+      display: none
 
   form
     margin-bottom: $line-height

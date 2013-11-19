@@ -10,9 +10,7 @@ class Book < ActiveRecord::Base
 
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
-  scope :maxed_out, -> { where('attempts > ?', Setting['advanced.attempts'].to_i).order('updated_at') }
   scope :metadata_missing, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Setting['advanced.attempts'].to_i).order('updated_at') }
   scope :cited, -> { where('title IS NOT ? AND tag IS NOT ?', nil, nil)
     .joins('left outer join books_notes on books.id = books_notes.book_id')
     .where('books_notes.book_id IS NOT ?', nil)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131115131023) do
+ActiveRecord::Schema.define(version: 20131119171857) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20131115131023) do
     t.string   "lcc_number"
     t.string   "full_text_url"
     t.boolean  "google_books_embeddable"
+    t.datetime "try_again_at"
   end
 
   add_index "books", ["slug"], name: "index_books_on_slug", unique: true
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 20131115131023) do
     t.integer  "attempts"
     t.binary   "content_hash",           limit: 255
     t.integer  "update_sequence_number"
+    t.datetime "try_again_at"
   end
 
   add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(version: 20131115131023) do
     t.float    "altitude"
     t.string   "channel"
     t.string   "slug"
+    t.datetime "try_again_at"
   end
 
   add_index "links", ["slug"], name: "index_links_on_slug", unique: true
@@ -152,6 +155,7 @@ ActiveRecord::Schema.define(version: 20131115131023) do
     t.integer  "height"
     t.integer  "size"
     t.string   "local_file_name"
+    t.datetime "try_again_at"
   end
 
   add_index "resources", ["note_id"], name: "index_resources_on_note_id"

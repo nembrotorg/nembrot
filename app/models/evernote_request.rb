@@ -3,7 +3,6 @@
 class EvernoteRequest
 
   include Evernotable
-  include Syncable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
                 :cloud_note_tags, :offline
@@ -151,11 +150,12 @@ class EvernoteRequest
 
   def update_evernote_note_with_evernote_data(cloud_note_data)
     evernote_note.update_attributes!(
-      note_id: evernote_note.note.id,
       attempts: 0,
       content_hash: cloud_note_data.contentHash,
-      update_sequence_number: cloud_note_data.updateSequenceNum,
-      dirty: false
+      dirty: false,
+      note_id: evernote_note.note.id,
+      try_again_at: 100.years.from_now,
+      update_sequence_number: cloud_note_data.updateSequenceNum
     )
   end
 

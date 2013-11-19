@@ -134,6 +134,13 @@ insert_qr_code = () ->
   $('footer img.qr_code').remove()
   $('footer').prepend('<img class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + location.href + '" alt="QR code">')
 
+add_scrolling_class = () ->
+  clearTimeout(window.scrolling)
+  $('body').addClass('scrolling')
+  window.scrolling = setTimeout(->
+    $('body').removeClass('scrolling')
+  , 1000)
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -163,12 +170,11 @@ document_initializers = () ->
   $(document).on 'click', '.fb-like', ->
     fix_facebook_dialog()
 
+  $(document).on 'touchmove', 'body', ->
+    add_scrolling_class()
+
   $(window).scroll ->
-    clearTimeout(window.scrolling)
-    $('body').addClass('scrolling')
-    window.scrolling = setTimeout(->
-      $('body').removeClass('scrolling')
-    , 1000)
+    add_scrolling_class()
 
   $(window).mousemove ->
     clearTimeout(window.mousemoving)

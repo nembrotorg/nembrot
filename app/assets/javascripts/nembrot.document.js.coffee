@@ -167,18 +167,18 @@ document_initializers = () ->
   $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'click', 'a[href^=http]:not(.share a)', ->
-    track_outbound_link(this.href, 'Outbound Link', this.href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
+    track_outbound_link(@href, 'Outbound Link', @href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
     false
 
   $(document).on 'mousedown', "a[href$='.pdf'], a[href$='.zip']", (event) ->
-    track_download(this.href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', this.text, event.which)
+    track_download(@href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', @text, event.which)
 
   $(document).on 'click', '.share a[href*=facebook]', ->
-    track_social(this.href, 'facebook', 'like')
+    track_social(@href, 'facebook', 'like')
     false
 
   $(document).on 'click', '.share a[href*=twitter]', ->
-    track_social(this.href, 'twitter', 'tweet')
+    track_social(@href, 'twitter', 'tweet')
     false
 
   $(document).on 'click', '.fb-like', ->

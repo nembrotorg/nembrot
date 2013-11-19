@@ -1,6 +1,11 @@
 section#disqus_thread
 
   javascript:
+    function disqus_config() {
+        this.callbacks.onNewComment = [function(comment) { 
+          _gaq.push ['_trackEvent', 'Comments', 'new', location.href + '#comment-' + comment.id]
+        }];
+    }
     var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.name'].parameterize }";
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

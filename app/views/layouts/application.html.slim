@@ -18,8 +18,6 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'footer'
 
-    = javascript_include_tag 'application'
-
     = render 'google_analytics' unless Constant.google_analytics_key.blank?
 
     = render 'async_share_scripts' if Setting['advanced.share_with_iframes'] == 'true'

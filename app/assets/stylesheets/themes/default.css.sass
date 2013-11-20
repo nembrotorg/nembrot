@@ -219,7 +219,6 @@ footer
   ul
     &.promotions
       +font-color($headline-font-color)
-      text-transform: none !important
     &.promotions, &.sections
       +arrow-links
     &.sections, &.channels
@@ -771,14 +770,6 @@ footer
       blockquote
         margin-bottom: $line-height
 
-  .home-index
-    .notes
-      clear: both
-      li
-        +blurb($promotions-home-lines, 0)
-        img
-          display: none
-
   .links-index
     ul
       +columns(2)
@@ -874,8 +865,8 @@ footer
         +column-gap($gutter-width * 1px)
         margin-bottom: 0
         li
-          margin-bottom: $line-height
           +blurb($promotions-home-lines)
+          margin-bottom: $line-height
 
   .tags-index
     ul

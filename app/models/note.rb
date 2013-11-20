@@ -48,7 +48,9 @@ class Note < ActiveRecord::Base
   end
 
   def self.promotable
-    all.keep_if { |note| note.has_instruction?('promote') }
+    promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
+    greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
+    (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
   def has_instruction?(instruction, instructions = instruction_list)

@@ -1,7 +1,7 @@
 section.links
 
   header
-    h6 = link_to_unless_current t('links.index.title'), links_path
+    h3 = title ||= t('links.index.title')
 
   ul
     - links.each do |link|

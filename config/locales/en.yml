@@ -115,6 +115,8 @@ en:
       other_view_html: " <a href=\"%{path}\">See list</a>."
     show:
       title: "Note %{id}"
+      downloads_title: 'Downloads'
+      versions_title: 'Versions'
       not_found: "Note %{id} is not available."
     version:
       title: "v%{sequence}"

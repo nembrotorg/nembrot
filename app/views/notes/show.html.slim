@@ -17,11 +17,11 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
 
-      section#text
+      - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
+        section#introduction
+          p= @note.introduction
 
-        - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
-          section#introduction.body
-            p= @note.introduction
+      section#text
 
         = bodify(@note.body, @note.books, @note.links)
 

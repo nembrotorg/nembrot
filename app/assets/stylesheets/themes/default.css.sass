@@ -219,12 +219,11 @@ footer
   ul
     &.promotions
       +font-color($headline-font-color)
-      li
-        a
-          text-transform: none
+      text-transform: none !important
     &.promotions, &.sections
       +arrow-links
-    text-transform: lowercase
+    &.sections, &.channels
+      text-transform: lowercase
     li
       a
         &[href*=http]:after
@@ -384,6 +383,14 @@ footer
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#introduction
+  +body-font
+  +hyphens(none)
+  font-style: italic
+  text-align: left
+  font-size: $font-size * 1.5
+  margin-bottom: $line-height
+
 #text
   .body, .annotations
     +body-font
@@ -417,11 +424,6 @@ footer
         margin-bottom: 0
       p:first-of-type
         text-indent: 0
-    &#introduction
-      font-style: italic
-      text-align: left
-      font-size: $font-size * 1.5
-      margin-bottom: $line-height
 
 .notes
   li

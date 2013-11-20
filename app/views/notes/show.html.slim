@@ -1,7 +1,8 @@
 - document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
-                description: @note.body,
-                open_graph: { title: @note.title }
+                description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                open_graph: { title: @note.title },
+                'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
 
 div class="#{ controller.controller_name }-#{ controller.action_name }"
 

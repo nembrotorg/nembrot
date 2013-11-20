@@ -20,7 +20,7 @@ describe BlurbHelper do
     context 'when an introduction is provided' do
       it 'uses the introduction for the blurb' do
         # Review: give option to truncate blurb or not
-        blurb('Headline', 'Headline is already in the body.', 'It has a rather long introduction, actually!').should ==  ['Headline', 'It has a rather long introduction,...']
+        blurb('Headline', 'Headline is already in the body.', 'It has a rather long introduction, actually!').should ==  ['Headline: ', 'It has a rather long introduction,...']
       end
     end
 

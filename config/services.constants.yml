@@ -3,7 +3,7 @@
 defaults: &defaults
   evernote_server: https://sandbox.evernote.com
   disqus_public_key: qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLHfq
-  facebook_app_id: 142214389156795
+  facebook_app_id: 265964700218227
   google_analytics_key: 'UA-1346274-1'
   twitter_user_name: nembrot
   books:

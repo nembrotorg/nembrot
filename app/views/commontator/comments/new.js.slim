@@ -1,0 +1,6 @@
+| $("#thread_#{ @thread.id.to_s } #new_comment").html("#{ escape_javascript(render 'form', comment: @comment, thread: @thread) }");
+| $("#thread_#{ @thread.id.to_s } #new_comment").fadeIn()[0];
+| $("#thread_#{ @thread.id.to_s } #new_comment textarea").focus();
+-#.scrollIntoView();
+| $("#thread_#{ @thread.id.to_s } a[href$='comments/new']").hide();
+= javascript_proc

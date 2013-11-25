@@ -8,6 +8,16 @@
 
 //////////////////////////////
 //
+// Resets
+//
+//////////////////////////////
+
+a, p, input, textarea, h1, h2, h3, h4, h5, h6, ol, ul, li, div, section, nav
+  margin: 0
+  padding: 0
+
+//////////////////////////////
+//
 // Elements
 //
 //////////////////////////////
@@ -167,9 +177,9 @@ table
       +icon-medium
 
 .deep-link
-  a[href$='#disqus_thread']:before
+  a[href$='#disqus_thread']:before,
+  a[href$='#comments']:before
     +icon-comment
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -424,6 +434,10 @@ footer
       p:first-of-type
         text-indent: 0
 
+#disqus_thread,
+#comments
+  +span-columns(12)
+
 .notes
   li
     +blurb(8)
@@ -574,7 +588,7 @@ footer
     &.user, &.menu
       li
         +icon-only
-  &.deep-link
+  .deep-link
     a
       color: $count-color
 
@@ -836,7 +850,8 @@ footer
   footer
     width: 1080px
 
-  #disqus_thread
+  #disqus_thread,
+  #comments
     +span-columns(6)
 
   .notes

@@ -1,0 +1,9 @@
+- # Clients of this partial must supply the following variables:
+- # thread
+- # user
+- subscription = thread.subscription_for(user)
+- if thread.can_be_read_by?(user)
+  - if @commontator_thread_show
+    = render 'commontator/threads/show', thread: thread, user: user
+  - else
+    = link_to "Show #{ thread.config.comment_name.pluralize } (#{subscription ? (subscription.unread.to_s + '/' + thread.comments.count.to_s) : thread.comments.count.to_s})", commontator.thread_path(thread), remote: true

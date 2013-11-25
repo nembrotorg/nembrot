@@ -2,6 +2,8 @@
 
 Nembrot::Application.routes.draw do
 
+  mount Commontator::Engine => '/commontator'
+  
   devise_for :users, :controllers => { sessions: 'sessions' }
 
   root to: 'home#index'

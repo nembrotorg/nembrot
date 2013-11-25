@@ -2,6 +2,14 @@ class SettingsController < ApplicationController
 
   load_and_authorize_resource
 
+  def index
+    @settings = Setting.all
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def edit
     @channel_settings = Setting.all('channel.')
     @advanced_settings = Setting.all('advanced.')

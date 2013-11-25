@@ -62,9 +62,9 @@
     font-weight: normal
     font-style: normal
 
-=fade($opacity: 0)
+=fade($opacity: 0, $transition: 1s)
   opacity: $opacity
-  +transition
+  +transition($transition)
 
 =font-color($color: $font-color, $hover-color: $link-hover-color)
   border-color: $color
@@ -122,6 +122,7 @@
     z-index: -1
 
 =icon-only($button-width: $text-indent, $height: $line-height)
+  display: inline-block
   height: $height
   overflow: hidden
   width: $button-width

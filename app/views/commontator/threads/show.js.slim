@@ -1,0 +1,2 @@
+| $("#thread_#{ @thread.id.to_s }").html("#{ escape_javascript(render 'show', thread: @thread, user: @user) }");
+= javascript_proc

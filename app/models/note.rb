@@ -11,6 +11,8 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :books
   has_and_belongs_to_many :links
 
+  acts_as_commontable
+
   acts_as_taggable_on :tags, :instructions
 
   has_paper_trail on: [:update],

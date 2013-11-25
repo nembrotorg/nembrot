@@ -1,3 +1,4 @@
+window.Nembrot ?= {}
 jQuery.fn.reverse = [].reverse
 
 update_titles = () ->
@@ -25,9 +26,15 @@ track_social = (link, category, action) ->
     document.location.href = link
   ), 100
 
-track_download = (link, category, action, which) ->
+track_download = (link, action, which) ->
   try
-    _gaq.push ['_trackEvent', category, action, link, which]
+    _gaq.push ['_trackEvent', 'Downloads', action, link, which]
+
+track_comment = (action) ->
+  try
+    _gaq.push ['_trackEvent', 'Comments', action, location.pathname]
+
+window.Nembrot.track_comment = track_comment
 
 place_annotations = () ->
   if $('.annotations').length
@@ -114,10 +121,22 @@ load_disqus_comments_count = (page_class) ->
     $('.page').addClass('deep-link')
     $.getJSON DISQUS_API_URL + "?api_key=" + DISQUS_API_KEY + "&forum=" + DISQUS_SHORT_NAME + "&thread=" + encodeURIComponent(location.href), (data) ->
       count = _normalize_count(data.response.first)
-      $('[href$="#disqus_thread"]').text(count)
+    $('#tools a[href$="#comments"]').text(count)
   else
     $('.page').removeClass('deep-link')
-    $('[href$="#disqus_thread"]').text('')
+    $('#tools a[href$="#comments"]').text('')
+
+load_comments_count = (page_class) ->
+  if page_class.indexOf('notes-show') != -1
+    $('.page').addClass('deep-link')
+    count = RegExp(/\d+/).exec($('#comments h2').text())
+    if count == null then count = ''
+    $('#tools a[href$="#comments"]').text(count)
+  else
+    $('.page').removeClass('deep-link')
+    $('#tools a[href$="#comments"]').text('')
+
+window.Nembrot.load_comments_count = load_comments_count
 
 _normalize_count = (data) ->
     count = ''
@@ -171,7 +190,7 @@ document_initializers = () ->
     false
 
   $(document).on 'mousedown', "a[href$='.pdf'], a[href$='.zip']", (event) ->
-    track_download(@href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), 'Download', @text, event.which)
+    track_download(@href.toString().replace(/^https?:\/\/([^\/?#]*)(.*$)/, '$2'), @text, event.which)
 
   $(document).on 'click', '.share a[href*=facebook]', ->
     track_social(@href, 'facebook', 'like')
@@ -208,7 +227,8 @@ content_initializers = () ->
 
   page_class = $('#main > div').attr('class')
   load_share_links(page_class)
-  load_disqus_comments_count(page_class) # Check Settings first
+  if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_class) # Check Settings first
+  if $('#comments').length > 0 then load_comments_count(page_class)
 
 content_initializers_reload_only = () ->
 

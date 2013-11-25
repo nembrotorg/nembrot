@@ -36,6 +36,8 @@ class NotesController < ApplicationController
     @note = Note.publishable.find(params[:id])
     @tags = @note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
 
+    commontator_thread_show(@note)
+
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)

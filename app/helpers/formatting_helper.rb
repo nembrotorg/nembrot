@@ -33,7 +33,24 @@ module FormattingHelper
     clean_up(text)
   end
 
-  def sanitize_from_db(text)
+  def commentify(text)
+    text = sanitize_from_db(text, ['a'])
+    text = paragraphize(text)
+    text = smartify(text)
+    clean_up(text)
+  end
+
+  def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+    return '' if text.blank?
+    text = sanitize_from_db(text)
+    text = clean_whitespace(text)
+    text = deheaderize(text)
+    text = bookify(text, books, books_citation_style)
+    text = linkify(text, links, links_citation_style)
+    clean_up_via_dom(text, true)
+  end
+
+  def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
                .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
@@ -41,7 +58,7 @@ module FormattingHelper
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize(text,
-                    tags: Setting['advanced.allowed_html_tags'].split(/, ?| /) - ['span'],
+                    tags: allowed_tags.split(/, ?| /) - ['span'],
                     attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
     text = format_blockquotes(text)
     text = remove_instructions(text)

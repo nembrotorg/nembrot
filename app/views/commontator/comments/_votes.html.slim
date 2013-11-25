@@ -1,0 +1,30 @@
+- # Clients of this partial must provide the following variables:
+- # comment
+- # user
+- if comment.can_be_voted_on?
+  - can_vote = comment.can_be_voted_on_by?(user)
+  - vote = comment.get_vote_by(user)
+
+  - if can_vote && (vote.blank? || !vote.vote_flag)
+    = form_tag commontator.upvote_comment_path(comment), method: :put, remote: true do
+      = submit_tag t('.vote_up')
+  - elsif can_vote
+    = form_tag commontator.unvote_comment_path(comment), method: :put, remote: true do
+      = submit_tag t('.vote_up')
+  - else
+      = button_tag t('.vote_up'), disabled: true
+
+  p class="vote_count"
+    - if comment.thread.config.combine_upvotes_and_downvotes
+      = "%+d" % (comment.upvotes.size - comment.downvotes.size)
+    - else
+      = "+#{ comment.upvotes.size }/-#{ comment.downvotes.size }"
+
+  - if can_vote && (vote.blank? || !vote.vote_flag)
+    = form_tag commontator.downvote_comment_path(comment), method: :put, remote: true do
+      = submit_tag t('.vote_down')
+  - elsif can_vote
+    = form_tag commontator.unvote_comment_path(comment), method: :put, remote: true do
+      = submit_tag t('.vote_down')
+  - else
+      = button_tag t('.vote_down'), disabled: true

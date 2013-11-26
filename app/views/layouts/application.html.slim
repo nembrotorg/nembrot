@@ -12,7 +12,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
       = yield
 
-    = render 'hello_world' if Secret.auth.evernote.consumer_key == 'CHANGE_ME' or Secret.auth.evernote.consumer_secret == 'CHANGE_ME'
+    = render 'hello_world' if Secret.auth.evernote.key == 'CHANGE_ME' or Secret.auth.evernote.secret == 'CHANGE_ME'
 
     = render 'user_tools'
 

@@ -241,7 +241,8 @@ en:
       new:
         title: 'Sign in'
         submit: 'Sign in'
-        title_provider: "Sign in with #{provider.to_s.titleize}"
+        title_provider: "Sign in with %{provider}"
+      signed_in_with_provider: "Signed in using %{provider}."
     links:
       no_confirmation: "Didn't receive confirmation instructions?"
       no_unlock: "Didn't receive unlock instructions?"

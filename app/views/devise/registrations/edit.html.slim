@@ -12,9 +12,17 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     = devise_error_messages!
 
+    = f.label :name do
+      = :name.to_s.humanize
+      = f.text_field :name, autofocus: true
+
+    = f.label :nickname do
+      = :nickname.to_s.humanize
+      = f.text_field :nickname
+
     = f.label :email do
       = :email.to_s.humanize
-      = f.email_field :email, autofocus: true
+      = f.email_field :email
 
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       div
@@ -34,7 +42,4 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = f.submit t('users.registrations.edit.title')
 
-  ul.user
-    li= link_to t('users.sessions.delete.title'), destroy_user_session_path, data: { method: :delete }
-    li= link_to t('users.registrations.edit.cancel'), registration_path(resource_name), data: { confirm: t('users.registrations.edit.cancel_confirm'), method: :delete }
-    li= link_to t('back'), :back, class: 'back'
+  = render 'devise/shared/links'

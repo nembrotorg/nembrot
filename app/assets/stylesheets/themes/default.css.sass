@@ -115,11 +115,13 @@ form
     height: $line-height
     line-height: $line-height
   input
+    &[type=email],
+    &[type=number],
+    &[type=password],
     &[type=text],
     &[type=url],
-    &[type=number]
-      border-radius: 0
       border: 1px solid #ccc
+      height: $body-font-size
       &.important:not([value])
         border-color: $error-background-color
 
@@ -650,7 +652,7 @@ footer
 
   form
     margin-bottom: $line-height
-    +span-columns(9)
+    +span-columns(6)
     label
       input
         float: right

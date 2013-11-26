@@ -103,10 +103,10 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # If true, extends the user's remember period when remembered via cookie.
-  # config.extend_remember_period = false
+  config.extend_remember_period = false
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
@@ -198,12 +198,17 @@ Devise.setup do |config|
   config.navigational_formats = ["*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.sign_out_via = :get
+  config.omniauth :facebook, Secret.auth.facebook.key, Secret.auth.facebook.secret, { scope: 'email, offline_access', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :twitter, Secret.auth.twitter.key, Secret.auth.twitter.secret, { scope: 'r_fullprofile, r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :linkedin, Secret.auth.linkedin.key, Secret.auth.linkedin.secret, { scope: 'r_fullprofile r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :github, Secret.auth.github.key, Secret.auth.github.secret, { scope: 'user, public_repo' }
+  config.omniauth :gplus, Secret.auth.gplus.key, Secret.auth.gplus.secret, { scope: 'userinfo.profile' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

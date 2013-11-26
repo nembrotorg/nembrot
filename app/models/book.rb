@@ -54,7 +54,7 @@ class Book < ActiveRecord::Base
   end
 
   def self.sync_all
-    need_syncdown.each { |book| book.populate! }
+    need_syncdown.metadata_missing.each { |book| book.populate! }
   end
 
   def isbn

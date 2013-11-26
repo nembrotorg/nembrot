@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/norman/friendly_id.git
-  revision: c80586ec6e5f76e88fea5be84d49a2d0e00c919f
+  revision: 0c2ff236ff0137d4130d64863b22babc488add2c
   branch: master
   specs:
     friendly_id (5.0.1)
@@ -78,7 +78,7 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    capybara (2.1.0)
+    capybara (2.2.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -101,7 +101,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colored (1.2)
-    commontator (4.2.0)
+    commontator (4.2.1)
       jquery-rails
       rails (>= 3.1)
     compass (0.12.2)
@@ -120,8 +120,8 @@ GEM
     dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    detect_language (1.0.4)
-    devise (3.2.1)
+    detect_language (1.0.5)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -136,7 +136,7 @@ GEM
     encryptor (1.3.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    evernote-thrift (1.25.0)
+    evernote-thrift (1.25.1)
     execjs (2.0.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -205,7 +205,7 @@ GEM
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    kaminari (0.14.1)
+    kaminari (0.15.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
@@ -220,7 +220,6 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    lockfile (2.1.0)
     lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -228,8 +227,8 @@ GEM
     meta-tags (1.5.0)
       actionpack
     method_source (0.8.2)
-    mime-types (1.25)
-    mini_magick (3.6.0)
+    mime-types (1.25.1)
+    mini_magick (3.7.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
@@ -289,7 +288,7 @@ GEM
       jquery-rails
     polyglot (0.3.3)
     powerpack (0.0.9)
-    pry (0.9.12.3)
+    pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -365,9 +364,8 @@ GEM
     sexp_processor (4.4.0)
     shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
-    simplecov (0.8.1)
+    simplecov (0.8.2)
       docile (~> 1.1.0)
-      lockfile (>= 2.1.0)
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
@@ -383,7 +381,7 @@ GEM
       slim (~> 2.0)
     slop (3.4.7)
     spork (1.0.0rc4)
-    sprockets (2.10.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -425,7 +423,7 @@ GEM
     uuidtools (2.1.4)
     validate_url (0.2.0)
       activemodel (>= 3.0.0)
-    vcr (2.7.0)
+    vcr (2.8.0)
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.16.0)

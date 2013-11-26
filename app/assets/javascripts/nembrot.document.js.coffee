@@ -136,8 +136,6 @@ load_comments_count = (page_class) ->
     $('.page').removeClass('deep-link')
     $('#tools a[href$="#comments"]').text('')
 
-window.Nembrot.load_comments_count = load_comments_count
-
 _normalize_count = (data) ->
     count = ''
     count = data
@@ -229,6 +227,8 @@ content_initializers = () ->
   load_share_links(page_class)
   if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_class) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_class)
+
+window.Nembrot.content_initializers = content_initializers
 
 content_initializers_reload_only = () ->
 

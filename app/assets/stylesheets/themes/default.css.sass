@@ -216,13 +216,13 @@ table
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+pass_media_query('default')
++pass-media-query('default')
 
-#main, .hello_world, footer
+#main, .hello-world, footer
   width: 90%
   margin: 0 5% $line-height 5%
 
-#main > div, .hello_world p, footer nav, footer small
+#main > div, .hello-world p, footer nav, footer small
   clear: both
 
 ol, ul, .statistics
@@ -365,7 +365,7 @@ iframe
     margin-bottom: 0
 
 .pagination
-  +pagination_nav($font-color)
+  +pagination-nav($font-color)
 
 article
   .tags
@@ -687,7 +687,7 @@ ul.oauth
 
 @media only print
 
-  +pass_media_query('print')
+  +pass-media-query('print')
 
   iframe, nav
     display: none
@@ -720,13 +720,13 @@ ul.oauth
 
 @media only screen and (min-width: 720px)
 
-  +pass_media_query('screen-and-min-width-720px')
+  +pass-media-query('screen-and-min-width-720px')
 
   body
     padding-top: $line-height / 2
 
   #main,
-  .hello_world,
+  .hello-world,
   footer
     margin: 0 auto $line-height auto
 
@@ -891,7 +891,7 @@ ul.oauth
 
 @media only screen and (min-width: 1024px)
 
-  +pass_media_query('screen-and-min-width-1024px')
+  +pass-media-query('screen-and-min-width-1024px')
 
   iframe
     +span-columns(9, 9)
@@ -927,7 +927,7 @@ ul.oauth
       +span-columns(3 omega)
 
   #main,
-  .hello_world,
+  .hello-world,
   footer
     width: 1080px
 
@@ -982,7 +982,7 @@ ul.oauth
 
 @media only screen and (min-width: 1200px)
 
-  +pass_media_query('screen-and-min-width-1200px')
+  +pass-media-query('screen-and-min-width-1200px')
 
   #tools
     background-color: transparent

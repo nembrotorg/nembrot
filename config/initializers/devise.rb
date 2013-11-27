@@ -203,7 +203,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.sign_out_via = :get
+  # config.omniauth :evernote, Secret.auth.evernote.key, Secret.auth.evernote.secret
   config.omniauth :facebook, Secret.auth.facebook.key, Secret.auth.facebook.secret, { scope: 'email, offline_access', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   config.omniauth :twitter, Secret.auth.twitter.key, Secret.auth.twitter.secret, { scope: 'r_fullprofile, r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   config.omniauth :linkedin, Secret.auth.linkedin.key, Secret.auth.linkedin.secret, { scope: 'r_fullprofile r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}

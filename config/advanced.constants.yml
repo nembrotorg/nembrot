@@ -35,8 +35,7 @@ defaults: &defaults
     monitoring_email: joe@nembrot.org
     monitoring_name: Joe
     notes_index_per_page: 10
-    share: true
-    share_with_iframes: false
+    share_native_or_iframes_or_none: false
     tags_index_per_page: 120
     tags_index_style: false
     tags_minimum: 2

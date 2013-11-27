@@ -4,6 +4,9 @@ en:
   map: 'Map'
   atom_feed: 'Atom feed'
 
+  admin:
+    title: 'Admin'
+
   auth:
     success: "Your %{provider} key has been authenticated."
     failure: "%{provider} authentication failed!"
@@ -40,7 +43,7 @@ en:
         other: "%{count} books (%{references_count} references)."
     admin:
       title: "Bibliography admin: %{mode}"
-      title_no_mode: "Bibliography admin"
+      title_no_mode: 'Bibliography'
       title_short: 'Admin'
       statistics:
         zero: "0 books."
@@ -83,7 +86,7 @@ en:
       title: 'Links'
       statistics: "%{channels_count} websites (%{links_count} references)."
     admin:
-      title: 'Links admin'
+      title: 'Links'
       title_short: 'Admin'
       statistics:
         zero: "0 links."
@@ -171,6 +174,7 @@ en:
         label_channel: 'Reset channel settings'
         label_style: 'Reset style settings'
     reset:
+      success_channel: 'Advanced settings have been reset!'
       success_channel: 'Channel settings have been reset!'
       success_style: 'Style settings have been reset!'
 
@@ -227,7 +231,7 @@ en:
         submit: 'Update'
         keep_password: 'Leave blank to keep exisiting one'
         current_password_reason: 'Required to confirm changes'
-        cancel: 'Cancel my account'
+        cancel: 'Delete my account'
         cancel_confirm: 'Are you sure?'
       new:
         title: 'Sign up'

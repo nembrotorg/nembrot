@@ -88,6 +88,53 @@
         border-color: $hover-color
         color: $hover-color
 
+=pagination_nav($line-color: $furniture-color, $button-width: $text-indent)
+  +font-color($line-color)
+  clear: both
+  margin-bottom: $line-height
+  ol
+    margin-top: ($line-height / 2) * -1
+    position: relative
+    li
+      display: inline-block
+      height: $line-height
+      .current
+        color: $off-color
+        &:before
+          border-color: $off-color
+      a, .current
+        display: block
+        text-align: center
+        width: $button-width
+        &:before
+          display: block
+          margin: ($line-height / 4) 0
+          width: $button-width
+      .current
+        font-weight: bold
+      &:first-child
+        +icon-left
+        +icon-only($button-width)
+        a, .current
+          &:before
+            +icon-to-start-2
+      &:nth-child(2)
+        +icon-only($button-width)
+        a,.current
+          &:before
+            +icon-left
+      &:nth-last-child(2)
+        +icon-only($button-width)
+        a, .current
+          margin-right: 1px
+          &:before
+            +icon-right
+      &:last-child
+        +icon-only($button-width)
+        a, .current
+          &:before
+            +icon-to-end-2
+
 =pass_media_query($media-query)
   body
     &:after
@@ -126,54 +173,6 @@
   height: $height
   overflow: hidden
   width: $button-width
-
-=pagination_nav($line-color: $furniture-color, $button-width: $text-indent)
-  +font-color($line-color)
-  clear: both
-  margin-bottom: $line-height
-  ol
-    margin-top: ($line-height / 2) * -1
-    position: relative
-    li
-      display: inline-block
-      height: $line-height
-      .current
-        color: $off-color
-        &:before
-          border-color: $off-color
-      a, .current
-        &:before
-          display: block
-          margin: ($line-height / 4) 0
-          width: $button-width - 5px
-      .current
-        font-weight: bold
-      &:first-child
-        +icon-left
-        +icon-only($button-width)
-        a, .current
-          &:before
-            +icon-to-start-2
-      &:nth-child(2)
-        +icon-only($button-width)
-        left: $button-width
-        a,.current
-          &:before
-            +icon-left
-      &:nth-last-child(2)
-        +icon-only($button-width)
-        right: $button-width
-        a, .current
-          margin-right: 1px
-          &:before
-            +icon-right
-            text-align: right
-      &:last-child
-        +icon-only($button-width)
-        right: 0
-        a, .current
-          &:before
-            +icon-to-end-2
 
 =transition($duration: 1s)
   transition: all $duration ease-out

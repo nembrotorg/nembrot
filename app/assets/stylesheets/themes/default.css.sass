@@ -53,7 +53,7 @@ a
     text-transform: lowercase
   &:focus
     outline: 0
-  &[href*=admin]:before
+  &[href*=admin]:before, &[href*=settings]:before
     +icon-settings
   &[href*=users]:before
     +icon-user
@@ -62,19 +62,27 @@ a
     +icon-comment-empty
   &[href$='#menu']:before
     +icon-list
-  &[href*=facebook]:before
+  &[href*=evernote]:before,
+    +icon-evernote
+  &[href*=facebook]:before,
     +icon-facebook
   &[href*=github]:before
     +icon-github-circled
-  &[href*=google]:before
+  &[href*=google]:before, &[href*=gplus]:before
     +icon-gplus
+  &[href*=linkedin]:before
+    +icon-linkedin
   &[href^=mailto]:before
     +icon-mail
     +icon-regular
-  &[href$='rss']:before,
-  &[href$='atom']:before      
+  &[href$=rss]:before,
+  &[href$=atom]:before      
     +icon-rss
     +icon-regular
+  &[href*=reset]:before
+    +icon-undo
+  &[href*=signout]:before
+    +icon-signout
   &[href*=soundcloud]:before
     +icon-soundcloud
   &[href*=spotify]:before
@@ -114,16 +122,32 @@ form
     display: block
     height: $line-height
     line-height: $line-height
+    &:hover
+      background-color: $row-hover-color
   input
     &[type=email],
     &[type=number],
     &[type=password],
     &[type=text],
     &[type=url],
-      border: 1px solid #ccc
-      height: $body-font-size
+      border: 1px solid $border-color
+      color: $font-color
+      height: 24px
+      margin: 2px 0
       &.important:not([value])
         border-color: $error-background-color
+    &[type=button],
+    &[type=submit]
+      border: 1px solid $border-color
+      font-variant: small-caps
+      font-weight: bold
+      height: $line-height
+      margin-top: $line-height
+      padding: 0 ($text-indent / 2)
+      text-transform: lowercase
+      &:hover
+        background-color: $link-hover-color
+        color: $background-color
 
 h1
   margin: $line-height 0
@@ -156,6 +180,9 @@ ol, ul
 table
   margin-bottom: $line-height
   width: 100%
+  tr
+    &:hover
+      background-color: $row-hover-color
   td
     margin-left: $gutter-width
     &:empty
@@ -356,7 +383,7 @@ article
           a:after
             content: ''
 
-ul.user li a
+ul li a
   &.back
     text-transform: lowercase
     &:before
@@ -365,8 +392,13 @@ ul.user li a
     &:after
       content: ''
   &[data-method=delete]:before
-    +icon-signout
+    +icon-delete
     +icon-regular
+  &[href^='/users/auth/']:before
+    +icon-only
+    +icon-large
+  &[href$='sign_out']:before
+    +icon-signout
 
 blockquote
   footer
@@ -435,6 +467,10 @@ footer
         margin-bottom: 0
       p:first-of-type
         text-indent: 0
+  .tags, .versions, .annotations
+    margin: $line-height 0 0 0
+  .versions ol
+    margin-bottom: 0
 
 #disqus_thread,
 #comments
@@ -465,6 +501,11 @@ footer
           a:before
             +icon-right
             +icon-small
+  a[href$=edit]
+    +icon-only
+    &:before,
+      +icon-edit
+      +icon-only
 
 .books-admin, .books-edit, .links-admin, .links-edit
   .breadcrumb
@@ -553,46 +594,90 @@ footer
   ul
     display: inline-block
     margin-bottom: 0
-  li
-    display: inline-block
     li
       display: inline-block
+      li
+        height: $line-height
+        margin-right: $text-indent / 2
+        position: relative
+        width: $text-indent
+      &.fb-like
+        overflow: visible
+      a
+        font-size: $small-font-size
+        height: $line-height * 1/3
+        padding-bottom: $line-height * 2/3
+        position: absolute
+        text-align: right
+        top: $line-height * 2/3
+        width: $text-indent
+        &:before
+          font-size: $line-height
+          height: $line-height * 2/3
+          left: $line-height * -0.1
+          position: absolute
+          top: $line-height * 2/3 * -1
+          width: $text-indent
+        &:after
+          display: none
+        &:hover
+          &[href*=facebook]:before
+            color: $facebook-color
+          &[href*=google]:before
+            color: $gplus-color
+          &[href*=twitter]:before
+            color: $twitter-color
+      &.user, &.menu
+        li
+          +icon-only
+    .deep-link
+      a
+        color: $count-color
+
+ul.oauth
+  +horizontal-list
+  display: inline-block
+  li
+    overflow: hidden
+    position: relative
+    width: $text-indent * 2
+    &.connected:before
+      +icon-ok
+      color: $font-color
+      display: block
       height: $line-height
-      margin-right: $text-indent / 2
-      position: relative
-      width: $text-indent
-    &.fb-like
-      overflow: visible
-    a
-      font-size: $small-font-size
-      height: $line-height * 1/3
-      padding-bottom: $line-height * 2/3
+      left: 0
       position: absolute
       text-align: right
-      top: $line-height * 2/3
-      width: $text-indent
-      &:before
-        font-size: $line-height
-        height: $line-height * 2/3
-        left: $line-height * -0.1
-        position: absolute
-        top: $line-height * 2/3 * -1
-        width: $text-indent
-      &:after
-        display: none
-      &:hover
-        &[href*=facebook]:before
-          color: #3b5998
-        &[href*=google]:before
-          color: #dd4b39
-        &[href*=twitter]:before
-          color: #00ACEE
-    &.user, &.menu
-      li
-        +icon-only
-  .deep-link
-    a
-      color: $count-color
+      width: $text-indent * 2
+      z-index: 1
+    span
+      opacity: 0.5
+    a:hover, a:hover:before
+      background-color: $link-hover-color !important
+    a:before, span:before
+      +icon-large
+      +icon-only($text-indent * 2)
+      color: $background-color
+      padding-left: $text-indent / 2
+    .evernote:before, a[href*=evernote]:before
+      +icon-evernote
+      background-color: $evernote-color
+    .facebook:before, a[href*=facebook]:before
+      +icon-facebook
+      background-color: $facebook-color
+    .github:before, a[href*=github]:before
+      +icon-github-circled
+      background-color: $github-color
+    .gplus:before, a[href*=gplus]:before
+      +icon-gplus
+      background-color: $gplus-color
+    .linkedin:before, a[href*=linkedin]:before
+      +icon-linkedin
+      background-color: $linkedin-color
+    .twitter:before, a[href*=twitter]:before
+      +icon-twitter
+      background-color: $twitter-color
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -653,17 +738,12 @@ footer
   form
     margin-bottom: $line-height
     +span-columns(6)
+    fieldset
+      margin-bottom: $line-height
     label
       input
         float: right
         width: space(6)
-    input[type=button],
-    input[type=submit]
-      font-variant: small-caps
-      font-weight: bold
-      height: $line-height
-      margin-top: $line-height
-      text-transform: lowercase
 
   header
     position: relative
@@ -698,12 +778,11 @@ footer
 
   ul.user
     clear: both
-    li
-      a
-        text-transform: lowercase
-        &:before
-          +icon-right
-          +icon-small
+    a
+      text-transform: lowercase
+      &:before
+        +icon-right
+        +icon-small
 
   article
     figure
@@ -893,6 +972,12 @@ footer
     display: inline-block
     margin-bottom: $line-height / 2
 
+  #admin
+    ul
+      position: fixed
+      left: $text-indent
+      top: $line-height * 6
+
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1200px)
@@ -903,3 +988,4 @@ footer
     background-color: transparent
     border: none
     bottom: 0
+    width: space(2)

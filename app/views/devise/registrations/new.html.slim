@@ -12,6 +12,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     = devise_error_messages!
 
+    = f.label :name do
+      = :name.to_s.humanize
+      = f.text_field :name, autofocus: true
+
     = f.label :email do
       = :email.to_s.humanize
       = f.email_field :email, autofocus: true

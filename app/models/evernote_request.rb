@@ -136,7 +136,7 @@ class EvernoteRequest
       'content_class'       => cloud_note_data.attributes.contentClass,
       'external_updated_at' => calculate_updated_at,
       'instruction_list'    => cloud_note_tags.grep(/^_/),
-      'introduction'        => cloud_note_data.content.scan(/<div>\s*intro:\s*(.*?)\s*<\/div>/i),
+      'introduction'        => cloud_note_data.content.scan(/<div>\s*intro:\s*(.*?)\s*<\/div>/i).first,
       'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
       'latitude'            => cloud_note_data.attributes.latitude,
       'longitude'           => cloud_note_data.attributes.longitude,

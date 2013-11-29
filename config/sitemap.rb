@@ -25,7 +25,7 @@ SitemapGenerator::Sitemap.create do
     add notes_path
 
     Note.publishable.listable.each do |note|
-      add note_path(note), lastmod: note.external_updated_at
+      add note_or_feature_path(note), lastmod: note.external_updated_at
     end
   end
 

@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title_short', name: @tag.name), document_title: document_title
+    = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
 
     = render 'shared/map', map: @map unless @map.empty?
 

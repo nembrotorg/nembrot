@@ -9,24 +9,26 @@ describe Note do
   subject { note }
 
   it { should be_valid }
-  it { should respond_to(:title) }
-  it { should respond_to(:body) }
-  it { should respond_to(:external_updated_at) }
   it { should respond_to(:active) }
+  it { should respond_to(:altitude) }
   it { should respond_to(:author) }
-  it { should respond_to(:source) }
-  it { should respond_to(:source_url) }
-  it { should respond_to(:source_application) }
-  it { should respond_to(:last_edited_by) }
-  it { should respond_to(:is_embeddable_source_url) }
+  it { should respond_to(:body) }
+  it { should respond_to(:distance) }
+  it { should respond_to(:external_updated_at) }
+  it { should respond_to(:feature) }
   it { should respond_to(:fx) }
-  it { should respond_to(:active) }
   it { should respond_to(:hide) }
-  it { should respond_to(:place) }
+  it { should respond_to(:is_embeddable_source_url) }
+  it { should respond_to(:last_edited_by) }
   it { should respond_to(:latitude) }
   it { should respond_to(:longitude) }
-  it { should respond_to(:altitude) }
-  it { should respond_to(:content_class) }
+  it { should respond_to(:place) }
+  it { should respond_to(:feature_id) }
+  it { should respond_to(:source) }
+  it { should respond_to(:source_application) }
+  it { should respond_to(:source_url) }
+  it { should respond_to(:title) }
+  it { should respond_to(:word_count) }
 
   it { should have_many(:evernote_notes) }
   it { should have_many(:resources) }
@@ -304,6 +306,54 @@ describe Note do
     context 'when source_url is a soundcloud link' do
       before { note.source_url = 'http://soundcloud.com?v=ABCDEF' }
       its (:is_embeddable_source_url) { should be_true }
+    end
+  end
+
+  describe '#feature_id' do
+    context 'when title has no feature_id' do
+      before { note.title = 'Title' }
+      its (:feature_id) { should be_nil }
+    end
+    context 'when title has a numerical feature_id' do
+      before { note.update_attributes(title: '1. Title') }
+      its (:feature_id) { should eq('1') }
+    end
+    context 'when title has an alphabetic feature_id' do
+      before { note.update_attributes(title: 'a. Title') }
+      its (:feature_id) { should eq('a') }
+    end
+    context 'when title has a word as feature_id' do
+      before { note.update_attributes(title: 'First. Title') }
+      its (:feature_id) { should eq('first') }
+    end
+    context 'when title has a subtitle' do
+      before { note.update_attributes(title: 'Main Title: Subtitle') }
+      its (:feature_id) { should eq('subtitle') }
+    end
+    context 'when title has more than one word before a period' do
+      before { note.update_attributes(title: 'Two words. Title') }
+      its (:feature_id) { should be_nil }
+    end
+  end
+
+  describe '#feature' do
+    Setting['advanced.instructions_feature_first'] = '__FEATURE_FIRST'
+    Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
+    before { note.update_attributes(title: 'Title Has Three Words') }
+    context 'when note has no instruction' do
+      its (:feature) { should be_nil }
+    end
+    context 'when note has feature instruction' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE)) }
+      its (:feature) { should eq('title-has-three-words') }
+    end
+    context 'when note has an instruction to use the first word' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_FIRST)) }
+      its (:feature) { should eq('title') }
+    end
+    context 'when note has an instruction to use the last word' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_LAST)) }
+      its (:feature) { should eq('words') }
     end
   end
 

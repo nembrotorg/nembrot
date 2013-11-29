@@ -63,4 +63,8 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end  
+
+  def note_or_feature_path(note)
+    note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(note)
+  end
 end

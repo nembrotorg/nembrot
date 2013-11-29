@@ -7,7 +7,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('site.title'), document_title: document_title
+  = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
 
   - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
 

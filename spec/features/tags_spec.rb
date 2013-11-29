@@ -45,7 +45,7 @@ describe 'Tags pages' do
       page.should have_selector('h1', text: @tag.name)
     end
     it 'has a link to note' do
-      page.should have_selector('a', note_path(@note))
+      page.should have_selector('a', note_or_feature_path(@note))
     end
   end
 
@@ -56,7 +56,7 @@ describe 'Tags pages' do
     end
     it 'does not have a link to an inactive note' do
       page.should_not have_selector('a', text: 'New title: New body')
-      page.should_not have_link('New title: New body', href: note_path(@note))
+      page.should_not have_link('New title: New body', href: note_or_feature_path(@note))
     end
   end
 end

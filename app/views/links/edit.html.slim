@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title', channel: @link.channel), document_title: document_title
+    = render 'header', title: t('.title', channel: @link.channel), subtitle: nil, document_title: document_title
 
     - if @link.errors.any?
       ul.errors

@@ -52,4 +52,7 @@ Nembrot::Application.routes.draw do
 
   resources :evernote_notes, only: [:add_evernote_task]
   resources :evernote_auths, only: [:auth_callback, :auth_failure]
+
+  get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
+  get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature
 end

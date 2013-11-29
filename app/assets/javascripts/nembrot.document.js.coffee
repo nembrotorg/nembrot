@@ -117,7 +117,7 @@ DISQUS_API_KEY = 'qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLH
 DISQUS_API_URL = 'https://disqus.com/api/3.0/threads/set.jsonp'
 
 load_disqus_comments_count = (page_class) ->
-  if page_class.indexOf('notes-show') != -1
+  if page_class.indexOf('notes-show') != -1 || page_class.indexOf('features-') != -1
     $('.page').addClass('deep-link')
     $.getJSON DISQUS_API_URL + "?api_key=" + DISQUS_API_KEY + "&forum=" + DISQUS_SHORT_NAME + "&thread=" + encodeURIComponent(location.href), (data) ->
       count = _normalize_count(data.response.first)
@@ -127,7 +127,7 @@ load_disqus_comments_count = (page_class) ->
     $('#tools a[href$="#comments"]').text('')
 
 load_comments_count = (page_class) ->
-  if page_class.indexOf('notes-show') != -1
+  if page_class.indexOf('notes-show') != -1 || page_class.indexOf('features-') != -1
     $('.page').addClass('deep-link')
     count = RegExp(/\d+/).exec($('#comments h2').text())
     if count == null then count = ''

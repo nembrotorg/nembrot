@@ -24,7 +24,7 @@ describe 'Notes' do
       page.should have_selector('h1', text: I18n.t('notes.index.title'))
     end
     it 'should have a link to note' do
-      page.should have_selector('a', note_path(@note))
+      page.should have_selector('a', note_or_feature_path(@note))
     end
 
     context 'when a note is not active' do
@@ -33,7 +33,7 @@ describe 'Notes' do
         visit notes_path
       end
       it 'should not have a link to an inactive note' do
-        page.should_not have_link(text: 'New title: New body', href: note_path(@note))
+        page.should_not have_link(text: 'New title: New body', href: note_or_feature_path(@note))
       end
     end
 
@@ -103,7 +103,7 @@ describe 'Notes' do
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']
       @note.save
-      visit note_path(@note)
+      visit note_or_feature_path(@note)
     end
     it 'should have the note title as title' do
       page.should have_selector('h1', text: @note.title)
@@ -140,7 +140,7 @@ describe 'Notes' do
       before do
         @note.introduction = 'It has a rather long introduction, actually!'
         @note.save
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should display the introduction' do
         page.should have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
@@ -152,7 +152,7 @@ describe 'Notes' do
         @note.instruction_list = ['__PUBLISH', '__NO_INTRO']
         @note.introduction = 'It has a rather long introduction, actually!'
         @note.save
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should not display the introduction' do
         page.should_not have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
@@ -162,7 +162,7 @@ describe 'Notes' do
     context 'when a note has an image' do
       before do
         @resource = FactoryGirl.create(:resource, note: @note)
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should display attached images' do
         page.should have_css("figure img[src*=\"#{ cut_image_binary_path(@resource) }\"]")
@@ -178,7 +178,7 @@ describe 'Notes' do
     context 'when a note has an attachment' do
       before do
         @resource = FactoryGirl.create(:resource, note: @note, mime: 'application/pdf')
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should display downloadable files' do
         pending "page.should have_css(\"a[href*=#{@resource.local_file_name}]\")"
@@ -188,7 +188,7 @@ describe 'Notes' do
     context 'when a note has a youtube video' do
       before do
         @note.update_attributes(source_url: 'http://youtube.com/?v=ABCDEF')
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should have an iframe with an embedded youtube video' do
         page.should have_css('iframe[src="http://www.youtube.com/embed/ABCDEF?rel=0"]')
@@ -198,7 +198,7 @@ describe 'Notes' do
     context 'when a note has a vimeo video' do
       before do
         @note.update_attributes(source_url: 'http://vimeo.com/video/ABCDEF')
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should have an iframe with an embedded vimeo video' do
         page.should have_css('iframe[src="http://player.vimeo.com/video/ABCDEF"]')
@@ -208,7 +208,7 @@ describe 'Notes' do
     context 'when a note has a soundcloud clip' do
       before do
         @note.update_attributes(source_url: 'http://soundcloud.com/ABCDEF')
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should have an iframe with an embedded soundcloud video' do
         page.should have_css('iframe[src="http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF"]')
@@ -224,7 +224,7 @@ describe 'Notes' do
         @note.title = 'تشريح الكآبة'
         @note.body = 'القارئ لطيف، أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
         @note.save
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'has the language attribute if note is not in default language' do
         page.should have_css('#content[lang=ar]')
@@ -237,7 +237,7 @@ describe 'Notes' do
     context 'when a note has a map' do
       before do
         @note.update_attributes(latitude: 25, longitude: 25, active: true, instruction_list: ['__PUBLISH', '__MAP'])
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should display map' do
         pending "page.should have_css(\"div.map\")"
@@ -248,7 +248,7 @@ describe 'Notes' do
       before do
         @note.update_attributes(latitude: nil, longitude: nil, active: true, instruction_list: ['__PUBLISH', '__MAP'])
         @resource = FactoryGirl.create(:resource, latitude: 25, longitude: 25, note: @note)
-        visit note_path(@note)
+        visit note_or_feature_path(@note)
       end
       it 'should display map' do
         pending "page.should have_css(\"div.map\")"
@@ -330,7 +330,7 @@ describe 'Notes' do
   #     visit notes_path
   #   end
   #   it 'should have a link to promoted note' do
-  #     page.should have_selector('.promoted a', note_path(@note))
+  #     page.should have_selector('.promoted a', note_or_feature_path(@note))
   #   end
   # end
 

@@ -157,8 +157,14 @@ h1
     weight: normal
     size: $headline-font-size
 
-h2
-  +font-color($headline-font-color)
+section:not(.ins-section) section, .home-index
+  h2
+    +font-color($headline-font-color)
+
+section.ins-section
+  section
+    h2
+      font-weight: bold
 
 iframe
   border: 0
@@ -190,7 +196,9 @@ table
     &:first-child
       margin-left: 0
 
-.home-index, .notes-index, .notes-show, .notes-version
+.home-index, .notes-index, .notes-show, .notes-version,
+.features-index section:not(.ins-section), .features-show section:not(.ins-section), 
+.features-show article:not(.ins-section), .features-version
   h1
     +font-color($headline-font-color)
 
@@ -357,12 +365,21 @@ iframe
       +blurb(3, 3)
 
 .notes li, .citations li, .map-infowindow
-  +body-font
   +clearfix
   display: block
   margin-bottom: $line-height
   &:last-child
     margin-bottom: 0
+
+section:not(.ins-section), .home-index
+  .notes li, .citations li, .map-infowindow
+    +body-font
+
+.features-index, .features-show
+  .notes li
+    h2
+      span
+        display: none
 
 .pagination
   +pagination-nav($font-color)
@@ -472,6 +489,14 @@ footer
   .versions ol
     margin-bottom: 0
 
+section.ins-section, article.ins-section
+  #text
+    .body
+      +body-font-citation
+      text-align: left
+  .statistics
+    display: none
+
 #disqus_thread,
 #comments
   +span-columns(12)
@@ -539,13 +564,12 @@ footer
         clear: both
         display: block
 
-.notes-version
+.notes-version, .features-version
   .versions
     li:nth-child(n+2)
       display: block
 
-.notes-map,
-.tags-map
+.notes-map, .tags-map, .features-map
   #map
     height: $line-height * 20
     margin-bottom: $line-height
@@ -745,15 +769,17 @@ ul.oauth
         float: right
         width: space(6)
 
-  header
+  header[data-title]
+    height: $line-height * 3
+    margin-top: $line-height
     position: relative
     #notice
       position: absolute
-      top: $line-height * 2
-
-  h1
-    height: $line-height * 2
-    margin: $line-height 0
+      top: $line-height
+    h1
+      margin: 0
+    h2
+      margin-top: $line-height
 
   iframe
     clear: both

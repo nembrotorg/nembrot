@@ -20,22 +20,26 @@ defaults: &defaults
     disqus_shortname: nembrot
     instructions_citation: __QUOTE __CITATION
     instructions_default: __TRI
+    instructions_feature: __FEATURE
+    instructions_feature_first: __FEATURE_FIRST
+    instructions_feature_last: __FEATURE_LAST
     instructions_hide: __HIDE
     instructions_hide_image: __HIDE_IMAGE __NO_IMAGE
     instructions_hide_introduction: __HIDE_INTRO __NO_INTRO
+    instructions_hide_versions: __HIDE_VERSION_LIST __NO_VERSION_LIST
     instructions_ignore: __IGNORE __HOLD
     instructions_map: __MAP
     instructions_promote: __PROMOTE
     instructions_required: __PUBLISH
     instructions_reset: __RESET
-    instructions_unlist: __UNLIST __NO_LIST
+    instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
     instructions_unversion: __UNVERSION __NO_VERSION
     links_index_per_page: 60
     locale: en
     monitoring_email: joe@nembrot.org
     monitoring_name: Joe
     notes_index_per_page: 10
-    share_native_or_iframes_or_none: false
+    share_native_or_iframes_or_none: native
     tags_index_per_page: 120
     tags_index_style: false
     tags_minimum: 2

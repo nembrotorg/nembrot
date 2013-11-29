@@ -9,10 +9,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), document_title: document_title
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
 
-    form action="#{ update_settings_path }" method="post"  
+    form action="#{ update_settings_path }" method="post"
 
       fieldset
         header

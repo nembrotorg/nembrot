@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :add_home_breadcrumb
   before_filter :get_promoted_notes
+  before_filter :get_sections
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
@@ -16,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   def get_promoted_notes
     @promoted_notes = Note.listable.blurbable.promotable
+  end
+
+  def get_sections
+    @sections = Note.sections
   end
 
   def mapify(notes)

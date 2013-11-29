@@ -10,7 +10,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   article class=css_instructions(@note.instruction_list)
 
-    = render 'header', title: @note.headline, document_title: document_title
+    = render 'header', title: @note.main_title, subtitle: @note.subtitle, document_title: document_title
 
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
@@ -28,16 +28,21 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
         = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 
-        aside
+        - unless @note.is_section
 
-          = render 'tag_list', tags: @tags unless @tags.empty?
+          aside
 
-          / REVIEW: Consider listing books and links here but avoid duplication from side-notes
+            = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          = render 'versions_list', note: @note
+            / REVIEW: Consider listing books and links here but avoid duplication from side-notes
+
+            = render 'notes/versions_list', note: @note
 
       = render 'shared/map', map: @map unless @map.nil?
 
-  section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
 
-  = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+  - unless @note.is_section
+
+    section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+
+    = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'

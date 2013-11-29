@@ -53,7 +53,7 @@ describe 'Books' do
 
     it 'has a link to the citation' do
       page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
-      pending "page.should have_selector(\"a[href='#{ note_path(@note) }']\") FIXME: Citation is being shown as a note"
+      pending "page.should have_selector(\"a[href='#{ note_or_feature_path(@note) }']\") FIXME: Citation is being shown as a note"
       pending "page.should have_selector(\"a[href='#{ citation_path(@citation) }']\") FIXME: Citation is being shown as a note"
     end
   end

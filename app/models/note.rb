@@ -33,6 +33,7 @@ class Note < ActiveRecord::Base
   scope :citations, -> { where(is_citation: true) }
   scope :listable, -> { where(listable: true, is_citation: false) }
   scope :publishable, -> { where(active: true, hide: false) }
+  # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
   validate :body_or_source_or_resource?, before: :update
@@ -45,14 +46,24 @@ class Note < ActiveRecord::Base
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
+  # REVIEW: Store in columns like is_section?
   def self.mappable
     all.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
   end
 
+  # REVIEW: Store in columns like is_section?
   def self.promotable
     promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
     greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
     (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
+  end
+
+  def self.sections
+    where(is_section: true).pluck(:feature).uniq
+  end
+
+  def self.features
+    where(is_feature: true, is_section: false).pluck(:feature).uniq
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -69,8 +80,7 @@ class Note < ActiveRecord::Base
 
   def headline
     return I18n.t('citations.show.title', id: id) if is_citation
-    I18n.t('notes.untitled_synonyms').map(&:downcase)
-                                     .include?(title.downcase) ? I18n.t('notes.show.title', id: id) : title
+    is_untitled? ? I18n.t('notes.show.title', id: id) : title
   end
 
   def type
@@ -110,10 +120,10 @@ class Note < ActiveRecord::Base
   end
 
   def gmaps4rails_title
-    title
+    headline
   end
 
-  # If the note has no geo information then we try to infer it from the image
+  # If the note has no geo information then try to infer it from the image
   def inferred_latitude
     latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude 
   end
@@ -126,7 +136,19 @@ class Note < ActiveRecord::Base
     altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude 
   end
 
+  def main_title
+    has_instruction?('full_title') ? headline : headline.gsub(/\:.*$/, '')
+  end
+
+  def subtitle
+    has_instruction?('full_title') ? nil : headline.scan(/\:\s*(.*)/).flatten.first
+  end
+
   private
+
+  def is_untitled?
+    I18n.t('notes.untitled_synonyms').map(&:downcase).include?(title.downcase)
+  end
 
   def external_updated_is_latest?
     return true if external_updated_at_was.blank?
@@ -172,8 +194,12 @@ class Note < ActiveRecord::Base
     update_is_hidable?
     update_is_citation?
     update_is_listable?
+    update_is_feature?
+    update_is_section?
     keep_old_date?
     update_lang
+    update_feature
+    update_feature_id
     update_word_count
     update_distance
   end
@@ -206,6 +232,14 @@ class Note < ActiveRecord::Base
     self.hide = has_instruction?('hide')
   end
 
+  def update_is_feature?
+    self.is_feature = has_instruction?('feature')
+  end
+
+  def update_is_section?
+    self.is_section = has_instruction?('section')
+  end
+
   def update_word_count
     self.word_count = clean_body.split.size
   end
@@ -213,5 +247,23 @@ class Note < ActiveRecord::Base
   def update_distance
     previous_title_and_body = body_was.nil? ? '' : title_was + body_was
     self.distance = Levenshtein.distance(previous_title_and_body, title + body)
+  end
+
+  def update_feature_id
+    feature_id_candidate = title.scan(/^([0-9a-zA-Z]+)\. /).flatten.first
+    feature_id_candidate = subtitle.parameterize unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
+    # sequence_feature_id = id.to_s if feature_id_candidate.blank?
+    self.feature_id = feature_id_candidate.parameterize unless feature_id_candidate.nil?
+  end
+
+  def update_feature
+    self.feature = has_instruction?('feature') ? get_feature_name : nil
+  end
+
+  def get_feature_name
+    title_candidate = main_title
+    title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
+    title_candidate = main_title.split(' ').last if has_instruction?('feature_last')
+    title_candidate.parameterize unless title_candidate.nil?
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131126123705) do
+ActiveRecord::Schema.define(version: 20131129090523) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -185,6 +185,12 @@ ActiveRecord::Schema.define(version: 20131126123705) do
     t.string   "place"
     t.string   "content_class"
     t.text     "introduction"
+    t.string   "feature"
+    t.string   "feature_id"
+    t.boolean  "is_feature"
+    t.boolean  "is_section"
+    t.boolean  "is_mapped"
+    t.boolean  "is_promoted"
   end
 
   create_table "resources", force: true do |t|

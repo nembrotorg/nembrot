@@ -606,11 +606,12 @@ section.ins-section, article.ins-section
   +icon-links
   +transition
   background-color: $background-color
-  border-top: 1px solid black
+  border-top: 1px solid $body-font-color
   bottom: $line-height * -2.25
   display: block
   margin: 0
   padding-left: 5%
+  padding-top: $line-height / 2
   position: fixed
   width: 100%
   iframe
@@ -657,6 +658,10 @@ section.ins-section, article.ins-section
     .deep-link
       a
         color: $count-color
+
+#admin
+  ul
+    padding-left: 5%
 
 ul.oauth
   +horizontal-list
@@ -1001,7 +1006,6 @@ ul.oauth
   #admin
     ul
       position: fixed
-      left: $text-indent
       top: $line-height * 6
 
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////

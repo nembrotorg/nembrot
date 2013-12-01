@@ -22,14 +22,18 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
         section#introduction
           p= @note.introduction
 
-      section#text class="#{ @source.nil? ? 'regular' : 'enface' }"
-
-        - if @source.nil?
+      - if @source.nil?
+        section#text.regular
           = bodify(@note.body, @note.books, @note.links)
 
-        - else
+      - elsif @note.has_instruction?('collate')
+        section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
+          = bodify_collate(@source.body, @note.body, @note.books, @note.links)
+
+      - else
+        section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
           section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-            = bodify(@source.body, [], [])
+            = bodify(@source.body, [], [], '', '', false)
           section.target
             = bodify(@note.body, @note.books, @note.links)
 

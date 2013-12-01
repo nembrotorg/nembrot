@@ -339,7 +339,6 @@ iframe
     text-indent: $text-indent * -1
     &:target
       background-color: $selected-background-color
-      +transition
     a
       display: inline
       text-indent: 0
@@ -488,6 +487,35 @@ footer
     margin: $line-height 0 0 0
   .versions ol
     margin-bottom: 0
+  &.parallel
+    line-height: $line-height * 2
+    .source
+      p
+        color: $headline-font-color
+    .target
+      position: absolute
+      padding-top: $line-height
+      top: 0
+      left: 0
+    div
+      clear: both
+      display: block
+      position: relative
+      .source
+        color: $headline-font-color
+        &:before
+          top: $line-height / 2
+      .target
+        position: absolute
+        top: 0
+    &.collate
+      p
+        text-indent: $text-indent
+      div
+        &:first-of-type
+          p
+            text-indent: 0
+
 
 section.ins-section, article.ins-section
   #text
@@ -659,10 +687,6 @@ section.ins-section, article.ins-section
       a
         color: $count-color
 
-#admin
-  ul
-    padding-left: $text-indent
-
 ul.oauth
   +horizontal-list
   display: inline-block
@@ -710,8 +734,8 @@ ul.oauth
 
 .ins-enumerate
   counter-reset: paragraphs
-  #text.regular, #text section.source 
-    p
+  #text
+    &.regular p, section.source p, p.source 
       counter-increment: paragraphs 1
       position: relative
       &:before
@@ -847,50 +871,49 @@ ul.oauth
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
 
-    section#content
-      #text
-        +span-columns(8)
-        +font-color($body-font-color)
-        counter-reset: term
-        margin-bottom: $line-height
-        overflow: visible
+    #text
+      +span-columns(8)
+      +font-color($body-font-color)
+      counter-reset: term
+      margin-bottom: $line-height
+      overflow: visible
+      position: relative
+      p
         position: relative
-        p
+      .body
+        +span-columns(8, 8)
+      .annotations
+        +prefix(8, 8)
+        +span-columns(4, 8)
+        li
+          +hyphens
+          font:
+            size: $small-font-size + 1px
+      .side-annotations
+        ol
+          display: block
+          padding-left: 0
           position: relative
-        .body
-          +span-columns(8, 8)
-        .annotations
-          +prefix(8, 8)
-          +span-columns(4, 8)
           li
-            +hyphens
-            font:
-              size: $small-font-size + 1px
-        .side-annotations
-          ol
+            +font-color($headline-font-color, $headline-font-color)
             display: block
-            padding-left: 0
-            position: relative
-            li
-              +font-color($headline-font-color, $headline-font-color)
-              display: block
-              position: absolute
-              a[href*=annotation-mark]
-                font:
-                  size: $small-font-size - 2px
-                padding-right: 3px
-                text-align: right
-                vertical-align: super
-                width: $text-indent - 3px
-        .aside
-          clear: both
-      &:hover
-        #text
-          a
-            color: $link-hover-color
-      &[dir=rtl]
-        header
-          +span-columns(6)
+            position: absolute
+            a[href*=annotation-mark]
+              font:
+                size: $small-font-size - 2px
+              padding-right: 3px
+              text-align: right
+              vertical-align: super
+              width: $text-indent - 3px
+      .aside
+        clear: both
+    &:hover
+      #text
+        a
+          color: $link-hover-color
+    &[dir=rtl]
+      header
+        +span-columns(6)
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools
@@ -968,33 +991,25 @@ ul.oauth
         .side-annotations
           +prefix(6, 6)
           +span-columns(3, 6)
-        &.regular
+        &.regular, &.parallel
           +span-columns(6, 12)
         &.enface
           +span-columns(12, 12)
-          +transition(1s)
-          .source
+          +transition
+          p
+            line-height: $line-height
+            &:before
+              top: 0
+          .source, p.source
             +span-columns(6, 12)
-          .target
+            color: $body-font-color
+            p
+              color: $body-font-color
+          .target, p.target
             +span-columns(6 omega, 12)
-            // Use absolute positioning so that animation (transition) can work smoothly
-            position: absolute
+            padding-top: 0
+            position: absolute // Use absolute positioning so that animation (transition) can work smoothly
             left: space(6)
-        &.interlinear
-          +span-columns(12, 12)
-          +transition(1s)
-          line-height: $line-height * 2
-          .source
-            +span-columns(6, 12)
-            +suffix(6, 12)
-            .body
-              color: $headline-font-color
-          .target
-            position: absolute
-            padding-top: $line-height
-            left: 0
-            +span-columns(6, 12)
-            +suffix(6, 12)
       #map
         +span-columns(3 omega, 9)
     #extra
@@ -1048,8 +1063,9 @@ ul.oauth
 
   #admin
     ul
-      position: fixed
       bottom: $line-height * 2
+      padding-left: $text-indent
+      position: fixed
 
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -16,6 +16,32 @@ module FormattingHelper
     clean_up_via_dom(text)
   end
 
+  def bodify_collate(source_text, target_text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+    return '' if source_text.blank? || target_text.blank?
+
+    source_text = sanitize_from_db(source_text)
+    source_text = clean_whitespace(source_text)
+    source_text = headerize(source_text)
+    target_text = sectionize(target_text)
+    source_text = remove_annotations(source_text)
+    source_text = paragraphize(source_text)
+    source_text = denumber_headers(source_text)
+
+    target_text = sanitize_from_db(target_text)
+    target_text = clean_whitespace(target_text)
+    target_text = bookify(target_text, books, books_citation_style)
+    target_text = linkify(target_text, links, links_citation_style)
+    target_text = headerize(target_text)
+    target_text = sectionize(target_text)
+    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
+    target_text = paragraphize(target_text)
+    target_text = denumber_headers(target_text)
+
+    clean_up_via_dom(source_text)
+    clean_up_via_dom(target_text)
+    collate(source_text, target_text)
+  end
+
   def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
     text = sanitize_from_db(text)
@@ -154,6 +180,11 @@ module FormattingHelper
     text = text.gsub(/ +/m, ' ')
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     dom = Nokogiri::HTML(text)
+    dom = clean_up_dom(dom, unwrap_p)
+    dom.css('body').children.to_html.html_safe
+  end
+
+  def clean_up_dom(dom, unwrap_p = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
     # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
@@ -168,8 +199,26 @@ module FormattingHelper
     end
     dom = indent_dom(dom) if Constant.html.pretty_body
     unwrap_from_paragraph_tag(dom) if unwrap_p
+    dom
+  end
+
+  def collate(source_text, target_text)
+    source_dom = Nokogiri::HTML(source_text)
+    source_paragraphs = source_dom.css('p')
+
+    target_dom = Nokogiri::HTML(target_text)
+    target_paragraphs = target_dom.css('p')
+
+    source_paragraphs.each_with_index do |p, i|
+      p['class'] = "source"
+      target_paragraph = target_paragraphs[i]
+      target_paragraph['class'] = "target"
+      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraphs[i].to_html }#{ target_paragraph.to_html }</div>"
+    end
+    dom = clean_up_dom(source_dom)
     dom.css('body').children.to_html.html_safe
   end
+
 
   def indent_dom(dom)
     tidy = Nokogiri::XSLT File.open('vendor/tidy.xsl')
@@ -227,7 +276,10 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^ *([^<].+[^>]) *$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
+    text.gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*(<\/section>)\s*$/, '\1<p>\2</p>\3')
+        .gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*$/, '\1<p>\2</p>')
+        .gsub(/^ *([^<].+[^>])\s*(<\/section>)\s*$/, '<p>\1</p>\2')
+        .gsub(/^\s*([^<].+[^>])\s*$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
         .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
         .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
   end

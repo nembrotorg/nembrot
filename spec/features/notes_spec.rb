@@ -261,17 +261,20 @@ describe 'Notes' do
       end
     end
 
-    context 'when a note has an enface source text' do
+    context 'when a note has a parallel source text' do
       before do
-        @note.update_attributes(active: true, instruction_list: ['__PUBLISH', '__ENFACE'])
+        @note.update_attributes(active: true, instruction_list: ['__PUBLISH', '__PARALLEL'])
         @source = FactoryGirl.create(:note, body: 'Fixed Note Inhalte verwendet werden, um mehrere Anrufe auf VCR verhindern.', lang: 'de', title: @note.title)
         visit note_path(@note)
       end
       it 'should have the note title as title' do
         page.should have_selector('h1', text: @note.title)
       end
-      it 'should have the text direction (if note is in default language)' do
+      it 'should have the source text language' do
         page.should have_css('.source[lang=de]')
+      end
+      it 'should have the source text direction' do
+        pending "page.should have_css('.source[dir=rtl]')"
       end
       it 'should have a source text section' do
         page.should have_css('.source')

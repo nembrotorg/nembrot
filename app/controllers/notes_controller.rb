@@ -40,10 +40,7 @@ class NotesController < ApplicationController
 
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
 
-
-    if @note.has_instruction?('enface')
-      @source = Note.where(title: @note.title).where.not(lang: @note.lang).first
-    end
+    @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
     # add_breadcrumb I18n.t('notes.versions.show.title', sequence: @note.versions.size),

@@ -19,6 +19,7 @@ defaults: &defaults
     detect_language_sample_length: 250
     disqus_shortname: nembrot
     instructions_citation: __QUOTE __CITATION
+    instructions_collate: __COLLATE
     instructions_default: __TRI
     instructions_feature: __FEATURE
     instructions_feature_first: __FEATURE_FIRST
@@ -28,7 +29,9 @@ defaults: &defaults
     instructions_hide_introduction: __HIDE_INTRO __NO_INTRO
     instructions_hide_versions: __HIDE_VERSION_LIST __NO_VERSION_LIST
     instructions_ignore: __IGNORE __HOLD
+    instructions_interlinear: __INTERLINEAR
     instructions_map: __MAP
+    instructions_parallel: __PARALLEL
     instructions_promote: __PROMOTE
     instructions_required: __PUBLISH
     instructions_reset: __RESET

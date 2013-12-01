@@ -157,6 +157,11 @@ module FormattingHelper
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
     # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
+
+    # Number paragraphs
+    all_paragraphs = dom.css('.target').empty? ? dom.css('p') : dom.css('.target p')
+    all_paragraphs.each_with_index { |e, i| e['id'] = "paragraph-#{ i + 1 }" }
+
     dom.xpath('//text()').find_all.each do |t|
       t.content = smartify(t.content)
       # t.content = hyper_conform(t.content)

@@ -708,6 +708,24 @@ ul.oauth
       +icon-twitter
       background-color: $twitter-color
 
+.ins-enumerate
+  counter-reset: paragraphs
+  #text.regular, #text section.source 
+    p
+      counter-increment: paragraphs 1
+      position: relative
+      &:before
+        +monospace-font
+        color: $off-color
+        content: counter(paragraphs)
+        display: block
+        font-size: $small-font-size - 3px
+        left: $text-indent * -3
+        line-height: $line-height
+        position: absolute
+        text-align: right
+        width: $text-indent * 2
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Media-queries
@@ -955,9 +973,9 @@ ul.oauth
         &.enface
           +span-columns(12, 12)
           +transition(1s)
-          #source
+          .source
             +span-columns(6, 12)
-          #target
+          .target
             +span-columns(6 omega, 12)
             // Use absolute positioning so that animation (transition) can work smoothly
             position: absolute
@@ -966,12 +984,12 @@ ul.oauth
           +span-columns(12, 12)
           +transition(1s)
           line-height: $line-height * 2
-          #source
+          .source
             +span-columns(6, 12)
             +suffix(6, 12)
             .body
               color: $headline-font-color
-          #target
+          .target
             position: absolute
             padding-top: $line-height
             left: 0

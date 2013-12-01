@@ -28,9 +28,9 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
           = bodify(@note.body, @note.books, @note.links)
 
         - else
-          section#source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
+          section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
             = bodify(@source.body, [], [])
-          section#target
+          section.target
             = bodify(@note.body, @note.books, @note.links)
 
         / Collated

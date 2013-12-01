@@ -108,6 +108,12 @@ describe 'Notes' do
     it 'should have the note title as title' do
       page.should have_selector('h1', text: @note.title)
     end
+    it 'should contain the body text' do
+      page.should have_text(@note.body)
+    end
+    it 'should have numbered paragraph ids' do
+      page.should have_css('#paragraph-1')
+    end
     it 'should not have the language attribute (if note is in default language)' do
       page.should_not have_css('#content[lang=en]')
     end
@@ -265,13 +271,13 @@ describe 'Notes' do
         page.should have_selector('h1', text: @note.title)
       end
       it 'should have the text direction (if note is in default language)' do
-        page.should have_css('#source[lang=de]')
+        page.should have_css('.source[lang=de]')
       end
       it 'should have a source text section' do
-        page.should have_css('#source')
+        page.should have_css('.source')
       end
       it 'should have a target text section' do
-        page.should have_css('#target')
+        page.should have_css('.target')
       end
       it 'should have the source text' do
         page.should have_text(@source.body)

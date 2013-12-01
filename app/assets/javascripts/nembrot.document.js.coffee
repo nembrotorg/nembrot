@@ -39,7 +39,7 @@ window.Nembrot.track_comment = track_comment
 place_annotations = () ->
   if $('.annotations').length
     (if _media_query('default') then _place_annotations_undo() else _place_annotations_do())
-    $('#text').addClass('fadeable-annotations')
+    # $('#text').addClass('fade-annotations') (This should be a command, maybe 'distraction-free')
   true
 
 _place_annotations_do = () ->

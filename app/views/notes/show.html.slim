@@ -22,9 +22,18 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
         section#introduction
           p= @note.introduction
 
-      section#text
+      section#text class="#{ @source.nil? ? 'regular' : 'enface' }"
 
-        = bodify(@note.body, @note.books, @note.links)
+        - if @source.nil?
+          = bodify(@note.body, @note.books, @note.links)
+
+        - else
+          section#source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
+            = bodify(@source.body, [], [])
+          section#target
+            = bodify(@note.body, @note.books, @note.links)
+
+        / Collated
 
         = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 

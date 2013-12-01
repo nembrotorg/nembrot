@@ -661,7 +661,7 @@ section.ins-section, article.ins-section
 
 #admin
   ul
-    padding-left: 5%
+    padding-left: $text-indent
 
 ul.oauth
   +horizontal-list
@@ -924,34 +924,59 @@ ul.oauth
 
   +pass-media-query('screen-and-min-width-1024px')
 
+  .fade-annotations
+    .side-annotations
+      +fade(0)
+    &:hover
+      .side-annotations
+        +fade(1)
+
   iframe
-    +span-columns(9, 9)
+    +span-columns(9, 12)
 
   article
     header
       clear: both
     section#content
-      +span-columns(9)
+      +span-columns(12)
       figure
         &.image
-          +suffix(1, 9)
-          +span-columns(8, 9)
+          +suffix(1, 12)
+          +span-columns(8, 12)
       #text
-        +span-columns(6, 9)
         overflow: visible
-        .body
-          +span-columns(6, 6)
-        .side-annotations
-          +prefix(6, 6) // Since side-annotations are positioned absolutely, they need this margin
-          +span-columns(3, 6)
-        &.fadeable-annotations // this should be determined by media not by class
-          .side-annotations
-            +fade(0)
-          &:hover
-            .side-annotations
-              +fade(1)
         aside
-          +span-columns(6, 9)
+          +span-columns(6, 12)
+        .side-annotations
+          +prefix(6, 6)
+          +span-columns(3, 6)
+        &.regular
+          +span-columns(6, 12)
+        &.enface
+          +span-columns(12, 12)
+          +transition(1s)
+          #source
+            +span-columns(6, 12)
+          #target
+            +span-columns(6 omega, 12)
+            // Use absolute positioning so that animation (transition) can work smoothly
+            position: absolute
+            left: space(6)
+        &.interlinear
+          +span-columns(12, 12)
+          +transition(1s)
+          line-height: $line-height * 2
+          #source
+            +span-columns(6, 12)
+            +suffix(6, 12)
+            .body
+              color: $headline-font-color
+          #target
+            position: absolute
+            padding-top: $line-height
+            left: 0
+            +span-columns(6, 12)
+            +suffix(6, 12)
       #map
         +span-columns(3 omega, 9)
     #extra
@@ -1006,7 +1031,7 @@ ul.oauth
   #admin
     ul
       position: fixed
-      top: $line-height * 6
+      bottom: $line-height * 2
 
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

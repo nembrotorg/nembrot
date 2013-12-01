@@ -20,6 +20,9 @@ class FeaturesController < ApplicationController
       @tags = @note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
       commontator_thread_show(@note)
       @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
+      if @note.has_instruction?('enface')
+        @source = Note.where(title: @note.title).where.not(lang: @note.lang).first
+      end
       add_breadcrumb @note.feature, feature_path(@note.feature)
       add_breadcrumb params[:feature_id], feature_path(@note.feature, @note.feature_id) unless params[:feature_id].nil?
       render template: 'notes/show'

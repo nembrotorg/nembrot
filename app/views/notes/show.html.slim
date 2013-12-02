@@ -42,15 +42,15 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
         = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 
-        - unless @note.is_section
+      - unless @note.is_section
 
-          aside
+        aside
 
-            = render 'notes/tag_list', tags: @tags unless @tags.empty?
+          = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-            / REVIEW: Consider listing books and links here but avoid duplication from side-notes
+          / REVIEW: Consider listing books and links here but avoid duplication from side-notes
 
-            = render 'notes/versions_list', note: @note
+          = render 'notes/versions_list', note: @note
 
       = render 'shared/map', map: @map unless @map.nil?
 

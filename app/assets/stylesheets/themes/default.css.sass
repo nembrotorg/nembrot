@@ -483,10 +483,6 @@ footer
         margin-bottom: 0
       p:first-of-type
         text-indent: 0
-  .tags, .versions, .annotations
-    margin: $line-height 0 0 0
-  .versions ol
-    margin-bottom: 0
   &.parallel
     line-height: $line-height * 2
     .source
@@ -516,6 +512,8 @@ footer
           p
             text-indent: 0
 
+.tags, .versions, .annotations
+  margin: $line-height 0 0 0
 
 section.ins-section, article.ins-section
   #text
@@ -991,6 +989,8 @@ ul.oauth
         .side-annotations
           +prefix(6, 6)
           +span-columns(3, 6)
+          height: 0
+          margin-top: 0
         &.regular, &.parallel
           +span-columns(6, 12)
         &.enface

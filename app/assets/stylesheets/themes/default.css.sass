@@ -995,7 +995,6 @@ ul.oauth
           +span-columns(6, 12)
         &.enface
           +span-columns(12, 12)
-          +transition
           p
             line-height: $line-height
             &:before
@@ -1006,10 +1005,9 @@ ul.oauth
             p
               color: $body-font-color
           .target, p.target
+            +prefix(6)
             +span-columns(6 omega, 12)
             padding-top: 0
-            position: absolute // Use absolute positioning so that animation (transition) can work smoothly
-            left: space(6)
       #map
         +span-columns(3 omega, 9)
     #extra

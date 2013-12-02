@@ -16,7 +16,7 @@ module FormattingHelper
     clean_up_via_dom(text)
   end
 
-  def bodify_collate(source_text, target_text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
 
     source_text = sanitize_from_db(source_text)
@@ -39,7 +39,7 @@ module FormattingHelper
 
     clean_up_via_dom(source_text)
     clean_up_via_dom(target_text)
-    collate(source_text, target_text)
+    collate(source_text, target_text, source_lang)
   end
 
   def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
@@ -202,7 +202,7 @@ module FormattingHelper
     dom
   end
 
-  def collate(source_text, target_text)
+  def collate(source_text, target_text, source_lang)
     source_dom = Nokogiri::HTML(source_text)
     source_paragraphs = source_dom.css('p')
 
@@ -210,7 +210,11 @@ module FormattingHelper
     target_paragraphs = target_dom.css('p')
 
     source_paragraphs.each_with_index do |p, i|
+      # REVIEW: We can also add 'notranslate' here rather than as a metatag
+      #  https://support.google.com/translate/?hl=en-GB#2641276
       p['class'] = "source"
+      p['lang'] = lang_attr(source_lang)
+      p['dir'] = dir_attr(source_lang) unless dir_attr(source_lang).blank?
       target_paragraph = target_paragraphs[i]
       target_paragraph['class'] = "target"
       p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraphs[i].to_html }#{ target_paragraph.to_html }</div>"

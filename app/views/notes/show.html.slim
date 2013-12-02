@@ -1,8 +1,9 @@
 - document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                open_graph: { title: @note.title },
-                'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
+                open_graph: { title: @note.title }
+- set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
+- set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
 
 div class="#{ controller.controller_name }-#{ controller.action_name }"
 
@@ -28,7 +29,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       - elsif @note.has_instruction?('collate')
         section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @note.books, @note.links)
+          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links)
 
       - else
         section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"

@@ -1,7 +1,7 @@
 defaults: &defaults
   channel:
     evernote_notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
-    name: Nembrot
+    name: joegatt.net
 
 development:
   <<: *defaults
@@ -15,5 +15,5 @@ staging:
 production:
   <<: *defaults
   channel:
-    evernote_notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
-    name: Nembrot
+    evernote_notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce
+    name: joegatt.net

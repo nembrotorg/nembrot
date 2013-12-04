@@ -7,13 +7,13 @@ module ApplicationHelper
   end
 
   def body_dir_attr(language)
-    Settings.lang.rtl_langs.include?(language) ? 'rtl' : 'ltr'
+    Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
   end
 
   def dir_attr(language)
     if language != I18n.locale.to_s
-      page_direction = Settings.lang.rtl_langs.include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
-      this_direction = Settings.lang.rtl_langs.include?(language) ? 'rtl' : 'ltr'
+      page_direction = Constant.rtl_langs.split(/, ?| /).include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
+      this_direction = Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
       this_direction if page_direction != this_direction
     end
   end
@@ -28,19 +28,27 @@ module ApplicationHelper
        .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
   end
 
+  def link_to_unless_or_wrap(condition, name, options = {}, html_options = {})
+    link_to_unless condition, name, options, html_options do
+      "<span class=\"current\" data-href=\"#{ url_for(options) }\">#{ name }</span>".html_safe
+    end
+  end
+
   def link_to_unless_current_or_wrap(name, options = {}, html_options = {})
     link_to_unless_current name, options, html_options do
       "<span class=\"current\" data-href=\"#{ url_for(options) }\">#{ name }</span>".html_safe
     end
   end
 
-  def qr_code_image_url(size = Settings.styling.qr_code_image_size)
+  def qr_code_image_url(size = Setting['style.qr_code_image_size'])
     "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
   end
 
   def css_instructions(note_instructions)
-    (note_instructions & Settings.styling.css_for_instructions).collect do |c|
-        'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
+    # If an instruction is listed in css_for_instructions, it is written out as a css class
+    # TODO: Test for this
+    (note_instructions & Setting['style.css_for_instructions'].split(/, ?| /)).collect do |c|
+      'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
     end
   end
 
@@ -55,4 +63,8 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end  
+
+  def note_or_feature_path(note)
+    note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(note)
+  end
 end

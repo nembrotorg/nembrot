@@ -6,8 +6,8 @@ module Pantographable
   module ClassMethods
     def authenticated_twitter_client
       Twitter::REST::Client.new do |config|
-        config.consumer_key = Secret.auth.twitter.pantography.consumer_key
-        config.consumer_secret = Secret.auth.twitter.pantography.consumer_secret
+        config.consumer_key = Secret.auth.twitter.pantography.key
+        config.consumer_secret = Secret.auth.twitter.pantography.secret
         config.access_token = Secret.auth.twitter.pantography.access_token
         config.access_token_secret = Secret.auth.twitter.pantography.access_secret
       end

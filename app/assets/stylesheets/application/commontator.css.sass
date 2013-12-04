@@ -1,0 +1,81 @@
+#comments
+
+  a
+    &[href$='comments/new']:before
+      +icon-plus
+    &[href$='subscribe']
+      +icon-only(20px)
+      &:before
+        +icon-mail
+    &[href$='undelete']
+      +icon-only(20px)
+      &:before
+        +icon-delete
+    &[href$='delete']
+      +icon-only(20px)
+      &:before
+        +icon-delete
+    &[href$='edit']
+      +icon-only(20px)
+      &:before
+        +icon-edit
+        +icon-medium
+    &[href$='close']
+      +icon-only(20px)
+      &:before
+        +icon-lock
+    &[href$='reopen']
+      +icon-only(20px)
+      &:before
+        +icon-unlock
+
+  header
+    h2
+      display: inline-block
+    ul
+      +horizontal-list
+
+  h4
+    margin-bottom: 0 0 $line-height 0
+
+  ul, li
+    margin: 0
+
+  h4
+    margin-bottom: $line-height
+
+  #new_comment
+    form
+      width: 100%
+    textarea
+      height: $line-height * 7
+      line-height: $line-height
+      width: 100%
+      padding: $line-height / 2
+      margin: 0 $line-height / -2
+      border: 1px solid $border-color
+      color: $body-font-color
+
+  .dashboard
+    +font-color($caption-color)
+    +horizontal-list
+    font-size: $small-font-size
+    line-height: $line-height
+
+  .comments
+    &> li
+      .dashboard
+        display: inline-block
+      p
+        margin: 0
+
+      .share
+        +fade(0, 2s)
+        margin-left: 10px
+      &:hover
+        .body, .dashboard
+          // background-color: #ffe
+        .share
+          +fade(1)
+
+

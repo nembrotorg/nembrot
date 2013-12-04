@@ -1,7 +1,7 @@
 section.books
 
   header
-    h6=t('links.index.title')
+    h3 = title ||= t('links.index.title')
 
   table
     - links.each do |link|

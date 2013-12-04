@@ -1,4 +1,4 @@
-SitemapGenerator::Sitemap.default_host = "http://#{ Settings.host }"
+SitemapGenerator::Sitemap.default_host = "http://#{ Constant.host }"
 
 SitemapGenerator::Sitemap.create do
 
@@ -25,7 +25,7 @@ SitemapGenerator::Sitemap.create do
     add notes_path
 
     Note.publishable.listable.each do |note|
-      add note_path(note), lastmod: note.external_updated_at
+      add note_or_feature_path(note), lastmod: note.external_updated_at
     end
   end
 

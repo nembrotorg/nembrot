@@ -34,16 +34,16 @@ describe Link do
     end
 
     context 'when url is local' do
-      before { Link.grab_urls("Body text http://#{ Settings.host }/path and more text.") }
+      before { Link.grab_urls("Body text http://#{ Constant.host }/path and more text.") }
       it 'does not add url' do
-        Link.where(url: "http://#{ Settings.host }/path").exists?.should be_false
+        Link.where(url: "http://#{ Constant.host }/path").exists?.should be_false
       end
     end
 
     context 'when url is on a subdomain of local' do
-      before { Link.grab_urls("Body text http://#{ Settings.host }/path and more text.") }
+      before { Link.grab_urls("Body text http://#{ Constant.host }/path and more text.") }
       it 'does not add url' do
-        Link.where(url: "http://v1.#{ Settings.host }/path").exists?.should be_false
+        Link.where(url: "http://v1.#{ Constant.host }/path").exists?.should be_false
       end
     end
   end

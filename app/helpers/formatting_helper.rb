@@ -2,22 +2,54 @@
 
 module FormattingHelper
 
-  def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html')
+  def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
+    text = related_notify(text, related_notes)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style)
     text = linkify(text, links, links_citation_style)
+    text = linkify(text, links, links_citation_style)
     text = headerize(text)
     text = sectionize(text)
-    text = annotate(text)
+    text = annotated ? annotate(text) : remove_annotations(text)
     text = paragraphize(text)
     text = denumber_headers(text)
     clean_up_via_dom(text)
   end
 
-  def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+    return '' if source_text.blank? || target_text.blank?
+    source_text = sanitize_from_db(source_text)
+    source_text = clean_whitespace(source_text)
+    source_text = headerize(source_text)
+    target_text = sectionize(target_text)
+    source_text = remove_annotations(source_text)
+    source_text = paragraphize(source_text)
+    source_text = denumber_headers(source_text)
+
+    target_text = related_notify(target_text, related_notes)
+    target_text = related_citationify(target_text, related_citations)
+    target_text = sanitize_from_db(target_text)
+    target_text = clean_whitespace(target_text)
+    target_text = bookify(target_text, books, books_citation_style)
+    target_text = linkify(target_text, links, links_citation_style)
+    target_text = headerize(target_text)
+    target_text = sectionize(target_text)
+    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
+    target_text = paragraphize(target_text)
+    target_text = denumber_headers(target_text)
+
+    clean_up_via_dom(source_text)
+    clean_up_via_dom(target_text)
+    collate(source_text, target_text, source_lang)
+  end
+
+  def blurbify(text, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
+    text = related_notify(text, related_notes, true)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -29,20 +61,27 @@ module FormattingHelper
   def simple_blurbify(text)
     return '' if text.blank?
     text = clean_whitespace(text)
-    text = smartify(text)
+    text = smartify_punctuation(text)
     clean_up(text)
   end
 
-  def sanitize_from_db(text)
-    text = text.gsub(%r(#{ Settings.notes.truncate_after_regexp }.*), '')
+  def commentify(text)
+    text = sanitize_from_db(text, ['a'])
+    text = paragraphize(text)
+    text = smartify_punctuation(text)
+    clean_up(text)
+  end
+
+  def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+    text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
                .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize(text,
-                    tags: Settings.notes.allowed_html_tags - ['span'],
-                    attributes: Settings.notes.allowed_html_attributes)
+                    tags: allowed_tags.split(/, ?| /) - ['span'],
+                    attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end
@@ -79,7 +118,7 @@ module FormattingHelper
 
   def linkify(text, links, citation_style)
     # Make all local links relative
-    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host }), '')
+    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
     # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
       # Simplify links wrapped around themselves.
@@ -104,6 +143,53 @@ module FormattingHelper
     text
   end
 
+  def related_notify(text, related_notes, blurbify = false)
+    nothing_more_to_do = false
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+      start_text = text
+
+      related_notes.each do |note|
+        body = blurbify ? sanitize(note.clean_body) : note.body
+        text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
+        text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
+        text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: [])) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: []))
+        text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+        text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+      end
+
+      if text == start_text
+        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
+        nothing_more_to_do = true
+      end
+    end
+    text = strip_tags(text) if blurbify
+    text
+  end
+
+  def related_citationify(text, related_citations, blurbify = false)
+    nothing_more_to_do = false
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+      start_text = text
+
+      related_citations.each do |citation|
+        body = blurbify ? sanitize(citation.clean_body) : citation.body
+        text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
+        text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{insert:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
+      end
+
+      if text == start_text
+        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
+        nothing_more_to_do = true
+        # Clean up faulty references
+        text.gsub!(/\{[^\}]*?\}/, '')
+      end
+    end
+    text = strip_tags(text) if blurbify
+    text
+  end
+
   def annotate(text)
     text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
     annotations = text.scan(/\[([^\.].*? .*?)\]/)
@@ -117,9 +203,15 @@ module FormattingHelper
     end
   end
 
+  def remove_annotations(text)
+    text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
+    text.gsub!(/\[([^\.].*? .*?)\]/, '')
+    "<section class=\"body\">#{ text.html_safe }</section>"
+  end
+
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Settings.styling.hyper_conform
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -129,19 +221,60 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Settings.styling.hyper_conform
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
+    dom = clean_up_dom(dom, unwrap_p)
+    dom.css('body').children.to_html.html_safe
+  end
+
+  def clean_up_dom(dom, unwrap_p = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
     dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
     # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
+
+    # Number paragraphs
+    all_paragraphs = dom.css('.target').empty? ? dom.css('p') : dom.css('.target p')
+    all_paragraphs.each_with_index { |e, i| e['id'] = "paragraph-#{ i + 1 }" }
+
     dom.xpath('//text()').find_all.each do |t|
-      t.content = smartify(t.content)
+      t.content = smartify_punctuation(t.content)
       # t.content = hyper_conform(t.content)
     end
-    dom = indent_dom(dom) if Settings.html.pretty_body
+    dom = indent_dom(dom) if Constant.html.pretty_body
     unwrap_from_paragraph_tag(dom) if unwrap_p
+    dom
+  end
+
+  def collate(source_text, target_text, source_lang)
+    source_dom = Nokogiri::HTML(source_text)
+    source_paragraphs = source_dom.css('p')
+
+    target_dom = Nokogiri::HTML(target_text)
+    target_paragraphs = target_dom.css('p')
+
+    annotations = target_dom.css('.annotations')
+
+    source_paragraphs.each_with_index do |p, i|
+      # REVIEW: We can also add 'notranslate' here rather than as a metatag
+      #  https://support.google.com/translate/?hl=en-GB#2641276
+      p['class'] = 'source'
+      p['lang'] = lang_attr(source_lang)
+      p['dir'] = dir_attr(source_lang) unless dir_attr(source_lang).blank?
+    end
+
+    target_paragraphs.each_with_index do |p, i|
+      # CAREFUL: WHAT IF PARAS DON'T MATCH???      
+      p['class'] = 'target'
+      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : source_paragraphs[i].to_html
+      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : target_paragraphs[i].to_html
+      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
+    end
+
+    dom = clean_up_dom(target_dom)
     dom.css('body').children.to_html.html_safe
   end
+
 
   def indent_dom(dom)
     tidy = Nokogiri::XSLT File.open('vendor/tidy.xsl')
@@ -153,10 +286,9 @@ module FormattingHelper
     e ? e.replace(e.inner_html) : dom
   end
 
-  def smartify(text)
+  def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
-    text = smartify_numbers(text)
   end
 
   def smartify_hyphens(text)
@@ -199,7 +331,10 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^ *([^<].+[^>]) *$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
+    text.gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*(<\/section>)\s*$/, '\1<p>\2</p>\3')
+        .gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*$/, '\1<p>\2</p>')
+        .gsub(/^ *([^<].+[^>])\s*(<\/section>)\s*$/, '<p>\1</p>\2')
+        .gsub(/^\s*([^<].+[^>])\s*$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
         .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
         .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
   end

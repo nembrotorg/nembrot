@@ -4,12 +4,12 @@ class IsbndbRequest
 
   include HTTParty
 
-  base_uri Settings.books.isbndb.domain
+  base_uri Constant.books.isbndb.domain
 
   attr_accessor :metadata
 
   def initialize(isbn)
-    response = self.class.get("#{ Settings.books.isbndb.path }#{ Secret.auth.isbndb.api_key }/book/#{ isbn }")
+    response = self.class.get("#{ Constant.books.isbndb.path }#{ Secret.auth.isbndb.key }/book/#{ isbn }")
 
     response = JSON.parse response
 

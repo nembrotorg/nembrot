@@ -1,0 +1,17 @@
+-# Clients of this partial must provide the following variables:
+-# comment
+-# Additionally, they can override the following variables:
+- thread ||= nil
+- no_remote ||= false
+- config = comment.thread.config
+- if comment.errors.any?
+  .comment_error_explanation
+    -# h3
+    -#  | This #{ config.comment_name } could not be #{comment.id.blank? ? config.comment_create_verb_past : 'updated'} because of the following error #{ comment.errors.count == 1 ? '' : 's' }:
+    ul
+      - comment.errors.full_messages.each do |msg|
+        li.error= msg
+
+= form_for([commontator, thread, comment], remote: !no_remote) do |f|
+  = f.text_area :body
+  = f.submit (comment.id.blank? ? config.comment_create_verb_present : config.comment_edit_verb_present).capitalize + ' ' + config.comment_name

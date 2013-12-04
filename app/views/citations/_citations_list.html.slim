@@ -1,7 +1,7 @@
 section.citations
 
   header
-    h6 = link_to_unless_current t('citations.index.title'), citations_path
+    h3 = title ||= t('citations.index.title')
 
   ul
     - citations.each do |citation|

@@ -9,14 +9,14 @@ describe ResourcesHelper do
     end
     it 'uses default settings for path to the cut the image' do
       cut_image_binary_path(@resource)
-        .should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ Settings.styling.images.effects }-#{ @resource.id }.png"
+        .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ Setting['style.images_effects'] }-#{ @resource.id }.png"
     end
 
     context 'when cut_image_binary_path has note fx' do
       before { @note.instruction_list = '__FX_ABC' }
       it 'uses note#fx if they are set' do
         cut_image_binary_path(@resource)
-          .should == "/resources/cut/#{ @resource.local_file_name }-#{ Settings.styling.images.standard.aspect.x }-#{ Settings.styling.images.standard.aspect.y }-#{ Settings.styling.images.standard.width }-#{ Settings.styling.images.snap }-#{ Settings.styling.images.gravity }-#{ @note.fx }-#{ @resource.id }.png"
+          .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ @note.fx }-#{ @resource.id }.png"
       end
     end
 
@@ -65,7 +65,7 @@ describe ResourcesHelper do
     end
     context 'when the image record is not found' do
       it 'returns a blank image' do
-        cut_image_binary( 'NONEXISTENT', 'png', 16, 9, 100, 1, 0, '').should == Settings.images.default_blank_location
+        cut_image_binary( 'NONEXISTENT', 'png', 16, 9, 100, 1, 0, '').should == Constant.blank_image_location
       end
     end
   end
@@ -85,8 +85,8 @@ describe ResourcesHelper do
 
   describe '#column_width' do
     before do
-      Settings.styling['column_width'] = 60
-      Settings.styling['gutter_width'] = 30
+      Setting['style.column_width'] = 60
+      Setting['style.gutter_width'] = 30
     end
     it 'calculates the right width' do
       column_width(3).should == 240

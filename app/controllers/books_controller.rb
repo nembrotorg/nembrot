@@ -5,8 +5,12 @@ class BooksController < ApplicationController
   add_breadcrumb I18n.t('books.index.title'), :books_path
 
   def index
-    @books = Book.cited
-    @references_count = @books.to_a.sum { |b| b.notes.size }
+    page_number = params[:page] ||= 1
+    all_books = Book.cited
+
+    @books = all_books.page(page_number).load
+    @books_count = all_books.size
+    @references_count = all_books.to_a.sum { |b| b.notes.size }
 
     respond_to do |format|
       format.html
@@ -41,6 +45,8 @@ class BooksController < ApplicationController
     @books = Book.cited
     @book = @books.find_by_slug(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
 
     add_breadcrumb @book.headline, book_path(params[:slug])
 

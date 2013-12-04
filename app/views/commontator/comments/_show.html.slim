@@ -1,0 +1,33 @@
+- # Clients of this partial must supply the following variables:
+- # comment
+- # user
+
+li id="comment_#{comment.id.to_s}"
+
+  = render 'commontator/comments/body', comment: comment, user: user
+
+  - user_name = user && user.commontator_config.user_name_clickable ? link_to(commontator_name(comment.creator), main_app.polymorphic_path(comment.creator), class: 'user_name') : commontator_name(comment.creator)
+
+  ul.dashboard
+    li
+      -#= commontator_gravatar_image comment.creator
+      = "<span class=\"user_name\">#{ user_name }</span>, #{ timeago_tag comment.created_at }".html_safe
+      = t('.edited_at_by', editor: commontator_name(comment.editor), updated_at: (timeago_tag comment.updated_at)).html_safe if comment.is_modified?
+
+    -# Temporarily disabled
+    -# li
+    -#   ul.actions
+    -#     = render 'commontator/comments/actions', comment: comment, user: user
+
+    -# Temporarily disabled
+    -#  li
+    -#    ul.votes
+    -#      -#= render 'commontator/comments/votes', comment: comment, user: user
+
+    li
+      ul.share
+        - url = URI.encode_www_form_component("#{ request.original_url.gsub(/\/$/, '') }#comment_#{ comment.id }")
+
+        li= link_to '', "http://www.facebook.com/share.php?u=#{ url }".html_safe
+        li= link_to '', "http://twitter.com/home?status=#{ url }".html_safe
+        li= link_to '', "https://plus.google.com/share?url=#{ url }".html_safe

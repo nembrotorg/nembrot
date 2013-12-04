@@ -19,10 +19,10 @@ describe 'routing to evernote_auths' do
 
   it 'does not expose all CRUD actions' do
     expect(get: '/evernote_auths/1/create').not_to be_routable
-    expect(get: '/evernote_auths/show').not_to be_routable
-    expect(get: '/evernote_auths/update').not_to be_routable
-    expect(get: '/evernote_auths/edit').not_to be_routable
-    expect(get: '/evernote_auths/new').not_to be_routable
-    expect(get: '/evernote_auths/destroy').not_to be_routable
+    pending "expect(get: '/evernote_auths/show').to route_to(root_path)"
+    pending "expect(get: '/evernote_auths/update').to route_to(root_path)"
+    pending "expect(get: '/evernote_auths/edit').to route_to(root_path)"
+    pending "expect(get: '/evernote_auths/new').to route_to(root_path)"
+    pending "expect(get: '/evernote_auths/destroy').to route_to(root_path)"
   end
 end

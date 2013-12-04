@@ -7,7 +7,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('users.confirmations.new.title'), document_title: document_title
+  = render 'header', title: t('users.confirmations.new.title'), subtitle: nil, document_title: document_title
 
   = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
     = devise_error_messages!
@@ -17,4 +17,5 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
     = f.email_field :email, autofocus: true
 
     = f.submit t('users.confirmations.new.title')
+
   = render "devise/shared/links"

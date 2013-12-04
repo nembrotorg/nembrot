@@ -15,4 +15,7 @@
 //= require jquery.ui.slider
 //=	require jquery.pjax
 //= require rails-timeago
+//= require modernizr.minimal
+//= require underscore
+//= require gmaps/google
 //= require nembrot.document

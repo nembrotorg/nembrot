@@ -13,7 +13,7 @@ class Pantograph < ActiveRecord::Base
   scope :by_self, -> { where(pantographer_id: pantography_twitter_user.id) }
 
   def self.alphabet
-    Settings.pantography.alphabet
+    Constant.pantography.alphabet
   end
 
   def self.first_phrase
@@ -25,7 +25,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.max_length
-    Settings.pantography.max_length
+    Constant.pantography.max_length
   end
 
   def self.total_phrases
@@ -47,17 +47,17 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.total_duration
-    (total_phrases / (((60 * 60) / Settings.pantography.frequency)  * 24 * Settings.pantography.sidereal_year_in_days));
+    (total_phrases / (((60 * 60) / Constant.pantography.frequency)  * 24 * Constant.pantography.sidereal_year_in_days));
   end
 
   def self.sanitize(text)
-    text.truncate(Settings.pantography.max_length, omission: '')
+    text.truncate(Constant.pantography.max_length, omission: '')
         .gsub(/"|“|”|\‘|\’/, "'")
         .gsub(/\&/, '+')
         .gsub(/\[\{/, '(')
         .gsub(/\]\}/, ')')
         .downcase
-        .gsub(/[^#{ Settings.pantography.alphabet_escaped }]/, '')
+        .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
   end
 
   def self.publish_next
@@ -214,7 +214,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def scheduled_for
-   (Settings.pantography.start_date.to_datetime + (sequence * 10).minutes).strftime('%A, %e %B %Y CE at %H:%M UTC')
+   (Constant.pantography.start_date.to_datetime + (sequence * 10).minutes).strftime('%A, %e %B %Y CE at %H:%M UTC')
     .gsub(/([\d]{9,})/) { |d| "<span title=\"#{ d }\">#{ d.to_f.to_s.gsub(/(\d)\.(\d+)+e\+(\d+)/, '\1.\2 x 10<sup>\3</sup>') }</span>" }
   end
 
@@ -247,6 +247,6 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.pantography_twitter_user
-    Pantographer.where(twitter_user_id: Settings.pantography.twitter_user_id).first
+    Pantographer.where(twitter_user_id: Constant.pantography.twitter_user_id).first
   end
 end

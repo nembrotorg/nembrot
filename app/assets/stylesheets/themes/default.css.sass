@@ -6,11 +6,21 @@
 
 @import mixins.default
 
-///////////////////////////////
+//////////////////////////////
+//
+// Resets
+//
+//////////////////////////////
+
+a, p, input, textarea, h1, h2, h3, h4, h5, h6, ol, ul, li, div, section, nav
+  margin: 0
+  padding: 0
+
+//////////////////////////////
 //
 // Elements
 //
-///////////////////////////////
+//////////////////////////////
 
 ::selection
   background: $selected-background-color
@@ -29,20 +39,63 @@ body
 
 a
   text-decoration: none
-  &[href*=http]:after
-    padding-left: 5px
-    +icon-link-ext
-    +icon-medium
+  // &[href*=http]:after
+  //   padding-left: 5px
+  //   +icon-link-ext
+  //   +icon-medium
   &[href*=pdf]
     +body-font-citation
     &:before
       +icon-download
   &[dir=rtl]
     text-align: right
-  &[rel=tag]
+  &[rel=tag], &[href*=tags]
     text-transform: lowercase
   &:focus
     outline: 0
+
+nav a
+  &[href*=admin]:before, &[href*=settings]:before
+    +icon-settings
+  &[href*=users]:before
+    +icon-user
+  &[href$='#disqus_thread']:before,
+  &[href$='#comments']:before
+    +icon-comment-empty
+  &[href$='#menu']:before
+    +icon-list
+  &[href*=evernote]:before,
+    +icon-evernote
+  &[href*=facebook]:before,
+    +icon-facebook
+  &[href*=github]:before
+    +icon-github-circled
+  &[href*=google]:before, &[href*=gplus]:before
+    +icon-gplus
+  &[href*=linkedin]:before
+    +icon-linkedin
+  &[href^=mailto]:before
+    +icon-mail
+    +icon-regular
+  &[href$=rss]:before,
+  &[href$=atom]:before      
+    +icon-rss
+    +icon-regular
+  &[href*=reset]:before
+    +icon-undo
+  &[href*=signout]:before
+    +icon-signout
+  &[href*=soundcloud]:before
+    +icon-soundcloud
+  &[href*=spotify]:before
+    +icon-spotify
+  &[href*=twitter]:before
+    +icon-twitter
+  &[href*=vimeo]:before
+    +icon-vimeo
+    +icon-medium
+  &[href*=youtube]:before
+    +icon-youtube
 
 abbr
   font-variant: small-caps
@@ -71,14 +124,32 @@ form
     display: block
     height: $line-height
     line-height: $line-height
+    &:hover
+      background-color: $row-hover-color
   input
+    &[type=email],
+    &[type=number],
+    &[type=password],
     &[type=text],
     &[type=url],
-    &[type=number]
-      border-radius: 0
-      border: 1px solid #ccc
+      border: 1px solid $border-color
+      color: $font-color
+      height: 24px
+      margin: 2px 0
       &.important:not([value])
         border-color: $error-background-color
+    &[type=button],
+    &[type=submit]
+      border: 1px solid $border-color
+      font-variant: small-caps
+      font-weight: bold
+      height: $line-height
+      margin-top: $line-height
+      padding: 0 ($text-indent / 2)
+      text-transform: lowercase
+      &:hover
+        background-color: $link-hover-color
+        color: $background-color
 
 h1
   margin: $line-height 0
@@ -88,8 +159,14 @@ h1
     weight: normal
     size: $headline-font-size
 
-h2
-  +font-color($headline-font-color)
+section:not(.ins-section) section, .home-index
+  h2
+    +font-color($headline-font-color)
+
+section.ins-section
+  section
+    h2
+      font-weight: bold
 
 iframe
   border: 0
@@ -111,6 +188,9 @@ ol, ul
 table
   margin-bottom: $line-height
   width: 100%
+  tr
+    &:hover
+      background-color: $row-hover-color
   td
     margin-left: $gutter-width
     &:empty
@@ -118,7 +198,9 @@ table
     &:first-child
       margin-left: 0
 
-.home-index, .notes-index, .notes-show, .notes-version
+.home-index, .notes-index, .notes-show, .notes-version,
+.features-index section:not(.ins-section), .features-show section:not(.ins-section), 
+.features-show article:not(.ins-section), .features-version
   h1
     +font-color($headline-font-color)
 
@@ -133,19 +215,24 @@ table
       +icon-link-ext
       +icon-medium
 
+.deep-link
+  a[href$='#disqus_thread']:before,
+  a[href$='#comments']:before
+    +icon-comment
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Document
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+pass_media_query('default')
++pass-media-query('default')
 
-#main, #tools, .hello_world, footer
+#main, .hello-world, footer
   width: 90%
   margin: 0 5% $line-height 5%
 
-#main > div, #tools ul, .hello_world p, footer nav, footer small
+#main > div, .hello-world p, footer nav, footer small
   clear: both
 
 ol, ul, .statistics
@@ -179,70 +266,21 @@ header
 
 footer
   ul
-    +arrow-links
-    // +columns(2)
-    text-transform: lowercase
-    a
-      &[href*=http]
-        &:before
-          +icon-link-ext
-          +icon-regular
-        &:after
-          content: ''
-      &[href*=facebook]:before
-        +icon-facebook
-      &[href*=github]:before
-        +icon-github-circled
-      &[href*=googleplus]:before
-        +icon-gplus
-      &[href*=mailto]:before
-        +icon-mail
-        +icon-regular
-      &[href*=rss]:before
-        +icon-rss
-        +icon-regular
-      &[href*=soundcloud]:before
-        +icon-soundcloud
-      &[href*=spotify]:before
-        +icon-spotify
-      &[href*=twitter]:before
-        +icon-twitter
-      &[href*=vimeo]:before
-        +icon-vimeo
-        +icon-medium
-      &[href*=youtube]:before
-        +icon-youtube
+    &.promotions
+      +font-color($headline-font-color)
+    &.promotions, &.sections
+      +arrow-links
+    &.sections, &.channels
+      text-transform: lowercase
+    li
+      a
+        &[href*=http]:after
+          display: none
+        &[href*=vimeo]:before
+          +icon-medium
   small:before
     +icon-cc-by-nc-sa
     letter-spacing: 0.25em
-
-#tools
-  +arrow-links
-  a
-    &[href*='users/edit']:before, &[href*='users/sign_in']:before
-      +icon-medium
-      +icon-user
-    &[href*='users/sign_in']
-      display: none
-  li
-    a[href*='users/sign_out']
-      display: none
-      margin-left: 5px
-    &:hover
-      a[href*='users/sign_out']
-        text-indent: '-999px'
-        display: inline-block !important
-        &:before
-          +icon-cancel
-
-  span
-    &[data-href*='users/edit']:before, &[data-href*='users/sign_in']:before
-      +icon-medium
-      +icon-user
-
-  ul
-    margin-bottom: 0
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -303,7 +341,6 @@ iframe
     text-indent: $text-indent * -1
     &:target
       background-color: $selected-background-color
-      +transition
     a
       display: inline
       text-indent: 0
@@ -329,12 +366,24 @@ iframe
       +blurb(3, 3)
 
 .notes li, .citations li, .map-infowindow
-  +body-font
   +clearfix
   display: block
   margin-bottom: $line-height
   &:last-child
     margin-bottom: 0
+
+section:not(.ins-section), .home-index
+  .notes li, .citations li, .map-infowindow
+    +body-font
+
+.features-index, .features-show
+  .notes li
+    h2
+      span
+        display: none
+
+.pagination
+  +pagination-nav($font-color)
 
 article
   .tags
@@ -352,7 +401,7 @@ article
           a:after
             content: ''
 
-ul.user li a
+ul li a
   &.back
     text-transform: lowercase
     &:before
@@ -361,8 +410,13 @@ ul.user li a
     &:after
       content: ''
   &[data-method=delete]:before
-    +icon-signout
+    +icon-delete
     +icon-regular
+  &[href^='/users/auth/']:before
+    +icon-only
+    +icon-large
+  &[href$='sign_out']:before
+    +icon-signout
 
 blockquote
   footer
@@ -372,11 +426,8 @@ blockquote
 footer
   nav
     ul
-      &.promoted
+      &.promotions
         +span-columns(12)
-        li
-          a
-            text-transform: none
       &.sections
         +columns(2)
         +span-columns(12)
@@ -392,6 +443,14 @@ footer
 // Pages
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#introduction
+  +body-font
+  +hyphens(none)
+  font-style: italic
+  text-align: left
+  font-size: $font-size * 1.5
+  margin-bottom: $line-height
 
 #text
   .body, .annotations
@@ -426,6 +485,48 @@ footer
         margin-bottom: 0
       p:first-of-type
         text-indent: 0
+  &.parallel
+    line-height: $line-height * 2
+    .source
+      p
+        color: $headline-font-color
+    .target
+      position: absolute
+      padding-top: $line-height
+      top: 0
+      left: 0
+    div
+      +clearfix
+      position: relative
+      .source
+        color: $headline-font-color
+        &:before
+          top: $line-height / 2
+      .target
+        position: absolute
+        top: 0
+    &.collate
+      p
+        text-indent: $text-indent
+      div
+        &:first-of-type
+          p
+            text-indent: 0
+
+.tags, .versions, .annotations
+  margin: $line-height 0 0 0
+
+section.ins-section, article.ins-section
+  #text
+    .body
+      +body-font-citation
+      text-align: left
+  .statistics
+    display: none
+
+#disqus_thread,
+#comments
+  +span-columns(12)
 
 .notes
   li
@@ -452,6 +553,11 @@ footer
           a:before
             +icon-right
             +icon-small
+  a[href$=edit]
+    +icon-only
+    &:before,
+      +icon-edit
+      +icon-only
 
 .books-admin, .books-edit, .links-admin, .links-edit
   .breadcrumb
@@ -485,13 +591,12 @@ footer
         clear: both
         display: block
 
-.notes-version
+.notes-version, .features-version
   .versions
     li:nth-child(n+2)
       display: block
 
-.notes-map,
-.tags-map
+.notes-map, .tags-map, .features-map
   #map
     height: $line-height * 20
     margin-bottom: $line-height
@@ -516,6 +621,134 @@ footer
   h1:before
     +icon-user
 
+.scrolling, .mousemoving
+  #tools
+    bottom: 0
+    +transition(0.35s)
+
+#tools:hover
+  bottom: 0
+
+#tools
+  +icon-links
+  +transition
+  background-color: $background-color
+  border-top: 1px solid $body-font-color
+  bottom: $line-height * -2.25
+  display: block
+  margin: 0
+  padding-left: 5%
+  padding-top: $line-height / 2
+  position: fixed
+  width: 100%
+  iframe
+    margin-bottom: 0
+  ul
+    display: inline-block
+    margin-bottom: 0
+    li
+      display: inline-block
+      li
+        height: $line-height
+        margin-right: $text-indent / 2
+        position: relative
+        width: $text-indent
+      &.fb-like
+        overflow: visible
+      a
+        font-size: $small-font-size
+        height: $line-height * 1/3
+        padding-bottom: $line-height * 2/3
+        position: absolute
+        text-align: right
+        top: $line-height * 2/3
+        width: $text-indent
+        &:before
+          font-size: $line-height
+          height: $line-height * 2/3
+          left: $line-height * -0.1
+          position: absolute
+          top: $line-height * 2/3 * -1
+          width: $text-indent
+        &:after
+          display: none
+        &:hover
+          &[href*=facebook]:before
+            color: $facebook-color
+          &[href*=google]:before
+            color: $gplus-color
+          &[href*=twitter]:before
+            color: $twitter-color
+      &.user, &.menu
+        li
+          +icon-only
+    .deep-link
+      a
+        color: $count-color
+
+ul.oauth
+  +horizontal-list
+  display: inline-block
+  li
+    overflow: hidden
+    position: relative
+    width: $text-indent * 2
+    &.connected:before
+      +icon-ok
+      color: $font-color
+      display: block
+      height: $line-height
+      left: 0
+      position: absolute
+      text-align: right
+      width: $text-indent * 2
+      z-index: 1
+    span
+      opacity: 0.5
+    a:hover, a:hover:before
+      background-color: $link-hover-color !important
+    a:before, span:before
+      +icon-large
+      +icon-only($text-indent * 2)
+      color: $background-color
+      padding-left: $text-indent / 2
+    .evernote:before, a[href*=evernote]:before
+      +icon-evernote
+      background-color: $evernote-color
+    .facebook:before, a[href*=facebook]:before
+      +icon-facebook
+      background-color: $facebook-color
+    .github:before, a[href*=github]:before
+      +icon-github-circled
+      background-color: $github-color
+    .gplus:before, a[href*=gplus]:before
+      +icon-gplus
+      background-color: $gplus-color
+    .linkedin:before, a[href*=linkedin]:before
+      +icon-linkedin
+      background-color: $linkedin-color
+    .twitter:before, a[href*=twitter]:before
+      +icon-twitter
+      background-color: $twitter-color
+
+.ins-enumerate
+  counter-reset: paragraphs
+  #text
+    &.regular p, section.source p, p.source 
+      counter-increment: paragraphs 1
+      position: relative
+      &:before
+        +monospace-font
+        color: $off-color
+        content: counter(paragraphs)
+        display: block
+        font-size: $small-font-size - 3px
+        left: $text-indent * -3
+        line-height: $line-height
+        position: absolute
+        text-align: right
+        width: $text-indent * 2
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Media-queries
@@ -524,7 +757,7 @@ footer
 
 @media only print
 
-  +pass_media_query('print')
+  +pass-media-query('print')
 
   iframe, nav
     display: none
@@ -547,7 +780,7 @@ footer
 
 @media only screen
 
-  h3, h6
+  h3
     display: none
 
   img.qr_code
@@ -557,61 +790,42 @@ footer
 
 @media only screen and (min-width: 720px)
 
-  +pass_media_query('screen-and-min-width-720px')
+  +pass-media-query('screen-and-min-width-720px')
 
   body
     padding-top: $line-height / 2
 
   #main,
-  #tools,
-  .hello_world,
+  .hello-world,
   footer
     margin: 0 auto $line-height auto
 
-  #main
-    & > section
-      // +row(12)
-
   #tools
-    ul
-      clear: both
-      li
-        // We don't use horizontal list here because it cancels all margins
-        display: inline-block
-        margin-right: 5px
-        a[href*='twitter.com/intent']
-          background-color: #9ff
-          &:before
-            +icon-twitter
-            +icon-medium
-          &:after
-            // display: none
-            content: ''
-    .share
-      iframe
-        margin-bottom: 0
-      li.fb-like
-        overflow: visible
+    padding-left: $text-indent
+    li.menu
+      display: none
 
   form
+    margin-bottom: $line-height
     +span-columns(6)
+    fieldset
+      margin-bottom: $line-height
     label
       input
         float: right
         width: space(6)
-    input[type=button],
-    input[type=submit]    
-      margin-top: $line-height
 
-  header
+  header[data-title]
+    height: $line-height * 3
+    margin-top: $line-height
     position: relative
     #notice
       position: absolute
-      top: $line-height * 2
-
-  h1
-    height: $line-height * 2
-    margin: $line-height 0
+      top: $line-height
+    h1
+      margin: 0
+    h2
+      margin-top: $line-height
 
   iframe
     clear: both
@@ -636,13 +850,11 @@ footer
 
   ul.user
     clear: both
-    margin-top: $line-height
-    li
-      a
-        text-transform: lowercase
-        &:before
-          +icon-right
-          +icon-small
+    a
+      text-transform: lowercase
+      &:before
+        +icon-right
+        +icon-small
 
   article
     figure
@@ -658,50 +870,49 @@ footer
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
 
-    section#content
-      #text
-        +span-columns(8)
-        +font-color($body-font-color)
-        counter-reset: term
-        margin-bottom: $line-height
-        overflow: visible
+    #text
+      +span-columns(8)
+      +font-color($body-font-color)
+      counter-reset: term
+      margin-bottom: $line-height
+      overflow: visible
+      position: relative
+      p
         position: relative
-        p
+      .body
+        +span-columns(8, 8)
+      .annotations
+        +prefix(8, 8)
+        +span-columns(4, 8)
+        li
+          +hyphens
+          font:
+            size: $small-font-size + 1px
+      .side-annotations
+        ol
+          display: block
+          padding-left: 0
           position: relative
-        .body
-          +span-columns(8, 8)
-        .annotations
-          +prefix(8, 8)
-          +span-columns(4, 8)
           li
-            +hyphens
-            font:
-              size: $small-font-size + 1px
-        .side-annotations
-          ol
+            +font-color($headline-font-color, $headline-font-color)
             display: block
-            padding-left: 0
-            position: relative
-            li
-              +font-color($headline-font-color, $headline-font-color)
-              display: block
-              position: absolute
-              a[href*=annotation-mark]
-                font:
-                  size: $small-font-size - 2px
-                padding-right: 3px
-                text-align: right
-                vertical-align: super
-                width: $text-indent - 3px
-        .aside
-          clear: both
-      &:hover
-        #text
-          a
-            color: $link-hover-color
-      &[dir=rtl]
-        header
-          +span-columns(6)
+            position: absolute
+            a[href*=annotation-mark]
+              font:
+                size: $small-font-size - 2px
+              padding-right: 3px
+              text-align: right
+              vertical-align: super
+              width: $text-indent - 3px
+      .aside
+        clear: both
+    &:hover
+      #text
+        a
+          color: $link-hover-color
+    &[dir=rtl]
+      header
+        +span-columns(6)
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools
@@ -725,14 +936,6 @@ footer
       blockquote
         margin-bottom: $line-height
 
-  .home-index
-    .notes
-      clear: both
-      li
-        +blurb(4, 0)
-        img
-          display: none
-
   .links-index
     ul
       +columns(2)
@@ -744,11 +947,8 @@ footer
   footer
     nav
       ul
-        &.promoted
+        &.promotions
           +span-columns(4)
-          li
-            a
-              text-transform: none
         &.sections
           +columns(2)
           +span-columns(4)
@@ -762,47 +962,69 @@ footer
 
 @media only screen and (min-width: 1024px)
 
-  +pass_media_query('screen-and-min-width-1024px')
+  +pass-media-query('screen-and-min-width-1024px')
+
+  .fade-annotations
+    .side-annotations
+      +fade(0)
+    &:hover
+      .side-annotations
+        +fade(1)
 
   iframe
-    +span-columns(9)
-    +suffix(3)
+    +span-columns(9, 12)
 
   article
     header
       clear: both
     section#content
-      +span-columns(9)
+      +span-columns(12)
       figure
         &.image
-          +suffix(1, 9)
-          +span-columns(8, 9)
+          +suffix(1, 12)
+          +span-columns(8, 12)
       #text
-        +span-columns(6, 9)
         overflow: visible
-        .body
-          +span-columns(6, 6)
-        .side-annotations
-          +prefix(6, 6) // Since side-annotations are positioned absolutely, they need this margin
-          +span-columns(3, 6)
-        &.fadeable-annotations // this should be determined by media not by class
-          .side-annotations
-            +fade(0)
-          &:hover
-            .side-annotations
-              +fade(1)
         aside
-          +span-columns(6, 9)
+          +span-columns(6, 12)
+        .side-annotations
+          +prefix(6, 6)
+          +span-columns(3, 6)
+          height: 0
+          margin-top: 0
+        &.regular, &.parallel
+          +span-columns(6, 12)
+        &.enface
+          +span-columns(12, 12)
+          p
+            line-height: $line-height
+            &:before
+              top: 0
+          .source, p.source
+            +span-columns(6, 12)
+            color: $body-font-color
+            p
+              color: $body-font-color
+          .target, p.target
+            +prefix(6)
+            +span-columns(6 omega, 12)
+            padding-top: 0
+          .side-annotations
+            +prefix(12)
+            +span-columns(2, 12)
       #map
         +span-columns(3 omega, 9)
     #extra
       +span-columns(3 omega)
 
   #main,
-  #tools,
-  .hello_world,
+  .hello-world,
   footer
     width: 1080px
+
+  #disqus_thread,
+  #comments
+    +span-columns(6)
 
   .notes
     +span-columns(9)
@@ -826,26 +1048,49 @@ footer
       +span-columns(12)
       padding-right: 0
       ul
-        +columns(3)
+        +columns($promotions-home-columns)
         +column-gap($gutter-width * 1px)
+        margin-bottom: 0
         li
-          margin-bottom: 0
-          +blurb(9)
+          +blurb($promotions-home-lines)
+          margin-bottom: $line-height
 
   .tags-index
     ul
       +columns(6)
 
+  .share
+    display: inline-block
+    margin-bottom: $line-height / 2
+
+  #admin
+    ul
+      bottom: $line-height * 2
+      padding-left: $text-indent
+      position: fixed
+
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1200px)
 
-  +pass_media_query('screen-and-min-width-1200px')
+  +pass-media-query('screen-and-min-width-1200px')
 
   #tools
-    bottom: $line-height
-    left: $text-indent
-    margin: 0
-    position: fixed
-    // top: $line-height * 6
-    width: $column-width * 3px
+    background-color: transparent
+    border: none
+    bottom: 0
+    width: space(2)
+
+// Screen > 1600px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1601px)
+
+  +pass-media-query('screen-and-min-width-1601px')
+
+  article
+    section#content
+      #text
+        &.enface
+          .side-annotations
+            +prefix(12)
+            +span-columns(3, 12)

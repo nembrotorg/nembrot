@@ -9,9 +9,12 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), document_title: document_title
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = render 'channels_list', channels: @channels unless @channels.empty?
+    - unless @channels.empty?
+      = render 'channels_list', channels: @channels
 
-    aside.statistics
-      = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels.size))
+      aside.statistics
+        = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
+
+      = paginate @channels

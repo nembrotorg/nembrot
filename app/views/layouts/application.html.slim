@@ -12,14 +12,14 @@ html class="no-js" lang="#{ I18n.locale }"
 
       = yield
 
-    = render 'hello_world' if Secret.auth.evernote.consumer_key == 'CHANGE_ME' or Secret.auth.evernote.consumer_secret == 'CHANGE_ME'
+    = render 'hello_world' if Secret.auth.evernote.key == 'CHANGE_ME' or Secret.auth.evernote.secret == 'CHANGE_ME'
+
+    = render 'admin_tools' if user_signed_in? && current_user.admin?
 
     = render 'user_tools'
 
     = render 'footer'
 
-    = javascript_include_tag 'application'
+    = render 'google_analytics' unless Constant.google_analytics_key.blank?
 
-    = render 'google_analytics' unless Settings.google_analytics_key.blank?
-
-    = render 'async_share_scripts' if Settings.share
+    = render 'async_share_scripts' if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'

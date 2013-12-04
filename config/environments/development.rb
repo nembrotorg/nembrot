@@ -9,7 +9,7 @@ Nembrot::Application.configure do
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  config.action_controller.default_url_options = { host: Settings.host }
+  config.action_controller.default_url_options = { host: Constant.host }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -25,6 +25,9 @@ Nembrot::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
 
   config.eager_load = false
 end

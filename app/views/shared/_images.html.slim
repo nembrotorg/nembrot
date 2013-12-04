@@ -1,7 +1,7 @@
 - images.each do |image|
   figure.image
     = link_to image_tag(cut_image_binary_path(image, type: type), alt: strip_tags(image.description)), 
-       cut_image_binary_path(image, width: Settings.styling.images.expanded.width)
+       cut_image_binary_path(image, width: Setting['style.images_expanded_width'])
     - unless image.caption.blank?
       figcaption
         = simple_blurbify(image.caption)

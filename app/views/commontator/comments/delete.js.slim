@@ -1,0 +1,5 @@
+| $("#comment_#{ @comment.id.to_s }_body_div").html("#{ escape_javascript( render 'body', comment: @comment) }");
+| $("#comment_#{ @comment.id.to_s }_updated_timestamp_span").html("#{ escape_javascript( "#{ @comment.updated_timestamp } by #{ commontator_name(@comment.editor) }") }");
+| $("#comment_#{ @comment.id.to_s } .actions").html("#{ escape_javascript( render 'actions', comment: @comment, user: @user) }");
+| $("#comment_#{ @comment.id } .votes").html("#{ escape_javascript( render 'votes', comment: @comment, user: @user) }");
+= javascript_proc

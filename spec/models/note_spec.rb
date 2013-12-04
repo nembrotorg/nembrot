@@ -9,28 +9,36 @@ describe Note do
   subject { note }
 
   it { should be_valid }
-  it { should respond_to(:title) }
-  it { should respond_to(:body) }
-  it { should respond_to(:external_updated_at) }
   it { should respond_to(:active) }
+  it { should respond_to(:altitude) }
   it { should respond_to(:author) }
-  it { should respond_to(:source) }
-  it { should respond_to(:source_url) }
-  it { should respond_to(:source_application) }
-  it { should respond_to(:last_edited_by) }
-  it { should respond_to(:is_embeddable_source_url) }
+  it { should respond_to(:body) }
+  it { should respond_to(:distance) }
+  it { should respond_to(:external_updated_at) }
+  it { should respond_to(:feature) }
   it { should respond_to(:fx) }
-  it { should respond_to(:active) }
   it { should respond_to(:hide) }
+  it { should respond_to(:is_embeddable_source_url) }
+  it { should respond_to(:last_edited_by) }
+  it { should respond_to(:latitude) }
+  it { should respond_to(:longitude) }
+  it { should respond_to(:place) }
+  it { should respond_to(:feature_id) }
+  it { should respond_to(:source) }
+  it { should respond_to(:source_application) }
+  it { should respond_to(:source_url) }
+  it { should respond_to(:title) }
+  it { should respond_to(:word_count) }
 
   it { should have_many(:evernote_notes) }
+  it { should have_many(:instructions).through(:instruction_taggings) }
+  it { should have_many(:related_notes) }
   it { should have_many(:resources) }
   it { should have_many(:tags).through(:tag_taggings) }
-  it { should have_many(:instructions).through(:instruction_taggings) }
   it { should have_many(:versions) }
 
-  it { should validate_presence_of(:title) }
   it { should validate_presence_of(:external_updated_at) }
+  it { should validate_presence_of(:title) }
 
   describe 'rejects update when body, embeddable url and resources are all nil' do
     before do
@@ -123,20 +131,31 @@ describe Note do
 
     context 'when a note is not much older or different than the last version' do
       before do
-        note.body = note.body + ' Extra word.'
+        note.body = note.body + 'a'
         note.external_updated_at = 199.minutes.ago
-        note.save
+        note.save!
       end
       it 'does not save a version' do
         note.versions.should be_empty
       end
     end
 
-    context 'when a note is not much older than but is different from the last version' do
+    context 'when a note is not much older but is longer from the last version' do
       before do
-        note.body = note.body + ' More than ten words, enough to go over threshold in settings.'
+        note.body = note.body + ' More than ten words, enough to go over threshold in constants.'
         note.external_updated_at = 199.minutes.ago
-        note.save
+        note.save!
+      end
+      it 'saves a version' do
+        note.versions.should_not be_empty
+      end
+    end
+
+    context 'when a note is not much older, is the same length, but is different from the last version' do
+      before do
+        note.body = note.body[16..-1] + note.body[0..15]
+        note.external_updated_at = 199.minutes.ago
+        note.save!
       end
       it 'saves a version' do
         note.versions.should_not be_empty
@@ -162,15 +181,19 @@ describe Note do
         note.versions.last.sequence.should == note.versions.size
         note.versions.last.tag_list = %w(first_tag)
         note.versions.last.word_count.should == 2
+        note.versions.last.distance.should == 51
       end
     end
   end
 
   describe '#has_instruction?' do
+    pending "Add tests"
+  end
+
+  describe '#has_instruction?' do
     before do
-      Settings.deep_merge!({ 'notes' => { 
-        'instructions' => { 'hide' => ['__HIDESYNONYM'], 'default' => ['__DEFAULT_INSTRUCTION'] } } 
-      })
+      Setting['advanced.instructions_hide'] = '__HIDESYNONYM'
+      Setting['advanced.instructions_default'] = '__DEFAULT_INSTRUCTION'
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
@@ -291,6 +314,54 @@ describe Note do
     end
   end
 
+  describe '#feature_id' do
+    context 'when title has no feature_id' do
+      before { note.title = 'Title' }
+      its (:feature_id) { should be_nil }
+    end
+    context 'when title has a numerical feature_id' do
+      before { note.update_attributes(title: '1. Title') }
+      its (:feature_id) { should eq('1') }
+    end
+    context 'when title has an alphabetic feature_id' do
+      before { note.update_attributes(title: 'a. Title') }
+      its (:feature_id) { should eq('a') }
+    end
+    context 'when title has a word as feature_id' do
+      before { note.update_attributes(title: 'First. Title') }
+      its (:feature_id) { should eq('first') }
+    end
+    context 'when title has a subtitle' do
+      before { note.update_attributes(title: 'Main Title: Subtitle') }
+      its (:feature_id) { should eq('subtitle') }
+    end
+    context 'when title has more than one word before a period' do
+      before { note.update_attributes(title: 'Two words. Title') }
+      its (:feature_id) { should be_nil }
+    end
+  end
+
+  describe '#feature' do
+    Setting['advanced.instructions_feature_first'] = '__FEATURE_FIRST'
+    Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
+    before { note.update_attributes(title: 'Title Has Three Words') }
+    context 'when note has no instruction' do
+      its (:feature) { should be_nil }
+    end
+    context 'when note has feature instruction' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE)) }
+      its (:feature) { should eq('title-has-three-words') }
+    end
+    context 'when note has an instruction to use the first word' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_FIRST)) }
+      its (:feature) { should eq('title') }
+    end
+    context 'when note has an instruction to use the last word' do
+      before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_LAST)) }
+      its (:feature) { should eq('words') }
+    end
+  end
+
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
     its (:fx) { should == 'abc_def' }
@@ -332,10 +403,10 @@ describe Note do
   end
 
   describe 'lang_from_cloud' do
-    Settings.notes['detect_language_sample_length'] = 100
+    Setting['advanced.detect_language_sample_length'] = 100
     context 'when text is in Enlish' do
       before do
-        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.")
+        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: [])
       end
       it 'returns en' do
         note.lang.should == 'en'
@@ -343,7 +414,7 @@ describe Note do
     end
     context 'when language is given via an instruction' do
       before do
-        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: ['__LANG_MT'])
+        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", lang: nil, instruction_list: ['__LANG_MT'])
       end
       it 'does not overwrite it' do
         note.lang.should == 'mt'
@@ -351,7 +422,7 @@ describe Note do
     end
     context 'when text is in Russian' do
      before do
-       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.')
+       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.', instruction_list: [])
        note.save!
      end
      it 'returns ru' do
@@ -360,7 +431,7 @@ describe Note do
     end
     context 'when text is in Malaysian' do
       before do
-        note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ")
+        note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ", instruction_list: [])
       end
       it 'returns ml' do
         note.lang.should == 'ml'

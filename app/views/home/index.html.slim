@@ -7,18 +7,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('site.title'), document_title: document_title
+  = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
 
-  - if Settings.promote.home == 1
+  - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
 
-    - image = @promoted_notes.first.resources.first
-    figure
-      = link_to image_tag(cut_image_binary_path(image, type: :cinema), alt: strip_tags(image.description)), @promoted_notes.first
-      - if image.caption
-        figcaption= image.caption.html_safe
-
-    = render 'shared/media', url: @promoted_notes.first.source_url if @note.is_embeddable_source_url
-
-  - elsif Settings.promote.home == 3
-
-    = render 'shared/notes_list', notes: @promoted_notes.first(3), blurb_length: Settings.notes.blurb_length
+  = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), 
+                                all_interrelated_notes: @all_interrelated_notes, 
+                                blurb_length: Setting['advanced.blurb_length'].to_i

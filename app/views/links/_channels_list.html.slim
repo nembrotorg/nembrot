@@ -1,7 +1,7 @@
 nav.links
 
   header
-    h6= link_to t('links.title'), links_path
+    h3 = title ||= t('links.index.title')
 
   ul
     - channels.each do |channel, count|

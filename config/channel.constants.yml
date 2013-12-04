@@ -1,0 +1,19 @@
+defaults: &defaults
+  channel:
+    evernote_notebooks: f63f25b7-0c4f-4541-afb3-7286d72e452b
+    name: Nembrot
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  channel:
+    evernote_notebooks: 2be62491-08b9-436a-b029-fb68a4b882bd
+    name: Nembrot

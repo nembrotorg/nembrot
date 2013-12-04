@@ -9,9 +9,12 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), document_title: document_title
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = render 'citations_list', citations: @citations.first(Settings.notes.index.page_size) unless @citations.empty?
+    - unless @citations.empty?
+      = render 'citations_list', citations: @citations
 
-    aside.statistics
-      = t('.statistics', count: number_with_delimiter(@citations.size), books_count: 0, links_count: 0)
+      aside.statistics
+        = t('.statistics', count: number_with_delimiter(@total_count), books_count: @books_count, links_count: 0)
+
+      = paginate @citations

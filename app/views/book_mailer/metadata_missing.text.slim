@@ -1,4 +1,4 @@
-=t('email.greeting', name: Settings.monitoring.name)
+=t('email.greeting', name: Setting['advanced.monitoring_name'])
 | \
 =t('books.sync.failed.metadata_missing.email.body')
 | \
@@ -7,7 +7,7 @@
 ="Title: #{ @title }"
 ="Published date: #{ @published_date }"
 | \
-="http://#{ Settings.host }/admin/book/#{ @id }/edit"
+="http://#{ Constant.host }/admin/book/#{ @id }/edit"
 | \
 ="http://www.amazon.com/s/?field-keywords=#{ @isbn }"
 | \

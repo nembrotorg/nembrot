@@ -8,19 +8,19 @@ describe CloudServiceMailer do
     end
  
     it 'renders the receiver email' do
-      mail.to.should == [Settings.monitoring.email]
+      mail.to.should == [Setting['advanced.monitoring_email']]
     end
  
     it 'renders the sender email' do
-      mail.from.should == [Settings.admin.email]
+      mail.from.should == [Constant.admin_email]
     end
  
     it 'assigns @name' do
-      mail.body.encoded.should match(Settings.monitoring.name)
+      mail.body.encoded.should match(Setting['advanced.monitoring_name'])
     end
  
     it 'assigns @confirmation_url' do
-      mail.body.encoded.should match(Settings.host + '/auth/provider01')
+      mail.body.encoded.should match(Constant.host + '/auth/provider01')
     end
   end
 end

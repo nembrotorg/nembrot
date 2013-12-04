@@ -1,13 +1,17 @@
-=arrow-links
+=icon-links
   a:first-of-type, .current
-    text-transform: lowercase
+    &:before
+      display: inline-block
+  .current
+    font-weight: bold
+
+=arrow-links
+  +icon-links
+  a:first-of-type, .current
     &:before
       +icon-right
       +icon-small
-      display: inline-block
-      width: 12px
-  .current
-    font-weight: bold
+      width: $text-indent / 2
 
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
   +font-color
@@ -58,9 +62,9 @@
     font-weight: normal
     font-style: normal
 
-=fade($opacity: 0)
+=fade($opacity: 0, $transition: 1s)
   opacity: $opacity
-  +transition
+  +transition($transition)
 
 =font-color($color: $font-color, $hover-color: $link-hover-color)
   border-color: $color
@@ -84,7 +88,54 @@
         border-color: $hover-color
         color: $hover-color
 
-=pass_media_query($media-query)
+=pagination-nav($line-color: $furniture-color, $button-width: $text-indent)
+  +font-color($line-color)
+  clear: both
+  margin-bottom: $line-height
+  ol
+    margin-top: ($line-height / 2) * -1
+    position: relative
+    li
+      display: inline-block
+      height: $line-height
+      .current
+        color: $off-color
+        &:before
+          border-color: $off-color
+      a, .current
+        display: block
+        text-align: center
+        width: $button-width
+        &:before
+          display: block
+          margin: ($line-height / 4) 0
+          width: $button-width
+      .current
+        font-weight: bold
+      &:first-child
+        +icon-left
+        +icon-only($button-width)
+        a, .current
+          &:before
+            +icon-to-start-2
+      &:nth-child(2)
+        +icon-only($button-width)
+        a,.current
+          &:before
+            +icon-left
+      &:nth-last-child(2)
+        +icon-only($button-width)
+        a, .current
+          margin-right: 1px
+          &:before
+            +icon-right
+      &:last-child
+        +icon-only($button-width)
+        a, .current
+          &:before
+            +icon-to-end-2
+
+=pass-media-query($media-query)
   body
     &:after
       content: $media-query
@@ -117,63 +168,11 @@
     top: $line-top
     z-index: -1
 
-=sequential_nav($line-color: $furniture-color, $button-width: $text-indent)
-  +font-color($line-color)
-  clear: both
-  margin-bottom: $line-height
-  ol
-    position: relative
-    li
-      display: inline-block
-      height: $line-height
-      overflow: hidden
-      position: absolute
-      width: $button-width
-      .current
-        color: $off-color
-        &:before
-          border-color: $off-color
-      a, .current
-        &:before
-          +icon-left
-          display: block
-          line-height: $line-height / 2
-          margin: ($line-height / 4) 0
-          width: $button-width - 5px
-      &:first-child
-        a, .current
-          &:before
-            +icon-to-start
-      &:nth-child(2)
-        left: $button-width
-        a,.current
-          &:before
-            +icon-left
-      &:nth-last-child(2)
-        right: $button-width
-        a, .current
-          margin-right: 1px
-          &:before
-            +icon-right
-            text-align: right
-      &:last-child
-        right: 0
-        a, .current
-          &:before
-            +icon-to-end
-      &.ui-slider
-        +rule-once($line-color, 2px, $line-height / 2 - 1)
-        display: block
-        left: $button-width * 2
-        position: absolute
-        right: $button-width * 2
-        width: auto
-        a.ui-slider-handle
-          position: absolute
-          width: $button-width
-          &:before
-            +icon-circle
-            cursor: pointer
+=icon-only($button-width: $text-indent, $height: $line-height)
+  display: inline-block
+  height: $height
+  overflow: hidden
+  width: $button-width
 
 =transition($duration: 1s)
   transition: all $duration ease-out
@@ -188,6 +187,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 +embed-font($headline-font, $headline-font-variant)
+
++embed-font($monospace-font, $monospace-font-variant)
 
 =body-font
   +hyphens
@@ -209,6 +210,10 @@
   color: $font-color
   font-family: $font-family
   font-size: $font-size
+
+=monospace-font
+  font:
+    family: $monospace-font-family
 
 =pre-with-emdash
   &:before

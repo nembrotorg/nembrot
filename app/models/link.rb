@@ -8,13 +8,11 @@ class Link < ActiveRecord::Base
 
   default_scope { order('channel') }
 
-  # OPTIMIZE: Notes must be active and not hidden (publishable)
+  # OPTIMIZE: Notes must be publishable (active and not hidden)
   scope :publishable, -> { where(dirty: false)
     .joins('left outer join links_notes on links.id = links_notes.link_id')
     .where('links_notes.link_id IS NOT ?', nil)
     .uniq }
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
 
   validates :url, presence: true, uniqueness: true
   validates :url, url: true
@@ -23,6 +21,8 @@ class Link < ActiveRecord::Base
 
   before_validation :update_channel, if: :url_changed?
   before_validation :scan_notes_for_references, if: :url_changed?
+
+  paginates_per Setting['advanced.links_index_per_page'].to_i
 
   extend FriendlyId
   friendly_id :channel, use: :slugged
@@ -38,7 +38,7 @@ class Link < ActiveRecord::Base
     url_candidates.push(url_candidates_in_text) unless url_candidates_in_text.empty?
     unless url_candidates.empty?
       url_candidates.flatten!
-      url_candidates = url_candidates.reject { |url_candidate| url_candidate.match(%r(^http:\/\/[a-z0-9]*\.?#{ Settings.host })) } # Remove local
+      url_candidates = url_candidates.reject { |url_candidate| url_candidate.match(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host })) } # Remove local
       url_candidates.each { |url_candidate| add_task(url_candidate) }
     end
   end

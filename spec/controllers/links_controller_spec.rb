@@ -59,7 +59,7 @@ describe LinksController do
   describe 'GET #index' do
     it 'populates an array of @links' do
       get :index
-      assigns(:channels).should eq({ @link.channel => 1 })
+      assigns(:channels).should eq([[ @link.channel, 1 ]])
     end
 
     it 'populates an array of @links' do

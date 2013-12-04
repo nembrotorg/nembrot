@@ -46,13 +46,13 @@ describe Resource do
   it { should validate_uniqueness_of(:cloud_resource_identifier) }
 
   describe ':need_syncdown' do
-    before { @resource.update_attributes(dirty: true, attempts: 0) }
+    before { @resource.update_attributes(dirty: true, attempts: 0, try_again_at: 1.minute.ago) }
     it 'contains all dirty resources' do
       Resource.need_syncdown.last.should == @resource
     end
 
     context 'when resources are maxed_out or dirty' do
-      before { @resource.update_attributes(dirty: true, attempts: Settings.notes.attempts + 1) }
+      before { @resource.update_attributes(dirty: true, attempts: Setting['advanced.attempts'].to_i + 1, try_again_at: 1.minute.ago) }
       Resource.need_syncdown.last.should == nil
     end
   end
@@ -82,7 +82,7 @@ describe Resource do
 
   describe '#max_out_attempts' do
     before { @resource.max_out_attempts }
-    its(:attempts) { should >=  Settings.notes.attempts }
+    its(:attempts) { should >=  Setting['advanced.attempts'].to_i }
   end
 
   describe '#file_ext' do

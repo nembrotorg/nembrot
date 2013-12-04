@@ -1,23 +1,9 @@
 section.notes
 
   header
-    h6 = link_to_unless_current t('notes.index.title'), notes_path
+    h3 = title ||= t('notes.index.title')
 
   ul
     - notes.each do |note|
-
-      - blurb_length = blurb_length || Settings.notes.blurb_length
-      - headline, blurb = blurb(note.headline, note.clean_body, blurb_length)
-      - image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
-
       li
-        = link_to note_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) do
-
-          - if image
-            = image_tag(cut_image_binary_path(image, type: :thumbnail), alt: strip_tags(image.description))
-
-          - elsif note.is_embeddable_source_url
-            = render 'shared/media', url: note.source_url
-
-          h2 = blurbify(headline, note.books, note.links)
-          = blurbify(blurb, note.books, note.links)
+        = render 'shared/note_blurb', note: note, all_interrelated_notes: all_interrelated_notes

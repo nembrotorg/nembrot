@@ -1,0 +1,8 @@
+-# Clients of this partial must provide the following variable: # comment
+
+-# REVIEW: Temporarily disabled
+-# section.body = simple_format comment.is_deleted? ? t('.deleted_html', user: commontator_name(comment.editor)) : commentify(comment.body)
+-# section.body = commentify(comment.body)
+-# FormattingHelper is not accessible when we use AJAX
+-# section.body = commentify(comment.body)
+section.body = sanitize(comment.body, tags: ['a'], attributes: ['href']).gsub(/^ *([^<].+[^>]) *$/, '<p>\1</p>').html_safe

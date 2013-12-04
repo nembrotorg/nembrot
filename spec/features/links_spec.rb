@@ -36,7 +36,7 @@ describe 'Links' do
     before do
       visit link_path(@link.channel)
     end
-    specify { page.should have_selector("a[href='#{ note_path(@note) }']") }
+    specify { page.should have_selector("a[href='#{ note_or_feature_path(@note) }']") }
   end
 
   describe 'edit page' do

@@ -3,7 +3,6 @@
 class EvernoteRequest
 
   include Evernotable
-  include Syncable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
                 :cloud_note_tags, :offline
@@ -53,7 +52,7 @@ class EvernoteRequest
   end
 
   def evernote_notebook_required?
-    required = Array(Settings.evernote.notebooks).include?(cloud_note_metadata.notebookGuid)
+    required = Setting['channel.evernote_notebooks'].split(/ |, ?/).include?(cloud_note_metadata.notebookGuid)
     unless required
       evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
@@ -85,7 +84,7 @@ class EvernoteRequest
   end
 
   def cloud_note_has_required_tags?
-    has_required_tags = !(Array(Settings.notes.instructions.required) & cloud_note_tags).empty?
+    has_required_tags = !(Setting['advanced.instructions_required'].split(/, ?| /) & cloud_note_tags).empty?
     unless has_required_tags
       evernote_note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
@@ -94,7 +93,7 @@ class EvernoteRequest
   end
 
   def cloud_note_is_not_ignorable?
-    not_ignorable = (Settings.notes.instructions.ignore & cloud_note_tags).empty?
+    not_ignorable = (Setting['advanced.instructions_ignore'].split(/, ?| /) & cloud_note_tags).empty?
     unless not_ignorable
       SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', logger_details)
       evernote_note.undirtify
@@ -123,36 +122,41 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Settings.evernote.always_reset_on_create && evernote_note.note.new_record?
+    reset_new_note = Setting['advanced.always_reset_on_create'] && evernote_note.note.new_record?
     use_date = reset_new_note ?  cloud_note_data.created : cloud_note_data.updated
     Time.at(use_date / 1000).to_datetime
   end
 
   def populate
     self.data = {
-      'title'               => cloud_note_data.title,
+      'active'              => true,
+      'altitude'            => cloud_note_data.attributes.altitude,
+      'author'              => cloud_note_data.attributes.author,
       'body'                => cloud_note_data.content,
+      'content_class'       => cloud_note_data.attributes.contentClass,
+      'external_updated_at' => calculate_updated_at,
+      'instruction_list'    => cloud_note_tags.grep(/^_/),
+      'introduction'        => cloud_note_data.content.scan(/<div>\s*intro:\s*(.*?)\s*<\/div>/i).first,
+      'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
       'latitude'            => cloud_note_data.attributes.latitude,
       'longitude'           => cloud_note_data.attributes.longitude,
-      'external_updated_at' => calculate_updated_at,
-      'author'              => cloud_note_data.attributes.author,
-      'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
+      'place'               => cloud_note_data.attributes.placeName,
       'source'              => cloud_note_data.attributes.source,
       'source_application'  => cloud_note_data.attributes.sourceApplication,
       'source_url'          => cloud_note_data.attributes.sourceURL,
       'tag_list'            => cloud_note_tags.grep(/^[^_]/),
-      'instruction_list'    => cloud_note_tags.grep(/^_/),
-      'active'              => true
+      'title'               => cloud_note_data.title,
     }
   end
 
   def update_evernote_note_with_evernote_data(cloud_note_data)
     evernote_note.update_attributes!(
-      note_id: evernote_note.note.id,
       attempts: 0,
       content_hash: cloud_note_data.contentHash,
-      update_sequence_number: cloud_note_data.updateSequenceNum,
-      dirty: false
+      dirty: false,
+      note_id: evernote_note.note.id,
+      try_again_at: 100.years.from_now,
+      update_sequence_number: cloud_note_data.updateSequenceNum
     )
   end
 

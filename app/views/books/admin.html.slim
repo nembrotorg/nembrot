@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title', mode: @mode), document_title: document_title
+    = render 'header', title: t('.title', mode: @mode), subtitle: nil, document_title: document_title
 
     nav
       ul

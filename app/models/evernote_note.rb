@@ -10,9 +10,6 @@ class EvernoteNote < ActiveRecord::Base
   belongs_to :note 
   belongs_to :evernote_auth
 
-  scope :need_syncdown, -> { where('dirty = ? AND attempts <= ?', true, Settings.notes.attempts).order('updated_at') }
-  scope :maxed_out, -> { where('attempts > ?', Settings.notes.attempts).order('updated_at') }
-
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
   #  inflate the id number of each 'successful' note.
@@ -33,8 +30,8 @@ class EvernoteNote < ActiveRecord::Base
 
   def self.bulk_sync
     filter = Evernote::EDAM::NoteStore::NoteFilter.new(
-      notebookGuid: Settings.evernote.notebooks,
-      words: Settings.notes.instructions.required.join(' ').gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
+      notebookGuid: Setting['channel.evernote_notebooks'],
+      words: Setting['advanced.instructions_required'].gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
       order: 2,
       ascending: false
     )

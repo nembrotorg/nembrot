@@ -1,6 +1,6 @@
 javascript:
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '#{Settings.google_analytics_key }']);
+  _gaq.push(['_setAccount', '#{Constant.google_analytics_key }']);
   #{ Rails.env.production? ? '' : "_gaq.push(['_setDomainName', 'none']);".html_safe }
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

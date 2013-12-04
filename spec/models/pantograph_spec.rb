@@ -59,11 +59,11 @@ describe Pantograph do
   end
 
   describe '.sanitize' do
-    specify { Pantograph.sanitize(Settings.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
+    specify { Pantograph.sanitize(Constant.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
   end
 
   describe '.sanitize' do
-    specify { Pantograph.sanitize(Settings.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
+    specify { Pantograph.sanitize(Constant.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
   end
 
   describe '.previous_pantograph' do
@@ -112,7 +112,7 @@ describe Pantograph do
 
   # describe '.last_by_self_body' do
   #   before do
-  #     @pantographer_self = FactoryGirl.create(:pantographer, twitter_user_id: Settings.pantography.twitter_user_id)
+  #     @pantographer_self = FactoryGirl.create(:pantographer, twitter_user_id: Constant.pantography.twitter_user_id)
   #     @pantographer_other = FactoryGirl.create(:pantographer, twitter_user_id: '1')
   #     @pantograph_by_self = FactoryGirl.create(:pantograph, pantographer_id: @pantographer_self.id)
   #     @pantograph_by_other = FactoryGirl.create(:pantograph, pantographer_id: @pantographer_other.id)

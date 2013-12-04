@@ -1,0 +1,23 @@
+en:
+  commontator:
+    comments:
+      body:
+        deleted_html: "<del>Comment deleted by %{user}.</del>"
+      show:
+        edited_at_by: " (edited by %{editor}, %{updated_at})"
+      votes:
+        vote_up: 'Vote up'
+        vote_down: 'Vote down'
+    shared:
+    subscriptions:
+    subscriptions_mailer:
+    threads:
+      show:
+        title:
+          zero: 'Comments'
+          one: '1 comment'
+          other: '%{count} comments'
+        closed_suffix: ' (closed)'
+        closed: 'Comments are closed.'
+        log_in: 'Log in to add a comment'
+        new_comment: 'Add comment'

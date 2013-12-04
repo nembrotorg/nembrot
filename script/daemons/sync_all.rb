@@ -7,5 +7,5 @@ loop do
   Resource.sync_all_binaries
   Book.sync_all
   Link.sync_all
-  sleep Settings.evernote.daemon_frequency
+  sleep Constant.daemon_frequency.to_i
 end

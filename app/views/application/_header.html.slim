@@ -2,7 +2,10 @@ header data-title="#{ document_title }"
 
   h1 == title
 
-  - if flash
+  - unless subtitle.nil? 
+    h2 == subtitle
+
+  - unless flash.blank?
     aside#notice
       - flash.each do |type, message|
         p class=(type ) = message

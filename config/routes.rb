@@ -2,7 +2,9 @@
 
 Nembrot::Application.routes.draw do
 
-  devise_for :users, :controllers => { sessions: 'sessions' }
+  mount Commontator::Engine => '/commontator'
+
+  devise_for :users, controllers: { sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
 
   root to: 'home#index'
 
@@ -13,25 +15,25 @@ Nembrot::Application.routes.draw do
   get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
   get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|all|citable|cited|missing_metadata/
   get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
-  get 'bibliography' => 'books#index', as: :books
+  get 'bibliography(/p/:page)' => 'books#index', as: :books
 
   get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
-  get 'citations' => 'citations#index'
+  get 'citations(/p/:page)' => 'citations#index', as: :citations
 
   put 'links/update' => 'links#update', as: :update_link
   get 'links/admin' => 'links#admin', as: :links_admin
   get 'links/:id/edit' => 'links#edit', as: :edit_link
   get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
-  get 'links' => 'links#index', as: :links
+  get 'links(/p/:page)' => 'links#index', as: :links
 
   get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
   get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
   get 'notes/map' => 'notes#map'
-  get 'notes' => 'notes#index'
+  get 'notes(/p/:page)' => 'notes#index', as: :notes
 
-  # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
-  get 'pantography/:body' => 'pantograph#show', as: :pantograph # , body: /[a-zA-F0-9\%]+/
-  get 'pantography' => 'pantograph#index', as: :pantographs
+  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
+  put 'settings' => 'settings#update', as: :update_settings
+  get 'settings' => 'settings#edit', as: :edit_settings
 
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,
@@ -44,10 +46,18 @@ Nembrot::Application.routes.draw do
 
   get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
   get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
-  get 'tags' => 'tags#index'
+  get 'tags(/p/:page)' => 'tags#index', as: :tags
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
   resources :evernote_notes, only: [:add_evernote_task]
   resources :evernote_auths, only: [:auth_callback, :auth_failure]
+
+  # Custom routes
+  # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'pantography/:body' => 'pantographs#show', as: :pantograph # , body: /[a-zA-F0-9\%]+/
+  get 'pantography' => 'pantographs#index', as: :pantographs
+
+  get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
+  get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature
 end

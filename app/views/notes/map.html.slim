@@ -10,10 +10,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), document_title: document_title
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
     = render 'shared/map', map: @map
 
     aside.statistics
-      = t('.statistics', count: number_with_delimiter(@notes.size), word_count: number_with_delimiter(@word_count))
+      = t('.statistics', count: @notes.size)
       = t('.other_view_html', path: notes_path)

@@ -1,0 +1,4 @@
+h4 = "#{ @creator_name }'s #{ @thread.config.comment_name } on #{ @commontable_name }:"
+= render 'commontator/comments/body', comment: @comment
+p
+  a href="#{ @commontable_url }" Click here to view all comments on #{@commontable_name}.

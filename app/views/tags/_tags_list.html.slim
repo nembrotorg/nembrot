@@ -1,7 +1,7 @@
 section.tags
 
   header
-    h6 = link_to_unless_current t('tags.index.title'), tags_path
+    h3 = title ||= t('tags.index.title')
 
   ul
     - tags.each do |tag|

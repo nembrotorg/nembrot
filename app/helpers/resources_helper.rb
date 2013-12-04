@@ -13,11 +13,11 @@ module ResourcesHelper
 
     Rails.application.routes.url_helpers.cut_resource_path(
       file_name:  image.local_file_name,
-      aspect_x:   options[:aspect_x]  || Settings.styling.images[type]['aspect']['x'],
-      aspect_y:   options[:aspect_y]  || Settings.styling.images[type]['aspect']['y'],
-      width:      options[:width]     || Settings.styling.images[type]['width'],
-      snap:       options[:snap]      || Settings.styling.images.snap,
-      gravity:    options[:gravity]   || Settings.styling.images.gravity,
+      aspect_x:   options[:aspect_x]  || Setting["style.images_#{ type.to_s }_aspect_x"],
+      aspect_y:   options[:aspect_y]  || Setting["style.images_#{ type.to_s }_aspect_y"],
+      width:      options[:width]     || Setting["style.images_#{ type.to_s }_width"],
+      snap:       options[:snap]      || Setting['style.images_snap'],
+      gravity:    options[:gravity]   || Setting['style.images_gravity'],
       effects:    options[:effects]   || image.note.fx,
       id:         options[:id]        || image.id,
       format:     image.file_ext.to_sym
@@ -30,20 +30,20 @@ module ResourcesHelper
 
     if image_record.nil?
       logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
-      return Settings.images.default_blank_location
+      return Constant.blank_image_location
     end
 
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
-    # Shorthand: small integers are taken to be number of columns rather than absolute width 
-    width = column_width(width) if width <= Settings.styling.total_columns
+    # Shorthand: small integers are taken to be number of columns rather than absolute width
+    width = column_width(width) if width <= Setting['style.total_columns'].to_i
 
     # The height is derived from the aspect ratio and width.
     height = (width * aspect_y) / aspect_x
 
     # We snap the height to nearest baseline to maintain a vertical grid.
-    height = round_nearest(height, Settings.styling.line_height) if snap == '1'
+    height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
 
     # We check if a (manually-cropped) template exists.
     file_name_in = (File.exists?(file_name_template) ? file_name_template : image_record.raw_location)
@@ -55,7 +55,7 @@ module ResourcesHelper
       # TODO: This needs to do crop/resize, not just resize.
       # image.resize "#{ width }x#{ height }"
 
-      gravity_options = { :gravity => gravity } unless (gravity == '0' || gravity == '')
+      gravity_options = { :gravity => gravity } unless gravity == '0' || gravity == ''
       resize_with_crop(image, width, height, gravity_options = {})
 
       image = fx(image, effects)
@@ -81,7 +81,7 @@ module ResourcesHelper
   end
 
   def column_width(columns)
-    (Settings.styling.column_width * columns) + (Settings.styling.gutter_width * (columns - 1))
+    (Setting['style.column_width'].to_i * columns) + (Setting['style.gutter_width'].to_i * (columns - 1))
   end
 
   # FROM: http://maxivak.com/crop-and-resize-an-image-using-minimagick-ruby-on-rails/
@@ -94,16 +94,16 @@ module ResourcesHelper
 
     # check proportions
     if w_original * h < h_original * w
-      op_resize = "#{w.to_i}x"
+      op_resize = "#{ w.to_i }x"
       w_result = w
       h_result = (h_original * w / w_original)
     else
-      op_resize = "x#{h.to_i}"
+      op_resize = "x#{ h.to_i }"
       w_result = (w_original * h / h_original)
       h_result = h
     end
 
-    w_offset, h_offset = crop_offsets_by_gravity(gravity, [w_result, h_result], [ w, h])
+    w_offset, h_offset = crop_offsets_by_gravity(gravity, [w_result, h_result], [w, h])
 
     img.combine_options do |i|
       i.resize(op_resize)
@@ -126,10 +126,10 @@ module ResourcesHelper
     original_width, original_height = original_dimensions
     cropped_width, cropped_height = cropped_dimensions
 
-    return [
-             _horizontal_offset(gravity, original_width, cropped_width),
-             _vertical_offset(gravity, original_height, cropped_height)
-           ]
+    [
+      _horizontal_offset(gravity, original_width, cropped_width),
+      _vertical_offset(gravity, original_height, cropped_height)
+    ]
   end
 
   def _horizontal_offset(gravity, original_width, cropped_width)

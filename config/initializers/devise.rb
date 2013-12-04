@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = Settings.admin.email
+  config.mailer_sender = Constant.admin_email
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -103,10 +103,10 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # If true, extends the user's remember period when remembered via cookie.
-  # config.extend_remember_period = false
+  config.extend_remember_period = false
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
@@ -198,12 +198,17 @@ Devise.setup do |config|
   config.navigational_formats = ["*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  # config.omniauth :evernote, Secret.auth.evernote.key, Secret.auth.evernote.secret
+  config.omniauth :facebook, Secret.auth.facebook.key, Secret.auth.facebook.secret, { scope: 'email, offline_access', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :twitter, Secret.auth.twitter.key, Secret.auth.twitter.secret, { scope: 'r_fullprofile, r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :linkedin, Secret.auth.linkedin.key, Secret.auth.linkedin.secret, { scope: 'r_fullprofile r_emailaddress', client_options: {ssl: {ca_file: '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :github, Secret.auth.github.key, Secret.auth.github.secret, { scope: 'user, public_repo' }
+  config.omniauth :gplus, Secret.auth.gplus.key, Secret.auth.gplus.secret, { scope: 'userinfo.profile' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

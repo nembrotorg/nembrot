@@ -1,0 +1,2 @@
+| $("#comment_#{ @comment.id.to_s } .body").html("#{ escape_javascript( render 'form', comment: @comment) }");
+= javascript_proc

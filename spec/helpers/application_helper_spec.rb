@@ -13,7 +13,7 @@ describe ApplicationHelper do
   end
 
   describe '#body_dir_attr' do
-    before { Settings.lang['rtl_langs'] = ['ar'] }
+    before { Constant['rtl_langs'] = 'ar' }
     it 'should return "rtl" if language is rtl' do
       body_dir_attr('ar').should eq('rtl')
     end
@@ -25,7 +25,7 @@ describe ApplicationHelper do
   describe '#dir_attr' do
     context 'when the note is in the default language' do
       before do
-        Settings.lang['rtl_langs'] = ['ar']
+        Constant['rtl_langs'] = 'ar'
         I18n.locale = 'ar'
       end
       it 'returns "ltr" if language is not the same as locale, and is ltr' do
@@ -37,7 +37,7 @@ describe ApplicationHelper do
     end
     context 'when the note is not in the default language' do
       before do
-        Settings.lang['rtl_langs'] = ['ar']
+        Constant['rtl_langs'] = 'ar'
         I18n.locale = 'en'
       end
       it 'returns nil if language is the same as locale' do

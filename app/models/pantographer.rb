@@ -40,6 +40,6 @@ class Pantographer < ActiveRecord::Base
   end
 
   def follow_user
-    Pantographer.authenticated_twitter_client.follow(twitter_user_id) unless twitter_user_id == Settings.pantography.twitter_user_id
+    Pantographer.authenticated_twitter_client.follow(twitter_user_id) unless twitter_user_id == Constant.pantography.twitter_user_id
   end
 end

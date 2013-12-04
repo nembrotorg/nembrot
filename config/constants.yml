@@ -1,7 +1,7 @@
 defaults: &defaults
-  admin_email: joe@nembrot.org
+  admin_email: joe@joegatt.net
   admin_name: Joe
-  app_name: nembrot
+  app_name: joegattnet
   assets_version: 1.1
   blank_image_location: '/public/resources/cut/blank.png'
   daemon_frequency: 30
@@ -16,9 +16,9 @@ defaults: &defaults
   mailer:
     address: smtp.gmail.com
     port: 587
-    domain: mail.nembrot.org
+    domain: mail.joegatt.net
   repository: git://github.com/joegattnet/joegattnet_v3.git
-  role_name: nembrot.org
+  role_name: joegatt.net
   rtl_langs: 'ar fa'
   stream_binaries: false
   synchronous: false
@@ -35,11 +35,11 @@ test:
 
 staging:
   <<: *defaults
-  host: staging.nembrot.org
-  asset_host: http://a6.joegatt.org
+  host: staging.joegatt.net
+  asset_host: http://a4.joegatt.org/
   synchronous: true
 
 production:
   <<: *defaults
-  host: nembrot.org
-  asset_host: http://a5.joegatt.org
+  host: v3.joegatt.net
+  asset_host: http://a3.joegatt.org/

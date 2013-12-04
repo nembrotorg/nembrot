@@ -9,7 +9,7 @@ class IsbndbRequest
   attr_accessor :metadata
 
   def initialize(isbn)
-    response = self.class.get("#{ Constant.books.isbndb.path }#{ Secret.auth.isbndb.api_key }/book/#{ isbn }")
+    response = self.class.get("#{ Constant.books.isbndb.path }#{ Secret.auth.isbndb.key }/book/#{ isbn }")
 
     response = JSON.parse response
 

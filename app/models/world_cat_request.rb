@@ -10,7 +10,7 @@ class WorldCatRequest
 
   def initialize(isbn)
     params = { 'recordSchema' => 'info:srw/schema/1/dc', 'servicelevel' => 'full',
-               'wskey' => Secret.auth.world_cat.api_key }
+               'wskey' => Secret.auth.world_cat.key }
     response = self.class.get("#{ Constant.books.world_cat.path }#{ isbn }", query: params)
 
     populate(response, isbn) if response && response['oclcdcs']

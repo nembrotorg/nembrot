@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/norman/friendly_id.git
-  revision: 0c2ff236ff0137d4130d64863b22babc488add2c
+  revision: 0732bdf36557945186c088656b160155858fa87f
   branch: master
   specs:
     friendly_id (5.0.1)
@@ -171,14 +171,14 @@ GEM
     guard-coffeescript (1.3.4)
       coffee-script (>= 2.2.0)
       guard (>= 1.1.0)
-    guard-livereload (2.0.1)
+    guard-livereload (2.1.0)
       em-websocket (~> 0.5)
       guard (~> 2.0)
       multi_json (~> 1.8)
-    guard-rspec (4.0.4)
+    guard-rspec (4.1.1)
       guard (>= 2.1.1)
       rspec (~> 2.14)
-    guard-rubocop (1.0.0)
+    guard-rubocop (1.0.1)
       guard (~> 2.0)
       rubocop (~> 0.10)
     guard-sass (1.3.2)
@@ -196,7 +196,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
-    i18n (0.6.5)
+    i18n (0.6.9)
     isbn_validation (1.1.1)
       activerecord (>= 3)
     jquery-rails (3.0.4)
@@ -216,7 +216,7 @@ GEM
       ffi (~> 1.1.5)
     libnotify (0.8.2)
       ffi (>= 1.0.11)
-    listen (2.2.0)
+    listen (2.3.1)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -412,7 +412,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     underscore-rails (1.5.2)

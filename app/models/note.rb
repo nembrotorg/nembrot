@@ -8,6 +8,12 @@ class Note < ActiveRecord::Base
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
+
+  has_many :related_notes_association, class_name: 'RelatedNote'
+  has_many :related_notes, through: :related_notes_association, source: :related_note
+  has_many :inverse_related_notes_association, class_name: 'RelatedNote', foreign_key: 'related_note_id'
+  has_many :inverse_related_notes, through: :inverse_related_notes_association, source: :note
+
   has_and_belongs_to_many :books
   has_and_belongs_to_many :links
 
@@ -31,8 +37,11 @@ class Note < ActiveRecord::Base
   default_scope { order('external_updated_at DESC') }
   scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
   scope :citations, -> { where(is_citation: true) }
+  scope :features, -> { where.not(feature: nil) }
+  scope :notes_and_features, -> { where(is_citation: false) }
   scope :listable, -> { where(listable: true, is_citation: false) }
   scope :publishable, -> { where(active: true, hide: false) }
+  scope :interrelated, -> { where(id: RelatedNote.pluck(:note_id, :related_note_id)) }
   # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
@@ -144,6 +153,14 @@ class Note < ActiveRecord::Base
     has_instruction?('full_title') ? nil : headline.scan(/\:\s*(.*)/).flatten.first
   end
 
+  # def related_notes_resolved
+  #   all_related_notes << related_notes
+  #   all_related_notes.uniq.each do |r|
+  #     all_related_notes << r.related_notes
+  #   end
+  #   all_related_notes
+  # end
+
   private
 
   def is_untitled?
@@ -173,6 +190,13 @@ class Note < ActiveRecord::Base
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
     self.links = Link.publishable.keep_if { |link| body.include?(link.url) }
+
+    new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
+    new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
+    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*) *\}/).flatten, feature_id: nil)
+    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*)\//).flatten, feature_id: body.scan(/\{[a-z ]*:? *\/?[a-z0-9\-\_]*\/([a-z0-9\-\_]*) *\}/).flatten)
+
+    self.related_notes = new_related_notes.flatten.uniq
   end
 
   def scan_note_for_isbns

@@ -11,4 +11,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
 
-  = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), blurb_length: Setting['advanced.blurb_length'].to_i
+  = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), 
+                                all_interrelated_notes: @all_interrelated_notes, 
+                                blurb_length: Setting['advanced.blurb_length'].to_i

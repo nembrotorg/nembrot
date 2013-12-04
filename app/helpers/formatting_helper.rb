@@ -2,11 +2,14 @@
 
 module FormattingHelper
 
-  def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
+    text = related_notify(text, related_notes)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style)
+    text = linkify(text, links, links_citation_style)
     text = linkify(text, links, links_citation_style)
     text = headerize(text)
     text = sectionize(text)
@@ -16,9 +19,8 @@ module FormattingHelper
     clean_up_via_dom(text)
   end
 
-  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
-
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
     source_text = headerize(source_text)
@@ -27,6 +29,8 @@ module FormattingHelper
     source_text = paragraphize(source_text)
     source_text = denumber_headers(source_text)
 
+    target_text = related_notify(target_text, related_notes)
+    target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
     target_text = bookify(target_text, books, books_citation_style)
@@ -42,8 +46,10 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+  def blurbify(text, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
+    text = related_notify(text, related_notes, true)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -64,16 +70,6 @@ module FormattingHelper
     text = paragraphize(text)
     text = smartify(text)
     clean_up(text)
-  end
-
-  def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
-    return '' if text.blank?
-    text = sanitize_from_db(text)
-    text = clean_whitespace(text)
-    text = deheaderize(text)
-    text = bookify(text, books, books_citation_style)
-    text = linkify(text, links, links_citation_style)
-    clean_up_via_dom(text, true)
   end
 
   def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
@@ -147,6 +143,53 @@ module FormattingHelper
     text
   end
 
+  def related_notify(text, related_notes, blurbify = false)
+    nothing_more_to_do = false
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+      start_text = text
+
+      related_notes.each do |note|
+        body = blurbify ? sanitize(note.clean_body) : note.body
+        text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
+        text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
+        text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: [])) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: []))
+        text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+        text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+      end
+
+      if text == start_text
+        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
+        nothing_more_to_do = true
+      end
+    end
+    text = strip_tags(text) if blurbify
+    text
+  end
+
+  def related_citationify(text, related_citations, blurbify = false)
+    nothing_more_to_do = false
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+      start_text = text
+
+      related_citations.each do |citation|
+        body = blurbify ? sanitize(citation.clean_body) : citation.body
+        text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
+        text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{insert:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
+      end
+
+      if text == start_text
+        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
+        nothing_more_to_do = true
+        # Clean up faulty references
+        text.gsub!(/\{[^\}]*?\}/, '')
+      end
+    end
+    text = strip_tags(text) if blurbify
+    text
+  end
+
   def annotate(text)
     text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
     annotations = text.scan(/\[([^\.].*? .*?)\]/)
@@ -209,17 +252,25 @@ module FormattingHelper
     target_dom = Nokogiri::HTML(target_text)
     target_paragraphs = target_dom.css('p')
 
+    annotations = target_dom.css('.annotations')
+
     source_paragraphs.each_with_index do |p, i|
       # REVIEW: We can also add 'notranslate' here rather than as a metatag
       #  https://support.google.com/translate/?hl=en-GB#2641276
-      p['class'] = "source"
+      p['class'] = 'source'
       p['lang'] = lang_attr(source_lang)
       p['dir'] = dir_attr(source_lang) unless dir_attr(source_lang).blank?
-      target_paragraph = target_paragraphs[i]
-      target_paragraph['class'] = "target"
-      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraphs[i].to_html }#{ target_paragraph.to_html }</div>"
     end
-    dom = clean_up_dom(source_dom)
+
+    target_paragraphs.each_with_index do |p, i|
+      # CAREFUL: WHAT IF PARAS DON'T MATCH???      
+      p['class'] = 'target'
+      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : source_paragraphs[i].to_html
+      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : target_paragraphs[i].to_html
+      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
+    end
+
+    dom = clean_up_dom(target_dom)
     dom.css('body').children.to_html.html_safe
   end
 

@@ -31,13 +31,14 @@ describe Note do
   it { should respond_to(:word_count) }
 
   it { should have_many(:evernote_notes) }
+  it { should have_many(:instructions).through(:instruction_taggings) }
+  it { should have_many(:related_notes) }
   it { should have_many(:resources) }
   it { should have_many(:tags).through(:tag_taggings) }
-  it { should have_many(:instructions).through(:instruction_taggings) }
   it { should have_many(:versions) }
 
-  it { should validate_presence_of(:title) }
   it { should validate_presence_of(:external_updated_at) }
+  it { should validate_presence_of(:title) }
 
   describe 'rejects update when body, embeddable url and resources are all nil' do
     before do
@@ -183,6 +184,10 @@ describe Note do
         note.versions.last.distance.should == 51
       end
     end
+  end
+
+  describe '#has_instruction?' do
+    pending "Add tests"
   end
 
   describe '#has_instruction?' do
@@ -401,7 +406,7 @@ describe Note do
     Setting['advanced.detect_language_sample_length'] = 100
     context 'when text is in Enlish' do
       before do
-        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.")
+        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: [])
       end
       it 'returns en' do
         note.lang.should == 'en'
@@ -409,7 +414,7 @@ describe Note do
     end
     context 'when language is given via an instruction' do
       before do
-        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: ['__LANG_MT'])
+        note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", lang: nil, instruction_list: ['__LANG_MT'])
       end
       it 'does not overwrite it' do
         note.lang.should == 'mt'
@@ -417,7 +422,7 @@ describe Note do
     end
     context 'when text is in Russian' do
      before do
-       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.')
+       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.', instruction_list: [])
        note.save!
      end
      it 'returns ru' do
@@ -426,7 +431,7 @@ describe Note do
     end
     context 'when text is in Malaysian' do
       before do
-        note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ")
+        note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ", instruction_list: [])
       end
       it 'returns ml' do
         note.lang.should == 'ml'

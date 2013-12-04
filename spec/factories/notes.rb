@@ -12,5 +12,6 @@ FactoryGirl.define do
     sequence(:id) { |n| "#{n}" }
     title { 'Fixed note title' }
     word_count nil
+    instruction_list ['__LANG__EN']
   end
 end

@@ -494,8 +494,7 @@ footer
       top: 0
       left: 0
     div
-      clear: both
-      display: block
+      +clearfix
       position: relative
       .source
         color: $headline-font-color
@@ -1008,6 +1007,9 @@ ul.oauth
             +prefix(6)
             +span-columns(6 omega, 12)
             padding-top: 0
+          .side-annotations
+            +prefix(12)
+            +span-columns(2, 12)
       #map
         +span-columns(3 omega, 9)
     #extra
@@ -1076,3 +1078,17 @@ ul.oauth
     border: none
     bottom: 0
     width: space(2)
+
+// Screen > 1600px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1601px)
+
+  +pass-media-query('screen-and-min-width-1601px')
+
+  article
+    section#content
+      #text
+        &.enface
+          .side-annotations
+            +prefix(12)
+            +span-columns(3, 12)

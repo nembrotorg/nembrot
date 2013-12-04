@@ -1,0 +1,17 @@
+nav.notes
+
+  header
+    h3 = title ||= t('notes.index.title')
+
+  ul
+    - note.related_notes.notes_and_features.each do |note|
+      li = link_to note.headline, note_or_feature_path(note)
+
+    - note.related_notes.citations.each do |citation|
+      li = link_to citation.headline, citation_path(citation)
+
+    - note.inverse_related_notes.notes_and_features.each do |note|
+      li = link_to note.headline, note_or_feature_path(note)
+
+    - note.inverse_related_notes.citations.each do |citation|
+      li = link_to citation.headline, citation_path(citation)

@@ -7,6 +7,10 @@ class NotesController < ApplicationController
     all_notes = Note.publishable.listable.blurbable
 
     @notes = all_notes.page(page_number).load
+    # Send all interrelated notes. (It's not enough to send just this note's interrelated notes since there could be nested r
+    #  eferences.) We can also create a method in notes to do this. Not sure it would be more efficient.
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
     @map = all_notes.mappable
     @total_count = all_notes.size
     @word_count = all_notes.sum(:word_count)
@@ -34,6 +38,8 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.publishable.find(params[:id])
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
     @tags = @note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
 
     commontator_thread_show(@note)

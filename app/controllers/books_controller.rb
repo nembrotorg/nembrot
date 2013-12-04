@@ -45,6 +45,8 @@ class BooksController < ApplicationController
     @books = Book.cited
     @book = @books.find_by_slug(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
 
     add_breadcrumb @book.headline, book_path(params[:slug])
 

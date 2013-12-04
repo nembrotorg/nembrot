@@ -25,18 +25,18 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       - if @source.nil?
         section#text.regular
-          = bodify(@note.body, @note.books, @note.links)
+          = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
       - elsif @note.has_instruction?('collate')
         section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links)
+          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
       - else
         section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
           section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
             = bodify(@source.body, [], [], '', '', false)
           section.target
-            = bodify(@note.body, @note.books, @note.links)
+            = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
         / Collated
 
@@ -48,7 +48,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          / REVIEW: Consider listing books and links here but avoid duplication from side-notes
+          = render 'notes/notes_list_headlines', note: @note
 
           = render 'notes/versions_list', note: @note
 

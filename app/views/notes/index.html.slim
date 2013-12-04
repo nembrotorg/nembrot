@@ -14,7 +14,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
 
-      = render 'shared/notes_list', notes: @notes
+      = render 'shared/notes_list', notes: @notes, all_interrelated_notes: @all_interrelated_notes
 
       aside.statistics
         = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))

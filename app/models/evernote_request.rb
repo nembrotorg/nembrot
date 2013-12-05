@@ -21,10 +21,10 @@ class EvernoteRequest
     update_note if update_necessary? && note_is_not_conflicted?
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
-      max_out_attempts
+      evernote_note.max_out_attempts
       SYNC_LOG.error I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
-      max_out_attempts
+      evernote_note.max_out_attempts
       SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }."
     rescue Evernote::EDAM::Error::EDAMSystemException => error
       SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }."
@@ -145,7 +145,7 @@ class EvernoteRequest
       'source_application'  => cloud_note_data.attributes.sourceApplication,
       'source_url'          => cloud_note_data.attributes.sourceURL,
       'tag_list'            => cloud_note_tags.grep(/^[^_]/),
-      'title'               => cloud_note_data.title,
+      'title'               => cloud_note_data.title
     }
   end
 

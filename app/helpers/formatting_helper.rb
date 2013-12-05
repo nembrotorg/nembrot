@@ -61,14 +61,14 @@ module FormattingHelper
   def simple_blurbify(text)
     return '' if text.blank?
     text = clean_whitespace(text)
-    text = smartify(text)
+    text = smartify_punctuation(text)
     clean_up(text)
   end
 
   def commentify(text)
     text = sanitize_from_db(text, ['a'])
     text = paragraphize(text)
-    text = smartify(text)
+    text = smartify_punctuation(text)
     clean_up(text)
   end
 
@@ -222,6 +222,7 @@ module FormattingHelper
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
     dom = clean_up_dom(dom, unwrap_p)
     dom.css('body').children.to_html.html_safe
@@ -237,7 +238,7 @@ module FormattingHelper
     all_paragraphs.each_with_index { |e, i| e['id'] = "paragraph-#{ i + 1 }" }
 
     dom.xpath('//text()').find_all.each do |t|
-      t.content = smartify(t.content)
+      t.content = smartify_punctuation(t.content)
       # t.content = hyper_conform(t.content)
     end
     dom = indent_dom(dom) if Constant.html.pretty_body
@@ -285,10 +286,9 @@ module FormattingHelper
     e ? e.replace(e.inner_html) : dom
   end
 
-  def smartify(text)
+  def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
-    text = smartify_numbers(text)
   end
 
   def smartify_hyphens(text)

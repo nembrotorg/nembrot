@@ -26,7 +26,7 @@ class Resource < ActiveRecord::Base
     unless File.file?(raw_location)
       increment_attempts
       Constant.stream_binaries ? stream_binary : download_binary
-      # We check that the resource has been downloaded correctly, if so we unflag the resource.
+      # Check that the resource has been downloaded correctly. If so, unflag it.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
     end
   end
@@ -102,26 +102,28 @@ class Resource < ActiveRecord::Base
 
   # REVIEW: Put this in EvernoteNote? and mimic Books?
   def update_with_evernote_data(cloud_resource, caption, description, credit)
+    binary_not_downloaded = (cloud_resource.data.bodyHash != data_hash)
     update_attributes!(
-      mime: cloud_resource.mime,
-      width: cloud_resource.width,
-      height: cloud_resource.height,
-      caption: caption,
-      description: description,
-      credit: credit,
-      source_url: cloud_resource.attributes.sourceURL,
-      external_updated_at: cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
-      latitude: cloud_resource.attributes.latitude,
-      longitude: cloud_resource.attributes.longitude,
       altitude: cloud_resource.attributes.altitude,
+      attachment: cloud_resource.attributes.attachment,
+      attempts: 0,
       camera_make: cloud_resource.attributes.cameraMake,
       camera_model: cloud_resource.attributes.cameraModel,
-      file_name: cloud_resource.attributes.fileName,
-      attachment: cloud_resource.attributes.attachment,
-      local_file_name: cloud_resource.guid,
+      caption: caption,
+      credit: credit,
       data_hash: cloud_resource.data.bodyHash,
-      dirty: (cloud_resource.data.bodyHash != data_hash),
-      attempts: 0
+      description: description,
+      dirty: binary_not_downloaded,
+      external_updated_at: cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
+      file_name: cloud_resource.attributes.fileName,
+      height: cloud_resource.height,
+      latitude: cloud_resource.attributes.latitude,
+      local_file_name: cloud_resource.guid,
+      longitude: cloud_resource.attributes.longitude,
+      mime: cloud_resource.mime,
+      source_url: cloud_resource.attributes.sourceURL,
+      try_again_at: binary_not_downloaded ? Time.now : 100.years.from_now,
+      width: cloud_resource.width
     )
   end
 

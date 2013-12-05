@@ -5,8 +5,8 @@ set :output, "#{ path }/log/daemons.log"
 #  require 'rubygems'
 #  every Setting['advanced.synch_every_minutes'].minutes do
 
-every 1.minute do
-  rake 'joegattnet:one_minute'
+every 3.minutes do
+  rake 'joegattnet:three_minutes'
 end
 
 every '*/10 * * * *' do

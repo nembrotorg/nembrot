@@ -7,6 +7,11 @@ namespace :joegattnet do
     sync_associated
   end
 
+  task three_minutes: :environment do |t, args|
+    EvernoteNote.sync_all
+    sync_associated
+  end
+
   task ten_minutes: :environment do |t, args|
     Pantograph.update_saved_timeline
     Pantograph.publish_next

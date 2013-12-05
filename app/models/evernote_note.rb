@@ -19,7 +19,9 @@ class EvernoteNote < ActiveRecord::Base
   validates_associated :note, :evernote_auth
 
   def self.add_task(guid)
-    self.where(cloud_note_identifier: guid, evernote_auth_id: evernote_auth.id).first_or_create.dirtify
+    evernote_note = self.where(cloud_note_identifier: guid).first_or_create
+    evernote_note.evernote_auth_id = evernote_auth.id
+    evernote_note.dirtify
   end
 
   def self.sync_all

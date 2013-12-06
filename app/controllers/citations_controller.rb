@@ -24,11 +24,11 @@ class CitationsController < ApplicationController
     @citation = Note.publishable.citations.find(params[:id])
     @tags = @citation.tags
 
-    add_breadcrumb I18n.t('citations.show.title', :id => @citation.id), citation_path(@citation)
+    add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
 
     respond_to do |format|
       format.html
-      format.json { render :json => @citation }
+      format.json { render json: @citation }
     end
 
     rescue ActiveRecord::RecordNotFound

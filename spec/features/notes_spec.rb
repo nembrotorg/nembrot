@@ -368,7 +368,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        pending "page.should have_text(@reference.body)"
+        pending 'page.should have_text(@reference.body)'
       end
     end
 

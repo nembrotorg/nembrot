@@ -11,7 +11,7 @@ describe TagsController do
     context 'when this tag is attached to more notes than threshold' do
       it 'populates an array of tags' do
         get :index
-        pending "assigns(:tags).should eq(@tags)"
+        pending 'assigns(:tags).should eq(@tags)'
       end
     end
 
@@ -40,7 +40,7 @@ describe TagsController do
       get :show, slug: @tag_name
       assigns(:tag).should eq(@tag)
     end
-    
+
     it 'renders the #show view' do
       get :show, slug: @tag_name
       response.should render_template :show

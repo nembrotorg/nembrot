@@ -47,7 +47,7 @@ module ApplicationHelper
   def css_instructions(note_instructions)
     # If an instruction is listed in css_for_instructions, it is written out as a css class
     # TODO: Test for this
-    (note_instructions & Setting['style.css_for_instructions'].split(/, ?| /)).collect do |c|
+    (note_instructions & Setting['style.css_for_instructions'].split(/, ?| /)).map do |c|
       'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
     end
   end
@@ -55,14 +55,14 @@ module ApplicationHelper
   def resource_name
     :user
   end
- 
+
   def resource
     @resource ||= User.new
   end
- 
+
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
-  end  
+  end
 
   def note_or_feature_path(note)
     note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(note)

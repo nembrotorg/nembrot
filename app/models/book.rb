@@ -24,7 +24,7 @@ class Book < ActiveRecord::Base
 
   before_validation :update_tag,
                     if: (:author_changed? || :editor_changed? || :published_date_changed?) && '!published_date.blank?',
-                     unless: :tag_changed? # || '!tag.blank?'
+                    unless: :tag_changed? # || '!tag.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
   paginates_per Setting['advanced.books_index_per_page'].to_i

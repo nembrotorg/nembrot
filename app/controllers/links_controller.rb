@@ -59,7 +59,7 @@ class LinksController < ApplicationController
 
   def update
     @link = Link.find_by_id(params[:id])
-   
+
     add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
     add_breadcrumb @link.channel, edit_link_path(params[:id])
 
@@ -75,9 +75,9 @@ class LinksController < ApplicationController
   private
 
   def link_params
-    params.require(:link).permit(:altitude, :attempts, :author, :canonical_url, :channel, :dirty, :domain, :error, 
-                                 :lang, :latitude, :longitude, :modified, :name, :paywall, :protocol, :publisher, 
-                                 :title, :url, :website_name) 
+    params.require(:link).permit(:altitude, :attempts, :author, :canonical_url, :channel, :dirty, :domain, :error,
+                                 :lang, :latitude, :longitude, :modified, :name, :paywall, :protocol, :publisher,
+                                 :title, :url, :website_name)
   end
 
 end

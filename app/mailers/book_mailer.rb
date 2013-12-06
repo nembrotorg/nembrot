@@ -11,7 +11,7 @@ class BookMailer < ActionMailer::Base
     mail(
       to: Setting['advanced.monitoring_email'],
       subject: I18n.t('books.sync.metadata_missing.email.subject',
-                         isbn: @isbn, details: "#{ @author } | #{ @title } | #{ @published_date }"),
+                      isbn: @isbn, details: "#{ @author } | #{ @title } | #{ @published_date }"),
       host: Constant.host
     )
   end

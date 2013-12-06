@@ -19,7 +19,7 @@ module FormattingHelper
     clean_up_via_dom(text)
   end
 
-  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes  = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
@@ -46,7 +46,7 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], links = [], related_notes =[], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+  def blurbify(text, books = [], links = [], related_notes  = [], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
     text = related_notify(text, related_notes, true)
     text = related_citationify(text, related_citations)
@@ -123,29 +123,29 @@ module FormattingHelper
     links.each do |link|
       # Simplify links wrapped around themselves.
       text.gsub!(/<a href="#{ link.url }">\s*#{ link.url }\s*<\/a>/, link.url)
-      # Replace linked text 
+      # Replace linked text
       text.gsub!(/(<a href="#{ link.url }">)(.*?)(<\/a>)/,
                  t('citation.link.inline_annotated_link_text_html',
-                 link_text: '\2',
-                 title: link.headline,
-                 url: link.url_or_canonical_url,
-                 path: link_path(link),
-                 accessed_at: (timeago_tag link.updated_at)))
+                   link_text: '\2',
+                   title: link.headline,
+                   url: link.url_or_canonical_url,
+                   path: link_path(link),
+                   accessed_at: (timeago_tag link.updated_at)))
       # Replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
       text.gsub!(/(?<!")(#{ link.url })(?!")/,
                  t(citation_style,
-                 link_text: link.headline,
-                 title: link.headline,
-                 url: link.url_or_canonical_url,
-                 path: link_path(link),
-                 accessed_at: (timeago_tag link.updated_at)))
+                   link_text: link.headline,
+                   title: link.headline,
+                   url: link.url_or_canonical_url,
+                   path: link_path(link),
+                   accessed_at: (timeago_tag link.updated_at)))
     end
     text
   end
 
   def related_notify(text, related_notes, blurbify = false)
     nothing_more_to_do = false
-    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do
       start_text = text
 
       related_notes.each do |note|
@@ -169,7 +169,7 @@ module FormattingHelper
 
   def related_citationify(text, related_citations, blurbify = false)
     nothing_more_to_do = false
-    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do do
+    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do
       start_text = text
 
       related_citations.each do |citation|
@@ -264,7 +264,7 @@ module FormattingHelper
     end
 
     target_paragraphs.each_with_index do |p, i|
-      # CAREFUL: WHAT IF PARAS DON'T MATCH???      
+      # CAREFUL: WHAT IF PARAS DON'T MATCH???
       p['class'] = 'target'
       source_paragraph_html = source_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : source_paragraphs[i].to_html
       target_paragraph_html = target_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : target_paragraphs[i].to_html
@@ -310,7 +310,7 @@ module FormattingHelper
         .gsub(/([\w\.\,\?\!>])'/, "\\1\u2019")
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
-        .gsub(/(\u2019|\u201C)([\.\,<])/, "\\2\\1")
+        .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
   end
 
   def smartify_numbers(text)
@@ -357,8 +357,8 @@ module FormattingHelper
         .gsub(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
         .gsub(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
         .gsub(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
-        .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
-        .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ $1 }#{ $2.upcase }" } # Always start with a capital
+        .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
+        .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
         .gsub(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
         .gsub(/\s+(<a href=\"#annotation-)/m, '\1')
         .gsub(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')

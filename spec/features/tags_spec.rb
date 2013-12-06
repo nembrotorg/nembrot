@@ -21,7 +21,7 @@ describe 'Tags pages' do
     context 'when this tag is attached to fewer notes than threshold' do
       before { Setting['advanced.tags_minimum'] = 10 }
       it 'does not have a link to tag 1' do
-        pending "page.should_not have_link(@tag.name, href: tag_path(@tag.slug))"
+        pending 'page.should_not have_link(@tag.name, href: tag_path(@tag.slug))'
       end
     end
   end
@@ -38,7 +38,7 @@ describe 'Tags pages' do
 
   describe 'Tag show page' do
     before do
-      @note.update_attributes( title: 'New title', body: 'New body' )
+      @note.update_attributes(title: 'New title', body: 'New body')
       visit tag_path(@tag)
     end
     it 'has the tag title as title' do

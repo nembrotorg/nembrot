@@ -65,7 +65,7 @@ describe ResourcesHelper do
     end
     context 'when the image record is not found' do
       it 'returns a blank image' do
-        cut_image_binary( 'NONEXISTENT', 'png', 16, 9, 100, 1, 0, '').should == Constant.blank_image_location
+        cut_image_binary('NONEXISTENT', 'png', 16, 9, 100, 1, 0, '').should == Constant.blank_image_location
       end
     end
   end

@@ -54,8 +54,8 @@ describe ApplicationHelper do
     specify { embeddable_url('http://youtube.com?v=ABCDEF').should eq('http://www.youtube.com/embed/ABCDEF?rel=0') }
     specify { embeddable_url('http://vimeo.com/video/ABCDEF').should eq('http://player.vimeo.com/video/ABCDEF') }
     specify { embeddable_url('http://vimeo.com/ABCDEF').should eq('http://player.vimeo.com/video/ABCDEF') }
-    specify { embeddable_url('http://soundcloud.com?v=ABCDEF')
-              .should eq('http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF') }
+    specify do embeddable_url('http://soundcloud.com?v=ABCDEF')
+              .should eq('http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF') end
   end
 
 end

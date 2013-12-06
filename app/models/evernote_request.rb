@@ -4,7 +4,7 @@ class EvernoteRequest
 
   include Evernotable
 
-  attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data, 
+  attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data,
                 :cloud_note_tags, :offline
 
   def sync_down(evernote_note)

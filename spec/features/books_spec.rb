@@ -9,7 +9,7 @@ describe 'Books' do
     fill_in 'Password', with: 'changeme'
     click_button('Sign in')
     @book = FactoryGirl.create(:book)
-    @note = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Note text.")
+    @note = FactoryGirl.create(:note, books: [@book], is_citation: true, body: 'Note text.')
     @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "quote:Text. -- (#{ @book.tag }), p. 1")
   end
 

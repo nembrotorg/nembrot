@@ -17,15 +17,15 @@ module CitationsHelper
     matrix = [!book.translator.blank?, !book.editor.blank?, !book.introducer.blank?].join('_')
 
     I18n.t("citation.book.translator_editor_introducer.#{ matrix }",
-        translator: book.translator,
-        editor: book.editor,
-        introducer: book.introducer
+           translator: book.translator,
+           editor: book.editor,
+           introducer: book.introducer
       )
   end
 
   def classification(book)
     response = "ISBN: #{ [book.isbn_10, book.isbn_13].compact.join(', ') }."
-    response += " Dewey Decimal: #{ book.dewey_decimal }." unless book.dewey_decimal.blank? || book.dewey_decimal == '0' 
+    response += " Dewey Decimal: #{ book.dewey_decimal }." unless book.dewey_decimal.blank? || book.dewey_decimal == '0'
     response += " Library of Congress Number: #{ book.lcc_number }." unless book.lcc_number.blank?
     response
   end

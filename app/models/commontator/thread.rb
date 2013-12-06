@@ -1,13 +1,13 @@
 module Commontator
   class Thread < ActiveRecord::Base
-    belongs_to :closer, :polymorphic => true
-    belongs_to :commontable, :polymorphic => true
+    belongs_to :closer, polymorphic: true
+    belongs_to :commontable, polymorphic: true
 
-    has_many :comments, :dependent => :destroy
-    has_many :subscriptions, :dependent => :destroy
+    has_many :comments, dependent: :destroy
+    has_many :subscriptions, dependent: :destroy
 
-    validates_presence_of :commontable, :unless => :is_closed?
-    validates_uniqueness_of :commontable_id, :scope => :commontable_type, :allow_nil => true
+    validates_presence_of :commontable, unless: :is_closed?
+    validates_uniqueness_of :commontable_id, scope: :commontable_type, allow_nil: true
 
     def config
       commontable.try(:commontable_config) || Commontator
@@ -27,16 +27,16 @@ module Commontator
     end
 
     def subscribers
-      subscriptions.collect{|s| s.subscriber}
+      subscriptions.map { |s| s.subscriber }
     end
 
     def active_subscribers
-      subscribers.select{|s| s.is_commontator && s.commontator_config.subscription_email_enable_proc.call(s)}
+      subscribers.select { |s| s.is_commontator && s.commontator_config.subscription_email_enable_proc.call(s) }
     end
 
     def subscription_for(subscriber)
       return nil if !subscriber || !subscriber.is_commontator
-      subscriber.subscriptions.where(:thread_id => self.id).first
+      subscriber.subscriptions.where(thread_id: id).first
     end
 
     def is_subscribed?(subscriber)
@@ -59,7 +59,7 @@ module Commontator
 
     def add_unread_except_for(subscriber)
       Subscription.transaction do
-        subscriptions.each{|s| s.add_unread unless s.subscriber == subscriber}
+        subscriptions.each { |s| s.add_unread unless s.subscriber == subscriber }
       end
     end
 

@@ -32,7 +32,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending "@evernote_note.should == nil"
+        pending '@evernote_note.should == nil'
       end
     end
 
@@ -54,7 +54,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending "@evernote_note.should == nil"
+        pending '@evernote_note.should == nil'
       end
     end
 
@@ -65,7 +65,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending "@evernote_note.should == nil"
+        pending '@evernote_note.should == nil'
       end
     end
   end
@@ -84,7 +84,7 @@ describe EvernoteNote do
         @evernote_request.cloud_note_data[:content] = 'Plain text.<hr/>Conflicting modification on 01.01.2001'
       end
       # These tests are flawed. Content is not being changed at all.
-      pending "its(:note_is_not_conflicted?) { should be_false }"
+      pending 'its(:note_is_not_conflicted?) { should be_false }'
     end
   end
 

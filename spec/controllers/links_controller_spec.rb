@@ -9,7 +9,7 @@ describe LinksController do
   end
 
   describe 'GET #admin' do
-    before do 
+    before do
       @user = FactoryGirl.create(:user)
       sign_in @user
     end
@@ -40,7 +40,7 @@ describe LinksController do
       it { should respond_with(:redirect) }
     end
     context 'when an admin user is signed in' do
-      before do 
+      before do
         @user = FactoryGirl.create(:user)
         sign_in @user
       end
@@ -59,7 +59,7 @@ describe LinksController do
   describe 'GET #index' do
     it 'populates an array of @links' do
       get :index
-      assigns(:channels).should eq([[ @link.channel, 1 ]])
+      assigns(:channels).should eq([[@link.channel, 1]])
     end
 
     it 'populates an array of @links' do
@@ -98,7 +98,7 @@ describe LinksController do
   end
 
   describe 'PUT update' do
-    before do 
+    before do
       @user = FactoryGirl.create(:user)
       sign_in @user
     end

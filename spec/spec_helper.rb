@@ -8,16 +8,16 @@ require 'simplecov'
 require 'coveralls'
 Coveralls.wear!
 
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
+# uncomment the following line to use spork with the debugger
+# require 'spork/ext/ruby-debug'
 
 # Workaround for issue #109 until pull-req #140 gets merged
 # See https://github.com/sporkrb/spork/pull/140
-AbstractController::Helpers::ClassMethods.module_eval do 
+AbstractController::Helpers::ClassMethods.module_eval do
   def helper(*args, &block)
-    modules_for_helpers(args).each {|mod| add_template_helper(mod)}
+    modules_for_helpers(args).each { |mod| add_template_helper(mod) }
     _helpers.module_eval(&block) if block_given?
-  end 
+  end
 end if Spork.using_spork?
 
 Spork.prefork do
@@ -41,13 +41,13 @@ Spork.prefork do
   require 'mime/types'
   require 'treetop/runtime'
   require 'database_cleaner'
-  #require 'active_record/connection_adapters/postgresql_adapter'
+  # require 'active_record/connection_adapters/postgresql_adapter'
   require 'tzinfo'
   require 'mail'
-  #require 'tilt'
-  #require 'journey'
-  #require 'journey/router'
-  #require 'haml/template'
+  # require 'tilt'
+  # require 'journey'
+  # require 'journey/router'
+  # require 'haml/template'
 
   RSpec.configure do |config|
     config.mock_with :rspec
@@ -129,7 +129,7 @@ Spork.prefork do
     # (see https://github.com/rspec/rspec-rails/issues/476).
     # It allows for a proper test execution with `config.threadsafe!`.
     ActionView::TestCase::TestController.instance_eval do
-      helper Rails.application.routes.url_helpers#, (append other helpers you need)
+      helper Rails.application.routes.url_helpers# , (append other helpers you need)
     end
     ActionView::TestCase::TestController.class_eval do
       def _routes
@@ -169,7 +169,7 @@ Spork.each_run do
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
   FactoryGirl.reload
   I18n.backend.reload!
 end

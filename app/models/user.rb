@@ -2,7 +2,7 @@
 
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_presence_of :email
 
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
     user.password = Devise.friendly_token[0, 10] if user.password.blank?
     user.name = auth.info.name                   unless auth.info.name.blank?
-    user.nickname = auth.info.nickname           unless auth.info.nickname.blank? 
+    user.nickname = auth.info.nickname           unless auth.info.nickname.blank?
     user.first_name = auth.info.first_name       unless auth.info.first_name.blank?
     user.last_name = auth.info.last_name         unless auth.info.last_name.blank?
     user.location = auth.info.location           unless auth.info.location.blank?

@@ -2,7 +2,7 @@
 
 class DiffedNoteVersion
 
-  attr_accessor :sequence, :title, :body, :tag_list, :previous_body, :previous_title, :previous_tag_list, 
+  attr_accessor :sequence, :title, :body, :tag_list, :previous_body, :previous_title, :previous_tag_list,
                 :is_embeddable_source_url, :external_updated_at
 
   def initialize(note, sequence)

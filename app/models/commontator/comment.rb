@@ -1,18 +1,18 @@
 module Commontator
   class Comment < ActiveRecord::Base
-    belongs_to :creator, :polymorphic => true
-    belongs_to :editor, :polymorphic => true
+    belongs_to :creator, polymorphic: true
+    belongs_to :editor, polymorphic: true
     belongs_to :thread
 
-    has_one :commontable, :through => :thread
+    has_one :commontable, through: :thread
 
-    validates_presence_of :creator, :on => :create
-    validates_presence_of :editor, :on => :update
+    validates_presence_of :creator, on: :create
+    validates_presence_of :editor, on: :update
     validates_presence_of :thread
     validates_presence_of :body
 
-    validates_uniqueness_of :body, :scope => [:creator_type, :creator_id, :thread_id],
-                                   :message => 'has already been posted'
+    validates_uniqueness_of :body, scope: [:creator_type, :creator_id, :thread_id],
+                                   message: 'has already been posted'
 
     protected
 
@@ -37,7 +37,7 @@ module Commontator
 
     def get_vote_by(user)
       return nil unless is_votable? && user && user.is_commontator
-      votes.where(:voter_type => user.class.name, :voter_id => user.id).first
+      votes.where(voter_type: user.class.name, voter_id: user.id).first
     end
 
     def is_deleted?
@@ -48,14 +48,14 @@ module Commontator
       return false if is_deleted?
       self.deleted_at = Time.now
       self.editor = user
-      self.save
+      save
     end
 
     def undelete_by(user)
       return false unless is_deleted?
       self.deleted_at = nil
       self.editor = user
-      self.save
+      save
     end
 
     def created_timestamp

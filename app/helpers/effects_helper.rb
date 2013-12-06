@@ -85,7 +85,7 @@ module EffectsHelper
       # image.spread if effects =~ /spr/
       # image.solarize  if effects =~ /sol/
       image.swirl '180' if effects =~ /swi/
-      #image.threshold(MiniMagick::QuantumRange * 0.55) if effects =~ /thr/
+      # image.threshold(MiniMagick::QuantumRange * 0.55) if effects =~ /thr/
 
       image
     end

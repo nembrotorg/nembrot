@@ -10,7 +10,7 @@ class DiffedNoteTagList
     removed_tags = (previous_tag_list - tag_list)
     unchanged_tags = (tag_list - added_tags - removed_tags)
 
-    diffed_tag_list = Hash.new
+    diffed_tag_list = {}
 
     added_tags.each do |tag|
       diffed_tag_list[tag] = {
@@ -18,7 +18,7 @@ class DiffedNoteTagList
         'obsolete' => is_obsolete?(tag)
       }
     end
-    
+
     removed_tags.each do |tag|
       diffed_tag_list[tag] = {
         'status' => -1,
@@ -27,7 +27,7 @@ class DiffedNoteTagList
     end
 
     unchanged_tags.each do |tag|
-      diffed_tag_list[tag] = { 
+      diffed_tag_list[tag] = {
         'status' => 0,
         'obsolete' => is_obsolete?(tag)
       }

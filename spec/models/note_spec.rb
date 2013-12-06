@@ -187,7 +187,7 @@ describe Note do
   end
 
   describe '#has_instruction?' do
-    pending "Add tests"
+    pending 'Add tests'
   end
 
   describe '#has_instruction?' do
@@ -256,12 +256,12 @@ describe Note do
   end
 
   describe '#type' do
-    its(:type) { should == 'Note' } 
+    its(:type) { should == 'Note' }
     context 'when note is a citation' do
       before do
         note.is_citation = true
       end
-      its(:type) { should == 'Citation' } 
+      its(:type) { should == 'Citation' }
     end
   end
 

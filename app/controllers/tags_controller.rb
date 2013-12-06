@@ -12,7 +12,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @tags }
+      format.json { render json: @tags }
     end
   end
 
@@ -28,7 +28,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @notes }
+      format.json { render json: @notes }
     end
     rescue
      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
@@ -47,7 +47,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @tag }
+      format.json { render json: @tag }
     end
   end
 end

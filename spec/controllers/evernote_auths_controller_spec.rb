@@ -7,7 +7,7 @@ describe EvernoteAuthsController do
     it { should respond_with(:redirect) }
   end
 
-  describe 'GET #auth_failure' do  
+  describe 'GET #auth_failure' do
     before { get :auth_failure, provider: 'evernote' }
     it { should respond_with(:redirect) }
   end

@@ -116,7 +116,7 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
-  # REVIEW: If we named this embeddable_source_url? then we can't do 
+  # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
     (source_url && source_url =~ /youtube|vimeo|soundcloud/)
@@ -134,15 +134,15 @@ class Note < ActiveRecord::Base
 
   # If the note has no geo information then try to infer it from the image
   def inferred_latitude
-    latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude 
+    latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude
   end
 
   def inferred_longitude
-    longitude.nil? ? (resources.first.nil? ? nil : resources.first.longitude) : longitude 
+    longitude.nil? ? (resources.first.nil? ? nil : resources.first.longitude) : longitude
   end
 
   def inferred_altitude
-    altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude 
+    altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude
   end
 
   def main_title

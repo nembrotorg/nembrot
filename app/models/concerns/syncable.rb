@@ -24,7 +24,7 @@ module Syncable
 
   def increment_attempts
     self.increment!(:attempts)
-    self.try_again_at = (10 ** attempts).minutes.from_now
+    self.try_again_at = (10**attempts).minutes.from_now
   end
 
   def max_out_attempts

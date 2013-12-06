@@ -6,7 +6,7 @@ describe FormattingHelper do
     Dir.glob(Rails.root.join('spec', 'support', 'formatting_samples', 'evernote_*_input.txt')) do |sample_file|
       let(:input) { IO.read(sample_file) }
       let(:expected) { IO.read(sample_file.gsub(/input/, 'expected')) }
-      pending "specify { bodify(input).should == expected }"
+      pending 'specify { bodify(input).should == expected }'
     end
     context 'when text is empty or nil' do
       specify { bodify('').should eq('') }

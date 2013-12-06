@@ -20,6 +20,8 @@ class TagsController < ApplicationController
     @tag = Tag.find_by_slug(params[:slug])
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
 
     @word_count = @notes.sum(:word_count)
     @map = mapify(@notes.mappable)

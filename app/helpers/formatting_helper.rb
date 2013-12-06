@@ -152,8 +152,8 @@ module FormattingHelper
         body = blurbify ? sanitize(note.clean_body) : note.body
         text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
         text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
-        text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: [])) # Sending related_notes causes stack level too deep
-        text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes: []))
+        text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: [])) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: []))
         text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
         text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
       end

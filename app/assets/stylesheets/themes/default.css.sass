@@ -493,8 +493,12 @@ footer
       padding-top: $line-height
       top: 0
       left: 0
+    &.collate
+      p
+        text-indent: $text-indent
+      div
     div
-      +clearfix
+      overflow: show
       position: relative
       .source
         color: $headline-font-color
@@ -503,10 +507,6 @@ footer
       .target
         position: absolute
         top: 0
-    &.collate
-      p
-        text-indent: $text-indent
-      div
         &:first-of-type
           p
             text-indent: 0
@@ -1010,6 +1010,8 @@ ul.oauth
           .side-annotations
             +prefix(12)
             +span-columns(2, 12)
+          div
+            overflow: hidden
       #map
         +span-columns(3 omega, 9)
     #extra

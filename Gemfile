@@ -59,7 +59,6 @@ gem 'unicorn'
 gem 'uuidtools'
 gem 'validate_url'
 gem 'whenever', require: false
-gem 'wikipedia-client'
 
 group :development do
   gem 'better_errors'

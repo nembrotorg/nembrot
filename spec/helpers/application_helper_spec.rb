@@ -23,6 +23,7 @@ describe ApplicationHelper do
   end
 
   describe '#dir_attr' do
+    before { I18n.enforce_available_locales = false }
     context 'when the note is in the default language' do
       before do
         Constant['rtl_langs'] = 'ar'

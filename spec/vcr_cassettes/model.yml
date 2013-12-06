@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<WORLD_CAT_API_KEY>
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<WORLD_CAT_KEY>
     body:
       encoding: US-ASCII
       string: ''
@@ -155,7 +155,7 @@ http_interactions:
   recorded_at: Thu, 11 Jul 2013 12:55:17 GMT
 - request:
     method: get
-    uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/0804720991
+    uri: http://isbndb.com/api/v2/json/<ISBNDB_KEY>/book/0804720991
     body:
       encoding: US-ASCII
       string: ''
@@ -409,7 +409,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -445,7 +445,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=First+Title+First+body.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=First+Title+First+body.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -481,7 +481,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Second+Title+Second+body.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Second+Title+Second+body.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -517,7 +517,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Third+Title+Third+body.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Third+Title+Third+body.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -638,7 +638,7 @@ http_interactions:
   recorded_at: Thu, 11 Jul 2013 12:55:34 GMT
 - request:
     method: get
-    uri: http://isbndb.com/api/v2/json/<ISBNDB_API_KEY>/book/INVALID_ISBN
+    uri: http://isbndb.com/api/v2/json/<ISBNDB_KEY>/book/INVALID_ISBN
     body:
       encoding: US-ASCII
       string: ''
@@ -671,7 +671,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=New+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=New+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -707,7 +707,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+New+Body&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+New+Body&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -743,7 +743,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -779,7 +779,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+First+Body&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+First+Body&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -815,7 +815,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Second+Body+with+more+words&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Second+Body+with+more+words&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -851,7 +851,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Plain+text.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -887,7 +887,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -923,7 +923,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -959,7 +959,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -995,7 +995,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Plain+text.+Plain+text.+--+Author+2000+Plain+text.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -1031,7 +1031,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -1067,7 +1067,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -1103,7 +1103,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -1139,7 +1139,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6276,7 +6276,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+Extra+word.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+Extra+word.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6312,7 +6312,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enoug&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enoug&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6348,7 +6348,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enough+to+go+over+threshold+in+settings.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enough+to+go+over+threshold+in+settings.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6384,7 +6384,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+o.e+tle+et+arnsFVetuue+Rdnttdolixn+lemittcslc+ppevCon+o&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+o.e+tle+et+arnsFVetuue+Rdnttdolixn+lemittcslc+ppevCon+o&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6420,7 +6420,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+cclpie.omvelrVenduetxF+ts+tnuttn+dR+aell+e+ooopnCtti+se&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+cclpie.omvelrVenduetxF+ts+tnuttn+dR+aell+e+ooopnCtti+se&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6456,7 +6456,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Vctn+epn+oxtosoaortlive+le+lenluicddt+ep.+tF+CnseRutm+te&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Vctn+epn+oxtosoaortlive+le+lenluicddt+ep.+tF+CnseRutm+te&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6492,7 +6492,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+eudritVpl+ntteomlxent+ievC+acoec+RutoetFs+en.+s+otlpdl+n&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+eudritVpl+ntteomlxent+ievC+acoec+RutoetFs+en.+s+otlpdl+n&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6528,7 +6528,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+pxmre+otCtnRuFp+oaVli+t+oeulet+oies.tv+ee+ldntctsc+nlden&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+pxmre+otCtnRuFp+oaVli+t+oeulet+oies.tv+ee+ldntctsc+nlden&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6564,7 +6564,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nete+ulio+e+epeolvntatrdcn+t+ucipm+eld+RxoC+tsFet.sol+Vnt&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nete+ulio+e+epeolvntatrdcn+t+ucipm+eld+RxoC+tsFet.sol+Vnt&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6600,7 +6600,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nsenilo+etoieluR+etdcauno+toxslFpdnv+.+t+t+te+lepVcmCtre&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nsenilo+etoieluR+etdcauno+toxslFpdnv+.+t+t+te+lepVcmCtre&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6636,7 +6636,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+Extra.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+Extra.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6672,7 +6672,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nuixeoRee.nsCecrcFtslnlt+Vae+vod+tiot+lentl+puop+tmtde&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nuixeoRee.nsCecrcFtslnlt+Vae+vod+tiot+lentl+puop+tmtde&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6708,7 +6708,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+t+nvlpieldeext+eiornt+uFcseeanCc+tmn+tReoVllotu.tp+do+s&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+t+nvlpieldeext+eiornt+uFcseeanCc+tmn+tReoVllotu.tp+do+s&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6744,7 +6744,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+otRtmeocp+entnlive+pettFtxrl+s.eCa+el+seunto+coi+ulVndd&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+otRtmeocp+entnlive+pettFtxrl+s.eCa+el+seunto+coi+ulVndd&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6780,7 +6780,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ee+CuueiFlentt+ep+nctt+nto+el.tc+iVRmltxvoas+looedsprdn&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ee+CuueiFlentt+ep+nctt+nto+el.tc+iVRmltxvoas+looedsprdn&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6816,7 +6816,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.a&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.a&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6852,7 +6852,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+x+ps.dt+eloui+imtrFtuesc+n+ctenonVtlt+p+dleeneooavlRCte&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+x+ps.dt+eloui+imtrFtuesc+n+ctenonVtlt+p+dleeneooavlRCte&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6888,7 +6888,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+s+etprtte+oln+uce.lttaiolnxmieVtecCo+dFnlpRtnu+sdv+ee+o&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+s+etprtte+oln+uce.lttaiolnxmieVtecCo+dFnlpRtnu+sdv+ee+o&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6924,7 +6924,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+C+rl.nleoundetFipaRmdc+etlul+cntto+xe+ens+vpsoiVeottet&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+C+rl.nleoundetFipaRmdc+etlul+cntto+xe+ens+vpsoiVeottet&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6960,7 +6960,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+rsa+neVRdt+tCvtnxpesod+tcent+eime.oln+ltl+uo+tcl+euoiFpe&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+rsa+neVRdt+tCvtnxpesod+tcent+eime.oln+ltl+uo+tcl+euoiFpe&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -6996,7 +6996,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+toto+cdlCoi+peu+sletmxcuseit+tpFeVn+elevnntt+ra.oRn+edl&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+toto+cdlCoi+peu+sletmxcuseit+tpFeVn+elevnntt+ra.oRn+edl&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7032,7 +7032,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+otep+Ve+o+setCiuellFalxn.lcR+tpvomd+eor+nseeidntt+tn+ct+u&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+otep+Ve+o+setCiuellFalxn.lcR+tpvomd+eor+nseeidntt+tn+ct+u&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7068,7 +7068,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+csnnx+leCoteltdlpi+e+R+doa+er.oVnosFulitev+cput+metntet&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+csnnx+leCoteltdlpi+e+R+doa+er.oVnosFulitev+cput+metntet&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7104,7 +7104,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+t+o+orVtlF+tdc+noiueeps+cRenpetlan+ue+ostileCnltemx.+tvd&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+t+o+orVtlF+tdc+noiueeps+cRenpetlan+ue+ostileCnltemx.+tvd&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7140,7 +7140,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tevVxnC+lnteimte+euonlRseou+cl+d.o+rlitptseFdt+ce+optan&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tevVxnC+lnteimte+euonlRseou+cl+d.o+rlitptseFdt+ce+optan&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7176,7 +7176,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+e+r+tCtxooniuttceseoRp+senlnimcVlvl+tldd+pe+eet+u.ntoFa&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+e+r+tCtxooniuttceseoRp+senlnimcVlvl+tldd+pe+eet+u.ntoFa&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7212,7 +7212,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+pe+vVlneai+e.postoe+m+utoxcn+oRtt+dn+llCtrelee+tuFndtsci&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+pe+vVlneai+e.postoe+m+utoxcn+oRtt+dn+llCtrelee+tuFndtsci&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7248,7 +7248,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+es+nlocdpttot+penoiavelF+lmcnVCi+stutn+et+ee+edrx.utoRl&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+es+nlocdpttot+penoiavelF+lmcnVCi+stutn+et+ee+edrx.utoRl&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7284,7 +7284,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+n+peciv+dVnlltlntd+ruttxet+taeos+ie+nmpoo+eletcF.o+RuCe+s&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+n+peciv+dVnlltlntd+ruttxet+taeos+ie+nmpoo+eletcF.o+RuCe+s&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7320,7 +7320,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ltR+FcpreteVtiooent+isvuedtnd+nCsu+eomn.xape+tlt+l+eolc&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ltR+FcpreteVtiooent+isvuedtnd+nCsu+eomn.xape+tlt+l+eolc&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7356,7 +7356,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+c+cee+nrt+ttdoonesu.ttuet+lloCnl+isVaoevmFtnpe+leRdpix&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+c+cee+nrt+ttdoonesu.ttuet+lloCnl+isVaoevmFtnpe+leRdpix&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7392,7 +7392,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+rtadetltcpeplo+ntleeec+lnoV+msseu+tR+nFdC+xvnt.t+u+oi+oie&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+rtadetltcpeplo+ntleeec+lnoV+msseu+tR+nFdC+xvnt.t+u+oi+oie&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7428,7 +7428,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+teRlncpC+le+vti+d+noea.oi+tensrmoelx+ud+outtetltVnp+cF+es&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+teRlncpC+le+vti+d+noea.oi+tensrmoelx+ud+outtetltVnp+cF+es&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7464,7 +7464,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+exlpsrtcenptuaFvdoe+ttue+l+nonncdiee+tloCt+.+VRil+etoms&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+exlpsrtcenptuaFvdoe+ttue+l+nonncdiee+tloCt+.+VRil+etoms&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7500,7 +7500,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+l.Fdtv+xecnl+eiVtenstslRtdottlpc+eCpuennmioteo+e+ouar&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+l.Fdtv+xecnl+eiVtenstslRtdottlpc+eCpuennmioteo+e+ouar&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7536,7 +7536,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+eVtvttuuol+enopitlcnensi+oaC+ntFd+mdResr+lee.xtp+oc+te+l&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+eVtvttuuol+enopitlcnensi+oaC+ntFd+mdResr+lee.xtp+oc+te+l&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7572,7 +7572,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+dC.penleno+Rue+tt+oiitt+uoeo+rtVxecn+elecFalmps+tv+ltdsn&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+dC.penleno+Rue+tt+oiitt+uoeo+rtVxecn+elecFalmps+tv+ltdsn&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7608,7 +7608,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ole+octpoal+Fusdeu.t+ieltst+ttdiconnelx+tRe+CmeVep+nvrn&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ole+octpoal+Fusdeu.t+ieltst+ttdiconnelx+tRe+CmeVep+nvrn&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7644,7 +7644,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nlateRtseielrmCpd+xil+utd+VFovte.tnepeo+o+cl+s+cnotne+tu&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nlateRtseielrmCpd+xil+utd+VFovte.tnepeo+o+cl+s+cnotne+tu&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7680,7 +7680,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+pVeatCs+otn+lFoelcc+umeerepn+ues+.ntnvtRd+xoiett+toidll&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+pVeatCs+otn+lFoelcc+umeerepn+ues+.ntnvtRd+xoiett+toidll&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7716,7 +7716,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ti+pd+.+e+tus+tuvotae+lredtecnRnpnFllo+mloteVoxe+ecCi+tns&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ti+pd+.+e+tus+tuvotae+lredtecnRnpnFllo+mloteVoxe+ecCi+tns&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7752,7 +7752,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tsoeoemlR+tFt+Ce+dxi+osaeiveur+dttVetl.tconp+np+ulel+ncn&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tsoeoemlR+tFt+Ce+dxi+osaeiveur+dttVetl.tconp+np+ulel+ncn&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7788,7 +7788,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+e+tttCnp+tusouiVpceetxF+vdeRol+.olnmos+ltndieentc+rl+ea&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+e+tttCnp+tusouiVpceetxF+vdeRol+.olnmos+ltndieentc+rl+ea&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7824,7 +7824,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+VcpitoRedltt.anx+erleievn+usetstndcon+lootetuem+lC+pF&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+VcpitoRedltt.anx+erleievn+usetstndcon+lootetuem+lC+pF&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7860,7 +7860,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ttotl+rs+ntl+Rnvouetuoe+ste+nlxCdpecc.ipnVmeiFteolead&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ttotl+rs+ntl+Rnvouetuoe+ste+nlxCdpecc.ipnVmeiFteolead&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7896,7 +7896,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tedeeuplmxct.ptVi+Fo+ue+notnnRes+ciert+ea+ndo+Clltsl+t+vo&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tedeeuplmxct.ptVi+Fo+ue+notnnRes+ciert+ea+ndo+Clltsl+t+vo&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7932,7 +7932,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tRtepa+sCx+uotvecselnito.ioplmed+econ+FtneVtr+nte+ll+du&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tRtepa+sCx+uotvecselnito.ioplmed+econ+FtneVtr+nte+ll+du&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -7968,7 +7968,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tddnooFV.lmpl+eiteCcutstntnvteee+nRe+ptl+a+o+oxeus+i+rcl&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tddnooFV.lmpl+eiteCcutstntnvteee+nRe+ptl+a+o+oxeus+i+rcl&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8004,7 +8004,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+encpeerdCns+lxoptodteR+os+Fc.vttVil+otnntlee+eaiumtlu&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+encpeerdCns+lxoptodteR+os+Fc.vttVil+otnntlee+eaiumtlu&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8040,7 +8040,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enough+to+go+over+threshold+in+constants.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.+More+than+ten+words%2C+enough+to+go+over+threshold+in+constants.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8076,7 +8076,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+o+nncvpee.Felot+xeit+e+un+cdlupmttlir+nCdeas+loRte+Vtsot&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+o+nncvpee.Felot+xeit+e+un+cdlupmttlir+nCdeas+loRte+Vtsot&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8112,7 +8112,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+i+t+uFnecVd+tltsiaee+opCoRtectet+s+xnltomoedpnlenurl.v&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+i+t+uFnecVd+tltsiaee+opCoRtectet+s+xnltomoedpnlenurl.v&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8148,7 +8148,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+temnee+cevolVrFnRo+ntu+oe+p+eupilxcCts+elt+t+.ttdosalnid&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+temnee+cevolVrFnRo+ntu+oe+p+eupilxcCts+elt+t+.ttdosalnid&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8184,7 +8184,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nteueic+aot+R+o+VttoscpllltedCpe+eemtl+.dritF+nnxvneo+su&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nteueic+aot+R+o+VttoscpllltedCpe+eemtl+.dritF+nnxvneo+su&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8220,7 +8220,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+io+see.terp+otvue+ounctslno+aeR+t+ndltFVte+dcixplCnlm+te&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+io+see.terp+otvue+ounctslno+aeR+t+ndltFVte+dcixplCnlm+te&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8256,7 +8256,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+FlnVt.tRo+uxnoveeiele+tpterap+din+ttetol+dmsnlCeoc+ucs&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+FlnVt.tRo+uxnoveeiele+tpterap+din+ttetol+dmsnlCeoc+ucs&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8292,7 +8292,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+o+eomtuCistl+rRo+cei+e+nFVpl+atntlolsveetdennc.dept+uxt&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+o+eomtuCistl+rRo+cei+e+nFVpl+atntlolsveetdennc.dept+uxt&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8328,7 +8328,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+mrnope+utnt+iCsltnFdc.+leeRto+edeneslt+tvaotuiVe+xcpo+l&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+mrnope+utnt+iCsltnFdc.+leeRto+edeneslt+tvaotuiVe+xcpo+l&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8364,7 +8364,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ooensntttetleeeulR+t+Vxvae+rdoi+ul+s+p.FCpnmtnld+ecitoc&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ooensntttetleeeulR+t+Vxvae+rdoi+ul+s+p.FCpnmtnld+ecitoc&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8400,7 +8400,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+lnt+lct+l+Vpet+lotvC+eeepooex+cs.neuin+dtiRa+unsrteFmto+d&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+lnt+lct+l+Vpet+lotvC+eeepooex+cs.neuin+dtiRa+unsrteFmto+d&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8436,7 +8436,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+lntt+lpcteeVevFmltdoiure+inRetoaen+otdl+.p+sx+uso+et+Ccn&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+lntt+lpcteeVevFmltdoiure+inRetoaen+otdl+.p+sx+uso+et+Ccn&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8472,7 +8472,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+rlntuooReeit+Cln+o+nvpc+m.toesldV+te+itFctnxueeapsdet+l&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+rlntuooReeit+Cln+o+nvpc+m.toesldV+te+itFctnxueeapsdet+l&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8508,7 +8508,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+teuplroeieomantu+Vctl+doect+vt+en+nind+tRel+.tFCspxl+eos&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+teuplroeieomantu+Vctl+doect+vt+en+nind+tRel+.tFCspxl+eos&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8544,7 +8544,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+lntmt+e+epeVo+sisFrtluotRve+cn+cntuC+teoliadlon+p+xd.ete&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+lntmt+e+epeVo+sisFrtluotRve+cn+cntuC+teoliadlon+p+xd.ete&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8580,7 +8580,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+entonx.olV+nFtpledt+s+netlCmeiriltvp+ecteaRco+eusduto&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+entonx.olV+nFtpledt+s+netlCmeiriltvp+ecteaRco+eusduto&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8616,7 +8616,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+dleueResFvn+oo+tetl+nie+e+cmnilnse.rotVud+platpttxtCco&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+dleueResFvn+oo+tetl+nie+e+cmnilnse.rotVud+platpttxtCco&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8652,7 +8652,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+noeenxnFll+ee+eouctltivp.t+tosldr+dsptmiete+tn+oaVucCR&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+noeenxnFll+ee+eouctltivp.t+tosldr+dsptmiete+tn+oaVucCR&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8688,7 +8688,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+v+tmclFt+roo+uRadt+untoisx+d+Ceontte+ls+llVen.piecene+pet&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+v+tmclFt+roo+uRadt+untoisx+d+Ceontte+ls+llVen.piecene+pet&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8724,7 +8724,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tlralloct+penpxdtoso+Ruenti+eveumtc+d+sC+ennto+V+.etleiF&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tlralloct+penpxdtoso+Ruenti+eveumtc+d+sC+ennto+V+.etleiF&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8760,7 +8760,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+epe+eeeitm+nCc+iatttlttoseRddp+Vunn+.rFxslt+oeo+c+luonlv&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+epe+eeeitm+nCc+iatttlttoseRddp+Vunn+.rFxslt+oeo+c+luonlv&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8796,7 +8796,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tdcatldinntiV+er.+llptuotFe+ot+oCeonus+mtnxelsev+ep+cRe&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tdcatldinntiV+er.+llptuotFe+ot+oCeonus+mtnxelsev+ep+cRe&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8832,7 +8832,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nilrltl+e+c+coee+mns+it+dt.pule+neotxCtoFeutvodanRV+teps&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nilrltl+e+c+coee+mns+it+dt.pule+neotxCtoFeutvodanRV+teps&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8868,7 +8868,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Rl.e+tcenxnluVoiC+co+dtiea+tslrovmde+nste+u+ptpeoFl+etnt&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Rl.e+tcenxnluVoiC+co+dtiea+tslrovmde+nste+u+ptpeoFl+etnt&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8904,7 +8904,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+oRmo+pis+Frntonedteutot+slde+acentpC+ientectlll.e+uVvx&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+oRmo+pis+Frntonedteutot+slde+acentpC+ientectlll.e+uVvx&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8940,7 +8940,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+erine+ViC+.npeu+ollntotdpeases+t+otl+ludFemtRtn+cvx+ocet&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+erine+ViC+.npeu+ollntotdpeases+t+otl+ludFemtRtn+cvx+ocet&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -8976,7 +8976,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+tnu+FvorpCoRe+t+olxe+ttelntnimelsditV+oenaedpl+.tcces+u&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+tnu+FvorpCoRe+t+olxe+ttelntnimelsditV+oenaedpl+.tcces+u&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9012,7 +9012,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nec+x+aso+n+etd.i+tlpiou+tcelettnlsoCrmnlVp+tdFtovReuee&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nec+x+aso+n+etd.i+tlpiou+tcelettnlsoCrmnlVp+tdFtovReuee&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9048,7 +9048,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+pVxel+p.eoRttF+deaetoir+vc+sntueonnCcmlltoidnelt+tse+u&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+pVxel+p.eoRttF+deaetoir+vc+sntueonnCcmlltoidnelt+tse+u&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9084,7 +9084,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+R+c+ote.tpld+cnrsuFexel+t+edotClttp+om+tii+snau+ovenleVen&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+R+c+ote.tpld+cnrsuFexel+t+edotClttp+om+tii+snau+ovenleVen&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9120,7 +9120,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+e+dn+oci+usttoClnertltpvue+t.tolVeFe+atex+nme+pd+slRnco+i&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+e+dn+oci+usttoClnertltpvue+t.tolVeFe+atex+nme+pd+slRnco+i&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9156,7 +9156,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+FtdVnctRnxetn+olli+smsauttee+C+u.eepo+o+dnelcteltvr+opi&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+FtdVnctRnxetn+olli+smsauttee+C+u.eepo+o+dnelcteltvr+opi&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9192,7 +9192,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+piseVl+tdl+vmttFecdte+nC+eniolnnottxtlpoure+s.+a+uoeR+ec&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+piseVl+tdl+vmttFecdte+nC+eniolnnottxtlpoure+s.+a+uoeR+ec&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9228,7 +9228,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+dr+mitettVcvd+eneu+R+eo+pl+nl.oonsetlsCt+caop+xFilttu+ene&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+dr+mitettVcvd+eneu+R+eo+pl+nl.oonsetlsCt+caop+xFilttu+ene&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9264,7 +9264,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+Rl+een+d+toevex.uteolsptndcir+enlomCn+e+al+tFt+Viptscout&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+Rl+een+d+toevex.uteolsptndcir+enlomCn+e+al+tFt+Viptscout&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9300,7 +9300,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+er+lvt+nte+npxuldi.tdl+omet+cVn+euolcoRe+oFtte+esCnpstia&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+er+lvt+nte+npxuldi.tdl+omet+cVn+euolcoRe+oFtte+esCnpstia&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9336,7 +9336,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+u+Vsleexat+vnereRFtdtoetpntnpt+l.eo+es+lcnio+d+iumo+tcl+C&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+u+Vsleexat+vnereRFtdtoetpntnpt+l.eo+es+lcnio+d+iumo+tcl+C&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9372,7 +9372,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+CVue+ssotoet+eRuFxnoolipcte+e+d+elmti+vnacttnr.ple+lndt&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+CVue+ssotoet+eRuFxnoolipcte+e+d+elmti+vnacttnr.ple+lndt&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9408,7 +9408,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+snn+otieettCp+tsoetddeFevm+il+.+tVccexau+lnutoolRlrp+en&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+snn+otieettCp+tsoetddeFevm+il+.+tVccexau+lnutoolRlrp+en&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9444,7 +9444,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+ed+note+content+used+to+prevent+multiple+calls+to+VCR.Fix&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+ed+note+content+used+to+prevent+multiple+calls+to+VCR.Fix&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9480,7 +9480,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Fixed+note+title+nt+used+to+prevent+multiple+calls+to+VCR.Fixed+note+conte&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Fixed+note+title+nt+used+to+prevent+multiple+calls+to+VCR.Fixed+note+conte&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9516,7 +9516,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=1.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=1.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9552,7 +9552,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=a.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=a.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9588,7 +9588,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=First.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=First.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9624,7 +9624,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9660,7 +9660,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Two+words.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Two+words.+Title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9696,7 +9696,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -9732,7 +9732,7 @@ http_interactions:
     uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: q=Main+Title%3A+Subtitle+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_API_KEY>
+      string: q=Main+Title%3A+Subtitle+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3

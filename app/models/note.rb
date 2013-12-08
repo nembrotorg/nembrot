@@ -161,6 +161,20 @@ class Note < ActiveRecord::Base
   #   all_related_notes
   # end
 
+  def get_feature_name
+    title_candidate = main_title
+    title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
+    title_candidate = main_title.split(' ').last if has_instruction?('feature_last')
+    title_candidate
+  end
+
+  def get_feature_id
+    feature_id_candidate = title.scan(/^([0-9a-zA-Z]+)\. /).flatten.first
+    feature_id_candidate = subtitle unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
+    # sequence_feature_id = id.to_s if feature_id_candidate.blank?
+    feature_id_candidate
+  end
+
   private
 
   def is_untitled?
@@ -273,21 +287,12 @@ class Note < ActiveRecord::Base
     self.distance = Levenshtein.distance(previous_title_and_body, title + body)
   end
 
-  def update_feature_id
-    feature_id_candidate = title.scan(/^([0-9a-zA-Z]+)\. /).flatten.first
-    feature_id_candidate = subtitle.parameterize unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
-    # sequence_feature_id = id.to_s if feature_id_candidate.blank?
-    self.feature_id = feature_id_candidate.parameterize unless feature_id_candidate.nil?
-  end
-
   def update_feature
-    self.feature = has_instruction?('feature') ? get_feature_name : nil
+    self.feature = has_instruction?('feature') ? get_feature_name.parameterize : nil
   end
 
-  def get_feature_name
-    title_candidate = main_title
-    title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
-    title_candidate = main_title.split(' ').last if has_instruction?('feature_last')
-    title_candidate.parameterize unless title_candidate.nil?
+  def update_feature_id
+    feature_id_candidate = get_feature_id
+    self.feature_id = get_feature_id.parameterize unless feature_id_candidate.nil?
   end
 end

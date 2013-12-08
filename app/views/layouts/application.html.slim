@@ -14,9 +14,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'hello_world' if Secret.auth.evernote.key == 'CHANGE_ME' or Secret.auth.evernote.secret == 'CHANGE_ME'
 
-    = render 'admin_tools' if user_signed_in? && current_user.admin?
-
-    = render 'user_tools'
+    = render 'tools'
 
     = render 'footer'
 

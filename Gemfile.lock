@@ -71,6 +71,9 @@ GEM
       debug_inspector (>= 0.0.1)
     breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
+    cacheable_flash (0.3.3)
+      json
+      stackable_flash (>= 0.0.7)
     cancan (1.6.10)
     capistrano (2.15.5)
       highline
@@ -84,6 +87,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.3.9)
@@ -391,6 +397,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.8)
+    stackable_flash (0.0.7)
     subexec (0.2.3)
     susy (1.0.9)
       compass (>= 0.12.2)
@@ -446,9 +453,11 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   breadcrumbs_on_rails
+  cacheable_flash
   cancan
   capistrano (= 2.15.5)
   capybara
+  capybara-webkit
   coffee-rails
   commontator (~> 4.2.0)
   compass-rails!

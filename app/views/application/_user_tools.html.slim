@@ -1,45 +1,14 @@
-nav#tools
+ul
+  - if user_signed_in?
+    li.signed_in
+      = link_to current_user.name, edit_user_registration_path
 
-  header
-    h3= title ||= t('tools.title')
+  - else
+    li= link_to t('tools.sign_in'), new_user_session_path
+  
+- if user_signed_in? && current_user.admin?
 
-  ul
-
-    li.menu
-      ul
-        li= link_to 'Menu', '#menu'
-
-    li.user
-      ul
-        - if user_signed_in?
-          li
-            = link_to current_user.email, edit_user_registration_path
-            -# = link_to '', destroy_user_session_path, method: :delete, title: t('users.sessions.delete.title')
-        - else
-          li= link_to t('tools.sign_in'), new_user_session_path
-        -# li= link_to 'Admin', 'admin' 
-
-    - if Setting['advanced.comments_native_or_disqus_or_none'] != 'none'
-      - comments_link = Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus' ? '#disqus_thread' : '#comments'
-      li.page
-        ul
-          li= link_to '', comments_link
-
-    li.share
-      ul
-        - if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'
-          li.fb-like data-colorscheme='light' data-layout='button_count' data-action='like' data-show-faces='false' data-send='false' data-width='450px'
-
-          li= link_to 'Tweet', 'https://twitter.com/share', class: 'twitter-share-button', data: { via: Constant.twitter_user_name }
-
-          li
-            div.g-plusone data-size='medium'
-
-        - if Setting['advanced.share_native_or_iframes_or_none'] == 'native'
-          -# More from http://petragregorova.com/social-share-buttons-with-custom-icons/
-          - url = URI.encode_www_form_component(request.original_url.gsub(/\/$/, ''))
-          - title = ''
-
-          li= link_to '', "http://www.facebook.com/share.php?u=#{ url }&title=#{ title }".html_safe
-          li= link_to '', "http://twitter.com/home?status=#{ title }+#{ url }".html_safe
-          li= link_to '', "https://plus.google.com/share?url=#{ url }".html_safe
+  ul.admin
+    li= link_to t('settings.edit.title'), edit_settings_path
+    li= link_to t('books.admin.title_no_mode'), books_admin_path
+    li= link_to t('links.admin.title'), links_admin_path

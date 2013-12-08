@@ -56,7 +56,7 @@ a
   &[href*=admin]:before, &[href*=settings]:before
     +icon-settings
   &[href*=users]:before
-    +icon-user
+    +icon-user-2-empty
   &[href$='#disqus_thread']:before,
   &[href$='#comments']:before
     +icon-comment-empty
@@ -94,6 +94,10 @@ a
     +icon-medium
   &[href*=youtube]:before
     +icon-youtube
+
+li.signed_in
+  a[href*=users]:before
+    +icon-user-2
 
 abbr
   font-variant: small-caps
@@ -248,8 +252,9 @@ ol, ul, .statistics
 
 header
   position: relative
-  #notice
+  aside
     p
+      display: inline
       margin: 0
       &.alert, 
       &.error
@@ -535,7 +540,7 @@ section.ins-section, article.ins-section
   li
     &:first-child
       a:before
-        +icon-plus
+        +icon-angle-double-down
     &:nth-child(n+2)
       display: none
 
@@ -628,7 +633,6 @@ section.ins-section, article.ins-section
   bottom: 0
 
 #tools
-  +icon-links
   +transition
   background-color: $background-color
   border-top: 1px solid $body-font-color
@@ -677,9 +681,25 @@ section.ins-section, article.ins-section
             color: $gplus-color
           &[href*=twitter]:before
             color: $twitter-color
-      &.user, &.menu
+      &.user ul:not(.admin), &.menu ul
         li
           +icon-only
+      &.user
+        // REVIEW: Rather than cancelling what we've already done, it would be better to exclude .admin from .user
+        ul.admin
+          display: block
+          font-size: $font-size
+          bottom: $line-height * 4
+          position: absolute
+          padding-left: $text-indent / 2
+          li
+            display: block
+            width: auto
+            a:before
+              +icon-regular
+              position: relative
+              top: 0
+              left: 0
     .deep-link
       a
         color: $count-color
@@ -867,6 +887,8 @@ ul.oauth
         #map
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
+    aside
+      +span-columns(12)
 
     #text
       +span-columns(8)

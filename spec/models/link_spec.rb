@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'cacheable_flash/test_helpers'
+
 describe Link do
 
   let(:link) { Link.new }

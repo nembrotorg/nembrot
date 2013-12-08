@@ -7,20 +7,20 @@ gem 'acts-as-taggable-on'
 gem 'acts_as_votable'
 gem 'attr_encrypted'
 gem 'breadcrumbs_on_rails'
+gem 'cacheable_flash'
+gem 'cancan'
 gem 'coffee-rails'
-# gem 'compass-rails'- TEMPORARY: This is to enable Rails 4 upgrade
+gem 'commontator', '~> 4.2.0'
 # gem 'compass-rails', github: 'milgner/compass-rails', ref: '1749c06f15dc4b058427e7969810457213647fb8'
+# gem 'compass-rails'- TEMPORARY: This is to enable Rails 4 upgrade
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
 gem 'coveralls', require: false
-gem 'cancan'
-gem 'commontator', '~> 4.2.0'
 gem 'dalli'
 gem 'detect_language'
 gem 'devise'
 gem 'differ'
 gem 'evernote-thrift'
 gem 'friendly_id', github: 'norman/friendly_id', branch: 'master'
-gem 'sitemap_generator'
 gem 'gmaps4rails'
 gem 'god'
 gem 'httparty'
@@ -48,6 +48,7 @@ gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails'
 gem 'settingslogic'
+gem 'sitemap_generator'
 gem 'slim'
 gem 'slim-rails'
 gem 'sprockets-rails', require: 'sprockets/railtie'
@@ -78,6 +79,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit' # Requires QT, see: https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
   gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
   gem 'factory_girl_rails'
   gem 'faker'

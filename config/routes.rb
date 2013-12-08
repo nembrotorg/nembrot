@@ -48,6 +48,8 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
   get 'tags(/p/:page)' => 'tags#index', as: :tags
 
+  get 'users/menu' => 'users#menu'
+
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
   resources :evernote_notes, only: [:add_evernote_task]

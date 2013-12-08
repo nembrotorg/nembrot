@@ -49,6 +49,8 @@ Spork.prefork do
   # require 'journey/router'
   # require 'haml/template'
 
+  Capybara.javascript_driver = :webkit
+
   RSpec.configure do |config|
     config.mock_with :rspec
 

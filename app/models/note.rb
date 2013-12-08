@@ -284,7 +284,12 @@ class Note < ActiveRecord::Base
   end
 
   def update_distance
-    previous_title_and_body = body_was.nil? ? '' : title_was + body_was
+    # Here we can't use body_was and title_was because we want to compart to the last _saved_ version
+    previous_title_and_body = ''
+    unless versions.empty?
+      previous_version = versions.last.reify
+      previous_title_and_body = previous_version.title + previous_version.body
+    end
     self.distance = Levenshtein.distance(previous_title_and_body, title + body)
   end
 

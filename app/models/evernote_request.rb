@@ -135,8 +135,8 @@ class EvernoteRequest
       'body'                => cloud_note_data.content,
       'content_class'       => cloud_note_data.attributes.contentClass,
       'external_updated_at' => calculate_updated_at,
-      'instruction_list'    => cloud_note_tags.grep(/^_/),
-      'introduction'        => cloud_note_data.content.scan(/<div>\s*intro:\s*(.*?)\s*<\/div>/i).first,
+      'instruction_list'    => cloud_note_tags.grep(/^_/).scan(/\{s*intro:\s*(.*?)\s*\}/i).flatten.first,
+      'introduction'        => cloud_note_data.content,
       'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
       'latitude'            => cloud_note_data.attributes.latitude,
       'longitude'           => cloud_note_data.attributes.longitude,
@@ -166,9 +166,9 @@ class EvernoteRequest
 
     # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
     #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
-    captions = cloud_note_data.content.scan(/<div>\s*cap:\s*(.*?)\s*<\/div>/i)
-    descriptions = cloud_note_data.content.scan(/<div>\s*(?:alt|description):\s*(.*?)\s*<\/div>/i)
-    credits = cloud_note_data.content.scan(/<div>\s*credit:\s*(.*?)\s*<\/div>/i)
+    captions = cloud_note_data.content.scan(/\{s*cap:\s*(.*?)\s*\}/i)
+    descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
+    credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
 
     # First we remove all resources (to make sure deleted resources disappear -
     #  but we don't want to delete binaries so we use #delete rather than #destroy)

@@ -87,13 +87,15 @@ module FormattingHelper
   end
 
   def format_blockquotes(text)
-    text.gsub(/^.*?quote:(.*?)\n? ?-- *(.*?)$/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
-        .gsub(/^.*?quote:(.*)$/i, "\n<blockquote>\\1</blockquote>\n")
+    text.gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+        .gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
+        .gsub(/\{\s*quote:([^\}]*)\s*\}/i, "\n<blockquote>\\1</blockquote>\n")
+        .gsub(/\{\s*quote:([^\}]*)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
   end
 
   def remove_instructions(text)
-    text.gsub(/^(:?fork\w*):.*$/i, '')
-        .gsub(/^(:?cap|alt|description|credit):.*$/i, '')
+    text.gsub(/\{fork:.*\}/i, '')
+        .gsub(/\{(cap|alt|description|credit):.*\}/i, '')
   end
 
   def clean_whitespace(text)

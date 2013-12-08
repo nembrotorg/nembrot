@@ -30,8 +30,14 @@ describe FormattingHelper do
 
   describe '#format_blockquotes' do
     it 'converts quotes to block quote' do
-      format_blockquotes("Some text.\nquote:Long quote.\nMore text.")
+      format_blockquotes("Some text.\n{quote:Long quote.}\nMore text.")
         .should == "Some text.\n\n<blockquote>Long quote.</blockquote>\n\nMore text."
+    end
+    context 'when quote has more than one line' do
+      it 'converts quotes to block quote' do
+        format_blockquotes("Some text.\n{quote:Long quote.\nNew line.}\nMore text.")
+          .should == "Some text.\n\n<blockquote>Long quote.\nNew line.</blockquote>\n\nMore text."
+      end
     end
 #    it 'converts quotes to block quote and includes attribution if present' do
 #      format_blockquotes("Some text.\nquote:Long quote.-- Kittler 2001\nMore text.")
@@ -47,16 +53,16 @@ describe FormattingHelper do
 
   describe '#remove_instructions' do
     it 'removes fork and related notifications' do
-      remove_instructions("Some text.\nfork:/note/31\nMore text.").should == "Some text.\n\nMore text."
+      remove_instructions("Some text.\n{fork:/note/31}\nMore text.").should == "Some text.\n\nMore text."
     end
     it 'removes cap:' do
-      remove_instructions("Some text.\ncap:/Some other text\nMore text.").should == "Some text.\n\nMore text."
+      remove_instructions("Some text.\n{cap: Some other text}\nMore text.").should == "Some text.\n\nMore text."
     end
     it 'removes alt:' do
-      remove_instructions("Some text.\nalt:/Some other text\nMore text.").should == "Some text.\n\nMore text."
+      remove_instructions("Some text.\n{alt: Some other text}\nMore text.").should == "Some text.\n\nMore text."
     end
     it 'removes credit:' do
-      remove_instructions("Some text.\ncredit:/Some other text\nMore text.").should == "Some text.\n\nMore text."
+      remove_instructions("Some text.\n{credit: Some other text}\nMore text.").should == "Some text.\n\nMore text."
     end
   end
 

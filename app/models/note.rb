@@ -104,8 +104,9 @@ class Note < ActiveRecord::Base
 
   def clean_body_with_parentheses
     clean_body_with_instructions
-      .gsub(/^\W*?quote\:/, '')
-      .gsub(/^\w*?\:.*$/, '')
+      .gsub(/\{\W*?quote\:/, '')
+      .gsub(/\}/, '')
+      .gsub(/\{\w*?\:.*\}/, '')
       .gsub(/\n|\r/, ' ')
       .gsub(/\s+/, ' ')
   end

@@ -126,7 +126,7 @@ en:
       title_html: "%{title} v%{sequence}"
       full: "Note %{id} v%{sequence}"
       not_found: "Note %{id} v%{sequence} is not available."
-    word_count: "%{word_count} words"
+    word_count: "%{word_count} words, <span title=\"Damerau-Levenshtein edit distance between this version and the previous one\">%{distance} changes</span>"
     untitled_synonyms: ['Untitled', 'Untitled Note', 'New note']
     sections:
       annotations: 'Annotations'

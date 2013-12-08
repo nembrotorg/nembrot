@@ -95,7 +95,7 @@ module FormattingHelper
 
   def remove_instructions(text)
     text.gsub(/\{fork:.*\}/i, '')
-        .gsub(/\{(cap|alt|description|credit):.*\}/i, '')
+        .gsub(/\{(cap|alt|description|credit|intro):.*\}/i, '')
   end
 
   def clean_whitespace(text)

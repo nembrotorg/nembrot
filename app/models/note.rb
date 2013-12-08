@@ -23,7 +23,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.distance > Setting['advanced.version_gap_distance'].to_i  },
+                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
@@ -174,6 +174,12 @@ class Note < ActiveRecord::Base
     feature_id_candidate = subtitle unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
     # sequence_feature_id = id.to_s if feature_id_candidate.blank?
     feature_id_candidate
+  end
+
+  def get_real_distance
+    # Compare proposed version with saved version
+    previous_title_and_body = body_was.nil? ? '' : title_was + body_was
+    Levenshtein.distance(previous_title_and_body, title + body)
   end
 
   private

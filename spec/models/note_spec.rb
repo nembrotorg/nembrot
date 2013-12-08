@@ -182,7 +182,7 @@ describe Note do
         note.versions.last.sequence.should == note.versions.size
         note.versions.last.tag_list = %w(first_tag)
         note.versions.last.word_count.should == 2
-        note.versions.last.distance.should == 51
+        note.versions.last.distance.should == 26
       end
     end
   end

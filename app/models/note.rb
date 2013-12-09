@@ -125,7 +125,7 @@ class Note < ActiveRecord::Base
 
   def fx
     instructions = Setting['advanced.instructions_default'].split(/, ?| /) + Array(instruction_list)
-    fx = instructions.keep_if { |i| i =~ /__FX_/ } .join('_').gsub(/__FX_/, '').downcase
+    fx = instructions.keep_if { |i| i =~ /__FX_/ }.each { |i| i.gsub!(/__FX_/, '').downcase! }
     fx.empty? ? nil : fx
   end
 

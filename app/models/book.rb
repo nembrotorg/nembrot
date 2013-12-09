@@ -10,7 +10,7 @@ class Book < ActiveRecord::Base
 
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
-  scope :metadata_missing, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
+  scope :missing_metadata, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
   scope :cited, -> { where('title IS NOT ? AND tag IS NOT ?', nil, nil)
     .joins('left outer join books_notes on books.id = books_notes.book_id')
     .where('books_notes.book_id IS NOT ?', nil)
@@ -54,7 +54,7 @@ class Book < ActiveRecord::Base
   end
 
   def self.sync_all
-    need_syncdown.metadata_missing.each { |book| book.populate! }
+    need_syncdown.missing_metadata.each { |book| book.populate! }
   end
 
   def isbn
@@ -87,14 +87,30 @@ class Book < ActiveRecord::Base
   # REVIEW: this fails if protected and called through sync_all
   def populate!
     increment_attempts
-    merge(WorldCatRequest.new(isbn).metadata)      if Constant.books.world_cat.active?
-    merge(IsbndbRequest.new(isbn).metadata)        if Constant.books.isbndb.active?
-    merge(GoogleBooksRequest.new(isbn).metadata)   if Constant.books.google_books.active?
-    merge(OpenLibraryRequest.new(isbn).metadata)   if Constant.books.open_library.active?
-    undirtify(false) unless metadata_missing?
+    merge_world_cat
+    merge_isbndb
+    merge_google_books
+    merge_open_library
+    undirtify(false) unless missing_metadata?
     SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_metadata_missing if metadata_missing? && attempts == Setting['advanced.attempts'].to_i
+    announce_missing_metadata if missing_metadata? && attempts == Setting['advanced.attempts'].to_i
     save!
+  end
+
+  def merge_world_cat
+    merge(WorldCatRequest.new(isbn).metadata) if Constant.books.world_cat.active?
+  end
+
+  def merge_isbndb
+    merge(IsbndbRequest.new(isbn).metadata) if Constant.books.isbndb.active?
+  end
+
+  def merge_google_books
+    merge(GoogleBooksRequest.new(isbn).metadata) if Constant.books.google_books.active?
+  end
+
+  def merge_open_library
+    merge(OpenLibraryRequest.new(isbn).metadata) if Constant.books.open_library.active?
   end
 
   private
@@ -103,13 +119,13 @@ class Book < ActiveRecord::Base
     self.notes = Note.where('body LIKE ?', "%#{ tag }%")
   end
 
-  def metadata_missing?
+  def missing_metadata?
     title.blank? || author.blank? || published_date.blank?
   end
 
-  def announce_metadata_missing
-    BookMailer.metadata_missing(self).deliver
-    SYNC_LOG.error I18n.t('books.sync.metadata_missing.logger', id: id, author: author, title: title, isbn: isbn)
+  def announce_missing_metadata
+    BookMailer.missing_metadata(self).deliver
+    SYNC_LOG.error I18n.t('books.sync.missing_metadata.logger', id: id, author: author, title: title, isbn: isbn)
   end
 
   def update_tag

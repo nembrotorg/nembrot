@@ -33,13 +33,11 @@ class User < ActiveRecord::Base
     end
 
     user.password = Devise.friendly_token[0, 10] if user.password.blank?
-    user.name = auth.info.name                   unless auth.info.name.blank?
-    user.nickname = auth.info.nickname           unless auth.info.nickname.blank?
-    user.first_name = auth.info.first_name       unless auth.info.first_name.blank?
-    user.last_name = auth.info.last_name         unless auth.info.last_name.blank?
-    user.location = auth.info.location           unless auth.info.location.blank?
-    user.email = auth.info.email                 unless auth.info.email.blank?
-    user.image = auth.info.image                 unless auth.info.image.blank?
+    attributes = ['name', 'nickname', 'first_name', 'last_name', 'location', 'email', 'image']
+
+    attributes.each do |attribute|
+      set_unless_blank(user[attribute], auth.info[attribute])
+    end
 
     auth.provider == 'twitter' ? user.save(validate: false) : user.save
 

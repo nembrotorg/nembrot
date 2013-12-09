@@ -58,5 +58,4 @@ describe ApplicationHelper do
     specify do embeddable_url('http://soundcloud.com?v=ABCDEF')
               .should eq('http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF') end
   end
-
 end

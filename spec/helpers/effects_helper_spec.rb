@@ -16,15 +16,15 @@ describe EffectsHelper do
     end
 
     it 'transpose' do
-      transpose(@image, 'lef').should { have_dimensions(160, 90) }
+      pre_fx(@image, 'lef').should { have_dimensions(160, 90) }
     end
 
     it 'transverse' do
-      transpose(@image, 'rig').should { have_dimensions(160, 90) }
+      pre_fx(@image, 'rig').should { have_dimensions(160, 90) }
     end
 
     it 'trim' do
-      transpose(@image, 'tri').should { have_dimensions(160, 90) }
+      pre_fx(@image, 'tri').should { have_dimensions(160, 90) }
     end
 
     it 'pre_fx' do

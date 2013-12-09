@@ -145,11 +145,9 @@ module FormattingHelper
     text
   end
 
-  def related_notify(text, related_notes, blurbify = false)
-    nothing_more_to_do = false
-    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do
+  def related_notify(text, related_notes = [], blurbify = false)
+    loop do
       start_text = text
-
       related_notes.each do |note|
         body = blurbify ? sanitize(note.clean_body) : note.body
         text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
@@ -159,35 +157,24 @@ module FormattingHelper
         text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
         text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
       end
-
-      if text == start_text
-        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
-        nothing_more_to_do = true
-      end
+      break if text == start_text
     end
     text = strip_tags(text) if blurbify
     text
   end
 
-  def related_citationify(text, related_citations, blurbify = false)
-    nothing_more_to_do = false
-    until text[/\{(link|blurb|insert)/].blank? || nothing_more_to_do
+  def related_citationify(text, related_citations = [], blurbify = false)
+    loop do
       start_text = text
-
       related_citations.each do |citation|
         body = blurbify ? sanitize(citation.clean_body) : citation.body
         text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
         text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
         text.gsub!(/\{insert:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
       end
-
-      if text == start_text
-        # Prevent infinite loops by giving up if a whole cycle goes by without changing anything
-        nothing_more_to_do = true
-        # Clean up faulty references
-        text.gsub!(/\{[^\}]*?\}/, '')
-      end
+      break if text == start_text
     end
+    text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
     text = strip_tags(text) if blurbify
     text
   end

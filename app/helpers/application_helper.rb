@@ -35,13 +35,7 @@ module ApplicationHelper
   end
 
   def link_to_unless_current_or_wrap(name, options = {}, html_options = {})
-    link_to_unless_current name, options, html_options do
-      "<span class=\"current\" data-href=\"#{ url_for(options) }\">#{ name }</span>".html_safe
-    end
-  end
-
-  def qr_code_image_url(size = Setting['style.qr_code_image_size'])
-    "https://chart.googleapis.com/chart?chs=#{ size }x#{ size }&cht=qr&chl=#{ current_url }"
+    link_to_unless_or_wrap current_page?(options), name, options, html_options
   end
 
   def css_instructions(note_instructions)

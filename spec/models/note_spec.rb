@@ -365,7 +365,7 @@ describe Note do
 
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
-    its (:fx) { should == 'abc_def' }
+    its (:fx) { should == ['abc', 'def'] }
   end
 
   describe '#looks_like_a_citation?' do

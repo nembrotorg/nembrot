@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 describe BookMailer do
-  describe 'metadata_missing' do
+  describe 'missing_metadata' do
     let(:book) { FactoryGirl.create(:book) }
-    let(:mail) { BookMailer.metadata_missing(book) }
+    let(:mail) { BookMailer.missing_metadata(book) }
 
     it 'renders the receiver email' do
       mail.to.should == [Setting['advanced.monitoring_email']]

@@ -15,10 +15,10 @@ describe 'Books' do
 
   describe 'admin page' do
     before do
-      visit '/bibliography/admin/all'
+      visit '/bibliography/admin/editable'
     end
     it 'has the title' do
-      page.should have_css('h1', text: I18n.t('books.admin.title', mode: 'all'))
+      page.should have_css('h1', text: I18n.t('books.admin.title', mode: 'Editable'))
     end
     it 'has a link to the book' do
       page.should have_text(@book.title)

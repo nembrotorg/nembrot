@@ -64,7 +64,7 @@ en:
       updated: "%{author}: %{title} ISBN %{isbn} UPDATED."
       failed:
         logger: "Sync failed while fetching metadata from %{provider} for ISBN %{isbn}."
-      metadata_missing:
+      missing_metadata:
         logger: "Book %{id} - %{author}: %{title} ISBN %{isbn} - metadata missing!"
         email:
           subject: "Missing Book metadata: ISBN %{isbn} | %{details}"

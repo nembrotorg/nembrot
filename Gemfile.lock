@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/Compass/compass-rails.git
-  revision: 32c16cb90f78053310b35199a970c53355bcd300
-  branch: rails4-hack
-  specs:
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
-
-GIT
   remote: git://github.com/norman/friendly_id.git
   revision: 0732bdf36557945186c088656b160155858fa87f
   branch: master
@@ -60,7 +52,7 @@ GEM
     arel (4.0.1)
     ast (1.1.0)
     atomic (1.1.14)
-    attr_encrypted (1.3.0)
+    attr_encrypted (1.3.1)
       encryptor (>= 1.3.0)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
@@ -114,6 +106,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    compass-rails (1.1.2)
+      compass (>= 0.12.2)
     coveralls (0.7.0)
       multi_json (~> 1.3)
       rest-client
@@ -222,7 +216,7 @@ GEM
       ffi (~> 1.1.5)
     libnotify (0.8.2)
       ffi (>= 1.0.11)
-    listen (2.3.1)
+    listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -460,7 +454,7 @@ DEPENDENCIES
   capybara-webkit
   coffee-rails
   commontator (~> 4.2.0)
-  compass-rails!
+  compass-rails
   coveralls
   dalli
   database_cleaner (= 1.0.1)

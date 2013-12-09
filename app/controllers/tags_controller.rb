@@ -9,11 +9,6 @@ class TagsController < ApplicationController
     @tags = all_tags.page(page_number).per(Setting['advanced.tags_index_per_page'].to_i).load
     @references_count = all_tags.to_a.sum { |t| t.count }
     @tags_count = all_tags.size
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @tags }
-    end
   end
 
   def show
@@ -28,10 +23,6 @@ class TagsController < ApplicationController
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @notes }
-    end
     rescue
      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
      redirect_to tags_path
@@ -46,10 +37,5 @@ class TagsController < ApplicationController
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
     add_breadcrumb I18n.t('map'), tag_map_path(params[:slug])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @tag }
-    end
   end
 end

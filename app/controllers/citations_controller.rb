@@ -13,11 +13,6 @@ class CitationsController < ApplicationController
     @total_count = all_citations.size
     @books_count = all_citations.keep_if { |citation| !citation.books.nil? } .size
     @links_count = all_citations.keep_if { |citation| !citation.links.nil? } .size
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @citations }
-    end
   end
 
   def show
@@ -26,14 +21,8 @@ class CitationsController < ApplicationController
 
     add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @citation }
-    end
-
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t('citations.show.not_found', id: params[:id])
       redirect_to citations_path
   end
-
 end

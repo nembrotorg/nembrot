@@ -11,49 +11,24 @@ class BooksController < ApplicationController
     @books = all_books.page(page_number).load
     @books_count = all_books.size
     @references_count = all_books.to_a.sum { |b| b.notes.size }
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @books }
-    end
   end
 
   def admin
-    case params[:mode]
-    when 'all'
-      @books = Book.editable
-    when 'citable'
-      @books = Book.citable
-    when 'cited'
-      @books = Book.cited
-    else
-      @books = Book.metadata_missing
-    end
-
-    @mode = params[:mode].nil? ? 'missing metadata' : params[:mode]
+    @mode = params[:mode] || 'missing_metadata'
+    @books = Book.send(@mode)
 
     add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
-    add_breadcrumb @mode, request.original_url
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @books }
-    end
+    add_breadcrumb @mode.humanize, request.original_url
   end
 
   def show
     @books = Book.cited
     @book = @books.find_by_slug(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
-    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
-    @all_interrelated_citations = Note.interrelated.publishable.citations
+    interrelated_notes_features_and_citations
 
     add_breadcrumb @book.headline, book_path(params[:slug])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @book }
-    end
     rescue
       flash[:error] = t('books.show.not_found', slug: params[:slug])
       redirect_to books_path
@@ -64,10 +39,6 @@ class BooksController < ApplicationController
 
     add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
     add_breadcrumb "ISBN #{ @book.isbn }", edit_book_path(params[:id])
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def update

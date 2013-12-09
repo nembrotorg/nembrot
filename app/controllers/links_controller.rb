@@ -10,11 +10,6 @@ class LinksController < ApplicationController
     @links = Link.publishable
 
     add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @books }
-    end
   end
 
   def edit
@@ -22,10 +17,6 @@ class LinksController < ApplicationController
 
     add_breadcrumb I18n.t('links.admin.title_short'), links_admin_path
     add_breadcrumb @link.channel, edit_link_path(params[:id])
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def index
@@ -34,11 +25,6 @@ class LinksController < ApplicationController
     @channels = Kaminari.paginate_array(all_channels).page(page_number).per(Setting['advanced.links_index_per_page'].to_i)
     @channels_count = all_channels.size
     @links_count = Link.publishable.size
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @books }
-    end
   end
 
   def show_channel
@@ -48,10 +34,6 @@ class LinksController < ApplicationController
 
     add_breadcrumb @channel, link_path(params[:slug])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @links_channel }
-    end
     rescue
       flash[:error] = t('links.show_channel.not_found', channel: params[:slug])
       redirect_to links_path
@@ -79,5 +61,4 @@ class LinksController < ApplicationController
                                  :lang, :latitude, :longitude, :modified, :name, :paywall, :protocol, :publisher,
                                  :title, :url, :website_name)
   end
-
 end

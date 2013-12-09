@@ -16,10 +16,6 @@ class SettingsController < ApplicationController
     @style_settings = Setting.all('style.')
 
     add_breadcrumb I18n.t('settings.edit.title'), edit_settings_path
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def update

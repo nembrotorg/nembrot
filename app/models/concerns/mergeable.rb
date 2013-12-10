@@ -3,7 +3,9 @@
 module Mergeable
   extend ActiveSupport::Concern
 
-  def set_unless_blank(a, b)
-    a = b unless b.blank?
+  module ClassMethods
+    def set_unless_blank(attribute, value)
+      attribute = value unless value.blank?
+    end
   end
 end

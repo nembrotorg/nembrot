@@ -1,6 +1,9 @@
 # See http://www.codebeerstartups.com/2013/10/social-login-integration-with-all-the-popular-social-networks-in-ruby-on-rails/
 
 class User < ActiveRecord::Base
+
+  include Mergeable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
@@ -46,6 +49,10 @@ class User < ActiveRecord::Base
     authorization.save
 
     authorization.user
+  end
+
+  def public_name
+     name || nickname || email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
   end
 
   def admin?

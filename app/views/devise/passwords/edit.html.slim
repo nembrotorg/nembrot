@@ -1,26 +1,26 @@
-- document_title = "#{ t('users.passwords.edit.title') } | #{ t('users.title') } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
-- add_breadcrumb t('users.passwords.edit.title'), new_user_password_path
+- add_breadcrumb t('.title'), new_user_password_path
 
 div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('users.passwords.edit.title'), subtitle: nil, document_title: document_title
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
     = devise_error_messages!
     = f.hidden_field :reset_password_token
 
     = f.label :password do
-      = t('users.passwords.edit.new_passowrd')
+      = t('.new_passowrd')
       = f.password_field :password, autofocus: true
 
     = f.label :password_confirmation do
-      = t('users.passwords.edit.confirm_new_passowrd')
+      = t('.confirm_new_passowrd')
       = f.password_field :password_confirmation
 
-    = f.submit t('users.passwords.edit.submit')
+    = f.submit t('.submit')
 
   = render 'devise/shared/links'

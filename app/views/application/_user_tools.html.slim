@@ -1,6 +1,6 @@
 ul
   - if user_signed_in?
-    li.signed_in
+    li.signed_in title="Signed in as #{current_user.public_name}"
       = link_to current_user.name, edit_user_registration_path
 
   - else

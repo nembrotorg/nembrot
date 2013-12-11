@@ -32,6 +32,6 @@ class UsersController < ApplicationController
   end
 
   def validate_authorization_for_user
-     redirect_to root_path unless @user == current_user
+    redirect_to root_path unless @user == current_user
   end
 end

@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
 
   include Mergeable
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
+         :omniauthable
 
   validates_presence_of :email
 
@@ -57,5 +57,11 @@ class User < ActiveRecord::Base
 
   def admin?
     (role == 'admin')
+  end
+
+  protected
+
+  def confirmation_required?
+    true
   end
 end

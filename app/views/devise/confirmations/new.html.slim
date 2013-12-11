@@ -13,8 +13,8 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
     = devise_error_messages!
 
     = f.label :email do
-    = :email.to_s.humanize
-    = f.email_field :email, autofocus: true
+      = :email.to_s.humanize
+      = f.email_field :email, autofocus: true
 
     = f.submit t('.title')
 

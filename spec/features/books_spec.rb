@@ -10,7 +10,7 @@ describe 'Books' do
     click_button('Sign in')
     @book = FactoryGirl.create(:book)
     @note = FactoryGirl.create(:note, books: [@book], is_citation: true, body: 'Note text.')
-    @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "quote:Text. -- (#{ @book.tag }), p. 1")
+    @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "{quote:Text. -- (#{ @book.tag }), p. 1}")
   end
 
   describe 'admin page' do

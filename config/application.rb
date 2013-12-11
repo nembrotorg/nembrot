@@ -43,9 +43,6 @@ module Nembrot
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    # Swap the ActionDispatch::Flash middleware with the CacheableFlash one
-    config.middleware.swap ActionDispatch::Flash, CacheableFlash::Middleware
-
     # Generators
     config.generators do |g|
       g.test_framework :rspec,

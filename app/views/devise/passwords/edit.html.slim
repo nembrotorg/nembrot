@@ -14,11 +14,11 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
     = f.hidden_field :reset_password_token
 
     = f.label :password do
-      = t('.new_passowrd')
+      = t('.new_password')
       = f.password_field :password, autofocus: true
 
     = f.label :password_confirmation do
-      = t('.confirm_new_passowrd')
+      = t('.confirm_new_password')
       = f.password_field :password_confirmation
 
     = f.submit t('.submit')

@@ -46,16 +46,14 @@ describe 'Links' do
     it 'can be updated' do
       fill_in 'Title', with: 'New Title'
       click_button('Save')
-      # REVIEW: CacheableFlash offers test helpers but they don't work here
-      #  See: https://github.com/pivotal/cacheable-flash
-      pending "page.should have_content I18n.t('links.edit.success', channel: @link.channel)"
+      page.should have_content I18n.t('links.edit.success', channel: @link.channel)
       @link.reload
       @link.title.should eq('New Title')
     end
     it 'rejects invalid changes' do
       fill_in 'link[url]', with: ''
       click_button('Save')
-      pending "page.should have_content I18n.t('links.edit.failure')"
+      page.should have_content I18n.t('links.edit.failure')
       @link.reload
       @link.url.should_not eq('')
     end

@@ -171,18 +171,6 @@ load_user_menu = () ->
     success: (html) ->
       $('#tools .user').html(html)
 
-show_flash_messages = () ->
-  Flash.transferFromCookies();
-  if Flash.data['error']
-    load_user_menu()
-    $('header[data-title]').append('<aside><p class="error"></p></aside>')
-    Flash.writeDataTo('error', $('header[data-title] aside p.error'));
-
-  if Flash.data['notice']
-    load_user_menu()
-    $('header[data-title]').append('<aside><p class="notice"></p></aside>')
-    Flash.writeDataTo('notice', $('header[data-title] aside p.notice'));
-
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -243,7 +231,6 @@ content_initializers = () ->
   track_page_view()
   resize_initializers()
   insert_qr_code()
-  show_flash_messages()
 
   page_class = $('#main > div').attr('class')
   load_share_links(page_class)

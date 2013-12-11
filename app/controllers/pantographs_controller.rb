@@ -12,19 +12,14 @@ class PantographsController < ApplicationController
 
     respond_to do |format|
       format.html { render action: 'show' }
-      format.json { render json: @pantograph }
+      format.json { render json: 'show' }
     end
   end
 
   def show
-    @pantograph = Pantograph.where(body: Pantograph.sanitize(params[:body])).first_or_initialize
+    @pantograph = Pantograph.where(text: Pantograph.sanitize(params[:text])).first_or_initialize
     copy_and_list
     @no_index = true
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @pantograph }
-    end
   end
 
   private

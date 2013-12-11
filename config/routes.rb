@@ -58,7 +58,7 @@ Nembrot::Application.routes.draw do
 
   # Custom routes
   # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
-  get 'pantography/:body' => 'pantographs#show', as: :pantograph # , body: /[a-zA-F0-9\%]+/
+  get 'pantography/:text' => 'pantographs#show', as: :pantograph # , text: /[a-zA-F0-9\%]+/
   get 'pantography' => 'pantographs#index', as: :pantographs
 
   get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version

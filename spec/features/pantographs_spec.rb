@@ -15,8 +15,8 @@ describe 'Pantography' do
     specify { page.should have_css 'h1', text: I18n.t('pantographs.index.title') }
     specify { page.should have_css '#pantographs' }
     specify { page.should have_css '.tweeted' }
-    specify { page.should have_text @pantograph.body }
-    specify { page.should have_text @pantograph.body.length }
+    specify { page.should have_text @pantograph.text }
+    specify { page.should have_text @pantograph.text.length }
     specify { page.should have_text @pantograph.percentage }
     specify { page.should have_selector "a[href='#{ @pantograph.first_path }']" }
     specify { page.should have_selector "a[href='#{ @pantograph.previous_path }']" }
@@ -24,7 +24,7 @@ describe 'Pantography' do
     specify { page.should have_selector "a[href='#{ @pantograph.last_path }']" }
     specify { page.should have_selector "a[href='#{ @pantograph.twitter_url }']" }
     specify { page.should have_selector "a[href='#{ @pantograph.pantographer.twitter_url }']" }
-    specify { page.should have_selector "#pantographs a[href='#{ pantograph_path(@pantograph.body) }']" }
+    specify { page.should have_selector "#pantographs a[href='#{ pantograph_path(@pantograph.text) }']" }
   end
 
   describe 'show page' do

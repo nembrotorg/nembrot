@@ -6,8 +6,8 @@ class Pantograph < ActiveRecord::Base
 
   belongs_to :pantographer
 
-  validates_presence_of :body, :external_created_at, :tweet_id
-  validates_uniqueness_of :body, :tweet_id
+  validates_presence_of :text, :external_created_at, :tweet_id
+  validates_uniqueness_of :text, :tweet_id
 
   default_scope { order('external_created_at DESC') }
   scope :by_self, -> { where(pantographer_id: pantography_twitter_user.id) }
@@ -16,11 +16,11 @@ class Pantograph < ActiveRecord::Base
     Constant.pantography.alphabet
   end
 
-  def self.first_phrase
+  def self.first_text
     alphabet.first
   end
 
-  def self.last_phrase
+  def self.last_text
     max_length.times.map { alphabet.last } .join
   end
 
@@ -28,26 +28,26 @@ class Pantograph < ActiveRecord::Base
     Constant.pantography.max_length
   end
 
-  def self.total_phrases
-    # Wrong! This does not take into consideration skipped phrases
-    # Total phrases should be the sequence number of last phrase
-    # ERROR: At the moment: Pantograph.|last_phrase|.sequence < Pantograph.total_phrases => false
-    (alphabet.length ** max_length) - 1 - skipped(last_phrase)
+  def self.total_texts
+    # Wrong! This does not take into consideration skipped texts
+    # Total texts should be the sequence number of last text
+    # ERROR: At the moment: Pantograph.|last_text|.sequence < Pantograph.total_texts => false
+    (alphabet.length ** max_length) - 1 - skipped(last_text)
   end
 
-  def self.skipped(phrase)
+  def self.skipped(text)
     # Calculate the number of pantographs that have been skipped due to repeated spaces.
     #  This is basically a triangular function on the legth of the string - 1.
     #  So, for a string that is five letters long, we do 4 + 3 + 2 + 1.
-    return 0 if phrase.length == 1 && alphabet.index(phrase.last) > alphabet.index(' ')
-    return 1 unless phrase.length > 1
-    use_length = phrase.length - 1
-    use_length -= 1 unless alphabet.index(phrase.last) > alphabet.index(' ')
+    return 0 if text.length == 1 && alphabet.index(text.last) > alphabet.index(' ')
+    return 1 unless text.length > 1
+    use_length = text.length - 1
+    use_length -= 1 unless alphabet.index(text.last) > alphabet.index(' ')
     (1..use_length).inject(:+) + 2 # We add two for when the space appears in the beginning or the end
   end
 
   def self.total_duration
-    (total_phrases / (((60 * 60) / Constant.pantography.frequency)  * 24 * Constant.pantography.sidereal_year_in_days));
+    (total_texts / (((60 * 60) / Constant.pantography.frequency)  * 24 * Constant.pantography.sidereal_year_in_days));
   end
 
   def self.sanitize(text)
@@ -69,13 +69,16 @@ class Pantograph < ActiveRecord::Base
     next_pantograph
   end
 
-  def self.tweet(message)
-    tweet = authenticated_twitter_client.update(message)
+  def self.tweet(text)
+    # Replace @ and # characters before tweeting to avoid spamming other users
+    #  These characters are unchanged as far as Pantography itself goes; they are stored intact.
+    text = self.unspam(text)
+    tweet = authenticated_twitter_client.update(text)
 
-    if tweet.text == message
+    if tweet.text == text
       true # Tweet was successful
     else
-      report_error("Twitter rejected message #{ message } with no error message.")
+      report_error("Twitter rejected message #{ text } with no error message.")
       false
     end
 
@@ -83,9 +86,13 @@ class Pantograph < ActiveRecord::Base
       if error == 'Over capacity'
         true # Although the tweet failed, we do not skip a pantograph
       else
-        report_error("Twitter rejected message #{ message } with error, \"#{ error }\".")
+        report_error("Twitter rejected message #{ text } with error, \"#{ error }\".")
         false
       end
+  end
+
+  def self.unspam(text)
+    text.gsub(/@/, 'A').gsub(/#/, 'H')
   end
 
   def self.report_error(error_message)
@@ -94,19 +101,19 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.calculate_next
-    next_candidate = calculate_after(last_by_self_body)
-    next_candidate = calculate_after(next_candidate) while Pantograph.where(body: next_candidate).exists?
+    next_candidate = calculate_after(last_by_self_text)
+    next_candidate = calculate_after(next_candidate) while Pantograph.where(text: next_candidate).exists?
     next_candidate
   end
 
-  def self.last_by_self_body
+  def self.last_by_self_text
     return '' if pantography_twitter_user.blank?
     last_pantographs = where(pantographer_id: pantography_twitter_user.id)
-    last_pantographs.blank? ? '' : last_pantographs.first.body
+    last_pantographs.blank? ? '' : last_pantographs.first.text
   end
 
   def self.calculate_before(current)
-    return first_phrase if current == first_phrase
+    return first_text if current == first_text
     alphabet = self.alphabet.split('')
     return alphabet.first if current.blank?
 
@@ -132,7 +139,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.calculate_after(current)
-    return last_phrase if current == last_phrase
+    return last_text if current == last_text
     alphabet = self.alphabet.split('')
     alphabet_without_space = alphabet - [' ']
 
@@ -169,36 +176,36 @@ class Pantograph < ActiveRecord::Base
     get_timeline(min_id)
   end
 
-  def self.escape_body(text)
+  def self.escape_text(text)
     URI.escape(text, /[\.,;:_@!?\/#()%'-+= ]/)
   end
 
   def to_param
-    self.class.escape_body(body)
+    self.class.escape_text(text)
   end
 
   def previous_escaped
-    self.class.escape_body(previous_pantograph)
+    self.class.escape_text(previous_pantograph)
   end
 
   def previous_pantograph
-    self.class.calculate_before(body)
+    self.class.calculate_before(text)
   end
 
   def next_escaped
-    self.class.escape_body(next_pantograph)
+    self.class.escape_text(next_pantograph)
   end
 
   def next_pantograph
-    self.class.calculate_after(body)
+    self.class.calculate_after(text)
   end
 
   def first_path
-    Rails.application.routes.url_helpers.pantograph_path(self.class.first_phrase)
+    Rails.application.routes.url_helpers.pantograph_path(self.class.first_text)
   end
 
   def last_path
-    Rails.application.routes.url_helpers.pantograph_path(self.class.last_phrase)
+    Rails.application.routes.url_helpers.pantograph_path(self.class.last_text)
   end
 
   def previous_path
@@ -221,15 +228,15 @@ class Pantograph < ActiveRecord::Base
   def sequence
     decimal = 0
     radix = self.class.alphabet.length
-    body.split('').reverse.each_with_index do |letter, position|
+    text.split('').reverse.each_with_index do |letter, position|
       decimal += (self.class.alphabet.index(letter.to_s) + 1) * (radix ** position)
     end
-    decimal -= self.class.skipped(body)
+    decimal -= self.class.skipped(text)
   end
 
   def percentage
-    #{ }"<span title=\"#{ ((sequence * 100) / self.class.total_phrases).to_f }%\">#{ (sequence * 100) / self.class.total_phrases }</span>"
-    (sequence * 100) / self.class.total_phrases
+    #{ }"<span title=\"#{ ((sequence * 100) / self.class.total_texts).to_f }%\">#{ (sequence * 100) / self.class.total_texts }</span>"
+    (sequence * 100) / self.class.total_texts
   end
 
   private
@@ -238,7 +245,7 @@ class Pantograph < ActiveRecord::Base
     authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id).each do |tweet|
     user = Pantographer.where(twitter_user_id: tweet.user.id).first_or_create
     create(
-          body: sanitize(tweet.text),
+          text: sanitize(tweet.text),
           external_created_at: tweet.created_at,
           tweet_id: tweet.id,
           pantographer_id: user.id

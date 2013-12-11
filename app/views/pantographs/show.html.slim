@@ -16,7 +16,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
     section#pantograph
       figure
         blockquote class=('tweeted' unless @pantograph.external_created_at.nil?)
-          = @pantograph.body
+          = @pantograph.text
         figcaption
           ul
             li#details
@@ -24,9 +24,11 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
                   ' #{ t('pantographs.index.scheduled_for', scheduled_for: @pantograph.scheduled_for).html_safe }
                 span#tweeted_at_by =t('pantographs.index.tweeted_at_by_html',
                     tweeted_at: link_to(timeago_tag(@pantograph.external_created_at), @pantograph.twitter_url),
-                    tweeted_by: link_to("@#{ @pantograph.pantographer.twitter_screen_name }", @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name })) unless @pantograph.external_created_at.nil?
+                    tweeted_by: link_to("@#{ @pantograph.pantographer.twitter_screen_name }", 
+                    @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name })) 
+                    unless @pantograph.external_created_at.nil?
             li#percentage= "#{ @pantograph.percentage }%"
-            li#length= "#{ @pantograph.body.length }/#{ Constant.pantography.max_length }"
+            li#length= "#{ @pantograph.text.length }/#{ Constant.pantography.max_length }"
 
       = render 'shared/sequential_nav', object: @pantograph
 

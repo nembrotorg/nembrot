@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210212322) do
+ActiveRecord::Schema.define(version: 20131211153241) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20131210212322) do
   end
 
   create_table "pantographs", force: true do |t|
-    t.string   "body",                limit: 140
+    t.string   "text",                limit: 140
     t.datetime "external_created_at"
     t.integer  "pantographer_id"
     t.datetime "created_at"

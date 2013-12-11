@@ -9,15 +9,14 @@ every 3.minutes do
   rake 'joegattnet:three_minutes'
 end
 
-every '*/10 * * * *' do
-  rake 'joegattnet:ten_minutes'
-end
+# every '*/10 * * * *' do
+#   rake 'joegattnet:ten_minutes'
+# end
 
 every '0 * * * *' do
   rake 'joegattnet:one_hour'
 end
 
-# Disabled until launch
-# every 1.day, at: '5:00 am' do
-#   rake '-s sitemap:refresh'
-# end
+every 1.day, at: '5:00 am' do
+  rake '-s sitemap:refresh'
+end

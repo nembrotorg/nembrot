@@ -1,5 +1,5 @@
 defaults: &defaults
-  admin_email: joe@nembrot.org
+  admin_email: joe.gatt@nembrot.org
   admin_name: Joe
   app_name: nembrot
   assets_version: 1.1
@@ -16,8 +16,8 @@ defaults: &defaults
   mailer:
     address: smtp.gmail.com
     port: 587
-    domain: mail.nembrot.org
-  repository: git://github.com/joegattnet/joegattnet_v3.git
+    domain: mail.joegatt.net
+  repository: git://github.com/nembrotorg/nembrot.git
   role_name: nembrot.org
   rtl_langs: 'ar fa'
   stream_binaries: false

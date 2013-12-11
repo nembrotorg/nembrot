@@ -18,6 +18,7 @@ describe Note do
   it { should respond_to(:feature) }
   it { should respond_to(:fx) }
   it { should respond_to(:hide) }
+  it { should respond_to(:introduction) }
   it { should respond_to(:is_embeddable_source_url) }
   it { should respond_to(:last_edited_by) }
   it { should respond_to(:latitude) }
@@ -181,13 +182,13 @@ describe Note do
         note.versions.last.sequence.should == note.versions.size
         note.versions.last.tag_list = %w(first_tag)
         note.versions.last.word_count.should == 2
-        note.versions.last.distance.should == 51
+        note.versions.last.distance.should == 26
       end
     end
   end
 
   describe '#has_instruction?' do
-    pending "Add tests"
+    pending 'Add tests'
   end
 
   describe '#has_instruction?' do
@@ -256,12 +257,12 @@ describe Note do
   end
 
   describe '#type' do
-    its(:type) { should == 'Note' } 
+    its(:type) { should == 'Note' }
     context 'when note is a citation' do
       before do
         note.is_citation = true
       end
-      its(:type) { should == 'Citation' } 
+      its(:type) { should == 'Citation' }
     end
   end
 
@@ -364,7 +365,7 @@ describe Note do
 
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
-    its (:fx) { should == 'abc_def' }
+    its (:fx) { should == ['abc', 'def'] }
   end
 
   describe '#looks_like_a_citation?' do
@@ -373,29 +374,29 @@ describe Note do
       note.is_citation.should be_false
     end
     it 'recognises one-line citations' do
-      note = FactoryGirl.create(:note, body: "\nquote:Plain text. -- Author 2000\n")
+      note = FactoryGirl.create(:note, body: "\n{quote:Plain text. -- Author 2000}\n")
       pending 'note.looks_like_a_citation?.should be_true'
     end
     it 'recognises two-line citations' do
-      note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\n")
+      note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\n")
       pending 'note.looks_like_a_citation?.should be_true'
     end
     context 'when a note merely contains a citation' do
       context 'when text precedes quote' do
         it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\n")
+          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\n")
           note.is_citation.should be_false
         end
       end
       context 'when text succeeds quote' do
         it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
           note.is_citation.should be_false
         end
       end
       context 'when text surrounds quote' do
         it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\nquote:Plain text.\n-- Author 2000\nPlain text.")
+          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
           note.is_citation.should be_false
         end
       end

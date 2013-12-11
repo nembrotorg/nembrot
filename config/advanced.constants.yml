@@ -39,7 +39,7 @@ defaults: &defaults
     instructions_unversion: __UNVERSION __NO_VERSION
     links_index_per_page: 60
     locale: en
-    monitoring_email: joe@nembrot.org
+    monitoring_email: joe.gatt@nembrot.org
     monitoring_name: Joe
     notes_index_per_page: 10
     share_native_or_iframes_or_none: native
@@ -51,7 +51,7 @@ defaults: &defaults
     truncate_after_regexp: --30--
     version_gap_distance: 100
     version_gap_minutes: 60
-    web_channels: facebook.com/joegattnet twitter.com/joegattnet github.com/joegattnet googleplus.com/joegattnet youtube.com/joegattnet vimeo.com/joegattnet soundcloud.com/joegattnet spotify.com/joegattnet
+    web_channels: facebook.com/nembrot twitter.com/nembrot github.com/nembrotorg/nembrot googleplus.com/nembrot
 
 development:
   <<: *defaults

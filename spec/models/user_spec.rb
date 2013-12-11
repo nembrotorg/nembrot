@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 describe User do
-  
+
   before { @user = FactoryGirl.create(:user, role: 'admin') }
 
   describe '#admin' do

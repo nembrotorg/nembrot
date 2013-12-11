@@ -2,14 +2,14 @@ module Commontator
   class SubscriptionsMailer < ActionMailer::Base
     include SharedHelper
     include ThreadsHelper
-  
+
     def comment_created(comment, recipients)
       setup_variables(comment, recipients)
 
-      mail :to => @to,
-           :bcc => @bcc,
-           :from => @from,
-           :subject => @subject
+      mail to: @to,
+           bcc: @bcc,
+           from: @from,
+           subject: @subject
     end
 
     protected
@@ -29,7 +29,7 @@ module Commontator
 
       @commontable_url = ApplicationController.commontable_url
 
-      params = Hash.new
+      params = {}
       params[:comment] = @comment
       params[:thread] = @thread
       params[:creator] = @creator
@@ -41,7 +41,7 @@ module Commontator
       params[:commontable_url] = @commontable_url
 
       @to = @config.subscription_email_to_proc.call(params)
-      @bcc = recipients.collect{|s| commontator_email(s)}
+      @bcc = recipients.map { |s| commontator_email(s) }
       @from = @config.subscription_email_from_proc.call(params)
       @subject = @config.subscription_email_subject_proc.call(params)
     end

@@ -78,8 +78,8 @@ describe EvernoteNote do
   describe 'scope :need_syncdown does not contain dirty notes retried too often' do
     before do
       @evernote_note = FactoryGirl.create(:evernote_note,
-                                        dirty: true,
-                                        attempts: Setting['advanced.attempts'].to_i + 1)
+                                          dirty: true,
+                                          attempts: Setting['advanced.attempts'].to_i + 1)
     end
     EvernoteNote.need_syncdown.last.should == nil
   end

@@ -13,27 +13,18 @@ class CitationsController < ApplicationController
     @total_count = all_citations.size
     @books_count = all_citations.keep_if { |citation| !citation.books.nil? } .size
     @links_count = all_citations.keep_if { |citation| !citation.links.nil? } .size
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @citations }
-    end
   end
 
   def show
     @citation = Note.publishable.citations.find(params[:id])
     @tags = @citation.tags
 
-    add_breadcrumb I18n.t('citations.show.title', :id => @citation.id), citation_path(@citation)
+    interrelated_notes_features_and_citations
 
-    respond_to do |format|
-      format.html
-      format.json { render :json => @citation }
-    end
+    add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t('citations.show.not_found', id: params[:id])
       redirect_to citations_path
   end
-
 end

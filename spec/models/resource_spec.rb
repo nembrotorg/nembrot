@@ -96,14 +96,14 @@ describe Resource do
 
   describe '#template_location' do
     @resource2 = FactoryGirl.build_stubbed(:resource, mime: 'png')
-    @resource2.template_location(16, 9) do 
+    @resource2.template_location(16, 9) do
       should == File.join(Rails.root, 'public', 'resources', 'templates', '1-16-9.png')
     end
   end
 
   describe '#cut_location' do
     @resource2 = FactoryGirl.build_stubbed(:resource, mime: 'png')
-    @resource2.cut_location(160, 90, 500, 1, 2, 3) do 
+    @resource2.cut_location(160, 90, 500, 1, 2, 3) do
       should == File.join(Rails.root, 'public', 'resources', 'cut', 'image-caption-160-90-500-1-2-3.png')
     end
   end

@@ -7,7 +7,7 @@ class EvernoteNote < ActiveRecord::Base
 
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
-  belongs_to :note 
+  belongs_to :note
   belongs_to :evernote_auth
 
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
@@ -19,7 +19,7 @@ class EvernoteNote < ActiveRecord::Base
   validates_associated :note, :evernote_auth
 
   def self.add_task(guid)
-    evernote_note = self.where(cloud_note_identifier: guid).first_or_create
+    evernote_note = where(cloud_note_identifier: guid).first_or_create
     evernote_note.evernote_auth_id = evernote_auth.id
     evernote_note.dirtify
   end

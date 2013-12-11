@@ -1680,7 +1680,11 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
+<<<<<<< HEAD
       - Wed, 04 Dec 2013 20:27:59 GMT
+=======
+      - Thu, 05 Dec 2013 19:16:09 GMT
+>>>>>>> upstream/staging
       Content-Type:
       - application/json
       Connection:
@@ -1691,16 +1695,173 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.59}]}}'
     http_version: 
+<<<<<<< HEAD
   recorded_at: Wed, 04 Dec 2013 20:27:58 GMT
 - request:
     method: get
     uri: https://api.twitter.com/1.1/users/show.json?user_id=237443494
+=======
+  recorded_at: Thu, 05 Dec 2013 19:16:09 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:34725/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 14:32:16 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '72381980'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:16 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session
+    body:
+      encoding: UTF-8
+      string: '{"desiredCapabilities":{"browserName":"firefox","version":"","platform":"ANY","javascriptEnabled":true,"cssSelectorsEnabled":true,"takesScreenshot":true,"nativeEvents":false,"rotatable":false}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '193'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '453'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:21 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"newSession","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":{"cssSelectorsEnabled":true,"browserName":"firefox","handlesAlerts":true,"javascriptEnabled":true,"nativeEvents":false,"platform":"Linux","rotatable":false,"takesScreenshot":true,"version":"25.0.1","webStorageEnabled":true,"applicationCacheEnabled":true,"databaseEnabled":true,"locationContextEnabled":true,"browserConnectionEnabled":true,"acceptSslCerts":true}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:21 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/url
+    body:
+      encoding: UTF-8
+      string: '{"url":"http://127.0.0.1:34725/users/sign_in"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '46'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '87'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"get","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":""}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[normalize-space(string(.))
+        = ''Email'']/@for)] | .//label[normalize-space(string(.)) = ''Email'']//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '547'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{c1a12888-438b-4715-911c-af622260a5b2}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/displayed
+>>>>>>> upstream/staging
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept:
       - application/json
+<<<<<<< HEAD
       User-Agent:
       - Twitter Ruby Gem 5.1.1
       Authorization:
@@ -1710,11 +1871,55 @@ http_interactions:
         oauth_version="1.0"
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+=======
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/enabled
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+>>>>>>> upstream/staging
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+<<<<<<< HEAD
       Cache-Control:
       - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
       Content-Length:
@@ -1761,4 +1966,4436 @@ http_interactions:
         href=\"http:\/\/nembrot.org\" rel=\"nofollow\"\u003ecatholicon140\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[],"symbols":[],"urls":[],"user_mentions":[]},"favorited":false,"retweeted":false,"lang":"und"},"contributors_enabled":false,"is_translator":false,"profile_background_color":"C0DEED","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_tile":false,"profile_image_url":"http:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_image_url_https":"https:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"default_profile":true,"default_profile_image":true,"following":false,"follow_request_sent":false,"notifications":false}'
     http_version: 
   recorded_at: Wed, 04 Dec 2013 20:28:28 GMT
+=======
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '102'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementEnabled","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '106'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"input"}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/attribute/type
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '108'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementAttribute","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"email"}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/attribute/readonly
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '105'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementAttribute","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":null}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/execute
+    body:
+      encoding: UTF-8
+      string: '{"script":"arguments[0].value = ''''","args":[{"ELEMENT":"{c1a12888-438b-4715-911c-af622260a5b2}"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '98'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '99'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"executeScript","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":null}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/value
+    body:
+      encoding: UTF-8
+      string: '{"value":["audie_effertz@heathcote.name"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '42'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '101'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"sendKeysToElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":""}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Password'' or
+        ./@name = ''Password'') or ./@placeholder = ''Password'') or ./@id = //label[normalize-space(string(.))
+        = ''Password'']/@for)] | .//label[normalize-space(string(.)) = ''Password'']//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '562'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{b01ee12c-dc52-4cdf-b7b4-b250d972ddf6}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:49 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/enabled
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '102'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementEnabled","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '106'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"input"}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/attribute/type
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '111'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementAttribute","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"password"}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/attribute/readonly
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '105'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementAttribute","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":null}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/execute
+    body:
+      encoding: UTF-8
+      string: '{"script":"arguments[0].value = ''''","args":[{"ELEMENT":"{b01ee12c-dc52-4cdf-b7b4-b250d972ddf6}"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '98'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '99'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"executeScript","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":null}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bb01ee12c-dc52-4cdf-b7b4-b250d972ddf6%7D/value
+    body:
+      encoding: UTF-8
+      string: '{"value":["changeme"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '22'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '101'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"sendKeysToElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":""}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//input[./@type = ''submit'' or ./@type
+        = ''reset'' or ./@type = ''image'' or ./@type = ''button''][((./@id = ''Sign
+        in'' or ./@value = ''Sign in'') or ./@title = ''Sign in'')] | .//input[./@type
+        = ''image''][./@alt = ''Sign in''] | .//button[(((./@id = ''Sign in'' or ./@value
+        = ''Sign in'') or normalize-space(string(.)) = ''Sign in'') or ./@title =
+        ''Sign in'')] | .//input[./@type = ''image''][./@alt = ''Sign in'']"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '418'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{ba91a45c-2a00-4af0-b1b8-7c90c54b81fc}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bba91a45c-2a00-4af0-b1b8-7c90c54b81fc%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bba91a45c-2a00-4af0-b1b8-7c90c54b81fc%7D/enabled
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '102'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementEnabled","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bba91a45c-2a00-4af0-b1b8-7c90c54b81fc%7D/click
+    body:
+      encoding: UTF-8
+      string: '{}'
+    headers:
+      Accept:
+      - application/json
+      Content-Length:
+      - '2'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '98'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"clickElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"ok"}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:50 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:50 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:51 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '148'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[{"ELEMENT":"{69252faf-28d5-4ceb-9ce2-80f99f612c52}"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '104'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"isElementDisplayed","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":true}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7B69252faf-28d5-4ceb-9ce2-80f99f612c52%7D/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '619'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementText","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":"home\nsign
+        in\nSign in\nEmail\nPassword\nRemember me\nsign in with facebook\nsign in
+        with twitter\nsign in with linkedin\nsign in with github\nsign in with gplus\nforgot
+        your password?\nsign up\nSign in\nhome\nnotes\ncitations\nbibliography\nlinks\ntags\nfacebook\ntwitter\ngithub\ngoogle+\nyoutube\nvimeo\nsoundcloud\nspotify\natom
+        feed\njoe@nembrot.org\nExcept as otherwise stated, all content on this site
+        is by Joe Gatt and licensed under a Creative Commons Attribution-Noncommercial-Share
+        Alike 3.0 Unported licence."}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: delete
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/cookie
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '100'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"deleteAllCookies","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":""}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/url
+    body:
+      encoding: UTF-8
+      string: '{"url":"file:/home/joegatt/.rvm/gems/ruby-2.0.0-p195@nembrot/gems/capybara-2.2.0/lib/capybara/empty.html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '106'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '87'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"get","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":""}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html/body/*"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '40'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:53 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/value
+    body:
+      encoding: UTF-8
+      string: '{"value":["karlee@lebsack.name"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1554'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"sendKeysToElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"fxdriver.preconditions.visible","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":8177},{"methodName":"DelayedCommand.prototype.checkPreconditions_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10814},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:54 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:56 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/value
+    body:
+      encoding: UTF-8
+      string: '{"value":["wrong@email.com"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '29'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1554'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:57 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"sendKeysToElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"fxdriver.preconditions.visible","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":8177},{"methodName":"DelayedCommand.prototype.checkPreconditions_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10814},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:57 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:32:59 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:32:59 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/value
+    body:
+      encoding: UTF-8
+      string: '{"value":["ruben.medhurst@effertz.com"]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '40'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1554'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:33:01 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"sendKeysToElement","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"fxdriver.preconditions.visible","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":8177},{"methodName":"DelayedCommand.prototype.checkPreconditions_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10814},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:33:01 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":".//*[self::input | self::textarea][not(./@type
+        = ''submit'' or ./@type = ''image'' or ./@type = ''radio'' or ./@type = ''checkbox''
+        or ./@type = ''hidden'' or ./@type = ''file'')][(((./@id = ''Email'' or ./@name
+        = ''Email'') or ./@placeholder = ''Email'') or ./@id = //label[contains(normalize-space(string(.)),
+        ''Email'')]/@for)] | .//label[contains(normalize-space(string(.)), ''Email'')]//.//*[self::input
+        | self::textarea][not(./@type = ''submit'' or ./@type = ''image'' or ./@type
+        = ''radio'' or ./@type = ''checkbox'' or ./@type = ''hidden'' or ./@type =
+        ''file'')]"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '565'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '96'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:33:02 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"findElements","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":0,"value":[]}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:33:02 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:7055/hub/session/c8676563-76b6-4694-8161-d4619d96a610/element/%7Bc1a12888-438b-4715-911c-af622260a5b2%7D/name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Connection:
+      - close
+      Content-Length:
+      - '1341'
+      Server:
+      - httpd.js
+      Date:
+      - Sun, 08 Dec 2013 14:33:02 GMT
+    body:
+      encoding: UTF-8
+      string: '{"name":"getElementTagName","sessionId":"c8676563-76b6-4694-8161-d4619d96a610","status":10,"value":{"message":"Element
+        not found in the cache - perhaps the page has changed since it was looked
+        up","stackTrace":[{"methodName":"fxdriver.cache.getElementAt","fileName":"resource://fxdriver/modules/web_element_cache.js","lineNumber":7584},{"methodName":"Utils.getElementAt","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":7197},{"methodName":"WebElement.getElementTagName","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10313},{"methodName":"DelayedCommand.prototype.executeInternal_/h","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10831},{"methodName":"DelayedCommand.prototype.executeInternal_","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10836},{"methodName":"DelayedCommand.prototype.execute/<","fileName":"file:///tmp/webdriver-profile20131208-21603-vb12g3/extensions/fxdriver@googlecode.com/components/command_processor.js","lineNumber":10778}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 14:33:02 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:53862/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 15:48:56 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '67823300'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 15:48:56 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:59040/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 15:55:25 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '75917240'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 15:55:25 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:43959/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 15:58:17 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '62066260'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 15:58:17 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:44505/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 15:58:54 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '76392280'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 15:58:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:36860/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 16:01:55 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '67972760'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 16:01:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:33245/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 16:06:30 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '60360680'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 16:06:30 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:52702/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 16:12:20 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '63798200'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 16:12:20 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:60422/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 16:25:44 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '69602800'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 16:25:44 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:41516/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.0.0/2013-05-14)
+      Date:
+      - Sun, 08 Dec 2013 16:28:18 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '71708320'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 16:28:18 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=My+Feature%3A+Chapter+1+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 08 Dec 2013 17:27:07 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '80'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":13.06}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 17:27:07 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=My+Feature%3A+Chapter+1+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/0.7.65
+      Date:
+      - Sun, 08 Dec 2013 17:28:07 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '80'
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":13.06}]}}'
+    http_version: 
+  recorded_at: Sun, 08 Dec 2013 17:28:06 GMT
+>>>>>>> upstream/staging
 recorded_with: VCR 2.8.0

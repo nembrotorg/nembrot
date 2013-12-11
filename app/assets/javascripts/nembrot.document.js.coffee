@@ -164,6 +164,13 @@ add_scrolling_class = () ->
     $('body').removeClass('scrolling')
   , 3000)
 
+load_user_menu = () ->
+  $.ajax
+    url: '/users/menu'
+    cache: false
+    success: (html) ->
+      $('#tools .user').html(html)
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -213,6 +220,8 @@ document_initializers = () ->
     window.mousemoving = setTimeout(->
       $('body').removeClass('mousemoving')
     , 3000)
+
+  load_user_menu()
 
   content_initializers()
 

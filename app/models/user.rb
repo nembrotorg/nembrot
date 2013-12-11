@@ -1,8 +1,11 @@
 # See http://www.codebeerstartups.com/2013/10/social-login-integration-with-all-the-popular-social-networks-in-ruby-on-rails/
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  include Mergeable
+
+  devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
+         :omniauthable
 
   validates_presence_of :email
 
@@ -33,13 +36,11 @@ class User < ActiveRecord::Base
     end
 
     user.password = Devise.friendly_token[0, 10] if user.password.blank?
-    user.name = auth.info.name                   unless auth.info.name.blank?
-    user.nickname = auth.info.nickname           unless auth.info.nickname.blank? 
-    user.first_name = auth.info.first_name       unless auth.info.first_name.blank?
-    user.last_name = auth.info.last_name         unless auth.info.last_name.blank?
-    user.location = auth.info.location           unless auth.info.location.blank?
-    user.email = auth.info.email                 unless auth.info.email.blank?
-    user.image = auth.info.image                 unless auth.info.image.blank?
+    attributes = ['name', 'nickname', 'first_name', 'last_name', 'location', 'email', 'image']
+
+    attributes.each do |attribute|
+      set_unless_blank(user[attribute], auth.info[attribute])
+    end
 
     auth.provider == 'twitter' ? user.save(validate: false) : user.save
 
@@ -50,7 +51,17 @@ class User < ActiveRecord::Base
     authorization.user
   end
 
+  def public_name
+     name || nickname || email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
+  end
+
   def admin?
     (role == 'admin')
+  end
+
+  protected
+
+  def confirmation_required?
+    true
   end
 end

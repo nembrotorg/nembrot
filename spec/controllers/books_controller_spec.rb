@@ -91,7 +91,7 @@ describe BooksController do
   end
 
   describe 'PUT update' do
-    before do 
+    before do
       @user = FactoryGirl.create(:user)
       sign_in @user
     end

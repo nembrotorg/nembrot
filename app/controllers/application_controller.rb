@@ -32,6 +32,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def interrelated_notes_features_and_citations
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
+  end
+
+  def note_tags(note)
+    @tags = note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
+  end
+
+  def note_map(note)
+    @map = mapify(note) if note.has_instruction?('map') && !note.inferred_latitude.nil?
+  end
+
+  def note_source(note)
+    @source = Note.where(title: note.title).where.not(lang: note.lang).first if note.has_instruction?('parallel')
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, alert: exception.message
   end

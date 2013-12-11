@@ -23,7 +23,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.distance > Setting['advanced.version_gap_distance'].to_i  },
+                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
                   unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
@@ -104,8 +104,9 @@ class Note < ActiveRecord::Base
 
   def clean_body_with_parentheses
     clean_body_with_instructions
-      .gsub(/^\W*?quote\:/, '')
-      .gsub(/^\w*?\:.*$/, '')
+      .gsub(/\{[a-z]*?\:.*?\} ?/, '')
+      .gsub(/\{\W*?quote\:/, '')
+      .gsub(/\} ?/, '')
       .gsub(/\n|\r/, ' ')
       .gsub(/\s+/, ' ')
   end
@@ -116,7 +117,7 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
-  # REVIEW: If we named this embeddable_source_url? then we can't do 
+  # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
     (source_url && source_url =~ /youtube|vimeo|soundcloud/)
@@ -124,7 +125,7 @@ class Note < ActiveRecord::Base
 
   def fx
     instructions = Setting['advanced.instructions_default'].split(/, ?| /) + Array(instruction_list)
-    fx = instructions.keep_if { |i| i =~ /__FX_/ } .join('_').gsub(/__FX_/, '').downcase
+    fx = instructions.keep_if { |i| i =~ /__FX_/ }.each { |i| i.gsub!(/__FX_/, '').downcase! }
     fx.empty? ? nil : fx
   end
 
@@ -134,15 +135,15 @@ class Note < ActiveRecord::Base
 
   # If the note has no geo information then try to infer it from the image
   def inferred_latitude
-    latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude 
+    latitude.nil? ? (resources.first.nil? ? nil : resources.first.latitude) : latitude
   end
 
   def inferred_longitude
-    longitude.nil? ? (resources.first.nil? ? nil : resources.first.longitude) : longitude 
+    longitude.nil? ? (resources.first.nil? ? nil : resources.first.longitude) : longitude
   end
 
   def inferred_altitude
-    altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude 
+    altitude.nil? ? (resources.first.nil? ? nil : resources.first.altitude) : altitude
   end
 
   def main_title
@@ -160,6 +161,26 @@ class Note < ActiveRecord::Base
   #   end
   #   all_related_notes
   # end
+
+  def get_feature_name
+    title_candidate = main_title
+    title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
+    title_candidate = main_title.split(' ').last if has_instruction?('feature_last')
+    title_candidate
+  end
+
+  def get_feature_id
+    feature_id_candidate = title.scan(/^([0-9a-zA-Z]+)\. /).flatten.first
+    feature_id_candidate = subtitle unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
+    # sequence_feature_id = id.to_s if feature_id_candidate.blank?
+    feature_id_candidate
+  end
+
+  def get_real_distance
+    # Compare proposed version with saved version
+    previous_title_and_body = body_was.nil? ? '' : title_was + body_was
+    Levenshtein.distance(previous_title_and_body, title + body)
+  end
 
   private
 
@@ -269,25 +290,21 @@ class Note < ActiveRecord::Base
   end
 
   def update_distance
-    previous_title_and_body = body_was.nil? ? '' : title_was + body_was
+    # Here we can't use body_was and title_was because we want to compart to the last _saved_ version
+    previous_title_and_body = ''
+    unless versions.empty?
+      previous_version = versions.last.reify
+      previous_title_and_body = previous_version.title + previous_version.body
+    end
     self.distance = Levenshtein.distance(previous_title_and_body, title + body)
   end
 
-  def update_feature_id
-    feature_id_candidate = title.scan(/^([0-9a-zA-Z]+)\. /).flatten.first
-    feature_id_candidate = subtitle.parameterize unless !feature_id_candidate.blank? || subtitle.blank? || has_instruction?('full_title')
-    # sequence_feature_id = id.to_s if feature_id_candidate.blank?
-    self.feature_id = feature_id_candidate.parameterize unless feature_id_candidate.nil?
-  end
-
   def update_feature
-    self.feature = has_instruction?('feature') ? get_feature_name : nil
+    self.feature = has_instruction?('feature') ? get_feature_name.parameterize : nil
   end
 
-  def get_feature_name
-    title_candidate = main_title
-    title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
-    title_candidate = main_title.split(' ').last if has_instruction?('feature_last')
-    title_candidate.parameterize unless title_candidate.nil?
+  def update_feature_id
+    feature_id_candidate = get_feature_id
+    self.feature_id = get_feature_id.parameterize unless feature_id_candidate.nil?
   end
 end

@@ -368,7 +368,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        pending "page.should have_text(@reference.body)"
+        pending 'page.should have_text(@reference.body)'
       end
     end
 
@@ -401,7 +401,7 @@ describe 'Notes' do
       end
     end
 
-    context 'when a note has a parallel source text' do
+    context 'when a note has a collated parallel source text' do
       before do
         @note.update_attributes(active: true, instruction_list: ['__PUBLISH', '__PARALLEL', '__COLLATE'])
         @source = FactoryGirl.create(:note, body: 'Fixed Note Inhalte verwendet werden, um mehrere Anrufe auf VCR verhindern.', instruction_list: ['__LANG_DE'], title: @note.title)

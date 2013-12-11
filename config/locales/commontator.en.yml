@@ -19,5 +19,5 @@ en:
           other: '%{count} comments'
         closed_suffix: ' (closed)'
         closed: 'Comments are closed.'
-        log_in: 'Log in to add a comment'
+        sign_in: 'Sign in to add a comment'
         new_comment: 'Add comment'

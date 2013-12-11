@@ -204,7 +204,11 @@ http_interactions:
       Server:
       - nginx/0.7.65
       Date:
+<<<<<<< HEAD
       - Wed, 04 Dec 2013 20:19:09 GMT
+=======
+      - Thu, 05 Dec 2013 19:15:48 GMT
+>>>>>>> upstream/staging
       Content-Type:
       - application/json
       Connection:
@@ -215,5 +219,9 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.59}]}}'
     http_version: 
+<<<<<<< HEAD
   recorded_at: Wed, 04 Dec 2013 20:19:09 GMT
+=======
+  recorded_at: Thu, 05 Dec 2013 19:15:48 GMT
+>>>>>>> upstream/staging
 recorded_with: VCR 2.8.0

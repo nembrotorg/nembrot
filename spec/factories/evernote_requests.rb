@@ -18,7 +18,9 @@ FactoryGirl.define do
         })
       })
     cloud_note_data OpenStruct.new({
-      content: 'Plain text.'
+      content: 'Plain text.',
+      created: 100.minutes.ago.to_time.to_i * 1000,
+      updated: 10.minutes.ago.to_time.to_i * 1000
     })
     cloud_note_tags %w(__PUBLISH)
     evernote_note

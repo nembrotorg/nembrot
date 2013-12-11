@@ -13,7 +13,7 @@ Nembrot::Application.routes.draw do
 
   put 'bibliography/update' => 'books#update', as: :update_book
   get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
-  get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|all|citable|cited|missing_metadata/
+  get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/
   get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
   get 'bibliography(/p/:page)' => 'books#index', as: :books
 
@@ -29,7 +29,8 @@ Nembrot::Application.routes.draw do
   get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
   get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
   get 'notes/map' => 'notes#map'
-  get 'notes(/p/:page)' => 'notes#index', as: :notes
+  get 'notes/p/:page' => 'notes#index'
+  get 'notes' => 'notes#index', as: :notes
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings
@@ -47,6 +48,8 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
   get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
   get 'tags(/p/:page)' => 'tags#index', as: :tags
+
+  get 'users/menu' => 'users#menu'
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 

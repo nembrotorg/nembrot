@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def menu
+    render partial: 'user_tools'
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
@@ -28,6 +32,6 @@ class UsersController < ApplicationController
   end
 
   def validate_authorization_for_user
-     redirect_to root_path unless @user == current_user
+    redirect_to root_path unless @user == current_user
   end
 end

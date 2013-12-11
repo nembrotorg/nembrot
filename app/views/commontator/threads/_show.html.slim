@@ -26,7 +26,7 @@ div id="thread_#{ thread.id.to_s }"
     - if thread.is_closed?
       = t('.closed')
     - elsif !user
-      = link_to t('.log_in'), new_user_session_path
+      = link_to t('.sign_in'), new_user_session_path
     - else
       = link_to t('.new_comment'), commontator.new_thread_comment_path(thread), remote: true
 

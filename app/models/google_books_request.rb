@@ -25,7 +25,7 @@ class GoogleBooksRequest
 
     # GoogleBooks does not return nil when a book is not found so we need to verify that the data returned is
     # relevant
-    if volume_info['industryIdentifiers'].collect { |id| id['identifier'] }.include? isbn
+    if volume_info['industryIdentifiers'].map { |id| id['identifier'] }.include? isbn
       metadata['google_books_id']         = response.try { |r| r['id'] }
       metadata['google_books_embeddable'] = response.try { |r| r['accessInfo']['embeddable'] }
       metadata['title']                   = volume_info.try { |v| v['title'].titlecase }

@@ -6,7 +6,7 @@ describe 'Users' do
     @user = FactoryGirl.create(:user)
   end
 
-  describe 'sign in page' do
+  describe 'sign in page', js: true do
     before do
       visit new_user_session_path
     end

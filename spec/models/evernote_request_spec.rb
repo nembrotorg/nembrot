@@ -12,6 +12,17 @@ describe EvernoteNote do
 
   describe '#update_necessary?' do
 
+    describe '#calculate_updated_at' do
+      context 'when a note is new' do
+        # OPTIMIZE: This test is at the top to ensure that the note is new
+        pending "its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.updated / 1000) }"
+      end
+      context 'when a note is new' do
+        before { Setting['advanced.always_reset_on_create'] = 'true' }
+        pending "its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.created / 1000) }"
+      end
+    end
+
     context 'when note is in a required notebook' do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
@@ -32,7 +43,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending '@evernote_note.should == nil'
+        @evernote_note.should be_nil
       end
     end
 
@@ -54,7 +65,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending '@evernote_note.should == nil'
+        @evernote_note.should be_nil
       end
     end
 
@@ -65,7 +76,7 @@ describe EvernoteNote do
       end
       its(:update_necessary?) { should be_false }
       it 'destroys evernote_note' do
-        pending '@evernote_note.should == nil'
+        @evernote_note.should be_nil
       end
     end
   end
@@ -81,15 +92,12 @@ describe EvernoteNote do
 
     context 'when note content contains a conflict warning' do
       before do
-        @evernote_request.cloud_note_data[:content] = 'Plain text.<hr/>Conflicting modification on 01.01.2001'
+        @evernote_request.cloud_note_data.content = 'Plain text.<hr/>Conflicting modification on 01.01.2001'
       end
       # These tests are flawed. Content is not being changed at all.
-      pending 'its(:note_is_not_conflicted?) { should be_false }'
+      # @evernote_request.cloud_note_data[:content].should == 'xxx'
+      pending "its(:note_is_not_conflicted?) { should be_false }"
     end
-  end
-
-  describe '#calculate_updated_at' do
-    pending 'Add this test.'
   end
 
   describe '#populate' do

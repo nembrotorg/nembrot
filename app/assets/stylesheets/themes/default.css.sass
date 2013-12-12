@@ -43,6 +43,8 @@ a
   //   padding-left: 5px
   //   +icon-link-ext
   //   +icon-medium
+
+nav a
   &[href*=pdf]
     +body-font-citation
     &:before
@@ -224,6 +226,11 @@ table
 .instruction
   font-style: italic
 
+footer
+  nav
+    ul
+      margin-bottom: 0
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Document
@@ -243,9 +250,9 @@ ol, ul, .statistics, iframe, table, form, fieldset
   margin-bottom: $line-height
   overflow: hidden
 
-ol, ul, .statistics, iframe, table, form, fieldset
-  ol, ul, .statistics, iframe, table, form, fieldset
-    margin-bottom: 0  
+// ol, ul, .statistics, iframe, table, form, fieldset
+//  ol, ul, .statistics, iframe, table, form, fieldset
+//    margin-bottom: 0  
 
 .breadcrumb
   +arrow-links
@@ -378,6 +385,7 @@ iframe
 .notes li, .citations li, .map-infowindow
   +clearfix
   display: block
+  margin-bottom: $line-height
   &:last-child
     margin-bottom: 0
 
@@ -483,6 +491,7 @@ footer
       +body-font-citation
       margin: ($line-height / 2) $text-indent
     section
+      margin-bottom: $line-height
       h2
         color: $body-font-color
         display: block
@@ -937,10 +946,10 @@ section.ins-section, article.ins-section
           font:
             size: $small-font-size + 1px
       .side-annotations
+        position: relative
         ol
           display: block
           padding-left: 0
-          position: relative
           li
             +font-color($headline-font-color, $headline-font-color)
             display: block
@@ -1130,6 +1139,11 @@ section.ins-section, article.ins-section
     border: none
     padding-left: $text-indent / 2
     width: space(2)
+
+  footer
+    margin-bottom: 0
+    small
+      margin-bottom: 0
 
 // Screen > 1600px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -65,9 +65,7 @@ describe 'Books' do
     it 'can be updated' do
       fill_in 'Author', with: 'New Author'
       click_button('Save')
-      # REVIEW: CacheableFlash offers test helpers but they don't work here
-      #  See: https://github.com/pivotal/cacheable-flash
-      pending "flash_cookie['notice'].should eq(I18n.t('books.edit.success', title: @book.title))"
+      page.should have_content(I18n.t('books.edit.success', title: @book.title))
       @book.reload
       @book.author.should eq('New Author')
     end
@@ -75,7 +73,7 @@ describe 'Books' do
       fill_in 'ISBN 10', with: ''
       fill_in 'ISBN 13', with: ''
       click_button('Save')
-      pending "flash_cookie['error'].should eq(I18n.t('books.edit.failure'))"
+      page.should have_content(I18n.t('books.edit.failure'))
       @book.reload
       @book.isbn_10.should_not eq('')
       @book.isbn_13.should_not eq('')

@@ -7,12 +7,11 @@ update_titles = () ->
     document.title = title_data
 
 track_page_view = () ->
-  _gaq = window._gaq ?= []
-  _gaq.push ['_trackPageview', location.pathname]
+  ga('send', 'pageview', location.pathname)
 
 track_outbound_link = (link, category, action) ->
   try
-    _gaq.push ['_trackEvent', category, action, link]
+    ga('send', 'event', category, action, link)
 
   setTimeout (->
     document.location.href = link
@@ -20,7 +19,7 @@ track_outbound_link = (link, category, action) ->
 
 track_social = (link, category, action) ->
   try
-    _gaq.push ['_trackSocial', category, action, location.pathname]
+    ga('send', 'social', category, action, location.pathname)
 
   setTimeout (->
     document.location.href = link
@@ -28,11 +27,11 @@ track_social = (link, category, action) ->
 
 track_download = (link, action, which) ->
   try
-    _gaq.push ['_trackEvent', 'Downloads', action, link, which]
+    ga('send', 'event', 'Downloads', action, link, which)
 
 track_comment = (action) ->
   try
-    _gaq.push ['_trackEvent', 'Comments', action, location.pathname]
+    ga('send', 'event', 'Comments', action, link, location.pathname)
 
 window.Nembrot.track_comment = track_comment
 
@@ -199,6 +198,10 @@ document_initializers = () ->
 
   $(document).on 'click', '.share a[href*=facebook]', ->
     track_social(@href, 'facebook', 'like')
+    false
+
+  $(document).on 'click', '.share a[href*=google]', ->
+    track_social(@href, 'google+', 'share')
     false
 
   $(document).on 'click', '.share a[href*=twitter]', ->

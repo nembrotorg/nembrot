@@ -4,7 +4,7 @@ defaults: &defaults
   evernote_server: https://sandbox.evernote.com
   disqus_public_key: qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLHfq
   facebook_app_id: 265964700218227
-  google_analytics_key: 'UA-1346274-1'
+  google_analytics_key: 'UA-16898823-2'
   twitter_user_name: nembrot
   books:
     google_books:
@@ -37,3 +37,4 @@ staging:
 production:
   <<: *defaults
   evernote_server: https://www.evernote.com
+  google_analytics_key: 'UA-16898823-3'

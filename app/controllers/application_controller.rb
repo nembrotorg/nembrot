@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :add_home_breadcrumb
   before_filter :get_promoted_notes
   before_filter :get_sections
+  before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
@@ -47,6 +48,10 @@ class ApplicationController < ActionController::Base
 
   def note_source(note)
     @source = Note.where(title: note.title).where.not(lang: note.lang).first if note.has_instruction?('parallel')
+  end
+
+  def set_public_cache_headers
+    expires_in Constant.cache_minutes.minutes, public: true
   end
 
   rescue_from CanCan::AccessDenied do |exception|

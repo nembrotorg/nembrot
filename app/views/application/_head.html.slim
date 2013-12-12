@@ -11,7 +11,7 @@ head
   - if Constant.facebook_app_id
     meta property="fb:app_id" content="#{ Constant.facebook_app_id }"
 
-  = csrf_meta_tag
+  -# = csrf_meta_tag
 
   = auto_discovery_link_tag :atom, notes_url(:atom), title: Setting['channel.name']
 

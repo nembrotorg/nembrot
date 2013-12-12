@@ -4,6 +4,7 @@ defaults: &defaults
   app_name: nembrot
   assets_version: 1.1
   blank_image_location: '/public/resources/cut/blank.png'
+  cache_minutes: 10
   daemon_frequency: 30
   detect_language_sample_length: 250
   evernote_errors: ['', 'UNKNOWN', 'BAD_DATA_FORMAT', 'PERMISSION_DENIED', 'INTERNAL_ERROR', 'DATA_REQUIRED', 'LIMIT_REACHED', 'QUOTA_REACHED', 'INVALID_AUTH', 'AUTH_EXPIRED', 'DATA_CONFLICT', 'ENML_VALIDATION', 'SHARD_UNAVAILABLE', 'LEN_TOO_SHORT', 'LEN_TOO_LONG', 'TOO_FEW', 'TOO_MANY', 'UNSUPPORTED_OPERATION']

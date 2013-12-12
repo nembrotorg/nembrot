@@ -4,7 +4,7 @@ defaults: &defaults
   evernote_server: https://sandbox.evernote.com
   disqus_public_key: CHANGE_ME
   facebook_app_id: 142214389156795
-  google_analytics_key: 'UA-1346274-1'
+  google_analytics_key: 'UA-16898823-2'
   twitter_user_name: joegattnet
   books:
     google_books:
@@ -24,7 +24,6 @@ defaults: &defaults
       path: '/webservices/catalog/content/isbn/'
       active?: true
 
-development:
   <<: *defaults
 
 test:
@@ -37,3 +36,4 @@ staging:
 production:
   <<: *defaults
   evernote_server: https://www.evernote.com
+  google_analytics_key: 'UA-16898823-1'

@@ -28,6 +28,7 @@ class PantographsController < ApplicationController
     @pantographs = Pantograph.limit(Constant.pantography.timeline_length)
     @note = Note.publishable.tagged_with('pantography').tagged_with('__COPY', on: :instructions).first
     @tags = @note.tags
+    interrelated_notes_features_and_citations
     commontator_thread_show(@note)
   end
 end

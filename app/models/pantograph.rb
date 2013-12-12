@@ -217,7 +217,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def twitter_url
-    "http://twitter.com/#{ pantographer.twitter_screen_name }/status/#{ tweet_id }"
+    pantographer.nil? ? '' : "http://twitter.com/#{ pantographer.twitter_screen_name }/status/#{ tweet_id }"
   end
 
   def scheduled_for

@@ -25,8 +25,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
                 span#tweeted_at_by =t('pantographs.index.tweeted_at_by_html',
                     tweeted_at: link_to(timeago_tag(@pantograph.external_created_at), @pantograph.twitter_url),
                     tweeted_by: link_to("@#{ @pantograph.pantographer.twitter_screen_name }", 
-                    @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name })) 
-                    unless @pantograph.external_created_at.nil?
+                    @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name }))                     unless @pantograph.external_created_at.nil?
             li#percentage= "#{ @pantograph.percentage }%"
             li#length= "#{ @pantograph.text.length }/#{ Constant.pantography.max_length }"
 
@@ -35,7 +34,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
       section#text.regular
-        = bodify(@note.body, @note.books, @note.links)
+        = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
         aside
 

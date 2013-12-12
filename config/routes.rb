@@ -26,11 +26,11 @@ Nembrot::Application.routes.draw do
   get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
   get 'links(/p/:page)' => 'links#index', as: :links
 
-  get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
-  get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
-  get 'notes/map' => 'notes#map'
-  get 'notes/p/:page' => 'notes#index'
-  get 'notes' => 'notes#index', as: :notes
+  get 'texts/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'texts/:id' => 'notes#show', id: /\d+/, as: :note
+  get 'texts/map' => 'notes#map', as: :notes_map
+  get 'texts/p/:page' => 'notes#index'
+  get 'texts' => 'notes#index', as: :notes
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings

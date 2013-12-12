@@ -26,7 +26,7 @@ en:
       full: "Text %{id} v%{sequence}"
       not_found: "Text %{id} v%{sequence} is not available."
     word_count: '%{word_count} words, <span title="Damerau-Levenshtein edit distance between this version and the previous one">%{distance} changes</span>'
-    untitled_synonyms: ['Untitled', 'Untitled Text', 'New text']
+    untitled_synonyms: ['Untitled', 'Untitled Note', 'New Note']
     sections:
       annotations: 'Annotations'
       downloads: 'Downloads'

@@ -14,7 +14,8 @@ module Evernotable
   end
 
   def user_nickname
-    evernote_auth.nickname
+    # REVIEW: Get the username from the webhook request
+    evernote_auth.nil? ? '' : evernote_auth.nickname
   end
 
   def logger_details

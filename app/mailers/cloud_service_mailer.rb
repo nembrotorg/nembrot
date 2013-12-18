@@ -3,7 +3,7 @@ class CloudServiceMailer < ActionMailer::Base
 
   def auth_not_found(provider)
     @provider = provider.titlecase
-    @url = "#{root_url}auth/#{ provider }"
+    @url = "#{root_url}users/auth/#{ provider }"
 
     mail(
       to: Setting['advanced.monitoring_email'],

@@ -8,19 +8,16 @@ class EvernoteNote < ActiveRecord::Base
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
   belongs_to :note
-  belongs_to :evernote_auth
 
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
   #  inflate the id number of each 'successful' note.
-  validates :evernote_auth, presence: true
   validates :cloud_note_identifier, presence: true, uniqueness: { scope: :evernote_auth_id }
 
-  validates_associated :note, :evernote_auth
+  validates_associated :note
 
   def self.add_task(guid)
     evernote_note = where(cloud_note_identifier: guid).first_or_create
-    evernote_note.evernote_auth_id = evernote_auth.id
     evernote_note.dirtify
   end
 
@@ -43,11 +40,11 @@ class EvernoteNote < ActiveRecord::Base
     evernote_notes.notes.each { |evernote_note| EvernoteNote.add_task(evernote_note.guid) }
   end
 
-  private
-
-  def self.evernote_auth
-    EvernoteAuth.first_or_create
+  def evernote_auth
+    EvernoteAuth.new
   end
+
+  private
 
   def guid
     cloud_note_identifier

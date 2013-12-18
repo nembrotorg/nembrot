@@ -484,8 +484,6 @@ DEPENDENCIES
   meta-tags
   mini_magick
   nokogiri
-  oauth
-  omniauth
   omniauth-evernote
   omniauth-facebook
   omniauth-github

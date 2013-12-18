@@ -62,8 +62,12 @@ describe Pantograph do
     specify { Pantograph.sanitize(Constant.pantography.alphabet_escaped).should eq(Pantograph.alphabet) }
   end
 
-  describe '.unspam' do
-    Pantograph.unspam('#hashtag @mention #more @more').should == 'Hhashtag Amention Hmore Amore'
+  describe '.unspamify' do
+    Pantograph.unspamify('#hashtag @mention #more @more').should == 'Hhashtag Amention Hmore Amore'
+  end
+
+  describe '.spamify' do
+    Pantograph.spamify('Hhashtag Amention Hmore Amore').should == '#hashtag @mention #more @more'
   end
 
   describe '.previous_pantograph' do

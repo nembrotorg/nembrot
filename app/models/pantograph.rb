@@ -50,14 +50,18 @@ class Pantograph < ActiveRecord::Base
     (total_texts / (((60 * 60) / Constant.pantography.frequency)  * 24 * Constant.pantography.sidereal_year_in_days));
   end
 
-  def self.sanitize(text)
-    text.truncate(Constant.pantography.max_length, omission: '')
-        .gsub(/"|“|”|\‘|\’/, "'")
-        .gsub(/\&/, '+')
-        .gsub(/\[\{/, '(')
-        .gsub(/\]\}/, ')')
-        .downcase
-        .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
+  def self.sanitize(text, pantographer_id = nil)
+    text = text.truncate(Constant.pantography.max_length, omission: '')
+               .gsub(/"|“|”|\‘|\’/, "'")
+               .gsub(/\&/, '+')
+               .gsub(/\[\{/, '(')
+               .gsub(/\]\}/, ')')
+               .downcase
+               .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
+    if !pantography_twitter_user.blank? && pantographer_id == pantography_twitter_user.id
+      text = self.spamify(text)
+    end
+    text
   end
 
   def self.publish_next
@@ -72,7 +76,7 @@ class Pantograph < ActiveRecord::Base
   def self.tweet(text)
     # Replace @ and # characters before tweeting to avoid spamming other users
     #  These characters are unchanged as far as Pantography itself goes; they are stored intact.
-    text = self.unspam(text)
+    text = self.unspamify(text)
     tweet = authenticated_twitter_client.update(text)
 
     if tweet.text == text
@@ -91,8 +95,12 @@ class Pantograph < ActiveRecord::Base
       end
   end
 
-  def self.unspam(text)
+  def self.unspamify(text)
     text.gsub(/@/, 'A').gsub(/#/, 'H')
+  end
+
+  def self.spamify(text)
+    text.gsub(/A/, '@').gsub(/H/, '#')
   end
 
   def self.report_error(error_message)
@@ -245,7 +253,7 @@ class Pantograph < ActiveRecord::Base
     authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id).each do |tweet|
     user = Pantographer.where(twitter_user_id: tweet.user.id).first_or_create
     create(
-          text: sanitize(tweet.text),
+          text: sanitize(tweet.text, user.id),
           external_created_at: tweet.created_at,
           tweet_id: tweet.id,
           pantographer_id: user.id

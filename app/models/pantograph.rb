@@ -58,7 +58,7 @@ class Pantograph < ActiveRecord::Base
                .gsub(/\]\}/, ')')
                .downcase
                .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
-    if !pantography_twitter_user.blank? && pantographer_id == pantography_twitter_user.id
+    if pantographer_id == self.pantography_twitter_user.id
       text = self.spamify(text)
     end
     text

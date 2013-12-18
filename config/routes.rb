@@ -8,9 +8,6 @@ Nembrot::Application.routes.draw do
 
   root to: 'home#index'
 
-  get 'auth/failure' => 'evernote_auths#auth_failure'
-  get 'auth/:provider/callback' => 'evernote_auths#auth_callback'
-
   put 'bibliography/update' => 'books#update', as: :update_book
   get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
   get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/
@@ -50,11 +47,11 @@ Nembrot::Application.routes.draw do
   get 'tags(/p/:page)' => 'tags#index', as: :tags
 
   get 'users/menu' => 'users#menu'
+  get 'users/signed_in' => 'users#menu', as: :signed_in
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
   resources :evernote_notes, only: [:add_evernote_task]
-  resources :evernote_auths, only: [:auth_callback, :auth_failure]
 
   # Custom routes
   # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version

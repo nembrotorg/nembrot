@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131211153241) do
+ActiveRecord::Schema.define(version: 20131218111703) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20131211153241) do
     t.string   "secret"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "extra"
+    t.text     "key"
   end
 
   create_table "books", force: true do |t|
@@ -107,13 +109,6 @@ ActiveRecord::Schema.define(version: 20131211153241) do
   end
 
   add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true
-
-  create_table "evernote_auths", force: true do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.text     "auth"
-    t.text     "encrypted_auth"
-  end
 
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"

@@ -1,0 +1,14 @@
+- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title
+
+- add_breadcrumb t('.title'), new_user_session_path
+
+div class="#{ controller.controller_name }-#{ controller.action_name }"
+
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+
+  p = t('.body')
+
+  = render 'devise/shared/links', action: t('.title')

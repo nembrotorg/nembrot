@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  has_many :authorizations
+  has_many :authorizations, dependent: :destroy
 
   acts_as_commontator
 
@@ -25,11 +25,13 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth, current_user)
-
-    authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s, token: auth.credentials.token, secret: auth.credentials.secret).first_or_initialize
+    authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
+    authorization.token = auth.credentials.token
+    authorization.secret = auth.credentials.secret
 
     if authorization.user.blank?
-      user = current_user.nil? ? User.where('email = ?', auth['info']['email']).first : current_user
+      # Wouldn't this find any other user with blank email?????
+      user = current_user.nil? ? User.where('email = ?', auth['info']['email']).first_or_initialize : current_user
       user = User.new if user.blank?
     else
       user = authorization.user
@@ -42,17 +44,27 @@ class User < ActiveRecord::Base
       set_unless_blank(user[attribute], auth.info[attribute])
     end
 
-    auth.provider == 'twitter' ? user.save(validate: false) : user.save
+    user.confirmed_at = Time.now if user.confirmed_at.blank?
+    ['evernote', 'twitter'].include?(auth.provider) ? user.save(validate: false) : user.save
 
     authorization.nickname = auth.info.nickname
     authorization.user_id = user.id
-    authorization.save
 
-    authorization.user
+    # Save extra so that we can use keys to sync later
+    #  If secret provided matches those in settings, set user role to secret
+    if auth.provider == 'evernote'
+      authorization.extra = auth.extra
+      authorization.key = auth.extra.access_token.consumer.key
+      user.role == 'admin' if auth.extra.access_token.consumer.secret == Secret.auth.evernote.secret
+    end
+
+    authorization.save!
+    user
   end
 
   def public_name
-     name || nickname || email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
+     name || nickname || ''
+     # email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
   end
 
   def admin?

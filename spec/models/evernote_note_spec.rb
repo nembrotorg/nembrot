@@ -6,8 +6,7 @@ describe EvernoteNote do
   before do
     @evernote_note = FactoryGirl.build_stubbed(
       :evernote_note,
-      note: note,
-      evernote_auth: evernote_auth)
+      note: note)
   end
 
   subject { @evernote_note }
@@ -27,14 +26,11 @@ describe EvernoteNote do
   it { should respond_to(:increment_attempts) }
 
   it { should belong_to(:note) }
-  it { should belong_to(:evernote_auth) }
 
   its(:note) { should == note }
-  its(:evernote_auth) { should == evernote_auth }
 
   it { should validate_presence_of(:cloud_note_identifier) }
   # it { should validate_presence_of(:note) }
-  it { should validate_presence_of(:evernote_auth) }
 
   it do
     should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:evernote_auth_id)

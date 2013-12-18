@@ -251,6 +251,9 @@ en:
       new:
         title: 'Sign in'
         submit: 'Sign in'
+      show:
+        title: 'Signed in'
+        body: 'You are signed in.'
     links:
       no_confirmation: "Didn't receive confirmation instructions?"
       no_unlock: "Didn't receive unlock instructions?"

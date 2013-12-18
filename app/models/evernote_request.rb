@@ -177,7 +177,7 @@ class EvernoteRequest
     if cloud_resources
       cloud_resources.each_with_index do |cloud_resource, index|
 
-        resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_create
+        resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
         caption = captions[index] ? captions[index][0] : ''
         description = descriptions[index] ? descriptions[index][0] : ''

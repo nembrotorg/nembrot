@@ -24,6 +24,7 @@ defaults: &defaults
       path: '/webservices/catalog/content/isbn/'
       active?: true
 
+development:
   <<: *defaults
 
 test:

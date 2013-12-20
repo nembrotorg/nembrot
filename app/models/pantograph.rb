@@ -51,17 +51,14 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.sanitize(text, pantographer_id = nil)
-    text = text.truncate(Constant.pantography.max_length, omission: '')
-               .gsub(/"|“|”|\‘|\’/, "'")
-               .gsub(/\&/, '+')
-               .gsub(/\[\{/, '(')
-               .gsub(/\]\}/, ')')
-               .downcase
-               .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
-    if pantographer_id == self.pantography_twitter_user.id
-      text = self.spamify(text)
-    end
-    text
+    text = self.spamify(text) if pantographer_id == self.pantography_twitter_user.id
+    text.truncate(Constant.pantography.max_length, omission: '')
+        .gsub(/"|“|”|\‘|\’/, "'")
+        .gsub(/\&/, '+')
+        .gsub(/\[\{/, '(')
+        .gsub(/\]\}/, ')')
+        .downcase
+        .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
   end
 
   def self.publish_next

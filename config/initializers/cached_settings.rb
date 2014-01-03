@@ -4,7 +4,7 @@ module RailsSettings
     after_create :rewrite_cache
 
     def rewrite_cache
-      Rails.cache.write("#{ self.cache_name }:#{ self.var }", self.value)
+      Rails.cache.write("#{ self.class.cache_name }:#{ self.var }", self.value)
     end
     
     after_destroy { |record| Rails.cache.delete("{ self.cache_name }:#{ record.var }") }
@@ -26,7 +26,7 @@ module RailsSettings
     def self.cache_name
       # Rather than getting the app name, get the root folder name so that
       #  discrete instances of an application do not collide
-      "#{ File.basename(Rails.root.to_s) }-#{ Rails.env }-settings"
+      "#{ File.basename(Rails.root.to_s) }_#{ Rails.env }_settings"
     end
   end
 end

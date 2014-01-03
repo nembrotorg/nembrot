@@ -5,7 +5,7 @@ set :output, "#{ path }/log/sync.log"
 #  require 'rubygems'
 #  every Setting['advanced.synch_every_minutes'].minutes do
 
-every 1.minute do
+every 3.minutes do
   rake 'sync:all'
 end
 

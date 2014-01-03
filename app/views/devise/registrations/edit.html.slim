@@ -1,7 +1,7 @@
 - document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
-- add_breadcrumb t('.title'), new_user_registration_path
+- add_breadcrumb t('.title'), edit_user_registration_path
 
 div class="#{ controller.controller_name }-#{ controller.action_name }"
 
@@ -24,10 +24,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
       = :email.to_s.humanize
       = f.email_field :email
 
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      div
-        | Currently waiting confirmation for: #{resource.unconfirmed_email}
-
     = f.label :password do
       = :password.to_s.humanize
       = f.password_field :password, autocomplete: 'off', placeholder: t('.keep_password')
@@ -41,5 +37,9 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
       = f.password_field :current_password, placeholder: t('.current_password_reason')
 
     = f.submit t('.title')
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    p
+      | Currently waiting confirmation for: #{resource.unconfirmed_email}
 
   = render 'devise/shared/links'

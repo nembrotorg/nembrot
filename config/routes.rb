@@ -31,7 +31,7 @@ Nembrot::Application.routes.draw do
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings
-  get 'settings' => 'settings#edit', as: :edit_settings
+  get 'settings/edit' => 'settings#edit', as: :edit_settings
 
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,

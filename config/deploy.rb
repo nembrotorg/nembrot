@@ -177,6 +177,13 @@ namespace :whenever do
   end
 end
 
+namespace :settings do
+  desc "Sets defaults for all settings"
+  task :update_defaults, roles: :db, except: { no_release: true } do
+    run "cd #{release_path} && bundle exec rake settings:update_defaults"
+  end
+end
+
 after 'deploy:update_code', 'whenever:update_crontab_in_production'
 
 def run_rake(cmd)

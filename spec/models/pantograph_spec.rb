@@ -2,7 +2,10 @@
 
 describe Pantograph do
 
-  before { @pantograph = FactoryGirl.build_stubbed(:pantograph) }
+  before do
+    @pantographer = FactoryGirl.create(:pantographer)
+    @pantograph = FactoryGirl.build_stubbed(:pantograph)
+  end
 
   subject { @pantograph }
 

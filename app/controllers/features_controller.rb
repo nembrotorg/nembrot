@@ -1,7 +1,7 @@
 class FeaturesController < ApplicationController
 
   def show
-    @notes = Note.where(feature: params[:feature])
+    @notes = Note.publishable.where(feature: params[:feature])
 
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."

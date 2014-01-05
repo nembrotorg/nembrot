@@ -10,7 +10,6 @@ module FormattingHelper
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style)
     text = linkify(text, links, links_citation_style)
-    text = linkify(text, links, links_citation_style)
     text = headerize(text)
     text = sectionize(text)
     text = annotated ? annotate(text) : remove_annotations(text)

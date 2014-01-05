@@ -2,12 +2,10 @@
 
 class User < ActiveRecord::Base
 
-  include Mergeable
-
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  validates_presence_of :email
+#  validates_presence_of :email
 
   has_many :authorizations, dependent: :destroy
 
@@ -41,11 +39,11 @@ class User < ActiveRecord::Base
     attributes = ['name', 'nickname', 'first_name', 'last_name', 'location', 'email', 'image']
 
     attributes.each do |attribute|
-      set_unless_blank(user[attribute], auth.info[attribute])
+      # set_unless_blank(user[attribute], auth.info[attribute])
+      user[attribute] = auth.info[attribute] unless auth.info[attribute].blank?
     end
 
     user.confirmed_at = Time.now if user.confirmed_at.blank?
-    ['evernote', 'twitter'].include?(auth.provider) ? user.save(validate: false) : user.save
 
     authorization.nickname = auth.info.nickname
     authorization.user_id = user.id
@@ -55,9 +53,10 @@ class User < ActiveRecord::Base
     if auth.provider == 'evernote'
       authorization.extra = auth.extra
       authorization.key = auth.extra.access_token.consumer.key
-      user.role == 'admin' if auth.extra.access_token.consumer.secret == Secret.auth.evernote.secret
+      user.role = 'admin' if auth.extra.access_token.consumer.secret.to_s == Secret.auth.evernote.secret
     end
 
+    user.save!(validate: false) # Allow users to not have an email address
     authorization.save!
     user
   end

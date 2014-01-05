@@ -44,7 +44,7 @@ a
   //   +icon-link-ext
   //   +icon-medium
 
-nav a
+nav ul li a:first-of-type
   &[href*=pdf]
     +body-font-citation
     &:before
@@ -57,6 +57,7 @@ nav a
     outline: 0
   &[href*=admin]:before, &[href*=settings]:before
     +icon-settings
+    +icon-medium
   &[href*=users]:before
     +icon-user-2-empty
   &[href$='#disqus_thread']:before,

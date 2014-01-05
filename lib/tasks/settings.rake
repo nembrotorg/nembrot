@@ -13,18 +13,18 @@ namespace :settings do
     end
 
     Constant.channel.map do |key, value|
-      puts "Setting default: channel.#{ key }"
-      Setting.save_default("channel.#{ key }", value) if Setting["channel.#{ key }"].blank?
+      puts "Setting default: channel.#{ key } to #{ value }"
+      Setting.save_default("channel.#{ key }", value)
     end
 
     Constant.advanced.map do |key, value|
-      puts "Setting default: advanced.#{ key }"
-      Setting.save_default("advanced.#{ key }", value) if Setting["advanced.#{ key }"].blank?
+      puts "Setting default: advanced.#{ key } to #{ value }"
+      Setting.save_default("advanced.#{ key }", value)
     end
 
     Constant.style.map do |key, value|
-      puts "Setting default: style.#{ key }"
-      Setting.save_default("style.#{ key }", value) if Setting["style.#{ key }"].blank?
+      puts "Setting default: style.#{ key } to #{ value }"
+      Setting.save_default("style.#{ key }", value)
     end
 
     puts 'Done.'

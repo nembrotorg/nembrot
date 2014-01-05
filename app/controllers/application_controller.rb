@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_filter :get_sections
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
+  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
   end

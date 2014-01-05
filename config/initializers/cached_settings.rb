@@ -24,6 +24,7 @@ module RailsSettings
     def self.cache_name
       # Rather than getting the app name, get the root folder name so that
       #  discrete instances of an application do not collide
+      #  REVIEW: consider using namespace - why isn't it being used?
       "#{ File.basename(Rails.root.to_s) }_#{ Rails.env }_settings"
     end
   end

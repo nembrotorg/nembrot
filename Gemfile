@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# REVIEW: Some gems are listed more than once. Travis warns about it.
+
 gem 'rails',          '4.0.2'
 
 gem 'activerecord-session_store'

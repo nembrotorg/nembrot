@@ -254,6 +254,12 @@ en:
       show:
         title: 'Signed in'
         body: 'You are signed in.'
+      event:
+        title:
+          signed_in: 'Signed in'
+          signed_out: 'Signed out'
+          signed_up: 'Signed up'
+          signed_up_inactive: 'Signed up (pending email confirmation)'
     links:
       no_confirmation: "Didn't receive confirmation instructions?"
       no_unlock: "Didn't receive unlock instructions?"

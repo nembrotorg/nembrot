@@ -46,8 +46,11 @@ Nembrot::Application.routes.draw do
   get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
   get 'tags(/p/:page)' => 'tags#index', as: :tags
 
+  devise_scope :user do
+    get 'users/event/:event' => 'devise/sessions#event', as: :user_event
+  end
+
   get 'users/menu' => 'users#menu'
-  get 'users/signed_in' => 'users#menu', as: :signed_in
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 

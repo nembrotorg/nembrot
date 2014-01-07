@@ -98,9 +98,10 @@ nav ul li a:first-of-type
   &[href*=youtube]:before
     +icon-youtube
 
-li.signed_in
-  a[href*=users]:before
-    +icon-user-2
+ul li.signed_in
+  a:first-of-type
+    &[href*=users]:before
+      +icon-user-2
 
 abbr
   font-variant: small-caps
@@ -272,16 +273,17 @@ header
     p
       display: inline
       margin: 0
-      &.alert, 
-      &.error
-        background-color: $error-background-color
-        &:before
-          +icon-attention
-      &.notice, 
-      &.success
-        background-color: $success-background-color
-        &:before
-          +icon-ok
+
+.alert,
+.error
+  background-color: $error-background-color
+  &:before
+    +icon-attention
+.notice, 
+.success
+  background-color: $success-background-color
+  &:before
+    +icon-ok
 
 footer
   ul
@@ -638,11 +640,11 @@ section.ins-section, article.ins-section
     +icon-tag
     color: $secondary-color
 
-.confirmations-edit, .confirmations-new, .registrations-new, .passwords-new, .sessions-new
+.confirmations-edit, .confirmations-new, .registrations-new, .passwords-new, .sessions-new, .signed-out .sessions-event
   h1:before
     +icon-user-2-empty
 
-.passwords-edit, .registrations-edit
+.passwords-edit, .registrations-edit, .signed-in .sessions-event
   h1:before
     +icon-user-2
 

@@ -170,6 +170,8 @@ load_user_menu = () ->
     success: (html) ->
       $('#tools .user').html(html)
 
+window.Nembrot.load_user_menu = load_user_menu
+
 # Document hooks ******************************************************************************************************
 
 $ ->

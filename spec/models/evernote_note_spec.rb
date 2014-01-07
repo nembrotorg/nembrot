@@ -32,9 +32,8 @@ describe EvernoteNote do
   it { should validate_presence_of(:cloud_note_identifier) }
   # it { should validate_presence_of(:note) }
 
-  it do
-    should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:evernote_auth_id)
-  end
+  it { should validate_uniqueness_of(:note_id) }
+  it { should validate_uniqueness_of(:cloud_note_identifier).scoped_to(:evernote_auth_id) }
 
   describe '#dirtify marks it dirty' do
     before { @evernote_note.dirtify }

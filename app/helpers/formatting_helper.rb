@@ -72,6 +72,7 @@ module FormattingHelper
   end
 
   def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+    text = sanitize_from_evernote(text)
     text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
                .gsub(/<br[^>]*?>/, "\n")
                .gsub(/<b>|<h\d>/, '<strong>')
@@ -83,6 +84,13 @@ module FormattingHelper
                     attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
     text = format_blockquotes(text)
     text = remove_instructions(text)
+  end
+
+  def sanitize_from_evernote(text)
+    # Evernote expects all paragraphs to be wrapped in divs.
+    #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
+    text.gsub(/\n|\r/, '')
+        .gsub(/(<aside|<blockquote|<div|<fig|<li|<nav|<section)/, "\n\\1")
   end
 
   def format_blockquotes(text)

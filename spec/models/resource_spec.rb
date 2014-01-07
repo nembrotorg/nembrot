@@ -43,7 +43,7 @@ describe Resource do
 
   it { should validate_presence_of(:note) }
   it { should validate_presence_of(:cloud_resource_identifier) }
-  it { should validate_uniqueness_of(:cloud_resource_identifier) }
+  it { should validate_uniqueness_of(:cloud_resource_identifier).scoped_to(:note_id) }
 
   describe ':need_syncdown' do
     before { @resource.update_attributes(dirty: true, attempts: 0, try_again_at: 1.minute.ago) }

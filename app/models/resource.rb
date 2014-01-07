@@ -10,8 +10,8 @@ class Resource < ActiveRecord::Base
   scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
-  validates :note, presence: true
-  validates :cloud_resource_identifier, presence: true, uniqueness: true
+  validates_presence_of :cloud_resource_identifier, :note
+  validates_uniqueness_of :cloud_resource_identifier, scope: :note_id
 
   validates_associated :note
 

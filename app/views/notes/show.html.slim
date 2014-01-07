@@ -56,7 +56,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
       = render 'shared/map', map: @map unless @map.nil?
 
 
-  - unless @note.is_section
+  - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 
     section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
 

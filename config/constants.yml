@@ -42,5 +42,5 @@ staging:
 
 production:
   <<: *defaults
-  host: v3.joegatt.net
+  host: joegatt.net
   asset_host: http://a3.joegatt.org/

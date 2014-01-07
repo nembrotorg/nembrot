@@ -5,7 +5,4 @@ header data-title="#{ document_title }"
   - unless subtitle.blank?
     h2 == subtitle
 
-  - unless flash.blank?
-    aside#notice
-      - flash.each do |type, message|
-        p class=(type ) = message
+  -# = render 'flashes'

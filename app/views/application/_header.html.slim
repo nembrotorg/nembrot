@@ -5,4 +5,5 @@ header data-title="#{ document_title }"
   - unless subtitle.blank?
     h2 == subtitle
 
-  -# = render 'flashes'
+  - show_flashes = show_flashes || false
+  = render 'flashes' if show_flashes

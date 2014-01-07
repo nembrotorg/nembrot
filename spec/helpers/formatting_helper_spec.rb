@@ -76,10 +76,10 @@ describe FormattingHelper do
         .should == 'Text. More. <strong>Even more.</strong> <a href="link">Link</a>.'
     end
     it 'converts bold tags to strong' do
-      sanitize_from_db("Text.\n<b>Bold text.</b>More.").should == "Text.\n<strong>Bold text.</strong>More."
+      sanitize_from_db("Text.\n<b>Bold text.</b>More.").should == "Text.<strong>Bold text.</strong>More."
     end
     it 'converts headline tags to strong' do
-      sanitize_from_db("Text.\n<h3>Bold.</h3>More.").should == "Text.\n<strong>Bold.</strong>More."
+      sanitize_from_db("Text.\n<h3>Bold.</h3>More.").should == "Text.<strong>Bold.</strong>More."
     end
   end
 

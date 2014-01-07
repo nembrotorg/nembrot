@@ -65,6 +65,7 @@ describe 'Books' do
     it 'can be updated' do
       fill_in 'Author', with: 'New Author'
       click_button('Save')
+      save_and_open_page
       page.should have_content(I18n.t('books.edit.success', title: @book.title))
       @book.reload
       @book.author.should eq('New Author')

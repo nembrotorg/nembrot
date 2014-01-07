@@ -26,6 +26,22 @@ class ApplicationController < ActionController::Base
     @sections = Note.sections
   end
 
+  def after_sign_up_path_for(resource)
+    user_event_path('signed_up')
+  end
+
+  def after_inactive_sign_up_path_for(resource)
+    user_event_path('signed_up_inactive')
+  end
+
+  def after_sign_in_path_for(resource)
+    user_event_path('signed_in')
+  end
+
+  def after_sign_out_path_for(resource)
+    user_event_path('signed_out')
+  end
+
   def mapify(notes)
     @map = Gmaps4rails.build_markers(notes) do |note, marker|
       marker.lat note.inferred_latitude

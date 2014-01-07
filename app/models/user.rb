@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-#  validates_presence_of :email
+  validates_presence_of :email
 
   has_many :authorizations, dependent: :destroy
 
@@ -35,18 +35,12 @@ class User < ActiveRecord::Base
       user = authorization.user
     end
 
-    user.password = Devise.friendly_token[0, 10] if user.password.blank?
     attributes = ['name', 'nickname', 'first_name', 'last_name', 'location', 'email', 'image']
 
     attributes.each do |attribute|
       # set_unless_blank(user[attribute], auth.info[attribute])
       user[attribute] = auth.info[attribute] unless auth.info[attribute].blank?
     end
-
-    user.confirmed_at = Time.now if user.confirmed_at.blank?
-
-    authorization.nickname = auth.info.nickname
-    authorization.user_id = user.id
 
     # Save extra so that we can use keys to sync later
     #  If secret provided matches those in settings, set user role to secret
@@ -56,7 +50,11 @@ class User < ActiveRecord::Base
       user.role = 'admin' if auth.extra.access_token.consumer.secret.to_s == Secret.auth.evernote.secret
     end
 
+    user.skip_confirmation!
     user.save!(validate: false) # Allow users to not have an email address
+
+    authorization.nickname = auth.info.nickname
+    authorization.user_id = user.id
     authorization.save!
     user
   end
@@ -70,9 +68,7 @@ class User < ActiveRecord::Base
     (role == 'admin')
   end
 
-  protected
-
-  def confirmation_required?
-    true
+  def valid_password?(password)  
+    !authorizations.nil? || super(password)  
   end
 end

@@ -17,7 +17,7 @@ ul.user
 
   - if user_signed_in?
     li= link_to t('devise.sessions.delete.title'), destroy_user_session_path
-    li= link_to t('devise.registrations.edit.cancel'), registration_path(resource_name), data: { confirm: t('devise.registrations.edit.cancel_confirm'), method: :delete }
+    li= link_to t('devise.registrations.edit.cancel'), registration_path(resource_name), data: { confirm: t('devise.registrations.edit.cancel_confirm', user_id: current_user.id), method: :delete }
 
   - if devise_mapping.omniauthable?
     - action = action || 'default'

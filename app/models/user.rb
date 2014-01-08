@@ -59,6 +59,30 @@ class User < ActiveRecord::Base
     user
   end
 
+  def soft_delete
+    authorizations.destroy_all
+
+    skip_confirmation!
+
+    update_attributes(
+      confirmation_sent_at: nil,
+      confirmation_token: nil,
+      confirmed_at: nil,
+      current_sign_in_ip: nil,
+      email: nil,
+      encrypted_password: nil,
+      first_name: nil,
+      image: nil,
+      last_name: nil,
+      last_sign_in_at: nil,
+      last_sign_in_ip: nil,
+      location: nil,
+      name: "Former User #{ id }",
+      nickname: "formeruser#{ id }",
+      role: nil,
+      unconfirmed_email: nil)
+  end
+
   def public_name
      name || nickname || ''
      # email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase

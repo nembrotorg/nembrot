@@ -133,7 +133,14 @@ namespace :deploy do
   end
 
   desc "Stop & start unicorn"
-  task :stop_start, :except => { :no_release => true } do
+  task :update_stop_start, except: { no_release: true } do
+    update
+    stop
+    start
+  end
+
+  desc "Stop & start unicorn"
+  task :stop_start, except: { no_release: true } do
     stop
     start
   end
@@ -164,6 +171,7 @@ namespace :whenever do
     run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
   end
 
+<<<<<<< HEAD
   desc "Update the crontab file only in production"
   task :update_crontab_in_production, :roles => :db, :except => { :no_release => true } do
     if :rails_env == 'production'
@@ -171,6 +179,8 @@ namespace :whenever do
     end
   end
 
+=======
+>>>>>>> upstream/staging
   desc "Clear the crontab file"
   task :clear_crontab, :roles => :db, :except => { :no_release => true } do
     run "cd #{release_path} && bundle exec whenever --clear-crontab #{application}"
@@ -184,7 +194,8 @@ namespace :settings do
   end
 end
 
-after 'deploy:update_code', 'whenever:update_crontab_in_production'
+after 'deploy:update_code', 'whenever:update_crontab'
+after 'deploy:update_code', 'settings:update_defaults'
 
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"

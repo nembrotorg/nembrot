@@ -61,4 +61,10 @@ module ApplicationHelper
   def note_or_feature_path(note)
     note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(note)
   end
+
+  def note_or_feature_index_path(note)
+    # Be careful that feature is not repeated
+    #  Imitate for home blurbs
+    note.has_instruction?('feature') ? feature_path(feature: note.feature) : note_path(note)
+  end
 end

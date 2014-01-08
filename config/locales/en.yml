@@ -236,7 +236,7 @@ en:
         keep_password: 'Leave blank to keep exisiting one'
         current_password_reason: 'Required to confirm changes'
         cancel: 'Delete my account'
-        cancel_confirm: 'Are you sure?'
+        cancel_confirm: "All your personal data will be deleted. Any comments or other contributions you have made to the site will appear under 'Former User %{user_id}'. Are you sure you want to delete your account?"
       new:
         title: 'Sign up'
         submit: 'Sign up'

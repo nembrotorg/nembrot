@@ -171,16 +171,6 @@ namespace :whenever do
     run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
   end
 
-<<<<<<< HEAD
-  desc "Update the crontab file only in production"
-  task :update_crontab_in_production, :roles => :db, :except => { :no_release => true } do
-    if :rails_env == 'production'
-      run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
-    end
-  end
-
-=======
->>>>>>> upstream/staging
   desc "Clear the crontab file"
   task :clear_crontab, :roles => :db, :except => { :no_release => true } do
     run "cd #{release_path} && bundle exec whenever --clear-crontab #{application}"

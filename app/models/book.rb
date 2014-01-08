@@ -62,7 +62,7 @@ class Book < ActiveRecord::Base
   end
 
   def short_title
-    title.gsub(/\:.*$/, '')
+    title.blank? ? '' : title.gsub(/\:.*$/, '')
   end
 
   def author_or_editor

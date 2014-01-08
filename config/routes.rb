@@ -4,7 +4,7 @@ Nembrot::Application.routes.draw do
 
   mount Commontator::Engine => '/commontator'
 
-  devise_for :users, controllers: { sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
 
   root to: 'home#index'
 

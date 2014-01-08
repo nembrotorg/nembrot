@@ -180,7 +180,7 @@ class Note < ActiveRecord::Base
     # Compare proposed version with saved version
     #  REVIEW: Are we confusing body with clean_body?
     #  body is used because it has a _was method
-    return (title + clean_body).length if versions.empty?
+    return (title + body).length if body_was.blank?
     previous_title_and_body = title_was + body_was
     Levenshtein.distance(previous_title_and_body, title + body)
   end

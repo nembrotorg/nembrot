@@ -4,7 +4,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
   = render 'head'
 
-  body dir = body_dir_attr(I18n.locale.to_s)
+  body dir = body_dir_attr(I18n.locale.to_s) class = "signed-out"
 
     = render 'chromeframe'
 

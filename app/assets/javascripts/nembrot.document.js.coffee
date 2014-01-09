@@ -91,7 +91,7 @@ load_share_links = (page_class) ->
     url = encodeURIComponent(location.href)
   else
     $('.share').removeClass('deep-link')
-    title = 'nembrot.org'
+    title = 'nembrot.com'
     url = 'http://' + encodeURIComponent(location.host)
 
   facebook_link = $('li.share a[href*=facebook]')

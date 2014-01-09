@@ -1,1 +1,1 @@
-Sitemap: http://nembrot.org/sitemap.xml.gz
+Sitemap: http://nembrot.com/sitemap.xml.gz

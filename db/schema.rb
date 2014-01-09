@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217112323) do
+ActiveRecord::Schema.define(version: 20140109131731) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -110,17 +110,9 @@ ActiveRecord::Schema.define(version: 20131217112323) do
 
   add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true
 
-  create_table "evernote_auths", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "auth"
-    t.text     "encrypted_auth"
-  end
-
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.integer  "evernote_auth_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "dirty"
@@ -130,7 +122,7 @@ ActiveRecord::Schema.define(version: 20131217112323) do
     t.datetime "try_again_at"
   end
 
-  add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
+  add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
   add_index "evernote_notes", ["note_id"], name: "index_evernote_notes_on_note_id"
 
   create_table "links", force: true do |t|

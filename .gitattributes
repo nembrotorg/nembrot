@@ -1,0 +1,6 @@
+Gemfile.lock merge=ours
+README.md merge=ours
+copyright.*.yml merge=ours
+*constants.yml merge=ours
+*vcr_cassettes* merge=ours
+*icon* merge=ours

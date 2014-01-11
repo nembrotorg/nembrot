@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109131731) do
+ActiveRecord::Schema.define(version: 20140111083223) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -222,6 +222,7 @@ ActiveRecord::Schema.define(version: 20140109131731) do
     t.datetime "try_again_at"
   end
 
+  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true
   add_index "resources", ["note_id"], name: "index_resources_on_note_id"
 
   create_table "sessions", force: true do |t|

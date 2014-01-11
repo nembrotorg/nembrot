@@ -12,8 +12,8 @@ class EvernoteNote < ActiveRecord::Base
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
   #  inflate the id number of each 'successful' note.
-  validates :cloud_note_identifier, presence: true, uniqueness: { scope: :evernote_auth_id }
-  validates_uniqueness_of :note_id # REVIEW: Does this make sense?
+  validates :cloud_note_identifier, presence: true, uniqueness: true
+  validates :note_id, uniqueness: true, allow_nil: true
 
   validates_associated :note
 

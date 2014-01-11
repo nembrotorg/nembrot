@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131218111703) do
+ActiveRecord::Schema.define(version: 20140111083223) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 20131218111703) do
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.integer  "evernote_auth_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "dirty"
@@ -123,7 +122,7 @@ ActiveRecord::Schema.define(version: 20131218111703) do
     t.datetime "try_again_at"
   end
 
-  add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_identifier_service_id", unique: true
+  add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_identifier_service_id", unique: true
   add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id"
 
   create_table "links", force: true do |t|
@@ -240,6 +239,7 @@ ActiveRecord::Schema.define(version: 20131218111703) do
     t.datetime "try_again_at"
   end
 
+  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true
   add_index "resources", ["note_id"], name: "index_resources_on_note_id"
 
   create_table "sessions", force: true do |t|

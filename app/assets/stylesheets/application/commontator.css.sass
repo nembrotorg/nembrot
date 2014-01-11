@@ -35,9 +35,6 @@
     ul
       +horizontal-list
 
-  h4
-    margin-bottom: 0 0 $line-height 0
-
   ul, li
     margin: 0
 
@@ -78,4 +75,14 @@
         .share
           +fade(1)
 
+.signed-out
+  #comments
+    h4
+      a[href$=new]
+        display: none
 
+.signed-in
+  #comments
+    h4
+      a[href$=sign_in]
+        display: none

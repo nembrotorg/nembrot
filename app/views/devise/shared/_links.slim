@@ -33,3 +33,10 @@ ul.user
             - link_title = (action == 'default' ? t('.oauth.default_title', provider: provider.to_s.titleize) : t('.oauth.title', provider: provider.to_s.titleize, action: action))
 
             li = link_to provider.to_s.titleize, omniauth_authorize_path(resource_name, provider), title: link_title
+
+  - if user_signed_in? && current_user.admin?
+    li
+      ul.admin
+        li= link_to t('settings.edit.title'), edit_settings_path
+        li= link_to t('books.admin.title_no_mode'), books_admin_path
+        li= link_to t('links.admin.title'), links_admin_path

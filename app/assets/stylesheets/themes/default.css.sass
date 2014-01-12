@@ -207,6 +207,11 @@ cite, em
   &:after
     content: ' '
 
+.caption
+  .figcaption
+    cite:after
+      content: ''
+
 .home-index, .notes-index, .notes-show, .notes-version,
 .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
 .features-show article:not(.ins-section), .features-version
@@ -974,8 +979,8 @@ ul.admin
 
   .citations-show
     figure.citation
-      +span-columns(6, 9)
-      +suffix(3, 9)
+      +span-columns(6, 12)
+      +suffix(3, 12)
       margin-bottom: $line-height
       blockquote
         margin-bottom: $line-height

@@ -21,7 +21,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
         section#introduction
-          p= @note.introduction
+          p == @note.introduction
 
       - if @source.nil?
         section#text.regular
@@ -43,18 +43,17 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
         = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 
+      = render 'shared/map', map: @map unless @map.nil?
+
       - unless @note.is_section
 
         aside
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          = render 'notes/notes_list_headlines', note: @note
+          -# = render 'notes/notes_list_headlines', note: @note
 
           = render 'notes/versions_list', note: @note
-
-      = render 'shared/map', map: @map unless @map.nil?
-
 
   - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 

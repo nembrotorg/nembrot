@@ -30,7 +30,7 @@ class TagsController < ApplicationController
 
   def map
     @tag = Tag.find_by_slug(params[:slug])
-    @notes = Note.publishable.listable.mappable.tagged_with(@tag.name)
+    @notes = Note.publishable.listable.tagged_with(@tag.name)
     @word_count = @notes.sum(:word_count)
 
     @map = mapify(@notes.mappable)

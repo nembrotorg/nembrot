@@ -203,6 +203,15 @@ table
     &:first-child
       margin-left: 0
 
+cite, em
+  &:after
+    content: ' '
+
+.caption
+  .figcaption
+    cite:after
+      content: ''
+
 .home-index, .notes-index, .notes-show, .notes-version,
 .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
 .features-show article:not(.ins-section), .features-version
@@ -220,9 +229,10 @@ table
       +icon-link-ext
       +icon-medium
 
-.deep-link
+// REVIEW - icon CSS above is too specific
+ul li.deep-link
   a[href$='#disqus_thread']:before,
-  a[href$='#comments']:before
+  a:first-of-type[href$='#comments']:before
     +icon-comment
 
 .instruction
@@ -652,21 +662,9 @@ section.ins-section, article.ins-section
   #tools
     bottom: 0
     +transition(0.35s)
-    ul.user
-      li
-        ul.admin
-          display: block !important
-          li
-            display: block !important
 
 #tools:hover
   bottom: 0
-  ul.user
-    li
-      ul.admin
-        display: block !important
-        li
-          display: block !important
 
 #tools
   +transition
@@ -719,31 +717,21 @@ section.ins-section, article.ins-section
             color: $gplus-color
           &[href*=twitter]:before
             color: $twitter-color
-      &.user ul:not(.admin), &.menu ul
+      &.user ul, &.menu ul
         li
           +icon-only
           a
             padding-top: $line-height
-      &.user
-        // REVIEW: Rather than cancelling what we've already done, it would be better to exclude .admin from .user
-        ul.admin
-          background-color: $background-color
-          display: none
-          font-size: $font-size
-          bottom: $line-height * 4
-          position: absolute
-          padding-left: $text-indent / 2
-          li
-            display: none
-            width: auto
-            a:before
-              +icon-regular
-              position: relative
-              top: 0
-              left: 0
+
     .deep-link
       a
         color: $count-color
+
+ul.admin
+  bottom: $line-height * 2
+  position: absolute !important
+  width: auto !important
+  left: $text-indent / 2
 
 .oauth
   margin-top: $line-height
@@ -991,8 +979,8 @@ section.ins-section, article.ins-section
 
   .citations-show
     figure.citation
-      +span-columns(6, 9)
-      +suffix(3, 9)
+      +span-columns(6, 12)
+      +suffix(3, 12)
       margin-bottom: $line-height
       blockquote
         margin-bottom: $line-height
@@ -1044,6 +1032,8 @@ section.ins-section, article.ins-section
         &.image
           +suffix(1, 12)
           +span-columns(8, 12)
+      #introduction
+        +span-columns(9, 12)
       #text
         overflow: visible
         aside
@@ -1076,9 +1066,9 @@ section.ins-section, article.ins-section
           div
             overflow: hidden
       #map
-        +span-columns(3 omega, 9)
+        +span-columns(3)
     #extra
-      +span-columns(3 omega)
+      +span-columns(3 omega, 12)
 
   #main,
   .hello-world,
@@ -1137,6 +1127,11 @@ section.ins-section, article.ins-section
 @media only screen and (min-width: 1200px)
 
   +pass-media-query('screen-and-min-width-1200px')
+
+  figure.image
+    img
+      height: 390px
+      width: 690px
 
   #tools
     background-color: transparent

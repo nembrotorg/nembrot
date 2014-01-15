@@ -47,6 +47,8 @@ class BooksController < ApplicationController
     add_breadcrumb I18n.t('books.admin.title_short'), books_admin_path
     add_breadcrumb "ISBN #{ @book.isbn }", edit_book_path(params[:id])
 
+    @book.dirty = false # Book is assumed usable after a manual update
+
     if @book.update_attributes(book_params)
       flash[:success] = I18n.t('books.edit.success', title: @book.title)
       redirect_to books_admin_path

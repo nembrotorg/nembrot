@@ -69,6 +69,16 @@ en:
           subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
           body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
+  channels:
+    edit:
+      title: 'Edit channel'
+    index:
+      title: 'Channels'
+    new:
+      title: 'New channel'
+    show:
+      title: 'Channel'
+
   citations:
     index:
       title: 'Citations'

@@ -4,18 +4,20 @@ describe ResourcesHelper do
 
   describe '#cut_image_binary_path' do
     before do
+      @user = FactoryGirl.create(:user)
+      @channel = FactoryGirl.create(:channel, user: @user)
       @note = FactoryGirl.create(:note)
       @resource = FactoryGirl.create(:resource, note: @note)
     end
     it 'uses default settings for path to the cut the image' do
-      cut_image_binary_path(@resource)
+      cut_image_binary_path(@channel, @resource)
         .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ Setting['style.images_effects'] }-#{ @resource.id }.png"
     end
 
     context 'when cut_image_binary_path has note fx' do
       before { @note.instruction_list = ['__FX_ABC', '__FX_DEF'] }
       it 'uses note#fx if they are set' do
-        # cut_image_binary_path(@resource)
+        # cut_image_binary_path(@channel, @resource)
         #  .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ @note.fx.try(:join, '|') }-#{ @resource.id }.png"
       end
     end
@@ -32,7 +34,7 @@ describe ResourcesHelper do
           id: 999,
           format: 'jpeg'
         }
-        cut_image_binary_path(@resource, options)
+        cut_image_binary_path(@channel, @resource, options)
           .should == "/resources/cut/#{ @resource.local_file_name }-5-4-100-0-ne-def-999.png"
       end
     end

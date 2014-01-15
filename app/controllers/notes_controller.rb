@@ -4,7 +4,8 @@ class NotesController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_notes = Note.publishable.listable.blurbable
+    #all_notes = Note.publishable.listable.blurbable
+    all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
 
     @notes = all_notes.page(page_number).load
     # Send all interrelated notes. (It's not enough to send just this note's interrelated notes since there could be nested r
@@ -22,23 +23,23 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.publishable.listable.blurbable.mappable
+    @notes = Note.channelled(@current_channel).publishable.listable.blurbable.mappable
     @word_count = @notes.sum(:word_count)
 
     @map = mapify(@notes)
 
-    add_breadcrumb I18n.t('map'), notes_map_path
+    add_breadcrumb I18n.t('map'), notes_map_path(@current_channel)
   end
 
   def show
-    @note = Note.publishable.find(params[:id])
+    @note = Note.channelled(@current_channel).publishable.find(params[:id])
     interrelated_notes_features_and_citations
     note_tags(@note)
     note_map(@note)
     note_source(@note)
     commontator_thread_show(@note)
 
-    add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
+    add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(id: @note.id, channel: @current_channel.id)
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('notes.show.not_found', id: params[:id])
@@ -46,7 +47,7 @@ class NotesController < ApplicationController
   end
 
   def version
-    @note = Note.publishable.find(params[:id])
+    @note = Note.channelled(@current_channel).publishable.find(params[:id])
     @diffed_version = DiffedNoteVersion.new(@note, params[:sequence].to_i)
     @diffed_tag_list = DiffedNoteTagList.new(@diffed_version.previous_tag_list, @diffed_version.tag_list).list
 
@@ -55,9 +56,9 @@ class NotesController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('notes.show.not_found', id: params[:id])
-      redirect_to notes_path
+      redirect_to notes_path(@current_channel)
     rescue
       flash[:error] = t('notes.version.not_found', id: params[:id], sequence: params[:sequence])
-      redirect_to note_path(@note)
+      redirect_to note_path(@current_channel, @note)
   end
 end

@@ -1,27 +1,29 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ t('site.title') }"
+- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 canonical: note_or_feature_path(@note),
                 description: @diffed_version.body,
                 open_graph: { title: @diffed_version.title },
                 noindex: true
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  article
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+    article
 
-      - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
-      - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
+      section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-      = render 'header', title: title, subtitle: nil, document_title: document_title
+        - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
+        - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
 
-      = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
+        = render 'header', title: title, subtitle: nil, document_title: document_title
 
-      section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
+        = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
 
-    = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
+        section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
-    = render 'versions_list', note: @note
+      = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
+
+      = render 'versions_list', note: @note

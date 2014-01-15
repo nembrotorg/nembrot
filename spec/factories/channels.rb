@@ -1,9 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :channel do
-    name "MyString"
-    theme "MyString"
-    notebooks "MyText"
+    name 'The Discovery Channel'
+    theme 'inverse'
+    notebooks 'NOTEBOOK_1'
+    slug 'the-discovery-channel'
+    user
   end
 end

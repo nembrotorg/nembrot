@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
 
+  layout proc{|c| c.request.xhr? ? false : 'application' }
+
   protect_from_forgery
 
   before_filter :set_locale
+  before_filter :set_current_channel, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb
   before_filter :get_promoted_notes
   before_filter :get_sections
@@ -12,6 +15,10 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
+  end
+
+  def set_current_channel
+    @current_channel = params[:channel].blank? ? OpenStruct.new({ name: 'Nembrot', theme: 'default', notebooks: [], slug: 'default' }) : Channel.where('slug = ?', params[:channel]).first
   end
 
   def add_home_breadcrumb
@@ -69,7 +76,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_public_cache_headers
-    expires_in Constant.cache_minutes.minutes, public: true
+    expires_in Constant.cache_minutes.minutes, public: Constant.cache_minutes != 0
   end
 
   rescue_from CanCan::AccessDenied do |exception|

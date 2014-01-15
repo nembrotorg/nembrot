@@ -1,21 +1,23 @@
-- document_title = "#{ t('users.registrations.resend_unlock.title') } | #{ t('devise.title') } | #{ t('site.title') }"
+- document_title = "#{ t('users.registrations.resend_unlock.title') } | #{ t('devise.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
 - add_breadcrumb t('devise.registrations.resend_unlock.title'), new_user_registration_path
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('devise.registrations.resend_unlock.title'), subtitle: nil, document_title: document_title
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  h2 Resend unlock instructions
-  = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
-    = devise_error_messages!
-  
-      = f.label :email do
-        = f.email_field :email, autofocus: true
+    = render 'header', title: t('devise.registrations.resend_unlock.title'), subtitle: nil, document_title: document_title
 
-      = f.submit t('devise.registrations.resend_unlock.submit')
+    h2 Resend unlock instructions
+    = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+      = devise_error_messages!
+    
+        = f.label :email do
+          = f.email_field :email, autofocus: true
 
-  = render 'devise/shared/links', action: t('.title')
+        = f.submit t('devise.registrations.resend_unlock.submit')
+
+    = render 'devise/shared/links', action: t('.title')

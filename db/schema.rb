@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109134530) do
+ActiveRecord::Schema.define(version: 20140113111406) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -69,9 +69,13 @@ ActiveRecord::Schema.define(version: 20140109134530) do
     t.string   "name"
     t.string   "theme"
     t.text     "notebooks"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
 
   create_table "commontator_comments", force: true do |t|
     t.string   "creator_type"
@@ -129,6 +133,7 @@ ActiveRecord::Schema.define(version: 20140109134530) do
     t.binary   "content_hash"
     t.integer  "update_sequence_number"
     t.datetime "try_again_at"
+    t.text     "cloud_notebook_identifier"
   end
 
   add_index "evernote_notes", ["cloud_note_identifier", "evernote_auth_id"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true

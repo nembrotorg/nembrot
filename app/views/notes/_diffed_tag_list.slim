@@ -7,13 +7,13 @@ nav.tags
     - diffed_tag_list.each do |key, value|
       li
         - if value['status'] == 1
-          ins= link_to key, tag_path(key.parameterize)
+          ins= link_to key, tag_path(@current_channel, key.parameterize)
 
         - elsif value['status'] == -1
           - if value['obsolete']
             del= key
           - else
-            del= link_to key, tag_path(key.parameterize)
+            del= link_to key, tag_path(@current_channel, key.parameterize)
 
         - else
-          = link_to key, tag_path(key.parameterize)
+          = link_to key, tag_path(@current_channel, key.parameterize)

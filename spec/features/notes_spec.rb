@@ -7,6 +7,9 @@ describe 'Notes' do
   include ResourcesHelper
 
   before(:each) do
+    @channel = FactoryGirl.create(:channel, notebooks: 'NOTEBOOK_GUID_1')
+    @evernote_note = FactoryGirl.create(:evernote_note, cloud_notebook_identifier: 'NOTEBOOK_GUID_1')
+    @note = @evernote_note.note
     Constant['rtl_langs'] = 'ar'
     Setting['advanced.blurb_length'] = 40
     Setting['advanced.instructions_map'] = '__MAP'
@@ -17,30 +20,29 @@ describe 'Notes' do
 
   describe 'index page' do
     before do
-      @note = FactoryGirl.create(:note)
-      visit notes_path
+      visit notes_path(@channel)
     end
     it 'should have the title Notes' do
       page.should have_selector('h1', text: I18n.t('notes.index.title'))
     end
     it 'should have a link to note' do
-      page.should have_selector('a', note_path(@note))
+      page.should have_selector('a', note_path(@channel, @note))
     end
 
     context 'when a note is not active' do
       before do
         @note.update_attributes(title: 'New title', body: 'New body', active: false)
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'should not have a link to an inactive note' do
-        page.should_not have_link(body: 'New title: New body', href: note_path(@note))
+        page.should_not have_link(body: 'New title: New body', href: note_path(@channel, @note))
       end
     end
 
     context 'when a note has an introduction' do
       before do
         @note.update_attributes(introduction: 'It has a rather long introduction, actually!')
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'should display the introduction in the blurb' do
         # Review: give option to truncate blurb or not
@@ -51,20 +53,20 @@ describe 'Notes' do
     context 'when no mappable notes exist' do
       before do
         @note.update_attributes(latitude: nil, longitude: nil, active: true)
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'should link to map' do
-        page.should_not have_link('See map', href: notes_map_path)
+        page.should_not have_link('See map', href: notes_map_path(@channel))
       end
     end
 
     context 'when a mappable note exists' do
       before do
         @note.update_attributes(latitude: 25, longitude: 25, active: true, instruction_list: ['__PUBLISH', '__MAP'])
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'should link to map' do
-        page.should have_link('See map', href: notes_map_path)
+        page.should have_link('See map', href: notes_map_path(@channel))
       end
     end
 
@@ -72,10 +74,10 @@ describe 'Notes' do
       before do
         @note.update_attributes(latitude: nil, longitude: nil, active: true, instruction_list: ['__PUBLISH', '__MAP'])
         @resource = FactoryGirl.create(:resource, latitude: 25, longitude: 25, note: @note)
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'should link to map' do
-        page.should have_link('See map', href: notes_map_path)
+        page.should have_link('See map', href: notes_map_path(@channel))
       end
     end
 
@@ -86,7 +88,7 @@ describe 'Notes' do
         @note.title = 'تشريح الكآبة'
         @note.body = 'أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
         @note.save
-        visit notes_path
+        visit notes_path(@channel)
       end
       it 'has the language attribute if note is not in default language' do
         page.should have_css('ul li a[lang=ar]')
@@ -100,10 +102,10 @@ describe 'Notes' do
   describe 'show page' do
     before do
       Setting['advanced.tags_minimum'] = 1
-      @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
+      @note.external_updated_at = 200.minutes.ago
       @note.tag_list = ['tag1']
       @note.save
-      visit note_path(@note)
+      visit note_path(@channel, @note)
     end
     it 'should have the note title as title' do
       page.should have_selector('h1', text: @note.title)
@@ -121,13 +123,13 @@ describe 'Notes' do
       page.should_not have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
+      page.should have_link(I18n.t('notes.index.title'), href: notes_path(@channel))
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
+      page.should have_link(I18n.t('tags.index.title'), href: tags_path(@channel))
     end
     it 'should have a link to tag1' do
-      page.should have_link('tag1', href: '/tags/tag1')
+      page.should have_link('tag1', href: '/the-discovery-channel/tags/tag1')
     end
     it 'should have a static label for Version 1' do
       page.should have_selector('li', text: 'v1')
@@ -146,7 +148,7 @@ describe 'Notes' do
       before do
         @note.introduction = 'It has a rather long introduction, actually!'
         @note.save
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should display the introduction' do
         page.should have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
@@ -158,7 +160,7 @@ describe 'Notes' do
         @note.instruction_list = ['__PUBLISH', '__NO_INTRO']
         @note.introduction = 'It has a rather long introduction, actually!'
         @note.save
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should not display the introduction' do
         page.should_not have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
@@ -168,10 +170,10 @@ describe 'Notes' do
     context 'when a note has an image' do
       before do
         @resource = FactoryGirl.create(:resource, note: @note)
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should display attached images' do
-        page.should have_css("figure img[src*=\"#{ cut_image_binary_path(@resource) }\"]")
+        page.should have_css("figure img[src*=\"#{ cut_image_binary_path(@channel, @resource) }\"]")
       end
       it 'should display the description in the alt attribute' do
         page.should have_css("figure img[alt*=\"#{ @resource.description }\"]")
@@ -184,7 +186,7 @@ describe 'Notes' do
     context 'when a note has an attachment' do
       before do
         @resource = FactoryGirl.create(:resource, note: @note, mime: 'application/pdf')
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should display downloadable files' do
         pending "page.should have_css(\"a[href*=#{@resource.local_file_name}]\")"
@@ -194,7 +196,7 @@ describe 'Notes' do
     context 'when a note has a youtube video' do
       before do
         @note.update_attributes(source_url: 'http://youtube.com/?v=ABCDEF')
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should have an iframe with an embedded youtube video' do
         page.should have_css('iframe[src="http://www.youtube.com/embed/ABCDEF?rel=0"]')
@@ -204,7 +206,7 @@ describe 'Notes' do
     context 'when a note has a vimeo video' do
       before do
         @note.update_attributes(source_url: 'http://vimeo.com/video/ABCDEF')
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should have an iframe with an embedded vimeo video' do
         page.should have_css('iframe[src="http://player.vimeo.com/video/ABCDEF"]')
@@ -214,7 +216,7 @@ describe 'Notes' do
     context 'when a note has a soundcloud clip' do
       before do
         @note.update_attributes(source_url: 'http://soundcloud.com/ABCDEF')
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should have an iframe with an embedded soundcloud video' do
         page.should have_css('iframe[src="http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF"]')
@@ -230,7 +232,7 @@ describe 'Notes' do
         @note.title = 'تشريح الكآبة'
         @note.body = 'القارئ لطيف، أفترض انت الذبول يكون فضولي جدا لمعرفة ما الفاعل انتيتش أو جسد هو هذا، بحيث بكل وقاحة'
         @note.save
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'has the language attribute if note is not in default language' do
         page.should have_css('#content[lang=ar]')
@@ -243,7 +245,7 @@ describe 'Notes' do
     context 'when a note has a map' do
       before do
         @note.update_attributes(latitude: 25, longitude: 25, active: true, instruction_list: ['__PUBLISH', '__MAP'])
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should display map' do
         pending "page.should have_css(\"div.map\")"
@@ -254,7 +256,7 @@ describe 'Notes' do
       before do
         @note.update_attributes(latitude: nil, longitude: nil, active: true, instruction_list: ['__PUBLISH', '__MAP'])
         @resource = FactoryGirl.create(:resource, latitude: 25, longitude: 25, note: @note)
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should display map' do
         pending "page.should have_css(\"div.map\")"
@@ -265,10 +267,10 @@ describe 'Notes' do
       before do
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should link to the book' do
-        page.should have_css(".body a[href='#{ book_path(@book) }']")
+        page.should have_css(".body a[href='#{ book_path(@channel, @book) }']")
       end
     end
 
@@ -276,21 +278,21 @@ describe 'Notes' do
       before do
         @link = FactoryGirl.create(:link)
         @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should link to the other note' do
-        page.should have_css("#content a[href='#{ link_path(@link) }']")
+        page.should have_css("#content a[href='#{ link_path(@channel, @link) }']")
       end
     end
 
     context 'when a note has a reference to another note (using path)' do
       before do
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {link: #{ note_path(@reference) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {link: #{ note_path(@channel, @reference) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should link to the other note' do
-        page.should have_css(".body a[href='#{ note_path(@reference) }']")
+        page.should have_css(".body a[href='#{ note_path(@channel, @reference) }']")
       end
     end
 
@@ -298,7 +300,7 @@ describe 'Notes' do
       before do
         @reference = FactoryGirl.create(:note)
         @note.update_attributes(body: "This note contains a reference to {link: #{ @reference.title }}.")
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should link to the other note' do
         pending "page.should have_css(\"div.map\")"
@@ -308,41 +310,41 @@ describe 'Notes' do
     context 'when a note has a reference to a citation' do
       before do
         @citation = FactoryGirl.create(:note, is_citation: true)
-        @note.update_attributes(body: "This note contains a reference to {link: #{ citation_path(@citation) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {link: #{ citation_path(@channel, @citation) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should link to the citation' do
-        pending "page.should have_css(\".body a[href='#{ citation_path(@citation) }']\")"
+        pending "page.should have_css(\".body a[href='#{ citation_path(@channel, @citation) }']\")"
       end
     end
 
     context 'when a note contains a blurb for another note' do
       before do
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {blurb: #{ note_path(@reference) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {blurb: #{ note_path(@channel, @reference) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should link to the other note' do
-        page.should have_css(".body a[href='#{ note_path(@reference) }']")
+        page.should have_css(".body a[href='#{ note_path(@channel, @reference) }']")
       end
     end
 
     context 'when a note contains a blurb for a citation' do
       before do
         @reference = FactoryGirl.create(:note, is_citation: true)
-        @note.update_attributes(body: "This note contains a reference to {blurb: #{ citation_path(@reference) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {blurb: #{ citation_path(@channel, @reference) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should link to the other note' do
-        pending "page.should have_css(\"#content a[href='#{ citation_path(@reference) }']\")"
+        pending "page.should have_css(\"#content a[href='#{ citation_path(@channel, @reference) }']\")"
       end
     end
 
     context 'when a note contains another note' do
       before do
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@channel, @reference) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should contain the other note' do
         page.should have_text(@reference.body)
@@ -353,8 +355,8 @@ describe 'Notes' do
       before do
         @nested_reference = FactoryGirl.create(:note)
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@channel, @reference) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should contain the text of the nested note' do
         page.should have_text(@nested_reference.body)
@@ -364,8 +366,8 @@ describe 'Notes' do
     context 'when a note contains a citation' do
       before do
         @citation = FactoryGirl.create(:note, is_citation: true)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ citation_path(@citation) }}.")
-        visit note_path(@note)
+        @note.update_attributes(body: "This note contains a reference to {insert: #{ citation_path(@channel, @citation) }}.")
+        visit note_path(@channel, @note)
       end
       it 'should contain the citation' do
         pending 'page.should have_text(@reference.body)'
@@ -376,7 +378,7 @@ describe 'Notes' do
       before do
         @note.update_attributes(active: true, instruction_list: ['__PUBLISH', '__PARALLEL'])
         @source = FactoryGirl.create(:note, body: 'Fixed Note Inhalte verwendet werden, um mehrere Anrufe auf VCR verhindern.', instruction_list: ['__LANG_DE'], title: @note.title)
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should have the note title as title' do
         page.should have_selector('h1', text: @note.title)
@@ -405,7 +407,7 @@ describe 'Notes' do
       before do
         @note.update_attributes(active: true, instruction_list: ['__PUBLISH', '__PARALLEL', '__COLLATE'])
         @source = FactoryGirl.create(:note, body: 'Fixed Note Inhalte verwendet werden, um mehrere Anrufe auf VCR verhindern.', instruction_list: ['__LANG_DE'], title: @note.title)
-        visit note_path(@note)
+        visit note_path(@channel, @note)
       end
       it 'should have the note title as title' do
         page.should have_selector('h1', text: @note.title)
@@ -449,7 +451,7 @@ describe 'Notes' do
       @note.tag_list = ['tag2']
       @note.external_updated_at = 1.minute.ago
       @note.save
-      visit note_version_path(@note, 3)
+      visit note_version_path(@channel, @note, 3)
     end
     it 'should have the note title as title' do
       page.should have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
@@ -461,10 +463,10 @@ describe 'Notes' do
       page.should_not have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
+      page.should have_link(I18n.t('notes.index.title'), href: notes_path(@channel))
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
+      page.should have_link(I18n.t('tags.index.title'), href: tags_path(@channel))
     end
     it 'should have a diffed title' do
       page.should have_selector('del', text: 'Newer')
@@ -479,7 +481,7 @@ describe 'Notes' do
       page.should have_selector('ins', text: 'tag2')
     end
     it 'should have a link to Version 1' do
-      page.should have_link('v1', href: note_version_path(@note, 1))
+      page.should have_link('v1', href: note_version_path(@channel, @note, 1))
     end
 
     context 'when a note is in an RTL language' do
@@ -493,7 +495,7 @@ describe 'Notes' do
         @note.save
         @note.title = 'تشريح الكآبة الثالث'
         @note.save
-        visit note_version_path(@note, 3)
+        visit note_version_path(@channel, @note, 3)
       end
       it 'has the language attribute if note is not in default language' do
         page.should have_css('#content[lang=ar]')
@@ -511,7 +513,7 @@ describe 'Notes' do
   #     visit notes_path
   #   end
   #   it 'should have a link to promoted note' do
-  #     page.should have_selector('.promoted a', note_path(@note))
+  #     page.should have_selector('.promoted a', note_path(@channel, @note))
   #   end
   # end
 

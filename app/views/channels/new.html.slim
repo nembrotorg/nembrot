@@ -1,5 +1,29 @@
-h1 New channel
+- document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-== render 'form'
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-= link_to 'Back', channels_path
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+    section
+
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
+
+      div.oauth
+        ul
+          - provider = 'evernote'
+          - action = action || 'default'
+          - if user_signed_in? && current_user.authorizations.pluck(:provider).include?(provider.to_s)
+              li.connected
+                span class="#{ provider.to_s }" title="AAA"
+                  = provider.to_s.titleize
+          - else
+            - link_title = 'BBB'
+
+            li = link_to provider.to_s.titleize, omniauth_authorize_path(resource_name, provider), title: link_title
+
+      == render 'form'

@@ -1,22 +1,24 @@
-- document_title = "#{ t('.title') } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  - unless @notes.empty?
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    section class=css_instructions(@notes.first.instruction_list)
+    - unless @notes.empty?
 
-      = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
+      section class=css_instructions(@notes.first.instruction_list)
 
-      = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+        = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
 
-      aside.statistics
-        = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
-        = t('.other_view_html', path: notes_map_path) unless @map.blank?
+        = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
 
-      = paginate @notes
+        aside.statistics
+          = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
+          = t('.other_view_html', path: notes_map_path(@current_channel)) unless @map.blank?
+
+        = paginate @notes

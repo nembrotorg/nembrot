@@ -132,19 +132,15 @@ form
     line-height: $line-height
     &:hover
       background-color: $row-hover-color
+  select, input:not([type=button]):not([type=submit])
+    border: 1px solid $border-color
+    color: $font-color
+    height: 24px
+    margin: 2px 0
+    padding: 0 !important // Override auto-fillers
+    &.important:not([value])
+      border-color: $error-background-color
   input
-    &[type=email],
-    &[type=number],
-    &[type=password],
-    &[type=text],
-    &[type=url],
-      border: 1px solid $border-color
-      color: $font-color
-      height: 24px
-      margin: 2px 0
-      padding: 0 !important // Override auto-fillers
-      &.important:not([value])
-        border-color: $error-background-color
     &[type=button],
     &[type=submit]
       border: 1px solid $border-color
@@ -869,7 +865,7 @@ section.ins-section, article.ins-section
   form
     +span-columns(6)
     label
-      input
+      input, select
         float: right
         width: space(6)
 

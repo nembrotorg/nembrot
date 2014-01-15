@@ -1,30 +1,32 @@
-- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
 - add_breadcrumb t('.title'), new_user_session_path
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    = devise_error_messages!
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = f.label :email do
-      = :email.to_s.humanize
-      = f.email_field :email
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = devise_error_messages!
 
-    = f.label :password do
-      = :password.to_s.humanize
-      = f.password_field :password
+      = f.label :email do
+        = :email.to_s.humanize
+        = f.email_field :email
 
-    - if devise_mapping.rememberable?
-      = f.label :remember_me do
-        = :remember_me.to_s.humanize
-        = f.check_box :remember_me
-    
-    = f.submit t('.submit')
+      = f.label :password do
+        = :password.to_s.humanize
+        = f.password_field :password
 
-  = render 'devise/shared/links', action: t('.title')
+      - if devise_mapping.rememberable?
+        = f.label :remember_me do
+          = :remember_me.to_s.humanize
+          = f.check_box :remember_me
+      
+      = f.submit t('.submit')
+
+    = render 'devise/shared/links', action: t('.title')

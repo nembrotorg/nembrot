@@ -119,8 +119,8 @@ module FormattingHelper
 
   def bookify(text, books, citation_style)
     books.each do |book|
-      text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
-      text.gsub!(/#{ book.tag }/, t(citation_style, path: book_path(book), title: book.headline, author: book.author_sort, publisher: book.publisher, published_year: book.published_date.year))
+      text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for(channel: @current_channel, id: book.id) }\">\\2")
+      text.gsub!(/#{ book.tag }/, t(citation_style, path: book_path(@current_channel, book), title: book.headline, author: book.author_sort, publisher: book.publisher, published_year: book.published_date.year))
     end
     text
   end
@@ -138,7 +138,7 @@ module FormattingHelper
                    link_text: '\2',
                    title: link.headline,
                    url: link.url_or_canonical_url,
-                   path: link_path(link),
+                   path: link_path(@current_channel, link),
                    accessed_at: (timeago_tag link.updated_at)))
       # Replace links in the body copy (look-arounds prevent us catching urls inside anchor tags).
       text.gsub!(/(?<!")(#{ link.url })(?!")/,
@@ -146,7 +146,7 @@ module FormattingHelper
                    link_text: link.headline,
                    title: link.headline,
                    url: link.url_or_canonical_url,
-                   path: link_path(link),
+                   path: link_path(@current_channel, link),
                    accessed_at: (timeago_tag link.updated_at)))
     end
     text
@@ -157,12 +157,12 @@ module FormattingHelper
       start_text = text
       related_notes.each do |note|
         body = blurbify ? sanitize(note.clean_body) : note.body
-        text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
-        text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
+        text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(@current_channel, note)))
+        text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(@current_channel, note)))
         text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: [])) # Sending related_notes causes stack level too deep
         text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: []))
-        text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
-        text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+        text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(@current_channel, note)) }]")
+        text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(@current_channel, note)) }]")
       end
       break if text == start_text
     end
@@ -175,9 +175,9 @@ module FormattingHelper
       start_text = text
       related_citations.each do |citation|
         body = blurbify ? sanitize(citation.clean_body) : citation.body
-        text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
-        text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
-        text.gsub!(/\{insert:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
+        text.gsub!(/\{link:? *#{ citation_path(@current_channel, citation) }\}/, link_to(citation.headline, citation_path(@current_channel, citation)))
+        text.gsub!(/\{blurb:? *#{ citation_path(@current_channel, citation) }\}/, body) # Sending related_notes causes stack level too deep
+        text.gsub!(/\{insert:? *#{ citation_path(@current_channel, citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
       end
       break if text == start_text
     end

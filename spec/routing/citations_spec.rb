@@ -1,23 +1,25 @@
 # encoding: utf-8
 
 describe 'routing to citations' do
-  it 'routes /citations to citation#index' do
-    expect(get: '/citations').to route_to(
+  it 'routes /:channel/citations to citation#index' do
+    expect(get: "/channel-slug/citations").to route_to(
       controller: 'citations',
-      action: 'index'
+      action: 'index',
+      channel: 'channel-slug'
     )
   end
 
-  it 'routes /citations/:id to citation#show for id' do
-    expect(get: '/citations/1').to route_to(
+  it 'routes /:channel/citations/:id to citation#show for id' do
+    expect(get: "/channel-slug/citations/1").to route_to(
       controller: 'citations',
       action: 'show',
+      channel: 'channel-slug',
       id: '1'
     )
   end
 
   it 'does not expose all CRUD actions' do
-    expect(get: '/citations/1/create').not_to be_routable
+    expect(get: "/channel-slug/citations/1/create").not_to be_routable
     pending "expect(get: '/citations/show').to route_to(root_path)"
     pending "expect(get: '/citations/update').to route_to(root_path)"
     pending "expect(get: '/citations/edit').to route_to(root_path)"

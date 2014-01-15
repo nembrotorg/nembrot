@@ -5,10 +5,10 @@ nav.references
 
   ul
     - note.related_notes.notes_and_features.uniq.each do |note|
-      li = link_to note.headline, note_or_feature_path(note)
+      li = link_to note.headline, note_or_feature_path(@current_channel, note)
 
     - note.related_notes.citations.uniq.each do |citation|
-      li = link_to citation.headline, citation_path(citation)
+      li = link_to citation.headline, citation_path(@current_channel, citation)
 
     - note.inverse_related_notes.notes_and_features.uniq.each do |note|
-      li = link_to note.headline, note_or_feature_path(note)
+      li = link_to note.headline, note_or_feature_path(@current_channel, note)

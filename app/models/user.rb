@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_many :authorizations, dependent: :destroy
 
+  has_many :channels
+
   acts_as_commontator
 
   def self.new_with_session(params, session)

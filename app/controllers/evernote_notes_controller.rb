@@ -3,7 +3,7 @@
 class EvernoteNotesController < ApplicationController
 
   def add_task
-    EvernoteNote.add_task(params[:guid])
+    EvernoteNote.add_task(params[:guid], params[:notebookGuid])
 
     if Constant.synchronous
       EvernoteNote.sync_all

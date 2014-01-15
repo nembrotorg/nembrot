@@ -3,6 +3,7 @@
 describe 'Citations' do
 
   before do
+    @channel = FactoryGirl.create(:channel)
     @book = FactoryGirl.create(:book)
     @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Text. -- (#{ @book.tag }), p. 1")
   end
@@ -15,19 +16,19 @@ describe 'Citations' do
       page.should have_selector('h1', text: I18n.t('citations.index.title'))
     end
     it 'has a link to the citation' do
-      page.should have_selector('a', citation_path(@citation.id))
+      page.should have_selector('a', citation_path(@channel, @citation.id))
     end
   end
 
   describe 'show page' do
     before do
-      visit citation_path(@citation)
+      visit citation_path(@channel, @citation)
     end
     it 'has the citation title' do
       page.should have_selector('h1', @citation.headline)
     end
     it 'has a link to the book cited' do
-      page.should have_selector('a', book_path(@book.slug))
+      page.should have_selector('a', book_path(@channel, @book.slug))
     end
     it 'has a blockquote' do
       pending "page.should have_css('blockquote')"

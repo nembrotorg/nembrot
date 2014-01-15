@@ -8,7 +8,7 @@ section.citations
 
       - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
 
-      li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
+      li = link_to citation_path(@channel, citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
         figure.citation
           blockquote= blurbify(citation_text, citation.books, citation.links)
           figcaption= blurbify(attribution, citation.books, citation.links)

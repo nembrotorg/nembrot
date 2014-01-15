@@ -1,85 +1,87 @@
-- document_title = "#{ @link.headline } | #{ t('.title') } | #{ t('site.title') }"
+- document_title = "#{ @link.headline } | #{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title', channel: @link.channel), subtitle: nil, document_title: document_title, show_flashes: true
+    section
 
-    - if @link.errors.any?
-      ul.errors
-        - @link.errors.messages.each do |key, value|
-          li= "#{ key.to_s } #{ Array(value).first.to_s }"
+      = render 'header', title: t('.title', channel: @link.channel), subtitle: nil, document_title: document_title, show_flashes: true
 
-    form action="#{ update_link_path }" method="post"  
+      - if @link.errors.any?
+        ul.errors
+          - @link.errors.messages.each do |key, value|
+            li= "#{ key.to_s } #{ Array(value).first.to_s }"
 
-      fieldset
+      form action="#{ update_link_path }" method="post"  
 
-        label for="title"
-          | Title:
-          input name="link[title]" type="text" value="#{ @link.title }" class="important" required="true"
+        fieldset
 
-        label for="url"
-          | URL:
-          input name="link[url]" type="url" value="#{ @link.url }" class="important" required="true" pattern="http:\/\/.*\.*"
+          label for="title"
+            | Title:
+            input name="link[title]" type="text" value="#{ @link.title }" class="important" required="true"
 
-        label for="canonical_url"  
-          | Canonical URL:
-          input  name="link[canonical_url]" type="url" value="#{ @link.canonical_url }" pattern="http:\/\/.*\.*"
+          label for="url"
+            | URL:
+            input name="link[url]" type="url" value="#{ @link.url }" class="important" required="true" pattern="http:\/\/.*\.*"
 
-        label for="channel"
-          | Channel:
-          input  name="link[channel]" type="text" value="#{ @link.channel }" class="important"
+          label for="canonical_url"  
+            | Canonical URL:
+            input  name="link[canonical_url]" type="url" value="#{ @link.canonical_url }" pattern="http:\/\/.*\.*"
 
-        label for="author"
-          | Author:
-          input  name="link[author]" type="text" value="#{ @link.author }" class="important"
+          label for="channel"
+            | Channel:
+            input  name="link[channel]" type="text" value="#{ @link.channel }" class="important"
 
-        label for="website_name"
-          | Website name:
-          input  name="link[website_name]" type="text" value="#{ @link.website_name }" class="important"
-        
-        label for="publisher"
-          | Publisher:
-          input  name="link[publisher]" type="text" value="#{ @link.publisher }"
+          label for="author"
+            | Author:
+            input  name="link[author]" type="text" value="#{ @link.author }" class="important"
 
-        label for="lang"
-          | Language:
-          input  name="link[lang]" type="text" value="#{ @link.lang }"
+          label for="website_name"
+            | Website name:
+            input  name="link[website_name]" type="text" value="#{ @link.website_name }" class="important"
+          
+          label for="publisher"
+            | Publisher:
+            input  name="link[publisher]" type="text" value="#{ @link.publisher }"
 
-        label for="longitude"
-          | Longitude:
-          input  name="link[longitude]" type="number" value="#{ @link.longitude }" min="-50" max="50"
+          label for="lang"
+            | Language:
+            input  name="link[lang]" type="text" value="#{ @link.lang }"
 
-        label for="latitude"
-          | Latitude:
-          input  name="link[latitude]" type="number" value="#{ @link.latitude }" min="-50" max="50"
+          label for="longitude"
+            | Longitude:
+            input  name="link[longitude]" type="number" value="#{ @link.longitude }" min="-50" max="50"
 
-        label for="altitude"
-          | Altitude:
-          input  name="link[altitude]" type="number" value=@link.altitude
+          label for="latitude"
+            | Latitude:
+            input  name="link[latitude]" type="number" value="#{ @link.latitude }" min="-50" max="50"
 
-
-      / t.date     "modified"
-      / t.boolean  "paywall"
-      / t.string   "publisher"
+          label for="altitude"
+            | Altitude:
+            input  name="link[altitude]" type="number" value=@link.altitude
 
 
-      input name="id" type="hidden" value=@link.id
-      input name="dirty" type="hidden" value="f"
-      input name="attempts" type="hidden" value="0"
-      input name="_method" type="hidden" value="put"
+        / t.date     "modified"
+        / t.boolean  "paywall"
+        / t.string   "publisher"
 
-      = token_tag form_authenticity_token
 
-      input type="submit" value="Save"
+        input name="id" type="hidden" value=@link.id
+        input name="dirty" type="hidden" value="f"
+        input name="attempts" type="hidden" value="0"
+        input name="_method" type="hidden" value="put"
 
-    nav.tools
-      ul
-        li= link_to @link.channel, "#{ @link.protocol }://#{ @link.channel }", target: '_blank'
-        li= link_to @link.title.blank? ? @link.url : @link.title.truncate(50), @link.url, target: '_blank'
+        = token_tag form_authenticity_token
+
+        input type="submit" value="Save"
+
+      nav.tools
+        ul
+          li= link_to @link.channel, "#{ @link.protocol }://#{ @link.channel }", target: '_blank'
+          li= link_to @link.title.blank? ? @link.url : @link.title.truncate(50), @link.url, target: '_blank'

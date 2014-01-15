@@ -17,8 +17,8 @@ class EvernoteNote < ActiveRecord::Base
 
   validates_associated :note
 
-  def self.add_task(guid)
-    evernote_note = where(cloud_note_identifier: guid).first_or_create
+  def self.add_task(guid, notebook_guid)
+    evernote_note = where(cloud_note_identifier: guid, cloud_notebook_identifier: notebook_guid).first_or_create
     evernote_note.dirtify
   end
 
@@ -42,7 +42,8 @@ class EvernoteNote < ActiveRecord::Base
   end
 
   def evernote_auth
-    EvernoteAuth.new
+    user = Channel.where(notebooks: cloud_notebook_identifier).first.user
+    EvernoteAuth.new(user)
   end
 
   private

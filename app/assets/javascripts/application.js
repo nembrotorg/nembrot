@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//=	require jquery.pjax
+//= require jquery.ui.draggable
+//= require jquery.pjax
+//= require jquery.alterclass
 //= require rails-timeago
 //= require modernizr.minimal
 //= require underscore

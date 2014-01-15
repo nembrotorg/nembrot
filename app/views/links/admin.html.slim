@@ -1,17 +1,19 @@
-- document_title = "#{ t('.title', mode: @mode) } | #{ t('site.title') }"
+- document_title = "#{ t('.title', mode: @mode) } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title', mode: @mode), subtitle: nil, document_title: document_title, show_flashes: true
+    section
 
-    = render 'links_admin_list', links: @links unless @links.empty?
+      = render 'header', title: t('.title', mode: @mode), subtitle: nil, document_title: document_title, show_flashes: true
 
-    aside.statistics
-      = t('.statistics', count: number_with_delimiter(@links.size))
+      = render 'links_admin_list', links: @links unless @links.empty?
+
+      aside.statistics
+        = t('.statistics', count: number_with_delimiter(@links.size))

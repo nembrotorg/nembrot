@@ -1,30 +1,32 @@
-- document_title = "#{ strip_tags(@book.headline) } | #{ t('.title') } | #{ t('site.title') }"
+- document_title = "#{ strip_tags(@book.headline) } | #{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    section
 
-    section.details
-      p.main= link_to_unless_current_or_wrap main_details(@book).html_safe, @book
-      p= contributors(@book)
-      p= classification(@book)
-      p= links(@book)
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = render 'citations/citations_list', 
-       citations: sort_by_page_reference(@book.notes.publishable.citations), 
-       books: @books
-       unless @book.notes.publishable.citations.empty?
+      section.details
+        p.main= link_to_unless_current_or_wrap main_details(@book).html_safe, @book
+        p= contributors(@book)
+        p= classification(@book)
+        p= links(@book)
 
-    = render 'shared/notes_list', 
-       notes: @book.notes.publishable.listable, 
-       all_interrelated_notes_and_features: @all_interrelated_notes_and_features
-       unless @book.notes.publishable.listable.empty?
+      = render 'citations/citations_list', 
+         citations: sort_by_page_reference(@book.notes.publishable.citations), 
+         books: @books
+         unless @book.notes.publishable.citations.empty?
 
-    = render 'books_list', title: t('.related_books'), books: @related_books unless @related_books.empty?
+      = render 'shared/notes_list', 
+         notes: @book.notes.publishable.listable, 
+         all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+         unless @book.notes.publishable.listable.empty?
+
+      = render 'books_list', title: t('.related_books'), books: @related_books unless @related_books.empty?

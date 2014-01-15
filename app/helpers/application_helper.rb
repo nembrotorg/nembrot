@@ -58,13 +58,13 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def note_or_feature_path(note)
-    note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(note)
+  def note_or_feature_path(note, channel = @current_channel)
+    note.has_instruction?('feature') ? feature_path(note.feature, note.feature_id) : note_path(channel, note)
   end
 
-  def note_or_feature_index_path(note)
+  def note_or_feature_index_path(note, channel = @current_channel)
     # Be careful that feature is not repeated
     #  Imitate for home blurbs
-    note.has_instruction?('feature') ? feature_path(feature: note.feature) : note_path(note)
+    note.has_instruction?('feature') ? feature_path(feature: note.feature) : note_path(channel, note)
   end
 end

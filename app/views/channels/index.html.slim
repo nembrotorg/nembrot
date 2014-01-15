@@ -1,23 +1,23 @@
-h1 Listing channels
+- document_title = "#{ t('.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-table
-  tr
-    th Name
-    th Theme
-    th Notebooks
-    th
-    th
-    th
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  - @channels.each do |channel|
-    tr
-      td = channel.name
-      td = channel.theme
-      td = channel.notebooks
-      td = link_to 'Show', channel
-      td = link_to 'Edit', edit_channel_path(channel)
-      td = link_to 'Destroy', channel, data: {:confirm => 'Are you sure?'}, :method => :delete
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-br
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-= link_to 'New Channel', new_channel_path
+    section
+
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
+
+      table
+        - @channels.each do |channel|
+          tr
+            td = link_to channel.name, notes_path(channel.slug), class: 'show-channel'
+            td = link_to 'Edit', edit_channel_path(channel)
+            td = link_to 'Destroy', channel, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+      p = link_to 'New Channel', new_channel_path

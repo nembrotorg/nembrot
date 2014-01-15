@@ -4,6 +4,7 @@ class CreateChannels < ActiveRecord::Migration
       t.string :name
       t.string :theme
       t.text :notebooks
+      t.belongs_to :user
 
       t.timestamps
     end

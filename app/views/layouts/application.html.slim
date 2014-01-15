@@ -4,7 +4,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
   = render 'head'
 
-  body dir = body_dir_attr(I18n.locale.to_s)
+  body dir = body_dir_attr(I18n.locale.to_s) class = "signed-out theme-#{ @current_channel.nil? ? 'default' : @current_channel.theme }"
 
     = render 'chromeframe'
 
@@ -14,8 +14,10 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'tools'
 
-    = render 'footer'
+    -#= render 'footer'
 
     = render 'google_analytics' unless Constant.google_analytics_key.blank?
 
     = render 'async_share_scripts' if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'
+
+    aside#dashboard data-pjax-dashboard="true"

@@ -1,4 +1,4 @@
-- document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
+- document_title = "#{ t('.title', name: @tag.name) } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
@@ -17,6 +17,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     aside.statistics
       = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
-      = t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map == '[]'
+      = t('.other_view_html', path: tag_map_path(@current_channel, @tag.slug)) unless @map == '[]'
 
     = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?

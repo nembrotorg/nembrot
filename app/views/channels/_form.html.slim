@@ -6,13 +6,20 @@
         - @channel.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :theme
-    = f.text_field :theme
-  .field
-    = f.label :notebooks
-    = f.text_area :notebooks
+  fieldset
+
+    label for='notebooks'
+      | Notebooks
+      = f.select :notebooks, @evernote_notebooks_list, prompt: 'Choose...'
+
+    label for='name'
+      | Name
+      = f.text_field :name
+
+    label for='theme'
+      | Theme
+      = f.select :theme, ['default', 'inverse']
+
+    input name='id' type='hidden' value=@channel.id
+
   .actions = f.submit 'Save'

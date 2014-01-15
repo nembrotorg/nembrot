@@ -1,0 +1,42 @@
+body.theme-inverse
+  background-color: #000 !important
+
+.theme-inverse
+  #main
+    #text
+      background: rgba(0, 0, 0, .75)
+      p
+        color: white
+        margin: 15px
+    color: white
+
+    #text .body
+      font:
+        family: arial, sans-serif
+
+    figure.image
+      img
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        z-index: -100      
+        width: 100%
+      figcaption
+        position: absolute
+        bottom: 0
+        right: 0
+
+#dashboard
+  +span-columns(3, 12)
+  color: #fff
+  background: rgba(64, 64, 64, .90)
+  border: 5px solid yellow
+  padding: 15px
+  position: fixed
+  right: 100px
+  top: 100px
+  .breadcrumb
+    li:first-child
+      display: none
+

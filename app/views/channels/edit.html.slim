@@ -1,8 +1,16 @@
-h1 Editing channel
+- document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-== render 'form'
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-= link_to 'Show', @channel
-'|
-= link_to 'Back', channels_path
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+    section
+
+      = render 'header', title: t('.title'), subtitle: @channel.slug, document_title: document_title
+
+      == render 'form'

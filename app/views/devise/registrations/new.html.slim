@@ -1,33 +1,35 @@
-- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
 - add_breadcrumb t('.title'), new_user_registration_path
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = devise_error_messages!
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = f.label :name do
-      = :name.to_s.humanize
-      = f.text_field :name, autofocus: true
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
 
-    = f.label :email do
-      = :email.to_s.humanize
-      = f.email_field :email, autofocus: true
+      = f.label :name do
+        = :name.to_s.humanize
+        = f.text_field :name, autofocus: true
 
-    = f.label :password do
-      = :password.to_s.humanize
-      = f.password_field :password
+      = f.label :email do
+        = :email.to_s.humanize
+        = f.email_field :email, autofocus: true
 
-    = f.label :password_confirmation do
-      = :password_confirmation.to_s.humanize
-      = f.password_field :password_confirmation
+      = f.label :password do
+        = :password.to_s.humanize
+        = f.password_field :password
 
-    = f.submit t('.submit')
+      = f.label :password_confirmation do
+        = :password_confirmation.to_s.humanize
+        = f.password_field :password_confirmation
 
-  = render 'devise/shared/links', action: t('.title')
+      = f.submit t('.submit')
+
+    = render 'devise/shared/links', action: t('.title')

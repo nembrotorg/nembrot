@@ -1,58 +1,58 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
 
-  # GET /channels
+  add_breadcrumb I18n.t('channels.index.title'), :channels_path
+
   def index
-    @channels = Channel.all
+    @channels = current_user.channels
   end
 
-  # GET /channels/1
   def show
   end
 
-  # GET /channels/new
   def new
     @channel = Channel.new
+    @evernote_notebooks_list = user_signed_in? ? EvernoteNotebookList.new(current_user).array : []
+
+    add_breadcrumb I18n.t('.title'), :new_channel_path
   end
 
-  # GET /channels/1/edit
   def edit
+    @evernote_notebooks_list = user_signed_in? ? EvernoteNotebookList.new(current_user).array : []
+
+    add_breadcrumb I18n.t('.title'), :edit_channel_path
   end
 
-  # POST /channels
   def create
-    @channel = Channel.new(channel_params)
+    @channel = current_user.channels.new(channel_params)
 
     if @channel.save
-      redirect_to @channel, notice: 'Channel was successfully created.'
+      redirect_to channels_path, notice: 'Channel was successfully created.'
     else
       render action: 'new'
     end
   end
 
-  # PATCH/PUT /channels/1
   def update
     if @channel.update(channel_params)
-      redirect_to @channel, notice: 'Channel was successfully updated.'
+      redirect_to channels_path, notice: 'Channel was successfully updated.'
     else
       render action: 'edit'
     end
   end
 
-  # DELETE /channels/1
   def destroy
     @channel.destroy
-    redirect_to channels_url, notice: 'Channel was successfully destroyed.'
+    redirect_to channels_path, notice: 'Channel was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_channel
-      @channel = Channel.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def channel_params
-      params.require(:channel).permit(:name, :theme, :notebooks)
-    end
+  def set_channel
+    @channel = current_user.channels.find(params[:id])
+  end
+
+  def channel_params
+    params.require(:channel).permit(:name, :theme, :notebooks, :id)
+  end
 end

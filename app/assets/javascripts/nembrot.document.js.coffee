@@ -172,24 +172,24 @@ load_user_menu = () ->
 
 window.Nembrot.load_user_menu = load_user_menu
 
-# Document hooks ******************************************************************************************************
-
-$ ->
-  document_initializers()
-
-$(document).on 'pjax:end', ->
-  content_initializers()
-  content_initializers_reload_only()
-
-$(window).on 'resize', ->
-  resize_initializers()
+change_theme = (theme) ->
+  $('body').alterClass('theme-*', theme)
 
 # Initializers ********************************************************************************************************
 
 document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+  $(document).pjax('#dashboard a.show-channel', '[data-pjax-container]')
+  $(document).pjax('#dashboard a:not(.show-channel):not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-dashboard]')
+
+  $(document).on 'submit', '#dashboard form', (event) ->
+    $.pjax.submit event, '[data-pjax-dashboard]'
+
+  $(document).pjax('#main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+
+  $(document).on 'submit', '#main form', (event) ->
+    $.pjax.submit event, '[data-pjax-container]'
 
   $(document).on 'click', 'a[href^=http]:not(.share a)', ->
     track_outbound_link(@href, 'Outbound Link', @href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
@@ -226,9 +226,20 @@ document_initializers = () ->
       $('body').removeClass('mousemoving')
     , 3000)
 
-  load_user_menu()
+  $(document).on 'change', 'select#channel_theme', ->
+    change_theme('theme-' + @value)
 
   content_initializers()
+
+  load_user_menu()
+
+  $('#dashboard').draggable()
+
+  $.ajax
+    url: '/channels'
+    cache: false
+    success: (html) ->
+      $('#dashboard').html(html)
 
 content_initializers = () ->
   $('time').timeago()
@@ -245,6 +256,19 @@ content_initializers = () ->
 window.Nembrot.content_initializers = content_initializers
 
 content_initializers_reload_only = () ->
+  change_theme($('[data-theme-wrapper]').attr('class'))
 
 resize_initializers = () ->
   place_annotations()
+
+# Document hooks ******************************************************************************************************
+
+$ ->
+  document_initializers()
+
+$(document).on 'pjax:end', ->
+  content_initializers()
+  content_initializers_reload_only()
+
+$(window).on 'resize', ->
+  resize_initializers()

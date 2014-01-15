@@ -89,4 +89,8 @@ class Link < ActiveRecord::Base
   def scan_notes_for_references
     self.notes = Note.where('body LIKE ?', "%#{ url }%")
   end
+
+  def should_generate_new_friendly_id?
+    channel.blank? || channel_changed?
+  end
 end

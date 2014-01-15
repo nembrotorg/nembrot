@@ -23,7 +23,7 @@ class BooksController < ApplicationController
 
   def show
     @books = Book.cited
-    @book = @books.find_by_slug(params[:slug])
+    @book = @books.friendly.find(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
     interrelated_notes_features_and_citations
 

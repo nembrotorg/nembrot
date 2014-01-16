@@ -8,8 +8,8 @@ head
 
   meta name="viewport" content="width=device-width" initial-scale="1.0" maximum-scale="1.0"
 
-  - if Constant.facebook_app_id
-    meta property="fb:app_id" content="#{ Constant.facebook_app_id }"
+  - if Setting['advanced.facebook_app_id']
+    meta property="fb:app_id" content="#{ Setting['advanced.facebook_app_id'] }"
 
   -# = csrf_meta_tag
 

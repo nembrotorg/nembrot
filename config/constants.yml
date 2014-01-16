@@ -1,7 +1,4 @@
 defaults: &defaults
-  admin_email: joe.gatt@nembrot.org
-  admin_name: Joe
-  app_name: nembrot
   assets_version: 1.1
   blank_image_location: '/public/resources/cut/blank.png'
   cache_minutes: 10
@@ -14,12 +11,7 @@ defaults: &defaults
     sort_attrs: true
     tabsize: 2
     format: html5
-  mailer:
-    address: smtp.gmail.com
-    port: 587
-    domain: mail.joegatt.net
   repository: git://github.com/nembrotorg/nembrot.git
-  role_name: nembrot.org
   rtl_langs: 'ar fa'
   stream_binaries: false
   synchronous: false

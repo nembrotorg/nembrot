@@ -1,10 +1,12 @@
 defaults: &defaults
   advanced:
+    admin_email: CHANGE_ME@CHANGE_ME
+    admin_name: CHANGE_ME
     allowed_html_attributes: href src alt cite
     allowed_html_tags: a blockquote del ins li ol ul img strong
     always_reset_on_create: true
     attempts: 3
-    author: Joe Gatt
+    author: CHANGE_ME
     average_word_length: 5.5
     blurb_length: 400
     blurb_omission: ...
@@ -13,11 +15,11 @@ defaults: &defaults
     citation_max_length: 9999
     citations_index_per_page: 10
     comments_native_or_disqus_or_none: native
-    comments_from_email: joe@nembrot.org
-    contact_email: joe@nembrot.org
-    contact_name: Joe
+    contact_email: CHANGE_ME@CHANGE_ME
     detect_language_sample_length: 250
-    disqus_shortname: nembrot
+    disqus_shortname: CHANGE_ME_OPTIONAL
+    facebook_app_id: CHANGE_ME_OPTIONAL
+    google_analytics_key: CHANGE_ME
     instructions_citation: __QUOTE __CITATION
     instructions_collate: __COLLATE
     instructions_default: __TRI
@@ -39,19 +41,17 @@ defaults: &defaults
     instructions_unversion: __UNVERSION __NO_VERSION
     links_index_per_page: 60
     locale: en
-    monitoring_email: joe.gatt@nembrot.org
-    monitoring_name: Joe
     notes_index_per_page: 10
     share_native_or_iframes_or_none: native
     tags_index_per_page: 120
     tags_index_style: false
     tags_minimum: 2
-    title: Nembrot
     title_length: 40
+    twitter_user_name: CHANGE_ME_OPTIONAL
     truncate_after_regexp: --30--
     version_gap_distance: 100
     version_gap_minutes: 60
-    web_channels: facebook.com/nembrot twitter.com/nembrot github.com/nembrotorg/nembrot googleplus.com/nembrot
+    web_channels: facebook.com/CHANGE_ME_OPTIONAL twitter.com/CHANGE_ME_OPTIONAL github.com/nembrotorg/nembrot googleplus.com/CHANGE_ME_OPTIONAL
 
 development:
   <<: *defaults
@@ -64,3 +64,4 @@ staging:
 
 production:
   <<: *defaults
+  google_analytics_key: 'UA-16898823-3'

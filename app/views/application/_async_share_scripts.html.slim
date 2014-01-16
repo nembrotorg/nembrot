@@ -17,7 +17,7 @@ javascript:
     if(!d.getElementById(id)) {
       js = d.createElement(s);
       js.id = id;
-      js.src = "//connect.facebook.net/#{ I18n.locale.to_s }/all.js#xfbml=1&appId=#{ Constant.facebook_app_id }";
+      js.src = "//connect.facebook.net/#{ I18n.locale.to_s }/all.js#xfbml=1&appId=#{ Setting['advanced.facebook_app_id'] }";
       fjs.parentNode.insertBefore(js, fjs);
     }
   }(document, 'script', 'facebook-jssdk');

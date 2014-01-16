@@ -21,6 +21,8 @@ doc/
 sitemap.*
 
 # Ignore files with passwords etc (except sample and model files)
+/config/advanced.constants.yml
+/config/channel.constants.yml
 /config/secret.yml
 
 # Ignore resource files

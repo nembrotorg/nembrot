@@ -1,0 +1,19 @@
+defaults: &defaults
+  channel:
+    evernote_notebooks: CHANGE_ME
+    name: CHANGE_ME
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  channel:
+    evernote_notebooks: CHANGE_ME
+    name: CHANGE_ME

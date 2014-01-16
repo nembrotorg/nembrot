@@ -6,15 +6,15 @@ describe BookMailer do
     let(:mail) { BookMailer.missing_metadata(book) }
 
     it 'renders the receiver email' do
-      mail.to.should == [Setting['advanced.monitoring_email']]
+      mail.to.should == [Setting['advanced.admin_email']]
     end
 
     it 'renders the sender email' do
-      mail.from.should == [Constant.admin_email]
+      mail.from.should == [Setting['advanced.admin_email']]
     end
 
     it 'assigns @name' do
-      mail.body.encoded.should match(Setting['advanced.monitoring_name'])
+      mail.body.encoded.should match(Setting['advanced.admin_name'])
     end
 
     it 'includes book details in the subject' do

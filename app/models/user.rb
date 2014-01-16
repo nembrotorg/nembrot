@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     authorization.secret = auth.credentials.secret
 
     if authorization.user.blank?
-      # Wouldn't this find any other user with blank email?????
+      # REVIEW: Wouldn't this find any other user with blank email?
       user = current_user.nil? ? User.where('email = ?', auth['info']['email']).first_or_initialize : current_user
       user = User.new if user.blank?
     else
@@ -43,11 +43,11 @@ class User < ActiveRecord::Base
     end
 
     # Save extra so that we can use keys to sync later
-    #  If secret provided matches those in settings, set user role to secret
+    #  If secret provided matches those in settings, set user role to admin
     if auth.provider == 'evernote'
       authorization.extra = auth.extra
       authorization.key = auth.extra.access_token.consumer.key
-      user.role = 'admin' if auth.extra.access_token.consumer.secret.to_s == Secret.auth.evernote.secret
+      user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
     end
 
     user.skip_confirmation!

@@ -71,7 +71,7 @@ Finally, you can start your rails server!
 
 
 #### 6. Create a Nembrot user account
-Click on the user icon at the bottom left of the page, or go to [localhost:3000/users/sign_in](http://localhost:3000/users/sign_in). Sign in using your Evernote sandbox account. In production, Nembrot will detect that the consumer key for this account is the same as the one you entered in secret.yml and give your account an "admin" role. In development this is done by matching the username.
+Click on the user icon at the bottom left of the page, or go to [localhost:3000/users/sign_in](http://localhost:3000/users/sign_in). Sign in using your Evernote sandbox account. Nembrot will detect that the username for this account is the same as the one you entered in secret.yml and give your account an "admin" role.
 
 
 #### 7. Create your first note

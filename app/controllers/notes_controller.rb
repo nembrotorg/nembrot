@@ -43,7 +43,7 @@ class NotesController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('notes.show.not_found', id: params[:id])
-      redirect_to notes_path
+      redirect_to notes_path(@current_channel)
   end
 
   def version

@@ -60,40 +60,38 @@ gem 'uuidtools'
 gem 'validate_url'
 gem 'whenever', require: false
 
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'fuubar'
+  gem 'rspec-rails'
+  gem 'sqlite3'
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capistrano', '2.15.5'
-  gem 'factory_girl_rails'
   gem 'flog'
-  gem 'fuubar'
   gem 'guard-coffeescript'
   gem 'guard-livereload'
   gem 'guard-rubocop'
   gem 'guard-sass', require: false
   gem 'rails_best_practices'
-  gem 'rspec-rails'
-  gem 'sqlite3'
 end
 
 group :test do
   gem 'capybara'
   gem 'capybara-webkit' # Requires QT, see: https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
   gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
-  gem 'factory_girl_rails'
   gem 'faker'
-  gem 'fuubar'
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
-  gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'sass-rails'
   gem 'simplecov', require: false
   gem 'spork-rails', :github => 'sporkrb/spork-rails'
-  gem 'sqlite3'
   gem 'vcr'
   gem 'webmock'
 

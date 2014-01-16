@@ -24,7 +24,7 @@ module BlurbHelper
 
   def citation_blurb(clean_body, blurb_length = Setting['advanced.citation_blurb_length'].to_i)
     return [clean_body, nil] if clean_body.scan(/\-\-/).empty?
-    citation_text = Array(clean_body.scan(/^(.*?)\-\-/).first).first
+    citation_text = Array(clean_body.scan(/^(.*?)\s*\-\-/).first).first
                                     .truncate(blurb_length, separator: ' ', omission: Setting['advanced.blurb_omission'])
                                     # .gsub(/\W*#{ Setting['advanced.blurb_omission'] }\Z/m, '') REVIEW
     attribution = Array(clean_body.scan(/\-\- *(.*?)$/).first).first

@@ -55,11 +55,12 @@ _place_annotations_do = () ->
     minimum = corrected_top + $(this).outerHeight(true)
     $(this).offset top: corrected_top
 
-  maximum = $('#text').offset().top + $('#text').outerHeight(false)
-  annotations.reverse().each () ->
-    if $(this).offset().top + $(this).outerHeight(true) >= maximum 
-      maximum = $(this).offset().top - $(this).outerHeight(true)
-      $(this).offset top: maximum
+  # Prevent notes from going below end of body text
+  # maximum = $('#text').offset().top + $('#text').outerHeight(false)
+  # annotations.reverse().each () ->
+  #   if $(this).offset().top + $(this).outerHeight(true) >= maximum 
+  #     maximum = $(this).offset().top - $(this).outerHeight(true)
+  #     $(this).offset top: maximum
 
 _place_annotations_undo = () ->
   $('.annotations').removeClass('side-annotations')

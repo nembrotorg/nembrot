@@ -167,7 +167,10 @@ Commontator.configure do |config|
   # Available params can be seen in the subscription mailer
   # Default:
   # lambda { |params| 'no-reply@example.com' }
-  config.subscription_email_from_proc = lambda { |params| Setting['advanced.comments_from_email'] }
+
+  # Can't get this from Setting['advanced.contact_email'] because tables may not built yet (e.g. on Travis CI)
+  #  But note that this change won't take effect until restart
+  config.subscription_email_from_proc = lambda { |params| Constant.advanced.contact_email }
 
   # Proc called with params from the subscription mailer as arguments
   # Returns the subscription email 'subject' string

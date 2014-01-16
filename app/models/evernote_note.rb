@@ -5,17 +5,17 @@ class EvernoteNote < ActiveRecord::Base
   include Evernotable
   include Syncable
 
-  # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.
+  # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.)
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
   belongs_to :note
 
   # REVIEW: We don't validate for the presence of note since we want to be able to create dirty CloudNotes
   #  which may then be deleted. Creating a large number of superfluous notes would unnecessarily
   #  inflate the id number of each 'successful' note.
-  validates :cloud_note_identifier, presence: true, uniqueness: { scope: :evernote_auth_id }
-  validates_uniqueness_of :note_id # REVIEW: Does this make sense?
+  validates :cloud_note_identifier, presence: true, uniqueness: true
+  validates :note_id, uniqueness: true, allow_nil: true
 
-  validates_associated :note
+  # validates_associated :note
 
   def self.add_task(guid, notebook_guid)
     evernote_note = where(cloud_note_identifier: guid, cloud_notebook_identifier: notebook_guid).first_or_create

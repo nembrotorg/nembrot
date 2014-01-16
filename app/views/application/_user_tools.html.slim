@@ -6,13 +6,6 @@ ul
   - else
     li= link_to t('tools.sign_in'), new_user_session_path
 
-  -# - if user_signed_in? && current_user.admin?
-  -#   li
-  -#     ul.admin
-  -#       li= link_to t('settings.edit.title'), edit_settings_path
-  -#       li= link_to t('books.admin.title_no_mode'), books_admin_path
-  -#       li= link_to t('links.admin.title'), links_admin_path
-
 -# Add sign-in status CSS class to body and CSRF token meta tags
 javascript:
   $('body').removeClass('signed-out').addClass("#{user_signed_in? ? 'signed-in' : 'signed-out' }");

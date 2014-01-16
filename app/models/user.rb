@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     end
 
     # Save extra so that we can use keys to sync later
-    #  If secret provided matches those in settings, set user role to admin
+    #  If username matches the one in settings, set user role to admin
     if auth.provider == 'evernote'
       authorization.extra = auth.extra
       authorization.key = auth.extra.access_token.consumer.key

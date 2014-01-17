@@ -6,16 +6,16 @@ footer
       li#menu
         ul.promotions
           - @promoted_notes.first(Setting['style.promotions_footer'].to_i).each do |note|
-            li = link_to note.headline, note_or_feature_path(id: note.id, channel: @current_channel.slug)
+            li = link_to note.headline, note_or_feature_path(note)
 
       li
         ul.sections
           li = link_to t('home.title'), root_path
-          li = link_to t('notes.index.title'), notes_path(channel: @current_channel.slug)
-          li = link_to t('citations.index.title'), citations_path(channel: @current_channel.slug)
-          li = link_to t('books.index.title'), books_path(channel: @current_channel.slug)
-          li = link_to t('links.index.title'), links_path(channel: @current_channel.slug)
-          li = link_to t('tags.index.title'), tags_path(channel: @current_channel.slug)
+          li = link_to t('notes.index.title'), notes_path
+          li = link_to t('citations.index.title'), citations_path
+          li = link_to t('books.index.title'), books_path
+          li = link_to t('links.index.title'), links_path
+          li = link_to t('tags.index.title'), tags_path
 
           - @sections.each do |section|
             li = link_to section.titlecase, feature_path(feature: section)

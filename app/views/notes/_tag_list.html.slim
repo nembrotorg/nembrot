@@ -5,4 +5,4 @@ nav.tags
 
   ul
     - tags.each do |tag|
-      li = link_to tag.name, tag_path(@current_channel, tag), rel: 'tag'
+      li = link_to tag.name, tag_path(tag), rel: 'tag'

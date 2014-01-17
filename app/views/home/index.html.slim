@@ -11,6 +11,8 @@ div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
     = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
 
+    = @current_channel.name
+
     ul
     - Channel.all.each do |channel|
       li = link_to channel.name, notes_path(channel.slug)

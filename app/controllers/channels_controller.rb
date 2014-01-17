@@ -1,6 +1,8 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
 
+#  skip_before_filter :set_current_channel, :add_home_breadcrumb, :get_promoted_notes, :get_sections
+
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 
   def index

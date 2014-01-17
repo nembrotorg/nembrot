@@ -19,6 +19,6 @@ div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
         aside.statistics
           = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
-          = t('.other_view_html', path: notes_map_path(@current_channel)) unless @map.blank?
+          = t('.other_view_html', path: notes_map_path) unless @map.blank?
 
         = paginate @notes

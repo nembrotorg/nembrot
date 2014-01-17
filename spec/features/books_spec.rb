@@ -4,7 +4,7 @@ describe 'Books' do
 
   before do
     @user = FactoryGirl.create(:user)
-    @channel = FactoryGirl.create(:channel, user: @user)
+    @current_channel = FactoryGirl.create(:channel, user: @user)
     visit new_user_session_path
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'changeme'
@@ -24,7 +24,7 @@ describe 'Books' do
     it 'has a link to the book' do
       page.should have_text(@book.title)
       page.should have_text(@book.author)
-      page.should have_selector("a[href='#{ edit_book_path(@channel, @book.id) }']")
+      page.should have_selector("a[href='#{ edit_book_path(@current_channel, @book.id) }']")
     end
   end
 
@@ -37,13 +37,13 @@ describe 'Books' do
     end
     it 'has a link to the book' do
       page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
-      page.should have_css("a[href='#{ book_path(@channel, @book.slug) }']")
+      page.should have_css("a[href='#{ book_path(@current_channel, @book.slug) }']")
     end
   end
 
   describe 'show page' do
     before do
-      visit book_path(@channel, @book.slug)
+      visit book_path(@current_channel, @book.slug)
     end
     specify { page.should have_content(@book.title) }
     specify { page.should have_content(@book.author) }
@@ -54,14 +54,14 @@ describe 'Books' do
 
     it 'has a link to the citation' do
       page.should have_content(ActionController::Base.helpers.strip_tags(@book.headline))
-      # pending "page.should have_selector(\"a[href='#{ note_or_feature_path(@channel, @note) }']\") FIXME: Citation is being shown as a note"
-      # pending "page.should have_selector(\"a[href='#{ citation_path(@channel, @citation) }']\") FIXME: Citation is being shown as a note"
+      # pending "page.should have_selector(\"a[href='#{ note_or_feature_path(@note) }']\") FIXME: Citation is being shown as a note"
+      # pending "page.should have_selector(\"a[href='#{ citation_path(@citation) }']\") FIXME: Citation is being shown as a note"
     end
   end
 
   describe 'edit page' do
     before do
-      visit edit_book_path(@channel, @book.id)
+      visit edit_book_path(@current_channel, @book.id)
     end
     it 'can be updated' do
       fill_in 'Author', with: 'New Author'

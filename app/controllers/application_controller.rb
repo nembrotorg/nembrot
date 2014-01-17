@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_current_channel, only: [:index, :show, :new, :edit, :admin, :show_channel]
-  before_filter :add_home_breadcrumb
+  before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :get_promoted_notes
   before_filter :get_sections
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
@@ -17,12 +17,17 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
   end
 
+  def default_url_options
+    { channel: @current_channel }
+  end
+
   def set_current_channel
     @current_channel = params[:channel].blank? ? OpenStruct.new({ name: 'Nembrot', theme: 'default', notebooks: [], slug: 'default' }) : Channel.where('slug = ?', params[:channel]).first
   end
 
   def add_home_breadcrumb
     add_breadcrumb I18n.t('home.title'), :root_path
+    add_breadcrumb @current_channel.name, :notes_path
   end
 
   def get_promoted_notes

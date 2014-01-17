@@ -28,7 +28,7 @@ class NotesController < ApplicationController
 
     @map = mapify(@notes)
 
-    add_breadcrumb I18n.t('map'), notes_map_path(@current_channel)
+    add_breadcrumb I18n.t('map'), notes_map_path
   end
 
   def show
@@ -39,11 +39,11 @@ class NotesController < ApplicationController
     note_source(@note)
     commontator_thread_show(@note)
 
-    add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(id: @note.id, channel: @current_channel.id)
+    add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('notes.show.not_found', id: params[:id])
-      redirect_to notes_path(@current_channel)
+      redirect_to notes_path
   end
 
   def version
@@ -56,9 +56,9 @@ class NotesController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('notes.show.not_found', id: params[:id])
-      redirect_to notes_path(@current_channel)
+      redirect_to notes_path
     rescue
       flash[:error] = t('notes.version.not_found', id: params[:id], sequence: params[:sequence])
-      redirect_to note_path(@current_channel, @note)
+      redirect_to note_path(@note)
   end
 end

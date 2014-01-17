@@ -7,7 +7,7 @@ class Resource < ActiveRecord::Base
 
   belongs_to :note
 
-  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ? AND height > ?', 99, 99) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
   validates_presence_of :cloud_resource_identifier, :note

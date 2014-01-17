@@ -35,7 +35,7 @@ class TagsController < ApplicationController
 
     @map = mapify(@notes.mappable)
 
-    add_breadcrumb @tag.name, tag_path(@current_channel, params[:slug])
-    add_breadcrumb I18n.t('map'), tag_map_path(@current_channel, params[:slug])
+    add_breadcrumb @tag.name, tag_path(params[:slug])
+    add_breadcrumb I18n.t('map'), tag_map_path(params[:slug])
   end
 end

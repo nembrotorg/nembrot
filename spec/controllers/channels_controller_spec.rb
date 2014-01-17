@@ -31,7 +31,7 @@ describe ChannelsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all channels as @channels" do
+    it "assigns all channels as @current_channels" do
       channel = Channel.create! valid_attributes
       get :index, {}, valid_session
       assigns(:channels).should eq([channel])
@@ -39,7 +39,7 @@ describe ChannelsController do
   end
 
   describe "GET show" do
-    it "assigns the requested channel as @channel" do
+    it "assigns the requested channel as @current_channel" do
       channel = Channel.create! valid_attributes
       get :show, {:id => channel.to_param}, valid_session
       assigns(:channel).should eq(channel)
@@ -47,14 +47,14 @@ describe ChannelsController do
   end
 
   describe "GET new" do
-    it "assigns a new channel as @channel" do
+    it "assigns a new channel as @current_channel" do
       get :new, {}, valid_session
       assigns(:channel).should be_a_new(Channel)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested channel as @channel" do
+    it "assigns the requested channel as @current_channel" do
       channel = Channel.create! valid_attributes
       get :edit, {:id => channel.to_param}, valid_session
       assigns(:channel).should eq(channel)
@@ -69,7 +69,7 @@ describe ChannelsController do
         }.to change(Channel, :count).by(1)
       end
 
-      it "assigns a newly created channel as @channel" do
+      it "assigns a newly created channel as @current_channel" do
         post :create, {:channel => valid_attributes}, valid_session
         assigns(:channel).should be_a(Channel)
         assigns(:channel).should be_persisted
@@ -82,7 +82,7 @@ describe ChannelsController do
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved channel as @channel" do
+      it "assigns a newly created but unsaved channel as @current_channel" do
         # Trigger the behavior that occurs when invalid params are submitted
         Channel.any_instance.stub(:save).and_return(false)
         post :create, {:channel => { "name" => "invalid value" }}, valid_session
@@ -110,7 +110,7 @@ describe ChannelsController do
         put :update, {:id => channel.to_param, :channel => { "name" => "MyString" }}, valid_session
       end
 
-      it "assigns the requested channel as @channel" do
+      it "assigns the requested channel as @current_channel" do
         channel = Channel.create! valid_attributes
         put :update, {:id => channel.to_param, :channel => valid_attributes}, valid_session
         assigns(:channel).should eq(channel)
@@ -124,7 +124,7 @@ describe ChannelsController do
     end
 
     describe "with invalid params" do
-      it "assigns the channel as @channel" do
+      it "assigns the channel as @current_channel" do
         channel = Channel.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Channel.any_instance.stub(:save).and_return(false)

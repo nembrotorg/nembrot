@@ -6,13 +6,32 @@ Nembrot::Application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
 
+  get ':channel' => 'home#index'
   root to: 'home#index'
 
   resources :channels
 
-  get ':channel' => 'notes#index'
-
   get 'users/menu' => 'users#menu'
+
+  devise_scope :user do
+    get 'users/event/:event' => 'devise/sessions#event', as: :user_event
+  end
+
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+  resources :evernote_notes, only: [:add_evernote_task]
+
+  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
+  put 'settings' => 'settings#update', as: :update_settings
+  get 'settings/edit' => 'settings#edit', as: :edit_settings
+
+  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
+    as: :cut_resource,
+    aspect_x: /\d+/,
+    aspect_y: /\d+/,
+    width: /\d+/,
+    snap: /[01]/,
+    gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
+    constraints: { format: /(gif|jpg|jpeg|png)/ }
 
   scope ':channel' do
     put 'bibliography/update' => 'books#update', as: :update_book
@@ -43,25 +62,4 @@ Nembrot::Application.routes.draw do
     get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
     get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature
   end
-
-  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
-  put 'settings' => 'settings#update', as: :update_settings
-  get 'settings/edit' => 'settings#edit', as: :edit_settings
-
-  get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
-    as: :cut_resource,
-    aspect_x: /\d+/,
-    aspect_y: /\d+/,
-    width: /\d+/,
-    snap: /[01]/,
-    gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
-    constraints: { format: /(gif|jpg|jpeg|png)/ }
-
-  devise_scope :user do
-    get 'users/event/:event' => 'devise/sessions#event', as: :user_event
-  end
-
-  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
-
-  resources :evernote_notes, only: [:add_evernote_task]
 end

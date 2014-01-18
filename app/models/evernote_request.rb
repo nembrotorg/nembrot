@@ -122,7 +122,7 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Setting['advanced.always_reset_on_create'] == 'true' && evernote_note.note.versions.size == 0
+    reset_new_note = Setting['advanced.always_reset_on_create'] && evernote_note.note.versions.size == 0
     Time.at((reset_new_note ? cloud_note_data.created : cloud_note_data.updated) / 1000).to_datetime
   end
 

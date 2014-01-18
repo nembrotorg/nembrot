@@ -15,11 +15,11 @@ describe EvernoteNote do
     describe '#calculate_updated_at' do
       context 'when a note is new' do
         # OPTIMIZE: This test is at the top to ensure that the note is new
-        before { Setting['advanced.always_reset_on_create'] = 'false' }
+        before { Setting['advanced.always_reset_on_create'] = false }
         its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.updated / 1000) }
       end
       context 'when a note is new and always_reset is true' do
-        before { Setting['advanced.always_reset_on_create'] = 'true' }
+        before { Setting['advanced.always_reset_on_create'] = true }
         its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.created / 1000) }
       end
     end

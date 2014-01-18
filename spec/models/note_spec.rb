@@ -5,7 +5,7 @@ include ApplicationHelper
 
 describe Note do
 
-  before { Setting['advanced.versions'] = 'true' }
+  before { Setting['advanced.versions'] = true }
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
   subject { note }
 
@@ -91,7 +91,7 @@ describe Note do
     end
     context 'when versions are turned off' do
       before do
-        Setting['advanced.versions'] = 'false'
+        Setting['advanced.versions'] = false
         note.title = 'New Title'
         note.external_updated_at = 1.minute.ago
         note.save

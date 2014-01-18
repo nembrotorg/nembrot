@@ -24,7 +24,7 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   only: [:title, :body],
                   if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
-                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  unless: proc { |note| Setting['advanced.versions'] == false || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -213,7 +213,7 @@ class Note < ActiveRecord::Base
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } unless Setting['advanced.links_section'] == 'false'
+    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section']
 
     new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
     new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
@@ -224,12 +224,13 @@ class Note < ActiveRecord::Base
   end
 
   def scan_note_for_isbns
-    Book.grab_isbns(body) unless body.blank?
+    # REVIEW: try checking for setting as an unless: after before_save
+    Book.grab_isbns(body) unless Setting['advanced.books_section'] == false || body.blank?
   end
 
   def scan_note_for_urls
     # REVIEW: try checking for setting as an unless: after before_save
-    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == 'false' || clean_body.blank? && source_url.blank?
+    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == false || clean_body.blank? && source_url.blank?
   end
 
   def body_or_source_or_resource?
@@ -255,7 +256,7 @@ class Note < ActiveRecord::Base
 
   def discard_versions?
     if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Setting['advanced.always_reset_on_create'] == 'true'
+      self.external_updated_at = versions.first.reify.external_updated_at if Setting['advanced.always_reset_on_create']
       versions.destroy_all
     end
   end

@@ -88,7 +88,7 @@ class Link < ActiveRecord::Base
 
   def scan_notes_for_references
     # REVIEW: try checking for setting as an unless: after before_save
-    self.notes = Note.where('body LIKE ?', "%#{ url }%") unless Setting['advanced.links_section'] == 'false'
+    self.notes = Note.where('body LIKE ?', "%#{ url }%") if Setting['advanced.links_section']
   end
 
   def should_generate_new_friendly_id?

@@ -47,10 +47,11 @@ defaults: &defaults
     tags_index_style: false
     tags_minimum: 2
     title_length: 40
-    twitter_user_name: CHANGE_ME_OPTIONAL
     truncate_after_regexp: --30--
+    twitter_user_name: CHANGE_ME_OPTIONAL
     version_gap_distance: 100
     version_gap_minutes: 60
+    versions: true
     web_channels: facebook.com/CHANGE_ME_OPTIONAL twitter.com/CHANGE_ME_OPTIONAL github.com/nembrotorg/nembrot googleplus.com/CHANGE_ME_OPTIONAL
 
 development:

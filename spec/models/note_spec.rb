@@ -5,6 +5,7 @@ include ApplicationHelper
 
 describe Note do
 
+  before { Setting['advanced.versions'] = 'true' }
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
   subject { note }
 
@@ -88,14 +89,15 @@ describe Note do
         note.versions.should_not be_empty
       end
     end
-    context 'when title is changed' do
+    context 'when versions are turned off' do
       before do
+        Setting['advanced.versions'] = 'false'
         note.title = 'New Title'
         note.external_updated_at = 1.minute.ago
         note.save
       end
-      it 'saves a version' do
-        note.versions.should_not be_empty
+      it 'does not save a version' do
+        note.versions.should be_empty
       end
     end
     context 'when body is changed' do

@@ -53,7 +53,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
           -# = render 'notes/notes_list_headlines', note: @note
 
-          = render 'notes/versions_list', note: @note
+          = render 'notes/versions_list', note: @note unless Setting['advanced.versions'] == 'false'
 
   - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 

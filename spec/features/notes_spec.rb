@@ -11,6 +11,7 @@ describe 'Notes' do
     Setting['advanced.blurb_length'] = 40
     Setting['advanced.instructions_map'] = '__MAP'
     Setting['advanced.tags_minimum'] = 1
+    Setting['advanced.versions'] = 'true'
     Setting['advanced.version_gap_distance'] = 10
     Setting['advanced.version_gap_minutes'] = 60
   end
@@ -99,6 +100,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
+      Setting['advanced.versions'] = 'true'
       Setting['advanced.tags_minimum'] = 1
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']
@@ -133,10 +135,19 @@ describe 'Notes' do
       page.should have_selector('li', text: 'v1')
     end
 
-    context 'when this tag is attached to fewer notes than threshold' do
+    context 'when versions are turned off' do
       before do
-        Setting['advanced.tags_minimum'] = 10
+        Setting['advanced.versions'] = 'false'
+        @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
+        visit note_path(@note)
       end
+      it 'should not have a static label for Version 1' do
+        page.should_not have_selector('li', text: 'v1')
+      end
+    end
+
+    context 'when this tag is attached to fewer notes than threshold' do
+      before { Setting['advanced.tags_minimum'] = 10 }
       it 'should not have a link to tag1' do
         pending "page.should_not have_link('tag1', href: '/tags/tag1')"
       end

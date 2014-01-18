@@ -23,6 +23,7 @@ defaults: &defaults
     font_color: '#000'
     font_family: DejaVuSansCondensed, Arial, Helvetica, sans-serif
     font_size: 15px
+    force_double_quotes: true
     furniture_color: '#666'
     github_color: '#201f1f'
     gplus_color: '#dd4b39'

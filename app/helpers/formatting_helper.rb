@@ -285,6 +285,7 @@ module FormattingHelper
   def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
+    text = force_double_quotes(text) if Setting['style.force_double_quotes'] == 'true'
   end
 
   def smartify_hyphens(text)
@@ -307,6 +308,11 @@ module FormattingHelper
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
         .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
+  end
+
+  def force_double_quotes(text)
+    text.gsub(/'(\w|<)(.*?)([\w\.\,\?\!>])'(\W)/, "\u201C\\1\\2\\3\u201D\\4")
+        .gsub(/\u2018(\w|<)(.*?)([\w\.\,\?\!>])\u2019(\W)/, "\u201C\\1\\2\\3\u201D\\4")
   end
 
   def smartify_numbers(text)

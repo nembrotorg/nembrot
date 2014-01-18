@@ -57,6 +57,18 @@ describe Resource do
     end
   end
 
+  describe ':attached_images' do
+    before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i + 1) }
+    it 'contains resources larger than half the standard width' do
+      Resource.attached_images.last.should == @resource
+    end
+
+    context 'does not contain resources smaller than half the standard width' do
+      before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i - 1) }
+      Resource.attached_images.last.should == nil
+    end
+  end
+
   describe '#dirtify' do
     before { @resource.dirtify }
     its(:dirty) { should == true }

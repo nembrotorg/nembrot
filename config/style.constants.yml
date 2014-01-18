@@ -41,6 +41,7 @@ defaults: &defaults
     images_expanded_width: 1400
     images_gravity: 0
     images_name_length: 30
+    images_min_width: 799
     images_snap: 1
     images_standard_aspect_x: 16
     images_standard_aspect_y: 9
@@ -60,6 +61,7 @@ defaults: &defaults
     monospace_font: DejaVuMonoBook
     monospace_font_family: DejaVuMonoBook, monospace
     monospace_font_variant: mono_book
+    note_images_number: 1
     off_color: '#999'
     promotions_footer: 5
     promotions_home_columns: 3

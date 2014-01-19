@@ -8,4 +8,8 @@ class HomeController < ApplicationController
       format.json { render json: @notes }
     end
   end
+
+  def default_url_options
+    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
+  end
 end

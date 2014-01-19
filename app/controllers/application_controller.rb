@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def add_home_breadcrumb
     add_breadcrumb I18n.t('home.title'), :root_path
-    add_breadcrumb @current_channel_name, :notes_path
+    # add_breadcrumb @current_channel_name, :notes_path
   end
 
   def get_promoted_notes

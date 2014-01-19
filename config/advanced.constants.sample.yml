@@ -20,7 +20,7 @@ defaults: &defaults
     detect_language_sample_length: 250
     disqus_shortname: CHANGE_ME_OPTIONAL
     facebook_app_id: CHANGE_ME_OPTIONAL
-    google_analytics_key: CHANGE_ME
+    google_analytics_key: 'UA-16898823-3'
     instructions_citation: __QUOTE __CITATION
     instructions_collate: __COLLATE
     instructions_default: __TRI
@@ -67,4 +67,3 @@ staging:
 
 production:
   <<: *defaults
-  google_analytics_key: 'UA-16898823-3'

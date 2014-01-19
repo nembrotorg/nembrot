@@ -14,6 +14,8 @@ set :normalize_asset_timestamps, false
 
 set :repository,      'git@github.com:joegatt/nembrotcom.git'
 
+# See https://help.github.com/articles/deploying-with-capistrano
+
 set :user,            'deployer'
 set :group,           'staff'
 set :use_sudo,        false
@@ -184,8 +186,8 @@ namespace :settings do
   end
 end
 
-after 'deploy:update_code', 'whenever:update_crontab'
-after 'deploy:update_code', 'settings:update_defaults'
+# after 'deploy:update_code', 'whenever:update_crontab'
+# after 'deploy:update_code', 'settings:update_defaults'
 
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"

@@ -7,18 +7,14 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_current_channel, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
-  before_filter :get_promoted_notes
-  before_filter :get_sections
+  before_filter :get_promoted_notes, only: [:index, :show, :new, :edit, :admin, :show_channel]
+  before_filter :get_sections, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
   skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
-  end
-
-  def default_url_options
-    { channel: @current_channel }
   end
 
   def set_current_channel
@@ -87,4 +83,8 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, alert: exception.message
   end
+
+  def default_url_options
+    { channel: @current_channel }
+  end  
 end

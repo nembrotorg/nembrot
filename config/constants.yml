@@ -11,7 +11,7 @@ defaults: &defaults
     sort_attrs: true
     tabsize: 2
     format: html5
-  repository: git://github.com/nembrotorg/nembrot.git
+  repository: git@github.com:joegatt/nembrotcom.git
   rtl_langs: 'ar fa'
   stream_binaries: false
   synchronous: false

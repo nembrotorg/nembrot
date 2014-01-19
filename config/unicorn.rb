@@ -30,7 +30,7 @@ if env == "production"
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
 else
-  pid "/tmp/unicorn.nembrot_staging.pid"
+  pid "/tmp/unicorn.nembrotcom_staging.pid"
 
   # listen on both a Unix domain socket and a TCP port,
   # we use a shorter backlog for quicker failover when busy

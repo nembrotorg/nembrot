@@ -14,9 +14,28 @@ $secondary-color: violet
 // $static-url-color
 // $success-background-color
 
-
-body.theme-inverse
+body.theme-magazine
   background-color: $background-color
 
-.theme-inverse
+.theme-magazine
   +override
+
+  #main
+    #text
+      background: rgba(0, 0, 0, .75)
+
+    figure.image
+      img
+        height: 100%      
+        left: 0
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: -100
+      figcaption
+        position: absolute
+        bottom: 0
+        right: 0
+
+  .notes
+    font-family: arial, sans-serif

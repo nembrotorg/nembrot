@@ -38,4 +38,8 @@ class FeaturesController < ApplicationController
     add_breadcrumb @note.get_feature_id, feature_path(@note.feature, @note.feature_id) unless params[:feature_id].nil?
     render template: 'notes/show'
   end
+
+  def default_url_options
+    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
+  end
 end

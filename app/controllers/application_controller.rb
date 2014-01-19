@@ -18,12 +18,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_channel
-    @current_channel = params[:channel].blank? ? OpenStruct.new({ name: 'Nembrot', theme: 'default', notebooks: [], slug: 'default' }) : Channel.where('slug = ?', params[:channel]).first
+    @current_channel = Channel.where('slug = ?', params[:channel]).first unless params[:channel].blank?
+    @current_channel_theme = @current_channel.nil? ? 'default' : @current_channel.theme
+    @current_channel_name = @current_channel.nil? ? 'default' : @current_channel.name
   end
 
   def add_home_breadcrumb
     add_breadcrumb I18n.t('home.title'), :root_path
-    add_breadcrumb @current_channel.name, :notes_path
+    add_breadcrumb @current_channel_name, :notes_path
   end
 
   def get_promoted_notes
@@ -83,8 +85,4 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, alert: exception.message
   end
-
-  def default_url_options
-    { channel: @current_channel }
-  end  
 end

@@ -1,9 +1,9 @@
-- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ @current_channel.name } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ t('devise.title') } | #{ @current_channel_name } | #{ t('site.title') }"
 - set_meta_tags title: document_title
 
 - add_breadcrumb t('.title'), new_user_password_path
 
-div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 

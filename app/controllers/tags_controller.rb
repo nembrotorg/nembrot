@@ -38,4 +38,8 @@ class TagsController < ApplicationController
     add_breadcrumb @tag.name, tag_path(params[:slug])
     add_breadcrumb I18n.t('map'), tag_map_path(params[:slug])
   end
+
+  def default_url_options
+    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
+  end
 end

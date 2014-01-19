@@ -3,7 +3,7 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 
@@ -11,7 +11,7 @@ div data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
     = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
 
-    = @current_channel.name
+    = @current_channel_name
 
     ul
     - Channel.all.each do |channel|

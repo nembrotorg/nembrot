@@ -31,10 +31,10 @@ test:
 staging:
   <<: *defaults
   host: staging.nembrot.com
-  asset_host: http://a7.joegatt.org
+  asset_host: http://a8.joegatt.org
   synchronous: true
 
 production:
   <<: *defaults
   host: nembrot.com
-  asset_host: http://a8.joegatt.org
+  asset_host: http://a7.joegatt.org

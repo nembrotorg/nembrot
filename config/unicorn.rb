@@ -13,19 +13,19 @@ timeout 30
 
 # Production specific settings
 if env == "production"
-  pid "/tmp/unicorn.nembrot.pid"
+  pid "/tmp/unicorn.nembrotcom.pid"
 
   # listen on both a Unix domain socket and a TCP port,
   # we use a shorter backlog for quicker failover when busy
-  listen "/tmp/nembrot.socket", :backlog => 64
+  listen "/tmp/nembrotcom.socket", :backlog => 64
 
   # Help ensure your application will always spawn in the symlinked
   # "current" directory that Capistrano sets up.
-  working_directory "/home/deployer/apps/nembrot/current"
+  working_directory "/home/deployer/apps/nembrotcom/current"
 
   # feel free to point this anywhere accessible on the filesystem
   user 'deployer', 'staff'
-  shared_path = "/home/deployer/apps/nembrot/shared"
+  shared_path = "/home/deployer/apps/nembrotcom/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
@@ -34,12 +34,12 @@ else
 
   # listen on both a Unix domain socket and a TCP port,
   # we use a shorter backlog for quicker failover when busy
-  listen "/tmp/nembrot_staging.socket", :backlog => 64
+  listen "/tmp/nembrotcom_staging.socket", :backlog => 64
 
   # Staging
-  working_directory "/home/deployer/apps/nembrot_staging/current"
+  working_directory "/home/deployer/apps/nembrotcom_staging/current"
   user 'deployer', 'staff'
-  shared_path = "/home/deployer/apps/nembrot_staging/shared"
+  shared_path = "/home/deployer/apps/nembrotcom_staging/shared"
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
 end
@@ -54,9 +54,9 @@ before_fork do |server, worker|
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
   if env == "production"
-    old_pid = "/tmp/unicorn.nembrot.pid.oldbin"
+    old_pid = "/tmp/unicorn.nembrotcom.pid.oldbin"
   else
-    old_pid = "/tmp/unicorn.nembrot_staging.pid.oldbin"
+    old_pid = "/tmp/unicorn.nembrotcom_staging.pid.oldbin"
   end
   if File.exists?(old_pid) && server.pid != old_pid
     begin

@@ -123,7 +123,7 @@ class EvernoteRequest
   end
 
   def calculate_updated_at
-    reset_new_note = Setting['advanced.always_reset_on_create'] == 'true' && evernote_note.note.versions.size == 0
+    reset_new_note = Setting['advanced.always_reset_on_create'] && evernote_note.note.versions.size == 0
     Time.at((reset_new_note ? cloud_note_data.created : cloud_note_data.updated) / 1000).to_datetime
   end
 
@@ -177,14 +177,16 @@ class EvernoteRequest
     if cloud_resources
       cloud_resources.each_with_index do |cloud_resource, index|
 
-        resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
+        if cloud_resource.width > Setting['style.images_min_width'].to_i
+          resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
-        caption = captions[index] ? captions[index][0] : ''
-        description = descriptions[index] ? descriptions[index][0] : ''
-        credit = credits[index] ? credits[index][0] : ''
+          caption = captions[index] ? captions[index][0] : ''
+          description = descriptions[index] ? descriptions[index][0] : ''
+          credit = credits[index] ? credits[index][0] : ''
 
-        # REVIEW: see comment in Resource
-        resource.update_with_evernote_data(cloud_resource, caption, description, credit)
+          # REVIEW: see comment in Resource
+          resource.update_with_evernote_data(cloud_resource, caption, description, credit)
+        end
       end
     end
   end

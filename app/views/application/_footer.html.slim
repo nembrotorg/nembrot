@@ -14,7 +14,7 @@ footer
           li = link_to t('notes.index.title'), notes_path
           li = link_to t('citations.index.title'), citations_path
           li = link_to t('books.index.title'), books_path
-          li = link_to t('links.index.title'), links_path
+          li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == false
           li = link_to t('tags.index.title'), tags_path
 
           - @sections.each do |section|

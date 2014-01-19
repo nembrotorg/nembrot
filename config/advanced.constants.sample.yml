@@ -11,6 +11,7 @@ defaults: &defaults
     blurb_length: 400
     blurb_omission: ...
     books_index_per_page: 30
+    books_section: true
     citation_blurb_length: 230
     citation_max_length: 9999
     citations_index_per_page: 10
@@ -40,6 +41,7 @@ defaults: &defaults
     instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
     instructions_unversion: __UNVERSION __NO_VERSION
     links_index_per_page: 60
+    links_section: false
     locale: en
     notes_index_per_page: 10
     share_native_or_iframes_or_none: native
@@ -47,10 +49,11 @@ defaults: &defaults
     tags_index_style: false
     tags_minimum: 2
     title_length: 40
-    twitter_user_name: CHANGE_ME_OPTIONAL
     truncate_after_regexp: --30--
+    twitter_user_name: CHANGE_ME_OPTIONAL
     version_gap_distance: 100
     version_gap_minutes: 60
+    versions: true
     web_channels: facebook.com/CHANGE_ME_OPTIONAL twitter.com/CHANGE_ME_OPTIONAL github.com/nembrotorg/nembrot googleplus.com/CHANGE_ME_OPTIONAL
 
 development:

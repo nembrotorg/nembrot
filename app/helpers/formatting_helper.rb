@@ -8,8 +8,8 @@ module FormattingHelper
     text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
-    text = bookify(text, books, books_citation_style)
-    text = linkify(text, links, links_citation_style)
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
     text = headerize(text)
     text = sectionize(text)
     text = annotated ? annotate(text) : remove_annotations(text)
@@ -32,8 +32,8 @@ module FormattingHelper
     target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
-    target_text = bookify(target_text, books, books_citation_style)
-    target_text = linkify(target_text, links, links_citation_style)
+    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section']
+    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section']
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
     target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
@@ -52,8 +52,8 @@ module FormattingHelper
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
-    text = bookify(text, books, books_citation_style)
-    text = linkify(text, links, links_citation_style)
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
     clean_up_via_dom(text, true)
   end
 
@@ -207,7 +207,7 @@ module FormattingHelper
 
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = hyper_conform(text) if Setting['style.hyper_conform']
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -217,7 +217,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = hyper_conform(text) if Setting['style.hyper_conform']
     text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
     dom = clean_up_dom(dom, unwrap_p)
@@ -285,6 +285,7 @@ module FormattingHelper
   def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
+    text = force_double_quotes(text) if Setting['style.force_double_quotes']
   end
 
   def smartify_hyphens(text)
@@ -307,6 +308,11 @@ module FormattingHelper
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
         .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
+  end
+
+  def force_double_quotes(text)
+    text.gsub(/'(\w|<)(.*?)([\w\.\,\?\!>])'(\W)/, "\u201C\\1\\2\\3\u201D\\4")
+        .gsub(/\u2018(\w|<)(.*?)([\w\.\,\?\!>])\u2019(\W)/, "\u201C\\1\\2\\3\u201D\\4")
   end
 
   def smartify_numbers(text)

@@ -918,7 +918,6 @@ ul.admin
       +span-columns(8)
       +font-color($body-font-color)
       counter-reset: term
-      margin-bottom: $line-height
       overflow: visible
       position: relative
       p
@@ -953,7 +952,9 @@ ul.admin
     &:hover
       #text
         a
-          color: $link-hover-color
+          text-decoration: underline
+          &[id^=annotation], &[href^='#annotation']
+            text-decoration: none
     &[dir=rtl]
       header
         +span-columns(6)

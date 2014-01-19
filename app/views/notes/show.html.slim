@@ -5,7 +5,7 @@
 - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
 - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
 
-div data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
+div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 

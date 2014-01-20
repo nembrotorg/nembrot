@@ -6,6 +6,8 @@ class ChannelsController < ApplicationController
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 
   def index
+    redirect_to new_channel_path if current_user.blank? || current_user.channels.empty?
+
     @channels = current_user.channels
   end
 

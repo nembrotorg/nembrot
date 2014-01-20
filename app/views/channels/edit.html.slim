@@ -14,3 +14,5 @@ div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" cla
       = render 'header', title: t('.title'), subtitle: @channel.slug, document_title: document_title
 
       == render 'form'
+
+      p = link_to 'Destroy', @channel, data: {confirm: 'Are you sure?'}, method: :delete

@@ -56,7 +56,8 @@ class Note < ActiveRecord::Base
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
   def self.channelled(channel)
-    evernote_notes_note_id = EvernoteNote.where(cloud_notebook_identifier: Array(channel.notebooks)).pluck(:note_id)
+    # REVIEW
+    evernote_notes_note_id = EvernoteNote.where(cloud_notebook_identifier: channel.notebooks).pluck(:note_id)
     where(id: evernote_notes_note_id)
   end
 

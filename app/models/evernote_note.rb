@@ -18,8 +18,14 @@ class EvernoteNote < ActiveRecord::Base
   # validates_associated :note
 
   def self.add_task(guid, notebook_guid)
-    evernote_note = where(cloud_note_identifier: guid, cloud_notebook_identifier: notebook_guid).first_or_create
-    evernote_note.dirtify
+    # This test is repeated in EvernoteRequest, and below in #evernote_auth - do we need all of them?
+    if Channel.where(notebooks: notebook_guid).empty?
+      SYNC_LOG.error 'Note is not in any required notebook.'
+      destroy
+    else
+      evernote_note = where(cloud_note_identifier: guid, cloud_notebook_identifier: notebook_guid).first_or_create
+      evernote_note.dirtify
+    end
   end
 
   def self.sync_all
@@ -42,8 +48,14 @@ class EvernoteNote < ActiveRecord::Base
   end
 
   def evernote_auth
-    user = Channel.where(notebooks: cloud_notebook_identifier).first.user
-    EvernoteAuth.new(user)
+    channel = Channel.where(notebooks: cloud_notebook_identifier).first
+    if channel.nil?
+      SYNC_LOG.error 'Channel does not exist.'
+      destroy
+    else
+      user = channel.user
+      EvernoteAuth.new(user)
+    end
   end
 
   private

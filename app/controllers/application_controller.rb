@@ -45,7 +45,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    user_event_path('signed_in')
+    # user_event_path('signed_in')
+    root_path
   end
 
   def after_sign_out_path_for(resource)
@@ -79,6 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_public_cache_headers
+    # If we're using a channel owned by current_user, we set this to 0
     expires_in Constant.cache_minutes.minutes, public: Constant.cache_minutes != 0
   end
 

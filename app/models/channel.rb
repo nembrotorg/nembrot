@@ -4,7 +4,7 @@ class Channel < ActiveRecord::Base
   # serialize :notebooks
 
   validates :name, :notebooks, :theme, presence: true
-  validate :name, unique: true
+  validates :name, uniqueness: true
 
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 

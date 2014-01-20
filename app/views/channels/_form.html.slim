@@ -1,24 +1,27 @@
 = form_for @channel do |f|
-  - if @channel.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@channel.errors.count, "error")} prohibited this channel from being saved:"
-      ul
-        - @channel.errors.full_messages.each do |message|
-          li = message
-
   fieldset
 
-    label for='notebooks'
-      | Notebooks
-      = f.select :notebooks, @evernote_notebooks_list, prompt: 'Choose...'
+    - unless @channel.errors[:notebooks].empty?
+      p.error = "Notebook #{ @channel.errors.messages[:notebooks].join(', ') }."
 
+    - @evernote_notebooks_list.each do |notebook|
+      = f.label :notebooks, notebook[:name], value: notebook[:guid] 
+        = notebook[:name]
+        = f.radio_button :notebooks, notebook[:guid]
+
+  fieldset
+    - unless @channel.errors[:name].empty?
+      p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
     label for='name'
       | Name
       = f.text_field :name
 
-    label for='theme'
-      | Theme
-      = f.select :theme, ['default', 'inverse', 'magazine']
+  fieldset
+    - @themes = ['default', 'inverse', 'magazine']
+    - @themes.each do |theme|
+      = f.label :theme, theme, value: theme
+        = theme.titlecase
+        = f.radio_button :theme, theme, checked: (@channel.theme == theme || @channel.theme.nil? && theme == 'default')
 
     input name='id' type='hidden' value=@channel.id
 

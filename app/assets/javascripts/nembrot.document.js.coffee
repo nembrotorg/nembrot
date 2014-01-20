@@ -228,7 +228,7 @@ document_initializers = () ->
       $('body').removeClass('mousemoving')
     , 3000)
 
-  $(document).on 'change', 'select#channel_theme', ->
+  $(document).on 'change', 'input[name="channel[theme]"]', ->
     change_theme('theme-' + @value)
 
   content_initializers()

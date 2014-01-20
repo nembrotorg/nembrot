@@ -15,11 +15,12 @@ class EvernoteNotebookList
     a = EvernoteAuth.new(user)
     oauth_token = a.oauth_token
 
+    # REVIEW: This should be cached
     list = a.note_store.listNotebooks(oauth_token)
 
     list_array = []
     list.each do |n|
-      list_array.push([n.name, n.guid])
+      list_array.push({ name: n.name, guid: n.guid, default: n.defaultNotebook })
     end
 
     list_array

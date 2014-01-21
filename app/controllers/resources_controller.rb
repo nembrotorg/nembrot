@@ -2,7 +2,7 @@ class ResourcesController < ApplicationController
 
   include ResourcesHelper
 
-  skip_before_filter :set_current_channel, :add_home_breadcrumb, :get_promoted_notes, :get_sections
+  skip_before_filter :set_channel_defaults, :add_home_breadcrumb, :get_promoted_notes, :get_sections
 
   def cut
     image = cut_image_binary(

@@ -8,7 +8,7 @@ Nembrot::Application.routes.draw do
 
   resources :channels
 
-  get ':channel' => 'home#index'
+  get '/(:channel)' => 'home#index', as: :home
   root to: 'home#index'
 
   get 'users/menu' => 'users#menu'

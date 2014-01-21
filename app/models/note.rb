@@ -73,6 +73,14 @@ class Note < ActiveRecord::Base
     (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
+  def self.homeable
+    (all.keep_if { |note| note.has_instruction?('home') } + promotable).uniq
+  end
+
+  def self.with_instruction(instruction)
+    all.keep_if { |note| note.has_instruction?(instruction) }
+  end
+
   def self.sections
     where(is_section: true).pluck(:feature).uniq
   end

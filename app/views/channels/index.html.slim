@@ -3,11 +3,11 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
+div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-    -#nav = render_breadcrumbs builder: ::OrderedListBuilder
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
     section
 
@@ -16,7 +16,7 @@ div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" cla
       table
         - @channels.each do |channel|
           tr
-            td = link_to channel.name, notes_path(channel.slug), class: 'show-channel'
+            td = link_to channel.name, home_path(channel), class: 'show-channel'
             td = link_to 'Edit', edit_channel_path(channel)
 
       p = link_to 'New Channel', new_channel_path

@@ -11,9 +11,8 @@ head
   - if Setting['advanced.facebook_app_id']
     meta property="fb:app_id" content="#{ Setting['advanced.facebook_app_id'] }"
 
-  -# = csrf_meta_tag
-
-  = auto_discovery_link_tag :atom, notes_url(:atom), title: @current_channel_name
+  -# REVIEW
+  -# = auto_discovery_link_tag :atom, notes_url(:atom), title: @current_channel.name
 
   = stylesheet_link_tag 'application'
 

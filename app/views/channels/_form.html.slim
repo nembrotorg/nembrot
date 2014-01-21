@@ -17,7 +17,7 @@
       = f.text_field :name
 
   fieldset
-    - @themes = ['default', 'inverse', 'magazine']
+    - @themes = ['default', 'inverse', 'magazine', 'red']
     - @themes.each do |theme|
       = f.label :theme, theme, value: theme
         = theme.titlecase

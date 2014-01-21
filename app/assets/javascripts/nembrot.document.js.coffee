@@ -182,15 +182,15 @@ change_theme = (theme) ->
 document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('#dashboard a.show-channel', '[data-pjax-container]')
   $(document).pjax('#dashboard a:not(.show-channel):not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-dashboard]')
+  $(document).pjax('#dashboard a.show-channel:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+
+  $(document).pjax('#main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'submit', '#dashboard form', (event) ->
     $.pjax.submit event, '[data-pjax-dashboard]'
 
-  $(document).pjax('#main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
-
-  $(document).on 'submit', '#main form', (event) ->
+  $(document).on 'submit', '#main section:not(#comments) form', (event) ->
     $.pjax.submit event, '[data-pjax-container]'
 
   $(document).on 'click', 'a[href^=http]:not(.share a)', ->

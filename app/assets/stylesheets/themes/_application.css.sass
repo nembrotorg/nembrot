@@ -1,5 +1,19 @@
 // Custom styles
 
+input
+  &[type=radio]
+    float: right
+
+fieldset
+  clear: both
+
+.field_with_errors
+  display: inline
+
+a[href='/channels/new']:before
+  +icon-plus
+  +icon-large
+
 #dashboard
   width: 300px
   background-color: rgba(0, 0, 0, 0.9)
@@ -9,13 +23,18 @@
   top: 100px
   right: 100px
 
-  a
+  h1, h2
+    display: none
+
+  ol.breadcrumb
+    li:first-of-type
+      display: none
+
+  li, a
     color: #fff
 
-input
-  &[type=radio]
-    float: right
-fieldset
-  clear: both
-.field_with_errors
-  display: inline
+  header
+    display: none
+
+  nav
+    margin-bottom: $line-height

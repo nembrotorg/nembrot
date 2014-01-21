@@ -1,57 +1,17 @@
-- document_title = "#{ @note.headline } | #{ @current_channel_name } | #{ t('site.title') }"
+- document_title = "#{ @note.headline } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
                 open_graph: { title: @note.title }
 - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
 - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
 
-div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
+div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    article class=css_instructions(@note.instruction_list)
-
-      = render 'header', title: @note.main_title, subtitle: @note.subtitle, document_title: document_title
-
-      section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
-
-        = render 'shared/images', images: @note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
-
-        - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
-          section#introduction
-            p= @note.introduction
-
-        - if @source.nil?
-          section#text.regular
-            = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-        - elsif @note.has_instruction?('collate')
-          section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-            = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-        - else
-          section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
-            section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-              = bodify(@source.body, [], [], [], [], '', '', false)
-
-            section.target
-              = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-          / Collated
-
-          = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
-
-          aside
-
-            = render 'notes/tag_list', tags: @tags unless @tags.empty?
-
-            -#= render 'notes/notes_list_headlines', note: @note
-
-            = render 'notes/versions_list', note: @note if Setting['advanced.versions']
-
-        = render 'shared/map', map: @map unless @map.nil?
+    = render 'article', note: @note, title: document_title, tags: @tags, map: @map
 
     - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 

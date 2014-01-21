@@ -4,7 +4,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
   = render 'head'
 
-  body dir = body_dir_attr(I18n.locale.to_s) class = "signed-out theme-#{ @current_channel.nil? ? 'default' : @current_channel_theme }"
+  body dir = body_dir_attr(I18n.locale.to_s) class = "signed-out theme-#{ @current_channel.nil? ? 'default' : @current_channel.theme }"
 
     = render 'chromeframe'
 

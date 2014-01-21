@@ -15,15 +15,16 @@ class ChannelsController < ApplicationController
   end
 
   def show
+    redirect_to home_url(params[:id])
   end
 
   def new
     @channel = Channel.new
-    add_breadcrumb I18n.t('.title'), :new_channel_path
+    add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
-    add_breadcrumb I18n.t('.title'), :edit_channel_path
+    add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 
   def create

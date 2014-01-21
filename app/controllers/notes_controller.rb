@@ -6,8 +6,9 @@ class NotesController < ApplicationController
     page_number = params[:page] ||= 1
     #all_notes = Note.publishable.listable.blurbable
     all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
-
+    # all_notes = Note.channelled(@default_channel).with_instruction('demo')
     @notes = all_notes.page(page_number).load
+
     # Send all interrelated notes. (It's not enough to send just this note's interrelated notes since there could be nested r
     #  eferences.) We can also create a method in notes to do this. Not sure it would be more efficient.
     interrelated_notes_features_and_citations

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
-  before_filter :set_current_channel, only: [:index, :show, :new, :edit, :admin, :show_channel]
+  before_filter :set_channel_defaults, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :get_promoted_notes, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :get_sections, only: [:index, :show, :new, :edit, :admin, :show_channel]
@@ -17,23 +17,26 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
   end
 
-  def set_current_channel
-    @current_channel = Channel.where('slug = ?', params[:channel]).first unless params[:channel].blank?
-    @current_channel_theme = @current_channel.nil? ? 'default' : @current_channel.theme
-    @current_channel_name = @current_channel.nil? ? 'default' : @current_channel.name
+  def set_channel_defaults
+    # Default user (a registered user with the same name as the one in secret.yml)
+    #  needs to have a notebook called 'default'. It should have at least one __HOME
+    #  and one __DEMO note.
+    @default_channel = Channel.where('slug = ?', 'default').first
+    @default_note = Note.channelled(@default_channel).with_instruction('demo').first
+    @current_channel = Channel.where('slug = ?', (params[:channel].blank? ? 'default' : params[:channel])).first
   end
 
   def add_home_breadcrumb
-    add_breadcrumb I18n.t('home.title'), :root_path
-    # add_breadcrumb @current_channel_name, :notes_path
+    add_breadcrumb I18n.t('home.title'), '/'
+    add_breadcrumb @current_channel.name, home_path(@current_channel) unless @current_channel.name == 'default'
   end
 
   def get_promoted_notes
-    @promoted_notes = Note.publishable.listable.blurbable.promotable
+    @promoted_notes = Note.channelled(@current_channel).publishable.listable.blurbable.promotable
   end
 
   def get_sections
-    @sections = Note.sections
+    @sections = Note.channelled(@current_channel).sections
   end
 
   def after_sign_up_path_for(resource)
@@ -63,12 +66,12 @@ class ApplicationController < ActionController::Base
   end
 
   def interrelated_notes_features_and_citations
-    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
-    @all_interrelated_citations = Note.interrelated.publishable.citations
+    @all_interrelated_notes_and_features = Note.channelled(@current_channel).interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.channelled(@current_channel).interrelated.publishable.citations
   end
 
   def note_tags(note)
-    @tags = note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
+    @tags = note.tags.keep_if { |tag| Note.channelled(@current_channel).publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
   end
 
   def note_map(note)

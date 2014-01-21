@@ -3,16 +3,16 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
+div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
+    = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
 
-    = @current_channel_name
+    = render 'channels_list' if @current_channel.name == 'default'
 
-    ul
-    - Channel.all.each do |channel|
-      li = link_to channel.name, notes_path(channel.slug)
+    = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features unless @current_channel.name == 'default'
+
+    p = link_to 'All notes', notes_path

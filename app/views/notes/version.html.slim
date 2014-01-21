@@ -1,11 +1,11 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ @current_channel_name } | #{ t('site.title') }"
+- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ @current_channel.name } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 canonical: note_or_feature_path(@note),
                 description: @diffed_version.body,
                 open_graph: { title: @diffed_version.title },
                 noindex: true
 
-div data-channel-name="#{ @current_channel_name }" data-theme-wrapper="true" class="theme-#{ @current_channel_theme }"
+div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 

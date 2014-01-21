@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.draggable
+//= require jquery.ui.accordion
 //= require jquery.pjax
 //= require jquery.alterclass
 //= require rails-timeago

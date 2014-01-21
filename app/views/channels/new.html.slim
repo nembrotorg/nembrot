@@ -13,17 +13,4 @@ div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" cla
 
       = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
 
-      div.oauth
-        ul
-          - provider = 'evernote'
-          - action = action || 'default'
-          - if user_signed_in? && current_user.authorizations.pluck(:provider).include?(provider.to_s)
-              li.connected
-                span class="#{ provider.to_s }" title="AAA"
-                  = provider.to_s.titleize
-          - else
-            - link_title = 'BBB'
-
-            li = link_to provider.to_s.titleize, omniauth_authorize_path(resource_name, provider), title: link_title
-
       == render 'form'

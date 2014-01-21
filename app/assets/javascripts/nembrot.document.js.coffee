@@ -237,6 +237,10 @@ document_initializers = () ->
 
   $('#dashboard').draggable()
 
+  # REVIEW: This isn't working at the moment
+  #  There's a hardcoded script at the end of form.
+  $('#dashboard form').accordion header: 'legend'
+
   $.ajax
     url: '/channels'
     cache: false

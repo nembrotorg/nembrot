@@ -8,7 +8,7 @@ class ChannelsController < ApplicationController
 
   def index
     if current_user.blank? || current_user.channels.empty?
-      redirect_to new_channel_path
+      render action: 'new'
     else
       @channels = current_user.channels
     end
@@ -31,7 +31,7 @@ class ChannelsController < ApplicationController
     @channel = current_user.channels.new(channel_params)
 
     if @channel.save
-      redirect_to channels_path, notice: 'Channel was successfully created.'
+      redirect_to channels_url, notice: 'Channel was successfully created.'
     else
       render action: 'new'
     end
@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
 
   def update
     if @channel.update(channel_params)
-      redirect_to channels_path, notice: 'Channel was successfully updated.'
+      redirect_to channels_url, notice: 'Channel was successfully updated.'
     else
       render action: 'edit'
     end
@@ -47,7 +47,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     @channel.destroy
-    redirect_to channels_path, notice: 'Channel was successfully destroyed.'
+    redirect_to channels_url, notice: 'Channel was successfully deleted.'
   end
 
   private

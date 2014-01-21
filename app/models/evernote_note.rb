@@ -19,11 +19,11 @@ class EvernoteNote < ActiveRecord::Base
 
   def self.add_task(guid, notebook_guid)
     # This test is repeated in EvernoteRequest, and below in #evernote_auth - do we need all of them?
+    evernote_note = where(cloud_note_identifier: guid).first_or_initialize
     if Channel.where(notebooks: notebook_guid).empty?
-      SYNC_LOG.error 'Note is not in any required notebook.'
-      destroy
+      SYNC_LOG.info 'Note is not in any required notebook.'
+      evernote_note.destroy
     else
-      evernote_note = where(cloud_note_identifier: guid, cloud_notebook_identifier: notebook_guid).first_or_create
       evernote_note.dirtify
     end
   end

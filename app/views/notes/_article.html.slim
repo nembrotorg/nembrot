@@ -8,7 +8,7 @@ article class=css_instructions(note.instruction_list)
 
     - unless note.introduction.blank? || note.has_instruction?('hide_introduction')
       section#introduction
-        p= note.introduction
+        p == note.introduction
 
     - if @source.nil?
       section#text.regular

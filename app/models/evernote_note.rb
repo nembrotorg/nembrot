@@ -21,7 +21,7 @@ class EvernoteNote < ActiveRecord::Base
     # This test is repeated in EvernoteRequest, and below in #evernote_auth - do we need all of them?
     evernote_note = where(cloud_note_identifier: guid).first_or_initialize
     if Channel.where(notebooks: notebook_guid).empty?
-      SYNC_LOG.info 'Note is not in any required notebook.'
+      SYNC_LOG.error 'Note is not in any required notebook.'
       evernote_note.destroy
     else
       evernote_note.dirtify

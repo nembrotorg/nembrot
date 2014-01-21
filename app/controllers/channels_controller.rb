@@ -8,6 +8,7 @@ class ChannelsController < ApplicationController
 
   def index
     if current_user.blank? || current_user.channels.empty?
+      @channel = Channel.new
       render action: 'new'
     else
       @channels = current_user.channels

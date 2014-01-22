@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
+    = render 'header', title: t('.title'), subtitle: 'Create a new channel', document_title: document_title, show_flashes: true
 
     == render 'form', mode: 'new'
 

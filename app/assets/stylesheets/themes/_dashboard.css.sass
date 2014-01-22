@@ -7,11 +7,12 @@ $error-color: #c00
   cursor: hand
   height: 85%
   margin: 0
-  outline: 1px solid #fff
+  // outline: 1px solid #fff
   position: fixed
-  right: 2.5%
-  top: 2.5%
-  width: 90%
+  right: 1%
+  left: 1%
+  top: 1%
+  width: 98%
 
   nav
     margin-bottom: 0
@@ -42,6 +43,39 @@ $error-color: #c00
         color: #fff
         position: absolute
         right: $text-indent / 2
+
+  ul
+    +arrow-links
+    height: $line-height * 10
+    overflow-y: auto
+    padding: 0 ($text-indent / 3)
+    a
+      display: inline-block
+      &:first-of-type
+        width: 75%
+      &[href$='/edit']
+        padding-right: $text-indent / 2
+        position: absolute
+        right: 0
+        &:after
+          +icon-edit
+          padding-left: $text-indent / 2
+
+  a[href='/channels/new']
+    bottom: 0
+    display: block
+    font-weight: bold
+    position: absolute
+    padding: ($text-indent / 3)
+    width: 100%
+
+  #notice
+    display: block
+    width: 100%
+    padding: ($text-indent / 2) 0
+    .notice
+      display: block
+      width: 100%
 
   .connected p:before, .connect a:before
     +icon-evernote
@@ -118,8 +152,33 @@ $error-color: #c00
         input
           border: 1px solid #666
           font-weight: bold
-        label:hover
+        &:hover
           background-color: none
+
+    .actions
+      display: block
+      position: absolute
+      bottom: 0
+      left: 0
+      padding: $line-height / 2
+      width: 100%
+      // REVIEW: Genericise as button in default
+      input[type=submit]
+        width: 62%
+        &:hover
+          background-color: $link-hover-color
+          color: $background-color
+      a
+        +icon-only
+        width: $text-indent / 2
+        margin-left: $text-indent
+        &.delete:before
+          +icon-delete
+          vertical-align: -10px
+        &.cancel:before
+          +icon-signout // REVIEW: Rename to cross
+          +icon-large
+          vertical-align: -13px
 
   //li, a
   //  color: #fff
@@ -130,10 +189,11 @@ $error-color: #c00
 
   #dashboard
     +span-columns(2, 12)
-    top: 300px
-    right: 300px
-    height: 390px
-    width: 300px
+    top: auto
+    bottom: $line-height * 3
+    right: $text-indent / 2
+    height: $line-height * 14
+    width: $line-height * 11
 
     form
       height: 328px

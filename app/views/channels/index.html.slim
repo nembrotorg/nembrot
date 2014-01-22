@@ -5,21 +5,19 @@
 
 div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  section
 
-    section
+    = render 'header', title: t('.title'), subtitle: "#{ current_user.authorizations.where(provider: 'evernote').first.nickname }'s channels", document_title: document_title, show_flashes: true
 
-      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
+    ul
+      - @channels.each do |channel|
+        li
+          = link_to channel.name, home_path(channel), class: 'show-channel'
+          = link_to 'Edit', edit_channel_path(channel)
 
-      table
-        - @channels.each do |channel|
-          tr
-            td = link_to channel.name, home_path(channel), class: 'show-channel'
-            td = link_to 'Edit', edit_channel_path(channel)
-
-      p = link_to 'New Channel', new_channel_path
+    p = link_to 'New Channel', new_channel_path
 
 a href='#close'
   | Close

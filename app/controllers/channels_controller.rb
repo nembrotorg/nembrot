@@ -79,4 +79,8 @@ class ChannelsController < ApplicationController
   def channel_params
     params.require(:channel).permit(:name, :theme, :notebooks, :id)
   end
+
+  def set_public_cache_headers
+    expires_in 0.minutes, public: false
+  end
 end

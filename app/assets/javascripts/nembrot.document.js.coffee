@@ -240,10 +240,14 @@ document_initializers = () ->
       $('body').removeClass('mousemoving')
     , 3000)
 
+  # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
     change_theme('theme-' + @value)
 
-  # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
+  $(document).on 'click', '#dashboard .notebooks label', ->
+    $('#dashboard form').accordion 'option', 'active', 2
+    $("#dashboard .name input").focus()
+
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()
     $('#dashboard').toggle()

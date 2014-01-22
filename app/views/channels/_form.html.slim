@@ -23,7 +23,7 @@
   fieldset
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
-    div
+    div.notebooks
       - unless @channel.errors[:notebooks].empty?
         p.error = "Notebook #{ @channel.errors.messages[:notebooks].join(', ') }."
 
@@ -39,9 +39,9 @@
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
-        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9]{3,20}", required: true, placeholder: 'Channel name'
+        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,30}", required: true, placeholder: 'Channel name'
         div.available
-          | Use only alphanumeric characters.
+          | Use between 3 and 30 alphanumeric characters.
 
   - if mode != 'new'
     fieldset
@@ -58,9 +58,12 @@
 
       input name='id' type='hidden' value=@channel.id
 
-  .actions = f.submit 'Save channel'
+  .actions 
+    = f.submit 'Save channel'
 
-  = button_to 'xxx', href: 'yyy'
+    = link_to 'Cancel', channels_path, class: 'cancel'
+
+    = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete'
 
 javascript:
   $(function() {

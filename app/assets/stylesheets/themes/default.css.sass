@@ -1,3 +1,23 @@
+#tools
+  a[href*=channels]:before
+    +icon-settings
+  ul
+    li
+      &.channels ul
+        li
+          +icon-only
+          a
+            padding-top: $line-height
+
+a[href='#close']
+  position: absolute
+  top: 0
+  right: 0
+  +icon-only(20px)
+  &:before
+    +icon-signout
+    +icon-large
+
 $background-color: #e8e8e8
 $body-font-color: #080808
 //$border-color: #080808

@@ -6,13 +6,19 @@ class ChannelsController < ApplicationController
 
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 
-  def index
-    if current_user.blank? || current_user.channels.empty?
-      @channel = Channel.new
-      render action: 'new'
+  def choose
+    # Use this when loading dashboard
+    if @current_user_owns_current_channel
+      redirect_to edit_channel_url(@current_channel)
+    elsif current_user.nil? || current_user.channels.empty?
+      redirect_to new_channel_url
     else
-      @channels = current_user.channels
+      redirect_to channels_url
     end
+  end
+
+  def index
+    @channels = current_user.channels
   end
 
   def show
@@ -32,7 +38,7 @@ class ChannelsController < ApplicationController
     @channel = current_user.channels.new(channel_params)
 
     if @channel.save
-      redirect_to channels_url, notice: 'Channel was successfully created.'
+      redirect_to edit_channel_url(@channel), notice: 'Channel created! Now choose a theme...'
     else
       render action: 'new'
     end
@@ -49,6 +55,13 @@ class ChannelsController < ApplicationController
   def destroy
     @channel.destroy
     redirect_to channels_url, notice: 'Channel was successfully deleted.'
+  end
+
+  def available
+    @name_candidate = params[:name]
+    forbidden_names = %w(default help faqs nembrot cunt pussy) #REVIEW: Put in settings
+    @available = Channel.where(slug: @name_candidate.parameterize).size == 0 && !forbidden_names.include?(@name_candidate)
+    render partial: 'channels/available'
   end
 
   private

@@ -1,20 +1,82 @@
+$success-color: $static-url-color
+$error-color: #c00
+
 #dashboard
-  width: 90%
-  margin: 0
-  cursor: hand
   background-color: rgba(255, 255, 255, 0.85)
   border: 1px solid #000
-  position: fixed
-  top: 2.5%
-  right: 2.5%
+  cursor: hand
   height: 85%
+  margin: 0
+  outline: 1px solid #fff
+  position: fixed
+  right: 2.5%
+  top: 2.5%
+  width: 90%
 
-  h1, h2
+  nav
+    margin-bottom: 0
+
+  header, h2
+    margin: 0
+
+  header
+    height: $line-height * 2
+
+  h2
+    padding: ($line-height / 2) ($text-indent / 3)
+
+  h1
     display: none
 
   ol.breadcrumb
     li:first-of-type
       display: none
+
+  legend
+    position: relative
+    &.completed, &.connected
+      color: $secondary-color
+      text-decoration: line-through
+      &:after
+        +icon-ok
+        color: #fff
+        position: absolute
+        right: $text-indent / 2
+
+  .connected p:before, .connect a:before
+    +icon-evernote
+    color: $secondary-color
+    font-size: $line-height * 2
+    left: $text-indent / -2
+    position: absolute
+    top: $line-height / 2
+
+  .connected
+    p
+      margin: $line-height $text-indent
+      padding-left: $text-indent * 2
+      position: relative
+      &:before
+        color: $evernote-color
+
+  .connect
+    a
+      display: block
+      margin: $line-height $text-indent
+      padding-left: $text-indent * 2
+      position: relative
+      &:hover
+        &:before
+          color: $evernote-color
+
+  .available
+    font-size: $small-font-size
+    line-height: $line-height * 2/3
+
+  .available-true
+    color: $success-color
+  .available-false
+    color: $error-color
 
   form
     counter-reset: new-channel-steps
@@ -35,40 +97,50 @@
           content: counter(new-channel-steps) '.\0000a0'
       label
         padding: 0 ($text-indent / 3)
+        &:hover
+          background-color: #999
       div
         height: 120px
-        // margin-top: $text-indent / 3
+        padding-top: $text-indent / 3
         overflow-y: auto
+        &.name
+          overflow-y: hidden
       input
+        &[type=text]
+          float: none
+          width: 100%
         &[type=submit]
           display: block
           width: 100%
+        &[type=radio]
+          margin-top: 8px
+      .name
+        input
+          border: 1px solid #666
+          font-weight: bold
+        label:hover
+          background-color: none
 
   //li, a
   //  color: #fff
 
-  header
-    display: none
-
-  nav
-    margin-bottom: $line-height
-
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 720px)
-
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1024px)
 
   #dashboard
     +span-columns(2, 12)
     top: 300px
     right: 300px
     height: 390px
+    width: 300px
 
     form
       height: 328px
+
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1024px)
 
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

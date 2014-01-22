@@ -78,6 +78,10 @@ en:
       title: 'New channel'
     show:
       title: 'Channel'
+    available:
+      name_true: '<strong>%{name}</strong> is available.'
+      name_false: '<strong>%{name}</strong>" is not available.'
+      url: "Your channel's url would be:"
 
   citations:
     index:

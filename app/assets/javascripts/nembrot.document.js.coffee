@@ -174,6 +174,15 @@ load_user_menu = () ->
 
 window.Nembrot.load_user_menu = load_user_menu
 
+load_dashboard = () ->
+  $.ajax
+    url: '/channels/choose'
+    cache: false
+    success: (html) ->
+      $('#dashboard').html(html)
+
+window.Nembrot.load_dashboard = load_dashboard
+
 change_theme = (theme) ->
   $('body').alterClass('theme-*', theme)
 
@@ -218,6 +227,9 @@ document_initializers = () ->
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()
 
+  $(document).on 'keyup', (event) ->
+    if event.keyCode == 27 then $('#dashboard').fadeOut() # Review: Genericise
+
   $(window).scroll ->
     add_scrolling_class()
 
@@ -231,6 +243,15 @@ document_initializers = () ->
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
     change_theme('theme-' + @value)
 
+  # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
+  $(document).on 'click', '#tools a[href*=channels]', (event) ->
+    event.preventDefault()
+    $('#dashboard').toggle()
+    if $('#dashboard').is(':visible') then load_dashboard()
+
+  $(document).on 'click', 'a[href="#close"]', (event) ->
+    $(event.target).parent().fadeOut()
+
   content_initializers()
 
   load_user_menu()
@@ -239,13 +260,8 @@ document_initializers = () ->
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
-  $('#dashboard form').accordion header: 'legend'
-
-  $.ajax
-    url: '/channels'
-    cache: false
-    success: (html) ->
-      $('#dashboard').html(html)
+  #  Also we need to open .active
+  # $('#dashboard form').accordion header: 'legend'
 
 content_initializers = () ->
   $('time').timeago()

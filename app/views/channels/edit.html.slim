@@ -3,16 +3,17 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  section
 
-    section
+    = render 'header', title: t('.title'), subtitle: @channel.name, document_title: document_title
 
-      = render 'header', title: t('.title'), subtitle: @channel.slug, document_title: document_title
+    == render 'form', mode: 'edit'
 
-      == render 'form'
+    p = link_to 'Destroy', @channel, data: {confirm: 'Are you sure?'}, method: :delete
 
-      p = link_to 'Destroy', @channel, data: {confirm: 'Are you sure?'}, method: :delete
+a href='#close'
+  | Close

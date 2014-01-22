@@ -13,6 +13,10 @@ nav#tools
       ul
         li= link_to t('tools.sign_in'), '/users/sign_in'
 
+    li.channels
+      ul
+        li= link_to 'Channels', channels_path
+
     - if Setting['advanced.comments_native_or_disqus_or_none'] != 'none'
       - comments_link = Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus' ? '#disqus_thread' : '#comments'
       li.page

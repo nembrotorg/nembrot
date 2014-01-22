@@ -1,16 +1,17 @@
-- document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
+- document_title = "#{ t('.title') } | #{ t('site.title') }"
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  section
 
-    section
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
 
-      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title, show_flashes: true
+    == render 'form', mode: 'new'
 
-      == render 'form'
+a href='#close'
+  | Close

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
-  before_filter :set_channel_defaults, only: [:index, :show, :new, :edit, :admin, :show_channel]
+  before_filter :set_channel_defaults, only: [:index, :show, :choose, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :get_promoted_notes, only: [:index, :show, :new, :edit, :admin, :show_channel]
   before_filter :get_sections, only: [:index, :show, :new, :edit, :admin, :show_channel]
@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     @default_channel = Channel.where('slug = ?', 'default').first
     @default_note = Note.channelled(@default_channel).with_instruction('demo').first
     @current_channel = Channel.where('slug = ?', (params[:channel].blank? ? 'default' : params[:channel])).first
+    @current_user_owns_current_channel = !current_user.blank? && @current_channel.user_id == current_user.id
   end
 
   def add_home_breadcrumb

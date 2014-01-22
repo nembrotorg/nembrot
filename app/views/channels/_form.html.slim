@@ -1,24 +1,27 @@
+-# REVIEW: This logic should go in a helper
+
+- provider = 'evernote'
+- signed_in_with_evernote = user_signed_in? && current_user.authorizations.pluck(:provider).include?(provider.to_s)
+- status = signed_in_with_evernote ? 'connected' : 'connect'
+- active_panel = 0
+- active_panel = 1 if signed_in_with_evernote
+- active_panel = 3 unless @channel.notebooks.nil? && @channel.name.nil?
+
 = form_for @channel do |f|
 
-
   fieldset.oauth
-    legend
-      | Connect your Evernote account
-    div
-      ul
-        - provider = 'evernote'
-        - action = action || 'default'
-        - if user_signed_in? && current_user.authorizations.pluck(:provider).include?(provider.to_s)
-          p.connected
-            span class="#{ provider.to_s }" title="AAA"
-              = provider.to_s.titleize
-        - else
-          - link_title = 'BBB'
 
-          = link_to provider.to_s.titleize, omniauth_authorize_path(resource_name, provider), title: link_title
+    legend class="#{ status }"
+      | Connect your Evernote account
+    div class= status
+      - if signed_in_with_evernote
+        p
+          | Your Evernote account (#{ current_user.authorizations.where(provider: provider).first.nickname }) is connected.
+      - else
+        = link_to 'Click here to connect your Evernote account.', omniauth_authorize_path(resource_name, provider)
 
   fieldset
-    legend
+    legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
     div
       - unless @channel.errors[:notebooks].empty?
@@ -27,36 +30,58 @@
       - @evernote_notebooks_list.each do |notebook|
         = f.label :notebooks, notebook[:name], value: notebook[:guid] 
           = notebook[:name]
-          = f.radio_button :notebooks, notebook[:guid]
+          = f.radio_button :notebooks, notebook[:guid], required: true
 
   fieldset
-    legend
+    legend class="#{ @channel.name.nil? ? '' : 'completed' }"
       | Choose a name
-    div
+    div.name
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
-        | Name
-        = f.text_field :name
+        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9]{3,20}", required: true, placeholder: 'Channel name'
+        div.available
+          | Use only alphanumeric characters.
 
-  fieldset
-    legend
-      | Choose a theme
-    div
-      - @themes = ['default', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red', 'inverse', 'magazine', 'red']
-      - @themes.each do |theme|
-        = f.label :theme, theme, value: theme
-          = theme.titlecase
-          = f.radio_button :theme, theme, checked: (@channel.theme == theme || @channel.theme.nil? && theme == 'default')
+  - if mode != 'new'
+    fieldset
+      legend
+        | Choose a theme
+      div
+        - @themes = ['default', 'inverse', 'magazine', 'red']
+        - @themes.each do |theme|
+          = f.label :theme, theme, value: theme
+            = theme.titlecase
+            = f.radio_button :theme, theme, checked: (@channel.theme == theme || @channel.theme.nil? && theme == 'default'), required: true
+  - else
+    input name='channel[theme]' type='hidden' value='default'
 
       input name='id' type='hidden' value=@channel.id
 
   .actions = f.submit 'Save channel'
 
+  = button_to 'xxx', href: 'yyy'
+
 javascript:
   $(function() {
     $('#dashboard form').accordion({
       header: 'legend',
-      heightStyle: 'content'
+      heightStyle: 'content',
+      active: #{ active_panel }
     });
+  });
+
+  var thread = null;
+  $('#dashboard form input[type=text]').keyup(function() {
+    clearTimeout(thread);
+    var target = $(this);
+    thread = setTimeout(function() {
+      $.ajax({
+        url: '/channels/available/' + target.val(),
+        cache: false,
+        success: function(html) {
+          return $('#dashboard .available').html(html);
+        }
+      });
+    }, 500); 
   });

@@ -1,0 +1,4 @@
+p class="available-#{ @available.to_s }" == t(".name_#{ @available.to_s }", name: @name_candidate)
+- if @available
+  p == t('.url')
+  p.url == "http://nembrot.com/#{ @name_candidate.parameterize }"

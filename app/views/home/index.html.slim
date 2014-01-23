@@ -13,7 +13,7 @@ div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" cla
 
     = render 'channels_list' if @current_channel.name == 'default'
 
-    - unless @current_channel.name == 'default'
+    - unless @current_channel.name == 'default' || @promoted_notes.blank? 
       = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
 
       nav = link_to 'All notes', notes_path

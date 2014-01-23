@@ -18,7 +18,7 @@ class ChannelsController < ApplicationController
   end
 
   def index
-    @channels = current_user.channels
+    @channels = current_user.channels.order('slug')
   end
 
   def show

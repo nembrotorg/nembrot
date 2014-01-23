@@ -9,7 +9,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   section
 
-    = render 'header', title: t('.title'), subtitle: @channel.name, document_title: document_title
+    = render 'header', title: t('.title'), subtitle: (link_to @channel.name, home_path(@channel), class: 'show-channel'), document_title: document_title
 
     == render 'form', mode: 'edit'
 

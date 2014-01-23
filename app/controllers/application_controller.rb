@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
     #  needs to have a notebook called 'default'. It should have at least one __HOME
     #  and one __DEMO note.
     @default_channel = Channel.where('slug = ?', 'default').first
-    @default_note = Note.channelled(@default_channel).with_instruction('demo').first
+    @default_notes = Note.channelled(@default_channel).with_instruction('demo') 
+    @default_note = @default_notes.first
     @current_channel = Channel.where('slug = ?', (params[:channel].blank? ? 'default' : params[:channel])).first
     @current_user_owns_current_channel = !current_user.blank? && @current_channel.user_id == current_user.id
   end
@@ -34,6 +35,8 @@ class ApplicationController < ActionController::Base
 
   def get_promoted_notes
     @promoted_notes = Note.channelled(@current_channel).publishable.listable.blurbable.promotable
+    @promoted_notes = @default_notes if @promoted_notes.empty?
+    @promoted_notes
   end
 
   def get_sections

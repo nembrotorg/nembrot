@@ -20,7 +20,7 @@
       - else
         = link_to 'Click here to connect your Evernote account.', omniauth_authorize_path(resource_name, provider)
 
-  fieldset
+  fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
     div.notebooks
@@ -32,7 +32,7 @@
           = notebook[:name]
           = f.radio_button :notebooks, notebook[:guid], required: true
 
-  fieldset
+  fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.name.nil? ? '' : 'completed' }"
       | Choose a name
     div.name
@@ -44,7 +44,7 @@
           | Use between 3 and 30 alphanumeric characters.
 
   - if mode != 'new'
-    fieldset
+    fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
       legend
         | Choose a theme
       div
@@ -68,7 +68,7 @@
 javascript:
   $(function() {
     $('#dashboard form').accordion({
-      header: 'legend',
+      header: 'fieldset:not(.disabled) legend',
       heightStyle: 'content',
       active: #{ active_panel }
     });
@@ -88,3 +88,7 @@ javascript:
       });
     }, 500); 
   });
+
+  if (#{ mode == 'edit' && @channel.created_at > 12.hours.ago }) {
+    $.pjax({url: '#{ home_path(@channel) }', container: '[data-pjax-container]'});
+  }

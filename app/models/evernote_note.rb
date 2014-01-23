@@ -24,6 +24,7 @@ class EvernoteNote < ActiveRecord::Base
       SYNC_LOG.error 'Note is not in any required notebook.'
       evernote_note.destroy
     else
+      evernote_note.cloud_notebook_identifier = notebook_guid
       evernote_note.dirtify
     end
   end

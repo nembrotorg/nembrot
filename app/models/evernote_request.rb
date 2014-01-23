@@ -14,11 +14,13 @@ class EvernoteRequest
     self.guid = evernote_note.cloud_note_identifier
     self.evernote_auth = evernote_note.evernote_auth
 
-    evernote_note.increment_attempts
+    unless evernote_note.destroyed? # REVIEW: evernote_note could have been destroyed by #evernote_auth
+      self.evernote_note.increment_attempts
 
-    self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
+      self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
-    update_note if update_necessary? && note_is_not_conflicted?
+      update_note if update_necessary? && note_is_not_conflicted?
+    end
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       evernote_note.max_out_attempts

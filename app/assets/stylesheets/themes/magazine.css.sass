@@ -17,27 +17,26 @@ $secondary-color: violet
 body.theme-magazine
   background-color: $background-color
 
-.theme-magazine
+#main .theme-magazine
   +override
 
-  #main
-    #content
-      background: none
-    #text
-      background: rgba(0, 0, 0, .75)
+  #content
+    background: none
+  #text
+    background: rgba(0, 0, 0, .75)
 
-    figure.image
-      img
-        height: 100%      
-        left: 0
-        position: fixed
-        top: 0
-        width: 100%
-        z-index: -100
-      figcaption
-        position: absolute
-        bottom: 0
-        right: 0
+  figure.image
+    img
+      height: 100%      
+      left: 0
+      position: fixed
+      top: 0
+      width: 100%
+      z-index: -100
+    figcaption
+      position: absolute
+      bottom: 0
+      right: 0
 
-  .notes
-    font-family: arial, sans-serif
+.notes
+  font-family: arial, sans-serif

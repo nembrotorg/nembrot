@@ -2,7 +2,7 @@ $success-color: $static-url-color
 $error-color: #c00
 
 #dashboard
-  background-color: rgba(255, 255, 255, 0.85)
+  background-color: rgba(255, 255, 255, 0.85) !important
   border: 1px solid #000
   cursor: hand
   height: 85%
@@ -79,7 +79,7 @@ $error-color: #c00
 
   .connected p:before, .connect a:before
     +icon-evernote
-    color: $secondary-color
+    color: $evernote-color
     font-size: $line-height * 2
     left: $text-indent / -2
     position: absolute
@@ -90,8 +90,6 @@ $error-color: #c00
       margin: $line-height $text-indent
       padding-left: $text-indent * 2
       position: relative
-      &:before
-        color: $evernote-color
 
   .connect
     a
@@ -99,9 +97,6 @@ $error-color: #c00
       margin: $line-height $text-indent
       padding-left: $text-indent * 2
       position: relative
-      &:hover
-        &:before
-          color: $evernote-color
 
   .available
     font-size: $small-font-size
@@ -129,12 +124,18 @@ $error-color: #c00
         cursor: pointer
         &:before
           content: counter(new-channel-steps) '.\0000a0'
+      &.disabled
+        legend
+          color: $secondary-color
+          cursor: default
+        div
+          display: none
       label
         padding: 0 ($text-indent / 3)
         &:hover
           background-color: #999
       div
-        height: 120px
+        height: $line-height * 4
         padding-top: $text-indent / 3
         overflow-y: auto
         &.name
@@ -188,12 +189,12 @@ $error-color: #c00
 @media only screen and (min-width: 720px)
 
   #dashboard
-    +span-columns(2, 12)
+    width: 330px
     top: auto
     bottom: $line-height * 3
+    left: auto
     right: $text-indent / 2
     height: $line-height * 14
-    width: $line-height * 11
 
     form
       height: 328px
@@ -202,8 +203,12 @@ $error-color: #c00
 
 @media only screen and (min-width: 1024px)
 
+  #dashboard
+    top: $line-height * 6
+    bottom: auto
+    left: auto
+    right: auto
+
 // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1200px)
-
-

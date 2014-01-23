@@ -4,9 +4,29 @@ input
   &[type=radio]
     float: right
 
-.field_with_errors
-  display: inline
+a[href='#close']
+  position: absolute
+  top: 0
+  right: 0
+  +icon-only(20px)
+  &:before
+    +icon-signout
+    +icon-large
 
 a[href='/channels/new']:before
   +icon-plus
   +icon-large
+
+.field_with_errors
+  display: inline
+
+#tools
+  a[href*=channels]:before
+    +icon-settings
+  ul
+    li
+      &.channels ul
+        li
+          +icon-only
+          a
+            padding-top: $line-height

@@ -99,6 +99,8 @@ $error-color: #c00
       margin: $line-height $text-indent
       padding-left: $text-indent * 2
       position: relative
+      &:hover:before
+        color: $link-hover-color
 
   .available
     font-size: $small-font-size
@@ -208,7 +210,7 @@ $error-color: #c00
 @media only screen and (min-width: 1024px)
 
   #dashboard
-    top: $line-height * 7
+    top: $line-height * 6
     bottom: auto
     left: 50%
     margin-left: 208px

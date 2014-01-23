@@ -14,8 +14,8 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
     ul
       - @channels.each do |channel|
         li
-          = link_to channel.name, home_path(channel), class: 'show-channel'
-          = link_to 'Edit', edit_channel_path(channel)
+          = link_to channel.name, edit_channel_path(channel)
+          = link_to 'View', home_path(channel), class: 'show-channel'
 
     p = link_to 'New Channel', new_channel_path
 

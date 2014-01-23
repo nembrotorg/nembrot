@@ -244,12 +244,13 @@ document_initializers = () ->
     change_theme('theme-' + @value)
 
   $(document).on 'click', '#dashboard .notebooks label', ->
+    $('#dashboard .notebooks legend').addClass('completed')
     $('#dashboard form').accordion 'option', 'active', 2
     $("#dashboard .name input").focus()
 
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()
-    $('#dashboard').toggle()
+    $('#dashboard').fadeToggle()
     if $('#dashboard').is(':visible') then load_dashboard()
 
   $(document).on 'click', 'a[href="#close"]', (event) ->

@@ -20,10 +20,10 @@
       - else
         = link_to 'Click here to connect your Evernote account.', omniauth_authorize_path(resource_name, provider)
 
-  fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
+  fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
-    div.notebooks
+    div
       - unless @channel.errors[:notebooks].empty?
         p.error = "Notebook #{ @channel.errors.messages[:notebooks].join(', ') }."
 
@@ -32,10 +32,10 @@
           = notebook[:name]
           = f.radio_button :notebooks, notebook[:guid], required: true
 
-  fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
+  fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.name.nil? ? '' : 'completed' }"
-      | Choose a name
-    div.name
+      | Name your channel
+    div
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
@@ -63,7 +63,7 @@
 
     = link_to 'My channels', channels_path, class: 'cancel', title: 'My Channels'
 
-    = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel'
+    = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
 
 javascript:
   $(function() {
@@ -89,6 +89,6 @@ javascript:
     }, 500); 
   });
 
-  if (#{ mode == 'edit' }) {
+  if (#{ mode == 'edit' && @current_channel != @channel }) {
     $.pjax({url: '#{ home_path(@channel) }', container: '[data-pjax-container]'});
   }

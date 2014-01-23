@@ -1,8 +1,11 @@
 $success-color: $static-url-color
 $error-color: #c00
 
+#dashboard:not(.ui-draggable-dragging):hover
+  background-color: rgba(255, 255, 255, 1)
+
 #dashboard
-  background-color: rgba(255, 255, 255, 0.85) !important
+  background-color: rgba(255, 255, 255, 0.85)
   border: 1px solid #000
   cursor: hand
   height: 85%
@@ -36,8 +39,7 @@ $error-color: #c00
   legend
     position: relative
     &.completed, &.connected
-      color: $secondary-color
-      text-decoration: line-through
+      color: $off-color
       &:after
         +icon-ok
         color: #fff
@@ -45,7 +47,6 @@ $error-color: #c00
         right: $text-indent / 2
 
   ul
-    +arrow-links
     height: $line-height * 8.5
     overflow-y: scroll
     padding: 0 ($text-indent / 3)
@@ -57,10 +58,12 @@ $error-color: #c00
         float: left
         overflow: hidden
         width: 70%
-      &[href$='/edit']
+        &:before
+          +icon-settings
+      &.show-channel
         float: right
         &:after
-          +icon-edit
+          +icon-settings
           padding-left: $text-indent / 2
 
   a[href='/channels/new']
@@ -89,14 +92,14 @@ $error-color: #c00
 
   .connected
     p
-      margin: $line-height $text-indent
+      margin: ($line-height * 2/3) $text-indent $line-height $text-indent
       padding-left: $text-indent * 2
       position: relative
 
   .connect
     a
       display: block
-      margin: $line-height $text-indent
+      margin: ($line-height * 2/3) $text-indent $line-height $text-indent
       padding-left: $text-indent * 2
       position: relative
       &:hover:before
@@ -142,10 +145,10 @@ $error-color: #c00
         height: $line-height * 4
         padding-top: $text-indent / 3
         overflow-y: auto
-        &.name
-          overflow-y: hidden
-          label:hover
-            background-color: none
+      .name div
+        overflow-y: hidden
+        label:hover
+          background-color: none
       input
         &[type=text]
           float: none

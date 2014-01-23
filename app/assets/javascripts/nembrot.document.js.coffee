@@ -184,7 +184,7 @@ load_dashboard = () ->
 window.Nembrot.load_dashboard = load_dashboard
 
 change_theme = (theme) ->
-  $('body').alterClass('theme-*', theme)
+  $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
 
 # Initializers ********************************************************************************************************
 

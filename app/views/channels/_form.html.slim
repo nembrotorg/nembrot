@@ -58,8 +58,8 @@
 
       input name='id' type='hidden' value=@channel.id
 
-  .actions 
-    = f.submit 'Save channel'
+  .actions
+    = f.submit t("channels.#{ mode }.submit")
 
     = link_to 'Cancel', channels_path, class: 'cancel'
 

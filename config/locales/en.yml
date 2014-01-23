@@ -72,10 +72,12 @@ en:
   channels:
     edit:
       title: 'Edit channel'
+      submit: 'Save channel'
     index:
       title: 'My Channels'
     new:
       title: 'New channel'
+      submit: 'Create channel'
     show:
       title: 'Channel'
     available:

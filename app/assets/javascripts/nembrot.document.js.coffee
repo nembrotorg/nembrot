@@ -184,7 +184,7 @@ load_dashboard = () ->
 window.Nembrot.load_dashboard = load_dashboard
 
 change_theme = (theme) ->
-  $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
+  if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
 
 # Initializers ********************************************************************************************************
 

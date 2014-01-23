@@ -3,7 +3,7 @@
                 description: @citation.body,
                 open_graph: { title: @citation.title }
 
-div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 

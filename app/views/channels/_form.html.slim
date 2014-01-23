@@ -43,7 +43,7 @@
         div.available
           | Use between 3 and 30 alphanumeric characters.
 
-  - if mode != 'new'
+  - if mode == 'edit'
     fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
       legend
         | Choose a theme
@@ -56,7 +56,7 @@
   - else
     input name='channel[theme]' type='hidden' value='default'
 
-      input name='id' type='hidden' value=@channel.id
+  input name='id' type='hidden' value=@channel.id
 
   .actions
     = f.submit t("channels.#{ mode }.submit")
@@ -89,6 +89,6 @@ javascript:
     }, 500); 
   });
 
-  if (#{ mode == 'edit' && @channel.created_at > 12.hours.ago }) {
+  if (#{ mode == 'edit' }) {
     $.pjax({url: '#{ home_path(@channel) }', container: '[data-pjax-container]'});
   }

@@ -3,7 +3,7 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 

@@ -11,18 +11,29 @@ class EvernoteNotebookList
   end
 
   def array
-    # REVIEW
-    a = EvernoteAuth.new(user)
-    oauth_token = a.oauth_token
+    Rails.cache.exist?(cache_key) ? Rails.cache.fetch(cache_key) : fetch_notebooks_list
+  end
 
-    # REVIEW: This should be cached
-    list = a.note_store.listNotebooks(oauth_token)
+  private
+
+  def fetch_notebooks_list
+    # REVIEW
+    evernote_auth = EvernoteAuth.new(user)
+    oauth_token = evernote_auth.oauth_token
+
+    list = evernote_auth.note_store.listNotebooks(oauth_token)
 
     list_array = []
     list.each do |n|
       list_array.push({ name: n.name, guid: n.guid, default: n.defaultNotebook })
     end
 
-    list_array
+    Rails.cache.write(cache_key, list_array, expires_in: 10.minutes)
+
+    return list_array
+  end
+
+  def cache_key
+    cache_key = "evernote_notebooks_#{ user.id }"
   end
 end

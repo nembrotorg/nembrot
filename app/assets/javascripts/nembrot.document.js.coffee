@@ -253,6 +253,7 @@ document_initializers = () ->
     if $('#dashboard').is(':visible') then load_dashboard()
 
   $(document).on 'click', 'a[href="#close"]', (event) ->
+    event.preventDefault()
     $(event.target).parent().fadeOut()
 
   content_initializers()

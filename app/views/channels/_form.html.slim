@@ -61,9 +61,9 @@
   .actions
     = f.submit t("channels.#{ mode }.submit")
 
-    = link_to 'Cancel', channels_path, class: 'cancel'
+    = link_to 'My channels', channels_path, class: 'cancel', title: 'My Channels'
 
-    = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete'
+    = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel'
 
 javascript:
   $(function() {

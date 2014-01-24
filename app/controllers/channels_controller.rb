@@ -4,6 +4,8 @@ class ChannelsController < ApplicationController
 
 #  skip_before_filter :set_current_channel, :add_home_breadcrumb, :get_promoted_notes, :get_sections
 
+  load_and_authorize_resource
+
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 
   def choose

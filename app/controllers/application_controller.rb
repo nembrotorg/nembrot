@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first
     @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
-    @current_user_owns_current_channel = !current_user.blank? && @current_channel.user_id == current_user.id
+    @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
   end
 
   def add_home_breadcrumb
@@ -59,7 +59,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    user_event_path('signed_out')
+    # user_event_path('signed_out')
+    root_path
   end
 
   def mapify(notes)
@@ -94,6 +95,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to new_user_session_path, alert: exception.message
+    # redirect_to root_path, alert: exception.message
+    redirect_to root_path, alert: exception.message
   end
 end

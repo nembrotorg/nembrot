@@ -176,7 +176,7 @@ window.Nembrot.load_user_menu = load_user_menu
 
 load_dashboard = () ->
   $.ajax
-    url: '/channels/choose'
+    url: '/channels/choose/' + String($('[data-theme-wrapper]').data('channel_slug'))
     cache: false
     success: (html) ->
       $('#dashboard').html(html)

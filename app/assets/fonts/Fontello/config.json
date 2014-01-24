@@ -157,6 +157,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "757afacc32d82967975cbb3b45cfb41b",
+      "css": "desktop",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
       "uid": "130380e481a7defc690dfb24123a1f0c",
       "css": "circle",
       "code": 59400,
@@ -268,6 +274,12 @@
       "uid": "0cd7be54280d9ffbe0f48342c011268e",
       "css": "cc-remix",
       "code": 59311,
+      "src": "entypo"
+    },
+    {
+      "uid": "ef5e2b339a93fff038cc6a28f8c91edd",
+      "css": "stumbleupon",
+      "code": 59423,
       "src": "entypo"
     },
     {

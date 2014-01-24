@@ -7,7 +7,7 @@ Nembrot::Application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
 
   get 'channels/available/:name' => 'channels#available'
-  get 'channels/choose' => 'channels#choose'
+  get 'channels/choose(/:channel)' => 'channels#choose'
   resources :channels
 
   get '/(:channel)' => 'home#index', as: :home

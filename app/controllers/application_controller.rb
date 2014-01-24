@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-chaching
   before_filter :set_locale
   before_filter :set_channel_defaults, only: [:index, :show, :choose, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
@@ -21,6 +22,7 @@ class ApplicationController < ActionController::Base
     # Default user (a registered user with the same name as the one in secret.yml)
     #  needs to have a notebook called 'default'. It should have at least one __HOME
     #  and one __DEMO note.
+    #  REVIEW: use Channel.friendly.find(); and shouldn't we just set 'default' as default for :channel in routes?
     @default_channel = Channel.where('slug = ?', 'default').first
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first

@@ -3,7 +3,7 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
@@ -14,8 +14,8 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
     ul
       - @channels.each do |channel|
         li
-          = link_to channel.name, edit_channel_path(channel)
-          = link_to 'View', home_path(channel), class: 'show-channel'
+          = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
+          = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
 
     p = link_to 'New Channel', new_channel_path
 

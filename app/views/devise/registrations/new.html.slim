@@ -3,7 +3,7 @@
 
 - add_breadcrumb t('.title'), new_user_registration_path
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
 

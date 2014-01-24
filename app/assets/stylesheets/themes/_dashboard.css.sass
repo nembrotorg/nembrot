@@ -57,14 +57,16 @@ $error-color: #c00
       &:first-of-type
         float: left
         overflow: hidden
-        width: 70%
+        width: 60%
         &:before
           +icon-settings
       &.show-channel
         float: right
-        &:after
-          +icon-settings
-          padding-left: $text-indent / 2
+        width: 55px
+        &:before
+          +icon-screen
+          padding-left: $text-indent
+          padding-right: $text-indent * 2/3
 
   a[href='/channels/new']
     bottom: 0
@@ -189,6 +191,19 @@ $error-color: #c00
           +icon-list
           +icon-large
           vertical-align: -13px
+
+  .channels-edit
+    h2
+      height: $line-height
+      overflow: hidden
+      width: 90%
+      &:before
+        +icon-settings
+      a
+        width: 80%
+        &:hover:after
+          padding-left: $text-indent / 2
+          +icon-screen
 
   //li, a
   //  color: #fff

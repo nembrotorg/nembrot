@@ -184,7 +184,7 @@ load_dashboard = () ->
 window.Nembrot.load_dashboard = load_dashboard
 
 change_theme = (theme) ->
-  if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
+  $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
 
 # Initializers ********************************************************************************************************
 
@@ -241,7 +241,7 @@ document_initializers = () ->
 
   # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
-    change_theme('theme-' + @value)
+    if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme('theme-' + @value)
 
   $(document).on 'click', '#dashboard .notebooks label', ->
     $('#dashboard .notebooks legend').addClass('completed')
@@ -279,6 +279,10 @@ content_initializers = () ->
   load_share_links(page_class)
   if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_class) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_class)
+
+  if location.pathname == '/'
+    load_dashboard()
+    $('#dashboard').show()
 
 window.Nembrot.content_initializers = content_initializers
 

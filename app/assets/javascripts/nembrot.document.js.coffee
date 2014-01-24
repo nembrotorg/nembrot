@@ -280,7 +280,7 @@ content_initializers = () ->
   if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_class) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_class)
 
-  if location.pathname == '/'
+  if location.pathname == '/' && $('#dashboard').not(':visible')
     load_dashboard()
     $('#dashboard').show()
 
@@ -297,7 +297,7 @@ resize_initializers = () ->
 $ ->
   document_initializers()
 
-$(document).on 'pjax:end', ->
+$(document).on 'pjax:end', '[data-container-pjax]', ->
   content_initializers()
   content_initializers_reload_only()
 

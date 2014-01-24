@@ -297,7 +297,7 @@ resize_initializers = () ->
 $ ->
   document_initializers()
 
-$(document).on 'pjax:end', '[data-container-pjax]', ->
+$(document).on 'pjax:end', '#main', ->
   content_initializers()
   content_initializers_reload_only()
 

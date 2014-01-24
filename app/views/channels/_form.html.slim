@@ -44,7 +44,7 @@
           | Use between 3 and 30 alphanumeric characters.
 
   - if mode == 'edit'
-    fieldset class="#{ signed_in_with_evernote ? '' : 'disabled' }"
+    fieldset class="theme #{ signed_in_with_evernote ? '' : 'disabled' }"
       legend
         | Choose a theme
       div
@@ -61,7 +61,7 @@
   .actions
     = f.submit t("channels.#{ mode }.submit")
 
-    = link_to 'My channels', channels_path, class: 'cancel', title: 'My Channels'
+    = link_to 'My channels', channels_path, class: 'cancel', title: 'Cancel and back to My Channels'
 
     = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
 
@@ -91,4 +91,11 @@ javascript:
 
   if (#{ mode == 'edit' && @current_channel != @channel }) {
     $.pjax({url: '#{ home_path(@channel) }', container: '[data-pjax-container]'});
+  }
+
+  $('#dashboard .notebooks div').scrollTop($('#dashboard .notebooks input:checked').position().top);
+
+  if (#{ mode == 'edit' }) {
+    $('#dashboard .theme div').scrollTop($('#dashboard .theme input:checked').position().top);
+    $('#dashboard .theme input:checked').focus();
   }

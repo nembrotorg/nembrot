@@ -11,6 +11,7 @@ $error-color: #c00
   height: 85%
   margin: 0
   // outline: 1px solid #fff
+  padding: 5px 0
   position: fixed
   right: 1%
   left: 1%
@@ -26,9 +27,6 @@ $error-color: #c00
   header
     height: $line-height * 2
     padding: 0 5px
-
-  h2
-    padding: ($line-height / 2) ($text-indent / 3)
 
   h1
     display: none
@@ -79,9 +77,8 @@ $error-color: #c00
   #notice
     display: block
     width: 100%
-    padding: ($text-indent / 2) 0
     .notice
-      display: block
+      padding: 0 5px
       width: 100%
 
   .connected p:before, .connect a:before
@@ -196,7 +193,7 @@ $error-color: #c00
     h2
       height: $line-height
       overflow: hidden
-      width: 90%
+      width: 100%
       &:before
         +icon-settings
       a
@@ -204,6 +201,7 @@ $error-color: #c00
         &:hover:after
           padding-left: $text-indent / 2
           +icon-screen
+          +icon-small
 
   //li, a
   //  color: #fff

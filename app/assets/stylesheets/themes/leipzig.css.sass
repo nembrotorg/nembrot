@@ -1,0 +1,112 @@
+.theme-leipzig
+
+  $background-color: #080808
+  $body-font-color: #e8e8e8
+  $border-color: #e8e8e8
+  $caption-color: purple
+  $count-color: #0ff
+  // $delete-font-color: 
+  // $error-background-color: 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: #c5b358
+  // $furniture-color:
+  $headline-font-color: #e7e7e7
+  // $insert-background-color:
+  // $invalid-background-color:
+  $link-hover-color: #e7dbbd
+  // $link-visited-color:
+  // $map-background-color:
+  // $map-font-color:
+  // $off-color:
+  $row-hover-color: cyan
+  $secondary-color: violet
+  // $selected-background-color:
+  // $selected-font-color:
+  // $static-url-color:
+  // $success-background-color:
+
+  +colors
+
+  body
+    font-weight: 400
+
+  #main
+    +magazine
+    width: 60%
+    margin: 35% $text-indent $line-height auto
+
+  .hello-world,
+  footer
+    width: 60%
+    margin: 0 $text-indent $line-height auto
+
+  #tools
+    padding-left: $text-indent
+    a, a:before
+      color: $font-color
+    ul li a, a:before
+      border-color: $font-color !important
+      color: $font-color
+      +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+
+  a, a:before
+    color: $font-color
+
+  #comments, #comments a
+    color: #e8e8e8
+
+  .breadcrumb
+    position: fixed
+    left: $text-indent
+    top: $line-height / 2
+    li
+      &:first-of-type
+        display: none
+      a, .current
+        +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+
+  h1, .notes h2, h2, h4
+    font-weight: 300
+
+  h1
+    text-transform: lowercase
+    font-variant: small-caps
+    font-weight: 300
+    letter-spacing: 0.03em
+
+  header[data-title]
+    margin-top: $line-height / 2
+    margin-bottom: 0
+
+  .notes-index, .home-index
+    .notes
+      font-family: arial, sans-serif
+      li
+        +blurb(3, 3)
+
+  > div
+    +clearfix
+    background: rgba(0, 0, 0, .65)
+
+    article
+      padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
+      header
+        height: $line-height
+      figure.image
+        margin-bottom: $line-height / 2
+
+    #comments
+      padding: $line-height ($text-indent * 2/3) $line-height ($text-indent * 2/3)
+
+    #text .body a
+      color: #32c6a6
+      text-decoration: none
+      &:hover
+        color: #e7dbbd
+
+    #text .body
+      font-size: 19px
+
+  article section#content #text.regular, article section#content #text.parallel
+    width: 100%

@@ -1,42 +1,42 @@
-$background-color: #080808
-$body-font-color: #e8e8e8
-$border-color: #e8e8e8
-$caption-color: purple
-$count-color: #0ff
-// $delete-font-color
-// $error-background-color
-$font-color: #e8e8e8
-$headline-font-color: orange
-$link-hover-color: #0f0
-$row-hover-color: cyan
-$secondary-color: violet
-// $selected-background-color
-// $static-url-color
-// $success-background-color
+.theme-magazine
 
-body.theme-magazine
-  background-color: $background-color
+  $background-color: #cc0000
+  $body-font-color: #e8e8e8
+  $border-color: #e8e8e8
+  $caption-color: purple
+  $count-color: #0ff
+  // $delete-font-color: 
+  // $error-background-color: 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: #e8e8e8
+  // $furniture-color:
+  $headline-font-color: orange
+  // $insert-background-color:
+  // $invalid-background-color:
+  // $link-hover-color:
+  // $link-visited-color:
+  // $map-background-color:
+  // $map-font-color:
+  // $off-color:
+  // $row-hover-color:
+  // $secondary-color:
+  // $selected-background-color:
+  // $selected-font-color:
+  // $static-url-color:
+  // $success-background-color:
 
-#main .theme-magazine
-  +override
+  +colors
+  +magazine
 
   #content
     background: none
   #text
     background: rgba(0, 0, 0, .75)
-
-  figure.image
-    img
-      height: 100%      
-      left: 0
-      position: fixed
-      top: 0
-      width: 100%
-      z-index: -100
-    figcaption
-      position: absolute
-      bottom: 0
-      right: 0
+    #introduction
+      p
+        +text-shadow(rgba(#000, 0.5) 1px 1px 0)
+        color: red
 
   .notes
     font-family: arial, sans-serif

@@ -1,190 +1,32 @@
-=icon-screen
-  +icon
-  content: '\e820'
+=logo
+  +border-bottom-right-radius(7px)
+  +border-top-right-radius(7px)
+  +box-sizing(border-box)
+  border:
+    style: solid
+    width: 4px 
+  display: inline-block
+  line-height: 14px
+  padding-top: 1px
+  &:before
+    content: 'NB'
+    font:
+      family: Arial, sans-serif
+      variant: small-caps
+      weight: bold
+    left: auto
+    text-transform: lowercase
 
-=override
-
-  +font-color
-  // background-color: $background-color
-
-  ::selection
-    background: $selected-background-color
-    text-shadow: none
-
-  ::-moz-selection
-    background: $selected-background-color
-    text-shadow: none
-
-  del
-    +font-color($delete-font-color)
-
-  form
-    label
-      &:hover
-        background-color: $row-hover-color
-
-    input
-      &[type=email],
-      &[type=number],
-      &[type=password],
-      &[type=text],
-      &[type=url],
-        border: 1px solid $border-color
-        color: $font-color
-        &.important:not([value])
-          border-color: $error-background-color
-      &[type=button],
-      &[type=submit]
-        border: 1px solid $border-color
-        &:hover
-          background-color: $link-hover-color
-          color: $background-color
-
-  section:not(.ins-section) section, .home-index
-    h2
-      +font-color($headline-font-color)
-
-  ins
-    background-color: $insert-background-color
-
-  table
-    tr
-      &:hover
-        background-color: $row-hover-color
-    td
-      &:empty
-        background-color: $error-background-color
-
-  .home-index, .notes-index, .notes-show, .notes-version,
-  .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
-  .features-show article:not(.ins-section), .features-version
-    h1
-      +font-color($headline-font-color)
-
-  .url
-    color: $static-url-color
-
-  .alert,
-  .error
-    background-color: $error-background-color
-  .notice, 
-  .success
-    background-color: $success-background-color
-
-  footer
-    ul
-      &.promotions
-        +font-color($headline-font-color)
-
-  figure
-    &.image
-      figcaption
-        +font-color($caption-color)
-    &.citation
-      blockquote
-        &:before
-          color: $secondary-color
-
-  .citation
-    +body-font-citation
-
-  .count
-    color: $count-color
-
-  .map_container
-    #map
-      color:  $map-font-color
-
-  section:not(.ins-section), .home-index
-    .notes li, .citations li, .map-infowindow
-      +body-font
-
-  .pagination
-    +pagination-nav($font-color)
-
-  article
-    .tags
-      ul
-        &:before
-          color: $secondary-color
-
-  #introduction
-    +body-font
-
-  #text
-    .body, .annotations
-      +body-font
-
-  #text
-    .body, .annotations
-      +body-font
-      p
-        color: $body-font-color
-      section
-        h2
-          color: $body-font-color
-          font:
-            family: $headline-font-family
-            size: $body-font-size
-    &.parallel
-      .source
-        p
-          color: $headline-font-color
-      div
-        .source
-          color: $headline-font-color
-
-  section:not(.ins-section), .home-index
-    .notes li, .citations li, .map-infowindow
-      +body-font
-      // REVIEW: The following should be superfluous
-      a
-        color: $body-font-color
-        &:after
-          background-color: $background-color
-          color: $body-font-color
-          border-color: $body-font-color
-          &:hover
-            color: $link-hover-color
-            border-color: $link-hover-color
-        h2
-          color: $headline-font-color
-        &:hover
-          color: $link-hover-color
-
-  //////////////////////////////////////////////////////////////////////////////////
-
-  section.ins-section, article.ins-section
-    #text
-      .body
-        +body-font-citation
-
-  .books-admin, .books-edit, .links-admin, .links-edit
-    .breadcrumb
-      background-color: $selected-background-color
-
-  .tags-show, .tags-map
-    h1:before
-      color: $secondary-color
-
-  #tools
-    background-color: $background-color
-    border-top: 1px solid $body-font-color
-    ul
-      .deep-link
-        a
-          color: $count-color
-
-  .oauth
-    ul
-      li
-        &.connected:before
-          color: $font-color
-        a:before, span:before
-          color: $background-color
-
-  @media only screen and (min-width: 1200px)
-
-    #tools
-      background-color: transparent
-      border: none
+=magazine
+  figure.image
+    img
+      height: auto
+      left: 0
+      position: fixed
+      top: 0
+      width: 100%
+      z-index: -100
+    figcaption
+      bottom: 0
+      position: absolute
+      right: 0

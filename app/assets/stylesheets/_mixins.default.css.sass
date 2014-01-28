@@ -14,9 +14,7 @@
       width: $text-indent / 2
 
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
-  +font-color
   h2
-    +font-color($headline-font-color)
     display: inline
     font:
       family: $headline-font-family
@@ -47,6 +45,230 @@
       position: absolute
       right: 0
       width: columns($image-width, $context)
+
+=colors
+
+  body
+    background-color: $background-color
+
+  #tools
+    a, a:before
+      border-color: $font-color
+      color: $font-color
+      &:hover
+        border-color: $link-hover-color
+        color: $link-hover-color
+
+  #main
+    +font-color
+
+    ::selection
+      background: $selected-background-color
+
+    ::-moz-selection
+      background: $selected-background-color
+
+    del
+      color: $delete-font-color
+
+    form
+      label
+        &:hover
+          background-color: $row-hover-color
+      select, input:not([type=button]):not([type=submit])
+        border-color: $border-color
+        color: $font-color
+      &.important:not([value])
+        border-color: $error-background-color
+      input
+        &[type=email],
+        &[type=number],
+        &[type=password],
+        &[type=text],
+        &[type=url],
+          border: 1px solid $border-color
+          color: $font-color
+          &.important:not([value])
+            border-color: $error-background-color
+        &[type=button],
+        &[type=submit]
+          border-color: $border-color
+          &:hover
+            background-color: $link-hover-color
+            color: $background-color
+
+    section:not(.ins-section) section, .home-index
+      h2
+        color: $headline-font-color
+
+    ins
+      background-color: $insert-background-color
+
+    table
+      tr
+        &:hover
+          background-color: $row-hover-color
+      td
+        &:empty
+          background-color: $error-background-color
+
+    .home-index, .notes-index, .notes-show, .notes-version,
+    .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
+    .features-show article:not(.ins-section), .features-version
+      h1
+        color: $headline-font-color
+
+    .url
+      color: $static-url-color
+
+    .alert,
+    .error
+      background-color: $error-background-color
+    .notice, 
+    .success
+      background-color: $success-background-color
+
+    footer
+      ul
+        &.promotions
+          color: $headline-font-color
+
+    figure
+      &.image
+        figcaption
+          color: $caption-color
+      &.citation
+        blockquote
+          &:before
+            color: $secondary-color
+
+    .annotations
+      li:target
+        background-color: $selected-background-color
+
+      .citation
+        color: $body-font-citation-color
+
+      .count
+        color: $count-color
+
+    .map_container
+      #map
+        background-color: $map-background-color
+        color:  $map-font-color
+
+    section:not(.ins-section), .home-index
+      .notes li, .citations li, .map-infowindow
+        color: $body-font-color
+
+    .pagination
+      ol
+        li
+          .current
+            color: $off-color
+            &:before
+              border-color: $off-color
+
+    article
+      .tags
+        ul
+          &:before
+            color: $secondary-color
+
+    #introduction
+      color: $body-font-color
+
+    #text
+      .body, .annotations
+        color: $body-font-color
+        p
+          color: $body-font-color
+        section
+          h2
+            color: $body-font-color
+      &.parallel
+        .source
+          p
+            color: $headline-font-color
+        div
+          .source
+            color: $headline-font-color
+      .side-annotations
+        ol
+          li
+            color: $headline-font-color
+
+    section:not(.ins-section), .home-index
+      .notes li, .citations li, .map-infowindow
+        +body-font
+        // REVIEW: The following should be superfluous
+        a
+          color: $body-font-color
+          &:after
+            background-color: $background-color
+            color: $body-font-color
+            border-color: $body-font-color
+            &:hover
+              color: $link-hover-color
+              border-color: $link-hover-color
+          h2
+            color: $headline-font-color
+          &:hover
+            color: $link-hover-color
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+    .books-admin, .books-edit, .links-admin, .links-edit
+      .breadcrumb
+        background-color: $selected-background-color
+
+    .tags-show, .tags-map
+      h1:before
+        color: $secondary-color
+
+    #tools
+      background-color: $background-color
+      border-color: $body-font-color
+      ul
+        .deep-link
+          a
+            color: $count-color
+
+    .oauth
+      ul
+        li
+          &.connected:before
+            color: $font-color
+          a:before, span:before
+            color: $background-color
+
+    .ins-enumerate
+      #text
+        &.regular p, section.source p, p.source 
+          &:before
+            color: $off-color
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @media only screen and (min-width: 1024px)
+
+      article
+        section#content
+          #text
+            &.enface
+              .source, p.source
+                color: $body-font-color
+                p
+                  color: $body-font-color
+
+
+  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @media only screen and (min-width: 1200px)
+
+      #tools
+        background-color: transparent
 
 =compact-text
   line-height: $line-height * 2/3
@@ -89,8 +311,13 @@
         border-color: $hover-color
         color: $hover-color
 
-=pagination-nav($line-color: $furniture-color, $button-width: $text-indent)
-  +font-color($line-color)
+=icon-only($button-width: $text-indent, $height: $line-height)
+  display: inline-block
+  height: $height
+  overflow: hidden
+  width: $button-width
+
+=pagination-nav($button-width: $text-indent)
   clear: both
   margin-bottom: $line-height
   ol
@@ -99,10 +326,10 @@
     li
       display: inline-block
       height: $line-height
-      .current
-        color: $off-color
-        &:before
-          border-color: $off-color
+      // .current
+        // color: $off-color
+        // &:before
+        //   border-color: $off-color
       a, .current
         display: block
         text-align: center
@@ -169,11 +396,60 @@
     top: $line-top
     z-index: -1
 
-=icon-only($button-width: $text-indent, $height: $line-height)
-  display: inline-block
-  height: $height
-  overflow: hidden
-  width: $button-width
+=side-annotations
+
+  @media only screen and (min-width: 720px)
+
+    article
+      #text
+        .side-annotations
+          +prefix(8, 8)
+          +span-columns(4, 8)
+          position: relative
+          ol
+            display: block
+            padding-left: 0
+            li
+              display: block
+              position: absolute
+              a[href*=annotation-mark]
+                font:
+                  size: $small-font-size - 2px
+                padding-right: 3px
+                text-align: right
+                vertical-align: super
+                width: $text-indent - 3px
+
+  @media only screen and (min-width: 1024px)
+
+    .fade-annotations
+      .side-annotations
+        +fade(0)
+      &:hover
+        .side-annotations
+          +fade(1)
+
+    article
+      #text
+        .side-annotations
+          +prefix(6, 6)
+          +span-columns(3, 6)
+          height: 0
+          margin-top: 0
+        &.enface
+          .side-annotations
+            +prefix(12)
+            +span-columns(2, 12)
+
+  @media only screen and (min-width: 1601px)
+
+    article
+      section#content
+        #text
+          &.enface
+            .side-annotations
+              +prefix(12)
+              +span-columns(3, 12)
 
 =transition($duration: 1s)
   transition: all $duration ease-out
@@ -192,25 +468,26 @@
 +embed-font($monospace-font, $monospace-font-variant)
 
 =body-font
-  +hyphens
-  color: $body-font-color
   font:
     family: $body-font-family
     size: $body-font-size
-  text-align: justify
-  ms-text-justify: auto
 
 =body-font-citation
-  color: $body-font-citation-color
   font:
     family: $body-font-citation-family
     size: $body-font-citation-size
-  text-align: justify
 
-=dashboard-font
-  color: $font-color
-  font-family: $font-family
-  font-size: $font-size
+=book-style-paragraphs
+  #text
+    .body, .annotations
+      p
+        +hyphens
+        margin: 0
+        text-indent: $text-indent
+        text-align: justify
+        ms-text-justify: auto
+        &:first-of-type
+          text-indent: 0
 
 =monospace-font
   font:

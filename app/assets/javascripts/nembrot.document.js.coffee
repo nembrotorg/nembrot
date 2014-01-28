@@ -184,7 +184,7 @@ load_dashboard = () ->
 window.Nembrot.load_dashboard = load_dashboard
 
 change_theme = (theme) ->
-  $('body, [data-theme-wrapper]').alterClass('theme-*', theme)
+  $('html, [data-theme-wrapper]').alterClass('theme-*', theme)
 
 # Initializers ********************************************************************************************************
 
@@ -192,7 +192,7 @@ document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
   $(document).pjax('#dashboard a:not(.show-channel):not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-dashboard]', { push: false } )
-  $(document).pjax('#main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+  $(document).pjax('#tools a:not([href*=channels]), #main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
   $(document).pjax('#dashboard a.show-channel:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'submit', '#dashboard form', (event) ->

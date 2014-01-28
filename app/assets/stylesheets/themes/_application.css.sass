@@ -1,5 +1,8 @@
 // Custom styles
 
++colors
++side-annotations
+
 input
   &[type=radio]
     float: right
@@ -21,46 +24,41 @@ a[href='/channels/new']:before
   section.notes
     margin-top: $line-height
 
-// Nembrot logo
-#tools
-  ul li.home
-    margin-right: $text-indent / 3
-    li
-      height: 30px
-      overflow: hidden
-      width: 40px
-      a[href='/']:first-of-type
-        width: 30px
-        &:before
-          +border-top-right-radius(5px)
-          +border-bottom-right-radius(5px)
-          content: 'NB'
-          height: 22px
-          left: auto
-          line-height: 18px
-          font-family: Arial, sans-serif
-          font-variant: small-caps
-          font-size: 24px
-          font-weight: bold
-          text-transform: lowercase
-          border: 4px solid #000
-        &:hover:before
-          border-color: $link-hover-color
-
 .field_with_errors
   display: inline
 
-#tools
-  a[href*=channels]:before
+nav ul li a:first-of-type
+  &[href^='/channels']:before
     +icon-settings
-  ul
-    li
-      &.channels ul
-        li
-          +icon-only
-          a
-            padding-top: $line-height
+
+#tools
+  +colors
+  li.home
+    text-align: center
+    width: $text-indent * 2
+    a
+      +logo
 
 [data-channel-name='default']
   .breadcrumb
     visibility: hidden
+
+// Prevent Typekit from causing FOUT
+.wf-loading
+  body
+    opacity: 0
+
+.wf-active
+  body
+    opacity: 1
+    +transition(0.5s)
+
+.channels
+  ul
+  +columns(3)
+  h2
+    background-color: black
+    color: white
+  img
+    +filter(grayscale(50%))
+    +filter(blur(2px))

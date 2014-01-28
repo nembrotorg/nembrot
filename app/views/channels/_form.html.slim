@@ -48,7 +48,7 @@
       legend
         | Choose a theme
       div
-        - @themes = ['default', 'inverse', 'magazine', 'red']
+        - @themes = ['default', 'inverse', 'magazine', 'red', 'leipzig']
         - @themes.each do |theme|
           = f.label :theme, theme, value: theme
             = theme.titlecase
@@ -61,7 +61,7 @@
   .actions
     = f.submit t("channels.#{ mode }.submit")
 
-    = link_to 'My channels', channels_path, class: 'cancel', title: 'Cancel and back to My Channels'
+    = link_to 'My channels', channels_path, class: 'cancel', title: 'Cancel and back to My Channels' if user_signed_in? && !current_user.channels.empty?
 
     = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
 

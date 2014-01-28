@@ -16,5 +16,6 @@
   - elsif note.is_embeddable_source_url
     = render 'shared/media', url: note.source_url
 
-  h2 = simple_blurbify(headline)
+  -# h2 = simple_blurbify(headline)
+  h2 = channel.name
   = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)

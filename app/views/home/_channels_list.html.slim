@@ -1,9 +1,8 @@
-section.notes
+section.channels
 
   header
     h3 = title ||= t('channels.index.title')
 
   ul
-  - Channel.where.not(name: 'default').each do |channel|
-    li
-      = render 'channel_blurb', channel: channel
+    - Channel.where.not(name: 'default').each do |channel|
+      li = render 'channel_blurb', channel: channel

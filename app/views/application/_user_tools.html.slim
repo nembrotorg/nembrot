@@ -1,10 +1,8 @@
-ul
-  - if user_signed_in?
-    li.signed_in title="Signed in as #{ current_user.public_name }"
-      = link_to current_user.public_name, edit_user_registration_path
+- if user_signed_in?
+  = link_to '', edit_user_registration_path, class: 'signed_in', title: "Signed in as #{ current_user.public_name }"
 
-  - else
-    li= link_to t('tools.sign_in'), new_user_session_path
+- else
+  = link_to '', new_user_session_path, title: 'Sign in'
 
 -# Add sign-in status CSS class to body and CSRF token meta tags
 javascript:

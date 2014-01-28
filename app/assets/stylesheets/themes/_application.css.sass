@@ -53,12 +53,31 @@ nav ul li a:first-of-type
     opacity: 1
     +transition(0.5s)
 
-.channels
-  ul
-  +columns(3)
-  h2
-    background-color: black
-    color: white
-  img
-    +filter(grayscale(50%))
-    +filter(blur(2px))
+.home-index
+  .side-annotations
+    display: none
+  .channels
+    clear: both
+    ul
+      +columns(4)
+      +span-columns(12, 12)
+      // +columns($promotions-home-columns)
+      +column-gap($gutter-width * 1px)
+      margin-bottom: 0
+      li
+        display: block
+        height: $line-height * 5
+        margin-bottom: $line-height
+        overflow: hidden
+        padding-right: 0
+
+  .xchannels
+    +columns(4)
+    ul
+      h2
+        background-color: black
+        color: white
+      img
+        display: block !important
+        +filter(grayscale(50%))
+        +filter(blur(2px))

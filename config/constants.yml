@@ -12,7 +12,7 @@ defaults: &defaults
     tabsize: 2
     format: html5
   repository: git@github.com:joegatt/nembrotcom.git
-  rtl_langs: 'ar fa'
+  rtl_langs: 'ar arc arz bcc bqi ckb dv fa glk he ku mzn pnb ps sd ug ur yi'
   stream_binaries: false
   synchronous: false
   version: 0.9
@@ -38,3 +38,9 @@ production:
   <<: *defaults
   host: nembrot.com
   asset_host: http://a7.joegatt.org
+  html:
+    pretty: false
+    pretty_body: false
+    sort_attrs: false
+    tabsize: 2
+    format: html5

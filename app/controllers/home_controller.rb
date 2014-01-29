@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     @all_interrelated_notes_and_features = Note.channelled(@current_channel).interrelated.publishable.notes_and_features
     @all_interrelated_citations = Note.channelled(@current_channel).interrelated.publishable.citations
@@ -13,6 +14,12 @@ class HomeController < ApplicationController
     note_tags(@note)
     note_map(@note)
     note_source(@note)
+
+    # REVIEW: These are decalred twice!
+    set_channel_defaults
+    add_home_breadcrumb
+    get_promoted_notes
+    get_sections
 
     @channels = Channel.not_owned_by_nembrot
   end

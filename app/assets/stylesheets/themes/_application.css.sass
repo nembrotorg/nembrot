@@ -26,6 +26,10 @@ a[href='/channels/new']:before
   section.notes
     margin-top: $line-height
 
+.breadcrumb
+  a[href='/']
+    display: none
+
 .field_with_errors
   display: inline
 
@@ -83,6 +87,7 @@ section.channels
   display: none
 
 footer.channel
+  width: 100%
   ul
     +columns(0)
     display: inline
@@ -99,6 +104,9 @@ footer.channel
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 720px)
+
+  section.notes
+    +span-columns(8)
 
   section.channels
     ul

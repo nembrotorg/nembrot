@@ -52,7 +52,7 @@ nav ul li a:first-of-type
     +transition(0.5s)
 
 section.channels
-  +span-columns(6)
+  +span-columns(12)
   +visible-header
   clear: both
   margin-top: $line-height
@@ -62,7 +62,7 @@ section.channels
     margin-bottom: 0
     li
       display: block
-      height: $line-height * 5
+      height: $line-height * 8
       margin-bottom: $line-height
       overflow: hidden
       padding-right: 0
@@ -100,6 +100,11 @@ footer.channel
 
 @media only screen and (min-width: 720px)
 
+  section.channels
+    ul
+      +columns(2)
+      +column-gap($gutter-width * 1px)
+
   footer:not(.channel)
     nav
       margin-bottom: 0
@@ -120,6 +125,8 @@ footer.channel
     +span-columns(9)
     ul
       +columns(3)
+      li
+        height: $line-height * 5
 
   footer:not(.channel)
     nav

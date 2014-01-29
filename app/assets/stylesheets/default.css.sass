@@ -346,8 +346,6 @@ iframe
     +reset
     img, object, embed
       max-width: none
-    // .infowindow
-    //  +blurb(3, 3)
 
 .notes li, .citations li, .map-infowindow
   +clearfix
@@ -505,11 +503,6 @@ section.ins-section, article.ins-section
 #disqus_thread,
 #comments
   +span-columns(12)
-
-// .notes
-//   li
-//     +blurb(8)
-//     position: relative
 
 .versions
   li
@@ -753,10 +746,6 @@ ul.admin
     a
       display: block
 
-//   .notes
-//     li
-//       +blurb(5, 4)
-
   ul.user
     clear: both
     a
@@ -907,11 +896,6 @@ ul.admin
   .notes
     +span-columns(9)
     +suffix(3)
-//    li
-//      +blurb(5, 3, 9)
-//      img, iframe
-//        width: auto
-//        height: $line-height * 5
 
   .books-index
     ul
@@ -929,9 +913,6 @@ ul.admin
         +columns($promotions-home-columns)
         +column-gap($gutter-width * 1px)
         margin-bottom: 0
-        // li
-        //   +blurb($promotions-home-lines)
-        //  margin-bottom: $line-height
 
   .tags-index
     ul

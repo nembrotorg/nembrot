@@ -35,7 +35,9 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope { order('external_updated_at DESC') }
-  scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
+
   scope :citations, -> { where(is_citation: true) }
   scope :features, -> { where.not(feature: nil) }
   scope :notes_and_features, -> { where(is_citation: false) }

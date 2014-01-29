@@ -21,6 +21,8 @@ a[href='/channels/new']:before
   +icon-large
 
 .home-index
+  .breadcrumb
+    visibility: hidden
   section.notes
     margin-top: $line-height
 
@@ -39,10 +41,6 @@ nav ul li a:first-of-type
     a
       +logo
 
-[data-channel-name='default']
-  .breadcrumb
-    visibility: hidden
-
 // Prevent Typekit from causing FOUT
 .wf-loading
   body
@@ -53,31 +51,67 @@ nav ul li a:first-of-type
     opacity: 1
     +transition(0.5s)
 
-.home-index
-  .side-annotations
-    display: none
-  .channels
-    clear: both
-    ul
-      +columns(4)
-      +span-columns(12, 12)
-      // +columns($promotions-home-columns)
-      +column-gap($gutter-width * 1px)
-      margin-bottom: 0
-      li
-        display: block
-        height: $line-height * 5
-        margin-bottom: $line-height
-        overflow: hidden
-        padding-right: 0
-
-  .xchannels
-    +columns(4)
-    ul
+.channels
+  +span-columns(6)
+  +visible-header
+  clear: both
+  margin-top: $line-height
+  ul
+    +columns(1)
+    +column-gap($gutter-width * 1px)
+    margin-bottom: 0
+    li
+      display: block
+      height: $line-height * 5
+      margin-bottom: $line-height
+      overflow: hidden
+      padding-right: 0
+      position: relative
       h2
-        background-color: black
-        color: white
-      img
-        display: block !important
-        +filter(grayscale(50%))
-        +filter(blur(2px))
+        position: absolute
+        bottom: 0
+        left: 0
+        display: inline
+        background-color: rgba(0, 0, 0, 0.5)
+        color: #fff !important
+        font-weight: 400
+    li:hover
+      h2
+        background-color: rgba(0, 0, 0, 1)
+
+.statistics
+  display: none
+
+footer.channel
+  ul
+    +columns(0)
+    display: inline
+    .sections
+      li
+        display: inline
+        margin-right: 10px
+        a:before
+          content: '//'
+        &:first-of-type
+          a:before
+            display: none
+
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1024px)
+
+  .channels
+    +span-columns(9)
+    ul
+      +columns(3)
+
+  footer:not(.channel)
+    nav
+      margin-bottom: 0
+      ul
+        &.sections
+          +columns(4)
+          +span-columns(8)
+        &.web-channels
+          +columns(2)
+          +span-columns(4 omega)

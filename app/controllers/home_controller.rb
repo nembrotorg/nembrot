@@ -13,6 +13,8 @@ class HomeController < ApplicationController
     note_tags(@note)
     note_map(@note)
     note_source(@note)
+
+    @channels = Channel.not_owned_by_nembrot
   end
 
   def default_url_options

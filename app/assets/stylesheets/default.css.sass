@@ -262,7 +262,7 @@ footer
   ul
     &.promotions, &.sections
       +arrow-links
-    &.sections, &.channels
+    &.sections, &.web-channels
       text-transform: lowercase
     li
       a
@@ -346,8 +346,8 @@ iframe
     +reset
     img, object, embed
       max-width: none
-    .infowindow
-      +blurb(3, 3)
+    // .infowindow
+    //  +blurb(3, 3)
 
 .notes li, .citations li, .map-infowindow
   +clearfix
@@ -418,7 +418,7 @@ footer
       &.sections
         +columns(2)
         +span-columns(12)
-      &.channels
+      &.web-channels
         +columns(2)
         +span-columns(12)
   small
@@ -506,10 +506,10 @@ section.ins-section, article.ins-section
 #comments
   +span-columns(12)
 
-.notes
-  li
-    +blurb(8)
-    position: relative
+// .notes
+//   li
+//     +blurb(8)
+//     position: relative
 
 .versions
   li
@@ -753,9 +753,9 @@ ul.admin
     a
       display: block
 
-  .notes
-    li
-      +blurb(5, 4)
+//   .notes
+//     li
+//       +blurb(5, 4)
 
   ul.user
     clear: both
@@ -845,7 +845,7 @@ ul.admin
         &.sections
           +columns(2)
           +span-columns(4)
-        &.channels
+        &.web-channels
           +columns(2)
           +span-columns(4 omega)
     small
@@ -907,11 +907,11 @@ ul.admin
   .notes
     +span-columns(9)
     +suffix(3)
-    li
-      +blurb(5, 3, 9)
-      img, iframe
-        width: auto
-        height: $line-height * 5
+//    li
+//      +blurb(5, 3, 9)
+//      img, iframe
+//        width: auto
+//        height: $line-height * 5
 
   .books-index
     ul
@@ -929,9 +929,9 @@ ul.admin
         +columns($promotions-home-columns)
         +column-gap($gutter-width * 1px)
         margin-bottom: 0
-        li
-          +blurb($promotions-home-lines)
-          margin-bottom: $line-height
+        // li
+        //   +blurb($promotions-home-lines)
+        //  margin-bottom: $line-height
 
   .tags-index
     ul

@@ -3,18 +3,22 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    section
 
-    - unless @channels.empty?
-      = render 'channels_list', channels: @channels
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-      aside.statistics
-        = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
+      - unless @channels.empty?
+        = render 'channels_list', channels: @channels
 
-      = paginate @channels
+        aside.statistics
+          = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
+
+        = paginate @channels
+
+    = render 'channels/footer'

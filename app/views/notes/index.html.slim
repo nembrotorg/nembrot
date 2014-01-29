@@ -22,3 +22,5 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
           = t('.other_view_html', path: notes_map_path) unless @map.blank?
 
         = paginate @notes
+
+    = render 'channels/footer'

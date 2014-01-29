@@ -18,3 +18,5 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
       section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
 
       = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+
+    = render 'channels/footer'

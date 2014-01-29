@@ -1,6 +1,8 @@
+-# REVIEW: Put this in controller, of course
+-#  Do channel.home_note, and channel.home_image
 - note = Note.channelled(channel).publishable.listable.blurbable.homeable.first
 
--# REVIEW: Deal with this in the channeled scope?
+-# REVIEW: Deal with this in the channeled scope? - or in the channel model, as above
 - note = @default_note if note.nil?
 
 - all_interrelated_notes_and_features = all_interrelated_notes_and_features || []

@@ -27,3 +27,5 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
       = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
 
       = render 'versions_list', note: @note
+
+    = render 'channels/footer'

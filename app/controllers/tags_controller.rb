@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_tags = Note.publishable.tag_counts_on(:tags, at_least: Setting['advanced.tags_minimum'].to_i)
+    all_tags = Note.channelled(@current_channel).publishable.tag_counts_on(:tags, at_least: Setting['advanced.tags_minimum'].to_i)
 
     @tags = all_tags.page(page_number).per(Setting['advanced.tags_index_per_page'].to_i).load
     @references_count = all_tags.to_a.sum { |t| t.count }

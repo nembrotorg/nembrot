@@ -13,7 +13,7 @@
       +icon-small
       width: $text-indent / 2
 
-=blurb($lines: 3, $image-width: 0, $context: $total-columns)
+=block-blurb($lines: 3, $image-width: 0, $context: $total-columns)
   h2
     display: inline
     font:
@@ -45,6 +45,24 @@
       position: absolute
       right: 0
       width: columns($image-width, $context)
+
+=simple-blurb($lines: 2)
+  margin-bottom: $line-height
+  h2
+    display: block
+    font:
+      family: $headline-font-family
+      size: $body-font-size
+      weight: normal
+  a
+    display: block
+    height: $line-height * $lines
+    overflow: hidden
+    text-overflow: ellipsis
+    &:after
+      display: none
+    img, iframe
+      display: none
 
 =colors
 
@@ -504,3 +522,8 @@
 =pre-with-emdash
   &:before
     content: '\2014 '
+
+=visible-header
+  h3
+    display: block
+    margin-bottom: $line-height

@@ -20,3 +20,5 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
           = t('.statistics', count: number_with_delimiter(@books_count), references_count: number_with_delimiter(@references_count))
 
         = paginate @books
+
+    = render 'channels/footer'

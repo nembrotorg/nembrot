@@ -3,16 +3,20 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    section
 
-    = render 'shared/map', map: @map
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    aside.statistics
-      = t('.statistics', count: @notes.size)
-      = t('.other_view_html', path: notes_path)
+      = render 'shared/map', map: @map
+
+      aside.statistics
+        = t('.statistics', count: @notes.size)
+        = t('.other_view_html', path: notes_path)
+
+    = render 'channels/footer'

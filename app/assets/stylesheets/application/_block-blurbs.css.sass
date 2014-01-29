@@ -1,0 +1,39 @@
+.map_container
+  +reset
+  #map
+    +reset
+    img, object, embed
+      max-width: none
+    .infowindow
+      +block-blurb(3, 3)
+
+.notes
+  li
+    +block-blurb(8)
+    position: relative
+
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 720px)
+
+  .notes
+    li
+      +block-blurb(5, 4)
+
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1024px)
+
+  .notes
+    li
+      +block-blurb(5, 3, 9)
+      img, iframe
+        width: auto
+        height: $line-height * 5
+
+  .home-index
+    .notes
+      ul
+        li
+          +block-blurb($promotions-home-lines)
+          margin-bottom: $line-height

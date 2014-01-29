@@ -4,5 +4,5 @@ section.channels
     h3 = title ||= t('channels.index.title')
 
   ul
-    - Channel.where.not(name: 'default').each do |channel|
+    - @channels.each do |channel|
       li = render 'channel_blurb', channel: channel

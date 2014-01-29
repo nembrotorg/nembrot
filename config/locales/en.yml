@@ -82,7 +82,7 @@ en:
       title: 'Channel'
     available:
       name_true: '<strong>%{name}</strong> is available.'
-      name_false: '<strong>%{name}</strong>" is not available.'
+      name_false: '<strong>%{name}</strong> is not available.'
       url: "Your channel's url would be:"
 
   citations:
@@ -258,7 +258,7 @@ en:
       delete:
         title: 'Sign out'
       oauth:
-        signed_in: "Signed in with your %{provider} account."
+        signed_in: "Your %{provider} account is connected."
       new:
         title: 'Sign in'
         submit: 'Sign in'

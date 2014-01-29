@@ -12,5 +12,6 @@ footer.channel
           -# li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == false
           li = link_to t('tags.index.title'), tags_path
 
-          - @sections.each do |section|
-            li = link_to section.titlecase, feature_path(feature: section)
+          - unless @sections.nil?
+            - @sections.each do |section|
+              li = link_to section.titlecase, feature_path(feature: section)

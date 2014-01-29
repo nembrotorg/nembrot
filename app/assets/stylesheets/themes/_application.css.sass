@@ -51,7 +51,7 @@ nav ul li a:first-of-type
     opacity: 1
     +transition(0.5s)
 
-.channels
+section.channels
   +span-columns(6)
   +visible-header
   clear: both
@@ -96,11 +96,27 @@ footer.channel
           a:before
             display: none
 
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 720px)
+
+  footer:not(.channel)
+    nav
+      margin-bottom: 0
+      ul
+        &.sections
+          +columns(3)
+          +span-columns(8)
+        &.web-channels
+          +columns(1)
+          +span-columns(4 omega)
+
+
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1024px)
 
-  .channels
+  section.channels
     +span-columns(9)
     ul
       +columns(3)
@@ -111,7 +127,5 @@ footer.channel
       ul
         &.sections
           +columns(4)
-          +span-columns(8)
         &.web-channels
           +columns(2)
-          +span-columns(4 omega)

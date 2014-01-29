@@ -1,0 +1,100 @@
+.theme-home
+
+  // $background-color:
+  // $body-font-color:
+  // $border-color:
+  // $caption-color:
+  // $count-color:
+  // $delete-font-color: 
+  // $error-background-color: 
+  // $evernote-color: 
+  // $facebook-color:
+  // $font-color:
+  // $furniture-color:
+  // $headline-font-color:
+  // $insert-background-color:
+  // $invalid-background-color:
+  // $link-hover-color:
+  // $link-visited-color:
+  // $map-background-color:
+  // $map-font-color:
+  // $off-color:
+  // $row-hover-color:
+  // $secondary-color:
+  // $selected-background-color:
+  // $selected-font-color:
+  // $static-url-color:
+  // $success-background-color:
+
+  +colors
+  +magazine
+
+  @import application/simple-blurbs
+
+  #main
+    &:before
+      color: rgba(255, 255, 255, 0.1)
+      content: 'beta'
+      font-weight: bold
+      font-size: 64px
+      position: fixed
+      right: $text-indent / 2
+      bottom: $line-height
+
+  h1
+    font:
+      weight: 700
+      size: 72px
+      style: italic
+
+  #introduction
+    font:
+      size: 30px
+      style: normal
+    line-height: 45px
+
+  .home-index
+    article
+      #text
+        .side-annotations
+          display: none
+    .notes
+      +span-columns(8)
+      ul
+        +columns(1)
+        +column-gap(0)
+
+    section.channels
+      li
+        border: 1px solid #000
+        h2
+          display: block
+          height: $line-height
+          padding: 0 5px
+
+  #introduction
+    margin-bottom: $line-height * 3
+
+  #tools
+    background: none
+    border: none
+    position: absolute
+    left: 50%
+    top: $line-height * 13
+    margin-left: -556px
+    width: 200px
+    ul
+      li
+        a:before
+          font-size: 30px
+    .home, .user, .channels, .page
+      display: none
+
+  footer
+    display: none
+
+  // Note under #main //////////////////////////////////////////
+
+  #dashboard
+    a[href*=close]
+      display: none

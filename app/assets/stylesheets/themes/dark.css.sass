@@ -1,17 +1,17 @@
-.theme-red
+.theme-dark
 
-  $background-color: #cc0000
-  $body-font-color: #e8e8e8
-  $border-color: #e8e8e8
-  $caption-color: purple
-  $count-color: #0ff
+  // $background-color:
+  // $body-font-color:
+  // $border-color:
+  // $caption-color:
+  // $count-color:
   // $delete-font-color: 
   // $error-background-color: 
   // $evernote-color: 
   // $facebook-color:
-  $font-color: #e8e8e8
+  // $font-color:
   // $furniture-color:
-  $headline-font-color: orange
+  // $headline-font-color:
   // $insert-background-color:
   // $invalid-background-color:
   // $link-hover-color:
@@ -29,3 +29,15 @@
   +colors
 
   @import application/simple-blurbs
+
+  .home-index
+    article
+      #text
+        .side-annotations
+          display: none
+    .notes
+      +span-columns(8)
+      ul
+        +columns(1)
+        +column-gap(0)
+

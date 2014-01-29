@@ -1,7 +1,7 @@
-.theme-inverse
+.theme-nembrot
 
-  $background-color: #000
-  $body-font-color: #dfd
+  // $background-color:
+  // $body-font-color:
   // $border-color:
   // $caption-color:
   // $count-color:
@@ -9,7 +9,7 @@
   // $error-background-color: 
   // $evernote-color: 
   // $facebook-color:
-  $font-color: #fff
+  // $font-color:
   // $furniture-color:
   // $headline-font-color:
   // $insert-background-color:
@@ -29,4 +29,15 @@
   +colors
 
   @import application/simple-blurbs
+
+  .home-index
+    article
+      #text
+        .side-annotations
+          display: none
+    .notes
+      +span-columns(8)
+      ul
+        +columns(1)
+        +column-gap(0)
 

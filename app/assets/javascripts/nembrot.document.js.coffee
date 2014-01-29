@@ -1,5 +1,16 @@
-window.Nembrot ?= {}
 jQuery.fn.reverse = [].reverse
+
+# See http://api.jquery.com/jquery.getscript/
+jQuery.cachedScript = (url, options) ->
+  options = $.extend(options or {},
+    dataType: 'script'
+    cache: true
+    url: url
+  )
+
+  jQuery.ajax options
+
+window.Nembrot ?= {}
 
 update_titles = () ->
   title_data = $('#main header:first-of-type').data('title')
@@ -183,8 +194,24 @@ load_dashboard = () ->
 
 window.Nembrot.load_dashboard = load_dashboard
 
+TYPEKITS =
+  nembrot: "crv1apl"
+  dark: "crv1apl"
+  leipzig: "qho7ezg"
+  meta: "pit7kzz"
+  home: "srt1pbp"
+  magazine: "jix2vil"
+
 change_theme = (theme) ->
-  $('html, [data-theme-wrapper]').alterClass('theme-*', theme)
+  load_typekit_font(TYPEKITS[theme])
+  $('html, [data-theme-wrapper]').alterClass('theme-*', 'theme-' + theme)
+
+load_typekit_font = (name) ->
+  $.cachedScript('//use.typekit.net/' + name + '.js').done (script) ->
+    try
+      Typekit.load()
+
+window.Nembrot.load_typekit_font = load_typekit_font
 
 # Initializers ********************************************************************************************************
 
@@ -241,7 +268,7 @@ document_initializers = () ->
 
   # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
-    if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme('theme-' + @value)
+    if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(@value)
 
   $(document).on 'click', '#dashboard .notebooks label', ->
     $('#dashboard .notebooks legend').addClass('completed')
@@ -287,7 +314,7 @@ content_initializers = () ->
 window.Nembrot.content_initializers = content_initializers
 
 content_initializers_reload_only = () ->
-  change_theme($('[data-theme-wrapper]').attr('class'))
+  change_theme($('[data-theme-wrapper]').attr('class').replace('theme-', ''))
 
 resize_initializers = () ->
   place_annotations()

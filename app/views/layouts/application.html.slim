@@ -1,6 +1,6 @@
 doctype 5
 
-html class="no-js theme-#{ @current_channel.nil? ? 'default' : @current_channel.theme }" lang="#{ I18n.locale }"
+html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme }" lang="#{ I18n.locale }"
 
   = render 'head'
 

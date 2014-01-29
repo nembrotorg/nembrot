@@ -57,7 +57,6 @@ nav ul li a:first-of-type
 
 section.channels
   +span-columns(12)
-  +visible-header
   clear: both
   margin-top: $line-height
   ul
@@ -87,6 +86,7 @@ section.channels
   display: none
 
 footer.channel
+  margin-bottom: $line-height
   width: 100%
   ul
     +columns(0)
@@ -94,7 +94,6 @@ footer.channel
     .sections
       li
         display: inline
-        margin-right: 10px
         a:before
           content: '//'
         &:first-of-type

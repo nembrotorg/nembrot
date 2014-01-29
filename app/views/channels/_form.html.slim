@@ -48,7 +48,7 @@
       legend
         | Choose a theme
       div
-        - @themes = ['default', 'inverse', 'magazine', 'red', 'leipzig']
+        - @themes = ['nembrot', 'dark', 'leipzig', 'meta', 'home', 'magazine']
         - @themes.each do |theme|
           = f.label :theme, theme, value: theme
             = theme.titlecase

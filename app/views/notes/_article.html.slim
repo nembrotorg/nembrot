@@ -1,41 +1,43 @@
-article class=css_instructions(note.instruction_list)
+- cache note do
 
-  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title
+  article class=css_instructions(note.instruction_list)
 
-  section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)
+    = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title
 
-    = render 'shared/images', images: note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
+    section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)
 
-    - unless note.introduction.blank? || note.has_instruction?('hide_introduction')
-      section#introduction
-        p == note.introduction
+      = render 'shared/images', images: note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
 
-    - if @source.nil?
-      section#text.regular
-        = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+      - unless note.introduction.blank? || note.has_instruction?('hide_introduction')
+        section#introduction
+          p == note.introduction
 
-    - elsif note.has_instruction?('collate')
-      section#text class="parallel collate#{ note.has_instruction?('interlinear') ? '' : ' enface'  }"
-        = bodify_collate(@source.body, note.body, @source.lang, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-    - else
-      section#text class="parallel#{ note.has_instruction?('interlinear') ? '' : ' enface' }"
-        section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-          = bodify(@source.body, [], [], [], [], '', '', false)
-
-        section.target
+      - if @source.nil?
+        section#text.regular
           = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-      / Collated
+      - elsif note.has_instruction?('collate')
+        section#text class="parallel collate#{ note.has_instruction?('interlinear') ? '' : ' enface'  }"
+          = bodify_collate(@source.body, note.body, @source.lang, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-      = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
+      - else
+        section#text class="parallel#{ note.has_instruction?('interlinear') ? '' : ' enface' }"
+          section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
+            = bodify(@source.body, [], [], [], [], '', '', false)
 
-      aside
+          section.target
+            = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-        = render 'notes/tag_list', tags: tags unless tags.empty?
+        / Collated
 
-        -#= render 'notes/notes_list_headlines', note: note
+        = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
 
-        = render 'notes/versions_list', note: note if Setting['advanced.versions']
+        aside
 
-    = render 'shared/map', map: @map unless @map.nil?
+          = render 'notes/tag_list', tags: tags unless tags.empty?
+
+          -#= render 'notes/notes_list_headlines', note: note
+
+          = render 'notes/versions_list', note: note if Setting['advanced.versions']
+
+      = render 'shared/map', map: @map unless @map.nil?

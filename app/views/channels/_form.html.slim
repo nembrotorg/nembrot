@@ -48,7 +48,11 @@
       legend
         | Choose a theme
       div
-        - @themes = ['nembrot', 'dark', 'leipzig', 'meta', 'home', 'magazine']
+        - if user_signed_in? && current_user.nickname == Secret.auth.evernote.username
+          - @themes = ['nembrot', 'dark', 'leipzig', 'meta', 'home', 'magazine']
+        - else
+          - @themes = ['nembrot', 'dark', 'magazine']
+
         - @themes.each do |theme|
           = f.label :theme, theme, value: theme
             = theme.titlecase

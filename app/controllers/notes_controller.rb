@@ -18,7 +18,6 @@ class NotesController < ApplicationController
 
     # REVIEW: These are decalred twice!
     set_channel_defaults
-    add_home_breadcrumb
     get_promoted_notes
     get_sections
 
@@ -46,10 +45,9 @@ class NotesController < ApplicationController
     note_source(@note)
     commontator_thread_show(@note)
 
-    # REVIEW: These are decalred twice!
+    # REVIEW: These are declared twice!
     set_channel_defaults
-    add_home_breadcrumb
-    get_promoted_notes
+    get_promoted_notes(@note)
     get_sections
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)

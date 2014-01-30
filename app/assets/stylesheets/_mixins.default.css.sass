@@ -17,7 +17,6 @@
   h2
     display: inline
     font:
-      family: $headline-font-family
       size: $body-font-size
       weight: normal
   a
@@ -51,7 +50,6 @@
   h2
     display: block
     font:
-      family: $headline-font-family
       size: $body-font-size
       weight: normal
   a
@@ -59,6 +57,7 @@
     height: $line-height * $lines
     overflow: hidden
     text-overflow: ellipsis
+    white-space: nowrap
     &:after
       display: none
     img, iframe
@@ -139,7 +138,10 @@
         &:empty
           background-color: $error-background-color
 
-    .home-index, .notes-index, .notes-show, .notes-version,
+    .count
+      color: $count-color
+
+    .home-index, .notes-show, .notes-version,
     .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
     .features-show article:not(.ins-section), .features-version
       h1
@@ -225,7 +227,8 @@
           li
             color: $headline-font-color
 
-    section:not(.ins-section), .home-index
+    section:not(.ins-section), .home-index,
+    section:not(.ins-section), .notes-show
       .notes li, .citations li, .map-infowindow
         +body-font
         // REVIEW: The following should be superfluous
@@ -489,10 +492,6 @@
 // Fonts
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-+embed-font($headline-font, $headline-font-variant)
-
-+embed-font($monospace-font, $monospace-font-variant)
 
 =body-font
   font:

@@ -36,8 +36,11 @@ class ApplicationController < ActionController::Base
     add_breadcrumb @current_channel.name, home_path(@current_channel) unless @current_channel.name == 'default'
   end
 
-  def get_promoted_notes
-    @promoted_notes = Note.channelled(@current_channel).publishable.listable.blurbable.promotable
+  def get_promoted_notes(exclude_note = nil)
+    # REVIEW: If promotable did not return an array this could be simpler
+    @promoted_notes = Note.channelled(@current_channel).publishable.listable.blurbable
+    @promoted_notes = @promoted_notes.where.not(id: exclude_note.id) unless exclude_note.nil?
+    @promoted_notes = @promoted_notes.promotable
     @promoted_notes = @default_notes if @promoted_notes.empty?
     @promoted_notes
   end

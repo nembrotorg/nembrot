@@ -166,8 +166,8 @@ fix_facebook_dialog = () ->
 
 insert_qr_code = () ->
   # Get image size from settings
-  $('footer img.qr_code').remove()
-  $('footer').prepend('<img class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + location.href + '" alt="QR code">')
+  $('body > footer img.qr_code').remove()
+  $('body > footer').prepend('<img class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + location.href + '" alt="QR code">')
 
 add_scrolling_class = () ->
   clearTimeout(window.scrolling)
@@ -195,12 +195,12 @@ load_dashboard = () ->
 window.Nembrot.load_dashboard = load_dashboard
 
 TYPEKITS =
-  nembrot: "crv1apl"
-  dark: "crv1apl"
-  leipzig: "qho7ezg"
-  meta: "pit7kzz"
-  home: "srt1pbp"
-  magazine: "jix2vil"
+  nembrot: 'crv1apl'
+  dark: 'crv1apl'
+  leipzig: 'qho7ezg'
+  meta: 'crv1apl'
+  home: 'srt1pbp'
+  magazine: 'jix2vil'
 
 change_theme = (theme) ->
   load_typekit_font(TYPEKITS[theme])

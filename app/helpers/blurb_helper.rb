@@ -14,7 +14,7 @@ module BlurbHelper
     # If the title is derived from the body, do not include it in the blurb
     body_contains_headline = clean_body.start_with?(headline)
     headline_ends_with_punctuation = headline.match(/\!|\?/)
-    headline = body_contains_headline || headline_ends_with_punctuation ? headline : "#{ headline }: "
+    headline = body_contains_headline || headline_ends_with_punctuation ? headline : "#{ headline } "
     start_blurb_at = body_contains_headline ? headline.length : 0
     blurb = clean_body[start_blurb_at .. clean_body.length]
               .truncate(blurb_length, separator: ' ', omission: omission)

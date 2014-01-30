@@ -1,43 +1,61 @@
 .theme-dark
 
-  // $background-color:
-  // $body-font-color:
-  // $border-color:
-  // $caption-color:
-  // $count-color:
-  // $delete-font-color: 
-  // $error-background-color: 
+  $background-color: #070707
+  $body-font-color: #f7f7f7
+  $border-color: $body-font-color
+  $caption-color: #ccc
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
   // $evernote-color: 
   // $facebook-color:
-  // $font-color:
-  // $furniture-color:
-  // $headline-font-color:
-  // $insert-background-color:
-  // $invalid-background-color:
-  // $link-hover-color:
-  // $link-visited-color:
-  // $map-background-color:
-  // $map-font-color:
-  // $off-color:
-  // $row-hover-color:
-  // $secondary-color:
-  // $selected-background-color:
-  // $selected-font-color:
-  // $static-url-color:
-  // $success-background-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b7b700
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #0c0
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
 
   +colors
+  +simple-blurbs
 
-  @import application/simple-blurbs
+  h1, h2
+    font:
+      weight: 500
+
+  h2
+    font-size: 22px !important
+
+  .notes ul li
+    font:
+      family: 'lexia' !important
+
+  #introduction
+    color: #e7e7e7 !important
+    font:
+      style: normal
+      weight: 700
 
   .home-index
-    article
-      #text
-        .side-annotations
-          display: none
     .notes
       +span-columns(8)
       ul
         +columns(1)
         +column-gap(0)
 
+  footer.channel
+    ul
+      li
+        a
+          font:
+            family: 'prenton'

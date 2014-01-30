@@ -16,16 +16,54 @@
     left: auto
     text-transform: lowercase
 
+=magazine-figure
+  article
+    section#content
+      figure.image
+        height: 100%
+        left: 0
+        overflow: hidden
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: -1
+        figcaption
+          bottom: 0
+          position: absolute
+          right: 0
+
+=magazine-image-portrait
+  article
+    section#content
+      figure.image
+        img
+          height: 100%
+          left: 0
+          margin: auto
+          max-width: none
+          top: 0
+          width: auto
+
+=magazine-image-landscape
+  article
+    section#content
+      figure.image
+        img
+          height: auto
+          left: 0
+          margin: auto
+          max-width: none
+          top: 0
+          width: 100%
+
+=magazine-everywhere
+  +magazine-figure
+
+  +magazine-image-portrait
+
+  @media only screen and (min-width: 1024px)
+    +magazine-image-landscape
+
 =magazine
-  figure.image
-    img
-      height: auto
-      left: 0
-      position: fixed
-      top: 0
-      width: 100%
-      z-index: -100
-    figcaption
-      bottom: 0
-      position: absolute
-      right: 0
+  +magazine-figure
+  +magazine-image-landscape

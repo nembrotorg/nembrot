@@ -3,10 +3,10 @@ defaults: &defaults
     background_color: '#fff'
     body_font: Georgia
     body_font_citation_color: '#000'
-    body_font_citation_family: DejaVuSansCondensed, Arial, Helvetica, sans-serif
+    body_font_citation_family: sans-serif
     body_font_citation_size: 15px
     body_font_color: '#000'
-    body_font_family: Georgia, serif
+    body_font_family: serif
     body_font_size: 18px
     body_font_variant: regular
     border_color: '#ccc'
@@ -21,7 +21,7 @@ defaults: &defaults
     evernote_color: '#61b737'
     facebook_color: '#3b5998'
     font_color: '#000'
-    font_family: DejaVuSansCondensed, Arial, Helvetica, sans-serif
+    font_family: sans-serif
     font_size: 15px
     force_double_quotes: true
     furniture_color: '#666'
@@ -29,9 +29,9 @@ defaults: &defaults
     gplus_color: '#dd4b39'
     grid_padding: 0
     gutter_width: 30
-    headline_font: DejaVuSansCondensed
+    headline_font: sans-serif
     headline_font_color: '#900'
-    headline_font_family: DejaVuSansCondensed, Arial, Helvetica, sans-serif
+    headline_font_family: sans-serif
     headline_font_size: 36px
     headline_font_variant: condensed_book
     hyper_conform: false
@@ -59,8 +59,8 @@ defaults: &defaults
     linkedin_color: '#1c87bd'
     map_background_color: '#ccc'
     map_font_color: '#333'
-    monospace_font: DejaVuMonoBook
-    monospace_font_family: DejaVuMonoBook, monospace
+    monospace_font: monospace
+    monospace_font_family: monospace
     monospace_font_variant: mono_book
     note_images_number: 1
     off_color: '#999'

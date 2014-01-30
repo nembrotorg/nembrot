@@ -1,35 +1,34 @@
 .theme-home
 
-  // $background-color:
-  // $body-font-color:
-  // $border-color:
-  // $caption-color:
-  // $count-color:
-  // $delete-font-color: 
-  // $error-background-color: 
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #666
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
   // $evernote-color: 
   // $facebook-color:
-  // $font-color:
-  // $furniture-color:
-  // $headline-font-color:
-  // $insert-background-color:
-  // $invalid-background-color:
-  // $link-hover-color:
-  // $link-visited-color:
-  // $map-background-color:
-  // $map-font-color:
-  // $off-color:
-  // $row-hover-color:
-  // $secondary-color:
-  // $selected-background-color:
-  // $selected-font-color:
-  // $static-url-color:
-  // $success-background-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b70000
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
 
   +colors
-  +magazine
-
-  @import application/simple-blurbs
+  +magazine-everywhere
+  +simple-blurbs
 
   #main
     &:before
@@ -80,7 +79,7 @@
     border: none
     position: absolute
     left: 50%
-    top: $line-height * 13
+    top: $line-height * 12
     margin-left: -556px
     width: 200px
     ul

@@ -61,9 +61,6 @@
           height: $line-height
           padding: 0 5px
 
-  #introduction
-    margin-bottom: $line-height * 16
-
   #tools
     background: none
     border: none
@@ -89,31 +86,26 @@
     a[href*=close]
       display: none
 
-// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@media only screen and (min-width: 720px)
+  @media only screen and (min-width: 720px)
 
-  h1
-    font:
-      size: 72px
+    h1
+      font:
+        size: 72px
 
-  #introduction
-    margin-bottom: $line-height
+    #introduction
+      margin-bottom: $line-height * 3
 
-  #tools
-    display: block
-    left: 2.5%
-    top: $line-height * 12
+    #tools
+      display: block
+      top: $line-height * 12
 
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@media only screen and (min-width: 1024px)
+  @media only screen and (min-width: 1024px)
 
-  #tools
-    left: 50%
-    top: $line-height * 12
-    margin-left: -556px
-
-// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1200px)
+    #tools
+      left: 50%
+      top: $line-height * 12
+      margin-left: -530px

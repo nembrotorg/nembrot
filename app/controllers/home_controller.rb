@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     get_promoted_notes(@note)
     get_sections
 
-    @channels = Channel.not_owned_by_nembrot
+    @channels = Channel.not_owned_by_nembrot.first(9)
   end
 
   def default_url_options

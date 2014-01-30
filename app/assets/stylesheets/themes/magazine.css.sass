@@ -4,14 +4,14 @@
   $body-font-color: #f7f7f7
   $border-color: $body-font-color
   $caption-color: #ccc
-  $count-color: #c00
+  $count-color: #0c0
   $delete-font-color: #ccc 
   $error-background-color: #c00 
   // $evernote-color: 
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #b70000
+  $headline-font-color: #e7e700
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #0c0
@@ -32,15 +32,58 @@
 
   #content
     background: none
-  #text
-    background: rgba(0, 0, 0, .75)
     #introduction
       p
         +text-shadow(rgba(#000, 0.5) 1px 1px 0)
-        color: red
+        color: $font-color
+    #text
+      background: rgba(0, 0, 0, .75)
 
-  .home-index, .notes-index, .tags-show
+  .home-index, .notes-index, .notes-show, .tags-show
     .notes
       +span-columns(12)
+      margin-bottom: $line-height
       ul
-        +columns(3)
+        +columns(1)
+        li
+          border: 1px solid $background-color
+          height: $line-height * 7
+          h2
+            padding: 0 5px
+
+  .breadcrumb li, footer, #tools, #comments
+    background: rgba(0, 0, 0, .75) !important
+
+  #comments
+    margin: $line-height 0
+
+  .annotations
+    li
+      background: rgba(0, 0, 0, .75)
+      a:first-of-type
+        color: $background-color !important
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    .home-index, .notes-index, .notes-show, .tags-show
+      .notes
+        +span-columns(12)
+        ul
+          +columns(2)
+          li
+            height: $line-height * 8
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    .home-index, .notes-index, .notes-show, .tags-show
+      .notes
+        +span-columns(12)
+        ul
+          +columns(3)
+          li
+            height: $line-height * 7
+

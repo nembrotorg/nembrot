@@ -33,14 +33,14 @@
   h1
     font:
       weight: 700
-      size: 72px
       style: italic
 
   #introduction
     font:
-      size: 30px
+      size: 36px
       style: normal
     line-height: 45px
+    margin-bottom: $line-height * 16
 
   .home-index
     article
@@ -62,21 +62,22 @@
           padding: 0 5px
 
   #introduction
-    margin-bottom: $line-height * 3
+    margin-bottom: $line-height * 16
 
   #tools
     background: none
     border: none
+    bottom: $line-height / 2
+    display: none // TEMPORARILY HIDDEN
     position: absolute
-    left: 50%
-    top: $line-height * 12
-    margin-left: -556px
+    left: 5%
+    top: auto
     width: 200px
     ul
       li
         a:before
           font-size: 30px
-    .home, .user, .channels, .page
+    .menu, .home, .user, .channels, .page
       display: none
 
   footer
@@ -87,3 +88,32 @@
   #dashboard
     a[href*=close]
       display: none
+
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 720px)
+
+  h1
+    font:
+      size: 72px
+
+  #introduction
+    margin-bottom: $line-height
+
+  #tools
+    display: block
+    left: 2.5%
+    top: $line-height * 12
+
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1024px)
+
+  #tools
+    left: 50%
+    top: $line-height * 12
+    margin-left: -556px
+
+// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1200px)

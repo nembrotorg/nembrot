@@ -6,18 +6,17 @@ $error-color: #c00
 
 #dashboard
   +font-color
-  background-color: rgba(255, 255, 255, 0.85)
+  background-color: rgba(255, 255, 255, 1)
   border: 1px solid #000
   cursor: hand
-  height: 85%
+  height: $line-height * 14
+  left: 5%
   margin: 0
-  // outline: 1px solid #fff
   padding: 5px 0
-  position: fixed
-  right: 1%
-  left: 1%
-  top: 1%
-  width: 98%
+  position: absolute
+  right: 5%
+  top: $line-height * 11
+  width: 90%
 
   nav
     margin-bottom: 0
@@ -216,12 +215,13 @@ $error-color: #c00
 @media only screen and (min-width: 720px)
 
   #dashboard
-    width: 330px
-    top: auto
+    background-color: rgba(255, 255, 255, 0.85)
     bottom: $line-height * 3
     left: auto
+    position: fixed
     right: $text-indent / 2
-    height: $line-height * 14
+    top: auto
+    width: 330px
 
     form
       height: 328px

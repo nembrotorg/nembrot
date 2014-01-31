@@ -1,11 +1,12 @@
 #main
   &:before
-    color: rgba(120, 120, 120, 0.2)
+    +rotate(-90deg)
+    color: rgba(#999, 0.5)
     content: 'beta'
     font:
       family: 'prenton'
-      weight: 500
-      size: 64px
+      weight: 700
+      size: 72px
     position: fixed
-    right: $text-indent / 2
-    bottom: $line-height
+    right: $text-indent * -1
+    bottom: $line-height * 3

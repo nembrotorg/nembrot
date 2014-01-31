@@ -40,6 +40,7 @@ nav ul li a:first-of-type
 #tools
   +colors
   li.home
+    padding: 0 ($text-indent / 2)
     text-align: center
     width: $text-indent * 2
     a
@@ -65,7 +66,7 @@ section.channels
     margin-bottom: 0
     li
       +panel-blurb
-      height: $line-height * 7
+      height: $line-height * 6
 
 .statistics
   display: none
@@ -104,7 +105,7 @@ footer.channel
       +columns(1)
       +column-gap($gutter-width * 1px)
       li
-        height: $line-height * 8
+        height: $line-height * 7
 
   footer:not(.channel)
     nav

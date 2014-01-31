@@ -1,9 +1,9 @@
 - images.each do |image|
   figure.image
-    = link_to image_tag(cut_image_binary_path(image, type: type), alt: strip_tags(image.description)), 
-       cut_image_binary_path(image, width: Setting['style.images_expanded_width'])
-    - unless image.caption.blank?
+    -# link_to ... , cut_image_binary_path(image, width: Setting['style.images_expanded_width'])
+    = image_tag(cut_image_binary_path(image, type: type), alt: strip_tags(image.description))
+    - unless image.caption.blank? && image.credit.blank?
       figcaption
-        = simple_blurbify(image.caption)
+        = simple_blurbify(image.caption) unless image.caption.blank?
         - unless image.credit.blank?
           span.credit= simple_blurbify(image.credit)

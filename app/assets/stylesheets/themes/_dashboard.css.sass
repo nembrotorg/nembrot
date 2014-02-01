@@ -9,13 +9,13 @@ $error-color: #c00
   background-color: rgba(255, 255, 255, 1)
   border: 1px solid #000
   cursor: hand
-  height: $line-height * 14
+  height: $line-height * 12.5
   left: 5%
   margin: 0
   padding: 5px 0
   position: absolute
   right: 5%
-  top: $line-height * 18
+  top: $line-height * 20
   width: 90%
 
   nav
@@ -33,7 +33,7 @@ $error-color: #c00
       font:
         family: 'franklin-gothic-urw'
         weight: 700
-      padding: 0 5px
+      padding: 0 ($text-indent / 2)
 
   .breadcrumb
     display: none
@@ -46,36 +46,37 @@ $error-color: #c00
         +icon-ok
         color: #fff
         position: absolute
-        right: $text-indent / 2
+        right: $text-indent
 
   ul
     height: $line-height * 9
     overflow-y: scroll
-    padding: 0 ($text-indent / 3)
+    padding: 0 ($text-indent / 2)
     li
-      background-color: orange
-    a
-      display: inline-block
-      &:first-of-type
-        float: left
-        overflow: hidden
-        width: 60%
-        &:before
-          +icon-settings
-      &.show-channel
-        float: right
-        width: 55px
-        &:before
-          +icon-screen
-          padding-left: $text-indent
-          padding-right: $text-indent * 2/3
+      a
+        display: inline-block
+        &:first-of-type
+          float: left
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+          width: 85%
+          &:before
+            +icon-settings
+        &.show-channel
+          float: right
+          width: 15%
+          &:before
+            +icon-screen
+            padding-left: $text-indent
+            padding-right: $text-indent * 2/3
 
   a[href='/channels/new']
     bottom: 0
     display: block
     font-weight: 700
     position: absolute
-    padding: ($text-indent / 3)
+    padding: ($text-indent / 2)
     width: 100%
 
   #notice
@@ -129,7 +130,7 @@ $error-color: #c00
         color: #fff
         width: 100%
         display: block
-        padding: 0 ($text-indent / 3)
+        padding: 0 ($text-indent / 2)
         font-weight: 700
         cursor: pointer
         &:before
@@ -141,12 +142,12 @@ $error-color: #c00
         div
           display: none
       label
-        padding: 0 ($text-indent / 3)
+        padding: 0 ($text-indent / 2)
         &:hover
           background-color: #999
       div
         height: $line-height * 4
-        padding-top: $text-indent / 3
+        padding-top: $text-indent / 2
         overflow-y: auto
       .name div
         overflow-y: hidden

@@ -20,6 +20,6 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
       = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
 
     - unless @current_channel == @default_channel || @promoted_notes.blank?
-      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'
 
     = render 'channels/footer'

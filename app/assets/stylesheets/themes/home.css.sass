@@ -1,7 +1,7 @@
 .theme-home
 
-  $background-color: #f7f7f7
-  $body-font-color: #070707
+  $background-color: #070707
+  $body-font-color: #e7e7e7
   $border-color: $body-font-color
   $caption-color: #666
   $count-color: #c00
@@ -31,11 +31,16 @@
   +simple-blurbs
 
   h1
+    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
     font:
       weight: 700
       style: italic
 
+  h3
+    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
+
   #introduction
+    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
     font:
       size: 36px
       style: normal
@@ -55,10 +60,11 @@
 
     section.channels
       li
+        +box-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
         border: 1px solid #000
         h2
           display: block
-          height: $line-height
+          // height: $line-height
           padding: 0 5px
 
   #tools
@@ -74,6 +80,7 @@
     ul
       li
         a:before
+          +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0, rgba(black, 0.3) 3px 3px 0)
           font-size: 30px
     .menu, .home, .user, .channels, .page
       display: none

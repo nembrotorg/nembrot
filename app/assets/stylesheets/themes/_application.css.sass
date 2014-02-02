@@ -74,6 +74,7 @@ section.channels
   display: none
 
 footer.channel
+  display: none
   width: 100%
   ul
     li
@@ -93,6 +94,11 @@ footer.channel
           content: '|'
           font-weight: normal
           padding: 0 10px
+
+.home-index .notes, .notes-show .notes, .home-index .channels
+  h3
+    display: block
+    margin-bottom: $line-height
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -114,11 +120,11 @@ footer.channel
       margin-bottom: 0
       ul
         &.sections
-          +columns(3)
-          +span-columns(8)
-        &.web-channels
           +columns(1)
-          +span-columns(4 omega)
+          +span-columns(4)
+        &.web-channels
+          +columns(3)
+          +span-columns(8 omega)
 
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +143,6 @@ footer.channel
       margin-bottom: 0
       ul
         &.sections
-          +columns(4)
-        &.web-channels
           +columns(2)
+        &.web-channels
+          +columns(4)

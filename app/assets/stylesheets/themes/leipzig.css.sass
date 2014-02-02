@@ -1,26 +1,26 @@
 .theme-leipzig
 
-  $background-color: #080808
-  $body-font-color: #e8e8e8
+  $background-color: #ecebd6
+  $body-font-color: #070707
   $border-color: #e8e8e8
-  $caption-color: purple
-  $count-color: #0ff
+  // $caption-color:
+  // $count-color:
   // $delete-font-color: 
   // $error-background-color: 
   // $evernote-color: 
   // $facebook-color:
-  $font-color: #c5b358
+  $font-color: #ecebd6
   // $furniture-color:
-  $headline-font-color: #e7e7e7
+  $headline-font-color: #070707
   // $insert-background-color:
   // $invalid-background-color:
-  $link-hover-color: #e7dbbd
+  $link-hover-color: #c5b358
   // $link-visited-color:
   // $map-background-color:
   // $map-font-color:
   // $off-color:
-  $row-hover-color: cyan
-  $secondary-color: violet
+  // $row-hover-color:
+  // $secondary-color:
   // $selected-background-color:
   // $selected-font-color:
   // $static-url-color:
@@ -34,28 +34,22 @@
 
   #main
     +magazine
-    width: 60%
-    margin: 35% $text-indent $line-height auto
-
-  .hello-world,
-  footer
-    width: 60%
-    margin: 0 $text-indent $line-height auto
+    font:
+      weight: 500
+      size: 18px
+    width: 40%
+    margin: 35% 20% $line-height auto
+    #text
+      .body, .annotations
+        font-weight: 400
 
   #tools
+    background-color: transparent
     padding-left: $text-indent
-    a, a:before
-      color: $font-color
     ul li a, a:before
-      border-color: $font-color !important
-      color: $font-color
+      border-color: rgba($background-color, 0.65)
+      color: rgba($background-color, 0.65)
       +text-shadow(rgba(#000, 0.2) 1px 1px 0)
-
-  a, a:before
-    color: $font-color
-
-  #comments, #comments a
-    color: #e8e8e8
 
   .breadcrumb
     position: fixed
@@ -68,46 +62,44 @@
         +text-shadow(rgba(#000, 0.2) 1px 1px 0)
 
   h1, .notes h2, h2, h4
-    font-weight: 300
-
-  h1
     text-transform: lowercase
-    font-variant: small-caps
-    font-weight: 300
+    font:
+      variant: small-caps
+      weight: 400
+      size: 34px
     letter-spacing: 0.03em
 
   header[data-title]
+    height: $line-height * 1.5
     margin-top: $line-height / 2
     margin-bottom: 0
 
-  .notes-index, .home-index
-    .notes
-      font-family: arial, sans-serif
-      li
-        +block-blurb(3, 3)
-
   > div
     +clearfix
-    background: rgba(0, 0, 0, .65)
+    background: rgba($background-color, 0.65)
+    padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
+    a
+      color: #006b55
+      text-decoration: none
+      &:hover
+        color: $link-hover-color
+        +text-shadow(rgba(#000, 0.2) 1px 1px 0)
 
     article
-      padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
       header
         height: $line-height
       figure.image
         margin-bottom: $line-height / 2
 
-    #comments
-      padding: $line-height ($text-indent * 2/3) $line-height ($text-indent * 2/3)
+    #text
+      .body, .annotations
+        font-size: 20px
+        a
+          color: #006b55
+          text-decoration: none
+          &:hover
+            color: $link-hover-color
+            +text-shadow(rgba(#000, 0.2) 1px 1px 0)
 
-    #text .body a
-      color: #32c6a6
-      text-decoration: none
-      &:hover
-        color: #e7dbbd
-
-    #text .body
-      font-size: 19px
-
-  article section#content #text.regular, article section#content #text.parallel
+  article section#content #text.regular, article section#content #text.parallel, #comments, #disqus_thread
     width: 100%

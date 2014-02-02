@@ -6,9 +6,10 @@ footer
       li
         ul.sections
           li = link_to 'Nembrot', '/'
+          li = link_to 'Help', '/help'
 
-          - @channels_owned_by_nembrot.each do |channel|
-            li = link_to channel.name, home_path(channel)
+          -# @channels_owned_by_nembrot.each do |channel|
+          -# li = link_to channel.name, home_path(channel)
 
           -# Here put all channels owned by Nembrot (home)
           -# @sections.each do |section|

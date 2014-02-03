@@ -207,7 +207,7 @@ module FormattingHelper
 
   def clean_up(text, clean_up_dom = true)
     text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Setting['style.hyper_conform']
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
                .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -217,7 +217,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Setting['style.hyper_conform']
+    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
     dom = clean_up_dom(dom, unwrap_p)

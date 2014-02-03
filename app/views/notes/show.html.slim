@@ -15,7 +15,8 @@ div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_
 
     - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 
-      section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+        section#comments = commontator_thread(@note)
 
       = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
 

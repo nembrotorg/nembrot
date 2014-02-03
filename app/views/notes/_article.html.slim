@@ -28,16 +28,16 @@
           section.target
             = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-        / Collated
+      / Collated
 
-        = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
+      = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
 
-        aside
+      aside
 
-          = render 'notes/tag_list', tags: tags unless tags.empty?
+        = render 'notes/tag_list', tags: tags unless tags.empty?
 
-          -#= render 'notes/notes_list_headlines', note: note
+        -#= render 'notes/notes_list_headlines', note: note
 
-          = render 'notes/versions_list', note: note if Setting['advanced.versions']
+        = render 'notes/versions_list', note: note if Setting['advanced.versions']
 
       = render 'shared/map', map: @map unless @map.nil?

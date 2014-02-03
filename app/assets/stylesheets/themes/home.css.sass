@@ -4,7 +4,7 @@
   $body-font-color: #e7e7e7
   $border-color: $body-font-color
   $caption-color: #666
-  $count-color: #c00
+  $count-color: #300
   $delete-font-color: #ccc 
   $error-background-color: #c00 
   // $evernote-color: 
@@ -79,9 +79,13 @@
     width: 200px
     ul
       li
-        a:before
-          +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0, rgba(black, 0.3) 3px 3px 0)
-          font-size: 30px
+        a
+          color: $count-color
+          font-size: 12px
+          +text-shadow(rgba(black, 0.5) 1px 1px 0)
+          &:before
+            +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0, rgba(black, 0.3) 3px 3px 0)
+            font-size: 30px
     .menu, .home, .user, .channels, .page
       display: none
 

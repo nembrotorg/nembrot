@@ -107,23 +107,28 @@ load_share_links = (page_class) ->
     title = 'nembrot.com'
     url = 'http://' + encodeURIComponent(location.host)
 
-  facebook_link = $('li.share a[href*=facebook]')
-  twitter_link = $('li.share a[href*=twitter]')
-  googleplus_link = $('li.share a[href*=google]')
+  $('#tools a[href*=facebook]').attr('href', 'http://www.facebook.com/share.php?u=' + url + '&title=' + title)
+  $('#tools a[href*=twitter]').attr('href', 'http://twitter.com/home?status=' + title + '+' + url)
+  $('#tools a[href*=google]').attr('href', 'https://plus.google.com/share?url=' + url)
 
-  facebook_link.attr('href', 'http://www.facebook.com/share.php?u=' + url + '&title=' + title)
-  twitter_link.attr('href', 'http://twitter.com/home?status=' + title + '+' + url)
-  googleplus_link.attr('href', 'https://plus.google.com/share?url=' + url)
-
-  $.getJSON FACEBOOK_API_URL + url, (data) ->
-    count = _normalize_count(data.shares)
-    facebook_link.text(shorter_total(count))
-
-  $.getJSON TWITTER_API_URL + "?callback=?&url=" + url, (data) ->
-    count = _normalize_count(data.count)
-    twitter_link.text(shorter_total(count))
-
+  #facebook_count = get_facebook_count(url)
+  #twitter_count = get_twitter_count(url)
   # Get googleplus: https://gist.github.com/jonathanmoore/2640302
+
+  #$('#tools #tools_counter').remove()
+  #$('#tools').append("<style id='#tools_counter'>#tools a[href*=facebook]:after{ content:'" + facebook_count + "' };#tools a[href*=twitter]:after{ content: '" + twitter_count + "' };</style>")
+
+get_facebook_count = (url) ->
+  $.getJSON FACEBOOK_API_URL + url, (data) ->
+    facebook_count = _normalize_count(data.shares)
+    facebook_count = shorter_total(facebook_count)
+    facebook_count
+
+get_twitter_count = (url) ->
+  $.getJSON TWITTER_API_URL + "?callback=?&url=" + url, (data) ->
+    twitter_count = _normalize_count(data.count)
+    twitter_count = shorter_total(twitter_count)
+    twitter_count
 
 DISQUS_API_KEY = 'qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLHfq'
 DISQUS_API_URL = 'https://disqus.com/api/3.0/threads/set.jsonp'

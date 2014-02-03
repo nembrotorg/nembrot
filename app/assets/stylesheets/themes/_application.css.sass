@@ -39,14 +39,21 @@ nav ul li a:first-of-type
 
 #tools
   +colors
-  li.home
-    // padding: 0 ($text-indent / 2)
-    text-align: center
-    width: $text-indent * 2
-    a
-      +logo
-  .user
-    display: none
+  ul
+    li
+      position: relative
+      a:after
+        margin-left: 10px
+        top: 35px
+        display: block !important
+        position: absolute
+      &.home
+        text-align: center
+        width: $text-indent * 2
+        a
+          +logo
+    .user
+      display: none
 
 // Prevent Typekit from causing FOUT
 .wf-loading

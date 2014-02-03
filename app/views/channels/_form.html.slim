@@ -39,7 +39,7 @@
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
-        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,30}", required: true, placeholder: 'Channel name'
+        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,50}", required: true, placeholder: 'Channel name'
         div.available
           | Use between 3 and 30 alphanumeric characters.
 

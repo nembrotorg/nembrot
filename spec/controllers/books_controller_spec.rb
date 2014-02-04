@@ -60,6 +60,7 @@ describe BooksController do
 
   describe 'GET #show' do
     before do
+      Setting['advanced.books_section'] = 'true'
       @related_book = FactoryGirl.create(:book, isbn_10: '0679768025', isbn_13: nil, author: @book.author)
       get :show, slug: @book.slug
     end

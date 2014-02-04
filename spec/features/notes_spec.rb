@@ -274,7 +274,7 @@ describe 'Notes' do
 
     context 'when a note has a reference to a book' do
       before do
-        Setting['advanced.books_section'] = true
+        Setting['advanced.books_section'] = 'true'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)
@@ -286,7 +286,7 @@ describe 'Notes' do
 
     context 'when a books section is turned off' do
       before do
-        Setting['advanced.books_section'] = false
+        Setting['advanced.books_section'] = 'false'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)
@@ -298,7 +298,7 @@ describe 'Notes' do
 
     context 'when a note has a reference to a link' do
       before do
-        Setting['advanced.links_section'] = true
+        Setting['advanced.links_section'] = 'true'
         @link = FactoryGirl.create(:link)
         @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
         visit note_path(@note)
@@ -310,7 +310,7 @@ describe 'Notes' do
 
     context 'links section is turned off' do
       before do
-        Setting['advanced.links_section'] = false
+        Setting['advanced.links_section'] = 'false'
         @link = FactoryGirl.create(:link)
         @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
         visit note_path(@note)

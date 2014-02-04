@@ -117,7 +117,7 @@ class Book < ActiveRecord::Base
 
   def scan_notes_for_references
     # REVIEW: try checking for setting as an unless: after before_save
-    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if Setting['advanced.books_section']
+    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if Setting['advanced.books_section'] == 'true'
   end
 
   def missing_metadata?

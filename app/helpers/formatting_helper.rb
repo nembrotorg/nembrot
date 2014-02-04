@@ -8,8 +8,8 @@ module FormattingHelper
     text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
-    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     text = headerize(text)
     text = sectionize(text)
     text = annotated ? annotate(text) : remove_annotations(text)
@@ -32,8 +32,8 @@ module FormattingHelper
     target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
-    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section']
-    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section']
+    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
     target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
@@ -52,8 +52,8 @@ module FormattingHelper
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
-    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     clean_up_via_dom(text, true)
   end
 

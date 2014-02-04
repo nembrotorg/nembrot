@@ -213,7 +213,7 @@ class Note < ActiveRecord::Base
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section']
+    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
 
     new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
     new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
@@ -225,12 +225,12 @@ class Note < ActiveRecord::Base
 
   def scan_note_for_isbns
     # REVIEW: try checking for setting as an unless: after before_save
-    Book.grab_isbns(body) unless Setting['advanced.books_section'] == false || body.blank?
+    Book.grab_isbns(body) unless Setting['advanced.books_section'] == 'false' || body.blank?
   end
 
   def scan_note_for_urls
     # REVIEW: try checking for setting as an unless: after before_save
-    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == false || clean_body.blank? && source_url.blank?
+    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == 'false' || clean_body.blank? && source_url.blank?
   end
 
   def body_or_source_or_resource?

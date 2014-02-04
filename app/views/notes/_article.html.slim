@@ -28,7 +28,7 @@
           section.target
             = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-      / Collated
+      = render 'shared/map', map: @map unless @map.nil?
 
       = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
 
@@ -39,5 +39,3 @@
         -#= render 'notes/notes_list_headlines', note: note
 
         = render 'notes/versions_list', note: note if Setting['advanced.versions'] == 'true'
-
-      = render 'shared/map', map: @map unless @map.nil?

@@ -64,7 +64,7 @@ defaults: &defaults
     monospace_font_variant: mono_book
     note_images_number: 1
     off_color: '#999'
-    promotions_footer: 5
+    promotions_footer: 3
     promotions_home_columns: 4
     promotions_home_lines: 7
     promotions_home_rows: 1

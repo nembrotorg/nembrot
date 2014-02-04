@@ -30,7 +30,7 @@ defaults: &defaults
     grid_padding: 0
     gutter_width: 30
     headline_font: DejaVuSansCondensed
-    headline_font_color: '#900'
+    headline_font_color: '#090'
     headline_font_family: DejaVuSansCondensed, Arial, Helvetica, sans-serif
     headline_font_size: 36px
     headline_font_variant: condensed_book

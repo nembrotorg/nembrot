@@ -74,6 +74,7 @@ group :development do
   gem 'flog'
   gem 'guard-coffeescript'
   gem 'guard-livereload'
+  # gem 'guard-rails_best_practices'
   gem 'guard-rubocop'
   gem 'guard-sass', require: false
   gem 'rails_best_practices'

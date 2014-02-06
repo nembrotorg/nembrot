@@ -57,8 +57,15 @@ module FormattingHelper
     clean_up_via_dom(text, true)
   end
 
-  def simple_blurbify(text)
+  def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+    sanitize(text,
+      tags: allowed_tags.split(/, ?| /) - ['span'],
+      attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
+  end
+
+  def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
+    text = sanitize_by_settings(text, allowed_tags)
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     clean_up(text)
@@ -71,6 +78,7 @@ module FormattingHelper
     clean_up(text)
   end
 
+  # REVIEW: Overkill with allowed_tags = Setting['advanced.allowed_html_tags']
   def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     text = sanitize_from_evernote(text)
     text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
@@ -79,9 +87,7 @@ module FormattingHelper
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
-    text = sanitize(text,
-                    tags: allowed_tags.split(/, ?| /) - ['span'],
-                    attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
+    text = sanitize_by_settings(text, allowed_tags)
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end
@@ -207,7 +213,9 @@ module FormattingHelper
   end
 
   def clean_up(text, clean_up_dom = true)
-    text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
+    # REVIEW: These operations should not be necessary!
+    # .gsub(/(<[^>"]*?)[\u201C|\u201D]([^<"]*?>)/, '\1"\2') # FIXME: This is for links in credits but it should not be necessary
+    text.gsub!(/^<p>\s*<\/p>$/m, '') # Removes empty paragraphs # FIXME
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
@@ -340,6 +348,7 @@ module FormattingHelper
         .gsub(/^\s*([^<].+[^>])\s*$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
         .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
         .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
+        .gsub(/^([^<].*[^>])$/, '<p>\1</p>') # Paragraphize anything that's not inside tags # FIXME
   end
 
   def sectionize(text)

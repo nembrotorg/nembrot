@@ -5,13 +5,22 @@
   .current
     font-weight: bold
 
+=arrow-link
+  +icon-right
+  +icon-small
+  width: $text-indent / 2
+
 =arrow-links
   +icon-links
   a:first-of-type, .current
     &:before
-      +icon-right
-      +icon-small
-      width: $text-indent / 2
+      +arrow-link
+
+=arrow-links-all
+  +icon-links
+  a, .current
+    &:before
+      +arrow-link
 
 =block-blurb($lines: 3, $image-width: 0, $context: $total-columns)
   h2

@@ -14,7 +14,7 @@
   $headline-font-color: #b70000
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
-  $link-hover-color: #00c
+  $link-hover-color: #b70000
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
@@ -44,8 +44,18 @@
     font:
       size: 36px
       style: normal
-    line-height: 45px
+    line-height: $line-height * 1.5
+    margin-bottom: $line-height / 2
+
+  #text
     margin-bottom: $line-height * 16
+    .body
+      p
+        +arrow-links-all
+        text-transform: lowercase
+        a
+          margin-right: $text-indent / 2
+          text-decoration: none
 
   .home-index
     // article
@@ -61,10 +71,17 @@
     section.channels
       li
         +box-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
+        +transition
         border: 1px solid #000
+        &:hover
+          border-color: $link-hover-color
+          +box-shadow(rgba($link-hover-color, 0.1) 1px 1px 0, rgba($link-hover-color, 0.05) 2px 2px 0, rgba($link-hover-color, 0.02) 2px 2px 0)
+          +transition
+          h2
+            background-color: $link-hover-color
+            +transition
         h2
           display: block
-          // height: $line-height
           padding: 0 5px
 
   #tools
@@ -106,12 +123,12 @@
       font:
         size: 72px
 
-    #introduction
+    #text
       margin-bottom: $line-height * 3
 
     #tools
       display: block
-      top: $line-height * 12
+      top: $line-height * 14.5
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,7 +136,7 @@
 
     #tools
       left: 50%
-      top: $line-height * 12
+      top: $line-height * 13
       margin-left: -530px
 
     h1

@@ -259,7 +259,7 @@ document_initializers = () ->
     add_scrolling_class()
 
   $(document).on 'keyup', (event) ->
-    if event.keyCode == 27 then $('#dashboard').fadeOut() # Review: Genericise
+    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel_slug') != 'default' then $('#dashboard').fadeOut() # REVIEW: Genericise
 
   $(window).scroll ->
     add_scrolling_class()

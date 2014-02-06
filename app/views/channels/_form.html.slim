@@ -28,8 +28,9 @@
         p.error = "Notebook #{ @channel.errors.messages[:notebooks].join(', ') }."
 
       - @evernote_notebooks_list.each do |notebook|
-        = f.label :notebooks, notebook[:name], value: notebook[:guid] 
-          = notebook[:name]
+        = f.label :notebooks, notebook[:name], value: notebook[:guid]
+          -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
+          span = notebook[:name]
           = f.radio_button :notebooks, notebook[:guid], required: true
 
   fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"
@@ -44,18 +45,19 @@
           | Use between 3 and 30 alphanumeric characters.
 
   - if mode == 'edit'
-    fieldset class="theme #{ signed_in_with_evernote ? '' : 'disabled' }"
+    fieldset class="theme#{ signed_in_with_evernote ? '' : 'disabled' }"
       legend
         | Choose a theme
       div
         - if user_signed_in? && current_user.nickname == Secret.auth.evernote.username
-          - @themes = ['nembrot', 'dark', 'leipzig', 'meta', 'home', 'magazine']
+          - @themes = ['nembrot', 'dark', 'leipzig jkfhsdlj fsj dfhsdj fhsjd f dsfhk sdf hsjk', 'meta', 'home', 'magazine']
         - else
           - @themes = ['nembrot', 'dark', 'magazine']
 
         - @themes.each do |theme|
           = f.label :theme, theme, value: theme
-            = theme.titlecase
+            -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
+            span = theme.titlecase
             = f.radio_button :theme, theme, checked: (@channel.theme == theme || @channel.theme.nil? && theme == 'default'), required: true
   - else
     input name='channel[theme]' type='hidden' value='default'

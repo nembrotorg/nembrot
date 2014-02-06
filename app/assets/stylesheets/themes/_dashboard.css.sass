@@ -16,7 +16,6 @@ $error-color: #c00
   position: absolute
   right: 5%
   top: $line-height * 20
-  width: 90%
 
   nav
     margin-bottom: 0
@@ -119,6 +118,7 @@ $error-color: #c00
     color: $error-color
 
   form
+    +clearfix
     counter-reset: new-channel-steps
     height: 100%
     width: 100%
@@ -143,12 +143,18 @@ $error-color: #c00
           display: none
       label
         padding: 0 ($text-indent / 2)
+        span
+          display: inline-block
+          overflow: hidden
+          text-overflow: ellipsis
+          width: 250px // FIXME: This should be percentage
+          white-space: nowrap
         &:hover
           background-color: #999
       div
         height: $line-height * 4
         padding-top: $text-indent / 2
-        overflow-y: auto
+        overflow-y: scroll
       .name div
         overflow-y: hidden
         label:hover
@@ -162,6 +168,8 @@ $error-color: #c00
           width: 100%
         &[type=radio]
           margin-top: 8px
+          text-align: center
+          width: $text-indent
       .name
         input
           border: 1px solid #666
@@ -178,6 +186,7 @@ $error-color: #c00
       width: 100%
       // REVIEW: Genericise as button in default
       input[type=submit]
+        margin-top: 0
         width: 62%
         &:hover
           background-color: $link-hover-color

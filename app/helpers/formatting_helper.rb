@@ -87,11 +87,12 @@ module FormattingHelper
   end
 
   def sanitize_from_evernote(text)
-    # Evernote expects all paragraphs to be wrapped in divs.
+    # Make all local links relative and
+    #  Evernote expects all paragraphs to be wrapped in divs
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text.gsub(/\n|\r/, '')
+        .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
         .gsub(/(<aside|<blockquote|<div|<fig|<li|<nav|<section)/i, "\n\\1")
-        .gsub(/(<aside|<blockquote|<div|<fig|<li|<nav|<section)/i, "\n\\1") # REVIEW: A bit desperate
   end
 
   def format_blockquotes(text)
@@ -128,7 +129,6 @@ module FormattingHelper
 
   def linkify(text, links, citation_style)
     # Make all local links relative
-    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
     # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
       # Simplify links wrapped around themselves.

@@ -275,10 +275,14 @@ document_initializers = () ->
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
     if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(@value)
 
+  # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'click', '#dashboard .notebooks label', ->
-    $('#dashboard .notebooks legend').addClass('completed')
-    $('#dashboard form').accordion 'option', 'active', 2
-    $("#dashboard .name input").focus()
+    if $("#dashboard .name input").val() == ''
+      setTimeout (->
+        $('#dashboard .notebooks legend').addClass('completed')
+        $('#dashboard form').accordion 'option', 'active', 2
+        $("#dashboard .name input").focus()
+      ), 500
 
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()

@@ -91,7 +91,7 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'spork-rails', :github => 'sporkrb/spork-rails'
+  gem 'spork-rails'
   gem 'vcr'
   gem 'webmock'
 

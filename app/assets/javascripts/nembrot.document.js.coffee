@@ -228,7 +228,7 @@ document_initializers = () ->
   $(document).pjax('#dashboard a.show-channel:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'submit', '#dashboard form', (event) ->
-    $.pjax.submit event, '[data-pjax-dashboard]'
+    $.pjax.submit event, '[data-pjax-dashboard]', { push: false }
 
   $(document).on 'submit', '#main section:not(#comments) form', (event) ->
     $.pjax.submit event, '[data-pjax-container]'

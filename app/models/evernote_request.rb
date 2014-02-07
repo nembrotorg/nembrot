@@ -24,7 +24,7 @@ class EvernoteRequest
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       evernote_note.max_out_attempts
-      SYNC_LOG.error I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
+      SYNC_LOG.error "EDAMUserException: #{ Constant.evernote_errors[error.errorCode] } #{ error.parameter }"
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       evernote_note.max_out_attempts
       SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }."
@@ -55,9 +55,9 @@ class EvernoteRequest
 
   def evernote_notebook_required?
     # required = Setting['channel.evernote_notebooks'].split(/ |, ?/).include?(cloud_note_metadata.notebookGuid)
-    required = Channel.pluck(:notebooks).include?(evernote_note.cloud_notebook_identifier)
+    required = Channel.pluck(:notebooks).include?(cloud_note_metadata.notebookGuid)
     unless required
-      evernote_note.destroy!
+      evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
     end
     required
@@ -66,14 +66,16 @@ class EvernoteRequest
   def cloud_note_active?
     active = cloud_note_metadata.active
     unless active
-      evernote_note.destroy!
+      evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.deleted_note', logger_details)
     end
     active
   end
 
   def cloud_note_updated?
-    updated = evernote_note.update_sequence_number.blank? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    updated = evernote_note.update_sequence_number.blank?
+    updated = updated || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    # updated = updated || 
     unless updated
       evernote_note.undirtify
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', logger_details)
@@ -89,7 +91,7 @@ class EvernoteRequest
   def cloud_note_has_required_tags?
     has_required_tags = !(Setting['advanced.instructions_required'].split(/, ?| /) & cloud_note_tags).empty?
     unless has_required_tags
-      evernote_note.destroy!
+      evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
     end
     has_required_tags

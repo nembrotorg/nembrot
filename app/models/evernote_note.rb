@@ -22,7 +22,7 @@ class EvernoteNote < ActiveRecord::Base
     evernote_note = where(cloud_note_identifier: guid).first_or_initialize
     if Channel.where(notebooks: notebook_guid).empty?
       SYNC_LOG.error 'Note is not in any required notebook.'
-      evernote_note.destroy
+      evernote_note.note.destroy! unless evernote_note.note.nil?
     else
       evernote_note.cloud_notebook_identifier = notebook_guid
       evernote_note.dirtify

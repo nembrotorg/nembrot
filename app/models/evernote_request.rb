@@ -26,8 +26,9 @@ class EvernoteRequest
       evernote_note.max_out_attempts
       SYNC_LOG.error "EDAMUserException: #{ Constant.evernote_errors[error.errorCode] } #{ error.parameter }"
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
-      evernote_note.max_out_attempts
-      SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }."
+      evernote_note.note.destroy! unless evernote_note.note.nil?
+      evernote_note.destroy! unless evernote_note.nil?
+      SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }. (Destroyed.)"
     rescue Evernote::EDAM::Error::EDAMSystemException => error
       SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }."
   end

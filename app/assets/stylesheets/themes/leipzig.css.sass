@@ -43,6 +43,62 @@
       .body, .annotations
         font-weight: 400
 
+    .breadcrumb
+      position: fixed
+      left: $text-indent
+      top: $line-height / 2
+      li
+        &:first-of-type
+          display: none
+        a, .current
+          +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+
+    h1, .notes h2, h2, h4
+      text-transform: lowercase
+      font:
+        variant: small-caps
+        weight: 400
+        size: 34px
+      letter-spacing: 0.03em
+
+    header[data-title]
+      height: $line-height * 1.5
+      margin-top: $line-height / 2
+      margin-bottom: 0
+
+    > div
+      +clearfix
+      background: rgba($background-color, 0.65)
+      padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
+      a
+        color: #006b55
+        text-decoration: none
+        &:hover
+          color: $link-hover-color
+          +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+
+      article
+        header
+          height: $line-height
+        figure.image
+          margin-bottom: $line-height / 2
+
+      #text
+        .body, .annotations
+          font-size: 20px
+          a
+            color: #006b55
+            text-decoration: none
+            &:hover
+              color: $link-hover-color
+              +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+
+    article section#content #text.regular, article section#content #text.parallel, #comments, #disqus_thread
+      width: 100%
+
+  #dashboard
+    font-family: 'franklin-gothic-urw'
+
   #tools
     background-color: transparent
     padding-left: $text-indent
@@ -50,56 +106,3 @@
       border-color: rgba($background-color, 0.65)
       color: rgba($background-color, 0.65)
       +text-shadow(rgba(#000, 0.2) 1px 1px 0)
-
-  .breadcrumb
-    position: fixed
-    left: $text-indent
-    top: $line-height / 2
-    li
-      &:first-of-type
-        display: none
-      a, .current
-        +text-shadow(rgba(#000, 0.2) 1px 1px 0)
-
-  h1, .notes h2, h2, h4
-    text-transform: lowercase
-    font:
-      variant: small-caps
-      weight: 400
-      size: 34px
-    letter-spacing: 0.03em
-
-  header[data-title]
-    height: $line-height * 1.5
-    margin-top: $line-height / 2
-    margin-bottom: 0
-
-  > div
-    +clearfix
-    background: rgba($background-color, 0.65)
-    padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
-    a
-      color: #006b55
-      text-decoration: none
-      &:hover
-        color: $link-hover-color
-        +text-shadow(rgba(#000, 0.2) 1px 1px 0)
-
-    article
-      header
-        height: $line-height
-      figure.image
-        margin-bottom: $line-height / 2
-
-    #text
-      .body, .annotations
-        font-size: 20px
-        a
-          color: #006b55
-          text-decoration: none
-          &:hover
-            color: $link-hover-color
-            +text-shadow(rgba(#000, 0.2) 1px 1px 0)
-
-  article section#content #text.regular, article section#content #text.parallel, #comments, #disqus_thread
-    width: 100%

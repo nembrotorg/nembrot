@@ -211,6 +211,9 @@ change_theme = (theme) ->
   load_typekit_font(TYPEKITS[theme])
   $('html, [data-theme-wrapper]').alterClass('theme-*', 'theme-' + theme)
 
+viewing_and_editing_same_channel = () ->
+  String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val())
+
 load_typekit_font = (name) ->
   $.cachedScript('//use.typekit.net/' + name + '.js').done (script) ->
     try
@@ -273,7 +276,7 @@ document_initializers = () ->
 
   # REVIEW: nembrot.com-specific scripts should go in separate Javascript file, and included unobtrusively
   $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
-    if String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(@value)
+    if viewing_and_editing_same_channel() then change_theme(@value)
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'click', '#dashboard .notebooks label', ->

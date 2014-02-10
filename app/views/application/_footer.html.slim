@@ -1,25 +1,27 @@
-footer
+- cache [cache_buster(1), 'footer'] do
 
-  nav
-    ul
+  footer
 
-      li
-        ul.sections
-          li = link_to 'Nembrot', '/'
-          li = link_to 'Help', '/help'
+    nav
+      ul
 
-          -# @channels_owned_by_nembrot.each do |channel|
-          -# li = link_to channel.name, home_path(channel)
+        li
+          ul.sections
+            li = link_to 'Nembrot', '/'
+            li = link_to 'Help', '/help'
 
-          -# Here put all channels owned by Nembrot (home)
-          -# @sections.each do |section|
-          -#  li = link_to section.titlecase, feature_path(feature: section)
+            -# @channels_owned_by_nembrot.each do |channel|
+            -# li = link_to channel.name, home_path(channel)
 
-      li
-        ul.web-channels
+            -# Here put all channels owned by Nembrot (home)
+            -# @sections.each do |section|
+            -#  li = link_to section.titlecase, feature_path(feature: section)
 
-          - Setting['advanced.web_channels'].split(/, ?| /).each do |link|
-            li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, 'Google+').titlecase, "http://#{ link }"
+        li
+          ul.web-channels
 
-          -# li = link_to t('atom_feed'), notes_url(:atom)
-          li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?
+            - Setting['advanced.web_channels'].split(/, ?| /).each do |link|
+              li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, 'Google+').titlecase, "http://#{ link }"
+
+            -# li = link_to t('atom_feed'), notes_url(:atom)
+            li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?

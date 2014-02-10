@@ -1,9 +1,11 @@
-section.notes
+- cache [cache_buster(1), notes] do
 
-  header
-    h3 = title ||= t('notes.index.title')
+  section.notes
 
-  ul
-    - notes.each do |note|
-      li
-        = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features
+    header
+      h3 = title ||= t('notes.index.title')
+
+    ul
+      - notes.each do |note|
+        li
+          = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features

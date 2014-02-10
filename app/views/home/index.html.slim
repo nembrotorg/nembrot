@@ -1,19 +1,21 @@
-- document_title = t('site.title')
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @current_channel, @note, @promoted_notes] do
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+  - document_title = t('site.title')
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+    div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-    = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
+      nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'channels_list', title: 'Featured channels:' if @current_channel == @default_channel
+      = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
 
-    - unless @current_channel == @default_channel || @promoted_notes.blank?
-      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'
+      = render 'channels_list', title: 'Featured channels:' if @current_channel == @default_channel
 
-    = render 'channels/footer'
+      - unless @current_channel == @default_channel || @promoted_notes.blank?
+        = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'
+
+      = render 'channels/footer'

@@ -1,8 +1,10 @@
-section.tags
+- cache [cache_buster(1), tags] do
 
-  header
-    h3 = title ||= t('tags.index.title')
+  section.tags
 
-  ul
-    - tags.each do |tag|
-      li = link_to "#{ tag.name } <span class=\"count\">#{ tag.count }</span>".html_safe, tag_path(tag)
+    header
+      h3 = title ||= t('tags.index.title')
+
+    ul
+      - tags.each do |tag|
+        li = link_to "#{ tag.name } <span class=\"count\">#{ tag.count }</span>".html_safe, tag_path(tag)

@@ -18,6 +18,10 @@ module ApplicationHelper
     end
   end
 
+  def cache_buster(version)
+    "#{ Constant.cache_buster }#{ version }#{ @current_channel }"
+  end
+
   def current_url
     "#{ request.protocol }#{ request.host_with_port }#{ request.fullpath }"
   end

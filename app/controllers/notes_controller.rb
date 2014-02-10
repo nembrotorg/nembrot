@@ -16,11 +16,6 @@ class NotesController < ApplicationController
     @total_count = all_notes.size
     @word_count = all_notes.sum(:word_count)
 
-    # REVIEW: These are decalred twice!
-    set_channel_defaults
-    get_promoted_notes
-    get_sections
-
     respond_to do |format|
       format.html
       format.atom { render atom: all_notes }
@@ -46,9 +41,7 @@ class NotesController < ApplicationController
     commontator_thread_show(@note)
 
     # REVIEW: These are declared twice!
-    set_channel_defaults
     get_promoted_notes(@note)
-    get_sections
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
 

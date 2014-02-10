@@ -1,14 +1,16 @@
-nav.references
+- cache [cache_buster(1), note.related_notes, note.inverse_related_notes] do
 
-  header
-    h3 = title ||= t('notes.index.title')
+  nav.references
 
-  ul
-    - note.related_notes.notes_and_features.uniq.each do |note|
-      li = link_to note.headline, note_or_feature_path(note)
+    header
+      h3 = title ||= t('notes.index.title')
 
-    - note.related_notes.citations.uniq.each do |citation|
-      li = link_to citation.headline, citation_path(citation)
+    ul
+      - note.related_notes.notes_and_features.uniq.each do |note|
+        li = link_to note.headline, note_or_feature_path(note)
 
-    - note.inverse_related_notes.notes_and_features.uniq.each do |note|
-      li = link_to note.headline, note_or_feature_path(note)
+      - note.related_notes.citations.uniq.each do |citation|
+        li = link_to citation.headline, citation_path(citation)
+
+      - note.inverse_related_notes.notes_and_features.uniq.each do |note|
+        li = link_to note.headline, note_or_feature_path(note)

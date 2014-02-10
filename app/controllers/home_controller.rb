@@ -15,11 +15,7 @@ class HomeController < ApplicationController
     note_map(@note)
     note_source(@note)
 
-    # REVIEW: These are decalred twice!
-    set_channel_defaults
-    add_home_breadcrumb
     get_promoted_notes(@note)
-    get_sections
 
     @channels = Channel.not_owned_by_nembrot.first(9)
   end

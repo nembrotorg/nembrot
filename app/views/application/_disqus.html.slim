@@ -10,10 +10,10 @@ section#disqus_thread
           ga('send', 'event', 'Comments', 'new', location.href);
         }];
     }
-    var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.slug'].parameterize }";
+    var window.Nembrot.DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.slug'].parameterize }";
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + DISQUS_SHORT_NAME + '.disqus.com/embed.js';
+      dsq.src = '//' + window.Nembrot.DISQUS_SHORT_NAME + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 

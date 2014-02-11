@@ -4,21 +4,17 @@
 - add_breadcrumb t('devise.sessions.new.title'), new_user_session_path
 - add_breadcrumb t('.title'), new_user_password_path
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = devise_error_messages!
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    = f.label :email do
+      = :email.to_s.humanize
+      = f.email_field :email, autofocus: true
 
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      = devise_error_messages!
+    = f.submit t('.submit')
 
-      = f.label :email do
-        = :email.to_s.humanize
-        = f.email_field :email, autofocus: true
-
-      = f.submit t('.submit')
-
-    = render 'devise/shared/links'
+  = render 'devise/shared/links'

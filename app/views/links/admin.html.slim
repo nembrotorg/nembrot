@@ -3,17 +3,11 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title', mode: @mode), subtitle: nil, document_title: document_title, show_flashes: true
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = render 'links_admin_list', links: @links unless @links.empty?
 
-    section
-
-      = render 'header', title: t('.title', mode: @mode), subtitle: nil, document_title: document_title, show_flashes: true
-
-      = render 'links_admin_list', links: @links unless @links.empty?
-
-      aside.statistics
-        = t('.statistics', count: number_with_delimiter(@links.size))
+  aside.statistics
+    = t('.statistics', count: number_with_delimiter(@links.size))

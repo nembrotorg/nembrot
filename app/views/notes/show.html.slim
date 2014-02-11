@@ -1,7 +1,5 @@
 - cache [cache_buster(1), @note] do
 
-  -#REVIEW: Genericise up to breadcrumb
-
   - document_title = "#{ @note.headline } | #{ @current_channel.name } | #{ t('site.title') }"
   - set_meta_tags title: document_title,
                   description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
@@ -9,22 +7,16 @@
   - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
   - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
 
-  div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+  == page_wrapper('article', @note.instruction_list)
 
-    div class="#{ controller.controller_name }-#{ controller.action_name }"
+    = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
 
-      nav = render_breadcrumbs builder: ::OrderedListBuilder
+    - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 
-      = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
+      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+        section#comments = commontator_thread(@note)
 
-      - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
+      = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
 
-        - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
-          section#comments = commontator_thread(@note)
-
-        = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
-
-      - unless @current_channel == @default_channel || @promoted_notes.blank?
-        = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'
-
-      = render 'channels/footer'
+    - unless @current_channel == @default_channel || @promoted_notes.blank?
+      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'

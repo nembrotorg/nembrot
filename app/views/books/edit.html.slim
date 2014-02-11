@@ -3,124 +3,118 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title', isbn: @book.isbn), subtitle: nil, document_title: document_title, show_flashes: true
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  - if @book.errors.any?
+    ul.errors
+      - @book.errors.messages.each do |key, value|
+        li= "#{ key.to_s } #{ Array(value).first.to_s }"
 
-    section
+  form action="#{ update_book_path }" method="post"  
 
-      = render 'header', title: t('.title', isbn: @book.isbn), subtitle: nil, document_title: document_title, show_flashes: true
+    fieldset
 
-      - if @book.errors.any?
-        ul.errors
-          - @book.errors.messages.each do |key, value|
-            li= "#{ key.to_s } #{ Array(value).first.to_s }"
+      label for="author"
+        | Author:
+        input name="book[author]" type="text" value="#{ @book.author }" class="important"
 
-      form action="#{ update_book_path }" method="post"  
+      label for="title" 
+        | Title:
+        input name="book[title]" type="text" value="#{ @book.title }" class="important"
+      
+      label for="tag"
+        | Tag:
+        input name="book[tag]" type="text" value="#{ @book.tag }"
 
-        fieldset
+      label for="translator"
+        | Translator:
+        input name="book[translator]" type="text" value="#{ @book.translator }"
 
-          label for="author"
-            | Author:
-            input name="book[author]" type="text" value="#{ @book.author }" class="important"
+      label for="introducer"
+        | Introducer:
+        input name="book[introducer]" type="text" value="#{ @book.introducer }"
 
-          label for="title" 
-            | Title:
-            input name="book[title]" type="text" value="#{ @book.title }" class="important"
-          
-          label for="tag"
-            | Tag:
-            input name="book[tag]" type="text" value="#{ @book.tag }"
+      label for="editor"
+        | Editor:
+        input name="book[editor]" type="text" value="#{ @book.editor }"
 
-          label for="translator"
-            | Translator:
-            input name="book[translator]" type="text" value="#{ @book.translator }"
+      label for="published_city"
+        | City:
+        input name="book[published_city]" type="text" value="#{ @book.published_city }" class="important"
 
-          label for="introducer"
-            | Introducer:
-            input name="book[introducer]" type="text" value="#{ @book.introducer }"
+      label for="publisher"
+        | Publisher:
+        input name="book[publisher]" type="text" value="#{ @book.publisher }" class="important" 
 
-          label for="editor"
-            | Editor:
-            input name="book[editor]" type="text" value="#{ @book.editor }"
+      label for="published_date"
+        | Date published:
+        input name="book[published_date]" type="text" value="#{ @book.published_date }" placeholder="YYYY-MM-DD" pattern="[0-9]{4}\-[0-9]{1,2}\-[0-9]{1,2}" class="important"
 
-          label for="published_city"
-            | City:
-            input name="book[published_city]" type="text" value="#{ @book.published_city }" class="important"
+      label for="lang"
+        | Language:
+        input name="book[lang]" type="text" value="#{ @book.lang }" pattern="[a-z]{2}"
 
-          label for="publisher"
-            | Publisher:
-            input name="book[publisher]" type="text" value="#{ @book.publisher }" class="important" 
+      label for="isbn_10"
+        | ISBN 10:
+        input name="book[isbn_10]" type="text" value="#{ @book['isbn_10'] }" pattern="[0-9X]{10}"
 
-          label for="published_date"
-            | Date published:
-            input name="book[published_date]" type="text" value="#{ @book.published_date }" placeholder="YYYY-MM-DD" pattern="[0-9]{4}\-[0-9]{1,2}\-[0-9]{1,2}" class="important"
+      label for="isbn_13"
+        | ISBN 13:
+        input name="book[isbn_13]" type="text" value="#{ @book.isbn_13 }" pattern="[0-9]{13}"
 
-          label for="lang"
-            | Language:
-            input name="book[lang]" type="text" value="#{ @book.lang }" pattern="[a-z]{2}"
+      label for="format" 
+        | Format:
+        input name="book[format]" type="text" value="#{ @book.format }"
 
-          label for="isbn_10"
-            | ISBN 10:
-            input name="book[isbn_10]" type="text" value="#{ @book['isbn_10'] }" pattern="[0-9X]{10}"
+      label for="page_count"
+        | Page count:
+        input name="book[page_count]" type="text" value="#{ @book.page_count }"
 
-          label for="isbn_13"
-            | ISBN 13:
-            input name="book[isbn_13]" type="text" value="#{ @book.isbn_13 }" pattern="[0-9]{13}"
+      label for="dimensions"  
+        | Dimensions:
+        input name="book[dimensions]" type="text" value="#{ @book.dimensions }"
 
-          label for="format" 
-            | Format:
-            input name="book[format]" type="text" value="#{ @book.format }"
+      label for="weight"
+        | Weight:
+        input name="book[weight]" type="text" value="#{ @book.weight }"
 
-          label for="page_count"
-            | Page count:
-            input name="book[page_count]" type="text" value="#{ @book.page_count }"
+      label for="google_books_id"  
+        | Google Books ID:
+        input name="book[google_books_id]" type="text" value="#{ @book.google_books_id }"
 
-          label for="dimensions"  
-            | Dimensions:
-            input name="book[dimensions]" type="text" value="#{ @book.dimensions }"
+      label for="library_thing_id"
+        | Library Thing ID:
+        input name="book[library_thing_id]" type="text" value="#{ @book.library_thing_id }" pattern="[0-9]{3,8}"
 
-          label for="weight"
-            | Weight:
-            input name="book[weight]" type="text" value="#{ @book.weight }"
+      label for="open_library_id" 
+        | Open Library ID:
+        input name="book[open_library_id]" type="text" value="#{ @book.open_library_id }" pattern="[0-9]{4,8}"
 
-          label for="google_books_id"  
-            | Google Books ID:
-            input name="book[google_books_id]" type="text" value="#{ @book.google_books_id }"
+      label for="dewey_decimal"
+        | Dewey Decimal:
+        input name="book[dewey_decimal]" type="text" value="#{ @book.dewey_decimal }"
 
-          label for="library_thing_id"
-            | Library Thing ID:
-            input name="book[library_thing_id]" type="text" value="#{ @book.library_thing_id }" pattern="[0-9]{3,8}"
+      label for="lcc_number"
+        | LCC number:
+        input name="book[lcc_number]" type="text" value="#{ @book.lcc_number }"
 
-          label for="open_library_id" 
-            | Open Library ID:
-            input name="book[open_library_id]" type="text" value="#{ @book.open_library_id }" pattern="[0-9]{4,8}"
+      label for="full_text_url"
+        | Full-text url:
+        input name="book[full_text_url]" type="text" value="#{ @book.full_text_url }"
 
-          label for="dewey_decimal"
-            | Dewey Decimal:
-            input name="book[dewey_decimal]" type="text" value="#{ @book.dewey_decimal }"
+    input name="id" type="hidden" value="#{ @book.id }"
+    input name="dirty" type="hidden" value="f"
+    input name="attempts" type="hidden" value="0"
+    input name="_method" type="hidden" value="put"
 
-          label for="lcc_number"
-            | LCC number:
-            input name="book[lcc_number]" type="text" value="#{ @book.lcc_number }"
+    = token_tag form_authenticity_token
 
-          label for="full_text_url"
-            | Full-text url:
-            input name="book[full_text_url]" type="text" value="#{ @book.full_text_url }"
+    input type="submit" value="Save"
 
-        input name="id" type="hidden" value="#{ @book.id }"
-        input name="dirty" type="hidden" value="f"
-        input name="attempts" type="hidden" value="0"
-        input name="_method" type="hidden" value="put"
-
-        = token_tag form_authenticity_token
-
-        input type="submit" value="Save"
-
-      nav.tools
-        ul
-          li= link_to 'Amazon', "http://www.amazon.com/s/?field-keywords=#{ @book.isbn }", target: '_blank'
-          li= link_to 'Google Books', "http://books.google.com/books?id=#{ @book.google_books_id }", target: '_blank' unless @book.google_books_id.nil?
-          li= link_to 'WorldCat', "http://www.worldcat.org/search?qt=worldcat_org_bks&q=#{ @book.isbn }", target: '_blank'
+  nav.tools
+    ul
+      li= link_to 'Amazon', "http://www.amazon.com/s/?field-keywords=#{ @book.isbn }", target: '_blank'
+      li= link_to 'Google Books', "http://books.google.com/books?id=#{ @book.google_books_id }", target: '_blank' unless @book.google_books_id.nil?
+      li= link_to 'WorldCat', "http://www.worldcat.org/search?qt=worldcat_org_bks&q=#{ @book.isbn }", target: '_blank'

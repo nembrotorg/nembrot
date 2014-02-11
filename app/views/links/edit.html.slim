@@ -3,85 +3,79 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title', channel: @link.channel), subtitle: nil, document_title: document_title, show_flashes: true
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  - if @link.errors.any?
+    ul.errors
+      - @link.errors.messages.each do |key, value|
+        li= "#{ key.to_s } #{ Array(value).first.to_s }"
 
-    section
+  form action="#{ update_link_path }" method="post"  
 
-      = render 'header', title: t('.title', channel: @link.channel), subtitle: nil, document_title: document_title, show_flashes: true
+    fieldset
 
-      - if @link.errors.any?
-        ul.errors
-          - @link.errors.messages.each do |key, value|
-            li= "#{ key.to_s } #{ Array(value).first.to_s }"
+      label for="title"
+        | Title:
+        input name="link[title]" type="text" value="#{ @link.title }" class="important" required="true"
 
-      form action="#{ update_link_path }" method="post"  
+      label for="url"
+        | URL:
+        input name="link[url]" type="url" value="#{ @link.url }" class="important" required="true" pattern="http:\/\/.*\.*"
 
-        fieldset
+      label for="canonical_url"  
+        | Canonical URL:
+        input  name="link[canonical_url]" type="url" value="#{ @link.canonical_url }" pattern="http:\/\/.*\.*"
 
-          label for="title"
-            | Title:
-            input name="link[title]" type="text" value="#{ @link.title }" class="important" required="true"
+      label for="channel"
+        | Channel:
+        input  name="link[channel]" type="text" value="#{ @link.channel }" class="important"
 
-          label for="url"
-            | URL:
-            input name="link[url]" type="url" value="#{ @link.url }" class="important" required="true" pattern="http:\/\/.*\.*"
+      label for="author"
+        | Author:
+        input  name="link[author]" type="text" value="#{ @link.author }" class="important"
 
-          label for="canonical_url"  
-            | Canonical URL:
-            input  name="link[canonical_url]" type="url" value="#{ @link.canonical_url }" pattern="http:\/\/.*\.*"
+      label for="website_name"
+        | Website name:
+        input  name="link[website_name]" type="text" value="#{ @link.website_name }" class="important"
+      
+      label for="publisher"
+        | Publisher:
+        input  name="link[publisher]" type="text" value="#{ @link.publisher }"
 
-          label for="channel"
-            | Channel:
-            input  name="link[channel]" type="text" value="#{ @link.channel }" class="important"
+      label for="lang"
+        | Language:
+        input  name="link[lang]" type="text" value="#{ @link.lang }"
 
-          label for="author"
-            | Author:
-            input  name="link[author]" type="text" value="#{ @link.author }" class="important"
+      label for="longitude"
+        | Longitude:
+        input  name="link[longitude]" type="number" value="#{ @link.longitude }" min="-50" max="50"
 
-          label for="website_name"
-            | Website name:
-            input  name="link[website_name]" type="text" value="#{ @link.website_name }" class="important"
-          
-          label for="publisher"
-            | Publisher:
-            input  name="link[publisher]" type="text" value="#{ @link.publisher }"
+      label for="latitude"
+        | Latitude:
+        input  name="link[latitude]" type="number" value="#{ @link.latitude }" min="-50" max="50"
 
-          label for="lang"
-            | Language:
-            input  name="link[lang]" type="text" value="#{ @link.lang }"
-
-          label for="longitude"
-            | Longitude:
-            input  name="link[longitude]" type="number" value="#{ @link.longitude }" min="-50" max="50"
-
-          label for="latitude"
-            | Latitude:
-            input  name="link[latitude]" type="number" value="#{ @link.latitude }" min="-50" max="50"
-
-          label for="altitude"
-            | Altitude:
-            input  name="link[altitude]" type="number" value=@link.altitude
+      label for="altitude"
+        | Altitude:
+        input  name="link[altitude]" type="number" value=@link.altitude
 
 
-        / t.date     "modified"
-        / t.boolean  "paywall"
-        / t.string   "publisher"
+    / t.date     "modified"
+    / t.boolean  "paywall"
+    / t.string   "publisher"
 
 
-        input name="id" type="hidden" value=@link.id
-        input name="dirty" type="hidden" value="f"
-        input name="attempts" type="hidden" value="0"
-        input name="_method" type="hidden" value="put"
+    input name="id" type="hidden" value=@link.id
+    input name="dirty" type="hidden" value="f"
+    input name="attempts" type="hidden" value="0"
+    input name="_method" type="hidden" value="put"
 
-        = token_tag form_authenticity_token
+    = token_tag form_authenticity_token
 
-        input type="submit" value="Save"
+    input type="submit" value="Save"
 
-      nav.tools
-        ul
-          li= link_to @link.channel, "#{ @link.protocol }://#{ @link.channel }", target: '_blank'
-          li= link_to @link.title.blank? ? @link.url : @link.title.truncate(50), @link.url, target: '_blank'
+  nav.tools
+    ul
+      li= link_to @link.channel, "#{ @link.protocol }://#{ @link.channel }", target: '_blank'
+      li= link_to @link.title.blank? ? @link.url : @link.title.truncate(50), @link.url, target: '_blank'

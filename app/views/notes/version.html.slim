@@ -7,27 +7,19 @@
                   open_graph: { title: @diffed_version.title },
                   noindex: true
 
-  div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+  == page_wrapper('article')
 
-    div class="#{ controller.controller_name }-#{ controller.action_name }"
+    section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-      nav = render_breadcrumbs builder: ::OrderedListBuilder
+      - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
+      - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
 
-      article
+      = render 'header', title: title, subtitle: nil, document_title: document_title
 
-        section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+      = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
 
-          - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
-          - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
+      section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
 
-          = render 'header', title: title, subtitle: nil, document_title: document_title
+    = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
 
-          = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
-
-          section#text == Differ.diff_by_word(bodify(@diffed_version.body), bodify(@diffed_version.previous_body))
-
-        = render 'diffed_tag_list', diffed_tag_list: @diffed_tag_list unless @diffed_tag_list.empty?
-
-        = render 'versions_list', note: @note
-
-      = render 'channels/footer'
+    = render 'versions_list', note: @note

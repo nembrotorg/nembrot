@@ -45,7 +45,7 @@
         left: $text-indent / 2
         right: $text-indent / 2
 
-  .home-index, .notes-index, .notes-show, .tags-show
+  &.home-index, &.notes-index, &.notes-show, &.tags-show
     .notes
       +span-columns(12)
       margin-bottom: $line-height
@@ -80,7 +80,7 @@
 
   @media only screen and (min-width: 720px)
 
-    .home-index, .notes-index, .notes-show, .tags-show
+    &.home-index, &.notes-index, &.notes-show, &.tags-show
       .notes
         +span-columns(12)
         ul
@@ -92,7 +92,7 @@
 
   @media only screen and (min-width: 1024px)
 
-    .home-index, .notes-index, .notes-show, .tags-show
+    &.home-index, &.notes-index, &.notes-show, &.tags-show
       .notes
         +span-columns(12)
         ul

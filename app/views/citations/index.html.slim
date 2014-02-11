@@ -3,22 +3,14 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  - unless @citations.empty?
+    = render 'citations_list', citations: @citations
 
-    section
+    aside.statistics
+      = t('.statistics', count: number_with_delimiter(@total_count), books_count: @books_count, links_count: 0)
 
-      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
-
-      - unless @citations.empty?
-        = render 'citations_list', citations: @citations
-
-        aside.statistics
-          = t('.statistics', count: number_with_delimiter(@total_count), books_count: @books_count, links_count: 0)
-
-        = paginate @citations
-
-    = render 'channels/footer'
+    = paginate @citations

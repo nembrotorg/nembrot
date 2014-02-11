@@ -1,22 +1,16 @@
-- document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @notes] do
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+  - document_title = "#{ t('.title') } | #{ @current_channel.name } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  == page_wrapper
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    section
+    = render 'shared/map', map: @map
 
-      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
-
-      = render 'shared/map', map: @map
-
-      aside.statistics
-        = t('.statistics', count: @notes.size)
-        = t('.other_view_html', path: notes_path)
-
-    = render 'channels/footer'
+    aside.statistics
+      = t('.statistics', count: @notes.size)
+      = t('.other_view_html', path: notes_path)

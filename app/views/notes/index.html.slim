@@ -5,15 +5,10 @@
                   description: '',
                   open_graph: { title: document_title }
 
-  div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+  - unless @notes.empty?
 
-    div class="#{ controller.controller_name }-#{ controller.action_name }"
+    == page_wrapper('section', @notes.first.instruction_list)
 
-      nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-      - unless @notes.empty?
-
-        section class=css_instructions(@notes.first.instruction_list)
 
           = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
 
@@ -24,5 +19,3 @@
             = t('.other_view_html', path: notes_map_path) unless @map.blank?
 
           = paginate @notes
-
-      = render 'channels/footer'

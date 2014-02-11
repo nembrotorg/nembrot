@@ -20,7 +20,7 @@ update_titles = () ->
 
 track_page_view = () ->
   ga('send', 'pageview', location.pathname)
-  if $('div[data-channel-name]').data('channel-name') then ga('set', 'dimension1', $('div[data-channel-name]').data('channel-name'))
+  if $('[data-channel-name]').data('channel-name') then ga('set', 'dimension1', $('[data-channel-name]').data('channel-name'))
 
 track_outbound_link = (link, category, action) ->
   try
@@ -98,8 +98,8 @@ load_share_links_in_iframes = () ->
 FACEBOOK_API_URL = 'http://graph.facebook.com/'
 TWITTER_API_URL = "http://cdn.api.twitter.com/1/urls/count.json"
 
-load_share_links = (page_class) ->
-  if page_class.indexOf('-show') != -1
+load_share_links = (page_action) ->
+  if page_action == 'show'
     $('.share').addClass('deep-link')
     title = $('h1').text().trim()
     url = encodeURIComponent(location.href)
@@ -134,18 +134,18 @@ get_twitter_count = (url) ->
 DISQUS_API_KEY = 'qibvGX1OhK1EDIGCsc0QMLJ0sJHSIKVLLyCnwE3RZPKkoQ7Dj0Mm1oUS8mRjLHfq'
 DISQUS_API_URL = 'https://disqus.com/api/3.0/threads/set.jsonp'
 
-load_disqus_comments_count = (page_class) ->
-  if page_class.indexOf('notes-show') != -1 || page_class.indexOf('features-') != -1
+load_disqus_comments_count = (page_controller, page_action) ->
+  if (page_controller == 'notes' && page_action == 'show') || page_controller == 'features'
     $('.page').addClass('deep-link')
-    $.getJSON DISQUS_API_URL + "?api_key=" + DISQUS_API_KEY + "&forum=" + DISQUS_SHORT_NAME + "&thread=" + encodeURIComponent(location.href), (data) ->
+    $.getJSON DISQUS_API_URL + "?api_key=" + DISQUS_API_KEY + "&forum=" + window.Nembrot.DISQUS_SHORT_NAME + "&thread=" + encodeURIComponent(location.href), (data) ->
       count = _normalize_count(data.response.first)
     $('#tools a[href$="#comments"]').text(count)
   else
     $('.page').removeClass('deep-link')
     $('#tools a[href$="#comments"]').text('')
 
-load_comments_count = (page_class) ->
-  if page_class.indexOf('notes-show') != -1 || page_class.indexOf('features-') != -1
+load_comments_count = (page_controller, page_action) ->
+  if (page_controller == 'notes' && page_action == 'show') || page_controller == 'features'
     $('.page').addClass('deep-link')
     count = RegExp(/\d+/).exec($('#comments h2').text())
     if count == null then count = ''
@@ -193,7 +193,7 @@ window.Nembrot.load_user_menu = load_user_menu
 
 load_dashboard = () ->
   $.ajax
-    url: '/channels/choose/' + String($('[data-theme-wrapper]').data('channel_slug'))
+    url: '/channels/choose/' + String($('[data-channel-slug]').data('channel-slug'))
     cache: false
     success: (html) ->
       $('#dashboard').html(html)
@@ -210,10 +210,10 @@ TYPEKITS =
 
 change_theme = (theme) ->
   load_typekit_font(TYPEKITS[theme])
-  $('html, [data-theme-wrapper]').alterClass('theme-*', 'theme-' + theme)
+  $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
 
 viewing_and_editing_same_channel = () ->
-  String($('[data-theme-wrapper]').data('channel_id')) == String($('#dashboard .channels-edit input[name=id]').val())
+  String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit input[name=id]').val())
 
 load_typekit_font = (name) ->
   $.cachedScript('//use.typekit.net/' + name + '.js').done (script) ->
@@ -234,7 +234,7 @@ document_initializers = () ->
   $.pjax.defaults.timeout = false
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { cache: false, push: false } )
   $(document).pjax('#tools a:not([href*=channels]), #main a:not(.mine):not([data-remote])', '[data-pjax-container]')
-  $(document).pjax('#main a.mine', '[data-pjax-container]', { cache: false })
+  $(document).pjax('#main a.mine', '[data-pjax-container]', { cache: false, push: false })
   $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]', { cache: false })
 
   $(document).on 'submit', '#dashboard form', (event) ->
@@ -322,10 +322,11 @@ content_initializers = () ->
   insert_qr_code()
   mark_as_mine()
 
-  page_class = $('#main > div').attr('class')
-  load_share_links(page_class)
-  if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_class) # Check Settings first
-  if $('#comments').length > 0 then load_comments_count(page_class)
+  page_controller = $('[data-controller]').data('controller');
+  page_action = $('[data-action]').data('action');
+  load_share_links(page_action)
+  if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
+  if $('#comments').length > 0 then load_comments_count(page_controller, page_action)
 
   if location.pathname == '/' && $('#dashboard').not(':visible')
     load_dashboard()
@@ -334,7 +335,7 @@ content_initializers = () ->
 window.Nembrot.content_initializers = content_initializers
 
 content_initializers_reload_only = () ->
-  change_theme($('[data-theme-wrapper]').attr('class').replace('theme-', ''))
+  change_theme($('[data-theme]').data('theme'))
 
   if $('#disqus_thread').length > 0
     DISQUS.reset
@@ -352,7 +353,12 @@ resize_initializers = () ->
 $ ->
   document_initializers()
 
-$(document).on 'pjax:end', '#main', ->
+$(document).on 'pjax:success', '#main', (data) ->
+
+  # REVIEW: Set up pjax with push: false, then push  the url manually here
+  #  This removes the randomizer that is introduced for cache: false.
+  window.history.pushState(null, null, data.relatedTarget.href.replace(/\?.*/, ''))
+
   content_initializers()
   content_initializers_reload_only()
 

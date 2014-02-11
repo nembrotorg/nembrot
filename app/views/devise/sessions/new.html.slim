@@ -3,30 +3,26 @@
 
 - add_breadcrumb t('.title'), new_user_session_path
 
-div data-channel-name="#{ @current_channel.name }" data-channel_id="#{ @current_channel.id }" data-channel_slug="#{ @current_channel.slug }" data-theme-wrapper="true" class="theme-#{ @current_channel.theme }"
+== page_wrapper
 
-  div class="#{ controller.controller_name }-#{ controller.action_name }"
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = devise_error_messages!
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    = f.label :email do
+      = :email.to_s.humanize
+      = f.email_field :email
 
-    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      = devise_error_messages!
+    = f.label :password do
+      = :password.to_s.humanize
+      = f.password_field :password
 
-      = f.label :email do
-        = :email.to_s.humanize
-        = f.email_field :email
+    - if devise_mapping.rememberable?
+      = f.label :remember_me do
+        = :remember_me.to_s.humanize
+        = f.check_box :remember_me
+    
+    = f.submit t('.submit')
 
-      = f.label :password do
-        = :password.to_s.humanize
-        = f.password_field :password
-
-      - if devise_mapping.rememberable?
-        = f.label :remember_me do
-          = :remember_me.to_s.humanize
-          = f.check_box :remember_me
-      
-      = f.submit t('.submit')
-
-    = render 'devise/shared/links', action: t('.title')
+  = render 'devise/shared/links', action: t('.title')

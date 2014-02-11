@@ -64,8 +64,8 @@ _place_annotations_do = () ->
   annotations.each (i) ->
     new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top
     corrected_top = (if new_top <= minimum then minimum else new_top)
-    minimum = corrected_top + $(this).outerHeight(true)
-    $(this).offset top: corrected_top
+    minimum = corrected_top + @this.outerHeight(true)
+    @this.offset top: corrected_top
 
   # Prevent notes from going below end of body text
   # maximum = $('#text').offset().top + $('#text').outerHeight(false)
@@ -221,13 +221,21 @@ load_typekit_font = (name) ->
 
 window.Nembrot.load_typekit_font = load_typekit_font
 
+mark_as_mine = (channels) ->
+  $('a').removeClass('mine')
+  channels.each () ->
+    $('a[href^=/' + @this + ']').addClass('mine')
+
+window.Nembrot.mark_as_mine = mark_as_mine
+
 # Initializers ********************************************************************************************************
 
 document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
   $(document).pjax('#dashboard a:not(.show-channel):not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-dashboard]', { push: false } )
-  $(document).pjax('#tools a:not([href*=channels]), #main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+  $(document).pjax('#tools a:not([href*=channels]), #main a:not(.mine):not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+  $(document).pjax('#main a.mine', '[data-pjax-container]', { cache: false })
   $(document).pjax('#dashboard a.show-channel:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'submit', '#dashboard form', (event) ->

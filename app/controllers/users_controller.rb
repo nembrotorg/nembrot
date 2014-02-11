@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def menu
+    @channles_owned_by_current_user = Channel.where(user: current_user).pluck(:slug) if user_signed_in? 
     render partial: 'user_tools'
   end
 

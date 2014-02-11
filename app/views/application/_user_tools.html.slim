@@ -11,4 +11,4 @@ javascript:
   $('head').append('#{ tag('meta', name: 'csrf-param', content: request_forgery_protection_token).html_safe }');
   $('head').append('#{ tag('meta', name: 'csrf-token', content: form_authenticity_token).html_safe }');
 
-  window.Nembrot.mark_as_mine = #{ Array(@channels_owned_by_current_user) }
+  window.Nembrot.my_channels = #{ raw Array(@channels_owned_by_current_user) };

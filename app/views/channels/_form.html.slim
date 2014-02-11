@@ -96,7 +96,7 @@ javascript:
   });
 
   if (#{ mode == 'edit' && @current_channel != @channel }) {
-    $.pjax({url: '#{ home_path(@channel) }', container: '[data-pjax-container]'});
+    $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]', cache: false });
   }
 
   $('#dashboard .notebooks div').scrollTop($('#dashboard .notebooks input:checked').position().top);

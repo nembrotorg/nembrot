@@ -336,6 +336,14 @@ window.Nembrot.content_initializers = content_initializers
 content_initializers_reload_only = () ->
   change_theme($('[data-theme-wrapper]').attr('class').replace('theme-', ''))
 
+  if $('#disqus_thread').length > 0
+    DISQUS.reset
+      reload: true
+      config: ->
+        @page.title = $('h1').text()
+        @language = $('html').attr('lang')
+        return
+
 resize_initializers = () ->
   place_annotations()
 

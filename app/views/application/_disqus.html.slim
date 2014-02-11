@@ -1,9 +1,13 @@
 section#disqus_thread
 
+- unless request.xhr?
+
   javascript:
     function disqus_config() {
-        this.callbacks.onNewComment = [function(comment) { 
-          _gaq.push ['_trackEvent', 'Comments', 'new', location.href + '#comment-' + comment.id]
+        this.title = $('h1').text();
+        this.language = $('html').attr('lang');
+        this.callbacks.onNewComment = [function(comment) {
+          ga('send', 'event', 'Comments', 'new', location.href);
         }];
     }
     var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.slug'].parameterize }";

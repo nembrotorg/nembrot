@@ -233,9 +233,9 @@ document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { cache: false, push: false } )
-  $(document).pjax('#tools a:not([href*=channels]), #main a:not(.mine):not([data-remote])', '[data-pjax-container]')
+  $(document).pjax('#tools a:not([href*=channels]), #main a:not(.mine):not([data-remote])', '[data-pjax-container]', { push: false })
   $(document).pjax('#main a.mine', '[data-pjax-container]', { cache: false, push: false })
-  $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]', { cache: false })
+  $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]', { cache: false, push: false })
 
   $(document).on 'submit', '#dashboard form', (event) ->
     $.pjax.submit event, '[data-pjax-dashboard]', { push: false }
@@ -325,7 +325,7 @@ content_initializers = () ->
   page_controller = $('[data-controller]').data('controller');
   page_action = $('[data-action]').data('action');
   load_share_links(page_action)
-  if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
+  # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_controller, page_action)
 
   if location.pathname == '/' && $('#dashboard').not(':visible')
@@ -337,13 +337,13 @@ window.Nembrot.content_initializers = content_initializers
 content_initializers_reload_only = () ->
   change_theme($('[data-theme]').data('theme'))
 
-  if $('#disqus_thread').length > 0
-    DISQUS.reset
-      reload: true
-      config: ->
-        @page.title = $('h1').text()
-        @language = $('html').attr('lang')
-        return
+  # if $('#disqus_thread').length > 0
+  # DISQUS.reset
+  #    reload: true
+  #    config: ->
+  #      @page.title = $('h1').text()
+  #      @language = $('html').attr('lang')
+  #      return
 
 resize_initializers = () ->
   place_annotations()

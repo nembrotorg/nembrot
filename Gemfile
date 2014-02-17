@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 
 gem 'rails',          '4.0.2'
 
-gem 'actionpack-action_caching'
-gem 'actionpack-page_caching'
 gem 'activerecord-session_store'
 gem 'acts-as-taggable-on'
 gem 'acts_as_votable'

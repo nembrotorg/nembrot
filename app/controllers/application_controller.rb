@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
 
   # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-chaching
   before_filter :set_locale
-  before_filter :set_channel_defaults, only: [:index, :show, :choose, :new, :edit, :admin, :show_channel]
-  before_filter :add_home_breadcrumb, only: [:index, :show, :new, :edit, :admin, :show_channel]
-  before_filter :get_promoted_notes, only: [:index, :show, :new, :edit, :admin, :show_channel]
-  before_filter :get_sections, only: [:index, :show, :new, :edit, :admin, :show_channel]
-  before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
+  before_filter :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
+  before_filter :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_filter :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_filter :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_filter :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
 
   skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
@@ -68,12 +68,15 @@ class ApplicationController < ActionController::Base
   end
 
   def mapify(notes)
-    @map = Gmaps4rails.build_markers(notes) do |note, marker|
-      marker.lat note.inferred_latitude
-      marker.lng note.inferred_longitude
-      marker.infowindow render_to_string(partial: '/notes/maps_infowindow', locals: { note: note })
-      marker.title note.headline
+    markers = []
+    Array(notes).each do |note|
+      markers.push({
+        'lat'       => note.inferred_latitude,
+        'lng'       => note.inferred_longitude,
+        'marker'    => "<a href=\"#{ note_path(note) }\">#{ note.headline }</a>"
+      })
     end
+    gon.map = markers
   end
 
   def interrelated_notes_features_and_citations

@@ -1,0 +1,111 @@
+.theme-maps
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #333
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b70000
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  // @import '../application/1024.default'
+  // @import '../application/1200.default'
+  // @import '../application/1600.default'
+
+  +colors
+  +simple-blurbs
+
+  h1
+    font:
+      weight: 500
+
+  #map
+    display: none !important
+
+  .persistent_map
+    position: fixed
+    right: 0
+    top: 0
+    z-index: 1
+    height: 100%
+    width: 50%
+
+    #persistent_map
+      display: block
+      position: absolute
+      height: 100%
+      right: 0
+      top: 0
+      width: 100%
+
+      .marker
+        display: inline-block
+        font:
+          weight: bold
+          size: 12px
+        max-width: 200px
+        overflow: display
+        white-space: nowrap
+        &:before
+          +icon
+          font-size: 2em
+          content: '\e810'
+          vertical-align: -0.15em
+
+  #main
+    h2
+      font:
+        family: 'prenton' !important
+        weight: 700
+        size: 22px !important
+
+  .notes ul li
+    font:
+      family: 'lexia' !important
+
+  #introduction
+    color: #222 !important
+    font:
+      style: normal
+      weight: 700
+
+  &.home-index
+    .notes
+      +span-columns(8)
+      ul
+        +columns(1)
+        +column-gap(0)
+
+  footer.channel
+    ul
+      li
+        a
+          font:
+            family: 'prenton'
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main, .hello-world, footer
+      width: 46%
+      margin: 0 52% 0 2%
+

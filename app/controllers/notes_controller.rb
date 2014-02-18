@@ -12,7 +12,7 @@ class NotesController < ApplicationController
     # Send all interrelated notes. (It's not enough to send just this note's interrelated notes since there could be nested r
     #  eferences.) We can also create a method in notes to do this. Not sure it would be more efficient.
     interrelated_notes_features_and_citations
-    @map = all_notes.mappable
+    mapify(all_notes.mappable)
     @total_count = all_notes.size
     @word_count = all_notes.sum(:word_count)
 
@@ -27,7 +27,7 @@ class NotesController < ApplicationController
     @notes = Note.channelled(@current_channel).publishable.listable.blurbable.mappable
     @word_count = @notes.sum(:word_count)
 
-    @map = mapify(@notes)
+    mapify(@notes)
 
     add_breadcrumb I18n.t('map'), notes_map_path
   end

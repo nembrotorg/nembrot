@@ -1,11 +1,3 @@
 figure
-  .map_container 
-    #map
-
-  javascript:
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(#{ raw map.to_json });
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-    });
+  .map_container
+    #map.map

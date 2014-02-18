@@ -50,9 +50,9 @@
         | Choose a theme
       div
         - if user_signed_in? && current_user.nickname == Secret.auth.evernote.username
-          - @themes = ['nembrot', 'dark', 'leipzig jkfhsdlj fsj dfhsdj fhsjd f dsfhk sdf hsjk', 'meta', 'home', 'magazine']
+          - @themes = ['nembrot', 'dark', 'leipzig', 'maps', 'meta', 'home', 'magazine']
         - else
-          - @themes = ['nembrot', 'dark', 'magazine']
+          - @themes = ['nembrot', 'dark', 'maps', 'magazine']
 
         - @themes.each do |theme|
           = f.label :theme, theme, value: theme

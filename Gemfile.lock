@@ -152,6 +152,9 @@ GEM
       ruby-progressbar (~> 1.3)
     gmaps4rails (2.1.1)
     god (0.13.3)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -467,6 +470,7 @@ DEPENDENCIES
   fuubar
   gmaps4rails
   god
+  gon
   guard
   guard-bundler
   guard-coffeescript

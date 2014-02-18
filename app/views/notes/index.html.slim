@@ -14,6 +14,8 @@
 
       = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
 
+      = render 'shared/map', map: @map
+
       aside.statistics
         = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
         = t('.other_view_html', path: notes_map_path) unless @map.blank?

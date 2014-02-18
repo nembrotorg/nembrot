@@ -12,6 +12,8 @@
     - unless @tags.empty?
       = render 'tags_list', tags: @tags
 
+      = render 'shared/map', map: @map unless @map.empty?
+
       aside.statistics
         = t('.statistics', count: number_with_delimiter(@tags_count), references_count: number_with_delimiter(@references_count))
 

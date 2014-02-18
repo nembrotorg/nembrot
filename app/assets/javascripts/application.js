@@ -20,4 +20,6 @@
 //= require modernizr.minimal
 //= require underscore
 //= require gmaps/google
-//= require nembrot.document
+//= require document
+//= require_tree ./application/
+//= require_tree ./custom/

@@ -9,9 +9,11 @@
 
       = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
 
-      = render 'shared/notes_list', notes: @notes, 
-         all_interrelated_notes_and_features: @all_interrelated_notes_and_features 
+      = render 'shared/notes_list', notes: @notes,
+         all_interrelated_notes_and_features: @all_interrelated_notes_and_features
          unless @notes.empty?
+
+      = render 'shared/map', map: @map unless @map.empty?
 
       aside.statistics
         = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))

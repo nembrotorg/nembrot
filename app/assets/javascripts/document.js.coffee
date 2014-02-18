@@ -55,8 +55,7 @@ window.Nembrot.load_user_menu = load_user_menu
 $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('#tools a:not([href*=channels]), #main a:not(.mine):not([data-remote]), .persistent_map a:not([data-remote])', '[data-pjax-container]', { push: false })
-  $(document).pjax('#main a.mine', '[data-pjax-container]', { cache: false, push: false })
+  $(document).pjax('#main a:not([data-remote]), .persistent_map a:not([data-remote])', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()
@@ -86,10 +85,6 @@ $ ->
   # $('#dashboard form').accordion header: 'legend'
 
 $(document).on 'pjax:success', '#main', (data) ->
-  # REVIEW: Set up pjax with push: false, then push  the url manually here
-  #  This removes the randomizer that is introduced for cache: false.
-  window.history.pushState(null, null, data.relatedTarget.href.replace(/\?.*/, ''))
-
   $('time').timeago()
   update_titles()
   insert_qr_code()

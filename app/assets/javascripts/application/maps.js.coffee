@@ -17,13 +17,14 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
 load_maps = (map) ->
   map_container = $('.map').filter(':visible').attr('id')
   if typeof map_container != 'undefined' && typeof gon.map != 'undefined'
+    # Also add map style as used below, so that markers can be styled accordingly
     handler = Gmaps.build('Google',
       builders:
         Marker: RichMarkerBuilder
     )
 
     handler.buildMap
-      provider: {}
+      provider: { styles: window.Nembrot.map_styles['greyscale'] } # This should come from theme
       internal:
         id: map_container
     , ->

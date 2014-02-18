@@ -15,7 +15,8 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
     _.extend @marker_options(), { content: marker, flat: true, anchor: RichMarkerPosition.MIDDLE_LEFT }
 
 load_maps = (map) ->
-  if typeof gon.map != 'undefined'
+  map_container = $('.map').filter(':visible').attr('id')
+  if typeof map_container != 'undefined' && typeof gon.map != 'undefined'
     handler = Gmaps.build('Google',
       builders:
         Marker: RichMarkerBuilder
@@ -24,7 +25,7 @@ load_maps = (map) ->
     handler.buildMap
       provider: {}
       internal:
-        id: $('.map').filter(':visible').attr('id')
+        id: map_container
     , ->
       markers = handler.addMarkers(gon.map)
       handler.bounds.extendWith markers

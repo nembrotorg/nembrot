@@ -17,6 +17,10 @@ class HomeController < ApplicationController
 
     get_promoted_notes(@note)
 
+    # FIXME: Cache this
+    all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
+    mapify(all_notes.mappable)
+
     @channels = Channel.not_owned_by_nembrot.first(9)
   end
 

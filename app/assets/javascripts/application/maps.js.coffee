@@ -33,6 +33,8 @@ load_maps = (map) ->
       handler.fitMapToBounds()
       return
 
+window.Nembrot.load_maps = load_maps
+
 # Document hooks ******************************************************************************************************
 
 $ ->

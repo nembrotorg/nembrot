@@ -11,6 +11,7 @@ TYPEKITS =
 change_theme = (theme) ->
   load_typekit_font(TYPEKITS[theme])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
+  window.Nembrot.load_maps()
 
 change_theme_if_editing_channel = (theme) ->
   if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(theme)

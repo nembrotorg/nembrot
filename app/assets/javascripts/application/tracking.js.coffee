@@ -1,6 +1,5 @@
 track_page_view = () ->
   ga('send', 'pageview', location.pathname)
-  if $('[data-channel-name]').data('channel-name') then ga('set', 'dimension1', $('[data-channel-name]').data('channel-name'))
 
 track_outbound_link = (link, category, action) ->
   try

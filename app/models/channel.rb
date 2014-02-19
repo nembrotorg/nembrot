@@ -1,21 +1,21 @@
 class Channel < ActiveRecord::Base
 
   belongs_to :user
-  # serialize :notebooks
+  belongs_to :theme
 
-  validates :name, :notebooks, :theme, presence: true
+  validates :name, :notebooks, presence: true
   validates :name, uniqueness: true
 
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 
-  scope :owned_by_nembrot, -> { joins(:user).where('theme = ? OR theme = ?', 'home', 'meta') }
-  scope :not_owned_by_nembrot, -> { joins(:user).where.not('theme = ? OR theme = ?', 'home', 'meta') }
+  scope :owned_by_nembrot, -> { joins(:user).where('channels.name = ?', 'default') }
+  scope :not_owned_by_nembrot, -> { joins(:user).where.not('channels.name = ?', 'default') }
 
   extend FriendlyId
   friendly_id :name, use: :slugged
 
   def owned_by_nembrot?
-    (theme == 'home' || theme == 'meta')
+    (name == 'default')
   end
 
   def to_param

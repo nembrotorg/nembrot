@@ -8,7 +8,7 @@
   = link_to note_or_feature_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) do
 
     - if image
-      = image_tag(cut_image_binary_path(image, type: :thumbnail), alt: strip_tags(image.description))
+      = image_tag(cut_image_binary_path(image, type: :thumbnail, effects: @current_channel.theme.effects), alt: strip_tags(image.description))
 
     - elsif note.is_embeddable_source_url
       = render 'shared/media', url: note.source_url

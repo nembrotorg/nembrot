@@ -24,9 +24,9 @@ module ResourcesHelper
     )
   end
 
-  def cut_image_binary(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
+  def cut_image_binary(id, format, aspect_x, aspect_y, width, snap, gravity, effects)
 
-    image_record = Resource.find_by_local_file_name(local_file_name)
+    image_record = Resource.find(id)
 
     if image_record.nil?
       logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
@@ -50,13 +50,17 @@ module ResourcesHelper
 
     begin
       image =  MiniMagick::Image.open(file_name_in)
+      image = resize_with_crop(image, width, height, gravity_options = {})
+      image.write file_name_out
+
+      image =  MiniMagick::Image.new(file_name_out)
       image = pre_fx(image, effects)
 
       # TODO: This needs to do crop/resize, not just resize.
       # image.resize "#{ width }x#{ height }"
 
-      gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
-      resize_with_crop(image, width, height, gravity_options = {})
+      # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
+      # resize_with_crop(image, width, height, gravity_options = {})
 
       image = fx(image, effects)
       image = post_fx(image, effects, image_record)
@@ -65,7 +69,7 @@ module ResourcesHelper
       # image = image.resize_to_fit(width, height, EastGravity)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
-      image.write file_name_out
+      # image.write file_name_out
       return file_name_out
     rescue => error
       image_record.dirty = true

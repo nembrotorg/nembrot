@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113111406) do
+ActiveRecord::Schema.define(version: 20140219102618) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -67,12 +67,12 @@ ActiveRecord::Schema.define(version: 20140113111406) do
 
   create_table "channels", force: true do |t|
     t.string   "name"
-    t.string   "theme"
     t.text     "notebooks"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.integer  "theme_id"
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
@@ -278,6 +278,22 @@ ActiveRecord::Schema.define(version: 20140113111406) do
   end
 
   add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true
+
+  create_table "themes", force: true do |t|
+    t.boolean  "premium"
+    t.boolean  "public"
+    t.string   "effects"
+    t.string   "map_style"
+    t.string   "name"
+    t.string   "slug"
+    t.string   "typekit_code"
+    t.boolean  "suitable_for_text"
+    t.boolean  "suitable_for_images"
+    t.boolean  "suitable_for_maps"
+    t.boolean  "suitable_for_video_and_sound"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "reset_password_token"

@@ -12,9 +12,14 @@ change_theme = (theme) ->
   load_typekit_font(TYPEKITS[theme])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
   window.Nembrot.load_maps()
+#  change_image_effects()
 
 change_theme_if_editing_channel = (theme) ->
   if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(theme)
+
+# change_image_effects = (theme) ->
+#   $('figure.image img').each = () ->
+#    @href.replace(/^(.*\-)(.*?)(\-\d{1,9}\.)(gif|jpeg|png)$/, '$1lomo$2$3$4')
 
 load_typekit_font = (name) ->
   $.cachedScript('//use.typekit.net/' + name + '.js').done (script) ->
@@ -29,5 +34,6 @@ $ ->
   $(document).on 'pjax:success', '#main', (data) ->
     change_theme($('[data-theme]').data('theme'))
 
-  $(document).on 'change', '#dashboard input[name="channel[theme]"]', ->
-    change_theme_if_editing_channel(@value)
+  $(document).on 'change', '#dashboard input[name="channel[theme_id]"]', ->
+    console.log(@)
+    change_theme_if_editing_channel($(@).data('slug'))

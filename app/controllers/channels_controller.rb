@@ -28,11 +28,13 @@ class ChannelsController < ApplicationController
   end
 
   def new
+    @themes = Theme.all
     @channel = Channel.new
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
+    @themes = Theme.all
     add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 
@@ -79,7 +81,7 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :theme, :notebooks, :id)
+    params.require(:channel).permit(:name, :theme_id, :notebooks, :id)
   end
 
   def set_public_cache_headers

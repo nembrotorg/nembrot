@@ -1,0 +1,42 @@
+= form_for @theme do |f|
+  - if @theme.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@theme.errors.count, "error")} prohibited this theme from being saved:"
+      ul
+        - @theme.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :slug
+    = f.text_field :slug
+  .field
+    = f.label :public
+    = f.check_box :public
+  .field
+    = f.label :premium
+    = f.check_box :premium
+  .field
+    = f.label :effects
+    = f.text_field :effects
+  .field
+    = f.label :map_style
+    = f.text_field :map_style
+  .field
+    = f.label :typekit_code
+    = f.text_field :typekit_code
+  .field
+    = f.label :suitable_for_text
+    = f.check_box :suitable_for_text
+  .field
+    = f.label :suitable_for_images
+    = f.check_box :suitable_for_images
+  .field
+    = f.label :suitable_for_maps
+    = f.check_box :suitable_for_maps
+  .field
+    = f.label :suitable_for_video_and_sound
+    = f.check_box :suitable_for_video_and_sound
+  .actions = f.submit 'Save'

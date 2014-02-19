@@ -1,0 +1,39 @@
+h1 Listing themes
+
+table
+  tr
+    th Name
+    th Slug
+    th Public
+    th Premium
+    th Effects
+    th Map style
+    th Typekit code
+    th Suitable for text
+    th Suitable for images
+    th Suitable for maps
+    th Suitable for video and sound
+    th
+    th
+    th
+
+  - @themes.each do |theme|
+    tr
+      td = theme.name
+      td = theme.slug
+      td = theme.public
+      td = theme.premium
+      td = theme.effects
+      td = theme.map_style
+      td = theme.typekit_code
+      td = theme.suitable_for_text
+      td = theme.suitable_for_images
+      td = theme.suitable_for_maps
+      td = theme.suitable_for_video_and_sound
+      td = link_to 'Show', theme
+      td = link_to 'Edit', edit_theme_path(theme)
+      td = link_to 'Destroy', theme, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Theme', new_theme_path

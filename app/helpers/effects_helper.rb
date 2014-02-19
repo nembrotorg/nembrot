@@ -35,6 +35,14 @@ module EffectsHelper
     image.trim
   end
 
+  def fx_cha(image)
+    image.charcoal
+  end
+
+  def fx_duo(image)
+    image.duotone
+  end
+
   def fx_red(image)
     image.fill 'red'
     image.colorize '50% 25% 50%'
@@ -116,7 +124,70 @@ module EffectsHelper
 
   def fx_swi(image)
     image.swirl '180'
+  end
+
+  def fx_strip(image)
+    image.strip
+  end
+
+  # From: https://gist.github.com/tonycoco/2910540
+  def fx_lomo(image)
+    image.combine_options do |c|
+      c.channel 'R'
+      c.level '22%'
+      c.channel 'G'
+      c.level '22%'
+    end
+  end
+
+  def fx_toaster(image)
+    image.combine_options do |c|
+      c.modulate '150,80,100'
+      c.gamma 1.1
+      c.contrast
+      c.contrast
+      c.contrast
+      c.contrast
+    end
+  end
+
+  def fx_kelvin(image)
+    image.combine_options do |c|
+      cols, rows = image[:dimensions]
+       
+      c.combine_options do |cmd|
+        cmd.auto_gamma
+        cmd.modulate '120,50,100'
+      end
+       
+      new_image = image.clone
+      new_image.combine_options do |cmd|
+        cmd.fill 'rgba(255,153,0,0.5)'
+        cmd.draw "rectangle 0,0 #{ cols },#{ rows }"
+      end
+       
+      image = image.composite new_image do |cmd|
+        cmd.compose 'multiply'
+      end
+    end
     image
+  end
+
+  def fx_sketch(image)
+    sketch = image.quantize(256, Magick::GRAYColorspace)
+    sketch = sketch.equalize
+    sketch = sketch.sketch(0, 10, 135)
+    image.dissolve(sketch, 0.75, 0.25)
+  end
+
+  def fx_gotham(image)
+    image.combine_options do |c|
+      c.modulate '120,10,100'
+      c.fill '#222b6d'
+      c.colorize 20
+      c.gamma 0.5
+      c.contrast
+    end
   end
 
   # image.charcoal if effects =~ /cha/

@@ -1,4 +1,6 @@
 class ChannelsController < ApplicationController
+  before_filter :set_channel_defaults
+
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
   before_action :fetch_evernote_notebooks
 

@@ -6,13 +6,14 @@ class ApplicationController < ActionController::Base
 
   # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-chaching
   before_filter :set_locale
+  before_filter :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
   before_filter :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
   before_filter :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_filter :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_filter :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
 
-  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+  skip_before_filter :set_channel_defaults, :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
@@ -26,9 +27,13 @@ class ApplicationController < ActionController::Base
     @default_channel = Channel.where('slug = ?', 'default').first
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first
+    @channels_owned_by_nembrot = Channel.owned_by_nembrot
+    @themes_for_js = Theme.hash_for_js
+  end
+
+  def set_current_channel 
     @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
-    @channels_owned_by_nembrot = Channel.owned_by_nembrot
   end
 
   def add_home_breadcrumb

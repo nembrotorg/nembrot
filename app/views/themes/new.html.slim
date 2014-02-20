@@ -1,5 +1,12 @@
-h1 New theme
+- document_title = "#{ t('.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-== render 'form'
+== page_wrapper
 
-= link_to 'Back', themes_path
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+
+  == render 'form'
+
+  = link_to 'Back', themes_path

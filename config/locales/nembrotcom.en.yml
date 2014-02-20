@@ -1,0 +1,11 @@
+en:
+
+  themes:
+    index:
+      title:  'Themes'
+    show:
+      title:  "%{theme} theme"
+    edit:
+      title:  "%{theme} theme"
+    new:
+      title:  'New theme'

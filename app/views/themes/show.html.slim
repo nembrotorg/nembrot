@@ -1,39 +1,48 @@
-p#notice = notice
+- document_title = "#{ t('.title', theme: @theme.name) } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-p
-  strong Name:
-  = @theme.name
-p
-  strong Slug:
-  = @theme.slug
-p
-  strong Premium:
-  = @theme.premium
-p
-  strong Public:
-  = @theme.public
-p
-  strong Effects:
-  = @theme.effects
-p
-  strong Map style:
-  = @theme.map_style
-p
-  strong Typekit code:
-  = @theme.typekit_code
-p
-  strong Suitable for text:
-  = @theme.suitable_for_text
-p
-  strong Suitable for images:
-  = @theme.suitable_for_images
-p
-  strong Suitable for maps:
-  = @theme.suitable_for_maps
-p
-  strong Suitable for video and sound:
-  = @theme.suitable_for_video_and_sound
+== page_wrapper
 
-= link_to 'Edit', edit_theme_path(@theme)
-'|
-= link_to 'Back', themes_path
+  = render 'header', title: t('.title', theme: @theme.name), subtitle: nil, document_title: document_title
+
+  p#notice = notice
+
+  p
+    strong Name:
+    = @theme.name
+  p
+    strong Slug:
+    = @theme.slug
+  p
+    strong Premium:
+    = @theme.premium
+  p
+    strong Public:
+    = @theme.public
+  p
+    strong Effects:
+    = @theme.effects
+  p
+    strong Map style:
+    = @theme.map_style
+  p
+    strong Typekit code:
+    = @theme.typekit_code
+  p
+    strong Suitable for text:
+    = @theme.suitable_for_text
+  p
+    strong Suitable for images:
+    = @theme.suitable_for_images
+  p
+    strong Suitable for maps:
+    = @theme.suitable_for_maps
+  p
+    strong Suitable for video and sound:
+    = @theme.suitable_for_video_and_sound
+
+  = link_to 'Edit', edit_theme_path(@theme)
+  '|
+  = link_to 'Back', themes_path

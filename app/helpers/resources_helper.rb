@@ -53,7 +53,7 @@ module ResourcesHelper
       image = resize_with_crop(image, width, height, gravity_options = {})
       image.write file_name_out
 
-      image =  MiniMagick::Image.new(file_name_out)
+      image = MiniMagick::Image.new(file_name_out)
       image = pre_fx(image, effects)
 
       # TODO: This needs to do crop/resize, not just resize.
@@ -63,7 +63,7 @@ module ResourcesHelper
       # resize_with_crop(image, width, height, gravity_options = {})
 
       image = fx(image, effects)
-      image = post_fx(image, effects, image_record)
+      # image = post_fx(image, effects, image_record)
 
       # Gravity
       # image = image.resize_to_fit(width, height, EastGravity)

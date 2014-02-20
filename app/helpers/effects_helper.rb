@@ -36,7 +36,7 @@ module EffectsHelper
   end
 
   def fx_cha(image)
-    image.charcoal
+    image.charcoal 5
   end
 
   def fx_duo(image)
@@ -48,9 +48,16 @@ module EffectsHelper
     image.colorize '50% 25% 50%'
   end
 
+  def fx_gra(image)
+    image.grayscale 'Rec709Luminance'
+  end
+
+  def fx_3d(image)
+    image.raise 20
+  end
+
   def fx_gre(image)
-    image.fill 'green'
-    image.colorize '25% 50% 25%'
+    image.tint '#0f0'
   end
 
   def fx_grn(image)
@@ -115,7 +122,7 @@ module EffectsHelper
   end
 
   def fx_sep(image)
-    image.sepiatone 'Magick::QuantumRange * 0.8'
+    image.sepiatone "80%"
   end
 
   def fx_sha(image)
@@ -188,6 +195,26 @@ module EffectsHelper
       c.gamma 0.5
       c.contrast
     end
+  end
+
+  def fx_sig(image)
+    image.sigmoidal_contrast '10,0%'
+  end
+
+  def fx_paint(image)
+    image.paint 2
+  end
+
+  def fx_sol(image)
+    image.solarize '20%'
+  end
+
+  def fx_mon(image)
+    image.monochrome
+  end
+
+  def fx_dot(image)
+    image.ordered_dither
   end
 
   # image.charcoal if effects =~ /cha/

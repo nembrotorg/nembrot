@@ -1,12 +1,14 @@
 class ChannelsController < ApplicationController
-  before_filter :set_channel_defaults
+
+  # REVIEW: This is not secure
+  # See http://factore.ca/on-the-floor/258-rails-4-strong-parameters-and-cancan
+  load_and_authorize_resource except: :create
+  skip_authorize_resource only: :create
+
+  before_filter :set_channel_defaults, only: [:index, :show, :new, :edit, :update, :destroy]
 
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
-  before_action :fetch_evernote_notebooks
-
-#  skip_before_filter :set_current_channel, :add_home_breadcrumb, :get_promoted_notes, :get_sections
-
-  load_and_authorize_resource
+  before_action :fetch_evernote_notebooks, only: [:show, :new, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 
@@ -30,13 +32,13 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    @themes = Theme.all
+    @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
     @channel = Channel.new
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
-    @themes = Theme.all
+    @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
     add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 
@@ -83,7 +85,7 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :theme_id, :notebooks, :id)
+    params.require(:channel).permit(:name, :notebooks, :theme_id)
   end
 
   def set_public_cache_headers

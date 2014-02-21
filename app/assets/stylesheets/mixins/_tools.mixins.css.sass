@@ -1,0 +1,121 @@
+=tools
+  #tools, #main aside
+    iframe
+      margin-bottom: 0
+    ul
+      li
+        +icon-only
+        display: table-cell
+        height: $line-height
+        overflow: hidden
+        position: relative
+        text-align: right
+        width: auto
+        &.fb-like
+          overflow: visible
+        a
+          &:before
+            font-size: $line-height * 24/30
+          //&:after
+          //  display: none
+          &:hover
+            border-color: $link-hover-color
+            color: $link-hover-color
+            &:before
+              color: $link-hover-color
+              border-color: $link-hover-color
+            &[href*=facebook]:before
+              color: $facebook-color
+            &[href*=google]:before
+              color: $gplus-color
+            &[href*=twitter]:before
+              color: $twitter-color
+      //.deep-link
+      //  a
+      //    color: $count-color
+
+=tools-v1
+  +tools
+  #tools
+    border-top: 1px solid $font-color
+    display: table
+    padding: ($line-height / 2) 0
+    position: fixed
+    width: 100%
+    ul
+      display: table-row
+      margin: 0 $text-indent
+
+  .scrolling, .mousemoving
+    #tools
+      +transition(0.35s)
+      bottom: 0
+
+  #tools
+    +transition
+    bottom: $line-height * -2.25
+    &:hover
+      bottom: 0
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #tools
+      bottom: 0
+      +transition(0)
+      li.menu
+        display: none
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #tools
+      border: none
+      width: space(1.5)
+
+  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1200px)
+
+    #tools
+      border: none
+      padding-left: $text-indent / 2
+      width: space(2)
+
+=tools-v2
+  +tools
+  #tools
+    +fade(0)
+    right: 0
+    top: $line-height / 2
+    margin-right: $text-indent / 2
+    position: fixed
+    width: auto
+    ul
+      li:not(.channels)
+        display: none
+      li.channels
+        a:before
+          +animate-spin(3s)
+          font-size: 32px
+          padding: 0
+      //.deep-link
+      //  a
+      //    color: $count-color
+
+  .scrolling, .mousemoving
+    #tools
+      +fade(1, 3s)
+
+  aside
+    .shares
+      li
+        a
+          padding: 0 ($text-indent / 2)
+          &:before
+            font-size: 32px
+        &:first-of-type
+          a
+            padding-left: 0

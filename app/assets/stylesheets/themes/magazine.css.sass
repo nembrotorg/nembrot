@@ -61,16 +61,16 @@
           h2
             padding: 0 5px
 
-  .breadcrumb li, footer, #tools, #comments, #disqus_thread
+  .breadcrumb li, footer, #comments, article aside, #disqus_thread
     background: rgba(0, 0, 0, .75) !important
     padding:
       left: $text-indent / 2
       right: $text-indent / 2
 
-  #comments
-    margin: $line-height 0
-
-  #disqus_thread
+  .notes li
+    background: rgba(0, 0, 0, .75) !important
+  
+  #disqus_thread, #comments
     padding-top: $line-height / 2
     margin-bottom: $line-height
 
@@ -79,6 +79,11 @@
       background: rgba(0, 0, 0, .75)
       a:first-of-type
         color: $background-color !important
+  .side-annotations
+    margin-left: $text-indent / 2
+
+  #tools
+    background-color: transparent
 
   // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 

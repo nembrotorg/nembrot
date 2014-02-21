@@ -5,7 +5,7 @@
 
 == page_wrapper
 
-  = render 'header', title: t('.title', theme: @theme.name), subtitle: nil, document_title: document_title
+  = render 'header', title: t('.title', theme: @theme.name), subtitle: nil, document_title: document_title, show_flashes: true
 
   p#notice = notice
 

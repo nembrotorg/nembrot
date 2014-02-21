@@ -8,10 +8,6 @@ html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.the
 
     = render 'chromeframe'
 
-    figure.persistent_map
-      .map_container 
-        #persistent_map.map
-
     #main role="main" data-pjax-container="true"
 
       = yield

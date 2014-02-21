@@ -26,7 +26,7 @@
         section.target
           = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
 
-    = render 'shared/map', map: @map unless @map.nil?
+    = render 'shared/map', map: @map unless @map.blank?
 
     = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
 

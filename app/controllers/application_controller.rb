@@ -5,15 +5,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-chaching
-  before_filter :set_locale
-  before_filter :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
-  before_filter :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
-  before_filter :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
-  before_filter :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
-  before_filter :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
-  before_filter :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
+  before_action :set_locale
+  before_action :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
+  before_action :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
+  before_action :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_action :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_action :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_action :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
 
-  skip_before_filter :set_channel_defaults, :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+  skip_before_action :set_channel_defaults, :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale

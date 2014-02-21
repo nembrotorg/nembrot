@@ -1,8 +1,8 @@
 # See http://www.codebeerstartups.com/2013/10/social-login-integration-with-all-the-popular-social-networks-in-ruby-on-rails/
 
 class UsersController < ApplicationController
-  before_filter :set_user, only: [:show, :edit, :update]
-  before_filter :validate_authorization_for_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :validate_authorization_for_user, only: [:edit, :update]
 
   def update
     if @user.update_attributes(params[:user])

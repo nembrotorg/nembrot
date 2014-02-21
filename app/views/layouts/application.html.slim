@@ -1,12 +1,15 @@
 doctype 5
 
-html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug }" lang="#{ I18n.locale }"
+html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug } document-loading" lang="#{ I18n.locale }"
 
   = render 'head'
 
   body dir = body_dir_attr(I18n.locale.to_s) class = "signed-out"
 
     = render 'chromeframe'
+
+    figure#persistent_map_container.map_container
+      #persistent_map.map
 
     #main role="main" data-pjax-container="true"
 

@@ -334,7 +334,7 @@ iframe
 
 .map_container
   +reset
-  #map, #persistent_map
+  #single_map, #persistent_map
     +reset
     img, object, embed
       max-width: none
@@ -556,7 +556,7 @@ section.ins-section, article.ins-section
       display: block
 
 .notes-map, .tags-map, .features-map
-  #map
+  #single_map
     height: $line-height * 20
     margin-bottom: $line-height
 
@@ -760,7 +760,7 @@ aside
         figcaption
           display: none
       .map_container
-        #map
+        #single_map
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
     aside
@@ -782,6 +782,10 @@ aside
             size: $small-font-size + 1px
       .aside
         clear: both
+    #single_map
+      +span-columns(4)
+      height: $line-height * 7
+      margin-bottom: $line-height * 2/3
     &:hover
       #text
         a
@@ -791,6 +795,10 @@ aside
     &[dir=rtl]
       header
         +span-columns(6)
+
+  #disqus_thread,
+    #comments
+      +span-columns(9)
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools

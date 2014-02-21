@@ -7,7 +7,6 @@ module PageHelper
       <nav>#{ render_breadcrumbs builder: ::OrderedListBuilder }</nav>
       #{ capture(&block) }
       #{ render 'channels/footer' unless @current_channel.nil? || @current_channel == @default_channel }
-      #{ include_gon(:init => true) }
     </#{ wrapper }>
     EOS
   end

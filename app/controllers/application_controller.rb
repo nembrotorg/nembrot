@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
         'marker'    => "<a href=\"#{ note_path(note) }\">#{ note.headline }</a>"
       })
     end
-    gon.map = markers
+    @map = markers
   end
 
   def interrelated_notes_features_and_citations

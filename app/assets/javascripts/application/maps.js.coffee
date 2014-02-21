@@ -15,8 +15,8 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
     _.extend @marker_options(), { content: marker, flat: true, anchor: RichMarkerPosition.MIDDLE_LEFT }
 
 load_maps = (map) ->
-  map_container = $('.map').filter(':visible').attr('id')
-  if typeof map_container != 'undefined' && typeof gon.map != 'undefined'
+  map_container = $('figure.map_container:visible .map').attr('id')
+  if typeof map_container != 'undefined' && typeof window.Nembrot.MAP != 'undefined'
     # Also add map style as used below, so that markers can be styled accordingly
     handler = Gmaps.build('Google',
       builders:
@@ -28,7 +28,7 @@ load_maps = (map) ->
       internal:
         id: map_container
     , ->
-      markers = handler.addMarkers(gon.map)
+      markers = handler.addMarkers(window.Nembrot.MAP)
       handler.bounds.extendWith markers
       handler.fitMapToBounds()
       return

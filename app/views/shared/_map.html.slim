@@ -1,3 +1,5 @@
-figure
-  .map_container
-    #map.map
+figure#single_map_container.map_container
+  #single_map.map
+
+  javascript:
+    window.Nembrot.MAP = #{ raw @map.to_json };

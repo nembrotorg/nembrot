@@ -37,10 +37,11 @@
     font:
       weight: 500
 
-  #map
+  #single_map_container
     display: none !important
 
-  .persistent_map
+  #persistent_map_container
+    display: block
     position: fixed
     right: 0
     top: 0
@@ -49,26 +50,26 @@
     width: 50%
 
     #persistent_map
-      display: block
       position: absolute
       height: 100%
       right: 0
       top: 0
       width: 100%
 
-      .marker
-        display: inline-block
-        font:
-          weight: bold
-          size: 12px
-        max-width: 200px
-        overflow: display
-        white-space: nowrap
-        &:before
-          +icon
-          font-size: 2em
-          content: '\e810'
-          vertical-align: -0.15em
+  .map
+    .marker
+      display: inline-block
+      font:
+        weight: bold
+        size: 12px
+      max-width: 200px
+      overflow: display
+      white-space: nowrap
+      &:before
+        +icon
+        font-size: 2em
+        content: '\e810'
+        vertical-align: -0.15em
 
   #main
     h2

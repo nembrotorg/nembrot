@@ -26,8 +26,8 @@ head
   script src="//use.typekit.net/#{ @current_channel.theme.typekit_code }.js"
 
   javascript:
-    try{Typekit.load();}catch(e){}
+    try{Typekit.load();}catch(e){};
 
-    window.Nembrot.THEMES = #{ raw @themes_for_js.to_json }
+    window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };
 
 

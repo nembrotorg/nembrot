@@ -5,7 +5,7 @@ change_theme = (theme) ->
   change_image_effects(theme)
 
 change_theme_if_editing_channel = (theme) ->
-  if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit input[name=id]').val()) then change_theme(theme)
+  if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit #channel_id').val()) then change_theme(theme)
 
 change_image_effects = (theme) ->
   $("figure.image img").each ->

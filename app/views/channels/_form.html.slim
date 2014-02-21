@@ -53,11 +53,11 @@
           = f.label :theme_id, theme.name, value: theme.id
             -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
             span = theme.name.titlecase
-            = f.radio_button :theme_id, theme.id, checked: (@channel.theme == theme || @channel.theme.nil? && theme == 'default'), data: { slug: theme.slug }, required: true
+            = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug }, required: true
   - else
-    input name='channel[theme]' type='hidden' value='default'
+    = f.text_field :theme_id, value: 1, hidden: true
 
-  input name='id' type='hidden' value=@channel.id
+  = f.text_field :id, hidden: true
 
   .actions
     = f.submit t("channels.#{ mode }.submit")
@@ -75,22 +75,7 @@ javascript:
     });
   });
 
-  var thread = null;
-  $('#dashboard form input[type=text]').keyup(function() {
-    clearTimeout(thread);
-    var target = $(this);
-    thread = setTimeout(function() {
-      $.ajax({
-        url: '/channels/available/' + target.val(),
-        cache: false,
-        success: function(html) {
-          return $('#dashboard .available').html(html);
-        }
-      });
-    }, 500); 
-  });
-
-  if (#{ mode == 'edit' && @current_channel != @channel }) {
+  if (#{ mode == 'edit' } && $('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } ) {
     $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
   }
 

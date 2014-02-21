@@ -38,3 +38,20 @@ $ ->
   if location.pathname == '/' && $('#dashboard').not(':visible')
     load_dashboard()
     $('#dashboard').show()
+
+  thread = null
+  $(document).on 'keyup', '#dashboard form .name input', (event) ->
+    clearTimeout thread
+    target = $(this)
+    query_string = target.val()
+    unless query_string is ""
+      thread = setTimeout(->
+        $.ajax
+          url: "/channels/available/" + query_string
+          cache: false
+          success: (html) ->
+            $("#dashboard .available").html html
+
+        return
+      , 500)
+    return

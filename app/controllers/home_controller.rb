@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
     mapify(all_notes.mappable)
 
-    @channels = Channel.not_owned_by_nembrot.first(9)
+    @channels = Channel.not_owned_by_nembrot.first(12)
   end
 
   def default_url_options

@@ -7,3 +7,9 @@ track_channel_view = () ->
 
 $ ->
   track_channel_view()
+
+  $(document).on 'pjax:success', '#main', ->
+    track_channel_view()
+
+  $(window).on 'popstate', ->
+    track_channel_view()

@@ -8,8 +8,8 @@ class Channel < ActiveRecord::Base
 
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 
-  scope :owned_by_nembrot, -> { joins(:theme).where('themes.public = ?', true) }
-  scope :not_owned_by_nembrot, -> { joins(:theme).where.not('themes.public = ?', true) }
+  scope :owned_by_nembrot, -> { joins(:theme).where.not('themes.public = ?', true) }
+  scope :not_owned_by_nembrot, -> { joins(:theme).where('themes.public = ?', true) }
 
   extend FriendlyId
   friendly_id :name, use: :slugged

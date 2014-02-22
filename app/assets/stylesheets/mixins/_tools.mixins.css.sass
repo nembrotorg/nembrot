@@ -67,6 +67,10 @@
       li.menu
         display: none
 
+    .scrolling, .mousemoving
+      #tools
+        +transition(0)
+
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
@@ -98,7 +102,7 @@
         display: none
       li.channels
         a:before
-          +animate-spin(3s)
+          +animate-spin(3.5s)
           font-size: 32px
           padding: 0
       //.deep-link

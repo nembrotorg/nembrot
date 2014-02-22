@@ -5,8 +5,6 @@ load_dashboard = () ->
     success: (html) ->
       $('#dashboard').html(html)
 
-window.Nembrot.load_dashboard = load_dashboard
-
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -18,8 +16,9 @@ $ ->
   $(document).on 'submit', '#dashboard form', (event) ->
     $.pjax.submit event, '[data-pjax-dashboard]', { push: false }
 
+  # REVIEW: Access current channel data more efficiently (read data once)
   $(document).on 'keyup', (event) ->
-    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel_slug') != 'default' then $('#dashboard').fadeOut() # REVIEW: Genericise
+    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel-slug') != 'default' then $('#dashboard').fadeOut() # REVIEW: Genericise
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'click', '#dashboard .notebooks label', ->
@@ -44,7 +43,7 @@ $ ->
     clearTimeout thread
     target = $(this)
     query_string = target.val()
-    unless query_string is ""
+    unless query_string is ''
       thread = setTimeout(->
         $.ajax
           url: "/channels/available/" + query_string

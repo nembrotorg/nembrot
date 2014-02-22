@@ -16,6 +16,7 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
 
 load_maps = (map) ->
   map_container = $('figure.map_container:visible .map').attr('id')
+  show_map_type_control = (map_container == 'persistent_map') # Do not show map type in small maps (could also use size)
   if typeof map_container != 'undefined' && typeof window.Nembrot.MAP != 'undefined'
     # Also add map style as used below, so that markers can be styled accordingly
     handler = Gmaps.build('Google',
@@ -24,7 +25,15 @@ load_maps = (map) ->
     )
 
     handler.buildMap
-      provider: { styles: window.Nembrot.map_styles['greyscale'] } # This should come from theme
+      provider: { 
+          styles: window.Nembrot.map_styles['greyscale'],
+          streetViewControl: show_map_type_control,
+          mapTypeControl: show_map_type_control,
+          mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              position: google.maps.ControlPosition.RIGHT_BOTTOM
+          }
+        } # This should come from theme
       internal:
         id: map_container
     , ->

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219102618) do
+ActiveRecord::Schema.define(version: 20140222151426) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -293,6 +293,7 @@ ActiveRecord::Schema.define(version: 20140219102618) do
     t.boolean  "suitable_for_video_and_sound"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "css"
   end
 
   create_table "users", force: true do |t|

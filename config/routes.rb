@@ -2,7 +2,7 @@
 
 Nembrot::Application.routes.draw do
 
-  resources :themes
+  resources :themes, except: :show
 
   mount Commontator::Engine => '/commontator'
 

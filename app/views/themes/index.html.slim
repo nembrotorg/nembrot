@@ -13,14 +13,14 @@
       th Slug
       th Public
       th Premium
+      th Typekit code
+      th Css
       th Effects
       th Map style
-      th Typekit code
       th Suitable for text
       th ... images
       th ... maps
       th ... media
-      th
       th
       th
 
@@ -30,14 +30,14 @@
         td = theme.slug
         td = theme.public
         td = theme.premium
+        td = theme.typekit_code
+        td = theme.css
         td = theme.effects
         td = theme.map_style
-        td = theme.typekit_code
         td = theme.suitable_for_text
         td = theme.suitable_for_images
         td = theme.suitable_for_maps
         td = theme.suitable_for_video_and_sound
-        td = link_to 'Show', theme
         td = link_to 'Edit', edit_theme_path(theme)
         td = link_to 'Destroy', theme, data: {:confirm => 'Are you sure?'}, :method => :delete
 

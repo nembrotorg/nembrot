@@ -43,6 +43,10 @@ module EffectsHelper
     image.duotone
   end
 
+  def fx_enh(image)
+    image.duotone
+  end
+
   def fx_red(image)
     image.fill 'red'
     image.colorize '50% 25% 50%'
@@ -70,7 +74,10 @@ module EffectsHelper
   end
 
   def fx_enh(image)
-    image.enhance
+    image.combine_options do |c|
+      c.auto_level
+      # c.auto_gamma
+    end
   end
 
   def fx_equ(image)

@@ -4,6 +4,11 @@
 
   +pass-media-query('screen-and-min-width-1024px')
 
+  #main,
+  .hello-world,
+  footer
+    width: 1080px
+
   iframe
     +span-columns(9, 12)
 
@@ -42,11 +47,6 @@
         height: $line-height * 6
     #extra
       +span-columns(3 omega, 12)
-
-  #main,
-  .hello-world,
-  footer
-    width: 1080px
 
   article aside,
   #disqus_thread,

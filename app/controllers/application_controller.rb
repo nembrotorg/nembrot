@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_action :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
 
-  skip_before_action :set_channel_defaults, :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+  skip_before_action :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale

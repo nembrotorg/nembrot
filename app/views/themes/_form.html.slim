@@ -6,37 +6,48 @@
         - @theme.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :slug
-    = f.text_field :slug
-  .field
-    = f.label :public
+  = f.label :name do
+    = :name.to_s.humanize
+    = f.text_field :name, required: true
+
+  = f.label :public do
+    = :public.to_s.humanize
     = f.check_box :public
-  .field
-    = f.label :premium
+
+  = f.label :premium do
+    = :premium.to_s.humanize
     = f.check_box :premium
-  .field
-    = f.label :effects
-    = f.text_field :effects
-  .field
-    = f.label :map_style
-    = f.text_field :map_style
-  .field
-    = f.label :typekit_code
+
+  = f.label :typekit_code do
+    = :typekit_code.to_s.humanize
     = f.text_field :typekit_code
-  .field
-    = f.label :suitable_for_text
+
+  = f.label :css do
+    = :css.to_s.humanize
+    = f.text_field :css
+
+  = f.label :effects do
+    = :effects.to_s.humanize
+    = f.text_field :effects
+
+  = f.label :map_style do
+    = :map_style.to_s.humanize
+    = f.text_field :map_style
+
+  = f.label :suitable_for_text do
+    = :suitable_for_text.to_s.humanize
     = f.check_box :suitable_for_text
-  .field
-    = f.label :suitable_for_images
+
+  = f.label :suitable_for_images do
+    = :suitable_for_images.to_s.humanize
     = f.check_box :suitable_for_images
-  .field
-    = f.label :suitable_for_maps
+
+  = f.label :suitable_for_maps do
+    = :suitable_for_maps.to_s.humanize
     = f.check_box :suitable_for_maps
-  .field
-    = f.label :suitable_for_video_and_sound
+
+  = f.label :suitable_for_video_and_sound do
+    = :suitable_for_video_and_sound.to_s.humanize
     = f.check_box :suitable_for_video_and_sound
+
   .actions = f.submit 'Save'

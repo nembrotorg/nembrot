@@ -1,0 +1,17 @@
+// Rather than importing each mixin under the theme class, each module is included once.
+//  The Theme model has a css column which includes a list of these modules. The classes 
+//  are written on the html tag and the theme wrapper tag.
+
+.magazine-everywhere-module
+  +magazine-everywhere
+
+.panel-blurbs-module
+  +panel-blurbs
+
+.simple-blurbs-module
+  +simple-blurbs
+
+.standard-widths-module
+  @import '../1024.default'
+  @import '../1200.default'
+  @import '../1600.default'

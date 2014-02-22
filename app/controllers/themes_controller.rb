@@ -12,10 +12,6 @@ class ThemesController < ApplicationController
     @themes = Theme.all
   end
 
-  # GET /themes/1
-  def show
-  end
-
   # GET /themes/new
   def new
     @theme = Theme.new
@@ -30,7 +26,7 @@ class ThemesController < ApplicationController
     @theme = Theme.new(theme_params)
 
     if @theme.save
-      redirect_to @theme, notice: 'Theme was successfully created.'
+      redirect_to themes_url, notice: 'Theme was successfully created.'
     else
       render action: 'new'
     end
@@ -39,7 +35,7 @@ class ThemesController < ApplicationController
   # PATCH/PUT /themes/1
   def update
     if @theme.update(theme_params)
-      redirect_to @theme, notice: 'Theme was successfully updated.'
+      redirect_to themes_url, notice: 'Theme was successfully updated.'
     else
       render action: 'edit'
     end
@@ -59,7 +55,7 @@ class ThemesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def theme_params
-    params.require(:theme).permit(:premium, :public, :effects, :map_style, :name, :slug, :typekit_code, :suitable_for_text, :suitable_for_images, :suitable_for_maps, :suitable_for_video_and_sound)
+    params.require(:theme).permit(:premium, :public, :css, :effects, :map_style, :name, :typekit_code, :suitable_for_text, :suitable_for_images, :suitable_for_maps, :suitable_for_video_and_sound)
   end
 
   def set_public_cache_headers

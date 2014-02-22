@@ -75,13 +75,23 @@ javascript:
     });
   });
 
-  if (#{ mode == 'edit' } && $('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } ) {
-    $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
+  var notebooks_div = $('#dashboard .notebooks div');
+  var notebooks_checked = $('#dashboard .notebooks input:checked');
+  if (notebooks_div.length && notebooks_checked.length) {
+    notebooks_div.scrollTop(notebooks_checked.position().top);
   }
 
-  $('#dashboard .notebooks div').scrollTop($('#dashboard .notebooks input:checked').position().top);
+- if mode == 'edit'
 
-  if (#{ mode == 'edit' }) {
-    $('#dashboard .theme div').scrollTop($('#dashboard .theme input:checked').position().top);
+  javascript:
+
+    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id }) {
+      $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
+    }
+
+    var theme_div = $('#dashboard .theme div');
+    var theme_checked = $('#dashboard .theme input:checked');
+    if (theme_div.length && theme_checked.length) {
+      theme_div.scrollTop(theme_checked.position().top);
+    }
     $('#dashboard .theme input:checked').focus();
-  }

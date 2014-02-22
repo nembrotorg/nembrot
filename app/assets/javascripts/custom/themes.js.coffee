@@ -21,6 +21,11 @@ window.Nembrot.load_typekit_font = load_typekit_font
 # Document hooks ******************************************************************************************************
 
 $ ->
+  change_theme($('[data-theme]').data('theme'))
+
+  $(window).on 'popstate', ->
+    change_theme($('[data-theme]').data('theme'))
+
   $(document).on 'pjax:success', '#main', (data) ->
     change_theme($('[data-theme]').data('theme'))
 

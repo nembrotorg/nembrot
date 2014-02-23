@@ -69,22 +69,6 @@ en:
           subject: "Missing Book metadata: ISBN %{isbn} | %{details}"
           body: "The following book has been added to your bibliography, but it has missing metadata so it can't be referenced:"
 
-  channels:
-    edit:
-      title: 'Edit channel'
-      submit: 'Save channel'
-    index:
-      title: 'My Channels'
-    new:
-      title: 'New channel'
-      submit: 'Create channel'
-    show:
-      title: 'Channel'
-    available:
-      name_true: '<strong>%{name}</strong> is available.'
-      name_false: '<strong>%{name}</strong> is not available.'
-      url: "Your channel's url would be:"
-
   citations:
     index:
       title: 'Citations'

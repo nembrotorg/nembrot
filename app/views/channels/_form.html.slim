@@ -35,12 +35,12 @@
 
   fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.name.nil? ? '' : 'completed' }"
-      | Name your channel
+      | Name your website
     div
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
-        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,50}", required: true, placeholder: 'Channel name'
+        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,50}", required: true, placeholder: 'Website name'
         div.available
           | Use between 3 and 30 alphanumeric characters.
 
@@ -62,7 +62,7 @@
   .actions
     = f.submit t("channels.#{ mode }.submit")
 
-    = link_to 'My channels', channels_path, class: 'cancel', title: 'Cancel and back to My Channels' if user_signed_in? && !current_user.channels.empty?
+    = link_to 'My sites', channels_path, class: 'cancel', title: 'Cancel and back to My Sites' if user_signed_in? && !current_user.channels.empty?
 
     = link_to 'Delete', @channel, data: {confirm: 'Are you sure?'}, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
 

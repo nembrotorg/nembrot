@@ -3,99 +3,19 @@ window.Nembrot.map_styles = {
   # http://snazzymaps.com/style/5/greyscale
   'greyscale': [{"featureType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
 
+  # http://snazzymaps.com/style/37/lunar-landscape
+  'lunar-landscape': [{"stylers":[{"hue":"#ff1a00"},{"invert_lightness":true},{"saturation":-100},{"lightness":33},{"gamma":0.5}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2D333C"}]}]
+
+  # http://snazzymaps.com/style/62/night-vision
+  'night-vision': [{"featureType":"water","elementType":"all","stylers":[{"hue":"#001204"},{"saturation":100},{"lightness":-95},{"visibility":"on"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"hue":"#007F1E"},{"saturation":100},{"lightness":-72},{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"hue":"#00C72E"},{"saturation":100},{"lightness":-59},{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"hue":"#002C0A"},{"saturation":100},{"lightness":-87},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00A927"},{"saturation":100},{"lightness":-58},{"visibility":"on"}]}]
+
   # http://snazzymaps.com/style/3/red-alert
-  'red_alert' : [
-                  {
-                    featureType: "water"
-                    elementType: "geometry"
-                    stylers: [color: "#ffdfa6"]
-                  }
-                  {
-                    featureType: "landscape"
-                    elementType: "geometry"
-                    stylers: [color: "#b52127"]
-                  }
-                  {
-                    featureType: "poi"
-                    elementType: "geometry"
-                    stylers: [color: "#c5531b"]
-                  }
-                  {
-                    featureType: "road.highway"
-                    elementType: "geometry.fill"
-                    stylers: [
-                      {
-                        color: "#74001b"
-                      }
-                      {
-                        lightness: -10
-                      }
-                    ]
-                  }
-                  {
-                    featureType: "road.highway"
-                    elementType: "geometry.stroke"
-                    stylers: [color: "#da3c3c"]
-                  }
-                  {
-                    featureType: "road.arterial"
-                    elementType: "geometry.fill"
-                    stylers: [color: "#74001b"]
-                  }
-                  {
-                    featureType: "road.arterial"
-                    elementType: "geometry.stroke"
-                    stylers: [color: "#da3c3c"]
-                  }
-                  {
-                    featureType: "road.local"
-                    elementType: "geometry.fill"
-                    stylers: [color: "#990c19"]
-                  }
-                  {
-                    elementType: "labels.text.fill"
-                    stylers: [color: "#ffffff"]
-                  }
-                  {
-                    elementType: "labels.text.stroke"
-                    stylers: [
-                      {
-                        color: "#74001b"
-                      }
-                      {
-                        lightness: -8
-                      }
-                    ]
-                  }
-                  {
-                    featureType: "transit"
-                    elementType: "geometry"
-                    stylers: [
-                      {
-                        color: "#6a0d10"
-                      }
-                      {
-                        visibility: "on"
-                      }
-                    ]
-                  }
-                  {
-                    featureType: "administrative"
-                    elementType: "geometry"
-                    stylers: [
-                      {
-                        color: "#ffdfa6"
-                      }
-                      {
-                        weight: 0.4
-                      }
-                    ]
-                  }
-                  {
-                    featureType: "road.local"
-                    elementType: "geometry.stroke"
-                    stylers: [visibility: "off"]
-                  }
-                ]
+  'red-alert': [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#ffdfa6"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#b52127"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#c5531b"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#74001b"},{"lightness":-10}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#da3c3c"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#74001b"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#da3c3c"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#990c19"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#74001b"},{"lightness":-8}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#6a0d10"},{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#ffdfa6"},{"weight":0.4}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]}]
+
+  # http://snazzymaps.com/style/18/retro
+  'retro': [{"featureType":"administrative","stylers":[{"visibility":"off"}]},{"featureType":"poi","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"simplified"}]},{"featureType":"transit","stylers":[{"visibility":"simplified"}]},{"featureType":"landscape","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"visibility":"off"}]},{"featureType":"road.local","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"water","stylers":[{"color":"#84afa3"},{"lightness":52}]},{"stylers":[{"saturation":-17},{"gamma":0.36}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#3f518c"}]}]
+
+  # http://snazzymaps.com/style/15/subtle-grayscale
+  'subtle-grayscale': [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
 
 }

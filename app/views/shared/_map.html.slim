@@ -1,5 +1,4 @@
 figure#single_map_container.map_container
   #single_map.map
 
-  javascript:
-    window.Nembrot.MAP = #{ raw @map.to_json };
+  = render 'shared/map_script', map: map

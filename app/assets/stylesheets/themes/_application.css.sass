@@ -69,18 +69,6 @@ nav ul li a:first-of-type
     opacity: 1
     +transition(0.5s)
 
-section.channels
-  +span-columns(12)
-  clear: both
-  margin-top: $line-height
-  ul
-    +columns(1)
-    +column-gap($gutter-width * 1px)
-    margin-bottom: 0
-    li
-      +panel-blurb
-      height: $line-height * 6
-
 .statistics
   display: none
 
@@ -120,11 +108,6 @@ footer.channel
 
   section.channels
     +span-columns(6)
-    ul
-      +columns(1)
-      +column-gap($gutter-width * 1px)
-      li
-        height: $line-height * 7
 
   footer:not(.channel)
     nav
@@ -144,10 +127,6 @@ footer.channel
 
   section.channels
     +span-columns(9)
-    ul
-      +columns(3)
-      li
-        height: $line-height * 5
 
   footer:not(.channel)
     nav

@@ -1,13 +1,17 @@
+$dashboard-black-color: #171717
+$dashboard-white-color: #f7f7f7
+$dashboard-hover-color: #990000
+$dashboard-off-color: #666666
 $success-color: $static-url-color
 $error-color: #c00
 
 #dashboard:not(.ui-draggable-dragging):hover
-  background-color: rgba(255, 255, 255, 1)
+  background-color: rgba($dashboard-white-color, 1)
 
 #dashboard
   +font-color
-  background-color: rgba(255, 255, 255, 1)
-  border: 1px solid #000
+  background-color: rgba($dashboard-white-color, 1)
+  border: 1px solid $dashboard-black-color
   cursor: hand
   height: $line-height * 12.5
   left: 5%
@@ -15,7 +19,7 @@ $error-color: #c00
   padding: 5px 0
   position: absolute
   right: 5%
-  top: $line-height * 20
+  top: 5%
   z-index: 100
 
   nav
@@ -29,11 +33,17 @@ $error-color: #c00
     padding: 0 5px
     h1
       display: none
+      padding-top: 20px
     h2
       font:
-        family: 'franklin-gothic-urw'
-        weight: 700
-      padding: 0 ($text-indent / 2)
+        family: 'proxima-nova'
+        size: 28px
+        variant: small-caps
+        weight: 600
+      padding: 0 5px
+      text-transform: lowercase
+      &:before
+        font-size: 18px
 
   .breadcrumb
     display: none
@@ -41,10 +51,10 @@ $error-color: #c00
   legend
     position: relative
     &.completed, &.connected
-      color: $off-color
+      color: $dashboard-off-color
       &:after
         +icon-ok
-        color: #fff
+        color: $dashboard-white-color
         position: absolute
         right: $text-indent
 
@@ -73,11 +83,20 @@ $error-color: #c00
 
   a[href='/channels/new']
     bottom: 0
+    color: $dashboard-hover-color
     display: block
     font-weight: 700
     position: absolute
     padding: ($text-indent / 2)
     width: 100%
+    &:before
+      color: $dashboard-hover-color
+      vertical-align: -1px
+    &:hover
+      color: $link-hover-color
+      &:before
+        color: $link-hover-color
+
 
   #notice
     display: block
@@ -126,14 +145,14 @@ $error-color: #c00
     fieldset
       margin: 0
       legend
-        background-color: #000
+        background-color: $dashboard-black-color
         counter-increment: new-channel-steps
         color: #fff
-        width: 100%
-        display: block
-        padding: 0 ($text-indent / 2)
-        font-weight: 700
         cursor: pointer
+        display: block
+        font-weight: 400
+        width: 100%
+        padding: 0 ($text-indent / 2)
         &:before
           content: counter(new-channel-steps) '.\0000a0'
       &.disabled
@@ -151,15 +170,20 @@ $error-color: #c00
           width: 250px // FIXME: This should be percentage
           white-space: nowrap
         &:hover
-          background-color: #999
+          background-color: $dashboard-hover-color
       div
         height: $line-height * 4
         padding-top: $text-indent / 2
         overflow-y: scroll
-      .name div
+      &.oauth div
+        overflow: hidden
+      &.notebooks div
+        label:hover
+          background-color: $evernote-color
+      &.name div
         overflow-y: hidden
         label:hover
-          background-color: none
+          background-color: transparent
       input
         &[type=text]
           float: none
@@ -226,8 +250,8 @@ $error-color: #c00
 @media only screen and (min-width: 720px)
 
   #dashboard
-    background-color: rgba(255, 255, 255, 0.85)
-    bottom: $line-height * 3
+    background-color: rgba($dashboard-white-color, 0.85)
+    bottom: $line-height
     left: auto
     position: fixed
     right: $text-indent / 2

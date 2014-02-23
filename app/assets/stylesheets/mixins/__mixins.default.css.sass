@@ -22,56 +22,6 @@
     &:before
       +arrow-link
 
-=block-blurb($lines: 3, $image-width: 0, $context: $total-columns)
-  h2
-    display: inline
-    font:
-      size: $body-font-size
-      weight: normal
-  a
-    display: block
-    height: $line-height * $lines
-    overflow: hidden
-    padding-right: space($image-width, $context)
-    &:after
-      background-color: $background-color
-      border-left:
-        width: 1px
-        style: solid
-      bottom: -3px
-      content: ''
-      font-family: fontello
-      font-size: 14px
-      margin-right: space($image-width, $context)
-      padding-left: 5px
-      position: absolute
-      right: 0
-    img, iframe
-      height: auto
-      margin: 0
-      padding-right: 0
-      position: absolute
-      right: 0
-      width: columns($image-width, $context)
-
-=simple-blurb($lines: 2)
-  margin-bottom: $line-height
-  h2
-    display: block
-    font:
-      size: $body-font-size
-      weight: normal
-  a
-    display: block
-    height: $line-height * $lines
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
-    &:after
-      display: none
-    img, iframe
-      display: none
-
 =colors
 
   body

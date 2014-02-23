@@ -1,13 +1,13 @@
 // Modules:
-// persistent-map-module
+// standard-widths
 // simple-blurbs-module
 
-.theme-maps
+.theme-manila
 
   $background-color: #f7f7f7
-  $body-font-color: #070707
+  $body-font-color: #240f17
   $border-color: $body-font-color
-  $caption-color: #333
+  $caption-color: #441328
   $count-color: #c00
   $delete-font-color: #ccc 
   $error-background-color: #c00 
@@ -15,16 +15,16 @@
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #b70000
+  $headline-font-color: #ff007f
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #00c
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
-  $off-color: #ccc
-  $row-hover-color: #ff0
-  $secondary-color: #666
+  $off-color: #561933
+  $row-hover-color: #d71639
+  $secondary-color: #441328
   $selected-background-color: #ff0
   $selected-font-color: $body-font-color
   $static-url-color: #0c0
@@ -32,28 +32,19 @@
 
   +colors
 
-  #main
-    h1
-      font:
-        weight: 500
-    h2
-      font:
-        family: 'prenton' !important
-        weight: 700
+  #single_map
+    display: none
 
-    .notes ul li
-      font:
-        family: 'lexia' !important
+  [data-controller=home]
+    #single_map
+      display: block
 
-    #introduction
-      color: #222 !important
-      font:
-        style: normal
-        weight: 700
 
-    footer.channel
-      ul
-        li
-          a
-            font:
-              family: 'prenton'
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #tools ul li.channels a:before
+      color: $background-color
+      &:hover
+        color: $link-hover-color

@@ -2,7 +2,10 @@ change_theme = (theme) ->
   load_typekit_font(window.Nembrot.THEMES[theme]['typekit_code'])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
   $('html, [data-theme]').alterClass('*-module', window.Nembrot.THEMES[theme]['css'])
-  window.Nembrot.load_maps()
+  $('html').data('controller', $('body [data-controller]').data('controller'))
+  $('html').data('action', $('body [data-action]').data('action'))
+
+  window.Nembrot.load_maps(theme)
   change_image_effects(theme)
 
 change_theme_if_editing_channel = (theme) ->

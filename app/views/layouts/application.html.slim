@@ -1,6 +1,6 @@
 doctype 5
 
-html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug } #{ @current_channel.theme.css unless @current_channel.nil? } document-loading" lang="#{ I18n.locale }"
+html data={ controller: controller.controller_name, action: controller.action_name } class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug } #{ @current_channel.theme. css unless @current_channel.nil? } document-loading" lang="#{ I18n.locale }"
 
   = render 'head'
 
@@ -17,7 +17,7 @@ html class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.the
 
     = render 'tools'
 
-    = render 'footer'
+    -# = render 'footer'
 
     aside#dashboard data-pjax-dashboard='true' style='display: none'
 

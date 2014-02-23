@@ -1,0 +1,187 @@
+// Modules:
+// magazine-everywhere-module
+// simple-blurbs-module
+// standard-widths-module
+
+.theme-home-2
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #333
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b70000
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  $theme-home-2-logo-color: #990000
+
+  #dashboard
+    background-color: rgba(#ffffff, 1)
+    position: absolute
+    top: 324px
+    a[href='#close']
+      display: none
+
+  #tools
+    display: none
+
+  #main
+
+    &> article
+      overflow: visible
+
+      section#content
+        figure.image
+          height: 135px
+          border-bottom: 1px solid #171717
+          position: absolute
+          figcaption
+            background-color: rgba(#ffffff, 0.25)
+            height: 100%
+            width: 100%
+            position: absolute
+          img
+            height: auto
+            left: 0
+            margin: auto
+            max-width: none
+            top: 0
+            width: 100%
+
+    h1
+      color: $theme-home-2-logo-color
+      font:
+        size: 48px
+        style: normal
+        variant: small-caps
+        weight: 800
+      text-transform: lowercase
+      &:before
+        +border-bottom-right-radius(12px)
+        +border-top-right-radius(12px)
+        +box-sizing(border-box)
+        border:
+          color: $theme-home-2-logo-color
+          style: solid
+          width: 8px
+        color: $theme-home-2-logo-color
+        content: 'nb'
+        display: inline-block
+        font:
+          size: 48px
+          style: normal
+          variant: small-caps
+          weight: 800
+        letter-spacing: 2px
+        line-height: 24px
+        padding: 8px 4px
+        text-transform: lowercase
+        vertical-align: 0
+
+    #introduction
+      color: #171717
+      font:
+        size: 28px
+        style: normal
+      line-height: 30px
+
+    #text
+      clear: both
+      display: inline
+      width: auto !important
+      ul
+        +horizontal-list
+        +arrow-links-all
+        text-transform: lowercase
+        a
+          margin-right: $text-indent / 2
+          text-decoration: none
+
+    aside
+      display: inline
+      width: auto
+      .shares
+        display: none
+
+    .channels
+      margin-top: $line-height * 15
+      li
+        margin-bottom: $line-height
+        font:
+          family: 'adelle'
+          size: 22px
+        h2
+          font:
+            family: sans-serif
+            size: 24px
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #main
+      &> article
+        margin-top: 210px
+        overflow: visible
+
+        section#content
+          figure.image
+            height: 390px
+
+      #content
+        +span-columns(8)
+
+      #introduction
+        color: #171717
+        font:
+          size: 48px
+          style: normal
+        line-height: 60px
+
+      aside
+        .shares
+          display: block
+          a:before
+            font-size: 22px
+
+      .channels
+        margin-top: $line-height
+
+      h1
+        font:
+          size: 90px
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      &> article
+        section#content
+          figure.image
+            img
+              margin-top: -400px
+
+      #content
+        +span-columns(12)
+
+      h1
+        margin-left: -90px

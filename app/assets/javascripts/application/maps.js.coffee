@@ -14,7 +14,10 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
     marker.innerHTML = @args.marker
     _.extend @marker_options(), { content: marker, flat: true, anchor: RichMarkerPosition.MIDDLE_LEFT }
 
-load_maps = (map) ->
+load_maps = (theme) ->
+  theme = theme || $('[data-theme-wrapper]').data('theme') # REVIEW: Populate these once on loading
+  map_style = window.Nembrot.THEMES[theme]['map_style']
+  # if map_style == '' then map_style = 'greyscale'
   map_container = $('figure.map_container:visible .map').attr('id')
   show_map_type_control = (map_container == 'persistent_map') # Do not show map type in small maps (could also use size)
   if typeof map_container != 'undefined' && typeof window.Nembrot.MAP != 'undefined'
@@ -25,8 +28,8 @@ load_maps = (map) ->
     )
 
     handler.buildMap
-      provider: { 
-          styles: window.Nembrot.map_styles['greyscale'],
+      provider: {
+          styles: window.Nembrot.map_styles[map_style],
           streetViewControl: show_map_type_control,
           mapTypeControl: show_map_type_control,
           mapTypeControlOptions: {

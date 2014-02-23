@@ -1,8 +1,7 @@
 // Modules:
-// persistent-map-module
 // simple-blurbs-module
 
-.theme-maps
+.theme-liquid
 
   $background-color: #f7f7f7
   $body-font-color: #070707
@@ -32,28 +31,37 @@
 
   +colors
 
+  h1
+    font:
+      weight: 500
+
   #main
-    h1
-      font:
-        weight: 500
     h2
       font:
         family: 'prenton' !important
         weight: 700
+        size: 22px !important
 
-    .notes ul li
-      font:
-        family: 'lexia' !important
+  .notes ul li
+    font:
+      family: 'lexia' !important
 
-    #introduction
-      color: #222 !important
-      font:
-        style: normal
-        weight: 700
+  #introduction
+    color: #222 !important
+    font:
+      style: normal
+      weight: 700
 
-    footer.channel
+  &.home-index
+    .notes
+      +span-columns(8)
       ul
-        li
-          a
-            font:
-              family: 'prenton'
+        +columns(1)
+        +column-gap(0)
+
+  footer.channel
+    ul
+      li
+        a
+          font:
+            family: 'prenton'

@@ -2,6 +2,7 @@ class Theme < ActiveRecord::Base
 
   has_many :channels
 
+  default_scope { order(:name) }
   scope :public, -> { where(public: true) }
 
   before_validation :update_slug

@@ -22,6 +22,10 @@ class Channel < ActiveRecord::Base
     slug
   end
 
+  def home_note
+    Note.channelled(self).publishable.listable.blurbable.homeable.first
+  end
+
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
   end

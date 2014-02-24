@@ -23,7 +23,7 @@ class Channel < ActiveRecord::Base
   end
 
   def home_note
-    Note.channelled(self).publishable.listable.blurbable.homeable.first
+    Note.channelled(self).publishable.homeable.first
   end
 
   def should_generate_new_friendly_id?

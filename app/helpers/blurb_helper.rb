@@ -9,7 +9,8 @@ module BlurbHelper
     headline = subtitle.nil? ? "#{ main_title }" : "<span>#{ main_title }: </span>#{ subtitle }"
 
     # If an introduction exists, use it
-    return ["#{ headline }: ", introduction.truncate(blurb_length, separator: ' ', omission: omission)] unless introduction.blank? || introduction.length < blurb_length
+    # return ["#{ headline } ", introduction.truncate(blurb_length, separator: ' ', omission: omission)] unless introduction.blank? # || introduction.length < blurb_length
+    return ["#{ headline } ", introduction.truncate(blurb_length, separator: ' ', omission: omission)] unless introduction.blank? # || introduction.length < blurb_length
 
     # If the title is derived from the body, do not include it in the blurb
     body_contains_headline = clean_body.start_with?(headline)

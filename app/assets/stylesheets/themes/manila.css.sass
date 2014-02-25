@@ -39,7 +39,16 @@
   [data-controller=home]
     #single_map
       display: block
-      +span-columns(6)
-      +suffix(6)
+      +span-columns(8)
+      +suffix(4)
       height: $line-height * 15 !important
       margin-bottom: $line-height
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+  [data-controller=home]
+    #single_map
+      display: block
+      +span-columns(12)

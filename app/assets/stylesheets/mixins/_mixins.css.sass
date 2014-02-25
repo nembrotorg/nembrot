@@ -78,7 +78,8 @@
   +magazine-figure
   +magazine-image-landscape
 
-=magazine-half-overlaid
+
+=magazine-half
 
   #main
     &> article
@@ -88,6 +89,8 @@
           height: 135px
           border-bottom: 1px solid #171717
           position: absolute
+          display: table-cell
+          vertical-align: middle
           figcaption
             background-color: rgba(#ffffff, 0.25)
             height: 100%
@@ -123,3 +126,42 @@
           figure.image
             img
               margin-top: -400px
+
+=centered-image-container
+  img
+    height: auto
+    left: 50%
+    margin: -20% auto auto auto
+    max-width: none
+    top: 50%
+    width: 100%
+
+
+=magazine-half($small-height: 135px, $large-height: 330px, $headline-compensation: -180px, $screen-color: rgba(#ffffff, 0.25), $border-width: 1px, $border-color: #000)
+
+  #main
+    &> article
+      overflow: visible
+      section#content
+        figure.image
+          +centered-image-container
+          height: $small-height
+          border-bottom: $border-width solid $border-color
+          position: absolute
+          figcaption
+            background-color: $screen-color
+            height: 100%
+            width: 100%
+            position: absolute
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #main
+      &> article
+        margin-top: $large-height + $headline-compensation
+        overflow: visible
+        section#content
+          figure.image
+            height: $large-height

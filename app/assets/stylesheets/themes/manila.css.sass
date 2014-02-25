@@ -31,6 +31,7 @@
   $success-background-color: #0c0
 
   +colors
+  +magazine-half(135px, 330px, 0, rgba(#ffffff, 0), $border-width: 0, $border-color: #fff)
 
   #single_map
     display: none
@@ -38,13 +39,7 @@
   [data-controller=home]
     #single_map
       display: block
-
-
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    #tools ul li.channels a:before
-      color: $background-color
-      &:hover
-        color: $link-hover-color
+      +span-columns(6)
+      +suffix(6)
+      height: $line-height * 15 !important
+      margin-bottom: $line-height

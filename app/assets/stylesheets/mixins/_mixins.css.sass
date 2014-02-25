@@ -77,3 +77,49 @@
 =magazine
   +magazine-figure
   +magazine-image-landscape
+
+=magazine-half-overlaid
+
+  #main
+    &> article
+      overflow: visible
+      section#content
+        figure.image
+          height: 135px
+          border-bottom: 1px solid #171717
+          position: absolute
+          figcaption
+            background-color: rgba(#ffffff, 0.25)
+            height: 100%
+            width: 100%
+            position: absolute
+          img
+            height: auto
+            left: 0
+            margin: auto
+            max-width: none
+            top: 0
+            width: 100%
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #main
+      &> article
+        margin-top: 150px
+        overflow: visible
+        section#content
+          figure.image
+            height: 330px
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      &> article
+        section#content
+          figure.image
+            img
+              margin-top: -400px

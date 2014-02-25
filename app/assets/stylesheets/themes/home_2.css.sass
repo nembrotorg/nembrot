@@ -33,6 +33,8 @@
 
   $theme-home-2-logo-color: #990000
 
+  +magazine-half-overlaid
+
   #dashboard
     background-color: rgba(#ffffff, 1)
     position: absolute
@@ -44,28 +46,6 @@
     display: none
 
   #main
-
-    &> article
-      overflow: visible
-
-      section#content
-        figure.image
-          height: 135px
-          border-bottom: 1px solid #171717
-          position: absolute
-          figcaption
-            background-color: rgba(#ffffff, 0.25)
-            height: 100%
-            width: 100%
-            position: absolute
-          img
-            height: auto
-            left: 0
-            margin: auto
-            max-width: none
-            top: 0
-            width: 100%
-
     h1
       color: $theme-home-2-logo-color
       font:
@@ -101,7 +81,7 @@
       font:
         size: 28px
         style: normal
-      line-height: 30px
+      line-height: $line-height
 
     #text
       clear: both
@@ -138,16 +118,16 @@
   @media only screen and (min-width: 720px)
 
     #dashboard
-      top: 324px
+      top: 264px
 
     #main
-      &> article
-        margin-top: 210px
-        overflow: visible
 
-        section#content
-          figure.image
-            height: 390px
+      h1
+        font:
+          size: 90px
+        &:before
+          margin-right: $text-indent
+          vertical-align: 11px
 
       #content
         +span-columns(8)
@@ -168,23 +148,11 @@
       .channels
         margin-top: $line-height
 
-      h1
-        font:
-          size: 90px
-        &:before
-          margin-right: $text-indent
-          vertical-align: 11px
-
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
 
     #main
-      &> article
-        section#content
-          figure.image
-            img
-              margin-top: -400px
 
       #content
         +span-columns(12)

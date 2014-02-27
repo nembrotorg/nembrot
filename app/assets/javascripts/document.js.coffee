@@ -35,6 +35,9 @@ update_titles = () ->
   if title_data
     document.title = title_data
 
+truncate_blurbs = () ->
+  $('.notes li a, .channels li a').dotdotdot()
+
 _normalize_count = (data) ->
     count = ''
     count = data
@@ -81,6 +84,7 @@ $ ->
 
   $('time').timeago()
   update_titles()
+  truncate_blurbs()
   insert_qr_code()
   load_user_menu()
 
@@ -92,6 +96,7 @@ $ ->
 $(document).on 'pjax:success', '#main', (data) ->
   $('time').timeago()
   update_titles()
+  truncate_blurbs()
   insert_qr_code()
 
   # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first

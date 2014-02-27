@@ -461,13 +461,9 @@ footer
       p:first-of-type
         text-indent: 0
   &.parallel
-    line-height: $line-height * 2
-    .target
-      position: absolute
-      padding-top: $line-height
-      top: 0
-      left: 0
     &.collate
+      .target
+        line-height: $line-height * 2
       p
         text-indent: $text-indent
     div

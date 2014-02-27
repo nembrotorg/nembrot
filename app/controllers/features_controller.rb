@@ -6,7 +6,7 @@ class FeaturesController < ApplicationController
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."
       redirect_to root_path
-    elsif @notes.size > 1 && params[:feature_id].nil?
+    elsif @notes.listable.size > 1 && params[:feature_id].nil?
       show_feature_index
     else
       show_feature
@@ -17,7 +17,7 @@ class FeaturesController < ApplicationController
 
   def show_feature_index
     page_number = params[:page] ||= 1
-    @notes = @notes.page(page_number).load
+    @notes = @notes.listable.page(page_number).load
     @title = @notes.first.main_title
     interrelated_notes_features_and_citations
     @map = @notes.mappable

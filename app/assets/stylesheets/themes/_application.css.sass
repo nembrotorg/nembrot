@@ -73,26 +73,11 @@ nav ul li a:first-of-type
   display: none
 
 footer.channel
-  display: none
-  width: 100%
   ul
+    +horizontal-list
+    +arrow-links
     li
-      display: inline-block
-      &:first-of-type
-        a
-          &:before
-            display: none
-            padding: 0
-      a
-        font:
-          size: 18px
-          variant: small-caps
-          weight: bold
-        text-transform: lowercase
-        &:before
-          content: '|'
-          font-weight: normal
-          padding: 0 10px
+      margin-right: $text-indent
 
 .home-index .notes, .notes-show .notes, .home-index .channels
   h3

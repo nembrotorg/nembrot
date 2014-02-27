@@ -3,7 +3,7 @@
   section.notes
 
     header
-      h3 = title ||= t('notes.index.title')
+      h3 = link_to (title ||= t('notes.index.title')), notes_path
 
     ul
       - notes.each do |note|

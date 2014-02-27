@@ -5,23 +5,30 @@
     nav
       ul
 
+        li#menu
+          ul.promotions
+            - @promoted_notes.first(Setting['style.promotions_footer'].to_i).each do |note|
+              li = link_to note.headline, note_or_feature_path(note)
+
         li
           ul.sections
-            li = link_to 'Nembrot', '/'
-            li = link_to 'Help', '/help'
+            li = link_to t('home.title'), root_path
+            li = link_to t('notes.index.title'), notes_path
+            li = link_to t('citations.index.title'), citations_path
+            li = link_to t('books.index.title'), books_path unless Setting['advanced.books_section'] == 'false'
+            li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
+            li = link_to t('tags.index.title'), tags_path
 
-            -# @channels_owned_by_nembrot.each do |channel|
-            -# li = link_to channel.name, home_path(channel)
-
-            -# Here put all channels owned by Nembrot (home)
-            -# @sections.each do |section|
-            -#  li = link_to section.titlecase, feature_path(feature: section)
+            - @sections.each do |section|
+              li = link_to section.titlecase, feature_path(feature: section)
 
         li
-          ul.web-channels
+          ul.channels
 
             - Setting['advanced.web_channels'].split(/, ?| /).each do |link|
-              li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, 'Google+').titlecase, "http://#{ link }"
+              li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
 
-            -# li = link_to t('atom_feed'), notes_url(:atom)
+            li = link_to t('atom_feed'), notes_url(:atom)
             li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?
+
+    small.copyright = t('copyright_html')

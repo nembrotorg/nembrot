@@ -8,7 +8,7 @@ load_dashboard = () ->
 # Document hooks ******************************************************************************************************
 
 $ ->
-  $('#dashboard').draggable()
+  $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme (& uses different method from esc/keyup)
 
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { push: false } )
   $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]')
@@ -54,3 +54,6 @@ $ ->
         return
       , 500)
     return
+
+$(document).on 'pjax:success', '#main', (data) ->
+  $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme

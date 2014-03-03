@@ -347,23 +347,23 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*(<\/section>)\s*$/m, '\1<p>\2</p>\3')
-        .gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*$/, '\1<p>\2</p>')
-        .gsub(/^ *([^<>]+)\s*(<\/section>)\s*$/, '<p>\1</p>\2')
+    text.gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*(<\/section>)\s*$/m, '\1\n<p>\2</p>\n\3')
+        .gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*$/, '\1\n<p>\2</p>')
+        .gsub(/^ *([^<>]+)\s*(<\/section>)\s*$/, '<p>\1</p>\n\2')
         .gsub(/^\s*([^<].+[^>])\s*$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
-        .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
-        .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
-        .gsub(/^([^<].*[^>])$/, '<p>\1</p>') # Paragraphize anything that's not inside tags # FIXME
+        .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>\n')  # Wraps lines that begin with strong|em|span|a in <p> tags
+        .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>\n')  # ... and ones that end with those tags.
+        .gsub(/^([^<].*[^>])$/, '<p>\1</p>\n') # Paragraphize anything that's not inside tags # FIXME
   end
 
   def sectionize(text)
     text = text.split(/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/)
                .reject(&:empty?)
-               .map { |content| "<section>#{ content }</section>" }
+               .map { |content| "<section>\n#{ content }\n</section>" }
                .join unless text[/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/].blank?
     text = text.split('<header>')
                .reject(&:empty?)
-               .map { |content| "<section>#{ '<header>' if content.include? '<h2>' }#{ content }</section>" }
+               .map { |content| "<section>\n#{ '<header>' if content.include? '<h2>' }\n#{ content }\n</section>" }
                .join unless text[/<h2>/].blank?
     text
   end

@@ -334,8 +334,8 @@ module FormattingHelper
   end
 
   def headerize(text)
-    text.gsub(/^<strong>(.+?)<\/strong>$/m, '<header><h2>\1</h2></header>')
-        .gsub(/^<b>(.+?)<\/b>$/m, '<header><h2>\1</h2></header>')
+    text.gsub(/^\s*<strong>(.+?)<\/strong>\s*$/m, '<header><h2>\1</h2></header>')
+        .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
   end
 
   def deheaderize(text)

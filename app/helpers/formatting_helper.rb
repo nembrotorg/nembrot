@@ -100,7 +100,7 @@ module FormattingHelper
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text.gsub(/\n|\r/, '')
         .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
-        .gsub(/(<aside|<blockquote|<br|<div|<fig|<li|<nav|<section)/i, "\n\\1")
+        .gsub(/(<aside|<blockquote|<br|<div|<fig|<li|<nav|<section|<strong)/i, "\n\\1")
   end
 
   def format_blockquotes(text)

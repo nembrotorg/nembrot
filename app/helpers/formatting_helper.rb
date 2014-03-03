@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# REVIEW: All these functions should be moved to Nokogiri
+
 module FormattingHelper
 
   def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
@@ -358,7 +360,7 @@ module FormattingHelper
                .join unless text[/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/].blank?
     text = text.split('<header>')
                .reject(&:empty?)
-               .map { |content| "<section><header>#{ content }</section>" }
+               .map { |content| "<section>#{ '<header>' if content.include? '<h2>' }#{ content }</section>" }
                .join unless text[/<h2>/].blank?
     text
   end

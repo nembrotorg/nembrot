@@ -309,13 +309,16 @@ module FormattingHelper
     # TODO: This needs to be language dependent
     # The following assumes we are not running this on HTML text. This is not hugely concerning since for body text we
     #  run this via Nokogiri and other strings should not be marked up. (But: cite links in headers?)
-    text.html_safe.gsub(/'([\d]{2})/, "\u2019\\1")
-        .gsub(/s' /, "s\u2019 ")
+    text.gsub(/'([\d]{2})/, "\u2019\\1")
+        .gsub(/\&lsquo\;/, "\u2018")
+        .gsub(/\&rsquo\;/, "\u2019")
         .gsub(/\&\#x27\;/, "\u2019")
+        .gsub(/s' /, "s\u2019 ")
         .gsub(/(\b)'(\b)/, "\u2019")
         .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
         .gsub(/'(\w|<)/, "\u2018\\1")
         .gsub(/([\w\.\,\?\!>])'/, "\\1\u2019")
+        .gsub(/\&\#39\;/, '"')
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
         .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
@@ -331,12 +334,12 @@ module FormattingHelper
   end
 
   def headerize(text)
-    text.gsub(/^<strong>(.+)<\/strong>$/, '<header><h2>\1</h2></header>')
-        .gsub(/^<b>(.+)<\/b>$/, '<header><h2>\1</h2></header>')
+    text.gsub(/^<strong>(.+?)<\/strong>$/m, '<header><h2>\1</h2></header>')
+        .gsub(/^<b>(.+?)<\/b>$/m, '<header><h2>\1</h2></header>')
   end
 
   def deheaderize(text)
-    text.gsub(/<(strong|h2)>.*?<\/(strong|h2)>/, '')
+    text.gsub(/<(strong|h2)>.*?<\/(strong|h2)>/m, '')
   end
 
   def denumber_headers(text)

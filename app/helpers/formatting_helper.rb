@@ -349,7 +349,7 @@ module FormattingHelper
   def paragraphize(text)
     text.gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*(<\/section>)\s*$/m, "\\1\n<p>\\2</p>\n\\3")
         .gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*$/, "\\1\n<p>\\2</p>\n")
-        .gsub(/^([^<>]+)\s*(<\/section>)\s*$/, "<p>\\1</p>\n\\2")
+        .gsub(/^([^>])\s*(<\/section>)\s*$/, "<p>\\1</p>\n\\2")
         .gsub(/^\s*([^<].+[^>])\s*$/, "<p>\\1</p>")    # Wraps lines in <p> tags, except if they're already wrapped
         .gsub(/^<(strong|em|span|a)(.+)$/, "<p><\\1\\2</p>\n")  # Wraps lines that begin with strong|em|span|a in <p> tags
         .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, "<p>\\1\\2\\3></p>\n")  # ... and ones that end with those tags.

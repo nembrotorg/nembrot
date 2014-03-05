@@ -73,12 +73,21 @@ nav ul li a:first-of-type
 .statistics
   display: none
 
-footer.channel
+div#main footer.channel
+  +span-columns(12)
+  margin: 0
   ul
     +horizontal-list
-    +arrow-links
     li
-      margin-right: $text-indent
+      margin-right: $text-indent / 4
+      &:first-of-type
+        a
+          &:before
+            display: none
+      a
+        &:before
+          content: '|'
+          padding-right: $text-indent / 4
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 

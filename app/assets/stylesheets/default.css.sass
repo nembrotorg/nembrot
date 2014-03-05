@@ -545,10 +545,11 @@ section.ins-section, article.ins-section
   font-style: italic
 
 .tags-index
-  ul
-    +columns(2)
-    &.cloud
-      +inline-block-list
+  .tags
+    ul
+      +columns(2)
+      &.cloud
+        +inline-block-list
 
 .tags-show, .tags-map
   h1:before
@@ -801,12 +802,14 @@ aside
         margin-bottom: $line-height
 
   .links-index
-    ul
-      +columns(2)
+    .links
+      ul
+        +columns(2)
 
   .tags-index
-    ul
-      +columns(4)
+    .tags
+      ul
+        +columns(4)
 
   footer
     nav

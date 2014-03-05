@@ -84,11 +84,11 @@ class Note < ActiveRecord::Base
   end
 
   def self.sections
-    where(is_section: true).pluck(:feature).uniq
+    where(is_section: true).uniq
   end
 
   def self.features
-    where(is_feature: true, is_section: false).pluck(:feature).uniq
+    where(is_feature: true, is_section: false).uniq
   end
 
   def has_instruction?(instruction, instructions = instruction_list)

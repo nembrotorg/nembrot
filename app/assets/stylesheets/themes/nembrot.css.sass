@@ -31,21 +31,7 @@
   $success-background-color: #0c0
 
   +colors
-
-  h1
-    font:
-      weight: 500
-
-  #main
-    h2
-      font:
-        family: 'prenton' !important
-        weight: 700
-        size: 22px !important
-
-  .notes ul li
-    font:
-      family: 'lexia' !important
+  +typekit-nembrot
 
   #introduction
     color: #222 !important
@@ -55,14 +41,6 @@
 
   &.home-index
     .notes
-      +span-columns(8)
       ul
         +columns(1)
         +column-gap(0)
-
-  footer.channel
-    ul
-      li
-        a
-          font:
-            family: 'prenton'

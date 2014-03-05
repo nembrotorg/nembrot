@@ -5,11 +5,11 @@
 
 .theme-home
 
-  $background-color: #070707
-  $body-font-color: #e7e7e7
+  $background-color: #f7f7f7
+  $body-font-color: #070707
   $border-color: $body-font-color
-  $caption-color: #666
-  $count-color: #300
+  $caption-color: #333
+  $count-color: #c00
   $delete-font-color: #ccc 
   $error-background-color: #c00 
   // $evernote-color: 
@@ -19,7 +19,7 @@
   $headline-font-color: #b70000
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
-  $link-hover-color: #b70000
+  $link-hover-color: #00c
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
@@ -31,122 +31,130 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
+  $theme-home-2-logo-color: #990000
+
   +colors
+  +magazine-half
+  +typekit-home
 
-  h1
-    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
-    font:
-      weight: 700
-      style: italic
+  #dashboard
+    background-color: rgba(#ffffff, 1)
+    position: absolute
+    top: 354px
+    a[href='#close']
+      display: none
 
-  h3
-    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
+  #tools
+    display: none
 
-  #introduction
-    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
-    font:
-      size: 36px
-      style: normal
-    line-height: $line-height * 1.5
-    margin-bottom: $line-height / 2
+  #main
+    h1
+      color: $theme-home-2-logo-color
+      font:
+        size: 48px
+        style: normal
+        variant: small-caps
+        weight: 800
+      text-transform: lowercase
+      &:before
+        +border-bottom-right-radius(12px)
+        +border-top-right-radius(12px)
+        +box-sizing(border-box)
+        border:
+          color: $theme-home-2-logo-color
+          style: solid
+          width: 8px
+        color: $theme-home-2-logo-color
+        content: 'nb'
+        display: inline-block
+        font:
+          size: 48px
+          style: normal
+          variant: small-caps
+          weight: 800
+        letter-spacing: 2px
+        line-height: 24px
+        padding: 8px 4px
+        text-transform: lowercase
+        vertical-align: 0
 
-  #text
-    margin-bottom: $line-height * 16
-    .body
-      p
+    #introduction
+      color: #171717
+      font:
+        size: 28px
+        style: normal
+      line-height: $line-height
+
+    #text
+      clear: both
+      display: inline
+      width: auto !important
+      ul
+        +horizontal-list
         +arrow-links-all
         text-transform: lowercase
         a
           margin-right: $text-indent / 2
           text-decoration: none
 
-  .map_container
-    display: none
+    aside
+      display: inline
+      width: auto
+      .shares
+        display: none
 
-  &.home-index
-    // article
-    //   #text
-    //     .side-annotations
-    //       display: none
-    .notes
-      +span-columns(8)
-      ul
-        +columns(1)
-        +column-gap(0)
-
-    section.channels
+    .channels
+      margin-top: $line-height * 15
       li
-        +box-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
-        +transition
-        border: 1px solid #000
-        &:hover
-          border-color: $link-hover-color
-          +box-shadow(rgba($link-hover-color, 0.1) 1px 1px 0, rgba($link-hover-color, 0.05) 2px 2px 0, rgba($link-hover-color, 0.02) 2px 2px 0)
-          +transition(0.5)
-          h2
-            background: rgba($link-hover-color, 1)
-            +transition(0.5)
-        h2
-          display: block
-          padding: 0 5px
+        +simple-blurb
 
-  input
-    color: #000 !important
-
-  #tools
-    background: none
-    border: none
-    bottom: $line-height / 2
-    height: $line-height * 2
-    display: none // TEMPORARILY HIDDEN
-    position: absolute
-    left: 5%
-    top: auto
-    width: 200px
-    ul
-      li
-        a
-          color: $count-color
-          font-size: 12px
-          +text-shadow(rgba(black, 0.5) 1px 1px 0)
-          &:before
-            +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0, rgba(black, 0.3) 3px 3px 0)
-            font-size: 30px
-    .menu, .home, .user, .channels, .page
-      display: none
-
-  footer
-    display: none
-
-  // Note under #main //////////////////////////////////////////
-
-  #dashboard
-    a[href*=close]
-      display: none
-
-  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 720px)
 
-    h1
-      font:
-        size: 72px
+    #dashboard
+      top: 264px
 
-    #text
-      margin-bottom: $line-height
+    #main
 
-    #tools
-      display: block
-      top: $line-height * 14.5
+      h1
+        font:
+          size: 90px
+        &:before
+          // margin-right: $text-indent
+          vertical-align: 11px
+
+      #content
+        +span-columns(8)
+
+      #introduction
+        color: #171717
+        font:
+          size: 48px
+          style: normal
+        line-height: 60px
+
+      aside
+        .shares
+          display: block
+          a:before
+            font-size: 1.2em
+
+      .channels
+        +span-columns(12)
+        margin-top: $line-height
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
 
-    #tools
-      left: 50%
-      top: $line-height * 13
-      margin-left: -530px
+    #main
 
-    h1
-      padding-top: $line-height
+      #content
+        +span-columns(12)
+
+      h1
+        margin-left: -94px
+
+      .channels
+        +span-columns(9)

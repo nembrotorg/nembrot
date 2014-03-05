@@ -4,10 +4,8 @@ defaults: &defaults
     body_font: Georgia
     body_font_citation_color: '#000'
     body_font_citation_family: sans-serif
-    body_font_citation_size: 15px
     body_font_color: '#000'
     body_font_family: serif
-    body_font_size: 18px
     body_font_variant: regular
     border_color: '#ccc'
     caption_color: '#454545'
@@ -22,7 +20,7 @@ defaults: &defaults
     facebook_color: '#3b5998'
     font_color: '#000'
     font_family: sans-serif
-    font_size: 15px
+    font_size: 18px
     force_double_quotes: true
     furniture_color: '#666'
     github_color: '#201f1f'
@@ -32,7 +30,6 @@ defaults: &defaults
     headline_font: sans-serif
     headline_font_color: '#900'
     headline_font_family: sans-serif
-    headline_font_size: 36px
     headline_font_variant: condensed_book
     hyper_conform: false
     images_cinema_aspect_x: 27
@@ -74,7 +71,6 @@ defaults: &defaults
     secondary_color: '#333'
     selected_background_color: '#ff0'
     selected_font_color: '#000'
-    small_font_size: 13px
     static_url_color: '#090'
     success_background_color: '#45ff45'
     total_columns: 12

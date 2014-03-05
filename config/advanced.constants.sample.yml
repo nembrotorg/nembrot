@@ -53,7 +53,7 @@ defaults: &defaults
     twitter_user_name: CHANGE_ME_OPTIONAL
     version_gap_distance: 100
     version_gap_minutes: 60
-    versions: true
+    versions: false
     web_channels: facebook.com/CHANGE_ME_OPTIONAL twitter.com/CHANGE_ME_OPTIONAL github.com/nembrotorg/nembrot googleplus.com/CHANGE_ME_OPTIONAL
 
 development:

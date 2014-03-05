@@ -1,0 +1,232 @@
+=colors
+  body
+    background-color: $background-color
+
+  footer, #tools
+    background-color: $background-color
+    a, a:before
+      border-color: $font-color
+      color: $font-color
+
+  // Reconsider whether you really need to namespace these
+  #dashboard
+    input
+      &[type=button],
+      &[type=submit]
+        border:
+          color: $border-color
+
+  #main
+    +font-color
+
+    ::selection
+      background: $selected-background-color
+
+    ::-moz-selection
+      background: $selected-background-color
+
+    del
+      color: $delete-font-color
+
+    form
+      select, input:not([type=button]):not([type=submit])
+        border-color: $border-color
+        color: $font-color
+      &.important:not([value])
+        border-color: $error-background-color
+      input
+        &[type=email],
+        &[type=number],
+        &[type=password],
+        &[type=text],
+        &[type=url],
+          border: 1px solid $border-color
+          color: $font-color
+          &.important:not([value])
+            border-color: $error-background-color
+        &[type=button],
+        &[type=submit]
+          border-color: $border-color
+
+    section:not(.ins-section) section, .home-index
+      h2
+        color: $headline-font-color
+
+    ins
+      background-color: $insert-background-color
+
+      td
+        &:empty
+          background-color: $error-background-color
+
+    .count
+      color: $count-color
+
+    .home-index, .notes-show, .notes-version,
+    .features-index section:not(.ins-section), .features-show section:not(.ins-section), 
+    .features-show article:not(.ins-section), .features-version
+      h1
+        color: $headline-font-color
+
+    .url
+      color: $static-url-color
+
+    .alert,
+    .error
+      background-color: $error-background-color
+    .notice, 
+    .success
+      background-color: $success-background-color
+
+    footer
+      ul
+        &.promotions
+          color: $headline-font-color
+
+    figure
+      &.image
+        figcaption
+          color: $caption-color
+      &.citation
+        blockquote
+          &:before
+            color: $secondary-color
+
+    .annotations
+      li:target
+        background-color: $selected-background-color
+
+      .citation
+        color: $body-font-citation-color
+
+      .count
+        color: $count-color
+
+    .map_container
+      #single_map
+        background-color: $map-background-color
+        color:  $map-font-color
+
+    .pagination
+      ol
+        li
+          .current
+            color: $off-color
+            &:before
+              border-color: $off-color
+
+    article
+      .tags
+        ul
+          &:before
+            color: $secondary-color
+
+    #introduction
+      color: $body-font-color
+
+    #text
+      .body, .annotations
+        color: $body-font-color
+        p
+          color: $body-font-color
+        section
+          h2
+            color: $body-font-color
+      &.collate
+        .source
+          p
+            color: $headline-font-color
+        div
+          .source
+            color: $headline-font-color
+      .side-annotations
+        ol
+          li
+            color: $headline-font-color
+
+    section:not(.ins-section), .home-index, .notes-show
+      .notes li, .citations li, .map-infowindow
+        // +body-font
+        // REVIEW: The following should be superfluous
+        a
+          color: $body-font-color
+          &:after
+            background-color: $background-color
+            color: $body-font-color
+            border-color: $body-font-color
+          h2
+            color: $headline-font-color
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+    .books-admin, .books-edit, .links-admin, .links-edit
+      .breadcrumb
+        background-color: $selected-background-color
+
+    .tags-show, .tags-map
+      h1:before
+        color: $secondary-color
+
+    .oauth
+      ul
+        li
+          &.connected:before
+            color: $font-color
+          a:before, span:before
+            color: $background-color
+
+    .ins-enumerate
+      #text
+        &.regular p, section.source p, p.source 
+          &:before
+            color: $off-color
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @media only screen and (min-width: 1024px)
+
+      article
+        section#content
+          #text
+            &.enface
+              .source, p.source
+                color: $body-font-color
+                p
+                  color: $body-font-color
+
+      footer, #tools
+        a, a:before
+          &:hover
+            border-color: $link-hover-color
+            color: $link-hover-color
+
+      // REVIEW: This isn't working. Is it even necessary?
+      //  Many sites (e.g. Medium.com) do not use any hover events on promotions.
+      //  But making the arrow at the end, or the ellipsis, change colour would be good.
+      // section ul li:hover, .map-infowindow
+      //   a
+      //     &:hover
+      //       color: $link-hover-color
+      //     &:after
+      //       &:hover
+      //         color: $link-hover-color
+      //         border-color: $link-hover-color
+
+      #main
+        form
+          label
+            &:hover
+              background-color: $row-hover-color
+
+        table
+          tr
+            &:hover
+              background-color: $row-hover-color
+
+  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @media only screen and (min-width: 1200px)
+
+      #tools
+        background-color: transparent

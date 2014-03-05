@@ -1,8 +1,8 @@
 // Modules:
-// persistent-map-module
 // simple-blurbs-module
+// standard-widths-module
 
-.theme-maps
+.theme-nembrot
 
   $background-color: #f7f7f7
   $body-font-color: #070707
@@ -31,29 +31,16 @@
   $success-background-color: #0c0
 
   +colors
+  +typekit-nembrot
 
-  #main
-    h1
-      font:
-        weight: 500
-    h2
-      font:
-        family: 'prenton' !important
-        weight: 700
+  #introduction
+    color: #222 !important
+    font:
+      style: normal
+      weight: 700
 
-    .notes ul li
-      font:
-        family: 'lexia' !important
-
-    #introduction
-      color: #222 !important
-      font:
-        style: normal
-        weight: 700
-
-    footer.channel
+  &.home-index
+    .notes
       ul
-        li
-          a
-            font:
-              family: 'prenton'
+        +columns(1)
+        +column-gap(0)

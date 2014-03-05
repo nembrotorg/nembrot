@@ -13,6 +13,8 @@ $error-color: #cc0000
   +font-color
   background-color: rgba($dashboard-white-color, 1)
   border: 1px solid $dashboard-black-color
+  font:
+    family: 'proxima-nova'
   cursor: hand
   height: $line-height * 12.5
   left: 5%
@@ -37,14 +39,13 @@ $error-color: #cc0000
       padding-top: 20px
     h2
       font:
-        family: 'proxima-nova'
         size: 28px
         variant: small-caps
         weight: 600
       padding: 0 5px
       text-transform: lowercase
       &:before
-        font-size: 18px
+        font-size: 1.2em
 
   .breadcrumb
     display: none
@@ -86,7 +87,7 @@ $error-color: #cc0000
     bottom: 0
     color: $dashboard-hover-color
     display: block
-    font-weight: 700
+    font-weight: 600
     position: absolute
     padding: ($text-indent / 2)
     width: 100%
@@ -130,7 +131,7 @@ $error-color: #cc0000
         color: $link-hover-color
 
   .available
-    font-size: $small-font-size
+    font-size: 0.8em
     line-height: $line-height * 2/3
 
   .available-true
@@ -199,7 +200,7 @@ $error-color: #cc0000
       .name
         input
           border: 1px solid #666
-          font-weight: 700
+          font-weight: 600
         &:hover
           background-color: none
 

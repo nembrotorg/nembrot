@@ -23,7 +23,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
+                  if:  proc { |note| Setting['advanced.versions'] == 'true' && ((note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i)  },
                   unless: proc { |note| Setting['advanced.versions'] == false || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },

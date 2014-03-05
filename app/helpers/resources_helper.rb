@@ -113,6 +113,7 @@ module ResourcesHelper
       i.resize(op_resize)
       i.gravity(gravity)
       i.crop "#{w.to_i}x#{h.to_i}+#{w_offset}+#{h_offset}!"
+      i.quality 65
     end
 
     img

@@ -32,6 +32,14 @@ body
 
 a
   text-decoration: none
+  // Disable grey box around tapped areas (particularly on iPhone).
+  //  See: http://stackoverflow.com/questions/9009377
+  &:link
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+  // Disable dotted outline.
+  //  See: http://stackoverflow.com/questions/179510
+  &:focus
+    outline: 0
 
 nav, aside // REVIEW: This results in too much css
   ul li a:first-of-type

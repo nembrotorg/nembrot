@@ -430,6 +430,7 @@ footer
       &[id*=annotation-mark]
         font-size: 0.6em
         vertical-align: super
+  .body
     blockquote
       margin: ($line-height / 2) $text-indent
     table
@@ -438,19 +439,27 @@ footer
       td
         padding: 5px
       tr:first-of-type
-        background-color: #eee
         font-weight: 600
-    ol, ul
-      list-style-position: inside
-      margin-left: 0
-      padding-left: $text-indent
-      text-indent: $text-indent * -1
     ol
+      counter-reset: items
       li
-        list-style-type: decimal
+        counter-increment: items 1
+        padding-left: $text-indent
+        &:before
+          content: counter(items)
+          left: 0
+          position: absolute
+          width: $text-indent
     ul
       li
-        list-style-type: square
+        padding-left: $text-indent
+        &:before
+          +icon-circle
+          +icon-small
+          font-size: 7px
+          left: 0
+          position: absolute
+          width: $text-indent
 
     section
       margin-bottom: $line-height
@@ -638,7 +647,7 @@ ul.admin
 .ins-enumerate
   counter-reset: paragraphs
   #text
-    &.regular p, section.source p, p.source 
+    &.regular p, section.source p, p.source
       counter-increment: paragraphs 1
       position: relative
       &:before

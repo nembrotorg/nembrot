@@ -55,10 +55,6 @@
     ins
       background-color: $insert-background-color
 
-      td
-        &:empty
-          background-color: $error-background-color
-
     .count
       color: $count-color
 
@@ -91,6 +87,19 @@
         blockquote
           &:before
             color: $secondary-color
+
+    .body
+      table
+        tr:first-of-type
+          background-color: $furniture-color
+      ol
+        li
+          &:before
+            color: $furniture-color
+      ul
+        li
+          &:before
+            color: $furniture-color
 
     .annotations
       li:target
@@ -162,6 +171,9 @@
     .books-admin, .books-edit, .links-admin, .links-edit
       .breadcrumb
         background-color: $selected-background-color
+      td
+        &:empty
+          background-color: $error-background-color
 
     .tags-show, .tags-map
       h1:before

@@ -69,6 +69,10 @@
   overflow: hidden
   width: $button-width
 
+=outline($color: rgba(#fff, 0.5), $distance: 1px, $blur: 1px)
+  $negative-distance: $distance * -1
+  +text-shadow(($color $distance $distance $blur), ($color $negative-distance $negative-distance 1px), ($color 1px $negative-distance 1px), ($color $negative-distance 1px 1px))
+
 =pagination-nav($button-width: $text-indent)
   clear: both
   margin-bottom: $line-height

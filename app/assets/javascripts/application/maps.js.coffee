@@ -12,7 +12,7 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
     marker = document.createElement('div')
     marker.setAttribute 'class', 'marker'
     marker.innerHTML = @args.marker
-    _.extend @marker_options(), { content: marker, flat: true, anchor: RichMarkerPosition.MIDDLE_LEFT }
+    _.extend @marker_options(), { content: marker, flat: true, anchor: RichMarkerPosition.TOP_LEFT }
 
 load_maps = (theme) ->
   theme = theme || $('[data-theme-wrapper]').data('theme') # REVIEW: Populate these once on loading

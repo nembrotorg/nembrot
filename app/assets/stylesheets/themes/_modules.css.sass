@@ -65,13 +65,23 @@
     .marker
       display: inline-block
       font:
-        weight: bold
         size: 0.8em
       max-width: 200px
       overflow: display
       white-space: nowrap
       &:before
         +icon
-        font-size: 2em
+        +outline
+        color: $body-font-color
         content: '\e810'
+        font-size: 2em
+        padding-right: 5px
         vertical-align: -0.15em
+      a
+        +outline
+        color: $body-font-color
+      &:hover
+        a
+          color: $link-hover-color
+        &:before
+          color: $link-hover-color

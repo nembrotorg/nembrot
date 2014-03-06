@@ -5,7 +5,7 @@
 .theme-maps-night-vision
 
   $background-color: #001504
-  $body-font-color: #d7d7d7
+  $body-font-color: #c0c0c0
   $border-color: $body-font-color
   $caption-color: #00ab28
   $count-color: #0c0
@@ -34,8 +34,30 @@
   +typekit-nembrot
 
   h1
-    color: #88c4fb !important
+    +outline(rgba($headline-font-color, 0.2), 1px, 0)
+    color: $background-color !important
+    font-size: $line-height * 1.5
 
   h1, h2
     font-variant: small-caps
     text-transform: lowercase
+
+  #main
+    #introduction
+      font-style: normal
+
+
+.persistent-map-module
+  .map
+    .marker
+      &:before
+        +outline(rgba(#007f1e, 0.8))
+        color: #000
+      a
+        +outline(rgba(#007f1e, 0.8))
+        color: #000
+      &:hover
+        a
+          color: $link-hover-color
+        &:before
+          color: $link-hover-color

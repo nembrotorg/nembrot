@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_sections
-    @sections = Note.channelled(@current_channel).sections
+    @sections = Note.where(lang: Setting['advanced.locale']).channelled(@current_channel).sections
   end
 
   def after_sign_up_path_for(resource)

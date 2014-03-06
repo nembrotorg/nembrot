@@ -6,6 +6,7 @@ change_theme = (theme) ->
   $('html').data('action', $('body [data-action]').data('action'))
 
   window.Nembrot.load_maps(theme)
+  window.Nembrot.add_thumbnails()
   change_image_effects(theme)
 
 change_theme_if_editing_channel = (theme) ->

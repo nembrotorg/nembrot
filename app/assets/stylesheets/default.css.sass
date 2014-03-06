@@ -432,13 +432,32 @@ footer
         vertical-align: super
     blockquote
       margin: ($line-height / 2) $text-indent
+    table
+      font:
+        size: 0.8em
+      td
+        padding: 5px
+      tr:first-of-type
+        background-color: #eee
+        font-weight: 600
+    ol, ul
+      list-style-position: inside
+      margin-left: 0
+      padding-left: $text-indent
+      text-indent: $text-indent * -1
+    ol
+      li
+        list-style-type: decimal
+    ul
+      li
+        list-style-type: square
+
     section
       margin-bottom: $line-height
       h2
         display: block
         margin: 0
         font:
-          // family: $headline-font-family
           size: 1.2em
       &:first-of-type
         h2

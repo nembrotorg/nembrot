@@ -1,6 +1,7 @@
 // Modules:
+// persistent-map-module
 // simple-blurbs-module
-// standard-widths-module
+// content-left-module
 
 .theme-maps
 
@@ -33,14 +34,30 @@
   +colors
   +typekit-nembrot
 
-  #introduction
-    color: #222 !important
-    font:
-      style: normal
-      weight: 700
+  #main
+    #introduction
+      color: #222 !important
+      font:
+        style: normal
+        weight: 700
 
-  &.home-index
-    .notes
-      ul
-        +columns(1)
-        +column-gap(0)
+    &.home-index
+      .notes
+        ul
+          +columns(1)
+          +column-gap(0)
+
+  .persistent-map-module
+    .map
+      .marker
+        &:before
+          +outline(rgba(#fff, 0.8))
+          color: #000
+        a
+          +outline(rgba(#fff, 0.8))
+          color: #000
+        &:hover
+          a
+            color: $link-hover-color
+          &:before
+            color: $link-hover-color

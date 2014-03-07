@@ -1,6 +1,7 @@
 // Modules:
 // persistent-map-module
-// panel-blurbs-module
+// simple-blurbs-module
+// content-left-module
 
 .theme-maps-night-vision
 
@@ -46,18 +47,17 @@
     #introduction
       font-style: normal
 
-
-.persistent-map-module
-  .map
-    .marker
-      &:before
-        +outline(rgba(#007f1e, 0.8))
-        color: #000
-      a
-        +outline(rgba(#007f1e, 0.8))
-        color: #000
-      &:hover
-        a
-          color: $link-hover-color
+  .persistent-map-module
+    .map
+      .marker
         &:before
-          color: $link-hover-color
+          +outline(rgba(#007f1e, 0.8))
+          color: #000
+        a
+          +outline(rgba(#007f1e, 0.8))
+          color: #000
+        &:hover
+          a
+            color: $link-hover-color
+          &:before
+            color: $link-hover-color

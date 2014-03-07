@@ -48,8 +48,8 @@
     right: 0
     top: 0
     z-index: 1
-    height: 100%
-    width: 50%
+    height: 50%
+    width: 100%
 
     #persistent_map
       position: absolute
@@ -57,6 +57,9 @@
       right: 0
       top: 0
       width: 100%
+
+  #main
+    margin-top: 50%
 
   #single_map_container
     display: none !important
@@ -85,3 +88,19 @@
           color: $link-hover-color
         &:before
           color: $link-hover-color
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #persistent_map_container
+      display: block
+      position: fixed
+      right: 0
+      top: 0
+      z-index: 1
+      height: 100%
+      width: 50%
+
+    #main
+      margin-top: 0

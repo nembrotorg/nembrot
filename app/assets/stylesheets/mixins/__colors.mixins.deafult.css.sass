@@ -82,7 +82,12 @@
     figure
       &.image
         figcaption
-          color: $caption-color
+          p
+            color: $caption-color
+            a
+              color: $caption-color
+              &:hover
+                color: $link-hover-color
       &.citation
         blockquote
           &:before

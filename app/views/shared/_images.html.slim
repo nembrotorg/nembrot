@@ -4,6 +4,7 @@
     = image_tag(cut_image_binary_path(image, type: type, effects: @current_channel.theme.effects), alt: strip_tags(image.description))
     - unless image.caption.blank? && image.credit.blank?
       figcaption
-        = simple_blurbify(image.caption) unless image.caption.blank?
-        - unless image.credit.blank?
-          span.credit= simple_blurbify(image.credit)
+        p
+          = simple_blurbify(image.caption) unless image.caption.blank?
+          - unless image.credit.blank?
+            span.credit = simple_blurbify(image.credit)

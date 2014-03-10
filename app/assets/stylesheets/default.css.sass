@@ -284,7 +284,7 @@ figure
     figcaption
       .credit
         &:before
-          content: '('
+          content: ' ('
         &:after
           content: ')'
   &.citation
@@ -453,13 +453,18 @@ footer
     ol
       counter-reset: items
       li
+        counter-reset: sub-items
         counter-increment: items 1
         padding-left: $text-indent
         &:before
           content: counter(items)
-          left: 0
+          margin-left: $text-indent * -1
           position: absolute
           width: $text-indent
+        li
+          counter-increment: sub-items
+          &:before
+            content: counter(items) "." counter(sub-items)
     ul
       li
         padding-left: $text-indent

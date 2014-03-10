@@ -7,10 +7,10 @@
   $background-color: #f7f7f7
   $body-font-color: #240f17
   $border-color: $body-font-color
-  $caption-color: #441328
+  $caption-color: #999
   $count-color: #c00
-  $delete-font-color: #ccc 
-  $error-background-color: #c00 
+  $delete-font-color: #999
+  $error-background-color: #c00
   // $evernote-color: 
   // $facebook-color:
   $font-color: $body-font-color
@@ -45,6 +45,15 @@
         display: block !important
         height: $line-height * 12 !important
         margin-bottom: $line-height
+
+    figure.image
+      figcaption
+        p
+          +rotate(-90deg)
+          bottom: $line-height / 2
+          font-size: 0.7em
+          left: $text-indent / 2
+          width: 25%
 
     #text .target .body p
       color: $headline-font-color

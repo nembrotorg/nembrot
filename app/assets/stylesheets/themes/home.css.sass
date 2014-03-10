@@ -8,11 +8,11 @@
   $background-color: #f7f7f7
   $body-font-color: #070707
   $border-color: $body-font-color
-  $caption-color: #333
+  $caption-color: #999
   $count-color: #c00
-  $delete-font-color: #ccc 
-  $error-background-color: #c00 
-  // $evernote-color: 
+  $delete-font-color: #ccc
+  $error-background-color: #c00
+  // $evernote-color:
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
@@ -77,6 +77,15 @@
         padding: 8px 4px
         text-transform: lowercase
         vertical-align: 0
+
+    figure.image
+      figcaption
+        p
+          +rotate(-90deg)
+          left: auto
+          top: $line-height / 2
+          right: $text-indent * 5
+          font-size: 0.7em
 
     #introduction
       color: #171717

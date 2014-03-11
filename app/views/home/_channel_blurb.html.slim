@@ -3,7 +3,7 @@
 
 - all_interrelated_notes_and_features = all_interrelated_notes_and_features || []
 
-- cache [channel, note, all_interrelated_notes_and_features] do
+- cache [cache_buster(1), channel, note, all_interrelated_notes_and_features] do
 
   - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
   - headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)

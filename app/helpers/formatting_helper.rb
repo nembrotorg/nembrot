@@ -14,8 +14,8 @@ module FormattingHelper
     text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
     text = headerize(text)
     text = sectionize(text)
-    text = annotated ? annotate(text) : remove_annotations(text)
     text = paragraphize(text)
+    text = annotated ? annotate(text) : remove_annotations(text)
     text = denumber_headers(text)
     clean_up_via_dom(text)
   end
@@ -38,8 +38,8 @@ module FormattingHelper
     target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section']
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
-    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
     target_text = paragraphize(target_text)
+    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
     target_text = denumber_headers(target_text)
 
     clean_up_via_dom(source_text)
@@ -104,8 +104,10 @@ module FormattingHelper
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text.gsub(/\n|\r/, '')
         .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
-        .gsub(/(<aside|<blockquote|<br|<div|<fig|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
-        .gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure\/>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
+        .gsub(/(<div)/i, "\n\\1")
+        .gsub(/(<\/div>)/i, "\\1\n")
+        #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
+        #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
   end
 
   def format_blockquotes(text)
@@ -241,9 +243,9 @@ module FormattingHelper
   end
 
   def clean_up_dom(dom, unwrap_p = false)
-    dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
-    dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
-    # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
+    dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
+    dom.css('h2 p, cite cite, p section, p p').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
+    dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs
     all_paragraphs = dom.css('.target').empty? ? dom.css('p') : dom.css('.target p')
@@ -251,6 +253,7 @@ module FormattingHelper
 
     dom.xpath('//text()').find_all.each do |t|
       t.content = smartify_punctuation(t.content)
+      # t.content = t.content.strip ... we only want to strip from the beginning of files
       # t.content = hyper_conform(t.content)
     end
     dom = indent_dom(dom) if Constant.html.pretty_body
@@ -278,8 +281,8 @@ module FormattingHelper
     target_paragraphs.each_with_index do |p, i|
       # CAREFUL: WHAT IF PARAS DON'T MATCH???
       p['class'] = 'target'
-      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : source_paragraphs[i].to_html
-      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : target_paragraphs[i].to_html
+      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- -->' : source_paragraphs[i].to_html
+      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- -->' : target_paragraphs[i].to_html
       p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
     end
 
@@ -306,8 +309,11 @@ module FormattingHelper
 
   def smartify_hyphens(text)
     text.gsub(/\s+[\-\u2013]+\s+/, "\u2014") # Em-dashes for everything.
-        # .gsub(/ +- +([^-^.]+) +- +/, "\u2013\\1\u2013") # Em-dashes for parentheses
-        # .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
+  end
+
+  def smartify_hyphens_mixed(text)
+    text.gsub(/ +- +([^-^.]+) +- +/, "\u2013\\1\u2013") # Em-dashes for parentheses
+        .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
   end
 
   def smartify_quotation_marks(text)
@@ -352,13 +358,7 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*(<\/section>)\s*$/m, "\\1\n<p>\\2</p>\n\\3")
-        .gsub(/^\s*(<section[^>]*>)\s*([^<>]+)\s*$/, "\\1\n<p>\\2</p>\n")
-        .gsub(/^([^>])\s*(<\/section>)\s*$/, "<p>\\1</p>\n\\2")
-        .gsub(/^\s*([^<].+[^>])\s*$/, "<p>\\1</p>")    # Wraps lines in <p> tags, except if they're already wrapped
-        .gsub(/^<(strong|em|span|a)(.+)$/, "<p><\\1\\2</p>\n")  # Wraps lines that begin with strong|em|span|a in <p> tags
-        .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, "<p>\\1\\2\\3></p>\n")  # ... and ones that end with those tags.
-        .gsub(/^([^<].*[^>])$/, "<p>\\1</p>\n") # Paragraphize anything that's not inside tags # FIXME
+    text.gsub(/^(.*?)$/, "<p>\\1</p>")
   end
 
   def sectionize(text)

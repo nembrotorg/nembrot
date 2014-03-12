@@ -18,7 +18,6 @@ module FormattingHelper
     text = annotated ? annotate(text) : remove_annotations(text)
     text = denumber_headers(text)
     clean_up_via_dom(text)
-    text = "#{ text }<h1>!-- SANITY CHECK 1 --</h1>".html_safe
   end
 
   def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes  = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)

@@ -4,7 +4,8 @@ class Note < ActiveRecord::Base
 
   include Syncable
 
-  attr_writer :tag_list, :instruction_list
+  attr_writer   :tag_list, :instruction_list
+  attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
@@ -23,7 +24,7 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| Setting['advanced.versions'] == 'true' && ((note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i)  },
+                  if:  proc { |note| note.save_new_version? },
                   unless: proc { |note| Setting['advanced.versions'] == false || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
@@ -201,6 +202,10 @@ class Note < ActiveRecord::Base
     Levenshtein.distance(previous_title_and_body, title + body)
   end
 
+  def save_new_version?
+    Setting['advanced.versions'] == 'true' && ((external_updated_at - Note.find(id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+  end
+
   private
 
   def is_untitled?
@@ -257,12 +262,12 @@ class Note < ActiveRecord::Base
 
   def update_metadata
     discard_versions?
+    update_date
     update_is_hidable?
     update_is_citation?
     update_is_listable?
     update_is_feature?
     update_is_section?
-    keep_old_date?
     update_lang
     update_feature
     update_feature_id
@@ -270,10 +275,19 @@ class Note < ActiveRecord::Base
     update_distance
   end
 
+  def update_date
+    self.external_updated_at = external_updated_at_was unless save_new_version? || new_record?
+    reset_date?
+  end
+
+  def reset_date?
+    self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true' && new_record?
+  end
+
   def discard_versions?
-    if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Setting['advanced.always_reset_on_create']
-      versions.destroy_all
+    if has_instruction?('reset')
+      self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true'
+      versions.destroy_all unless versions.empty?
     end
   end
 
@@ -287,11 +301,6 @@ class Note < ActiveRecord::Base
 
   def update_is_listable?
     self.listable = !has_instruction?('unlist')
-  end
-
-  def keep_old_date?
-    # If this is a minor update (i.e. we're not creating a new version), we keep the old date.
-    self.external_updated_at = external_updated_at_was unless title_changed? || body_changed?
   end
 
   def update_is_hidable?

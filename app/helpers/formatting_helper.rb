@@ -108,13 +108,14 @@ module FormattingHelper
         .gsub(/(<\/div>)/i, "\\1\n")
         #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
         #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
+    text = "\n#{ text }\n"
   end
 
   def format_blockquotes(text)
-    text.gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+    text.gsub(/\{?\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}?/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
         .gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*)\s*\}/i, "\n<blockquote>\\1</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
+        .gsub(/\{?\s*quote:([^\}]*?)\s*\}?/i, "\n<blockquote>\\1</blockquote>\n")
+        .gsub(/\{\s*quote:([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
   end
 
   def remove_instructions(text)
@@ -244,7 +245,7 @@ module FormattingHelper
 
   def clean_up_dom(dom, unwrap_p = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
-    dom.css('h2 p, cite cite, p section, p p').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
+    dom.css('h2 p, cite cite, p section, p header, p p, p h2').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
     dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs
@@ -358,18 +359,19 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^(.*?)$/, "<p>\\1</p>")
+    text.gsub(/^\s*([^<].*?)\s*$/, "<p>\\1</p>") # Wrap lines that do not begin with a tag
+        .gsub(/^\s*(<a|<del|<em|<i|<ins)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
   end
 
   def sectionize(text)
-    text = text.split(/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/)
+    text = text.split(/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/)
                .reject(&:empty?)
                .map { |content| "<section>\n#{ content }\n</section>" }
-               .join unless text[/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/].blank?
-    text = text.split('<header>')
+               .join unless text[/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/].blank?
+    text = text.split(/(?=<header)/)
                .reject(&:empty?)
-               .map { |content| "<section>\n#{ '<header>' if content.include? '<h2>' }\n#{ content }\n</section>" }
-               .join unless text[/<h2>/].blank?
+               .map { |content| "<section>\n#{ content }\n</section>" } # n#{ content.include? '<h2' ? '<header>' : '' }\
+               .join unless text[/<header/].blank?
     text
   end
 

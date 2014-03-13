@@ -4,6 +4,9 @@
 +side-annotations
 +tools-v2
 
+html, body
+  height: 100%
+
 input
   &[type=radio]
     float: right
@@ -74,20 +77,8 @@ nav ul li a:first-of-type
   display: none
 
 div#main footer.channel
+  +arrow-links
   +span-columns(12)
-  margin: 0
-  ul
-    +horizontal-list
-    li
-      margin-right: $text-indent / 4
-      &:first-of-type
-        a
-          &:before
-            display: none
-      a
-        &:before
-          content: '|'
-          padding-right: $text-indent / 4
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -107,6 +98,20 @@ div#main footer.channel
           +columns(3)
           +span-columns(8 omega)
 
+  div#main footer.channel
+    margin: 0
+    ul
+      +horizontal-list
+      li
+        margin-right: $text-indent / 4
+        &:first-of-type
+          a
+            &:before
+              display: none
+        a
+          &:before
+            content: '|'
+            padding-right: $text-indent / 4
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

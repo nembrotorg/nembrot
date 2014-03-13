@@ -5,6 +5,11 @@ load_dashboard = () ->
     success: (html) ->
       $('#dashboard').html(html)
 
+auto_open_dashboard = () ->
+  if location.pathname == '/' && $('#dashboard').not(':visible')
+    load_dashboard()
+    $('#dashboard').show()
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -35,16 +40,14 @@ $ ->
 
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()
-    $('#dashboard').fadeToggle()
-    if $('#dashboard').is(':visible')
+    # Test if it's hidden rather than test if it's visible later so that dashboard can load
+    #  while the dashboard is fading in 
+    if $('#dashboard').is(':hidden')
       load_dashboard()
       dashboard_button.fadeOut()
-    else
-      dashboard_button.fadeIn()
+    $('#dashboard').fadeToggle()
 
-  if location.pathname == '/' && $('#dashboard').not(':visible')
-    load_dashboard()
-    $('#dashboard').show()
+  auto_open_dashboard()
 
   thread = null
   $(document).on 'keyup', '#dashboard form .name input', (event) ->
@@ -63,5 +66,17 @@ $ ->
       , 500)
     return
 
+  # This was genericised but we still needed to deal with the button
+  #  a less coupled callback on the dashboard's visibility my solve it.
+  #  Maybe fire an event 'clofing' on the parent.
+  $(document).on 'click', 'a[href="#close"]', (event) ->
+    event.preventDefault()
+    $(event.target).parent().fadeOut()
+    dashboard_button.fadeIn()
+
 $(document).on 'pjax:success', '#main', (data) ->
   $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme
+  auto_open_dashboard()
+
+$(window).on 'popstate', ->
+  auto_open_dashboard()

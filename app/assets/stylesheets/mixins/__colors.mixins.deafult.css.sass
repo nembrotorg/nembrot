@@ -86,8 +86,6 @@
             color: $caption-color
             a
               color: $caption-color
-              &:hover
-                color: $link-hover-color
       &.citation
         blockquote
           &:before
@@ -212,6 +210,14 @@
                 color: $body-font-color
                 p
                   color: $body-font-color
+
+      figure
+        &.image
+          figcaption
+            p
+              a
+                &:hover
+                  color: $link-hover-color
 
       footer, #tools
         a, a:before

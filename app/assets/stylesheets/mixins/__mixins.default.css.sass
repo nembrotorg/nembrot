@@ -53,15 +53,21 @@
     &:after
       border-color: $color
       color: $color
-    &:hover
-      border-color: $hover-color
-      color: $hover-color
-      &:before
+
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    a
+      &:hover
         border-color: $hover-color
         color: $hover-color
-      &:after
-        border-color: $hover-color
-        color: $hover-color
+        &:before
+          border-color: $hover-color
+          color: $hover-color
+        &:after
+          border-color: $hover-color
+          color: $hover-color
 
 =icon-only($button-width: $text-indent, $height: $line-height)
   display: inline-block

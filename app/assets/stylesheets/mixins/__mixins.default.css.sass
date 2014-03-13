@@ -54,10 +54,12 @@
       border-color: $color
       color: $color
 
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+=font-color-hover($color: $font-color, $hover-color: $link-hover-color)
+
+  // We can't put this in the above because when we invoke it, it's already nested
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
-
     a
       &:hover
         border-color: $hover-color

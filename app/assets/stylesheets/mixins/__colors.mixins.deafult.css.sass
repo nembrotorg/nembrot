@@ -198,10 +198,18 @@
           &:before
             color: $off-color
 
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @media only screen and (min-width: 1024px)
+  @media only screen and (min-width: 1024px)
 
+    footer, #tools
+      a, a:before
+        &:hover
+          border-color: $link-hover-color
+          color: $link-hover-color
+
+    #main
+      +font-color-hover
       article
         section#content
           #text
@@ -219,39 +227,20 @@
                 &:hover
                   color: $link-hover-color
 
-      footer, #tools
-        a, a:before
+      form
+        label
           &:hover
-            border-color: $link-hover-color
-            color: $link-hover-color
+            background-color: $row-hover-color
 
-      // REVIEW: This isn't working. Is it even necessary?
-      //  Many sites (e.g. Medium.com) do not use any hover events on promotions.
-      //  But making the arrow at the end, or the ellipsis, change colour would be good.
-      // section ul li:hover, .map-infowindow
-      //   a
-      //     &:hover
-      //       color: $link-hover-color
-      //     &:after
-      //       &:hover
-      //         color: $link-hover-color
-      //         border-color: $link-hover-color
+      table
+        tr
+          &:hover
+            background-color: $row-hover-color
 
-      #main
-        form
-          label
-            &:hover
-              background-color: $row-hover-color
-
-        table
-          tr
-            &:hover
-              background-color: $row-hover-color
-
-  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    @media only screen and (min-width: 1200px)
+  @media only screen and (min-width: 1200px)
 
-      #tools
-        background-color: transparent
+    #tools
+      background-color: transparent

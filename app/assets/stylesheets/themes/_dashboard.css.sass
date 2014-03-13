@@ -173,6 +173,7 @@ $error-color: #cc0000
           white-space: nowrap
         &:hover
           background-color: $dashboard-hover-color
+          color: #ffffff
       div
         height: $line-height * 4
         padding-top: $text-indent / 2
@@ -182,6 +183,7 @@ $error-color: #cc0000
       &.notebooks div
         label:hover
           background-color: $evernote-color
+          color: #ffffff
       &.name div
         overflow-y: hidden
         label:hover
@@ -268,12 +270,9 @@ $error-color: #cc0000
 @media only screen and (min-width: 1024px)
 
   #dashboard
+    +font-color-hover
     top: $line-height * 6.75
     bottom: auto
     left: 50%
     margin-left: 298px
     right: auto
-
-// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1200px)

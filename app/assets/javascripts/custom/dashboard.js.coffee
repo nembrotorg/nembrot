@@ -8,6 +8,8 @@ load_dashboard = () ->
 # Document hooks ******************************************************************************************************
 
 $ ->
+  dashboard_button = $('#tools a[href*=channels]')
+
   $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme (& uses different method from esc/keyup)
 
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { push: false } )
@@ -18,7 +20,9 @@ $ ->
 
   # REVIEW: Access current channel data more efficiently (read data once)
   $(document).on 'keyup', (event) ->
-    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel-slug') != 'default' then $('#dashboard').fadeOut() # REVIEW: Genericise
+    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel-slug') != 'default'
+      $('#dashboard').fadeOut() # REVIEW: Genericise
+      dashboard_button.fadeIn()
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'click', '#dashboard .notebooks label', ->
@@ -32,7 +36,11 @@ $ ->
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()
     $('#dashboard').fadeToggle()
-    if $('#dashboard').is(':visible') then load_dashboard()
+    if $('#dashboard').is(':visible')
+      load_dashboard()
+      dashboard_button.fadeOut()
+    else
+      dashboard_button.fadeIn()
 
   if location.pathname == '/' && $('#dashboard').not(':visible')
     load_dashboard()

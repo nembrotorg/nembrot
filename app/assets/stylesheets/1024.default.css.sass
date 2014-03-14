@@ -11,6 +11,15 @@
 
   iframe
     +span-columns(9, 12)
+    &[src*='spotify'],
+      height: $line-height * 15
+    &[src*='spotify'][src*='track'],
+      height: $line-height * 3
+    &[src*='spotify'][src*='album'],
+    &[src*='spotify'][src*='playlist'],
+      width: span(4)
+      position: absolute
+      right: 0
 
   article
     header

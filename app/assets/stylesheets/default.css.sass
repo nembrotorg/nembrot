@@ -311,6 +311,10 @@ iframe
     height: $line-height * 2
   &[src*='soundcloud.com%2Fplaylist']
     height: $line-height * 8
+  &[src*='spotify'],
+    height: $line-height * 8
+  &[src*='spotify'][src*='track'],
+    height: $line-height * 3
 
 .annotations
   font:
@@ -759,6 +763,8 @@ aside
       height: $line-height * 6
     &[src*='soundcloud.com%2Fplaylist']
       height: $line-height * 15
+    &[src*='spotify'],
+      height: $line-height * 3
 
   .citations
     +span-columns(6)

@@ -7,7 +7,7 @@ section.links
     - links.each do |link|
       li
 
-        = render 'shared/media', url: embeddable_url(link.url) if link.url =~ /youtube|vimeo|soundcloud/
+        = render 'shared/media', url: embeddable_url(link.url) if link.url =~ /youtube|vimeo|soundcloud|spotify/
 
         cite = link_to link.title, link.url
         = t('citation.link.accessed_at_html', accessed_at: (timeago_tag link.updated_at))

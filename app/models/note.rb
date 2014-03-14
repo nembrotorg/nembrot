@@ -137,7 +137,7 @@ class Note < ActiveRecord::Base
   # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
-    (source_url && source_url =~ /youtube|vimeo|soundcloud/)
+    (source_url && source_url =~ /youtube|vimeo|soundcloud|spotify/)
   end
 
   def fx

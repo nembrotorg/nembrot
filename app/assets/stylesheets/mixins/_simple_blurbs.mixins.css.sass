@@ -17,27 +17,8 @@
     +simple-blurb
 
   .notes
-    li
-      +simple-blurb
-
-  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 720px)
-
-    .notes
+    ul
+      +columns(1)
+      +column-gap(0)
       li
         +simple-blurb
-
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    .notes
-      li
-        +simple-blurb
-
-    .home-index
-      .notes
-        ul
-          li
-            +simple-blurb

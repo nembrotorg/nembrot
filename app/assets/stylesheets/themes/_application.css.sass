@@ -12,6 +12,7 @@ input
     float: right
 
 a[href='#close']
+  line-height: $line-height * 1.5
   position: absolute
   top: 0
   right: 0
@@ -109,9 +110,10 @@ div#main footer.channel
             &:before
               display: none
         a
-          &:before
-            content: '|'
-            padding-right: $text-indent / 4
+          &:first-of-type
+            &:before
+              content: '|'
+              padding-right: $text-indent / 4
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

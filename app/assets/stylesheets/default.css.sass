@@ -43,7 +43,7 @@ a
   &:focus
     outline: 0
 
-nav, aside // REVIEW: This results in too much css
+nav:not(.tags)
   ul li a:first-of-type
     &[href*=pdf]
       &:before
@@ -171,6 +171,7 @@ table
   width: 100%
   td
     margin-left: $gutter-width
+    vertical-align: top
     &:first-child
       margin-left: 0
 
@@ -309,7 +310,8 @@ iframe
     height: $line-height * 8
   &[src*='soundcloud.com']
     height: $line-height * 2
-  &[src*='soundcloud.com%2Fplaylist']
+  &[src*='soundcloud.com%2Fplaylist'],
+  &[src*='soundcloud.com'][src*='sets']
     height: $line-height * 8
   &[src*='spotify'],
     height: $line-height * 8
@@ -443,6 +445,7 @@ footer
         display: none
       &[id*=annotation-mark]
         font-size: 0.6em
+        line-height: 0
         vertical-align: super
   .body
     blockquote
@@ -451,9 +454,16 @@ footer
       td
         font:
           size: 0.8em
-        padding: 5px
-      tr:first-of-type
-        font-weight: 600
+        line-height: $line-height * 2/3
+        padding: ($line-height * 1/3) ($line-height * 2/3) ($line-height * 1/3) 0
+      tr
+        &:first-of-type
+          font-weight: 600
+          td
+            padding-bottom: ($line-height * 1/3) - 1px
+        &:last-of-type
+          td
+            padding-bottom: 0
     ol
       counter-reset: items
       li
@@ -762,6 +772,7 @@ aside
     &[src*='soundcloud.com']
       height: $line-height * 6
     &[src*='soundcloud.com%2Fplaylist']
+    &[src*='soundcloud.com'][src*='sets']
       height: $line-height * 15
     &[src*='spotify'],
       height: $line-height * 3

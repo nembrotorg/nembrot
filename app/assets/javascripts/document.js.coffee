@@ -78,6 +78,10 @@ $ ->
     $('html').removeClass('document-loading')
   , 3000)
 
+  $(document).on 'click', 'a[href="#close"]', (event) ->
+    event.preventDefault()
+    $(event.target).parent().fadeOut()
+
   $('time').timeago()
   update_titles()
   truncate_blurbs()

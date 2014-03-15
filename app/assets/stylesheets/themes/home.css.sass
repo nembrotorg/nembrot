@@ -31,7 +31,7 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
-  $theme-home-2-logo-color: #990000
+  $theme-home-logo-color: #b70000
 
   +colors
   +magazine-half
@@ -49,34 +49,8 @@
 
   #main
     h1
-      color: $theme-home-2-logo-color
-      font:
-        size: 48px
-        style: normal
-        variant: small-caps
-        weight: 800
-      text-transform: lowercase
-      &:before
-        +border-bottom-right-radius(12px)
-        +border-top-right-radius(12px)
-        +box-sizing(border-box)
-        border:
-          color: $theme-home-2-logo-color
-          style: solid
-          width: 8px
-        color: $theme-home-2-logo-color
-        content: 'nb'
-        display: inline-block
-        font:
-          size: 48px
-          style: normal
-          variant: small-caps
-          weight: 800
-        letter-spacing: 2px
-        line-height: 24px
-        padding: 8px 4px
-        text-transform: lowercase
-        vertical-align: 0
+      +brand($theme-home-logo-color)
+      font-size: 48px
 
     figure.image
       figcaption
@@ -116,8 +90,10 @@
 
     .channels
       margin-top: $line-height * 15
-      li
-        +simple-blurb
+      ul
+        margin-bottom: 0
+        li
+          +simple-blurb
 
   // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -131,9 +107,6 @@
       h1
         font:
           size: 90px
-        &:before
-          // margin-right: $text-indent
-          vertical-align: 11px
 
       #content
         +span-columns(8)
@@ -165,7 +138,7 @@
         +span-columns(12)
 
       h1
-        margin-left: -94px
+        margin-left: -115px
 
       .channels
         +span-columns(9)

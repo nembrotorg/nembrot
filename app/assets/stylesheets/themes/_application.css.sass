@@ -83,9 +83,14 @@ nav ul li a:first-of-type
 div#main footer.channel
   +arrow-links
   +span-columns(12)
-  // li:last-of-type
-  //   a
-  //     +logo
+  ul
+    li:last-of-type
+      a:first-of-type
+        +brand
+        margin-left: 0.25em
+        &:before
+          margin-right: 0.2em // REVIEW: These adjustments should not be necessary
+          vertical-align: -0.025em
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 

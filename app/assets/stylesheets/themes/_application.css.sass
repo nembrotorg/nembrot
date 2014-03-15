@@ -25,6 +25,9 @@ a[href='/channels/new']:before
   +icon-plus
   +icon-large
 
+#main
+  margin-bottom: 0
+
 .home-index
   .breadcrumb
     visibility: hidden
@@ -79,7 +82,6 @@ nav ul li a:first-of-type
 
 div#main footer.channel
   +arrow-links
-  +span-columns(12)
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -118,9 +120,6 @@ div#main footer.channel
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 1024px)
-
-  #main
-    margin-bottom: 0
 
   footer:not(.channel)
     nav

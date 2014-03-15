@@ -17,9 +17,9 @@
       height: $line-height * 3
     &[src*='spotify'][src*='album'],
     &[src*='spotify'][src*='playlist'],
-      width: span(4)
+      // FIXME: This is not robust
+      width: span(3, 9)
       position: absolute
-      right: 0
 
   article
     header
@@ -79,15 +79,6 @@
     .links
       ul
         +columns(3)
-
-  .home-index
-    .notes
-      +span-columns(12)
-      padding-right: 0
-      ul
-        +columns($promotions-home-columns)
-        +column-gap($gutter-width * 1px)
-        margin-bottom: $line-height
 
   .tags-index
     .tags

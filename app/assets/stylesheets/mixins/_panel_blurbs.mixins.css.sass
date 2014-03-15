@@ -51,6 +51,9 @@
 
     .home-index
       .notes
+        +span-columns(12)
+        padding-right: 0
         ul
-          li
-            +panel-blurb
+          +columns($promotions-home-columns)
+          +column-gap($gutter-width * 1px)
+          margin-bottom: $line-height

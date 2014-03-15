@@ -46,7 +46,8 @@ class ApplicationController < ActionController::Base
     @promoted_notes = Note.channelled(@current_channel).publishable.listable.blurbable
     @promoted_notes = @promoted_notes.where.not(id: exclude_note.id) unless exclude_note.nil?
     @promoted_notes = @promoted_notes.promotable
-    @promoted_notes = @default_notes if @promoted_notes.empty?
+    # This injects default note into the list when channel has one note (which is excluded)
+    # @promoted_notes = @default_notes if @promoted_notes.empty?
     @promoted_notes
   end
 

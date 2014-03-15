@@ -12,3 +12,5 @@ footer.channel
       - unless @sections.nil?
         - @sections.each do |section|
           li = link_to section.get_feature_name.titlecase, feature_path(feature: section.feature)
+
+        li = link_to 'Nembrot', '/'

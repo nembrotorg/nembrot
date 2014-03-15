@@ -36,7 +36,10 @@ update_titles = () ->
     document.title = title_data
 
 truncate_blurbs = () ->
-  $('.notes li a, .channels li a').dotdotdot()
+  $('.notes li a, .channels li a').dotdotdot({
+    tolerance: 2,
+    watch: true
+  })
 
 _normalize_count = (data) ->
     count = ''
@@ -84,9 +87,9 @@ $ ->
 
   $('time').timeago()
   update_titles()
-  truncate_blurbs()
   insert_qr_code()
   load_user_menu()
+  truncate_blurbs()
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
@@ -96,11 +99,11 @@ $ ->
 $(document).on 'pjax:success', '#main', (data) ->
   $('time').timeago()
   update_titles()
-  truncate_blurbs()
   insert_qr_code()
+  truncate_blurbs()
 
   # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_controller, page_action)
 
-$(window).on 'resize', ->
-  truncate_blurbs()
+#$(window).on 'resize', ->
+#  truncate_blurbs()

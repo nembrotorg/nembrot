@@ -56,7 +56,8 @@ module FormattingHelper
     text = deheaderize(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
     text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
-    clean_up_via_dom(text, true)
+    text = clean_up_via_dom(text, true)
+    text = strip_tags(text)
   end
 
   def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])

@@ -314,8 +314,6 @@ iframe
   &[src*='soundcloud.com'][src*='sets']
     height: $line-height * 8
   &[src*='spotify'],
-    height: $line-height * 8
-  &[src*='spotify'][src*='track'],
     height: $line-height * 3
 
 .annotations
@@ -865,6 +863,10 @@ aside
     .links
       ul
         +columns(2)
+
+  .notes
+    +span-columns(9)
+    // +suffix(3)
 
   .tags-index
     .tags

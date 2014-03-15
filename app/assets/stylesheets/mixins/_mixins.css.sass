@@ -113,55 +113,6 @@
   +magazine-figure
   +magazine-image-landscape
 
-
-=magazine-half
-
-  #main
-    &> article
-      overflow: visible
-      section#content
-        figure.image
-          height: 135px
-          border-bottom: 1px solid #171717
-          position: absolute
-          display: table-cell
-          vertical-align: middle
-          figcaption
-            background-color: rgba(#ffffff, 0.25)
-            height: 100%
-            width: 100%
-            position: absolute
-          img
-            height: auto
-            left: 0
-            margin: auto
-            max-width: none
-            top: 0
-            width: 100%
-
-  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 720px)
-
-    #main
-      &> article
-        margin-top: 150px
-        overflow: visible
-        section#content
-          figure.image
-            height: 330px
-
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    #main
-      &> article
-        section#content
-          figure.image
-            img
-              margin-top: -400px
-
 =centered-image-container
   img
     height: auto
@@ -172,8 +123,7 @@
     width: 100%
 
 
-=magazine-half($small-height: 135px, $large-height: 330px, $headline-compensation: -180px, $screen-color: rgba(#ffffff, 0.25), $border-width: 1px, $border-color: #000)
-
+=magazine-half($small-height: 135px, $large-height: 330px, $headline-compensation: -180px, $screen-color: rgba(#000, 0.65), $border-width: 1px, $border-color: #000)
   #main
     &> article
       overflow: visible
@@ -185,10 +135,10 @@
           position: absolute
           figcaption
             background-color: $screen-color
-            height: 100%
+            height: $small-height
             width: 100%
-            padding: ($line-height / 2) 0 0 ($line-height / 2)
             position: absolute
+            top: 0
 
   // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -201,3 +151,16 @@
         section#content
           figure.image
             height: $large-height
+            figcaption
+              height: $large-height
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      &> article
+        section#content
+          figure.image
+            img
+              margin-top: -400px

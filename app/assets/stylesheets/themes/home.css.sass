@@ -31,10 +31,10 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
-  $theme-home-logo-color: #b70000
+  $theme-home-logo-color: #e7e7e7
 
   +colors
-  +magazine-half
+  +magazine-half(rgba(#000, 0.65))
   +typekit-home
 
   #dashboard
@@ -50,7 +50,8 @@
   #main
     h1
       +brand($theme-home-logo-color)
-      font-size: 48px
+      color: $theme-home-logo-color !important
+      font-size: 2em
 
     figure.image
       figcaption
@@ -106,7 +107,7 @@
 
       h1
         font:
-          size: 90px
+          size: 5em
 
       #content
         +span-columns(8)
@@ -116,7 +117,7 @@
         font:
           size: 48px
           style: normal
-        line-height: 60px
+        line-height: $line-height * 2
 
       aside
         .shares
@@ -138,7 +139,7 @@
         +span-columns(12)
 
       h1
-        margin-left: -115px
+        margin-left: -1.25em
 
       .channels
         +span-columns(9)

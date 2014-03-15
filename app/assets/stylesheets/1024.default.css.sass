@@ -12,13 +12,14 @@
   iframe
     +span-columns(9, 12)
     &[src*='spotify'],
-      height: $line-height * 15
+      height: $line-height * 13
     &[src*='spotify'][src*='track'],
       height: $line-height * 3
     &[src*='spotify'][src*='album'],
     &[src*='spotify'][src*='playlist'],
       // FIXME: This is not robust
-      width: span(3, 9)
+      // width: span(3, 9) - this should work but doesn't
+      width: 300px
       position: absolute
 
   article

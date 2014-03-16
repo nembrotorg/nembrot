@@ -28,6 +28,6 @@ head
   javascript:
     try{Typekit.load();}catch(e){};
 
-    window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };
-
-
+  - cache [cache_buster(1), @themes_for_js] do
+    javascript:
+      window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };

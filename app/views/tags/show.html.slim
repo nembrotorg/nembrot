@@ -13,7 +13,8 @@
          all_interrelated_notes_and_features: @all_interrelated_notes_and_features
          unless @notes.empty?
 
-      = render 'shared/map_script', map: @map unless @map.blank?
+      -# REVIEW: Add tags to maps
+      -#= render 'shared/map_script', map: @map unless @map.blank?
 
       aside.statistics
         = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))

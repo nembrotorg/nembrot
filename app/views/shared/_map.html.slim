@@ -1,4 +1,5 @@
 figure#single_map_container.map_container
   #single_map.map
 
-  = render 'shared/map_script', map: map, key: key
+  - cache [cache_buster(1), map, key] do
+    = render 'shared/map_script', map: map, key: key

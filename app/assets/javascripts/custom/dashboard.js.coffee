@@ -5,6 +5,11 @@ load_dashboard = () ->
     success: (html) ->
       $('#dashboard').html(html)
 
+auto_open_dashboard = () ->
+  if location.pathname == '/' && $('#dashboard').not(':visible')
+    load_dashboard()
+    $('#dashboard').show()
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -34,9 +39,7 @@ $ ->
     $('#dashboard').fadeToggle()
     if $('#dashboard').is(':visible') then load_dashboard()
 
-  if location.pathname == '/' && $('#dashboard').not(':visible')
-    load_dashboard()
-    $('#dashboard').show()
+  auto_open_dashboard()
 
   thread = null
   $(document).on 'keyup', '#dashboard form .name input', (event) ->
@@ -55,5 +58,9 @@ $ ->
       , 500)
     return
 
-$(document).on 'pjax:success', '#main', (data) ->
-  $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme
+  $(document).on 'pjax:success', '#main', (data) ->
+    $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme
+    auto_open_dashboard()
+
+  $(window).on 'popstate', ->
+    auto_open_dashboard()

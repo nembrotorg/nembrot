@@ -45,8 +45,8 @@ _place_annotations_undo = () ->
 $ ->
   place_annotations()
 
-$(document).on 'pjax:success', '#main', (data) ->
-  place_annotations()
+  $(document).on 'pjax:success', '#main', (data) ->
+    place_annotations()
 
-$(window).on 'resize', ->
-  place_annotations()
+  $(window).on 'resize', ->
+    place_annotations()

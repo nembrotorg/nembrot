@@ -55,5 +55,5 @@ $ ->
     fix_facebook_dialog()
     load_share_links()
 
-$(document).on 'pjax:success', '#main', (data) ->
-  load_share_links()
+  $(document).on 'pjax:success', '#main', (data) ->
+    load_share_links()

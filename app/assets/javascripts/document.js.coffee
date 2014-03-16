@@ -61,7 +61,8 @@ window.Nembrot.load_user_menu = load_user_menu
 $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('#main a:not([data-remote]), .persistent_map a:not([data-remote])', '[data-pjax-container]')
+  $(document).pjax('#main a:not([data-remote])', '[data-pjax-container]')
+  $(document).pjax('#persistent_map .marker a', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()

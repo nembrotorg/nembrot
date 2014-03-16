@@ -5,7 +5,6 @@
 class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
   create_marker: ->
     options = _.extend @marker_options(), @rich_marker_options()
-    alert
     @serviceObject = new RichMarker options #assign marker to @serviceObject
 
   rich_marker_options: ->
@@ -27,7 +26,7 @@ load_maps = (theme) ->
         Marker: RichMarkerBuilder
     )
 
-    handler.buildMap
+    window.Nembrot.map_object = handler.buildMap
       provider: {
           styles: window.Nembrot.map_styles[map_style],
           streetViewControl: show_map_type_control,
@@ -45,13 +44,11 @@ load_maps = (theme) ->
       handler.fitMapToBounds()
       return
 
-window.Nembrot.load_maps = load_maps
-
 # Document hooks ******************************************************************************************************
 
 $ ->
   $(document).pjax('.persistent_map a.marker', '[data-pjax-container]', { push: false })
   load_maps()
 
-$(document).on 'pjax:success', '#main', (data) ->
-  load_maps()
+  $(document).on 'pjax:success', '#main', (data) ->
+    load_maps()

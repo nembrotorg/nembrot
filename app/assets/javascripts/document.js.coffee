@@ -62,7 +62,6 @@ $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
   $(document).pjax('#main a:not([data-remote])', '[data-pjax-container]')
-  $(document).pjax('#persistent_map .marker a', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()

@@ -36,7 +36,7 @@ class NotesController < ApplicationController
     @note = Note.channelled(@current_channel).publishable.find(params[:id])
     interrelated_notes_features_and_citations
     note_tags(@note)
-    note_map(@note)
+    @map_this_marker = note_map(@note)
     note_source(@note)
     commontator_thread_show(@note)
 

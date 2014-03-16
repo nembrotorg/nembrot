@@ -7,6 +7,7 @@ module PageHelper
       <nav>#{ render_breadcrumbs builder: ::OrderedListBuilder }</nav>
       #{ capture(&block) }
       #{ render 'channels/footer' unless @current_channel.nil? || @current_channel == @default_channel }
+      #{ render 'shared/map_script', map: @map_all_markers, key: 'MAP_ALL_MARKERS' unless @map_all_markers.blank? }
     </#{ wrapper }>
     EOS
   end

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_action :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_action :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
+  before_action :get_map_all_markers, only: [:index, :show, :map, :show_channel]
   before_action :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
 
   skip_before_action :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
@@ -73,6 +74,15 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def get_map_all_markers
+    all_mappable_notes = Note.channelled(@current_channel).publishable.listable.blurbable.mappable
+    @map_all_markers = mapify(all_mappable_notes)
+  end
+
+  def note_map(note)
+    @map = mapify(note) if note.has_instruction?('map') && !note.inferred_latitude.nil?
+  end
+
   def mapify(notes)
     markers = []
     Array(notes).each do |note|
@@ -82,7 +92,7 @@ class ApplicationController < ActionController::Base
         'marker'    => "<a href=\"#{ note_path(note) }\">#{ note.headline }</a>"
       })
     end
-    @map = markers
+    markers
   end
 
   def interrelated_notes_features_and_citations
@@ -92,10 +102,6 @@ class ApplicationController < ActionController::Base
 
   def note_tags(note)
     @tags = note.tags.keep_if { |tag| Note.channelled(@current_channel).publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
-  end
-
-  def note_map(note)
-    @map = mapify(note) if note.has_instruction?('map') && !note.inferred_latitude.nil?
   end
 
   def note_source(note)

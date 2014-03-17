@@ -25,10 +25,11 @@ module FormattingHelper
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
     source_text = headerize(source_text)
-    target_text = sectionize(target_text)
-    source_text = remove_annotations(source_text)
+    source_text = sectionize(source_text)
     source_text = paragraphize(source_text)
+    source_text = remove_annotations(source_text)
     source_text = denumber_headers(source_text)
+    source_text = clean_up_via_dom(source_text)
 
     target_text = related_notify(target_text, related_notes)
     target_text = related_citationify(target_text, related_citations)
@@ -41,9 +42,8 @@ module FormattingHelper
     target_text = paragraphize(target_text)
     target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
     target_text = denumber_headers(target_text)
+    target_text = clean_up_via_dom(target_text)
 
-    clean_up_via_dom(source_text)
-    clean_up_via_dom(target_text)
     collate(source_text, target_text, source_lang)
   end
 
@@ -281,11 +281,10 @@ module FormattingHelper
     end
 
     target_paragraphs.each_with_index do |p, i|
-      # CAREFUL: WHAT IF PARAS DON'T MATCH???
       p['class'] = 'target'
       source_paragraph_html = source_paragraphs[i].nil? ? '<!-- -->' : source_paragraphs[i].to_html
       target_paragraph_html = target_paragraphs[i].nil? ? '<!-- -->' : target_paragraphs[i].to_html
-      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
+      p.replace "<div id=\"paragraph-#{ i + 1 }\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
     end
 
     dom = clean_up_dom(target_dom)

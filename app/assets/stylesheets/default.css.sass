@@ -504,10 +504,9 @@ footer
         text-indent: 0
   &.parallel
     &.collate
+      line-height: $line-height * 2
       .target
-        line-height: $line-height * 2
-      p
-        text-indent: $text-indent
+        padding-top: $line-height
     div
       overflow: show
       position: relative
@@ -891,7 +890,14 @@ aside
 
 @media only screen and (min-width: 1024px)
 
+  +pass-media-query('screen-and-min-width-720px')
+
   // Move to here anything in 1024.etc that is not a width
   #text
     &.parallel
-      line-height: $line-height
+      &.collate
+        line-height: $line-height
+        .source
+          z-index: 1
+        .target
+          padding-top: 0

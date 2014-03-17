@@ -198,7 +198,7 @@
           &:before
             color: $off-color
 
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
 
@@ -213,11 +213,9 @@
       article
         section#content
           #text
-            &.enface
-              .source, p.source
-                color: $body-font-color
-                p
-                  color: $body-font-color
+            &.collate
+              .source
+                color: $body-font-color !important
 
       figure
         &.image
@@ -237,8 +235,7 @@
           &:hover
             background-color: $row-hover-color
 
-// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1200px)
 

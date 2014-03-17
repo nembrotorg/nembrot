@@ -136,7 +136,7 @@ en:
         version_not_ok: "%{provider}: note %{guid} failed! The SDK is out of date."
         not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
         not_in_notebook: "%{provider}: note %{guid} rejected! Not in required notebook."
-        deleted_note: "%{provider}: note %{guid} rejected! Note has been deleted from cloud notebook."
+        deleted_note: "%{provider}: note %{guid} deleted! Note has been deleted from cloud notebook."
         tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
         ignore: "%{provider}: note %{guid} (%{title}) rejected! Contains instructions to ignore."
         not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."

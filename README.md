@@ -17,7 +17,7 @@ A fork of this code is used on the hosted service [nembrot.com](http://nembrot.c
 
 ##Features
 * Syncs notes from any [Evernote](http://evernote.com) notebook
-* Converts youtube, vimeo and souncloud links to embedded players
+* Converts youtube, vimeo and soundcloud links to embedded players
 * Embeds maps and organises notes geographically
 * Uses a small set of tags for managing displayed notes
 * Share links for Facebook, Twitter, GooglePlus

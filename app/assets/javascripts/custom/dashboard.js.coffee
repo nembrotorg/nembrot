@@ -13,7 +13,7 @@ auto_open_dashboard = () ->
 # Document hooks ******************************************************************************************************
 
 $ ->
-  $('html:not(.theme-home-2) #dashboard').draggable() # FIXME: Coupled with theme (& uses different method from esc/keyup)
+  $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme (& uses different method from esc/keyup)
 
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { push: false } )
   $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]')

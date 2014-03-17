@@ -41,16 +41,17 @@
           +span-columns(6, 12)
         &.enface
           +span-columns(12, 12)
+          line-height: $line-height
           p
             &:before
               top: 0
           .source, p.source
             +span-columns(6, 12)
+            z-index: 1
           .target, p.target
             +prefix(6)
             +span-columns(6 omega, 12)
             left: 0
-            padding-top: $line-height
             padding-top: 0
             position: absolute
             top: 0

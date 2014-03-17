@@ -885,19 +885,3 @@ aside
           +span-columns(4 omega)
     small
       +span-columns(12)
-
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1024px)
-
-  +pass-media-query('screen-and-min-width-720px')
-
-  // Move to here anything in 1024.etc that is not a width
-  #text
-    &.parallel
-      &.collate
-        line-height: $line-height
-        .source
-          z-index: 1
-        .target
-          padding-top: 0

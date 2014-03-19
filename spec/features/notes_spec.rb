@@ -8,11 +8,11 @@ describe 'Notes' do
 
   before(:each) do
     Constant['rtl_langs'] = 'ar'
-    Setting['advanced.blurb_length'] = 40
+    Setting['advanced.blurb_length'] = '40'
     Setting['advanced.instructions_map'] = '__MAP'
-    Setting['advanced.tags_minimum'] = 1
-    Setting['advanced.version_gap_distance'] = 10
-    Setting['advanced.version_gap_minutes'] = 60
+    Setting['advanced.tags_minimum'] = '1'
+    Setting['advanced.version_gap_distance'] = '10'
+    Setting['advanced.version_gap_minutes'] = '60'
   end
 
   describe 'index page' do
@@ -135,7 +135,7 @@ describe 'Notes' do
 
     context 'when this tag is attached to fewer notes than threshold' do
       before do
-        Setting['advanced.tags_minimum'] = 10
+        Setting['advanced.tags_minimum'] = '10'
       end
       it 'should not have a link to tag1' do
         pending "page.should_not have_link('tag1', href: '/tags/tag1')"

@@ -2,7 +2,7 @@ describe TagsController do
 
   describe 'GET #index' do
     before(:each) do
-      Setting['advanced.tags_minimum'] = 1
+      Setting['advanced.tags_minimum'] = '1'
       @tag_name = Faker::Lorem.words(1)
       note = FactoryGirl.create(:note, tag_list: @tag_name)
       @tags = Note.tag_counts_on(:tags)

@@ -121,11 +121,6 @@ class EvernoteRequest
     self.cloud_note_data = cloud_note_data
   end
 
-  def calculate_updated_at
-    reset_new_note = Setting['advanced.always_reset_on_create'] == 'true' && evernote_note.note.versions.size == 0
-    Time.at((reset_new_note ? cloud_note_data.created : cloud_note_data.updated) / 1000).to_datetime
-  end
-
   def populate
     self.data = {
       'active'              => true,
@@ -133,7 +128,8 @@ class EvernoteRequest
       'author'              => cloud_note_data.attributes.author,
       'body'                => cloud_note_data.content,
       'content_class'       => cloud_note_data.attributes.contentClass,
-      'external_updated_at' => calculate_updated_at,
+      'external_created_at' => Time.at(cloud_note_data.created / 1000).to_datetime,
+      'external_updated_at' => Time.at(cloud_note_data.updated / 1000).to_datetime,
       'instruction_list'    => cloud_note_tags.grep(/^_/),
       'introduction'        => cloud_note_data.content.scan(/\{\s*intro:\s*(.*?)\s*\}/i).flatten.first,
       'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,

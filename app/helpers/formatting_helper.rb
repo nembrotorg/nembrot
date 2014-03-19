@@ -10,8 +10,8 @@ module FormattingHelper
     text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
-    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     text = headerize(text)
     text = sectionize(text)
     text = paragraphize(text)
@@ -35,8 +35,8 @@ module FormattingHelper
     target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
-    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section']
-    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section']
+    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
     target_text = paragraphize(target_text)
@@ -54,8 +54,8 @@ module FormattingHelper
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section']
-    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section']
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     text = clean_up_via_dom(text, true)
     text = strip_tags(text)
   end
@@ -138,7 +138,7 @@ module FormattingHelper
 
   def bookify(text, books, citation_style)
     books.each do |book|
-      text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for(channel: @current_channel, id: book.id) }\">\\2")
+      text.gsub!(/(<figure>\s*<blockquote)>(.*?#{ book.tag }.*?<\/figure>)/m, "\\1 cite=\"#{ url_for book }\">\\2")
       text.gsub!(/#{ book.tag }/, t(citation_style, path: book_path(book), title: book.headline, author: book.author_sort, publisher: book.publisher, published_year: book.published_date.year))
     end
     text

@@ -11,6 +11,7 @@ describe 'Notes' do
     Setting['advanced.blurb_length'] = '40'
     Setting['advanced.instructions_map'] = '__MAP'
     Setting['advanced.tags_minimum'] = '1'
+    Setting['advanced.versions'] = 'true'
     Setting['advanced.version_gap_distance'] = '10'
     Setting['advanced.version_gap_minutes'] = '60'
   end
@@ -99,7 +100,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      Setting['advanced.tags_minimum'] = 1
+      Setting['advanced.tags_minimum'] = '1'
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']
       @note.save
@@ -450,14 +451,15 @@ describe 'Notes' do
       @note.external_updated_at = 100.minutes.ago
       @note.save
       @note.title = 'Newest title'
-      @note.body = 'Newest body'
+      @note.body = 'Newest body with extra characters'
       @note.tag_list = ['tag2']
       @note.external_updated_at = 1.minute.ago
       @note.save
       visit note_version_path(@note, 3)
     end
     it 'should have the note title as title' do
-      page.should have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
+      page.should have_selector('h1 del', text: 'Newer')
+      page.should have_selector('h1 ins', text: 'Newest')
     end
     it 'should not have the language attribute (if note is in default language)' do
       page.should_not have_css('#content[lang=en]')

@@ -29,10 +29,12 @@ development:
   <<: *defaults
   host: localhost:3000
   synchronous: true
+  cache_minutes: 0
 
 test:
   <<: *defaults
   host: rspec-tests
+  cache_minutes: 0
 
 staging:
   <<: *defaults

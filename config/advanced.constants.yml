@@ -38,6 +38,7 @@ defaults: &defaults
     instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
     instructions_unversion: __UNVERSION __NO_VERSION
     links_index_per_page: 60
+    links_section: false
     locale: en
     monitoring_email: joe@joegatt.net
     monitoring_name: Joe
@@ -49,8 +50,10 @@ defaults: &defaults
     title: Nembrot
     title_length: 40
     truncate_after_regexp: --30--
+    twitter_user_name: nembrotcom
     version_gap_distance: 100
     version_gap_minutes: 60
+    versions: true
     web_channels: facebook.com/joegattnet twitter.com/joegattnet github.com/joegattnet googleplus.com/joegattnet youtube.com/joegattnet vimeo.com/joegattnet soundcloud.com/joegattnet spotify.com/joegattnet
 
 development:

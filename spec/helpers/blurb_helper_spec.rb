@@ -3,7 +3,7 @@
 describe BlurbHelper do
 
   before(:each) do
-    Setting['advanced.blurb_length'] = 40
+    Setting['advanced.blurb_length'] = '40'
   end
 
   describe '#blurb' do

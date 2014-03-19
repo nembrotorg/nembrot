@@ -4,7 +4,8 @@ class Note < ActiveRecord::Base
 
   include Syncable
 
-  attr_writer :tag_list, :instruction_list
+  attr_writer   :tag_list, :instruction_list
+  attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
@@ -23,8 +24,8 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
-                  unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  if:  proc { |note| note.save_new_version? },
+                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -35,7 +36,9 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope { order('external_updated_at DESC') }
-  scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
+
   scope :citations, -> { where(is_citation: true) }
   scope :features, -> { where.not(feature: nil) }
   scope :notes_and_features, -> { where(is_citation: false) }
@@ -67,12 +70,20 @@ class Note < ActiveRecord::Base
     (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
+  def self.homeable
+    (all.keep_if { |note| note.has_instruction?('home') } + promotable).uniq
+  end
+
+  def self.with_instruction(instruction)
+    all.keep_if { |note| note.has_instruction?(instruction) }
+  end
+
   def self.sections
-    where(is_section: true).pluck(:feature).uniq
+    where(is_section: true).uniq
   end
 
   def self.features
-    where(is_feature: true, is_section: false).pluck(:feature).uniq
+    where(is_feature: true, is_section: false).uniq
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -120,7 +131,7 @@ class Note < ActiveRecord::Base
   # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
-    (source_url && source_url =~ /youtube|vimeo|soundcloud/)
+    (source_url && source_url =~ /youtube|vimeo|soundcloud|spotify/)
   end
 
   def fx
@@ -185,6 +196,10 @@ class Note < ActiveRecord::Base
     Levenshtein.distance(previous_title_and_body, title + body)
   end
 
+  def save_new_version?
+    Setting['advanced.versions'] == 'true' && !minor_edit?
+  end
+
   private
 
   def is_untitled?
@@ -213,7 +228,7 @@ class Note < ActiveRecord::Base
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.keep_if { |link| body.include?(link.url) }
+    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section']
 
     new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
     new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
@@ -224,11 +239,13 @@ class Note < ActiveRecord::Base
   end
 
   def scan_note_for_isbns
-    Book.grab_isbns(body) unless body.blank?
+    # REVIEW: try checking for setting as an unless: after before_save
+    Book.grab_isbns(body) unless Setting['advanced.books_section'] == 'false' || body.blank?
   end
 
   def scan_note_for_urls
-    Link.grab_urls(body, source_url) unless clean_body.blank? && source_url.blank?
+    # REVIEW: try checking for setting as an unless: after before_save
+    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == 'false' || clean_body.blank? && source_url.blank?
   end
 
   def body_or_source_or_resource?
@@ -238,13 +255,13 @@ class Note < ActiveRecord::Base
   end
 
   def update_metadata
+    update_date
     discard_versions?
     update_is_hidable?
     update_is_citation?
     update_is_listable?
     update_is_feature?
     update_is_section?
-    keep_old_date?
     update_lang
     update_feature
     update_feature_id
@@ -252,11 +269,34 @@ class Note < ActiveRecord::Base
     update_distance
   end
 
+  def update_date
+    # Keep old date if this is a minor edit and versioning is switched on
+    self.external_updated_at = external_updated_at_was if skip_new_version?
+    reset_date?
+  end
+
+  def reset_date?
+    self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true' && new_record?
+  end
+
   def discard_versions?
-    if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Setting['advanced.always_reset_on_create'] == 'true'
-      versions.destroy_all
+    if has_instruction?('reset')
+      self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true'
+      versions.destroy_all unless versions.empty?
     end
+  end
+
+  def skip_new_version?
+    # Do not save a new version even though and versioning is switched on
+    Setting['advanced.versions'] == 'true' && minor_edit?
+  end
+
+  def minor_edit?
+    # Should we consider all canges in title a major edit?
+    return false if new_record?
+    too_recent = (external_updated_at - external_updated_at_was) < Setting['advanced.version_gap_minutes'].to_i.minutes
+    too_minor = get_real_distance < Setting['advanced.version_gap_distance'].to_i
+    too_recent || too_minor
   end
 
   def update_is_citation?
@@ -269,11 +309,6 @@ class Note < ActiveRecord::Base
 
   def update_is_listable?
     self.listable = !has_instruction?('unlist')
-  end
-
-  def keep_old_date?
-    # If this is a minor update (i.e. we're not creating a new version), we keep the old date.
-    self.external_updated_at = external_updated_at_was unless title_changed? || body_changed?
   end
 
   def update_is_hidable?

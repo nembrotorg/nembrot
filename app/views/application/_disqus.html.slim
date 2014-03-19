@@ -11,6 +11,7 @@ section#disqus_thread
 
     window.Nembrot.DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.slug'].parameterize }";
 
+    // Move this to main script and load after page has loaded?
     (function() {
 
       if (typeof DISQUS === 'undefined') {

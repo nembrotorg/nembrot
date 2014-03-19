@@ -12,6 +12,7 @@ describe 'Notes' do
     Setting['advanced.instructions_map'] = '__MAP'
     Setting['advanced.tags_minimum'] = '1'
     Setting['advanced.versions'] = 'true'
+    Setting['advanced.links_section'] = 'true'
     Setting['advanced.version_gap_distance'] = '10'
     Setting['advanced.version_gap_minutes'] = '60'
   end

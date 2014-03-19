@@ -2,6 +2,7 @@
 
 module ApplicationHelper
 
+  include CacheHelper
   include PageHelper
 
   def lang_attr(language)
@@ -18,10 +19,6 @@ module ApplicationHelper
       this_direction = Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
       this_direction if page_direction != this_direction
     end
-  end
-
-  def cache_buster(version)
-    "#{ Constant.cache_buster }#{ version }#{ @current_channel }"
   end
 
   def current_url

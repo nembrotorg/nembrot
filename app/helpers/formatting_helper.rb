@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# REVIEW: All these functions should be moved to Nokogiri
+
 module FormattingHelper
 
   def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
@@ -8,12 +10,12 @@ module FormattingHelper
     text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
-    text = bookify(text, books, books_citation_style)
-    text = linkify(text, links, links_citation_style)
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     text = headerize(text)
     text = sectionize(text)
-    text = annotated ? annotate(text) : remove_annotations(text)
     text = paragraphize(text)
+    text = annotated ? annotate(text) : remove_annotations(text)
     text = denumber_headers(text)
     clean_up_via_dom(text)
   end
@@ -23,25 +25,25 @@ module FormattingHelper
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
     source_text = headerize(source_text)
-    target_text = sectionize(target_text)
-    source_text = remove_annotations(source_text)
+    source_text = sectionize(source_text)
     source_text = paragraphize(source_text)
+    source_text = remove_annotations(source_text)
     source_text = denumber_headers(source_text)
+    source_text = clean_up_via_dom(source_text)
 
     target_text = related_notify(target_text, related_notes)
     target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
-    target_text = bookify(target_text, books, books_citation_style)
-    target_text = linkify(target_text, links, links_citation_style)
+    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
-    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
     target_text = paragraphize(target_text)
+    target_text = annotated ? annotate(target_text) : remove_annotations(target_text)
     target_text = denumber_headers(target_text)
+    target_text = clean_up_via_dom(target_text)
 
-    clean_up_via_dom(source_text)
-    clean_up_via_dom(target_text)
     collate(source_text, target_text, source_lang)
   end
 
@@ -52,25 +54,38 @@ module FormattingHelper
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
-    text = bookify(text, books, books_citation_style)
-    text = linkify(text, links, links_citation_style)
-    clean_up_via_dom(text, true)
+    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
+    text = clean_up_via_dom(text, true)
+    text = strip_tags(text)
   end
 
-  def simple_blurbify(text)
+  def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+    sanitize(text,
+      tags: allowed_tags.split(/, ?| /) - ['span'],
+      attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
+  end
+
+  def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
+    text = sanitize_by_settings(text, allowed_tags)
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
-    clean_up(text)
+    # FIXME: Clean up smart quotes inside tags
+    text = text.gsub(/<([^<]*)(“|\u201C|\u201D)([^<]*)(“|\u201C|\u201D)([^<]*)>/, "<\\1\"\\3\"\\5>").html_safe
+    # clean_up(text)
   end
 
   def commentify(text)
     text = sanitize_from_db(text, ['a'])
     text = paragraphize(text)
     text = smartify_punctuation(text)
-    clean_up(text)
+    # FIXME: Clean up smart quotes inside tags
+    text = text.gsub(/<([^<]*)(“|\u201C|\u201D)([^<]*)(“|\u201C|\u201D)([^<]*)>/, "<\\1\"\\3\"\\5>").html_safe
+    # clean_up(text)
   end
 
+  # REVIEW: Overkill with allowed_tags = Setting['advanced.allowed_html_tags']
   def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     text = sanitize_from_evernote(text)
     text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
@@ -79,25 +94,29 @@ module FormattingHelper
                .gsub(%r(</b>|</h\d>), '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
-    text = sanitize(text,
-                    tags: allowed_tags.split(/, ?| /) - ['span'],
-                    attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
+    text = sanitize_by_settings(text, allowed_tags)
     text = format_blockquotes(text)
     text = remove_instructions(text)
   end
 
   def sanitize_from_evernote(text)
-    # Evernote expects all paragraphs to be wrapped in divs.
+    # Make all local links relative and
+    #  Evernote expects all paragraphs to be wrapped in divs
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text.gsub(/\n|\r/, '')
-        .gsub(/(<aside|<blockquote|<div|<fig|<li|<nav|<section)/, "\n\\1")
+        .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
+        .gsub(/(<div)/i, "\n\\1")
+        .gsub(/(<\/div>)/i, "\\1\n")
+        #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
+        #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
+    text = "\n#{ text }\n"
   end
 
   def format_blockquotes(text)
-    text.gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+    text.gsub(/\{?\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}?/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
         .gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*)\s*\}/i, "\n<blockquote>\\1</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
+        .gsub(/\{?\s*quote:([^\}]*?)\s*\}?/i, "\n<blockquote>\\1</blockquote>\n")
+        .gsub(/\{\s*quote:([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
   end
 
   def remove_instructions(text)
@@ -127,7 +146,6 @@ module FormattingHelper
 
   def linkify(text, links, citation_style)
     # Make all local links relative
-    text.gsub!(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
     # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
       # Simplify links wrapped around themselves.
@@ -206,7 +224,9 @@ module FormattingHelper
   end
 
   def clean_up(text, clean_up_dom = true)
-    text.gsub!(/^<p> *<\/p>$/, '') # Removes empty paragraphs # FIXME
+    # REVIEW: These operations should not be necessary!
+    # .gsub(/(<[^>"]*?)[\u201C|\u201D]([^<"]*?>)/, '\1"\2') # FIXME: This is for links in credits but it should not be necessary
+    text.gsub!(/^<p>\s*<\/p>$/m, '') # Removes empty paragraphs # FIXME
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
                .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
@@ -225,9 +245,9 @@ module FormattingHelper
   end
 
   def clean_up_dom(dom, unwrap_p = false)
-    dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? }
-    dom.css('h2 p, cite cite').find_all.each { |e| e.replace e.inner_html }
-    # dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }
+    dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
+    dom.css('h2 p, cite cite, p section, p header, p p, p h2').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
+    dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs
     all_paragraphs = dom.css('.target').empty? ? dom.css('p') : dom.css('.target p')
@@ -235,6 +255,7 @@ module FormattingHelper
 
     dom.xpath('//text()').find_all.each do |t|
       t.content = smartify_punctuation(t.content)
+      # t.content = t.content.strip ... we only want to strip from the beginning of files
       # t.content = hyper_conform(t.content)
     end
     dom = indent_dom(dom) if Constant.html.pretty_body
@@ -260,11 +281,10 @@ module FormattingHelper
     end
 
     target_paragraphs.each_with_index do |p, i|
-      # CAREFUL: WHAT IF PARAS DON'T MATCH???
       p['class'] = 'target'
-      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : source_paragraphs[i].to_html
-      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- XXXXXXX -->' : target_paragraphs[i].to_html
-      p.replace "<div id=\"paragraph-#{ i + 1}\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
+      source_paragraph_html = source_paragraphs[i].nil? ? '<!-- -->' : source_paragraphs[i].to_html
+      target_paragraph_html = target_paragraphs[i].nil? ? '<!-- -->' : target_paragraphs[i].to_html
+      p.replace "<div id=\"paragraph-#{ i + 1 }\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
     end
 
     dom = clean_up_dom(target_dom)
@@ -285,28 +305,40 @@ module FormattingHelper
   def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
+    text = force_double_quotes(text) if Setting['style.force_double_quotes']
   end
 
   def smartify_hyphens(text)
     text.gsub(/\s+[\-\u2013]+\s+/, "\u2014") # Em-dashes for everything.
-        # .gsub(/ +- +([^-^.]+) +- +/, "\u2013\\1\u2013") # Em-dashes for parentheses
-        # .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
+  end
+
+  def smartify_hyphens_mixed(text)
+    text.gsub(/ +- +([^-^.]+) +- +/, "\u2013\\1\u2013") # Em-dashes for parentheses
+        .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
   end
 
   def smartify_quotation_marks(text)
     # TODO: This needs to be language dependent
     # The following assumes we are not running this on HTML text. This is not hugely concerning since for body text we
     #  run this via Nokogiri and other strings should not be marked up. (But: cite links in headers?)
-    text.html_safe.gsub(/'([\d]{2})/, "\u2019\\1")
-        .gsub(/s' /, "s\u2019 ")
+    text.gsub(/'([\d]{2})/, "\u2019\\1")
+        .gsub(/\&lsquo\;/, "\u2018")
+        .gsub(/\&rsquo\;/, "\u2019")
         .gsub(/\&\#x27\;/, "\u2019")
+        .gsub(/s' /, "s\u2019 ")
         .gsub(/(\b)'(\b)/, "\u2019")
         .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
         .gsub(/'(\w|<)/, "\u2018\\1")
         .gsub(/([\w\.\,\?\!>])'/, "\\1\u2019")
+        .gsub(/\&\#39\;/, '"')
         .gsub(/"(\w|<)/, "\u201C\\1")
         .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
         .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
+  end
+
+  def force_double_quotes(text)
+    text.gsub(/'(\w|<)(.*?)([\w\.\,\?\!>])'(\W)/, "\u201C\\1\\2\\3\u201D\\4")
+        .gsub(/\u2018(\w|<)(.*?)([\w\.\,\?\!>])\u2019(\W)/, "\u201C\\1\\2\\3\u201D\\4")
   end
 
   def smartify_numbers(text)
@@ -314,12 +346,12 @@ module FormattingHelper
   end
 
   def headerize(text)
-    text.gsub(/^<strong>(.+)<\/strong>$/, '<header><h2>\1</h2></header>')
-        .gsub(/^<b>(.+)<\/b>$/, '<header><h2>\1</h2></header>')
+    text.gsub(/^\s*<strong>(.+?)<\/strong>\s*$/m, '<header><h2>\1</h2></header>')
+        .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
   end
 
   def deheaderize(text)
-    text.gsub(/<(strong|h2)>.*?<\/(strong|h2)>/, '')
+    text.gsub(/<(strong|h2)>.*?<\/(strong|h2)>/m, '')
   end
 
   def denumber_headers(text)
@@ -327,23 +359,19 @@ module FormattingHelper
   end
 
   def paragraphize(text)
-    text.gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*(<\/section>)\s*$/, '\1<p>\2</p>\3')
-        .gsub(/^\s*(<section[^>]*>)\s*([^<].+[^>])\s*$/, '\1<p>\2</p>')
-        .gsub(/^ *([^<].+[^>])\s*(<\/section>)\s*$/, '<p>\1</p>\2')
-        .gsub(/^\s*([^<].+[^>])\s*$/, '<p>\1</p>')    # Wraps lines in <p> tags, except if they're already wrapped
-        .gsub(/^<(strong|em|span|a)(.+)$/, '<p><\1\2</p>')  # Wraps lines that begin with strong|em|span|a in <p> tags
-        .gsub(/^(.+)(<\/)(strong|em|span|a)>$/, '<p>\1\2\3></p>')  # ... and ones that end with those tags.
+    text.gsub(/^\s*([^<].*?)\s*$/, "<p>\\1</p>") # Wrap lines that do not begin with a tag
+        .gsub(/^\s*(<a|<del|<em|<i|<ins)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
   end
 
   def sectionize(text)
-    text = text.split(/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/)
+    text = text.split(/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/)
                .reject(&:empty?)
-               .map { |content| "<section>#{ content }</section>" }
-               .join unless text[/<p>(\*\*+|\-\-+)<\/p>|<hr ?\/?>/].blank?
-    text = text.split('<header>')
+               .map { |content| "<section>\n#{ content }\n</section>" }
+               .join unless text[/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/].blank?
+    text = text.split(/(?=<header)/)
                .reject(&:empty?)
-               .map { |content| "<section><header>#{ content }</section>" }
-               .join unless text[/<h2>/].blank?
+               .map { |content| "<section>\n#{ content }\n</section>" } # n#{ content.include? '<h2' ? '<header>' : '' }\
+               .join unless text[/<header/].blank?
     text
   end
 

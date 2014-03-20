@@ -14,17 +14,17 @@ footer
           li = link_to t('notes.index.title'), notes_path
           li = link_to t('citations.index.title'), citations_path
           li = link_to t('books.index.title'), books_path
-          li = link_to t('links.index.title'), links_path
+          li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
           li = link_to t('tags.index.title'), tags_path
 
           - @sections.each do |section|
-            li = link_to section.get_feature_name.titlecase, feature_path(feature: section)
+            li = link_to section.get_feature_name.titlecase, feature_path(feature: section.feature)
 
       li
         ul.channels
 
           - Setting['advanced.web_channels'].split(/, ?| /).each do |link|
-            li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus/, '+').titlecase, "http://#{ link }"
+            li = link_to link.gsub(/^([^\.]*).*$/, '\1').gsub(/plus\.google/, 'Google+').titlecase, "http://#{ link }"
 
           li = link_to t('atom_feed'), notes_url(:atom)
           li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?

@@ -178,7 +178,7 @@ toggle_code = () ->
   $("#code").toggle()
 
 load_code = () ->
-  file = '/code/' + $('#main > div').attr('class').replace('s-', '/').replace('-', '/')
+  file = '/code/' + $('#main > div').attr('class').replace('index ', '').replace('-', '/')
   $.ajax
     url: file
     cache: true

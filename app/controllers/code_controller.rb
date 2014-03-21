@@ -5,5 +5,7 @@ class CodeController < ApplicationController
     @controller = params[:controller_script]
     @action = params[:action_script]
     render partial: 'show'
+  rescue
+    render partial: 'error'
   end
 end

@@ -203,7 +203,7 @@ $(window).on 'resize', ->
 document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('#main a, #tools a', '[data-pjax-container]')
+  $(document).pjax('#main a, #tools a, footer a', '[data-pjax-container]')
 
   $(document).on 'click', 'a[href^=http]:not(.share a)', ->
     track_outbound_link(@href, 'Outbound Link', @href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))

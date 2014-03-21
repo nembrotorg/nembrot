@@ -190,12 +190,10 @@ load_code = () ->
 
 $ ->
   document_initializers()
-  load_code()
 
 $(document).on 'pjax:end', '#main', ->
   content_initializers()
   content_initializers_reload_only()
-  load_code()
 
 $(window).on 'resize', ->
   resize_initializers()
@@ -256,6 +254,7 @@ content_initializers = () ->
   track_page_view()
   resize_initializers()
   insert_qr_code()
+  load_code()
 
   page_class = $('#main > div').attr('class')
   load_share_links(page_class)

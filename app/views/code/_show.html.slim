@@ -1,0 +1,33 @@
+- cache [cache_buster(1), @controller, @action] do
+
+  #tabs
+    ul
+      li
+        a href="#model"
+          | Model
+      li
+        a href="#controller"
+          | Controller
+      li
+        a href="#view"
+          | View
+      -#li
+      -#  a href="#tabs-4"
+      -#    | log
+
+    #model
+      h2 == File.join('app', 'models', "#{ @controller }.rb")
+      .CodeRay == CodeRay.scan(File.read(File.join(Rails.root, 'app', 'models', "#{ @controller }.rb")), :ruby).html(:line_numbers => :table, :tab_width => 2)
+    #controller
+      h2 == File.join('app', 'controllers', "#{ @controller }s_controller.rb")
+      .CodeRay == CodeRay.scan(File.read(File.join(Rails.root, 'app', 'controllers', "#{ @controller }s_controller.rb")), :ruby).html(:line_numbers => :table)
+    #view
+      h2 == File.join('app', 'views', "#{ @controller.gsub(/feature/, 'note') }s", "#{ @action }.html.slim")
+      .CodeRay == CodeRay.scan(File.read(File.join(Rails.root, 'app', 'views', "#{ @controller.gsub(/feature/, 'note') }s", "#{ @action.gsub(/index features-show/, 'show') }.html.slim")), :ruby).html(:line_numbers => :table)
+    -#div#tabs-4
+    -#  pre = File.read File.join(Rails.root, 'log', 'development.log')
+
+    javascript:
+      $(function() {
+        $("#tabs").tabs();
+      });

@@ -472,6 +472,7 @@ DEPENDENCIES
   capistrano (= 2.15.5)
   capybara
   capybara-webkit
+  coderay
   coffee-rails
   commontator (~> 4.2.0)
   compass-rails

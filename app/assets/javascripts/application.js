@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.slider
+//= require jquery.ui.tabs
 //=	require jquery.pjax
 //= require rails-timeago
 //= require modernizr.minimal

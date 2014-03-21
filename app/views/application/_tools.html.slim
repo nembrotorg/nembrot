@@ -37,3 +37,7 @@ nav#tools
           li= link_to '', "http://www.facebook.com/share.php?u=#{ url }&title=#{ title }".html_safe
           li= link_to '', "http://twitter.com/home?status=#{ title }+#{ url }".html_safe
           li= link_to '', "https://plus.google.com/share?url=#{ url }".html_safe
+
+    li.code
+      ul
+        li= link_to '', '#code', title: 'Code'

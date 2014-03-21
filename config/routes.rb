@@ -8,6 +8,8 @@ Nembrot::Application.routes.draw do
 
   root to: 'home#index'
 
+  get 'code/:controller_script/:action_script' => 'code#show'
+
   put 'bibliography/update' => 'books#update', as: :update_book
   get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
   get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/

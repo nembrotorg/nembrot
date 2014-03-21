@@ -2,6 +2,8 @@
 
 module ApplicationHelper
 
+  include CacheHelper
+
   def lang_attr(language)
     language if language != I18n.locale.to_s
   end

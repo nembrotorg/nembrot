@@ -173,14 +173,29 @@ load_user_menu = () ->
 
 window.Nembrot.load_user_menu = load_user_menu
 
+toggle_code = () ->
+  #$("#code").toggle('slide', { }, 500)
+  $("#code").toggle()
+
+load_code = () ->
+  file = '/code/' + $('#main > div').attr('class').replace('s-', '/')
+  $.ajax
+    url: file
+    cache: true
+    success: (html) ->
+      $('#code').html(html)
+      ga('send', 'pageview', file)
+
 # Document hooks ******************************************************************************************************
 
 $ ->
   document_initializers()
+  load_code()
 
 $(document).on 'pjax:end', ->
   content_initializers()
   content_initializers_reload_only()
+  load_code()
 
 $(window).on 'resize', ->
   resize_initializers()
@@ -190,7 +205,7 @@ $(window).on 'resize', ->
 document_initializers = () ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $.pjax.defaults.timeout = false
-  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+  $(document).pjax('#main a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 
   $(document).on 'click', 'a[href^=http]:not(.share a)', ->
     track_outbound_link(@href, 'Outbound Link', @href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
@@ -213,6 +228,10 @@ document_initializers = () ->
 
   $(document).on 'click', '.fb-like', ->
     fix_facebook_dialog()
+
+  $(document).on 'click', "a[href='#code']", ->
+    toggle_code()
+    false
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()

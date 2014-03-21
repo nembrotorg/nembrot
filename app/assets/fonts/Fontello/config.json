@@ -157,9 +157,27 @@
       "src": "fontawesome"
     },
     {
+      "uid": "757afacc32d82967975cbb3b45cfb41b",
+      "css": "desktop",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
       "uid": "130380e481a7defc690dfb24123a1f0c",
       "css": "circle",
       "code": 59400,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "422e07e5afb80258a9c4ed1706498f8a",
+      "css": "circle-empty",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "81bb68665e8e595505272a746db07c7a",
+      "css": "dot-circled",
+      "code": 59427,
       "src": "fontawesome"
     },
     {
@@ -268,6 +286,12 @@
       "uid": "0cd7be54280d9ffbe0f48342c011268e",
       "css": "cc-remix",
       "code": 59311,
+      "src": "entypo"
+    },
+    {
+      "uid": "ef5e2b339a93fff038cc6a28f8c91edd",
+      "css": "stumbleupon",
+      "code": 59423,
       "src": "entypo"
     },
     {
@@ -425,6 +449,12 @@
       "css": "location",
       "code": 59405,
       "src": "elusive"
+    },
+    {
+      "uid": "838db85de51df09e2d0c34a17dc30ff6",
+      "css": "code",
+      "code": 59425,
+      "src": "websymbols"
     }
   ]
 }

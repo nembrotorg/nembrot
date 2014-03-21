@@ -8,7 +8,7 @@ section.citations
 
       - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
       -# FIXME: This should be done in the helper
-      - attribution.gsub!(/\,/, '')
+      - attribution.gsub!(/\,/, '') unless attribution.blank?
 
       li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
         figure.citation

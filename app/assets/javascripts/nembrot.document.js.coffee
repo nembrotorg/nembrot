@@ -191,7 +191,7 @@ load_code = () ->
 $ ->
   document_initializers()
 
-$(document).on 'pjax:end', '#main', ->
+$(document).on 'pjax:end', '#main :not(#main)', ->
   content_initializers()
   content_initializers_reload_only()
 

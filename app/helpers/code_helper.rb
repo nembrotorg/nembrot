@@ -2,6 +2,7 @@
 
 module CodeHelper
   def model_file(controller)
+    controller.gsub!(/features/, 'notes')
     File.join('app', 'models', "#{ controller.singularize }.rb")
   end
 
@@ -10,6 +11,8 @@ module CodeHelper
   end
 
   def view_file(controller, action)
+    controller.gsub!(/features/, 'notes')
+    action.gsub!(/.*show/, 'show')
     File.join('app', 'views', "#{ controller.pluralize }/#{ action }.html.slim")
   end
 

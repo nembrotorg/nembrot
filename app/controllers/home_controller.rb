@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
     interrelated_notes_features_and_citations
     note_tags(@note)
-    note_map(@note)
+    @map_this_marker = note_map(@note)
     note_source(@note)
 
     get_promoted_notes(@note)

@@ -56,14 +56,15 @@
             +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
 
 =curtain($bottom-height: 0, $position: absolute)
+  body
+    padding-top: 0
+
   #curtain_shim
     height: calc(100% - #{$bottom-height})
   #main
     height: 100%
     &> article, &> section
       height: 100%
-      &> nav
-        display: none
       &> header
         margin: 0
       section#content

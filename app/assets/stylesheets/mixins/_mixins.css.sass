@@ -33,8 +33,6 @@
       weight: 800
     letter-spacing: 0.025em
     line-height: 0.56em
-    margin:
-      right: 0.4em
     padding: 0.08em 0.08em 0.14em 0.08em
     text-transform: lowercase
     vertical-align: 0.15em
@@ -49,119 +47,50 @@
     weight: 800
   text-transform: lowercase
 
-=magazine-figure
-  article
-    section#content
-      figure.image
-        color: $background-color
-        height: 100%
-        left: 0
-        overflow: hidden
-        position: fixed
-        top: 0
-        width: 100%
-        z-index: -1
-        figcaption
-          bottom: 0
-          color: $background-color
-          display: block
-          height: $line-height
-          left: 0
-          padding:
-            bottom: $line-height / 2
-            left: $text-indent / 2
-          position: absolute
-          z-index: 2
-          p
-            bottom: 0
-            left: $text-indent / 2
-            position: absolute
-
-=magazine-image-portrait
-  article
-    section#content
-      figure.image
-        img
-          height: 100%
-          left: 0
-          margin: auto
-          max-width: none
-          top: 0
-          width: auto
-
-=magazine-image-landscape
-  article
-    section#content
-      figure.image
-        img
-          height: auto
-          left: 0
-          margin: auto
-          max-width: none
-          top: 0
-          width: 100%
-
-=magazine-everywhere
-  +magazine-figure
-
-  +magazine-image-portrait
-
-  @media only screen and (min-width: 1024px)
-    +magazine-image-landscape
-
-=magazine
-  +magazine-figure
-  +magazine-image-landscape
-
-=centered-image-container
-  img
-    height: auto
-    left: 0
-    margin: auto
-    max-height: auto
-    max-width: 100%
-    top: 0
-    width: 100%
-
-=magazine-half($small-height: 135px, $large-height: 330px, $headline-compensation: -180px, $screen-color: rgba(#000, 0.65), $border-width: 1px, $border-color: #000)
+=image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.7)
   #main
     &> article
-      overflow: visible
       section#content
         figure.image
-          +centered-image-container
-          height: $small-height
-          border-bottom: $border-width solid $border-color
-          position: absolute
           figcaption
-            +background-image(linear-gradient(rgba(#000, 0), rgba(#000, 0.7)))
-            // background-color: $screen-color
-            height: $small-height
-            width: 100%
+            +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
+
+=curtain($bottom-height: 0, $position: absolute)
+  #curtain_shim
+    height: calc(100% - #{$bottom-height})
+  #main
+    height: 100%
+    &> article, &> section
+      height: 100%
+      &> nav
+        display: none
+      &> header
+        margin: 0
+      section#content
+        figure.image
+          height: 200%
+          left: -50%
+          margin: 0
+          padding: 0
+          position: $position 
+          top: -50%
+          width: 200%
+          z-index: -1
+          img
+            bottom: 0
+            height: auto
+            left: 0
+            margin: auto 
+            min-height: 50%
+            min-width: 50%
+            position: absolute 
+            right: 0
+            top: 0
+            width: auto
+          figcaption
+            bottom: $line-height / 2
+            height: auto
+            left: 0
             position: absolute
             top: 0
-
-  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 720px)
-
-    #main
-      &> article
-        margin-top: $large-height + $headline-compensation
-        overflow: visible
-        section#content
-          figure.image
-            height: $large-height
-            figcaption
-              height: $large-height
-
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    #main
-      &> article
-        section#content
-          figure.image
-            img
-              margin-top: -400px
+            width: 100%

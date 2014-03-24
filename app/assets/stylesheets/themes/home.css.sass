@@ -32,15 +32,22 @@
   $success-background-color: #0c0
 
   $theme-home-logo-color: #e7e7e7
+  $curtain-padding-lines: 7
 
   +colors
-  +magazine-half(rgba(#000, 0.65))
+  +image-gradient
+  +curtain($curtain-padding-lines * $line-height)
   +typekit-home
 
+  body
+    width: 100%
+    padding-top: 0 !important
+
   #dashboard
+    position: absolute
+    bottom: $line-height
     background-color: rgba(#ffffff, 1)
     position: absolute
-    top: 354px
     a[href='#close']
       display: none
 
@@ -48,19 +55,14 @@
     display: none
 
   #main
-    h1
-      +brand($theme-home-logo-color)
-      color: $theme-home-logo-color !important
-      font-size: 3em
-
-    figure.image
-      figcaption
-        p
-          +rotate(-90deg)
-          left: auto
-          top: $line-height / 2
-          right: $text-indent * 5
-          font-size: 0.7em
+    header
+      height: 0
+      h1
+        +brand($theme-home-logo-color)
+        bottom: $line-height
+        color: $theme-home-logo-color !important
+        font-size: 3em
+        position: absolute
 
     #introduction
       color: #171717
@@ -101,13 +103,14 @@
   @media only screen and (min-width: 720px)
 
     #dashboard
-      top: 264px
+      bottom: ($line-height * $curtain-padding-lines) - ($line-height * 5)
+      top: auto
 
     #main
-
-      h1
-        font:
-          size: 5em
+      header
+        h1
+          font:
+            size: 5em
 
       #content
         +span-columns(8)
@@ -134,12 +137,11 @@
   @media only screen and (min-width: 1024px)
 
     #main
+      h1
+        margin-left: -1.4em
 
       #content
         +span-columns(12)
-
-      h1
-        margin-left: -1.25em
 
       .channels
         +span-columns(9)

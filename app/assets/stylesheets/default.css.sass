@@ -216,12 +216,14 @@ footer
 
 +pass-media-query('default')
 
-#main, .hello-world, footer:not(.channel)
-  width: 90%
-  margin: 0 5%
+#main
+  box-sizing: padding-box
+  margin: 0
+  padding: 0 5%
+  width: 100%
 
-#main > section, #main > article, .hello-world p, footer
-  +clearfix
+  // #main > section, #main > article, .hello-world p, footer:not(.channel)
+  // +clearfix
 
 ol, ul, .statistics, iframe, table, form, fieldset
   margin-bottom: $line-height
@@ -736,9 +738,9 @@ aside
   body
     padding-top: $line-height / 2
 
-  #main,
+  #main > section, #main > article, .hello-world p, footer:not(.channel),
   .hello-world,
-  footer
+  footer:not(.channel)
     margin: 0 auto $line-height auto
 
   form

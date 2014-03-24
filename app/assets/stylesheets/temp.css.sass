@@ -1,0 +1,151 @@
+=magazine-figure
+  article
+    section#content
+      figure.image
+        color: $background-color
+        height: 100%
+        left: 0
+        overflow: hidden
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: -1
+        figcaption
+          bottom: 0
+          color: $background-color
+          display: block
+          height: $line-height
+          left: 0
+          padding:
+            bottom: $line-height / 2
+            left: $text-indent / 2
+          position: absolute
+          z-index: 2
+          p
+            bottom: 0
+            left: $text-indent / 2
+            position: absolute
+
+=magazine-image-portrait
+  article
+    section#content
+      figure.image
+        img
+          height: 100%
+          left: 0
+          margin: auto
+          max-width: none
+          top: 0
+          width: auto
+
+=magazine-image-landscape
+  article
+    section#content
+      figure.image
+        img
+          height: auto
+          left: 0
+          margin: auto
+          max-width: none
+          top: 0
+          width: 100%
+
+=XXXmagazine-everywhere
+  +magazine-figure
+
+  +magazine-image-portrait
+
+  @media only screen and (min-width: 1024px)
+    +magazine-image-landscape
+
+=magazine-everywhere
+  // Just cancel the above
+
+=magazine
+  +magazine-figure
+  +magazine-image-landscape
+
+=centered-image-container
+  img
+    height: auto
+    left: 0
+    margin: auto
+    max-height: auto
+    max-width: 100%
+    top: 0
+    width: 100%
+
+=magazine-half($small-height: $line-height * 4, $large-height: $line-height * 11, $headline-compensation: $line-height * -6)
+  #main
+    &> article
+      overflow: visible
+      section#content
+        figure.image
+          +centered-image-container
+          height: $small-height
+          position: absolute
+          figcaption
+            height: $small-height
+            width: 100%
+            position: absolute
+            top: 0
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #main
+      &> article
+        margin-top: $large-height - $headline-compensation
+        overflow: visible
+        section#content
+          figure.image
+            height: $large-height
+            figcaption
+              height: $large-height
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      &> article
+        section#content
+          figure.image
+            img
+              margin-top: -400px
+
+
+=magazine-pull-up-header($headline-compensation: 150px)
+  #main
+    &> article, &> section
+      &> header
+        margin-top: $headline-compensation * -1
+        h1
+          z-index: 1
+
+=XXXXmagazine-partial($bottom-height)
+  #main
+    &> article
+      overflow: visible
+      section#content
+        figure.image
+          height: auto
+          left: 0
+          position: absolute
+          top: 0
+          width: 100%
+          img
+            z-index: -1
+          figcaption
+            left: 0
+            position: absolute
+            top: 0
+            width: 100%
+
+  +magazine-curtain($line-height * 6)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+

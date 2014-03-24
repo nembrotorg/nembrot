@@ -3,7 +3,6 @@
     background-color: $background-color
 
   footer, #tools
-    background-color: $background-color
     a, a:before
       border-color: $font-color
       color: $font-color
@@ -18,12 +17,13 @@
 
   #main
     +font-color
+    background-color: $background-color
 
     ::selection
-      background: $selected-background-color
+      background: none
 
     ::-moz-selection
-      background: $selected-background-color
+      background: none
 
     del
       color: $delete-font-color

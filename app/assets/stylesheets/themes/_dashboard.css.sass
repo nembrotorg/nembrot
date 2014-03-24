@@ -9,14 +9,22 @@ $error-color: #cc0000
 #dashboard:not(.ui-draggable-dragging):hover
   background-color: rgba($dashboard-white-color, 1)
 
+#dashboard_wrapper
+  height: 100%
+  width: 100%
+  position: absolute
+  top: 0
+  left: 0
+
 #dashboard
+  +box-sizing(border-box)
   +font-color
   background-color: rgba($dashboard-white-color, 1)
   border: 1px solid $dashboard-black-color
   font:
     family: 'proxima-nova'
   cursor: hand
-  height: $line-height * 12.5
+  height: $line-height * 12
   left: 0
   margin: 0
   padding: 5px 0

@@ -20,8 +20,7 @@ html data={ controller: controller.controller_name, action: controller.action_na
 
     -# = render 'footer'
 
-    #dashboard_wrapper
-      aside#dashboard data-pjax-dashboard='true' style='display: none'
+    aside#dashboard data-pjax-dashboard='true' style='display: none'
 
     = render 'google_analytics' unless Setting['advanced.google_analytics_key'].blank?
 

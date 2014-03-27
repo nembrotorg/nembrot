@@ -1,7 +1,7 @@
 - images.each do |image|
-  figure.image
-    -# link_to ... , cut_image_binary_path(image, width: Setting['style.images_expanded_width'])
-    = image_tag(cut_image_binary_path(image, type: type, effects: @current_channel.theme.effects), alt: strip_tags(image.description))
+  - image_path = cut_image_binary_path(image, type: type, effects: @current_channel.theme.effects)
+  figure.image style="background-image: url(#{ image_path })"
+    = image_tag(image_path, alt: strip_tags(image.description))
     - unless image.caption.blank? && image.credit.blank?
       figcaption
         p

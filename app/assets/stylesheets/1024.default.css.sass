@@ -25,7 +25,10 @@
       clear: both
     section#content
       +span-columns(12)
-      figure
+      .gallery
+        +suffix(1, 12)
+        +span-columns(8, 12)
+      &> figure
         &.image
           +suffix(1, 12)
           +span-columns(8, 12)

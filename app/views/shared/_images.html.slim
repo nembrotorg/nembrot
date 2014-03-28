@@ -1,10 +1,5 @@
-- images.each do |image|
-  - image_path = cut_image_binary_path(image, type: type, effects: @current_channel.theme.effects)
-  figure.image style="background-image: url(#{ image_path })"
-    = image_tag(image_path, alt: strip_tags(image.description))
-    - unless image.caption.blank? && image.credit.blank?
-      figcaption
-        p
-          = simple_blurbify(image.caption) unless image.caption.blank?
-          - unless image.credit.blank?
-            span.credit = simple_blurbify(image.credit)
+- images = note.resources.attached_images
+- if images.size == 1 || has_instruction?('no_slideshow')
+  = render 'shared/image', image: images.first, type: type
+- else
+  = render 'shared/gallery', images: images, type: type

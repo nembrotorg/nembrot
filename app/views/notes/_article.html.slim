@@ -6,7 +6,8 @@
 
     = render 'shared/media', url: note.source_url if note.is_embeddable_source_url
 
-    = render 'shared/images', images: note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
+    -#.first(Setting['style.note_images_number'].to_i)
+    = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
 
     - unless note.introduction.blank? || note.has_instruction?('hide_introduction')
       section#introduction

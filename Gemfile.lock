@@ -140,6 +140,8 @@ GEM
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.1.5)
+    flexslider (2.2.0)
+      sass-rails (>= 3.1.0)
     flog (4.2.0)
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
@@ -464,6 +466,7 @@ DEPENDENCIES
   evernote-thrift
   factory_girl_rails
   faker
+  flexslider
   flog
   friendly_id (~> 5.0.0)
   fuubar

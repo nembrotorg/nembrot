@@ -15,6 +15,7 @@
 //= require jquery.ui.draggable
 //= require jquery.ui.accordion
 //= require jquery.dotdotdot
+//= require jquery.flexslider
 //= require jquery.pjax
 //= require jquery.alterclass
 //= require rails-timeago

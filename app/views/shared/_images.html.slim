@@ -1,5 +1,5 @@
 - images = note.resources.attached_images
-- if images.size == 1 || has_instruction?('no_slideshow')
+- if images.size == 1 || note.has_instruction?('no_slideshow')
   = render 'shared/image', image: images.first, type: type
 - else
   = render 'shared/gallery', images: images, type: type

@@ -88,22 +88,6 @@
       top: 0
       visibility: hidden
       width: auto
-  .gallery
-    bottom: 0
-    height: calc(100% - #{$bottom-height})
-    left: 0
-    margin: 0
-    padding: 0
-    position: $position
-    right: 0
-    top: 0
-    width: 100%
-    ul
-      height: 100%
-      li
-        height: 100%
-        figure.image
-          height: 100%
 
 =curtain($bottom-height: 0, $position: absolute)
   body
@@ -124,12 +108,25 @@
           position: $position 
           z-index: -1
           figcaption
-            bottom: $line-height / 2
+            bottom: 0
             height: auto
             left: 0
             position: absolute
             top: 0
             width: 100%
         .gallery
+          bottom: 0
+          height: calc(100% - #{$bottom-height})
+          left: 0
+          margin: 0
+          padding: 0
           position: $position
-          z-index: -1
+          right: 0
+          top: 0
+          width: 100%
+          ul
+            height: 100%
+            li
+              height: 100%
+              figure.image
+                height: 100%

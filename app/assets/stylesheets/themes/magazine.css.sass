@@ -1,12 +1,10 @@
 // Modules:
-// magazine-everywhere-module
-// panel-blurbs-module
-// standard-widths-module
-// thumbnails-module
+// simple-blurbs-module
+// content-left-module
 
 .theme-magazine
 
-  $background-color: #070707
+  $background-color: rgba(#000, 0.5)
   $body-font-color: #f7f7f7
   $border-color: $body-font-color
   $caption-color: #ccc
@@ -17,7 +15,7 @@
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #e7e700
+  $headline-font-color: #b7b700
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #0c0
@@ -25,7 +23,7 @@
   $map-background-color: #ccc
   $map-font-color: $body-font-color
   $off-color: #ccc
-  $row-hover-color: #ff0
+  $row-hover-color: #333
   $secondary-color: #666
   $selected-background-color: #ff0
   $selected-font-color: $body-font-color
@@ -33,81 +31,33 @@
   $success-background-color: #0c0
 
   +colors
-  +curtain(0, fixed)
-  +typekit-magazine-1
+  +curtain
+  +typekit-nembrot
 
-  h1, h3
-    +text-shadow(rgba(black, 0.5) 1px 1px 0, rgba(black, 0.4) 2px 2px 0)
-
-  #content
-    background: none
+  #main
     #introduction
-      p
-        +text-shadow(rgba(#000, 0.5) 1px 1px 0)
-        color: $font-color
-    #text
-      background: rgba(0, 0, 0, .75)
-      padding:
-        left: $text-indent / 2
-        right: $text-indent / 2
+      color: #222 !important
+      font:
+        style: normal
+        weight: 700
 
-  &.home-index, &.notes-index, &.notes-show, &.tags-show
-    .notes
-      +span-columns(12)
-      margin-bottom: $line-height
-      ul
-        +columns(1)
-        li
-          border: 1px solid $background-color
-          height: $line-height * 7
-          h2
-            padding: 0 5px
-
-  .breadcrumb li, footer, #comments, article aside, #disqus_thread
-    background: rgba(0, 0, 0, .75) !important
-    padding:
-      left: $text-indent / 2
-      right: $text-indent / 2
-
-  .notes li
-    background: rgba(0, 0, 0, .75) !important
-  
-  #disqus_thread, #comments
-    padding-top: $line-height / 2
-    margin-bottom: $line-height
-
-  .annotations
-    li
-      background: rgba(0, 0, 0, .75)
-      a:first-of-type
-        color: $background-color !important
-  .side-annotations
-    margin-left: $text-indent / 2
-
-  #tools
-    background-color: transparent
-
-  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 720px)
-
-    &.home-index, &.notes-index, &.notes-show, &.tags-show
+    &.home-index
       .notes
-        +span-columns(12)
         ul
-          +columns(2)
-          li
-            height: $line-height * 8
+          +columns(1)
+          +column-gap(0)
 
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    &.home-index, &.notes-index, &.notes-show, &.tags-show
-      .notes
-        +span-columns(12)
-        ul
-          +columns(3)
-          li
-            height: $line-height * 7
-
+  .persistent-map-module
+    .map
+      .marker
+        &:before
+          +outline(rgba(#fff, 0.8))
+          color: #000
+        a
+          +outline(rgba(#fff, 0.8))
+          color: #000
+        &:hover
+          a
+            color: $link-hover-color
+          &:before
+            color: $link-hover-color

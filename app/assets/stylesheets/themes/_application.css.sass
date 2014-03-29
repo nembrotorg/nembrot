@@ -45,6 +45,35 @@ nav ul li a:first-of-type
   &[href^='/channels']:before
     +icon-settings
 
+// Prevent Typekit from causing FOUT
+.wf-loading
+  body
+    opacity: 0
+
+.wf-active
+  body
+    opacity: 1
+    +transition(0.5s)
+
+.statistics
+  display: none
+
+div#main footer.channel
+  +arrow-links
+  +span-columns(12)
+  margin-bottom: $line-height / 2
+  ul
+    li:last-of-type
+      a:first-of-type
+        +brand
+        margin-left: 0.25em
+        &:before
+          margin-right: 0.2em // REVIEW: These adjustments should not be necessary
+          vertical-align: -0.025em
+
+#persistent_map_container
+  display: none
+
 #tools
   // +colors
   background-color: transparent !important
@@ -63,34 +92,6 @@ nav ul li a:first-of-type
           +logo
     .user
       display: none
-
-#persistent_map_container
-  display: none
-
-// Prevent Typekit from causing FOUT
-.wf-loading
-  body
-    opacity: 0
-
-.wf-active
-  body
-    opacity: 1
-    +transition(0.5s)
-
-.statistics
-  display: none
-
-div#main footer.channel
-  +arrow-links
-  +span-columns(12)
-  ul
-    li:last-of-type
-      a:first-of-type
-        +brand
-        margin-left: 0.25em
-        &:before
-          margin-right: 0.2em // REVIEW: These adjustments should not be necessary
-          vertical-align: -0.025em
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 

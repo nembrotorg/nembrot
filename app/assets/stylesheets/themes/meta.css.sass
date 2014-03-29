@@ -15,7 +15,7 @@
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #070707
+  $headline-font-color: #990000
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #00c
@@ -30,6 +30,8 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
+  $logo-color: #990000
+
   +colors
   +typekit-nembrot
 
@@ -40,6 +42,11 @@
       weight: 700
 
   #main
+    h1
+      +logo($logo-color)
+      &:before
+        font-size: 1.25em
+        vertical-align: -0.03em
     #text
       &.enface
         p.source
@@ -52,6 +59,11 @@
   @media only screen and (min-width: 1024px)
 
     #main
+      h1
+        margin-left: -2.6em
+        &:before
+          font-size: 1.25em
+          vertical-align: -0.03em
       #text
         &.enface
           p.source

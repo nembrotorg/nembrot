@@ -114,7 +114,7 @@ $error-color: #cc0000
     font-size: $line-height * 2
     left: $text-indent / -2
     position: absolute
-    top: $line-height / 2
+    top: $line-height * 0.666
 
   .connected
     p
@@ -166,12 +166,13 @@ $error-color: #cc0000
           display: none
       label
         display: inline-block
+        line-height: $line-height * 2/3
         padding: 0 ($text-indent / 2)
         span
           display: inline-block
           overflow: hidden
           text-overflow: ellipsis
-          width: 250px // FIXME: This should be percentage
+          width: 265px // FIXME: This should be percentage
           white-space: nowrap
         &:hover
           background-color: $dashboard-hover-color
@@ -213,7 +214,7 @@ $error-color: #cc0000
       position: absolute
       bottom: 0
       left: 0
-      padding: $line-height / 2
+      padding: $line-height * 0.666
       width: 100%
       // REVIEW: Genericise as button in default
       input[type=submit]

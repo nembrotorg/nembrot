@@ -50,7 +50,7 @@
     .breadcrumb
       position: fixed
       left: $text-indent
-      top: $line-height / 2
+      top: $line-height * 0.666
       li
         &:first-of-type
           display: none
@@ -67,13 +67,13 @@
 
     header[data-title]
       height: $line-height * 1.5
-      margin-top: $line-height / 2
+      margin-top: $line-height * 0.666
       margin-bottom: 0
 
     > div
       +clearfix
       background: rgba($background-color, 0.65)
-      padding: 0 ($text-indent * 2/3) ($line-height / 2) ($text-indent * 2/3)
+      padding: 0 ($text-indent * 2/3) ($line-height * 0.666) ($text-indent * 2/3)
       a
         color: #006b55
         text-decoration: none
@@ -85,7 +85,7 @@
         header
           height: $line-height
         figure.image
-          margin-bottom: $line-height / 2
+          margin-bottom: $line-height * 0.666
 
       #text
         .body, .annotations

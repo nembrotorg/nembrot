@@ -26,7 +26,7 @@ defaults: &defaults
     github_color: '#201f1f'
     gplus_color: '#dd4b39'
     grid_padding: 0
-    gutter_width: 30
+    gutter_width: 28
     headline_font: sans-serif
     headline_font_color: '#900'
     headline_font_family: sans-serif
@@ -49,7 +49,7 @@ defaults: &defaults
     images_thumbnail_width: 3
     insert_background_color: '#ffff45'
     invalid_background_color: '#ff0'
-    line_height: 30
+    line_height: 28
     link_color: '#000'
     link_hover_color: '#009'
     link_visited_color: '#000'

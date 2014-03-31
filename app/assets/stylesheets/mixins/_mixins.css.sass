@@ -55,9 +55,6 @@
         figure.image
           figcaption
             +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
-            p
-              +outline($color: rgba(#000, 0.5))
-              color: #ccc
 
 =use-background-image($bottom-height: 0, $position: absolute)
   // We may want to use a wrapper for the image and put the background on it, to allow more flexibility
@@ -93,13 +90,18 @@
       width: auto
     figcaption
       p
-        +outline($color: rgba(#ccc, 0.5))
-        color: #000
+        +outline($color: $caption-outline-color)
+        color: $caption-color
         display: block
         font-size: 0.75em
         position: absolute
         right: $text-indent * 3
         top: $line-height * 2/3
+        a
+          color: $caption-color
+          &:hover
+            color: $link-hover-color
+
   &:hover
     figcaption p a
       text-decoration: underline

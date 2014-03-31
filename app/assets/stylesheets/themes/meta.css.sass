@@ -15,7 +15,7 @@
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #990000
+  $headline-font-color: #000000
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #00c
@@ -30,7 +30,7 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
-  $logo-color: #990000
+  $logo-color: #000000
 
   +colors
   +typekit-nembrot
@@ -40,6 +40,14 @@
     font:
       style: normal
       weight: 700
+
+  .home-index
+    .breadcrumb
+      visibility: visible
+
+  .breadcrumb
+  a[href='/']
+    display: block
 
   #main
     h1
@@ -61,7 +69,7 @@
 
     #main
       h1
-        margin-left: -2.45em
+        margin-left: -2.8em
         &:before
           font-size: 1.25em
           vertical-align: -0.03em

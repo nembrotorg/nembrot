@@ -6,9 +6,10 @@ class ChannelsController < ApplicationController
   skip_authorize_resource only: :create
 
   before_action :set_channel_defaults, only: [:index, :show, :new, :edit, :update, :destroy]
-
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
   before_action :fetch_evernote_notebooks, only: [:show, :new, :edit, :update, :destroy]
+
+  skip_before_action :get_map_all_markers
 
   add_breadcrumb I18n.t('channels.index.title'), :channels_path
 

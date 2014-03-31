@@ -6,6 +6,7 @@ class ThemesController < ApplicationController
   # See http://factore.ca/on-the-floor/258-rails-4-strong-parameters-and-cancan
   load_and_authorize_resource except: :create
   skip_authorize_resource only: :create
+  skip_before_action :get_map_all_markers
 
   # GET /themes
   def index

@@ -68,14 +68,20 @@ div#main footer.channel
         +brand
         margin-left: 0.25em
         &:before
-          margin-right: 0.2em // REVIEW: These adjustments should not be necessary
+          border:
+            bottom-right-radius: 0.3em
+            top-right-radius: 0.3em
+            width: 0.25em
+          font-size: 0.8em
+          letter-spacing: -0.01em
+          margin-right: 0.35em
+          padding-right: 0.18em
           vertical-align: -0.025em
 
 #persistent_map_container
   display: none
 
 #tools
-  // +colors
   background-color: transparent !important
   ul
     li

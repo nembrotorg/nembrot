@@ -19,11 +19,11 @@ $error-color: #cc0000
   cursor: hand
   height: $line-height * 13
   left: 0
-  margin: 0
+  margin: 0 5%
   padding: 5px 0
   position: absolute
   right: 0
-  top: 0
+  top: $line-height * 14
   z-index: 1000
 
   nav
@@ -250,9 +250,6 @@ $error-color: #cc0000
           +icon-screen
           +icon-small
 
-  //li, a
-  //  color: #fff
-
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 720px)
@@ -261,6 +258,7 @@ $error-color: #cc0000
     background-color: rgba($dashboard-white-color, 0.85)
     bottom: $line-height
     left: auto
+    margin: 0
     position: fixed
     right: $text-indent / 2
     top: auto

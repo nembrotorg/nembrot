@@ -88,23 +88,29 @@
       top: 0
       visibility: hidden
       width: auto
+
+=overlay-caption-top
+  figure.image
     figcaption
       p
         +outline($color: $caption-outline-color)
-        color: $caption-color
+        color: $caption-color // Reiterated because of outline - necessary?
         display: block
-        font-size: 0.75em
+        font-size: 0.75em // Should this be here?
         position: absolute
         right: $text-indent * 3
         top: $line-height * 2/3
-        a
-          color: $caption-color
-          &:hover
-            color: $link-hover-color
 
-  &:hover
-    figcaption p a
-      text-decoration: underline
+=hanging-caption
+  figure.image
+    figcaption
+      p
+        display: block
+        font-size: 0.75em // Should this be here?
+        position: absolute
+        right: $text-indent
+        top: auto
+        bottom: $line-height * -1.5
 
 =curtain($bottom-height: 0, $position: absolute)
   body

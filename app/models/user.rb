@@ -94,7 +94,12 @@ class User < ActiveRecord::Base
     (role == 'admin')
   end
 
-  def valid_password?(password)  
-    !authorizations.nil? || super(password)  
+  def valid_password?(password)
+    !authorizations.nil? || super(password)
+  end
+
+  # http://dev.mensfeld.pl/2013/12/rails-devise-and-remember_me-rememberable-by-default/
+  def remember_me
+    true
   end
 end

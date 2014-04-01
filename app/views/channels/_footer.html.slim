@@ -3,15 +3,15 @@
   footer.channel
     nav
       ul
-        li = link_to @current_channel.name, home_path(@current_channel)
-        li = link_to t('notes.index.title'), notes_path
-        -# li = link_to t('citations.index.title'), citations_path
-        -# li = link_to t('books.index.title'), books_path
-        -# li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
-        li = link_to t('tags.index.title'), tags_path
+        li = link_to_unless_current_or_wrap @current_channel.name, home_path(@current_channel)
+        li = link_to_unless_current_or_wrap t('notes.index.title'), notes_path
+        -# li = link_to_unless_current_or_wrap t('citations.index.title'), citations_path
+        -# li = link_to_unless_current_or_wrap t('books.index.title'), books_path
+        -# li = link_to_unless_current_or_wrap t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
+        li = link_to_unless_current_or_wrap t('tags.index.title'), tags_path
 
         - unless @sections.nil?
           - @sections.each do |section|
-            li = link_to section.get_feature_name.titlecase, feature_path(feature: section.feature)
+            li = link_to_unless_current_or_wrap section.get_feature_name.titlecase, feature_path(feature: section.feature)
 
-        li = link_to 'Nembrot', '/'
+        li = link_to_unless_current_or_wrap 'Nembrot', '/'

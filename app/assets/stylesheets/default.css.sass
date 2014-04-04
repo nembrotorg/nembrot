@@ -532,7 +532,7 @@ footer
       position: relative
       .source
         &:before
-          top: $line-height * 0.666
+          top: $line-height * 2/3
       .target
         position: absolute
         top: 0
@@ -749,10 +749,8 @@ aside
 
 @media only screen and (min-width: 720px)
 
-  +pass-media-query('screen-and-min-width-720px')
-
   body
-    padding-top: $line-height * 0.666
+    padding-top: $line-height * 2/3
 
   #main
     padding: 0
@@ -814,7 +812,7 @@ aside
       &.image
         margin-bottom: $line-height
         figcaption
-          padding-top: $line-height * 0.666
+          padding-top: $line-height * 2/3
       &.ins-fx-pol
         figcaption
           display: none

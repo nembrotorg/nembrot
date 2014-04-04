@@ -23,11 +23,15 @@ module EffectsHelper
     image
   end
 
-  def pre_fx_lef(image)
+  def pre_fx_fli(image) #
     image.transpose
   end
 
-  def pre_fx_rig(image)
+  def pre_fx_lef(image) #
+    image.transpose
+  end
+
+  def pre_fx_rig(image) #
     image.transverse
   end
 
@@ -35,7 +39,7 @@ module EffectsHelper
     image.trim
   end
 
-  def fx_cha(image)
+  def fx_cha(image) #
     image.charcoal 5
   end
 
@@ -56,7 +60,7 @@ module EffectsHelper
     image.grayscale 'Rec709Luminance'
   end
 
-  def fx_3d(image)
+  def fx_3d(image) #
     image.raise 20
   end
 
@@ -80,27 +84,23 @@ module EffectsHelper
     end
   end
 
-  def fx_equ(image)
+  def fx_equ(image) #
     image.equalize
   end
 
-  def fx_fli(image)
-    image.flip
-  end
-
-  def fx_flo(image)
+  def fx_flo(image) #
     image.flop
   end
 
-  def fx_gau(image)
+  def fx_gau(image) #
     image.gaussian_blur '0, 1'
   end
 
-  def fx_exp(image)
+  def fx_exp(image) #
     image.implode '-0.75'
   end
 
-  def fx_imp(image)
+  def fx_imp(image) #
     image.implode '-0.75'
   end
 
@@ -108,19 +108,19 @@ module EffectsHelper
     image.modulate '0.85'
   end
 
-  def fx_mot(image)
+  def fx_mot(image) #
     image.motion_blur '0, 7, 180'
   end
 
-  def fx_neg(image)
+  def fx_neg(image) #
     image.negate
   end
 
-  def fx_nor(image)
+  def fx_nor(image) #
     image.normalize
   end
 
-  def fx_rad(image)
+  def fx_rad(image) #
     image.radial_blur '5'
   end
 
@@ -136,7 +136,7 @@ module EffectsHelper
     image.shade(true, 50, 50)
   end
 
-  def fx_swi(image)
+  def fx_swi(image) #
     image.swirl '180'
   end
 
@@ -188,10 +188,16 @@ module EffectsHelper
   end
 
   def fx_sketch(image)
-    sketch = image.quantize(256, Magick::GRAYColorspace)
-    sketch = sketch.equalize
-    sketch = sketch.sketch(0, 10, 135)
-    image.dissolve(sketch, 0.75, 0.25)
+    image.combine_options do |c|
+      #c.equalize
+      #c.sketch(0, 10, 135)
+      c.dither
+      c.colorize 2
+      c.edge 1
+      c.normalize
+      c.negate
+    end
+    #image.dissolve(sketch, 0.75, 0.25)
   end
 
   def fx_gotham(image)
@@ -204,19 +210,19 @@ module EffectsHelper
     end
   end
 
-  def fx_sig(image)
+  def fx_sig(image) #
     image.sigmoidal_contrast '10,0%'
   end
 
-  def fx_paint(image)
+  def fx_paint(image) #
     image.paint 2
   end
 
-  def fx_sol(image)
+  def fx_sol(image) #
     image.solarize '20%'
   end
 
-  def fx_mon(image)
+  def fx_mon(image) #
     image.monochrome
   end
 

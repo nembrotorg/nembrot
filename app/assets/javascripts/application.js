@@ -18,6 +18,7 @@
 //= require jquery.flexslider
 //= require jquery.pjax
 //= require jquery.alterclass
+//= require enquire
 //= require rails-timeago
 //= require modernizr.minimal
 //= require underscore

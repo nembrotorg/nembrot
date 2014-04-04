@@ -1,17 +1,10 @@
 place_annotations = () ->
-  if $('.annotations').length
-    (if _media_query('default') then _place_annotations_undo() else _place_annotations_do())
-    # $('#text').addClass('fade-annotations') (This should be a command, maybe 'distraction-free')
-  true
+  if $('html.wider-than-720px').length > 0
+    place_annotations_do()
+  else
+    place_annotations_undo()
 
-_media_query = (media_query_string) ->
-  style = null
-  if window.getComputedStyle and window.getComputedStyle(document.body, '::after')
-    style = window.getComputedStyle(document.body, '::after')
-    style = style.content.replace /"/g, ''
-  style is media_query_string
-
-_place_annotations_do = () ->
+place_annotations_do = () ->
   $('.annotations').addClass('side-annotations')
   annotations = $('li[id^=annotation-]')
   minimum = $('.body').offset().top
@@ -36,7 +29,7 @@ _correct_annotations_from_bottom = () ->
       maximum = $(this).offset().top - $(this).outerHeight(true)
       $(this).offset top: maximum
 
-_place_annotations_undo = () ->
+place_annotations_undo = () ->
   $('.annotations').removeClass('side-annotations')
   $('li[id*=annotation-]').css('top', '0')
 
@@ -46,6 +39,9 @@ $ ->
   place_annotations()
 
   $(document).on 'pjax:success', '#main', (data) ->
+    place_annotations()
+
+  $(window).on 'popstate', ->
     place_annotations()
 
   $(window).on 'resize', ->

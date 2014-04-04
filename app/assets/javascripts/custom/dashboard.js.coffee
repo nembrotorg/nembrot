@@ -6,15 +6,20 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
-  if location.pathname == '/' && $('#dashboard').not(':visible')
+  if $('html:not(.theme-home) #dashboard').not(':visible')
     load_dashboard()
+    if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
     $('#dashboard').show()
+  else
+    $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme
+
+position_dashboard = () ->
+  $('html.wider-than-720px.theme-home #dashboard').css('top', '').css('bottom', '')
+  $('html.theme-home:not(.wider-than-720px) #dashboard').css('top', parseInt($('#content').offset().top + $('#content').outerHeight(true)) + 'px').css('bottom', '')
 
 # Document hooks ******************************************************************************************************
 
 $ ->
-  $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme (& uses different method from esc/keyup)
-
   $(document).pjax('#dashboard a:not(.show-channel)', '[data-pjax-dashboard]', { push: false } )
   $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]')
 
@@ -39,6 +44,7 @@ $ ->
     $('#dashboard').fadeToggle()
     if $('#dashboard').is(':visible') then load_dashboard()
 
+  position_dashboard()
   auto_open_dashboard()
 
   thread = null
@@ -53,14 +59,18 @@ $ ->
           cache: false
           success: (html) ->
             $("#dashboard .available").html html
-
         return
       , 500)
     return
 
   $(document).on 'pjax:success', '#main', (data) ->
-    $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme
+    position_dashboard()
     auto_open_dashboard()
 
   $(window).on 'popstate', ->
+    position_dashboard()
+    auto_open_dashboard()
+
+  $(window).on 'resize', ->
+    position_dashboard()
     auto_open_dashboard()

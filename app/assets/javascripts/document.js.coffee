@@ -91,6 +91,20 @@ $ ->
   load_user_menu()
   truncate_blurbs()
 
+  # REVIEW: Since enquire.js is event-based rather than query-based, and we need to test viewport widths
+  #  every time we load new content, we need to use this:
+  enquire.register 'screen and (min-width: 720px)',
+    match: ->
+      $('html').addClass('wider-than-720px')
+    unmatch: ->
+      $('html').removeClass('wider-than-720px')
+
+  enquire.register 'screen and (min-width: 1024px)',
+    match: ->
+      $('html').addClass('wider-than-1024px')
+    unmatch: ->
+      $('html').removeClass('wider-than-1024px')
+
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
   #  Also we need to open .active

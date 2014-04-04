@@ -36,7 +36,7 @@
     margin-right: $text-indent
     padding: 0.08em 0.08em 0.14em 0.08em
     text-transform: lowercase
-    vertical-align: 0.15em
+    vertical-align: 0.1em
     width: auto
 
 =brand($color: inherit)
@@ -117,7 +117,7 @@
     padding-top: 0
 
   #curtain_shim
-    height: calc(100% - #{$bottom-height})
+    height: 50%
   #main
     background-color: transparent
     height: 100%
@@ -127,7 +127,7 @@
       &> header
         margin: 0
       section#content
-        +use-background-image($bottom-height, $position)
+        +use-background-image(50%, $position)
         figure.image
           position: $position 
           z-index: 1
@@ -140,7 +140,7 @@
             width: 100%
         .gallery
           bottom: 0
-          height: calc(100% - #{$bottom-height})
+          height: 50%
           left: 0
           margin: 0
           padding: 0
@@ -154,3 +154,16 @@
               height: 100%
               figure.image
                 height: 100%
+
+  // Screen > $bottom-height * 2 /////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: $bottom-height * 2)
+    #curtain_shim
+      height: calc(100% - #{$bottom-height})
+    #main
+      &> article, &> section
+        &> header
+        section#content
+          +use-background-image($bottom-height, $position)
+          .gallery
+            height: calc(100% - #{$bottom-height})

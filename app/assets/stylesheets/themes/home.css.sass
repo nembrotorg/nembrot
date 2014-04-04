@@ -64,7 +64,7 @@
         position: absolute
         z-index: 2
         &:before
-          margin-right: 0
+          margin-right: $text-indent / 2
 
     #introduction
       color: #171717
@@ -144,6 +144,8 @@
         h1
           font:
             size: 5em
+          &:before
+            margin-right: $text-indent
 
       #introduction
         +hyphens

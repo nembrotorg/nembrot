@@ -28,7 +28,7 @@ class EvernoteNotebookList
       list_array.push({ name: n.name, guid: n.guid, default: n.defaultNotebook })
     end
 
-    Rails.cache.write(cache_key, list_array, expires_in: Constant.cahce_evernote_notebooks_for_minutes.minutes)
+    Rails.cache.write(cache_key, list_array, expires_in: Constant.cache_evernote_notebooks_for_minutes.minutes)
 
     return list_array
   end

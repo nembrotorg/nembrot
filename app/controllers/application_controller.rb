@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-chaching
+  # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-caching
   before_action :set_locale
   before_action :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
   before_action :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]

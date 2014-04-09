@@ -45,7 +45,6 @@
 
   #dashboard
     background-color: rgba(#ffffff, 1)
-    position: absolute
     a[href='#close']
       display: none
 
@@ -95,7 +94,6 @@
         display: none
 
     .channels
-      margin-top: $line-height * 14
       ul
         margin-bottom: 0
         li
@@ -106,7 +104,8 @@
   @media only screen and (min-width: 720px)
 
     #dashboard
-      bottom: ($line-height * $curtain-padding-lines) - ($line-height * 6)
+      position: absolute
+      bottom: 48px
       top: auto
 
     #main
@@ -134,7 +133,9 @@
 
       .channels
         +span-columns(12)
+        height: auto
         margin-top: $line-height
+        overflow: display
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

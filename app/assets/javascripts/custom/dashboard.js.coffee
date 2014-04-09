@@ -6,10 +6,12 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
+  # REVIEW: This is confusing
   if $('html:not(.theme-home) #dashboard').not(':visible')
     load_dashboard()
     if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
     $('#dashboard').show()
+    $('html').addClass('dashboard-open')
   else
     $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme
 
@@ -28,7 +30,9 @@ $ ->
 
   # REVIEW: Access current channel data more efficiently (read data once)
   $(document).on 'keyup', (event) ->
-    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel-slug') != 'default' then $('#dashboard').fadeOut() # REVIEW: Genericise
+    if event.keyCode == 27 && $('[data-theme-wrapper]').data('channel-slug') != 'default'
+      $('#dashboard').fadeOut() # REVIEW: Genericise
+      $('html').removeClass('dashboard-open')
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'click', '#dashboard .notebooks label', ->
@@ -41,8 +45,13 @@ $ ->
 
   $(document).on 'click', '#tools a[href*=channels]', (event) ->
     event.preventDefault()
+    fading_in = $('#dashboard').is(':hidden')
     $('#dashboard').fadeToggle()
-    if $('#dashboard').is(':visible') then load_dashboard()
+    if fading_in
+      load_dashboard()
+      $('html').addClass('dashboard-open')
+    else
+      $('html').removeClass('dashboard-open')
 
   position_dashboard()
   auto_open_dashboard()

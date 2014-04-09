@@ -45,6 +45,10 @@ nav ul li a:first-of-type
   &[href^='/channels']:before
     +icon-settings
 
+.dashboard-open
+  nav ul li a[href^='/channels']
+    visibility: hidden
+
 // Prevent Typekit from causing FOUT
 .wf-loading
   body

@@ -6,6 +6,10 @@ $success-color: $static-url-color
 $secondary-color: #666666
 $error-color: #cc0000
 
+html.dashboard-open
+  body
+    padding-bottom: $line-height * 16
+
 #dashboard:not(.ui-draggable-dragging):hover
   background-color: rgba($dashboard-white-color, 1)
 
@@ -18,13 +22,10 @@ $error-color: #cc0000
     family: 'proxima-nova'
   cursor: hand
   height: $line-height * 13
-  left: 0
-  margin: 0 5%
+  margin: 0 5% $line-height 5%
+  overflow: hidden
   padding: 5px 0
-  position: absolute
   right: 0
-  top: auto
-  z-index: 1000
 
   nav
     margin-bottom: 0
@@ -253,15 +254,18 @@ $error-color: #cc0000
 
 @media only screen and (min-width: 720px)
 
+  html.dashboard-open
+    body
+      padding-bottom: $line-height / 2
+
   #dashboard
     background-color: rgba($dashboard-white-color, 0.85)
     bottom: $line-height
-    left: auto
     margin: 0
     position: fixed
     right: $text-indent / 2
-    top: auto
     width: 330px
+    z-index: 1000
 
     form
       height: 328px

@@ -83,7 +83,9 @@ $ ->
 
   $(document).on 'click', 'a[href="#close"]', (event) ->
     event.preventDefault()
-    $(event.target).parent().fadeOut()
+    parent = $(event.target).parent()
+    parent.fadeOut()
+    $('html').removeClass(parent.attr('id') + '-open')
 
   $('time').timeago()
   update_titles()

@@ -1,6 +1,7 @@
 // Modules:
 // standard-widths
 // simple-blurbs-module
+// persistent-map-on-homepage-only
 
 .theme-manila
 
@@ -43,36 +44,13 @@
       &> nav
         margin-bottom: $line-height
 
-    #single_map
-      display: none !important
-
-    [data-controller=home]
-      #single_map
-        display: block !important
-        height: $line-height * 12 !important
-        margin-bottom: $line-height
-
     #text .target .body p
       color: $headline-font-color
 
-    // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @media only screen and (min-width: 720px)
+  @media only screen and (min-width: 1024px)
 
-      [data-controller=home]
-        #single_map
-          +span-columns(8)
-          +suffix(4)
-
-    // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @media only screen and (min-width: 1024px)
-
+    #main
       #text .target .body p
         color: $font-color
-
-      [data-controller=home]
-        #single_map
-          height: $line-height * 20 !important
-          +span-columns(12)
-          +suffix(0)

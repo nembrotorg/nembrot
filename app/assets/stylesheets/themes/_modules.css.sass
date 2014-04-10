@@ -114,3 +114,44 @@
 
     #main
       margin-top: 0
+
+.persistent-map-on-homepage-only-module
+
+  #single_map
+    display: none !important
+
+  #persistent_map_container
+    clear: both
+    position: relative
+    width: 100%
+
+  #persistent_map
+    box-sizing: padding-box
+    height: $line-height * 12
+    margin: $line-height 5%
+    padding: 0
+    position: relative
+    width: 90%
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    //#persistent_map
+    //  +suffix(4)
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #persistent_map
+      height: $line-height * 18
+      margin: $line-height * 2 auto $line-height auto
+      width: 980px
+
+  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1200px)
+
+    #persistent_map
+      width: 1080px

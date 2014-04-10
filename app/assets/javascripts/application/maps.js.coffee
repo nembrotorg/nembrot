@@ -17,6 +17,8 @@ load_maps = (theme) ->
   # If the theme uses a persistent map then populate the map (if necessary) then center on MAP_THIS_MARKER
   #  otherwise, simply show MAP_THIS_MARKER if available
 
+  window.Nembrot.show_or_hide_persistent_map()
+
   map_container = $('figure.map_container:visible .map')
   map_container_id = map_container.attr('id')
 
@@ -33,13 +35,10 @@ load_maps = (theme) ->
       else
         window.Nembrot.map_handler.fitMapToBounds()
 
-    else
-      if typeof window.Nembrot.MAP_ALL_MARKERS isnt 'undefined' and !map_container.hasClass('rendered')
-        render_map(map_container_id, window.Nembrot.MAP_ALL_MARKERS, theme, true)
-      else if typeof window.Nembrot.MAP_THIS_MARKER isnt 'undefined' and window.Nembrot.MAP_THIS_MARKER isnt 'rendered'
-        render_map(map_container_id, window.Nembrot.MAP_THIS_MARKER, theme, false)
-        window.Nembrot.map_object.serviceObject.setZoom(16)
-        window.Nembrot.MAP_THIS_MARKER = 'rendered'
+    else if typeof window.Nembrot.MAP_THIS_MARKER isnt 'undefined' and window.Nembrot.MAP_THIS_MARKER isnt 'rendered'
+      render_map(map_container_id, window.Nembrot.MAP_THIS_MARKER, theme, false)
+      window.Nembrot.map_object.serviceObject.setZoom(16)
+      window.Nembrot.MAP_THIS_MARKER = 'rendered'
 
 render_map = (map_container_id, markers, theme, show_map_type_control) ->
   map_style = window.Nembrot.THEMES[theme]['map_style']

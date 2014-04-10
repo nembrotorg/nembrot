@@ -8,9 +8,6 @@ html data={ controller: controller.controller_name, action: controller.action_na
 
     = render 'chromeframe'
 
-    figure#persistent_map_container.map_container
-      #persistent_map.map
-
     #curtain_shim
     #main role="main" data-pjax-container="true"
 
@@ -19,6 +16,9 @@ html data={ controller: controller.controller_name, action: controller.action_na
     = render 'tools'
 
     -# = render 'footer'
+
+    figure#persistent_map_container.map_container
+      #persistent_map.map
 
     aside#dashboard data-pjax-dashboard='true' style='display: none'
 

@@ -64,33 +64,6 @@
   #single_map_container
     display: none !important
 
-  .map
-    .marker
-      display: inline-block
-      max-width: 200px
-      overflow: display
-      white-space: nowrap
-      a
-        font:
-          weight: 600
-          size: 12px
-      &:before
-        +icon
-        +outline
-        color: $body-font-color
-        content: '\e810'
-        font-size: 22px
-        padding-right: 5px
-        vertical-align: -4px
-      a
-        +outline
-        color: $body-font-color
-      &:hover
-        a
-          color: $link-hover-color
-        &:before
-          color: $link-hover-color
-
   // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 720px)

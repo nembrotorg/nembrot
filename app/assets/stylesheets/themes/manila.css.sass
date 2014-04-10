@@ -32,6 +32,9 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
+  $map-marker-outline-color: #fff
+  $map-marker-color: $headline-font-color
+
   +colors
   +typekit-manila
   +curtain(50%)
@@ -46,6 +49,11 @@
 
     #text .target .body p
       color: $headline-font-color
+
+  #persistent_map
+    .marker
+      &:before
+        color: $headline-font-color
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -30,6 +30,9 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
+  $map-marker-outline-color: #fff
+  $map-marker-color: #000
+
   +colors
   +curtain(0, fixed)
   +typekit-nembrot
@@ -46,18 +49,3 @@
         ul
           +columns(1)
           +column-gap(0)
-
-  .persistent-map-module
-    .map
-      .marker
-        &:before
-          +outline(rgba(#fff, 0.8))
-          color: #000
-        a
-          +outline(rgba(#fff, 0.8))
-          color: #000
-        &:hover
-          a
-            color: $link-hover-color
-          &:before
-            color: $link-hover-color

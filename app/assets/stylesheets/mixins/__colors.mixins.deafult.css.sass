@@ -203,6 +203,21 @@
           &:before
             color: $off-color
 
+  #persistent_map
+    .map
+    .marker
+      &:before
+        +outline(rgba($map-marker-outline-color, 0.8))
+        color: $map-marker-color
+      a
+        +outline(rgba($map-marker-outline-color, 0.8))
+        color: $map-marker-color
+      &:hover
+        a
+          color: $link-hover-color
+        &:before
+          color: $link-hover-color
+
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)

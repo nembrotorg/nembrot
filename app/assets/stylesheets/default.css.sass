@@ -361,6 +361,26 @@ iframe
     img, object, embed
       max-width: none
 
+#persistent_map
+  .marker
+    display: inline-block
+    max-width: 200px
+    overflow: display
+    white-space: nowrap
+    a
+      font:
+        weight: 600
+        size: 14px
+    &:before
+      +icon
+      +outline
+      content: '\e810'
+      font-size: 22px
+      padding-right: 5px
+      vertical-align: -4px
+    a
+      +outline
+
 .notes li, .citations li, .map-infowindow
   +clearfix
   display: block

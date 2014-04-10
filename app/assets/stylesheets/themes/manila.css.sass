@@ -10,17 +10,17 @@
   $border-color: $body-font-color
   $caption-color: #757575
   $caption-outline-color: rgba(#d5d5d5, 0.9)
-  $count-color: #c00
+  $count-color: #ff007f
   $delete-font-color: #999
   $error-background-color: #c00
-  // $evernote-color: 
+  // $evernote-color:
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
   $headline-font-color: #ff007f
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
-  $link-hover-color: #00c
+  $link-hover-color: $headline-font-color
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
@@ -41,7 +41,12 @@
   +hanging-caption
   +home-one-column-list
 
+
   #main
+
+    [data-controller=home]
+      footer.channel
+        display: none
 
     article, section
       &> nav
@@ -52,6 +57,10 @@
 
   #persistent_map
     .marker
+      a
+        font:
+          family: 'abril-fatface'
+          size: 16px
       &:before
         color: $headline-font-color
 

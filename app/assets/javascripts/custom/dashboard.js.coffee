@@ -6,8 +6,7 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
-  # REVIEW: This is confusing
-  if $('html:not(.theme-home) #dashboard').not(':visible')
+  if $('.theme-home').size() > 0
     load_dashboard()
     if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
     $('#dashboard').show()

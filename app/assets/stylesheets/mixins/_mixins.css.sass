@@ -106,8 +106,9 @@
         font-size: 0.75em // Should this be here?
         position: absolute
         right: $text-indent
-        top: auto
-        bottom: $line-height * -1.5
+        top: calc(100% + ($line-height / 2))
+        bottom: auto
+        width: 50%
 
 =curtain($bottom-height: 0, $position: absolute)
   body

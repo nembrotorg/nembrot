@@ -17,8 +17,6 @@ load_maps = (theme) ->
   # If the theme uses a persistent map then populate the map (if necessary) then center on MAP_THIS_MARKER
   #  otherwise, simply show MAP_THIS_MARKER if available
 
-  window.Nembrot.show_or_hide_persistent_map()
-
   map_container = $('figure.map_container:visible .map')
   map_container_id = map_container.attr('id')
 

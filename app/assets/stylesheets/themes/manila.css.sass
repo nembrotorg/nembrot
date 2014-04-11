@@ -41,6 +41,19 @@
   +hanging-caption
   +home-one-column-list
 
+  #persistent_map
+    display: none
+    .marker
+      a
+        font:
+          family: 'abril-fatface'
+          size: 16px
+      &:before
+        color: $headline-font-color
+
+  [data-controller=home]
+    #persistent_map_container
+      display: block
 
   #main
 
@@ -54,15 +67,6 @@
 
     #text .target .body p
       color: $headline-font-color
-
-  #persistent_map
-    .marker
-      a
-        font:
-          family: 'abril-fatface'
-          size: 16px
-      &:before
-        color: $headline-font-color
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

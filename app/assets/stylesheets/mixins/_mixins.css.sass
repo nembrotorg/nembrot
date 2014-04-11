@@ -13,16 +13,14 @@
       .notes
         +span-columns(8)
 
-=logo($color: inherit)
+=logo
   &:before
     +border-bottom-right-radius(0.2em)
     +border-top-right-radius(0.2em)
     +box-sizing(border-box)
     border:
-      color: $color
       style: solid
       width: 0.15em
-    color: $color
     content: 'nb'
     display: inline-block
     font:
@@ -39,9 +37,8 @@
     vertical-align: 20%
     width: auto
 
-=brand($color: inherit)
-  +logo($color)
-  color: $color
+=brand
+  +logo
   font:
     style: normal
     variant: small-caps

@@ -51,10 +51,6 @@
       &:before
         color: $headline-font-color
 
-  &[data-controller=home]
-    #persistent_map_container
-      display: block !important
-
   #main
 
     [data-controller=home]
@@ -75,3 +71,9 @@
     #main
       #text .target .body p
         color: $font-color
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+html[data-controller=home].theme-manila
+  #persistent_map_container
+    display: block !important

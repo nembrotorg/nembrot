@@ -123,33 +123,34 @@
       height: 100%
       &> header
         margin: 0
-      +use-background-image(50%, $position)
-      figure.image
-        position: $position 
-        z-index: 1
-        figcaption
+      section
+        +use-background-image(50%, $position)
+        figure.image
+          position: $position 
+          z-index: 1
+          figcaption
+            bottom: 0
+            height: auto
+            left: 0
+            position: absolute
+            top: 0
+            width: 100%
+        .gallery
           bottom: 0
-          height: auto
+          height: 50%
           left: 0
-          position: absolute
+          margin: 0
+          padding: 0
+          position: $position
+          right: 0
           top: 0
           width: 100%
-      .gallery
-        bottom: 0
-        height: 50%
-        left: 0
-        margin: 0
-        padding: 0
-        position: $position
-        right: 0
-        top: 0
-        width: 100%
-        ul
-          height: 100%
-          li
+          ul
             height: 100%
-            figure.image
+            li
               height: 100%
+              figure.image
+                height: 100%
 
   // Screen > $bottom-height * 2 /////////////////////////////////////////////////////////////////////////////////////////////
 

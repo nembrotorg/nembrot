@@ -12,7 +12,7 @@
 
       = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
 
-      = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
+      section = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
 
       = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
 

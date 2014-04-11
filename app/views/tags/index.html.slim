@@ -10,7 +10,7 @@
 
     = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
+    section = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
 
     - unless @tags.empty?
       = render 'tags_list', tags: @tags

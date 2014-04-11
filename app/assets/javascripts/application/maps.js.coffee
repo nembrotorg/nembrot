@@ -19,10 +19,11 @@ load_maps = (theme) ->
 
   map_container = $('figure.map_container:visible .map')
   map_container_id = map_container.attr('id')
+  channel = $('data-channel-name').data('channel-name')
 
   if typeof map_container_id isnt 'undefined'
     if map_container_id is 'persistent_map'
-      if typeof window.Nembrot.MAP_ALL_MARKERS isnt 'undefined' and !map_container.hasClass('rendered')
+      if typeof window.Nembrot.MAP_ALL_MARKERS isnt 'undefined' and (!map_container.hasClass('rendered') or map_container.data('theme') isnt theme or map_container.data('channel') isnt channel)
         render_map(map_container_id, window.Nembrot.MAP_ALL_MARKERS, theme, true)
 
       if typeof window.Nembrot.MAP_THIS_MARKER isnt 'undefined' and window.Nembrot.MAP_THIS_MARKER isnt 'rendered'
@@ -42,6 +43,7 @@ render_map = (map_container_id, markers, theme, show_map_type_control) ->
   map_style = window.Nembrot.THEMES[theme]['map_style']
   handler = (if map_container_id is 'single_map' then  Gmaps.build('Google') else Gmaps.build('Google', { builders: { Marker: RichMarkerBuilder } }))
   window.Nembrot.map_handler = handler
+  channel = $('data-channel-name').data('channel-name')
 
   window.Nembrot.map_object = handler.buildMap
     provider: {
@@ -59,7 +61,7 @@ render_map = (map_container_id, markers, theme, show_map_type_control) ->
     markers = handler.addMarkers(markers)
     handler.bounds.extendWith markers
     handler.fitMapToBounds()
-    $('#' + map_container_id).addClass('rendered')
+    $('#' + map_container_id).addClass('rendered').data('theme', theme).data('channel', channel)
     return
 
 window.Nembrot.load_maps = load_maps

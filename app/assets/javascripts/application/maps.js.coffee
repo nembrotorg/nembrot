@@ -19,7 +19,7 @@ load_maps = (theme) ->
 
   map_container = $('figure.map_container:visible .map')
   map_container_id = map_container.attr('id')
-  channel = $('data-channel-name').data('channel-name')
+  channel = $('[data-channel-name]').data('channel-name')
 
   if typeof map_container_id isnt 'undefined'
     if map_container_id is 'persistent_map'
@@ -43,7 +43,7 @@ render_map = (map_container_id, markers, theme, show_map_type_control) ->
   map_style = window.Nembrot.THEMES[theme]['map_style']
   handler = (if map_container_id is 'single_map' then  Gmaps.build('Google') else Gmaps.build('Google', { builders: { Marker: RichMarkerBuilder } }))
   window.Nembrot.map_handler = handler
-  channel = $('data-channel-name').data('channel-name')
+  channel = $('[data-channel-name]').data('channel-name')
 
   window.Nembrot.map_object = handler.buildMap
     provider: {

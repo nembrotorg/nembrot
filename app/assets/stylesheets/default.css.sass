@@ -163,11 +163,6 @@ figure.image
 h1
   margin: $line-height 0
 
-section.ins-section
-  section
-    h2
-      font-weight: bold
-
 iframe
   border: 0
 
@@ -391,10 +386,6 @@ iframe
 .references
   +arrow-links
 
-// section:not(.ins-section), .home-index
-//   .notes li, .citations li, .map-infowindow
-//     +body-font
-
 .features-index, .features-show
   .notes li
     h2
@@ -535,9 +526,6 @@ footer
         margin: 0
         font:
           size: 1.2em
-      &:first-of-type
-        h2
-          display: none
       &:last-of-type
         margin-bottom: 0
       p:first-of-type
@@ -559,13 +547,6 @@ footer
       &:first-of-type
         p
           text-indent: 0
-
-section.ins-section, article.ins-section
-  #text
-    .body
-      text-align: left
-  .statistics
-    display: none
 
 #disqus_thread,
 #comments
@@ -710,22 +691,6 @@ ul.admin
         +icon-twitter
         background-color: $twitter-color
 
-.ins-enumerate
-  counter-reset: paragraphs
-  #text
-    &.regular p, section.source p, p.source
-      counter-increment: paragraphs 1
-      position: relative
-      &:before
-        +monospace-font
-        content: counter(paragraphs)
-        display: block
-        font-size: 0.6em
-        left: $text-indent * -3
-        position: absolute
-        text-align: right
-        width: $text-indent * 2
-
 aside
   ul
     margin-bottom: $line-height
@@ -831,9 +796,6 @@ aside
         margin-bottom: $line-height
         figcaption
           padding-top: $line-height * 2/3
-      &.ins-fx-pol
-        figcaption
-          display: none
       .map_container
         #single_map
           height: $line-height * 6

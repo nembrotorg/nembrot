@@ -47,8 +47,8 @@
 
 =image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.7)
   #main
-    &> article
-      section#content
+    &> article, &> section
+      section
         figure.image
           figcaption
             +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
@@ -123,34 +123,33 @@
       height: 100%
       &> header
         margin: 0
-      section#content
-        +use-background-image(50%, $position)
-        figure.image
-          position: $position 
-          z-index: 1
-          figcaption
-            bottom: 0
-            height: auto
-            left: 0
-            position: absolute
-            top: 0
-            width: 100%
-        .gallery
+      +use-background-image(50%, $position)
+      figure.image
+        position: $position 
+        z-index: 1
+        figcaption
           bottom: 0
-          height: 50%
+          height: auto
           left: 0
-          margin: 0
-          padding: 0
-          position: $position
-          right: 0
+          position: absolute
           top: 0
           width: 100%
-          ul
+      .gallery
+        bottom: 0
+        height: 50%
+        left: 0
+        margin: 0
+        padding: 0
+        position: $position
+        right: 0
+        top: 0
+        width: 100%
+        ul
+          height: 100%
+          li
             height: 100%
-            li
+            figure.image
               height: 100%
-              figure.image
-                height: 100%
 
   // Screen > $bottom-height * 2 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -160,7 +159,12 @@
     #main
       &> article, &> section
         &> header
-        section#content
+        section
           +use-background-image($bottom-height, $position)
           .gallery
             height: calc(100% - #{$bottom-height})
+
+=home-image-in-indices
+  [data-action=index]
+    figure.image
+      display: block

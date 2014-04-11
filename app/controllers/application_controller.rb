@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   def set_current_channel 
     @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
+    @home_note = Note.channelled(@current_channel).publishable.homeable.first
   end
 
   def add_home_breadcrumb

@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @all_interrelated_notes_and_features = Note.channelled(@current_channel).interrelated.publishable.notes_and_features
     @all_interrelated_citations = Note.channelled(@current_channel).interrelated.publishable.citations
 
-    @note = Note.channelled(@current_channel).publishable.homeable.first
+    @note = @home_note
     # REVIEW: This could go in the Note model as part of channelled
     #  However, channelled would need to be a scope so that it returns an ActiveRecord
     #  relation rather than an array.

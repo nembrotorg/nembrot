@@ -373,6 +373,12 @@
       "src": "mfglabs"
     },
     {
+      "uid": "f5281239de27061e68f4367ba3efee15",
+      "css": "paypal",
+      "code": 59429,
+      "src": "zocial"
+    },
+    {
       "uid": "aaf371ab44841e9aaffebd179d324ce4",
       "css": "android",
       "code": 59418,
@@ -436,6 +442,12 @@
       "uid": "70cdf244c51630e09038659d1dcbee87",
       "css": "vimeo",
       "code": 62223,
+      "src": "brandico"
+    },
+    {
+      "uid": "076f25da90f45dd112e006f2cd7ea76b",
+      "css": "tumblr",
+      "code": 59428,
       "src": "brandico"
     },
     {

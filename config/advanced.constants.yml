@@ -54,7 +54,7 @@ defaults: &defaults
     version_gap_distance: 100
     version_gap_minutes: 60
     versions: true
-    web_channels: facebook.com/joegattnet twitter.com/joegattnet github.com/joegattnet googleplus.com/joegattnet youtube.com/joegattnet vimeo.com/joegattnet soundcloud.com/joegattnet spotify.com/joegattnet
+    web_channels: facebook.com/joegattnet twitter.com/joegattnet github.com/joegattnet plus.google.com/+JoegattNet youtube.com/joegatt0net vimeo.com/joegattnet soundcloud.com/joegattnet joegattnet.tumblr.com
 
 development:
   <<: *defaults

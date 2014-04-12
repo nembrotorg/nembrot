@@ -1,0 +1,4 @@
+.gallery
+  ul
+    - images.each do |image|
+      li = render 'shared/image', image: image, type: type

@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.tabs
+//= require jquery.flexslider
 //=	require jquery.pjax
 //= require rails-timeago
 //= require modernizr.minimal
 //= require underscore
 //= require gmaps/google
 //= require nembrot.document
+//= require_tree ./application/

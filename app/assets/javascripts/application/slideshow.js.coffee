@@ -1,7 +1,7 @@
 initialize_slideshow = () ->
   $('.gallery').flexslider
     animationSpeed: (if Modernizr.touch then 400 else 1000)
-    initDelay: 3500
+    initDelay: 0
     pauseOnHover: true
     selector: 'li'
     slideshowSpeed: 7000

@@ -2,16 +2,16 @@
 
 load_hd_images = (tolerance = 120) ->
   $('figure.image').each ->
-    # console.log($(this).parent().innerWidth())
-    # console.log($(this).innerWidth())
-    # console.log($(this).naturalWidth)
-    # if $(this).parent().width() > ($(this).naturalWidth + tolerance)
-    # console.log('Loading image...')
+    container = $(this)
     image = $(this).find('img')
-    source = image.attr('src')
-    new_source = source.replace('16-9-8', '16-9-2048')
-    image.attr('src', new_source)
-    $(this).css('backgroundImage', "url(#{ new_source })")
+    image.on 'load', ->
+      if container.width() > 800 # REVIEW Make this cleverer
+        new_image = new Image
+        new_source = image.attr('src').replace('16-9-8', '16-9-' + (parseInt container.width() / 10) * 10 )
+        new_image.src = new_source
+        $(new_image).on 'load', ->
+          image.src = new_image.src
+          container.css('backgroundImage', "url(#{ new_source })")
 
 # Document hooks ******************************************************************************************************
 

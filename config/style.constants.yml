@@ -40,7 +40,7 @@ defaults: &defaults
     images_gravity: 0
     images_name_length: 30
     images_min_width: 799
-    images_snap: 1
+    images_snap: 0
     images_standard_aspect_x: 16
     images_standard_aspect_y: 9
     images_standard_width: 8

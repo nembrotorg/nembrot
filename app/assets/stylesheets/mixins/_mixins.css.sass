@@ -104,11 +104,13 @@
       p
         display: block
         font-size: 0.75em // Should this be here?
+        line-height: $line-height * 2/3
         position: absolute
         right: $text-indent
-        top: calc(100% + ($line-height / 2))
+        text-align: right
+        top: calc(100% + (#{$line-height} / 2))
         bottom: auto
-        width: 50%
+        width: 25%
 
 =curtain($bottom-height: 0, $position: absolute)
   body

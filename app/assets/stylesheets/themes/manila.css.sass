@@ -20,7 +20,7 @@
   $headline-font-color: #ff007f
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
-  $link-hover-color: $headline-font-color
+  $link-hover-color: #15BAE8 // This color is the blue of the sea in the map. Darken to adjust for text
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
@@ -61,13 +61,24 @@
       &> nav
         margin-bottom: $line-height
 
-    #text .target .body p
-      color: $headline-font-color
+    #text
+      .target .body
+        p
+          color: $headline-font-color
+          a
+            color: $headline-font-color
+            &:hover
+              color: $link-hover-color
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
 
     #main
-      #text .target .body p
-        color: $font-color
+      #text .target .body
+        p
+          color: $body-font-color
+          a
+            color: $body-font-color
+            &:hover
+              color: $link-hover-color

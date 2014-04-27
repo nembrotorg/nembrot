@@ -46,4 +46,4 @@ staging:
 production:
   <<: *defaults
   host: joegatt.net
-  asset_host: http://a3.joegatt.org/
+  asset_host: http://d2zyjwzv9avbqu.cloudfront.net

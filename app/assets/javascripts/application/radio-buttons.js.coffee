@@ -17,6 +17,7 @@ transform_radio_buttons_to_select = () ->
       new_option = $('<option></option>')
       new_option.attr 'value', element.value
       new_option.text $('label[for=' + element.id + ']').text()
+      if $(element).attr('checked') then new_option.attr('selected', true)
       $(new_select).append new_option
       $(element).closest('label').addClass('transformed-to-select')
       $(element).addClass('transformed-to-select')

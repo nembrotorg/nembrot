@@ -81,6 +81,8 @@ javascript:
     notebooks_div.scrollTop(notebooks_checked.position().top);
   }
 
+  window.Nembrot.transform_radio_buttons_to_select()
+
 - if mode == 'edit'
 
   javascript:
@@ -95,5 +97,3 @@ javascript:
       theme_div.scrollTop(theme_checked.position().top);
     }
     $('#dashboard .theme input:checked').focus();
-
-    window.Nembrot.transform_radio_buttons_to_select()

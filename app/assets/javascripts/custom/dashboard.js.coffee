@@ -12,11 +12,7 @@ auto_open_dashboard = () ->
     $('#dashboard').show()
     $('html').addClass('dashboard-open')
   else
-    $('html:not(.theme-home) #dashboard').draggable() # FIXME: Coupled with theme
-
-position_dashboard = () ->
-  $('html.wider-than-720px.theme-home #dashboard').css('top', '').css('bottom', '')
-  $('html.theme-home:not(.wider-than-720px) #dashboard').css('top', parseInt($('#content').offset().top + $('#content').outerHeight(true)) + 'px').css('bottom', '')
+    $('#dashboard').draggable()
 
 # Document hooks ******************************************************************************************************
 
@@ -52,7 +48,6 @@ $ ->
     else
       $('html').removeClass('dashboard-open')
 
-  position_dashboard()
   auto_open_dashboard()
 
   thread = null
@@ -72,13 +67,10 @@ $ ->
     return
 
   $(document).on 'pjax:success', '#main', (data) ->
-    position_dashboard()
     auto_open_dashboard()
 
   $(window).on 'popstate', ->
-    position_dashboard()
     auto_open_dashboard()
 
   $(window).on 'resize', ->
-    position_dashboard()
     auto_open_dashboard()

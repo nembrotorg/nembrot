@@ -42,10 +42,14 @@
 
   body
     width: 100%
-    padding-top: 0 !important
+    padding-top: 368px + $line-height !important
 
   #dashboard
     background-color: rgba(#ffffff, 1)
+    height: 368px
+    position: absolute
+    top: $line-height / 2
+    bottom: none
     a[href='#close']
       display: none
 
@@ -104,8 +108,10 @@
 
   @media only screen and (min-width: 720px)
 
+    body
+      padding-top: 0 !important
+
     #dashboard
-      position: absolute
       bottom: 48px
       top: auto
 

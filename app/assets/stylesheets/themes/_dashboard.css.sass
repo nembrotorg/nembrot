@@ -6,10 +6,6 @@ $success-color: $static-url-color
 $secondary-color: #666666
 $error-color: #cc0000
 
-html.dashboard-open
-  body
-    padding-bottom: $line-height * 12.5
-
 #dashboard:not(.ui-draggable-dragging):hover
   background-color: rgba($dashboard-white-color, 1)
 
@@ -18,14 +14,17 @@ html.dashboard-open
   +font-color
   background-color: rgba($dashboard-white-color, 1)
   border: 1px solid $dashboard-black-color
+  bottom: 5%
   font:
     family: 'proxima-nova'
   cursor: hand
-  height: $line-height * 10.5
+  height: 90%
   margin: 0 5% $line-height 5%
   overflow: hidden
+  position: fixed
   padding: 5px 0
   right: 0
+  top: 5%
 
   nav
     margin-bottom: 0
@@ -143,7 +142,6 @@ html.dashboard-open
   form
     +clearfix
     counter-reset: new-channel-steps
-    height: 328px - ($line-height * 2.5)
     width: 100%
     fieldset
       margin: 0
@@ -230,7 +228,7 @@ html.dashboard-open
         margin-left: $text-indent
         &.delete:before
           +icon-delete
-          vertical-align: -8px
+          vertical-align: -6px
         &.cancel:before
           +icon-list
           +icon-large
@@ -270,7 +268,6 @@ html.dashboard-open
     bottom: $line-height
     height: $line-height * 13
     margin: 0
-    position: fixed
     right: $text-indent / 2
     width: 330px
     z-index: 1000

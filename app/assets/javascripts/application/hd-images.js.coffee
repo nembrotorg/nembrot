@@ -23,3 +23,6 @@ $ ->
 
   $(window).on 'popstate', ->
     load_hd_images()
+
+  $(window).on 'resize', ->
+    load_hd_images()

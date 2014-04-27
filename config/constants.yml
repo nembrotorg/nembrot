@@ -1,6 +1,7 @@
 defaults: &defaults
   assets_version: 1.3
   blank_image_location: '/public/resources/cut/blank.png'
+  cache_buster: 1
   cache_minutes: 10
   daemon_frequency: 30
   detect_language_sample_length: 250
@@ -37,7 +38,7 @@ staging:
 production:
   <<: *defaults
   host: nembrot.org
-  asset_host: http://a5.joegatt.org
+  asset_host: http://ds7i0llv5x8de.cloudfront.net
   html:
     pretty: false
     pretty_body: false

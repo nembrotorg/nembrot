@@ -1,5 +1,5 @@
 defaults: &defaults
-  asset_host: localhost:3000
+  asset_host: http://localhost:3000
   assets_version: 1.2
   blank_image_location: '/public/resources/cut/blank.png'
   cache_buster: 8

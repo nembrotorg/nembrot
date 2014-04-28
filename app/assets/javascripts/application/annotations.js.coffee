@@ -5,21 +5,22 @@ place_annotations = () ->
     place_annotations_undo()
 
 place_annotations_do = () ->
-  $('.annotations').addClass('side-annotations')
-  annotations = $('li[id^=annotation-]')
-  minimum = $('.body').offset().top
-  if $('#introduction').length then minimum += $('#introduction').outerHeight(true)
-  if $('#single_map:visible').length > 0 then minimum += $('#single_map').outerHeight(true)
-  new_top = minimum
-  corrected_top = minimum
+  if $('.annotations') > 0
+    $('.annotations').addClass('side-annotations')
+    annotations = $('li[id^=annotation-]')
+    minimum = $('.body').offset().top
+    if $('#introduction').length then minimum += $('#introduction').outerHeight(true)
+    if $('#single_map:visible').length > 0 then minimum += $('#single_map').outerHeight(true)
+    new_top = minimum
+    corrected_top = minimum
 
-  annotations.each (i) ->
-    new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top
-    corrected_top = (if new_top <= minimum then minimum else new_top)
-    minimum = corrected_top + $(this).outerHeight(true)
-    $(this).offset top: corrected_top
+    annotations.each (i) ->
+      new_top = $('a[id=annotation-mark-' + (i + 1) + ']').offset().top
+      corrected_top = (if new_top <= minimum then minimum else new_top)
+      minimum = corrected_top + $(this).outerHeight(true)
+      $(this).offset top: corrected_top
 
-  # _correct_annotations_from_bottom()
+    # _correct_annotations_from_bottom()
 
 # Prevent notes from going below end of body text
 _correct_annotations_from_bottom = () ->

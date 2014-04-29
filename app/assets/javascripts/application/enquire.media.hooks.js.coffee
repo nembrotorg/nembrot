@@ -18,5 +18,5 @@ register_enquire_media_hooks = () ->
 
 Modernizr.load
   test: Modernizr.matchMedia
-  nope: ['/assets/polyfills/match_media.js']
+  yep: ['/assets/polyfills/match_media-aa9b7ff314a1a6548fb5c9a78f63b8f4.js'] # REVIEW: This is very fragile
   complete: -> register_enquire_media_hooks()

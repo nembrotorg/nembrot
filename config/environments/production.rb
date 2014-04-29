@@ -48,7 +48,7 @@ Nembrot::Application.configure do
   config.action_controller.asset_host = Constant.asset_host unless Constant.asset_host.blank?
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( head_scripts.js .svg .eot .woff .ttf )
+  config.assets.precompile += %w( polyfills/match_media.js head_scripts.js .svg .eot .woff .ttf )
 
   # Add the fonts path
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')

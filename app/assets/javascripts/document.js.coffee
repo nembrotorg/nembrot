@@ -60,8 +60,10 @@ window.Nembrot.load_user_menu = load_user_menu
 
 $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
-  # Breaks IE
-  # $.pjax.defaults.timeout = false
+
+  $(document).on 'pjax:timeout', 'body', ->
+    false
+
   $(document).pjax('#main a:not([data-remote])', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->

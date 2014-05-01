@@ -88,6 +88,34 @@
     #main
       margin-top: 0
 
+.persistent-map-horizontal-module
+  #curtain_shim
+    height: 50%
+  #persistent_map_container
+    display: block
+    position: absolute
+    right: 0
+    top: 0
+    z-index: 1
+    height: 50%
+    width: 100%
+
+    #persistent_map
+      position: absolute
+      height: 100%
+      right: 0
+      top: 0
+      width: 100%
+
+  #single_map_container
+    display: none !important
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-height: 720px)
+    #curtain_shim, #persistent_map_container
+      height: calc(100% - #{ $line-height * 5 })
+
 .persistent-map-on-homepage-only-module
 
   #single_map

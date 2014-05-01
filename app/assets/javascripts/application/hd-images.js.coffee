@@ -7,7 +7,7 @@ load_hd_images = (tolerance = 120) ->
     image.on 'load', ->
       if container.width() > 800 && image.attr('src').indexOf('16-9-8') != -1
         new_image = new Image
-        new_source = image.attr('src').replace('16-9-8', '16-9-' + (parseInt container.width() / 100) * 100)
+        new_source = image.attr('src').replace('16-9-8', '16-9-' + Math.round(parseInt container.width() / 100) * 100)
         new_image.src = new_source
         $(new_image).on 'load', ->
           image.src = new_image.src

@@ -16,7 +16,5 @@ register_enquire_media_hooks = () ->
 
 # Document hooks ******************************************************************************************************
 
-Modernizr.load
-  test: Modernizr.matchMedia
-  nope: ['http://d2114z95jtldtx.cloudfront.net/assets/polyfills/match_media-aa9b7ff314a1a6548fb5c9a78f63b8f4.js'] # REVIEW: This is very fragile
-  complete: -> register_enquire_media_hooks()
+$ ->
+  register_enquire_media_hooks()

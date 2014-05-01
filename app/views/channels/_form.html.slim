@@ -40,9 +40,9 @@
       - unless @channel.errors[:name].empty?
         p.error = "Name #{ @channel.errors.messages[:name].join(', ') }."
       label for='name'
-        = f.text_field :name, autocomplete: 'off',  pattern: "[A-Za-z0-9 \+\-\?\!]{3,50}", required: true, placeholder: 'Website name'
+        = f.text_field :name, autocomplete: 'off',  pattern: ".{3,70}", required: true, placeholder: 'Website name'
         div.available
-          | Use between 3 and 30 alphanumeric characters.
+          | Use between 3 and 70 alphanumeric characters.
 
   - if mode == 'edit'
     fieldset class="theme#{ signed_in_with_evernote ? '' : ' disabled' }"

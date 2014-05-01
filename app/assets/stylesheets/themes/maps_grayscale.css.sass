@@ -1,0 +1,51 @@
+// Modules:
+// persistent-map-module
+// simple-blurbs-module
+// content-left-module
+
+.theme-maps
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #333
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #666
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  $map-marker-outline-color: #fff
+  $map-marker-color: #000
+
+  +colors
+  +typekit-nembrot
+
+  #main
+    #introduction
+      color: #222 !important
+      font:
+        style: normal
+        weight: 700
+
+    &.home-index
+      .notes
+        ul
+          +columns(1)
+          +column-gap(0)

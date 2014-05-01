@@ -56,8 +56,11 @@ module EffectsHelper
     image.colorize '50% 25% 50%'
   end
 
-  def fx_gra(image)
-    image.grayscale 'Rec709Luminance'
+  def fx_gra(image) #
+    image.colorspace('Gray')
+    image.brightness_contrast('-20x0')
+    image = yield(image) if block_given?
+    image
   end
 
   def fx_3d(image) #
@@ -129,7 +132,8 @@ module EffectsHelper
   end
 
   def fx_sep(image)
-    image.sepiatone "80%"
+    #image.sepiatone(threshold=QuantumRange)
+    image.sepiatone '80%'
   end
 
   def fx_sha(image)
@@ -166,38 +170,29 @@ module EffectsHelper
   end
 
   def fx_kelvin(image)
-    image.combine_options do |c|
-      cols, rows = image[:dimensions]
-       
-      c.combine_options do |cmd|
-        cmd.auto_gamma
-        cmd.modulate '120,50,100'
-      end
-       
-      new_image = image.clone
-      new_image.combine_options do |cmd|
-        cmd.fill 'rgba(255,153,0,0.5)'
-        cmd.draw "rectangle 0,0 #{ cols },#{ rows }"
-      end
-       
-      image = image.composite new_image do |cmd|
-        cmd.compose 'multiply'
-      end
+    cols, rows = image[:dimensions]
+     
+    image.combine_options do |cmd|
+      cmd.auto_gamma
+      cmd.modulate '120,50,100'
     end
+     
+    new_image = image.clone
+    new_image.combine_options do |cmd|
+      cmd.fill 'rgba(255,153,0,0.5)'
+      cmd.draw "rectangle 0,0 #{ cols },#{ rows }"
+    end
+     
+    image = image.composite new_image do |cmd|
+      cmd.compose 'multiply'
+    end
+
     image
   end
 
-  def fx_sketch(image)
-    image.combine_options do |c|
-      #c.equalize
-      #c.sketch(0, 10, 135)
-      c.dither
-      c.colorize 2
-      c.edge 1
-      c.normalize
-      c.negate
-    end
-    #image.dissolve(sketch, 0.75, 0.25)
+  def fx_sketch(image) # REVIEW
+    image.colorspace('Gray')
+    image.sketch(0, 20, 120)
   end
 
   def fx_gotham(image)

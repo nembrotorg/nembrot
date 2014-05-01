@@ -5,23 +5,23 @@
 
 .theme-maps-greyscale
 
-  $background-color: #f7f7f7
+  $background-color: #e7e7e7
   $body-font-color: #070707
   $border-color: $body-font-color
   $caption-color: #333
   $count-color: #999
-  $delete-font-color: #ccc
-  $error-background-color: #c00
-  // $evernote-color:
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #666
+  $headline-font-color: #333
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
   $link-hover-color: #00c
-  $link-visited-color: $body-font-color
-  $map-background-color: #ccc
+  $link-visited-color: #0c0
+  $map-background-color: #c9c9c9
   $map-font-color: $body-font-color
   $off-color: #ccc
   $row-hover-color: #ff0
@@ -49,3 +49,21 @@
         ul
           +columns(1)
           +column-gap(0)
+
+    figure.image
+      +border-radius(5px)
+      border: 3px solid #151515 
+      position: relative
+      figcaption
+        position: absolute
+        bottom: $line-height * 2/3
+        left: $text-indent
+        p
+          background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8)
+          color: #f7f7f7
+          display: inline
+          a
+            color: #f7f7f7
+            &:hover
+              color: $link-hover-color
+

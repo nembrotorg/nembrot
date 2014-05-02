@@ -173,3 +173,15 @@
   [data-action=index]
     figure.image
       display: block
+
+=large-images
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    article
+      section#content
+        &> figure
+          &.image
+            +suffix(0, 12)
+            +span-columns(12, 12)

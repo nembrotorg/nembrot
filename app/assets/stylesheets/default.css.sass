@@ -147,6 +147,7 @@ form
       text-transform: lowercase
 
 figure.image
+  +box-sizing(border-box)
   background-size: 0 0
 
 .gallery
@@ -831,9 +832,8 @@ aside
       header
         +span-columns(6)
 
-  #disqus_thread,
-    #comments
-      +span-columns(9)
+  #disqus_thread, #comments
+    +span-columns(9)
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools

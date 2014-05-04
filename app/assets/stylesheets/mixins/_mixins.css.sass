@@ -185,3 +185,17 @@
           &.image
             +suffix(0, 12)
             +span-columns(12, 12)
+
+=portfolio($bottom-height: 0, $position: absolute, $border-color: #000, $border-width: 5px)
+  +curtain($bottom-height, $position)
+
+  // Screen > 720px //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+    #main
+      &> article, &> section
+        section
+          figure.image
+            border: $border-width solid $border-color
+            margin: $text-indent $line-height 0 $text-indent
+            width: calc(100% - #{$text-indent * 2})

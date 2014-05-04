@@ -113,6 +113,7 @@
         width: 25%
 
 =curtain($bottom-height: 0, $position: absolute)
+  +collapse-header
   body
     padding-top: 0
 
@@ -199,3 +200,11 @@
             border: $border-width solid $border-color
             margin: $text-indent $line-height 0 $text-indent
             width: calc(100% - #{$text-indent * 2})
+
+=collapse-header
+  #main
+    header[data-title]
+      height: auto
+    #content
+      margin-top: $line-height
+

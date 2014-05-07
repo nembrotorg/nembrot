@@ -40,7 +40,20 @@ module EffectsHelper
   end
 
   def fx_cha(image) #
-    image.charcoal 5
+    image.charcoal 3
+  end
+
+  def fx_colortone(image, color = '#222b6d', level = 100, type = 0)
+    color_image = image.clone
+    color_image.combine_options do |c|
+      c.fill color
+      c.colorize '63%'
+    end
+
+    image = image.composite color_image do |c|
+      c.compose 'blend'
+      c.define "compose:args=#{level},#{100-level}"
+    end
   end
 
   def fx_duo(image)
@@ -83,7 +96,7 @@ module EffectsHelper
   def fx_enh(image)
     image.combine_options do |c|
       c.auto_level
-      # c.auto_gamma
+      c.auto_gamma
     end
   end
 
@@ -132,8 +145,11 @@ module EffectsHelper
   end
 
   def fx_sep(image)
-    #image.sepiatone(threshold=QuantumRange)
-    image.sepiatone '80%'
+    image.combine_options do |c|
+      c.auto_level
+      c.auto_gamma
+      c.sepia_tone '80%'
+    end
   end
 
   def fx_sha(image)
@@ -190,9 +206,19 @@ module EffectsHelper
     image
   end
 
+  def fx_fuzz(image)
+    image.combine_options do |c|
+      c.fuzz "30%"
+      #c.trim "+repage"
+    end
+  end
+
   def fx_sketch(image) # REVIEW
-    image.colorspace('Gray')
-    image.sketch(0, 20, 120)
+    image.combine_options do |c|
+      c.colorspace('Gray')
+      c.contrast
+      c.sketch '0x20+135'
+    end
   end
 
   def fx_gotham(image)
@@ -223,6 +249,18 @@ module EffectsHelper
 
   def fx_dot(image)
     image.ordered_dither
+  end
+
+  def vignette(image, path_to_file)
+    cols, rows = image[:dimensions]
+
+    vignette_image = ::MiniMagick::Image.open(path_to_file)
+    vignette_image.size "#{cols}x#{rows}"
+
+    image = image.composite(vignette_image) do |cmd|
+      cmd.gravity 'center'
+      cmd.compose 'multiply'
+    end
   end
 
   # image.charcoal if effects =~ /cha/

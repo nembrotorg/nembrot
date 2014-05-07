@@ -2,7 +2,14 @@ class ResourcesController < ApplicationController
 
   include ResourcesHelper
 
-  skip_before_action :set_locale, :set_channel_defaults, :add_home_breadcrumb, :get_promoted_notes, :get_sections, :set_public_cache_headers, only: [:index, :show, :show_channel, :map]
+  skip_before_action :set_locale,
+                     :set_current_channel,
+                     :set_channel_defaults,
+                     :add_home_breadcrumb,
+                     :get_promoted_notes,
+                     :get_sections,
+                     :get_map_all_markers,
+                     :set_public_cache_headers
 
   def cut
     image = cut_image_binary(

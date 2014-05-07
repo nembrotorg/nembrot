@@ -53,6 +53,7 @@ module ResourcesHelper
       image = resize_with_crop(image, width, height, gravity_options = {})
       image.write file_name_out
 
+      # REVIEW: Here we re-open the image - this must slow things down
       image = MiniMagick::Image.new(file_name_out)
       image = pre_fx(image, effects)
 

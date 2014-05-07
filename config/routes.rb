@@ -35,6 +35,7 @@ Nembrot::Application.routes.draw do
     width: /\d+/,
     snap: /[01]/,
     gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
+    id: /\d+/,
     constraints: { format: /(gif|jpg|jpeg|png)/ }
 
   scope ':channel' do

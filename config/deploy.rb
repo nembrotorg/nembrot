@@ -38,6 +38,7 @@ namespace :deploy do
   desc "Deploy your application"
   task :default do
     update
+    migrate
     restart
   end
 

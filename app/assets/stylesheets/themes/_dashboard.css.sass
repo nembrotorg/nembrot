@@ -171,7 +171,7 @@ $error-color: #cc0000
         span
           display: inline-block
           margin: 4px 0
-          overflow: hidden
+          // overflow: hidden
           text-overflow: ellipsis
           width: 255px // FIXME: This should be percentage
           white-space: nowrap
@@ -188,9 +188,14 @@ $error-color: #cc0000
         label:hover
           background-color: $evernote-color
           color: #ffffff
-      &.themes
-        input[data-premium-themes=true]:before
-          content: 'XXX'
+      &.theme
+        span
+          position: relative
+          &.premium:after
+            +icon-premium
+            +icon-medium
+            position: absolute
+            right: 0
       &.name div
         overflow-y: hidden
         label:hover

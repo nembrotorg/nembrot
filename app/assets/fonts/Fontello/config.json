@@ -19,6 +19,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "31972e4e9d080eaa796290349ae6c1fd",
+      "css": "users",
+      "code": 59432,
+      "src": "fontawesome"
+    },
+    {
       "uid": "12f4ece88e46abd864e40b35e05b11cd",
       "css": "ok-1",
       "code": 59475,
@@ -166,6 +172,18 @@
       "uid": "130380e481a7defc690dfb24123a1f0c",
       "css": "circle",
       "code": 59400,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "422e07e5afb80258a9c4ed1706498f8a",
+      "css": "circle-empty",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "81bb68665e8e595505272a746db07c7a",
+      "css": "dot-circled",
+      "code": 59427,
       "src": "fontawesome"
     },
     {
@@ -361,6 +379,18 @@
       "src": "mfglabs"
     },
     {
+      "uid": "134184de1e4f1dc3d40e0d93bb1ef15e",
+      "css": "industrial-building",
+      "code": 59433,
+      "src": "maki"
+    },
+    {
+      "uid": "f5281239de27061e68f4367ba3efee15",
+      "css": "paypal",
+      "code": 59429,
+      "src": "zocial"
+    },
+    {
       "uid": "aaf371ab44841e9aaffebd179d324ce4",
       "css": "android",
       "code": 59418,
@@ -427,6 +457,30 @@
       "src": "brandico"
     },
     {
+      "uid": "076f25da90f45dd112e006f2cd7ea76b",
+      "css": "tumblr",
+      "code": 59428,
+      "src": "brandico"
+    },
+    {
+      "uid": "cd65196712e52477b9252b4b296b0c44",
+      "css": "visa",
+      "code": 59431,
+      "src": "brandico"
+    },
+    {
+      "uid": "c3043114c56d36658e5cae51d36281c8",
+      "css": "mastercard",
+      "code": 59430,
+      "src": "brandico"
+    },
+    {
+      "uid": "caed304a2bf6248f01e98c2aa30db1d7",
+      "css": "star-circled",
+      "code": 59434,
+      "src": "elusive"
+    },
+    {
       "uid": "62b0580ee8edc3a3edfbf68a47c852d5",
       "css": "pencil",
       "code": 59401,
@@ -437,6 +491,12 @@
       "css": "location",
       "code": 59405,
       "src": "elusive"
+    },
+    {
+      "uid": "838db85de51df09e2d0c34a17dc30ff6",
+      "css": "code",
+      "code": 59425,
+      "src": "websymbols"
     }
   ]
 }

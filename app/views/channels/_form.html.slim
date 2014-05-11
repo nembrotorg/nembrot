@@ -52,7 +52,9 @@
         - @themes.each do |theme|
           = f.label :theme_id, theme.name, value: theme.id
             -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
-            span = theme.name.titlecase
+            -# Premium class goes here because we can't use :before with input/radio
+            span class="#{ theme.premium? ? 'premium' : nil }"
+              = theme.name.titlecase
             = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
   - else
     = f.text_field :theme_id, value: 1, hidden: true

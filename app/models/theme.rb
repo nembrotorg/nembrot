@@ -2,6 +2,10 @@ class Theme < ActiveRecord::Base
 
   has_many :channels
 
+  # REVIEW: These would make theme management easier
+  # has_one  :typekit_code
+  # has_many :effects, :css_modules
+
   default_scope { order(:name) }
   scope :public, -> { where(public: true) }
 

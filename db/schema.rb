@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140405111712) do
+ActiveRecord::Schema.define(version: 20140511133236) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -73,6 +73,27 @@ ActiveRecord::Schema.define(version: 20140405111712) do
     t.datetime "updated_at"
     t.string   "slug"
     t.integer  "theme_id"
+    t.boolean  "always_reset_on_create",    default: true
+    t.boolean  "bibliography",              default: false
+    t.string   "contact_email"
+    t.string   "disqus_shortname"
+    t.string   "facebook_app_id"
+    t.string   "follow_on_facebook"
+    t.string   "follow_on_soundcloud"
+    t.string   "follow_on_tumblr"
+    t.string   "follow_on_twitter"
+    t.string   "follow_on_vimeo"
+    t.string   "follow_on_youtube"
+    t.string   "google_analytics_key"
+    t.boolean  "index_on_google",           default: true
+    t.boolean  "links_section",             default: false
+    t.string   "locale",                    default: "en"
+    t.boolean  "only_show_notes_in_locale", default: false
+    t.boolean  "private",                   default: false
+    t.boolean  "promote",                   default: true
+    t.boolean  "show_nembrot_link",         default: true
+    t.string   "url"
+    t.boolean  "versions",                  default: false
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
@@ -200,6 +221,33 @@ ActiveRecord::Schema.define(version: 20140405111712) do
     t.boolean  "is_promoted"
   end
 
+  create_table "plans", force: true do |t|
+    t.boolean  "active",                  default: true
+    t.boolean  "advanced_settings",       default: false
+    t.boolean  "business_notebooks",      default: false
+    t.boolean  "hd_images",               default: false
+    t.boolean  "image_effects",           default: false
+    t.boolean  "shared_notebooks",        default: false
+    t.boolean  "url",                     default: false
+    t.integer  "annual_fee_eur",          default: 0
+    t.integer  "annual_fee_gbp",          default: 0
+    t.integer  "annual_fee_usd",          default: 0
+    t.integer  "max_channels",            default: 1
+    t.integer  "monthly_fee_eur",         default: 0
+    t.integer  "monthly_fee_gbp",         default: 0
+    t.integer  "monthly_fee_usd",         default: 0
+    t.string   "name"
+    t.string   "paypal_code_annual_eur"
+    t.string   "paypal_code_annual_gbp"
+    t.string   "paypal_code_annual_usd"
+    t.string   "paypal_code_monthly_eur"
+    t.string   "paypal_code_monthly_gbp"
+    t.string   "paypal_code_monthly_usd"
+    t.string   "reference"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "related_notes", force: true do |t|
     t.integer  "note_id"
     t.integer  "related_note_id"
@@ -300,7 +348,7 @@ ActiveRecord::Schema.define(version: 20140405111712) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",             default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -321,6 +369,11 @@ ActiveRecord::Schema.define(version: 20140405111712) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "remember_token"
+    t.datetime "next_payment_due_at"
+    t.boolean  "payment_status"
+    t.datetime "payment_status_updated_at"
+    t.integer  "plan_id",                   default: 0, null: false
+    t.string   "paypal_email"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

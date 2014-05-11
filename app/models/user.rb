@@ -5,13 +5,16 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  validates_presence_of :email
-
   has_many :authorizations, dependent: :destroy
+  has_many :channels, dependent: :destroy
+  belongs_to :plan
 
-  has_many :channels
-
+  has_paper_trail
   acts_as_commontator
+
+  validates_presence_of :email, :plan
+
+  before_validation :update_plan
 
   def self.new_with_session(params, session)
     if session['devise.user_attributes']
@@ -101,5 +104,10 @@ class User < ActiveRecord::Base
   # http://dev.mensfeld.pl/2013/12/rails-devise-and-remember_me-rememberable-by-default/
   def remember_me
     true
+  end
+
+  private
+  def update_plan
+    plan = Plan.free if plan.nil?
   end
 end

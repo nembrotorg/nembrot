@@ -10,6 +10,10 @@ module EffectsHelper
     cycle_effects('pre_fx', image, effects)
   end
 
+  def post_fx(image, effects)
+    cycle_effects('post_fx', image, effects)
+  end
+
   def cycle_effects(effect_type, image, effects)
     effects = effects.split(/\|/) if effects.is_a? String
     Array(effects).flatten.each do |effect|
@@ -202,8 +206,6 @@ module EffectsHelper
     image = image.composite new_image do |cmd|
       cmd.compose 'multiply'
     end
-
-    image
   end
 
   def fx_fuzz(image)
@@ -251,66 +253,19 @@ module EffectsHelper
     image.ordered_dither
   end
 
-  def vignette(image, path_to_file)
-    cols, rows = image[:dimensions]
-
-    vignette_image = ::MiniMagick::Image.open(path_to_file)
-    vignette_image.size "#{cols}x#{rows}"
-
-    image = image.composite(vignette_image) do |cmd|
-      cmd.gravity 'center'
-      cmd.compose 'multiply'
-    end
+  def post_fx_old1(image) #
+    image = fx_sep(image)
+    image = vignette(image, 'torn-1')
   end
 
-  # image.charcoal if effects =~ /cha/
-  # image.duotone                   if effects =~ /duo/
-  # image.edge                      if effects =~ /edg/
-  # image.emboss                    if effects =~ /emb/
-  # image.level_colors              if effects =~ /lev/
-  # image.median_filter '0.5'       if effects =~ /med/
-  # image.oil_paint                 if effects =~ /oil/
-  # image.ordered_dither            if effects =~ /ord|dit|dot|pix/
-  # image.posterize                 if effects =~ /pos/
-  # image.quantize(256, Magick::GRAYColorspace) if effects =~ /gra|mon/
-  # Rand:
-  #  geom = Magick::Geometry.new(Magick::QuantumRange / 2)
-  #  image.random_threshold_channel(geom, Magick::RedChannel)
-  # Sketch:
-  #  sketch = image.quantize(256, Magick::GRAYColorspace)
-  #  sketch = sketch.equalize
-  #  sketch = sketch.sketch(0, 10, 135)
-  #  image.dissolve(sketch, 0.75, 0.25)
-  # image.spread if effects =~ /spr/
-  # image.solarize  if effects =~ /sol/
-  # image.threshold(MiniMagick::QuantumRange * 0.55) if effects =~ /thr/
+  def vignette(image, vignette)
+    cols, rows = image[:dimensions]
 
+    vignette_image = ::MiniMagick::Image.open("#{ Rails.root }/app/assets/images/vignettes/#{ vignette }.png")
+    vignette_image.size "#{ cols }x#{ rows }"
 
-  def post_fx(image, effects, image_record)
-    # Any effect that frames the image goes here
-
-    if effects =~ /pol/
-      # 'Polaroid' effect
-      image[:Caption] = "\n#{ image_record.caption }\n"
-
-      begin
-        picture = image.polaroid do
-          self.font_weight = MiniMagick::NormalWeight
-          self.font_style = MiniMagick::NormalStyle
-          self.gravity = MiniMagick::CenterGravity
-          self.border_color = '#f0f0f8'
-        end
-
-        background = MiniMagick::Image.new(picture.columns, picture.rows)
-        image = background.composite(picture, MiniMagick::CenterGravity, MiniMagick::OverCompositeOp)
-
-        rescue NotImplementedError
-          return blank_file_name_out
-      end
+    image = image.composite(vignette_image) do |c|
+      c.gravity 'center'
     end
-
-    image.vignette(0.025 * image.columns, 0.025 * image.rows) if effects =~ /vig/
-
-    image
   end
 end

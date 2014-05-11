@@ -60,14 +60,13 @@ module ResourcesHelper
       # TODO: This needs to do crop/resize, not just resize.
       # image.resize "#{ width }x#{ height }"
 
+      # Gravity
+      # image = image.resize_to_fit(width, height, EastGravity)
       # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
       # resize_with_crop(image, width, height, gravity_options = {})
 
       image = fx(image, effects)
-      # image = post_fx(image, effects, image_record)
-
-      # Gravity
-      # image = image.resize_to_fit(width, height, EastGravity)
+      image = post_fx(image, effects)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
       # image.write file_name_out

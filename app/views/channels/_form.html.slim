@@ -20,7 +20,7 @@
       - else
         = link_to 'Click here to connect your Evernote account.', omniauth_authorize_path(resource_name, provider)
 
-  fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }"
+  fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }" data-shared-notebooks="#{ current_user.plan.shared_notebooks }" data-business-notebooks="#{ current_user.plan.business_notebooks }"
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
     div
@@ -45,7 +45,7 @@
           | Use between 3 and 70 alphanumeric characters.
 
   - if mode == 'edit'
-    fieldset class="theme#{ signed_in_with_evernote ? '' : ' disabled' }"
+    fieldset class="theme#{ signed_in_with_evernote ? '' : ' disabled' }" data-premium-themes="#{ current_user.plan.premium_themes }"
       legend
         | Choose a theme
       div
@@ -53,7 +53,7 @@
           = f.label :theme_id, theme.name, value: theme.id
             -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
             span = theme.name.titlecase
-            = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug }, required: true
+            = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
   - else
     = f.text_field :theme_id, value: 1, hidden: true
 

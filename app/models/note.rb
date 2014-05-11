@@ -10,10 +10,6 @@ class Note < ActiveRecord::Base
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
 
-  # REVIEW: This needs to go in so notes, etc, are destroyed when user delets account
-  #  But check what consequences it would have on business notebooks.
-  # has_many :notes, dependent: :destroy
-
   has_many :related_notes_association, class_name: 'RelatedNote'
   has_many :related_notes, through: :related_notes_association, source: :related_note
   has_many :inverse_related_notes_association, class_name: 'RelatedNote', foreign_key: 'related_note_id'

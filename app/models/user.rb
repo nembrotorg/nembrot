@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
+  # REVIEW: This needs to go in so notes, etc, are destroyed when user delets account
+  #  But check what consequences it would have on business notebooks.
+  # has_many :notes, dependent: :destroy
+
   has_many :authorizations, dependent: :destroy
   has_many :channels, dependent: :destroy
   belongs_to :plan

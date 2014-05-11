@@ -6,6 +6,9 @@ class Channel < ActiveRecord::Base
   validates :name, :notebooks, presence: true
   validates :name, uniqueness: true
 
+  # validate :notebook_in_plan?, before: :update
+  validate :theme_in_plan?, before: :update
+
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 
   scope :owned_by_nembrot, -> { joins(:theme).where.not('themes.public = ?', true) }
@@ -28,5 +31,15 @@ class Channel < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
+  end
+
+  private
+
+  # def notebook_in_plan?
+  #   user.plan
+  # end
+  
+  def theme_in_plan?
+    theme.premium == false || user.plan.premium_themes?
   end
 end

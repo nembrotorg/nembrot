@@ -32,10 +32,14 @@ class ApplicationController < ActionController::Base
     @themes_for_js = Theme.hash_for_js
   end
 
-  def set_current_channel 
+  def set_current_channel
     @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
+
+    # Add plan-specific css
+    @current_channel_css_modules = @current_channel.theme.css
+    @current_channel_css_modules += ' hd-images-module' if @current_channel.user.plan.hd_images?
   end
 
   def add_home_breadcrumb

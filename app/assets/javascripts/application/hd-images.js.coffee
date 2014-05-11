@@ -1,7 +1,7 @@
 # If the image is being stretched 'too much', replace it with a larger image
 
 load_hd_images = (tolerance = 120) ->
-  $('figure.image').each ->
+  $('.hd-images-module figure.image, .dashboard-open figure.image').each ->
     container = $(this)
     image = $(this).find('img')
     image.on 'load', ->

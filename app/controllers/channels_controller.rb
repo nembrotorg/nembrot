@@ -35,11 +35,13 @@ class ChannelsController < ApplicationController
   def new
     @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
     @channel = Channel.new
+    @plan = current_user.nil? ? Plan.free : current_user.plan
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
     @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
+    @plan = current_user.nil? ? Plan.free : current_user.plan
     add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 

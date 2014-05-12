@@ -20,7 +20,7 @@
       - else
         = link_to 'Click here to connect your Evernote account.', omniauth_authorize_path(resource_name, provider)
 
-  fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }" data-shared-notebooks="#{ current_user.plan.shared_notebooks }" data-business-notebooks="#{ current_user.plan.business_notebooks }"
+  fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }" data-shared-notebooks="#{ @plan.shared_notebooks }" data-business-notebooks="#{ @plan.business_notebooks }"
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
       | Choose an Evernote notebook
     div
@@ -45,7 +45,7 @@
           | Use between 3 and 70 alphanumeric characters.
 
   - if mode == 'edit'
-    fieldset class="theme#{ signed_in_with_evernote ? '' : ' disabled' }" data-premium-themes="#{ current_user.plan.premium_themes }"
+    fieldset class="theme#{ signed_in_with_evernote ? '' : ' disabled' }" data-premium-themes="#{ @plan.premium_themes }"
       legend
         | Choose a theme
       div

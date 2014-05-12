@@ -171,10 +171,16 @@ $error-color: #cc0000
         span
           display: inline-block
           margin: 4px 0
-          // overflow: hidden
+          overflow: hidden
+          padding-right: 40px
+          position: relative
           text-overflow: ellipsis
-          width: 255px // FIXME: This should be percentage
           white-space: nowrap
+          width: 215px // FIXME: This should be percentage
+          &:after
+            color: $secondary-color
+            position: absolute
+            right: 0
         &:hover
           background-color: $dashboard-hover-color
           color: #ffffff
@@ -185,6 +191,15 @@ $error-color: #cc0000
       &.oauth div
         overflow: hidden
       &.notebooks div
+        span
+          &.shared:after
+            +icon-users
+            +icon-medium
+          &.business:after
+            +icon-business
+            +icon-medium
+          &.business-shared:after
+            +icon-business-shared
         label:hover
           background-color: $evernote-color
           color: #ffffff
@@ -194,6 +209,7 @@ $error-color: #cc0000
           &.premium:after
             +icon-premium
             +icon-medium
+            color: $secondary-color
             position: absolute
             right: 0
       &.name div

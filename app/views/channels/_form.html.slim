@@ -30,7 +30,8 @@
       - @evernote_notebooks_list.each do |notebook|
         = f.label :notebooks, notebook[:name], value: notebook[:guid]
           -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
-          span = notebook[:name]
+          span class="#{ notebook[:shared] ? 'shared' : nil } #{ notebook[:business] ? 'business' : nil }" title="#{ notebook[:xxx] }"
+            = notebook[:name]
           = f.radio_button :notebooks, notebook[:guid], required: true
 
   fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"

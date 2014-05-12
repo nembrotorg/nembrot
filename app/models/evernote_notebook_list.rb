@@ -25,10 +25,16 @@ class EvernoteNotebookList
 
     list_array = []
     list.each do |n|
-      list_array.push({ name: n.name, guid: n.guid, default: n.defaultNotebook, publishing: n.publishing, published: n.published, shared_notebooks: n.sharedNotebooks, business_notebook: n.businessNotebook })
+      list_array.push({
+        name: n.name,
+        guid: n.guid,
+        default: n.defaultNotebook,
+        shared: (!n.publishing.nil? || n.published? || !n.sharedNotebooks.nil? || !n.businessNotebook.nil?),
+        business: !n.businessNotebook.nil?
+      })
     end
 
-    Rails.cache.write(cache_key, list_array, expires_in: Constant.cache_evernote_notebooks_for_minutes.minutes)
+    Rails.cache.write(cache_key, list_array, expires_in: 0.minutes)
 
     return list_array
   end

@@ -5,15 +5,17 @@
 
 == page_wrapper
 
-    = render 'header', title: t('.title'), subtitle: "#{ current_user.authorizations.where(provider: 'evernote').first.nickname }'s websites", document_title: document_title, show_flashes: true
+  = render 'upgrade_alert'
 
-    ul
-      - @channels.each do |channel|
-        li
-          = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
-          = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
+  = render 'header', title: t('.title'), subtitle: "#{ current_user.authorizations.where(provider: 'evernote').first.nickname }'s websites", document_title: document_title, show_flashes: true
 
-    p = link_to 'New website', new_channel_path
+  ul
+    - @channels.each do |channel|
+      li
+        = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
+        = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
+
+  p = link_to 'New website', new_channel_path, class: (@channels.size >= current_user.plan.max_channels ? 'disabled' : nil)
 
 a href='#close'
   | Close

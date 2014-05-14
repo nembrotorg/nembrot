@@ -9,6 +9,8 @@
 
 = form_for @channel do |f|
 
+  = render 'upgrade_alert'
+
   fieldset.oauth
 
     legend class="#{ status }"
@@ -30,9 +32,9 @@
       - @evernote_notebooks_list.each do |notebook|
         = f.label :notebooks, notebook[:name], value: notebook[:guid]
           -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
-          span class="#{ notebook[:shared] ? 'shared' : nil } #{ notebook[:business] ? 'business' : nil }" title="#{ notebook[:xxx] }"
+          span class="#{ notebook[:shared] ? 'shared' : nil } #{ notebook[:business] ? 'business' : nil }"
             = notebook[:name]
-          = f.radio_button :notebooks, notebook[:guid], required: true
+          = f.radio_button :notebooks, notebook[:guid], required: true, data: { shared: notebook[:shared], business: notebook[:business] }
 
   fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.name.nil? ? '' : 'completed' }"
@@ -57,6 +59,7 @@
             span class="#{ theme.premium? ? 'premium' : nil }"
               = theme.name.titlecase
             = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
+
   - else
     = f.text_field :theme_id, value: 1, hidden: true
 

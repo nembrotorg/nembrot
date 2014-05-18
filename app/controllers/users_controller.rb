@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def paypal
     # Ensure that this IPN has not already been processed
     if (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?
-      Paypal.new.verify(params)
+      Paypal.verify(params)
       user = User.where(token_for_paypal: params[:cm])
 
       # REVIEW: Change this if we're not processing more types here

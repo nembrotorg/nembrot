@@ -3,7 +3,7 @@
 class Paypal
   include HTTParty
 
-  def verify(params)
+  def self.verify(params)
     request_uri = URI.parse('https://www.paypal.com/cgi-bin/webscr')
     request_uri.scheme = 'https'
     self.post(

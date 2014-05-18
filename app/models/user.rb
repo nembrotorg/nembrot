@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     update_attributes(
       country: params[:residence_country],
       email: params[:payer_email],
-      expires_at: params[:residence_country] == '1 Y' ? 1.year.from_now : 1.year.from_now,
+      expires_at: params[:period3] == '1 Y' ? 1.year.from_now : 1.month.from_now,
       first_name: params[:first_name],
       last_name: params[:last_name],
       paypal_last_ipn: params[:ipn_track_id],

@@ -18,21 +18,32 @@ class UsersController < ApplicationController
     # Temporarily upgrades user's account (pending IPN)
     users = User.where(token_for_paypal: params[:cm])
 
+    if users.empty?
+      PAY_LOG.error "No user found with token: #{ params[:cm] }."
+      return
+    end
+
     if params[:st] == 'Completed' && !users.empty?
       user = users.first
       user.expires_at = 1.hour.from_now
-      user.plan = Plan.find_from_payment(params[:cc], params[:amt])
+      new_plan = Plan.find_from_payment(params[:cc], params[:amt])
+      if new_plan.nil?
+        PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:mc_amount3] }. (IPN id: #{ params[:ipn_track_id] }.)"
+        return
+      end
+      user.plan = new_plan
       user.save!(validate: false)
       PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } by browser redirect."
       redirect_to home_url, notice: 'You are now a Premium user. Thanks!'
     else
       flash[:error] = 'Your upgrade was cancelled.'
-      PAY_LOG.info "User #{ user.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
+      PAY_LOG.info "User #{ users.first.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
       redirect_to home_url
     end
   end
 
   def cancel_upgrade
+    PAY_LOG.info "User #{ user.id } upgrade cancelled by user at PayPal site." # TODO: Add Google Analytics
     flash[:error] = 'Your upgrade was cancelled.'
     redirect_to home_url
   end
@@ -47,11 +58,11 @@ class UsersController < ApplicationController
         when 'subscr_signup'
           user = User.where(token_for_paypal: params[:custom]).first
           if user.nil?
-            PAY_LOG.error "No user found with IPN: #{ params[:custom] }. (IPN id: #{ params[:ipn_track_id] }.)"
+            PAY_LOG.error "No user found with token: #{ params[:custom] }. (IPN id: #{ params[:ipn_track_id] }.)"
             return
           end
           new_plan = Plan.find_from_payment(params[:mc_currency], params[:mc_amount3])
-          if user.nil?
+          if new_plan.nil?
             PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:mc_amount3] }. (IPN id: #{ params[:ipn_track_id] }.)"
             return
           end

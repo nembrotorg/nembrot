@@ -46,6 +46,8 @@ class UsersController < ApplicationController
           user.update_from_paypal_signup(params, new_plan) unless new_plan.nil?
       end
     end
+
+    render nothing: true, status: 200
   end
 
   def menu

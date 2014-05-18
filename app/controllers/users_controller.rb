@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     # Ensure that this IPN has not already been processed
     if (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?
       Paypal.verify(params)
-      user = User.where(token_for_paypal: params[:cm]).first
+      user = User.where(token_for_paypal: params[:custom]).first
 
       # REVIEW: Change this if we're not processing more types here
       case params[:txn_type]

@@ -8,7 +8,7 @@
 - active_panel = 3 unless @channel.notebooks.nil? && @channel.name.nil?
 
 
-= render 'upgrade_alert'
+= render 'upgrade_alert' if signed_in_with_evernote && current_user.plan != Plan.free
 
 = form_for @channel do |f|
 

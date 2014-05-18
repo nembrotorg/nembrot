@@ -26,6 +26,7 @@ class ChannelsController < ApplicationController
 
   def index
     @channels = current_user.channels.order('slug')
+    @paypal_transaction_token = current_user.token_for_paypal
   end
 
   def show
@@ -35,18 +36,20 @@ class ChannelsController < ApplicationController
   def new
     user_related_settings
     @channel = Channel.new
+    @paypal_transaction_token = current_user.token_for_paypal unless current.user.nil?
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
     user_related_settings
     @plan = current_user.nil? ? Plan.free : current_user.plan
-    @paypal_transaction_token = current_user.generate_token
+    @paypal_transaction_token = current_user.token_for_paypal
     add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 
   def create
     @channel = current_user.channels.new(channel_params)
+    @paypal_transaction_token = current_user.token_for_paypal
 
     if @channel.save
       redirect_to edit_channel_url(@channel), notice: 'Channel created! Now choose a theme...'

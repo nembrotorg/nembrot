@@ -16,7 +16,7 @@
       - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
         section#comments = commontator_thread(@note)
 
-      = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+      = render 'disqus' if @current_channel.comments
 
     - unless @current_channel == @default_channel || @promoted_notes.blank?
       = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'

@@ -6,8 +6,8 @@ $success-color: $static-url-color
 $secondary-color: #666666
 $error-color: #cc0000
 
-#dashboard:not(.ui-draggable-dragging):hover
-  background-color: rgba($dashboard-white-color, 1)
+#dashboard.ui-draggable-dragging
+  background-color: rgba($dashboard-white-color, 0.85)
 
 #dashboard
   +box-sizing(border-box)
@@ -322,11 +322,12 @@ $error-color: #cc0000
       padding-bottom: $line-height / 2
 
   #dashboard
-    background-color: rgba($dashboard-white-color, 0.85)
-    bottom: $line-height
+    // background-color: rgba($dashboard-white-color, 0.85)
+    bottom: 48px
     height: $line-height * 14
     margin: 0
     right: $text-indent / 2
+    top: auto
     width: 330px
     z-index: 1000
 
@@ -336,8 +337,6 @@ $error-color: #cc0000
 
   #dashboard
     +font-color-hover
-    top: $line-height * 6.75
-    bottom: auto
     left: 50%
     margin-left: 218px
     right: auto

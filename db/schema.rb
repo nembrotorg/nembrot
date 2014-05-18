@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140511162800) do
+ActiveRecord::Schema.define(version: 20140517223304) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20140511162800) do
     t.boolean  "show_nembrot_link",         default: true
     t.string   "url"
     t.boolean  "versions",                  default: false
+    t.boolean  "comments",                  default: true
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
@@ -375,6 +376,12 @@ ActiveRecord::Schema.define(version: 20140511162800) do
     t.datetime "payment_status_updated_at"
     t.integer  "plan_id",                   default: 0, null: false
     t.string   "paypal_email"
+    t.datetime "expires_at"
+    t.string   "paypal_last_ipn"
+    t.string   "country"
+    t.string   "paypal_payer_id"
+    t.string   "paypal_subscriber_id"
+    t.string   "token_for_paypal"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

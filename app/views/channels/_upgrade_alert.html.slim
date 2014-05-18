@@ -1,3 +1,15 @@
 #upgrade_alert style='display:none'
   #message
-  = link_to 'paypal', 'paypal'
+  #pay
+    - if current_user && current_user.role == 'admin'
+      = link_to '€0.01 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AKUVW9YCEANTQ&custom=#{ @paypal_transaction_token }"
+      = link_to '€0.01 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NSKJWFUD8WG9Y&item_number=&custom=#{ @paypal_transaction_token }"
+    - elsif @country == 'GB'
+      = link_to '£4.99 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8KLCMPY5FN7PA&custom=#{ @paypal_transaction_token }"
+      = link_to '£49 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MZGS87GV6EXYG&custom=#{ @paypal_transaction_token }"
+    - elsif @country_in_eu # Offer Euros to any EU country (not just Eurozone)
+      = link_to '€5.99 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EL494ZLQPEWDL&custom=#{ @paypal_transaction_token }"
+      = link_to '€59 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X4RJ8CNE25E3G&custom=#{ @paypal_transaction_token }"
+    - else
+      = link_to '$7.99 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GUJ28BG2PHGHW&custom=#{ @paypal_token }"
+      = link_to '$79 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SWPU72DQDT8TL&custom=#{ @paypal_transaction_token }"

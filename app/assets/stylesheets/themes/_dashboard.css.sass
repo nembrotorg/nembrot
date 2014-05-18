@@ -17,7 +17,8 @@ $error-color: #cc0000
   bottom: 5%
   cursor: hand
   font:
-    family: 'proxima-nova', Arial, sans-serif
+    family: Arial, sans-serif
+    size: 0.9em
   height: 90%
   margin: 0 5% $line-height 5%
   position: fixed
@@ -149,8 +150,25 @@ $error-color: #cc0000
     width: 100%
     z-index: 100
     #message
-      margin: ($line-height/2) ($text-indent/2)
-
+      margin: ($line-height/2) ($text-indent/2) 0 ($text-indent/2)
+    #pay
+      margin: 0 ($text-indent/2) ($line-height/2) ($text-indent/2)
+      a
+        background-color: $dashboard-hover-color
+        color: #fff
+        display: inline-block
+        font-size: 0.9em
+        margin-top: $line-height / 2
+        padding: ($line-height/4) 5px
+        text-align: center
+        width: 45%
+        &:first-child
+          margin-right: 2%
+        &:before
+          +icon-paypal
+          color: #fff
+        &:hover
+          background-color: $link-hover-color
   form
     +clearfix
     counter-reset: new-channel-steps
@@ -192,9 +210,11 @@ $error-color: #cc0000
             color: $secondary-color
             position: absolute
             right: 0
+            &:hover
+              color: $dashboard-white-color
         &:hover
           background-color: $dashboard-hover-color
-          color: #ffffff
+          color: $dashboard-white-color
       div
         height: $line-height * 4
         padding-top: $text-indent / 2
@@ -304,7 +324,7 @@ $error-color: #cc0000
   #dashboard
     background-color: rgba($dashboard-white-color, 0.85)
     bottom: $line-height
-    height: $line-height * 13
+    height: $line-height * 14
     margin: 0
     right: $text-indent / 2
     width: 330px

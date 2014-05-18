@@ -2,6 +2,8 @@
 
 class User < ActiveRecord::Base
 
+  include Tokenable
+
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
@@ -59,6 +61,8 @@ class User < ActiveRecord::Base
       user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
     end
 
+    user.token_for_paypal = generate_token
+
     user.skip_confirmation!
     user.save!(validate: false) # Allow users to not have an email address
 
@@ -70,7 +74,6 @@ class User < ActiveRecord::Base
 
   def soft_delete
     authorizations.destroy_all
-
     skip_confirmation!
 
     update_attributes(
@@ -110,7 +113,25 @@ class User < ActiveRecord::Base
     true
   end
 
+  def update_from_paypal_signup(params, new_plan)
+    skip_confirmation!
+
+    update_attributes(
+      country: params[:residence_country],
+      email: params[:payer_email],
+      expires_at: params[:residence_country] == '1 Y' ? 1.year.from_now : 1.year.from_now,
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      paypal_last_ipn: params[:ipn_track_id],
+      paypal_payer_id: params[:payer_id],
+      paypal_subscriber_id: params[:subscr_id],
+      plan: new_plan,
+      token_for_paypal: generate_token,
+      unconfirmed_email: nil)
+  end
+
   private
+
   def update_plan
     plan = Plan.free if plan.nil?
   end

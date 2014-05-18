@@ -15,9 +15,9 @@ auto_open_dashboard = () ->
     $('#dashboard').draggable()
 
 upgrade_alert = (message) ->
-  $('#dashboard #upgrade_alert #message').text(message + ' Upgrade now to create unlimited websites with Premium themes, HD images, image effects, advanced settings and more.')
+  $('#dashboard #upgrade_alert #message').html('<strong>' + message + '</strong> Upgrade now to use shared notebooks, create unlimited websites with Premium themes, HD images, image effects, advanced settings and <a href="http://nembrot.com/premium" target="_blank">more</a>.')
   $('#dashboard #upgrade_alert').show('clip', 200)
-  #$('#dashboard input[type=submit]').attr('disabled','disabled')
+  $('#dashboard input[type=submit]').attr('disabled','disabled')
 
 close_alert = () ->
   $('#dashboard #upgrade_alert').hide('clip', 100)
@@ -46,7 +46,7 @@ $ ->
 
   # Alert if free user tries to create more than one site
   $(document).on 'click', '#dashboard a[href*="channels/new"].disabled', (event) ->
-    upgrade_alert 'As a free user you can only create one site.'
+    upgrade_alert 'You can create up to three websites.'
     event.preventDefault()
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
@@ -68,7 +68,7 @@ $ ->
 
   # Alert if free user chooses a premium theme
   $(document).on 'focus', '#dashboard .theme input', (event) ->
-    if $(event.target).data('premium') && !$('fieldset.themes').data('premium-themes')
+    if $(event.target).data('premium') && !$('fieldset.theme').data('premium-themes')
       premium_alert('You have chosen a premium theme.')
     else
       close_alert()

@@ -16,12 +16,14 @@ Nembrot::Application.routes.draw do
   root to: 'home#index'
 
   get 'users/menu' => 'users#menu'
+  get 'users/upgrade' => 'users#upgrade'
 
   devise_scope :user do
     get 'users/event/:event' => 'devise/sessions#event', as: :user_event
   end
 
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+  post 'webhooks/paypal' => 'users#paypal'
   resources :evernote_notes, only: [:add_evernote_task]
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/

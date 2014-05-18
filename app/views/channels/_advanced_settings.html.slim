@@ -1,0 +1,28 @@
+fieldset class="advanced-settings"
+  legend
+    | Advanced settings
+  div
+
+
+    t.string   "contact_email"
+    t.string   "disqus_shortname"
+    t.string   "facebook_app_id"
+    t.string   "follow_on_facebook"
+    t.string   "follow_on_soundcloud"
+    t.string   "follow_on_tumblr"
+    t.string   "follow_on_twitter"
+    t.string   "follow_on_vimeo"
+    t.string   "follow_on_youtube"
+    t.string   "google_analytics_key"
+
+    t.boolean  "always_reset_on_create",    default: true
+    t.boolean  "bibliography",              default: false
+    t.boolean  "index_on_google",           default: true
+    t.boolean  "links_section",             default: false
+    t.string   "locale",                    default: "en"
+    t.boolean  "only_show_notes_in_locale", default: false
+    t.boolean  "private",                   default: false
+    t.boolean  "promote",                   default: true
+    t.boolean  "show_nembrot_link",         default: true
+    t.string   "url"
+    t.boolean  "versions",                  default: false

@@ -33,15 +33,15 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
+    user_related_settings
     @channel = Channel.new
-    @plan = current_user.nil? ? Plan.free : current_user.plan
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 
   def edit
-    @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
+    user_related_settings
     @plan = current_user.nil? ? Plan.free : current_user.plan
+    @paypal_transaction_token = current_user.generate_token
     add_breadcrumb I18n.t('channels.edit.title'), :edit_channel_path
   end
 
@@ -89,6 +89,13 @@ class ChannelsController < ApplicationController
 
   def channel_params
     params.require(:channel).permit(:name, :notebooks, :theme_id)
+  end
+
+  def user_related_settings
+    @country = request.location.country_code
+    @country_in_eu = @country == 'RD' ? false : Country.new(@country).in_eu?
+    @plan = current_user.nil? ? Plan.free : current_user.plan
+    @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public
   end
 
   def set_public_cache_headers

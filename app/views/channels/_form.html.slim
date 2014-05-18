@@ -7,9 +7,10 @@
 - active_panel = 1 if signed_in_with_evernote
 - active_panel = 3 unless @channel.notebooks.nil? && @channel.name.nil?
 
-= form_for @channel do |f|
 
-  = render 'upgrade_alert'
+= render 'upgrade_alert'
+
+= form_for @channel do |f|
 
   fieldset.oauth
 
@@ -59,6 +60,36 @@
             span class="#{ theme.premium? ? 'premium' : nil }"
               = theme.name.titlecase
             = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
+
+    - if @plan.advanced_settings
+      fieldset class="advanced-settings"
+        legend
+          | Advanced settings
+        div
+
+          label for='versions'
+            span Versions
+            = f.check_box :versions, id: 'versions', checked: @channel.versions
+ 
+          label for='comments'
+            span Comments
+            = f.check_box :comments, checked: @channel.comments
+
+          label for='always_reset_on_create'
+            span Always reset on create
+            = f.check_box :always_reset_on_create, checked: @channel.always_reset_on_create
+
+          label = f.text_field :disqus_shortname, pattern: "[a-z0-9]{3,40}", placeholder: 'Disqus shortname'
+          label = f.text_field :follow_on_facebook, pattern: "[a-z0-9]{3,40}", placeholder: 'Facebook page'
+          label = f.text_field :follow_on_soundcloud, pattern: "[a-z0-9]{3,40}", placeholder: 'Soundcloud channel'
+          label = f.text_field :follow_on_tumblr, pattern: "[a-z0-9]{3,40}", placeholder: 'Tumblr'
+          label = f.text_field :follow_on_twitter, pattern: "[a-z0-9]{3,40}", placeholder: 'Twitter'
+          label = f.text_field :follow_on_vimeo, pattern: "[a-z0-9]{3,40}", placeholder: 'Viemo channel'
+          label = f.text_field :follow_on_youtube, pattern: "[a-z0-9]{3,40}", placeholder: 'Youtube channel'
+          label = f.text_field :contact_email, pattern: "[a-z0-9]@[a-z\.]{2,8}", placeholder: 'Contact email (public)'
+          label = f.text_field :google_analytics_key, pattern: "[a-z0-9]{3,40}", placeholder: 'Google Analytics key'
+          label = f.text_field :facebook_app_id, pattern: "[a-z0-9]{3,40}", placeholder: 'Facebok app id'
+          label = f.text_field :url, pattern: "[a-z0-9]{3,40}", placeholder: 'Your url (redirect to 00.00.00.00)'
 
   - else
     = f.text_field :theme_id, value: 1, hidden: true

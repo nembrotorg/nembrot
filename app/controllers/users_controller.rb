@@ -54,9 +54,10 @@ class UsersController < ApplicationController
 
   def paypal
     # Ensure that this IPN has not already been processed
-    if (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?
-      Paypal.verify(params)
+    ipn_not_repeated = (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?
+    verified_ipn_message = Paypal.verify(params)
 
+    if ipn_not_repeated && verified_ipn_message
       # REVIEW: Change this if we're not processing more types here
       case params[:txn_type]
         when 'subscr_signup'
@@ -73,6 +74,9 @@ class UsersController < ApplicationController
           user.update_from_paypal_signup(params, new_plan) unless new_plan.nil? || user.nil?
           PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN."
       end
+    else
+      PAY_LOG.warn "Repeat IPN received from Paypal. (IPN id: #{ params[:ipn_track_id] }.)" unless ipn_not_repeated
+      PAY_LOG.warn "Paypal IPN failed verification. (IPN id: #{ params[:ipn_track_id] }.)" unless verified_ipn_message
     end
 
     render nothing: true, status: 200

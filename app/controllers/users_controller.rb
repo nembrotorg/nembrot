@@ -20,6 +20,8 @@ class UsersController < ApplicationController
 
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:cm] }."
+      flash[:error] = 'An error has occurred!'
+      redirect_to home_url
       return
     end
 
@@ -35,10 +37,12 @@ class UsersController < ApplicationController
       user.save!(validate: false)
       PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } by browser redirect."
       redirect_to home_url, notice: 'You are now a Premium user. Thanks!'
+      return
     else
       flash[:error] = 'Your upgrade was cancelled.'
       PAY_LOG.info "User #{ users.first.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
       redirect_to home_url
+      return
     end
   end
 

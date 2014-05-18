@@ -42,7 +42,7 @@ class UsersController < ApplicationController
       # REVIEW: Change this if we're not processing more types here
       case params[:txn_type]
         when 'subscr_signup'
-          new_plan = find_from_payment(params[:mc_currency], params[:mc_amount3])
+          new_plan = Plan.find_from_payment(params[:mc_currency], params[:mc_amount3])
           user.update_from_paypal_signup(params, new_plan) unless new_plan.nil?
       end
     end

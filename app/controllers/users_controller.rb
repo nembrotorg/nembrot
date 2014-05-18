@@ -23,9 +23,11 @@ class UsersController < ApplicationController
       user.expires_at = 1.hour.from_now
       user.plan = Plan.find_from_payment(params[:cc], params[:amt])
       user.save!(validate: false)
+      PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } by browser redirect."
       redirect_to home_url, notice: 'You are now a Premium user. Thanks!'
     else
       flash[:error] = 'Your upgrade was cancelled.'
+      PAY_LOG.info "User #{ user.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
       redirect_to home_url
     end
   end
@@ -39,13 +41,22 @@ class UsersController < ApplicationController
     # Ensure that this IPN has not already been processed
     if (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?
       Paypal.verify(params)
-      user = User.where(token_for_paypal: params[:custom]).first
 
       # REVIEW: Change this if we're not processing more types here
       case params[:txn_type]
         when 'subscr_signup'
+          user = User.where(token_for_paypal: params[:custom]).first
+          if user.nil?
+            PAY_LOG.error "No user found with IPN: #{ params[:custom] }. (IPN id: #{ params[:ipn_track_id] }.)"
+            return
+          end
           new_plan = Plan.find_from_payment(params[:mc_currency], params[:mc_amount3])
-          user.update_from_paypal_signup(params, new_plan) unless new_plan.nil?
+          if user.nil?
+            PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:mc_amount3] }. (IPN id: #{ params[:ipn_track_id] }.)"
+            return
+          end
+          user.update_from_paypal_signup(params, new_plan) unless new_plan.nil? || user.nil?
+          PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN."
       end
     end
 

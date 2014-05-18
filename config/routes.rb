@@ -16,6 +16,7 @@ Nembrot::Application.routes.draw do
   root to: 'home#index'
 
   get 'users/menu' => 'users#menu'
+  get 'users/upgrade/cancel' => 'users#cancel_upgrade'
   get 'users/upgrade' => 'users#upgrade'
 
   devise_scope :user do

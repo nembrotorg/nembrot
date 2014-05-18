@@ -28,6 +28,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def cancel_upgrade
+    flash[:error] = 'Your upgrade was cancelled.'
+    redirect_to home_url
+  end
+
   def paypal
     # Ensure that this IPN has not already been processed
     if (User.where(paypal_last_ipn: params[:ipn_track_id])).empty?

@@ -36,7 +36,7 @@ class ChannelsController < ApplicationController
   def new
     user_related_settings
     @channel = Channel.new
-    @paypal_transaction_token = current_user.token_for_paypal unless current.user.nil?
+    @paypal_transaction_token = current_user.token_for_paypal unless current_user.nil?
     add_breadcrumb I18n.t('channels.new.title'), :new_channel_path
   end
 

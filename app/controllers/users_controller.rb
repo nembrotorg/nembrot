@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :validate_authorization_for_user, only: [:edit, :update]
 
+  skip_before_filter :verify_authenticity_token, only: [:paypal]
+
   def update
     if @user.update_attributes(params[:user])
       redirect_to @user, notice: 'User was successfully updated.'

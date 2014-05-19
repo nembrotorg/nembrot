@@ -23,8 +23,9 @@ Nembrot::Application.routes.draw do
     get 'users/event/:event' => 'devise/sessions#event', as: :user_event
   end
 
-  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+  post 'webhooks/evernote/webhooks/Paypal_IPN' => 'users#paypal'
   post 'webhooks/paypal' => 'users#paypal'
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
   resources :evernote_notes, only: [:add_evernote_task]
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/

@@ -3,9 +3,7 @@
 module Tokenable
   extend ActiveSupport::Concern
 
-  # protected
-
   def generate_token
-    random_token = SecureRandom.urlsafe_base64(nil, false)
+    SecureRandom.urlsafe_base64(nil, false)
   end
 end

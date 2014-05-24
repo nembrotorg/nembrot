@@ -13,6 +13,7 @@ class Channel < ActiveRecord::Base
 
   scope :owned_by_nembrot, -> { joins(:theme).where.not('themes.public = ?', true) }
   scope :not_owned_by_nembrot, -> { joins(:theme).where('themes.public = ?', true) }
+  scope :premium_themed, -> { where(premium: true) }
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -38,7 +39,7 @@ class Channel < ActiveRecord::Base
   # def notebook_in_plan?
   #   user.plan
   # end
-  
+
   def theme_in_plan?
     theme.premium == false || user.plan.premium_themes?
   end

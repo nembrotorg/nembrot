@@ -1,0 +1,71 @@
+# encoding: utf-8
+
+module Upgradable
+  extend ActiveSupport::Concern
+
+  private
+
+  def update_from_paypal_callback!(params)
+    new_plan = Plan.find_from_payment(params[:cc], params[:amt])
+    if new_plan.nil?
+      PAY_LOG.error "No plan found with #{ params[:cc] } #{ params[:amt] }. (Callback tx: #{ params[:tx] }.)"
+    else
+      skip_confirmation!
+      update_attributes(
+        downgrade_at: 1.day.from_now,
+        downgrade_warning_at: 3.hours.from_now,
+        expires_at: 3.hours.from_now, # Grace period pending IPN (clearing, etc) - put in settings
+        paypal_last_tx: params[:tx],
+        plan: new_plan,
+        unconfirmed_email: nil)
+      save!(validate: false)
+      PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } from paypal callback."
+    end
+  end
+
+  def update_from_paypal_pdt!(response)
+    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+    if new_plan.nil?
+      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+    else
+      skip_confirmation!
+      update_attributes(
+        downgrade_at: 2.weeks.from_now,
+        downgrade_warning_at: 1.week.from_now,
+        email: response[:payer_email],
+        expires_at: 1.week.from_now, # Grace period pending IPN (clearing, etc) - put in settings
+        first_name: response[:first_name],
+        last_name: response[:last_name],
+        plan: new_plan,
+        unconfirmed_email: nil)
+      save!(validate: false)
+      PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } from paypal PDT."
+    end
+  end
+
+  def update_from_paypal_ipn!(params)
+    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+    if new_plan.nil?
+      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+    else
+      skip_confirmation!
+      update_attributes(
+        country: params[:residence_country],
+        downgrade_at: nil,
+        downgrade_warning_at: nil,
+        email: params[:payer_email],
+        expires_at: params[:period3] == '1 Y' ? 1.year.from_now : 1.month.from_now,
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        paypal_last_ipn: params[:ipn_track_id],
+        paypal_payer_id: params[:payer_id],
+        paypal_subscriber_id: params[:subscr_id],
+        plan: Plan.find_from_payment(params[:mc_currency], params[:mc_amount3]),
+        token_for_paypal: generate_token,
+        unconfirmed_email: nil)
+      save!(validate: false)
+      PlanMailer.successful_upgrade(user)
+      PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
+    end
+  end
+end

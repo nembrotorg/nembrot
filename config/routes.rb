@@ -17,14 +17,14 @@ Nembrot::Application.routes.draw do
 
   get 'users/menu' => 'users#menu'
   get 'users/upgrade/cancel' => 'users#cancel_upgrade'
-  get 'users/upgrade' => 'users#upgrade'
+  get 'users/upgrade' => 'users#process_paypal_pdt'
 
   devise_scope :user do
     get 'users/event/:event' => 'devise/sessions#event', as: :user_event
   end
 
-  post 'webhooks/evernote/webhooks/Paypal_IPN' => 'users#paypal'
-  post 'webhooks/paypal' => 'users#paypal'
+  post 'webhooks/evernote/webhooks/Paypal_IPN' => 'users#process_paypal_ipn' #TEMPORARY
+  post 'webhooks/paypal' => 'users#process_paypal_ipn'
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
   resources :evernote_notes, only: [:add_evernote_task]
 

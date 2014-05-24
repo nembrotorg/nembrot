@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140517223304) do
+ActiveRecord::Schema.define(version: 20140519185743) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -95,6 +95,10 @@ ActiveRecord::Schema.define(version: 20140517223304) do
     t.string   "url"
     t.boolean  "versions",                  default: false
     t.boolean  "comments",                  default: true
+    t.boolean  "active",                    default: true
+    t.boolean  "breadcrumbs",               default: true
+    t.boolean  "menu_at_top",               default: true
+    t.boolean  "menu_at_bottom",            default: true
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
@@ -350,7 +354,7 @@ ActiveRecord::Schema.define(version: 20140517223304) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -371,10 +375,7 @@ ActiveRecord::Schema.define(version: 20140517223304) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "remember_token"
-    t.datetime "next_payment_due_at"
-    t.boolean  "payment_status"
-    t.datetime "payment_status_updated_at"
-    t.integer  "plan_id",                   default: 0, null: false
+    t.integer  "plan_id",                default: 0, null: false
     t.string   "paypal_email"
     t.datetime "expires_at"
     t.string   "paypal_last_ipn"
@@ -382,6 +383,9 @@ ActiveRecord::Schema.define(version: 20140517223304) do
     t.string   "paypal_payer_id"
     t.string   "paypal_subscriber_id"
     t.string   "token_for_paypal"
+    t.string   "paypal_last_tx"
+    t.datetime "downgrade_warning_at"
+    t.datetime "downgrade_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

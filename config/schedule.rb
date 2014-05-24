@@ -9,6 +9,10 @@ every 3.minutes do
   rake 'sync:all'
 end
 
+every 1.hour do
+  rake 'downgrades:audit'
+end
+
 every 1.day, at: '5:00 am' do
   rake '-s sitemap:refresh'
 end

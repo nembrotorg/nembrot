@@ -2,7 +2,6 @@ SitemapGenerator::Sitemap.default_host = "http://#{ Constant.host }"
 
 SitemapGenerator::Sitemap.create do
 
-
   Channel.where.not(slug: 'default').each do |channel|
 
     add home_path(channel)

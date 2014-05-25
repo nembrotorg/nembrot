@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def process_paypal_pdt
-    [message_type, message] = Paypal.new.process_pdt(params)
+    message_type, message = Paypal.new.process_pdt(params)
     flash[message_type] = message
     redirect_to home_url
   end

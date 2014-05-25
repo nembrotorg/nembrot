@@ -32,7 +32,7 @@ class Paypal
       PAY_LOG.info "User #{ users.first.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
       return
     end
-    message_type, message
+    [message_type, message]
   end
 
   def verify_pdt(params)

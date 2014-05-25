@@ -35,7 +35,7 @@
 
     aside
 
-      = render 'notes/tag_list', tags: tags unless tags.empty?
+      = render 'notes/tag_list', tags: tags unless @current_channel.tags == false || tags.empty?
 
       ul.shares = render 'share_tools'
 

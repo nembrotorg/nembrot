@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519185743) do
+ActiveRecord::Schema.define(version: 20140525135046) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -97,8 +97,13 @@ ActiveRecord::Schema.define(version: 20140519185743) do
     t.boolean  "comments",                  default: true
     t.boolean  "active",                    default: true
     t.boolean  "breadcrumbs",               default: true
-    t.boolean  "menu_at_top",               default: true
+    t.boolean  "menu_at_top",               default: false
     t.boolean  "menu_at_bottom",            default: true
+    t.string   "follow_on_googleplus"
+    t.boolean  "newsletter",                default: true
+    t.boolean  "promoted",                  default: false
+    t.boolean  "tags",                      default: true
+    t.boolean  "locale_auto",               default: true
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true

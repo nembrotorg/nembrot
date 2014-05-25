@@ -17,7 +17,8 @@
             li = link_to t('citations.index.title'), citations_path
             li = link_to t('books.index.title'), books_path unless Setting['advanced.books_section'] == 'false'
             li = link_to t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
-            li = link_to t('tags.index.title'), tags_path
+            - if @current_channel.tags?
+              li = link_to t('tags.index.title'), tags_path
 
             - @sections.each do |section|
               li = link_to section.get_feature_name.titlecase, feature_path(feature: section.feature)

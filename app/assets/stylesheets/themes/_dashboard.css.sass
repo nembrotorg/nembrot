@@ -297,6 +297,11 @@ $error-color: #cc0000
           // margin-top: 8px
           text-align: center
           width: $text-indent
+      &.advanced-settings
+        label.text:hover
+          background-color: transparent
+        input[type=text]
+          width: 135%
       .name
         input
           border: 1px solid #666
@@ -315,7 +320,7 @@ $error-color: #cc0000
       input[type=submit]
         margin-top: 0
         width: 62%
-        &:hover
+        &:not([disabled]):hover
           background-color: $link-hover-color
           color: $background-color
       a

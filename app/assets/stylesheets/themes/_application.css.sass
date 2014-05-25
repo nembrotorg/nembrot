@@ -61,13 +61,13 @@ nav ul li a:first-of-type
 .statistics
   display: none
 
-div#main footer.channel
+div#main .channel
   +arrow-links
   +span-columns(12 omega, 12)
   margin-bottom: $line-height * 2/3
   ul
     li:last-of-type
-      a:first-of-type
+      a[href='/']:first-of-type
         +brand
         &:before
           border:
@@ -125,7 +125,7 @@ figure.image
           +columns(3)
           +span-columns(8 omega)
 
-  div#main footer.channel
+  div#main .channel
     ul
       +horizontal-list
       li

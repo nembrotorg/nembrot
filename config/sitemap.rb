@@ -29,7 +29,7 @@ SitemapGenerator::Sitemap.create do
       end
     end
 
-    unless Note.channelled(channel).publishable.tag_counts_on(:tags).empty?
+    unless channel.tags == false || Note.channelled(channel).publishable.tag_counts_on(:tags).empty?
       add tags_path(channel)
 
       Note.channelled(channel).publishable.tag_counts_on(:tags).each do |tag|

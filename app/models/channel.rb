@@ -16,7 +16,7 @@ class Channel < ActiveRecord::Base
   scope :not_owned_by_nembrot, -> { active.joins(:theme).where('themes.public = ?', true) }
   scope :premium_themed, -> { where(premium: true) }
   scope :sitemappable, -> { active.where(index_on_google: true) }
-  scope :promotable, -> { where(promote: true) }
+  scope :promotable, -> { active.where(promote: true) }
   scope :promoted, -> { not_owned_by_nembrot.where(promote: true, promoted: true) }
 
   extend FriendlyId

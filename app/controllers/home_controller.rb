@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     mapify(all_notes.mappable)
 
     @channels = Channel.promoted.first(12)
-    @channels = @channels + Channel.promotable.first(12 - @channels.size) if @channels.size < 12
+    @channels = (@channels + Channel.promotable.first(12 - @channels.size)).uniq if @channels.size < 12
   end
 
   def default_url_options

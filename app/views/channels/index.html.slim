@@ -15,7 +15,13 @@
         = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
         = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
 
-  p = link_to 'New website', new_channel_path, class: (@channels.size >= current_user.plan.max_channels ? 'disabled' : nil)
+  ul.actions
+
+    li = link_to 'New website', new_channel_path, class: (@channels.size >= current_user.plan.max_channels ? 'disabled' : nil)
+
+    li = link_to 'Delete', destroy_user_path, data: { confirm: 'Are you sure you want to delete your nembrot.com account? All your notes will be deleted from the nembrot.com servers and your websites will no longer be available.' }, method: :delete, class: 'destroy delete', title: 'Delete my nembrot.com account'
+
+    li = link_to 'Sign out', destroy_user_session_path, class: 'destroy', title: 'Sign out on this computer'
 
 a href='#close'
   | Close

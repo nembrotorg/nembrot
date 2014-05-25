@@ -60,7 +60,7 @@ class ChannelsController < ApplicationController
 
   def update
     if @channel.update(channel_params)
-      redirect_to channels_url, notice: 'Channel was successfully updated.'
+      redirect_to channels_url, notice: 'Your website has been updated.'
     else
       render action: 'edit'
     end
@@ -68,7 +68,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     @channel.destroy
-    redirect_to channels_url, notice: 'Channel was successfully deleted.'
+    redirect_to channels_url, notice: 'Your website has been deleted.'
   end
 
   def available

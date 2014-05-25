@@ -6,7 +6,7 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
-  if $('.theme-home').size() > 0
+  if $('.theme-home').size() > 0 || $('#dashboard header aside').size() > 0 
     load_dashboard()
     if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
     $('#dashboard').show()
@@ -17,7 +17,7 @@ auto_open_dashboard = () ->
 # Document hooks ******************************************************************************************************
 
 $ ->
-  $(document).pjax('#dashboard a:not(.show-channel):not(.disabled)', '[data-pjax-dashboard]', { push: false } )
+  $(document).pjax('#dashboard a:not(.show-channel):not(.disabled):not(.destroy)', '[data-pjax-dashboard]', { push: false } )
   $(document).pjax('#dashboard a.show-channel:not([data-remote])', '[data-pjax-container]')
 
   $(document).on 'submit', '#dashboard form', (event) ->

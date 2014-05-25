@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email, :plan
 
-  before_validation :update_plan
+  before_save :update_plan
 
   def self.new_with_session(params, session)
     if session['devise.user_attributes']
@@ -116,6 +116,6 @@ class User < ActiveRecord::Base
   private
 
   def update_plan
-    plan = Plan.free if plan.nil?
+    self.plan = Plan.free if plan.nil?
   end
 end

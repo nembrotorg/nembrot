@@ -20,6 +20,7 @@ Nembrot::Application.routes.draw do
   get 'users/upgrade' => 'users#process_paypal_pdt'
 
   devise_scope :user do
+    get 'users' => 'users#destroy', :via => :delete, as: :destroy_user
     get 'users/event/:event' => 'devise/sessions#event', as: :user_event
   end
 

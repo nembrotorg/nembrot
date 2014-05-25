@@ -85,21 +85,56 @@ $error-color: #cc0000
             padding-left: $text-indent
             padding-right: $text-indent * 2/3
 
-  a[href='/channels/new']
+  ul.actions
+    +horizontal-list
     bottom: 0
-    color: $dashboard-hover-color
     display: block
     font-weight: 600
+    height: $line-height * 2
+    padding: 0 ($text-indent / 2)
     position: absolute
-    padding: ($text-indent / 2)
     width: 100%
-    &:before
-      color: $dashboard-hover-color
-      vertical-align: -1px
-    &:hover
-      color: $link-hover-color
-      &:before
-        color: $link-hover-color
+    li
+      float: left
+      width: 28px
+      a
+        &:before
+          +icon-large
+          display: inline // REVIEW: This over-rides inline-block elsewhere
+          text-overflow: hidden
+          vertical-align: -1px
+        &:hover
+          color: $link-hover-color
+          &:before
+            color: $link-hover-color
+        &[href='/channels/new']
+          color: $dashboard-hover-color
+          &:before
+            color: $dashboard-hover-color
+            +icon-plus
+          &:hover
+            color: $link-hover-color
+            &:before
+              color: $link-hover-color
+        &.delete // REVIEW: Lots of repition here
+          text-align: right
+          text-overflow: clip
+          margin-right: $text-indent
+          &:before
+            +icon-delete
+            +icon-regular
+            padding-right: 1em
+            vertical-align: -1px
+        &[href='/users/sign_out']
+          text-align: right
+          text-overflow: clip
+          &:before
+            +icon-sign-out
+            +icon-medium
+            padding-right: 1em
+            vertical-align: -1px
+      &:first-of-type
+        width: 68%
 
   #notice
     display: block
@@ -243,6 +278,9 @@ $error-color: #cc0000
             color: $secondary-color
             position: absolute
             right: 0
+        label:hover
+          span:after
+            color: $dashboard-white-color
       &.name div
         overflow-y: hidden
         label:hover

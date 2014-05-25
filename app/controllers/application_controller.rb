@@ -30,10 +30,12 @@ class ApplicationController < ActionController::Base
     @default_note = @default_notes.first
     @channels_owned_by_nembrot = Channel.owned_by_nembrot
     @themes_for_js = Theme.hash_for_js
+  rescue
+    redirect_to home_url, notice: 'This website does not exist!'
   end
 
   def set_current_channel
-    @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
+    @current_channel = Channel.active.where('slug = ?', params[:channel] || 'default').first
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
 

@@ -11,9 +11,13 @@ class Channel < ActiveRecord::Base
 
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 
-  scope :owned_by_nembrot, -> { joins(:theme).where.not('themes.public = ?', true) }
-  scope :not_owned_by_nembrot, -> { joins(:theme).where('themes.public = ?', true) }
+  scope :active, -> { where(active: true) }
+  scope :owned_by_nembrot, -> { active.joins(:theme).where.not('themes.public = ?', true) }
+  scope :not_owned_by_nembrot, -> { active.joins(:theme).where('themes.public = ?', true) }
   scope :premium_themed, -> { where(premium: true) }
+  scope :sitemappable, -> { active.where(index_on_google: true) }
+  scope :promotable, -> { where(promote: true) }
+  scope :promoted, -> { not_owned_by_nembrot.where(promote: true, promoted: true) }
 
   extend FriendlyId
   friendly_id :name, use: :slugged

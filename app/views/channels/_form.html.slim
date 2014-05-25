@@ -68,15 +68,15 @@
         div
 
           label for='breadcrumbs'
-            span Index on Google
+            span Breadcrumbs
             = f.check_box :breadcrumbs, checked: @channel.breadcrumbs
 
           label for='menu_at_top'
-            span Index on Google
+            span Menu at top
             = f.check_box :menu_at_top, checked: @channel.menu_at_top
 
           label for='menu_at_bottom'
-            span Index on Google
+            span Menu as footer
             = f.check_box :menu_at_bottom, checked: @channel.menu_at_bottom
 
           label for='show_nembrot_link'
@@ -95,6 +95,14 @@
           -#   span Links section
           -#   = f.check_box :links_section, checked: @channel.links_section
 
+          -# label for='always_reset_on_create'
+          -#   span Always reset on create
+          -#   = f.check_box :always_reset_on_create, checked: @channel.always_reset_on_create
+
+          -# label for='private'
+          -#   span Private
+          -#   = f.check_box :private, checked: @channel.private
+
           label for='index_on_google'
             span Index on Google
             = f.check_box :index_on_google, checked: @channel.index_on_google
@@ -103,20 +111,12 @@
             span Promote this website
             = f.check_box :promote, checked: @channel.promote
 
-          -# label for='private'
-          -#   span Private
-          -#   = f.check_box :private, checked: @channel.private
-
-          -# label for='always_reset_on_create'
-          -#   span Always reset on create
-          -#   = f.check_box :always_reset_on_create, checked: @channel.always_reset_on_create
-
           label for='only_show_notes_in_locale'
-            span Only show notes in locale language
+            span Only show notes in website's language
             = f.check_box :only_show_notes_in_locale, checked: @channel.only_show_notes_in_locale
 
           label for='locale'
-            span Always reset on create
+            span Website's language
             = f.check_box :locale, checked: @channel.locale
 
           label for='comments'
@@ -131,8 +131,8 @@
           label = f.text_field :follow_on_vimeo, pattern: "[a-z0-9]{3,40}", placeholder: 'Vimeo channel'
           label = f.text_field :follow_on_youtube, pattern: "[a-z0-9]{3,40}", placeholder: 'Youtube channel'
           label = f.text_field :contact_email, pattern: "[a-z0-9]@[a-z\.]{2,8}", placeholder: 'Contact email (public)'
-          label = f.text_field :google_analytics_key, pattern: "[a-z0-9]{3,40}", placeholder: 'Google Analytics key'
-          label = f.text_field :facebook_app_id, pattern: "[a-z0-9]{3,40}", placeholder: 'Facebok app id'
+          -#label = f.text_field :google_analytics_key, pattern: "[a-z0-9]{3,40}", placeholder: 'Google Analytics key'
+          -#label = f.text_field :facebook_app_id, pattern: "[a-z0-9]{3,40}", placeholder: 'Facebok app id'
           label = f.text_field :url, pattern: "[a-z0-9]{3,40}", placeholder: 'Your url (redirect to 00.00.00.00)'
 
   - else

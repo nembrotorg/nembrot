@@ -1,0 +1,20 @@
+- cache [cache_buster(1), @current_channel, @sections] do
+
+  footer.channel
+    nav
+      ul
+        li = link_to_unless_current_or_wrap @current_channel.name, home_path(@current_channel)
+        li = link_to_unless_current_or_wrap t('notes.index.title'), notes_path
+        -# li = link_to_unless_current_or_wrap t('citations.index.title'), citations_path
+        -# li = link_to_unless_current_or_wrap t('books.index.title'), books_path
+        -# li = link_to_unless_current_or_wrap t('links.index.title'), links_path unless Setting['advanced.links_section'] == 'false'
+
+        - if @current_channel.tags?
+          li = link_to_unless_current_or_wrap t('tags.index.title'), tags_path
+
+        - unless @sections.nil?
+          - @sections.each do |section|
+            li = link_to_unless_current_or_wrap section.get_feature_name.titlecase, feature_path(feature: section.feature)
+
+        - if @current_channel.contact_email?
+          li = mail_to 'Contact', @current_channel.contact_email

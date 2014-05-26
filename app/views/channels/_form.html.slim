@@ -59,7 +59,7 @@
             -# Premium class goes here because we can't use :before with input/radio
             span class="#{ theme.premium? ? 'premium' : nil }"
               = theme.name.titlecase
-            = f.radio_button :theme_id, theme.id, id: '', checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
+            = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
 
     - if @plan.advanced_settings
       fieldset class="advanced-settings"

@@ -2,6 +2,7 @@ change_theme = (theme) ->
   load_typekit_font(window.Nembrot.THEMES[theme]['typekit_code'])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
   $('html, [data-theme]').alterClass('*-module', window.Nembrot.THEMES[theme]['css'])
+  $('[data-theme]').attr('data-theme', window.Nembrot.THEMES[theme]['name'])
 
   # REVIEW: http://stackoverflow.com/questions/17762906/cant-update-data-attribute-value-jquery
   #  Data is only read on page load. Here we are using it as an ordinary attribute

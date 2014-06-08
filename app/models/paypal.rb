@@ -23,12 +23,12 @@ class Paypal
         return
       end
       message_type = :notice
-      message = 'You are now a Premium user. Thanks!'
+      message = '<span id="successful-upgrade">You are now a Premium user. Thanks!</span>'
       verify_pdt(params)
       return
     else
       message_type = :error
-      message = 'Your upgrade was cancelled.'
+      message = '<span id="cancelled-upgrade">Your upgrade was cancelled.</span>'
       PAY_LOG.info "User #{ users.first.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
       return
     end

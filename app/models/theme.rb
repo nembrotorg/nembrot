@@ -16,7 +16,7 @@ class Theme < ActiveRecord::Base
     themes_hash = Hash.new
 
     all.each do |t|
-      themes_hash[t.slug] = { typekit_code: t.typekit_code, effects: t.effects, map_style: t.map_style, css: t.css }
+      themes_hash[t.slug] = { name: t.name, typekit_code: t.typekit_code, effects: t.effects, map_style: t.map_style, css: t.css }
     end
     themes_hash
   end

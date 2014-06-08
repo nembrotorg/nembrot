@@ -52,7 +52,7 @@ class ChannelsController < ApplicationController
     @paypal_transaction_token = current_user.token_for_paypal
 
     if @channel.save
-      redirect_to edit_channel_url(@channel), notice: 'Channel created! Now choose a theme...'
+      redirect_to edit_channel_url(@channel), notice: '<span id="channel-created">Channel created! Now choose a theme...</span>'
     else
       render action: 'new'
     end
@@ -60,7 +60,7 @@ class ChannelsController < ApplicationController
 
   def update
     if @channel.update(channel_params)
-      redirect_to channels_url, notice: 'Your website has been updated.'
+      redirect_to channels_url, notice: '<span id="channel-updated">Your website has been updated.</span>'
     else
       render action: 'edit'
     end

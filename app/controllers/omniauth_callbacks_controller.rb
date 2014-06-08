@@ -6,7 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     p env['omniauth.auth']
     user = User.from_omniauth(env['omniauth.auth'], current_user)
     if user.persisted?
-      flash[:notice] = t('devise.sessions.oauth.signed_in', provider: env['omniauth.auth'].provider.to_s.titleize)
+      flash[:notice] = t('devise.sessions.oauth.signed_in_html', provider: env['omniauth.auth'].provider.to_s.titleize)
       user.remember_me!
       sign_in_and_redirect user
     else

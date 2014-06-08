@@ -21,8 +21,7 @@ class UsersController < ApplicationController
   end
 
   def cancel_upgrade
-    PAY_LOG.info "User #{ user.id } upgrade cancelled by user at PayPal site." # TODO: Add Google Analytics
-    flash[:error] = 'Your upgrade was cancelled.'
+    flash[:error] = '<span id="cancelled-upgrade">Your upgrade was cancelled.</span>'
     redirect_to home_url
   end
 

@@ -242,7 +242,7 @@ en:
       delete:
         title: 'Sign out'
       oauth:
-        signed_in: "Your %{provider} account is connected."
+        signed_in_html: '<span id="%{provider}-connected">Your %{provider} account is connected.'
       new:
         title: 'Sign in'
         submit: 'Sign in'

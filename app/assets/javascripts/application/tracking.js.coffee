@@ -38,7 +38,7 @@ $ ->
   $(window).on 'popstate', ->
     track_page_view()
 
-  $(document).on 'click', 'a[href^=http]:not(.share a)', ->
+  $(document).on 'click', '#main a[href^=http]:not(.share a)', ->
     track_outbound_link(@href, 'Outbound Link', @href.toString().replace(/^https?:\/\/([^\/?#]*).*$/, '$1'))
     false
 

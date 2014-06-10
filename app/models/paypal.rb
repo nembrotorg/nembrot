@@ -38,7 +38,7 @@ class Paypal
   def verify_pdt(params)
     request_uri = URI.parse('https://www.paypal.com/cgi-bin/webscr')
     request_uri.scheme = 'https'
-    response = http.post(
+    response = self.class.post(
       request_uri.to_s,
       :body => params.merge(
         'cmd' => '_notify-synch',
@@ -71,7 +71,7 @@ class Paypal
   def verify_ipn?(params)
     request_uri = URI.parse('https://www.paypal.com/cgi-bin/webscr')
     request_uri.scheme = 'https'
-    http.post(
+    self.class.post(
       request_uri.to_s,
       :body => params.merge('cmd' => '_notify-validate')
     ).body == 'VERIFIED'

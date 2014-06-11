@@ -65,7 +65,7 @@ module Upgradable
         subscription_term_days: params[:period3] == '1 Y' ? 365 : 31,
         unconfirmed_email: nil)
       save!(validate: false)
-      PlanMailer.successful_upgrade(user)
+      PlanMailer.successful_upgrade(self)
       PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
     end
   end
@@ -94,7 +94,7 @@ module Upgradable
         token_for_paypal: generate_token,
         unconfirmed_email: nil)
       save!(validate: false)
-      PlanMailer.successful_upgrade(user)
+      PlanMailer.successful_upgrade(self)
       PAY_LOG.info "User #{ user.id } payment for #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
     end
   end
@@ -106,7 +106,6 @@ module Upgradable
       paypal_cancelled_at: Time.now
     )
     save!(validate: false)
-    PlanMailer.successful_upgrade(user)
     PAY_LOG.info "User #{ user.id } cancelled subscription. (IPN track id: #{ params[:ipn_track_id] }.)"
   end
 end

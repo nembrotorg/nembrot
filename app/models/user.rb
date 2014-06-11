@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   acts_as_commontator
 
   validates_presence_of :email, :plan
+  # REVIEW: validate uniqueness of tekens, paypal subscriptions, etc
 
   before_save :update_plan
 

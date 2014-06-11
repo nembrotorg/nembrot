@@ -97,7 +97,7 @@ class Paypal
   def ipn_subscr_payment(params)
     users = User.where(token_for_paypal: params[:custom])
     if users.empty?
-      PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
+      PAY_LOG.error "No user found with token: #{ params[:custom] } while paying. (IPN id: #{ params[:ipn_track_id] }.)"
     else
       users.first.update_payment_from_paypal_ipn!(params)
     end
@@ -106,7 +106,7 @@ class Paypal
   def ipn_subscr_cancel(params)
     users = User.where(token_for_paypal: params[:custom])
     if users.empty?
-      PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
+      PAY_LOG.error "No user found with token: #{ params[:custom] } while cancelling. (IPN id: #{ params[:ipn_track_id] }.)"
     else
       users.first.update_cancellation_from_paypal_ipn!(params)
     end

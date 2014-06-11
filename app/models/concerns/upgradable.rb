@@ -103,7 +103,9 @@ module Upgradable
     skip_confirmation!
     # This is just for our own records. We will let the term expire.
     update_attributes(
-      paypal_cancelled_at: Time.now
+      last_ipn_txn_type: params[:txn_type],
+      paypal_cancelled_at: Time.now,
+      paypal_last_ipn: params[:ipn_track_id]
     )
     save!(validate: false)
     PAY_LOG.info "User #{ user.id } cancelled subscription. (IPN track id: #{ params[:ipn_track_id] }.)"

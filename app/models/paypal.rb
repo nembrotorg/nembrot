@@ -53,16 +53,20 @@ class Paypal
   def process_ipn(params)
     ipn_not_repeated = User.where(paypal_last_ipn: params[:ipn_track_id]).empty?
     verified_ipn_message = verify_ipn?(params)
+    verified_receiver = verify_receiver?(params)
 
-    if ipn_not_repeated && verified_ipn_message
+    if ipn_not_repeated && verified_ipn_message && verified_receiver
       # REVIEW: Change this if we're not processing more types here
       case params[:txn_type]
       when 'subscr_signup'
         ipn_subscr_signup(params)
       when 'subscr_payment'
         ipn_subscr_payment(params)
+      when 'subscr_cancel'
+        ipn_subscr_cancel(params)
       end
     else
+      PAY_LOG.warn "Wrong receiver in Paypal IPN. (IPN id: #{ params[:ipn_track_id] }.)" unless verified_receiver
       PAY_LOG.warn "Repeat IPN received from Paypal. (IPN id: #{ params[:ipn_track_id] }.)" unless ipn_not_repeated
       PAY_LOG.warn "Paypal IPN failed verification. (IPN id: #{ params[:ipn_track_id] }.)" unless verified_ipn_message
     end
@@ -77,12 +81,16 @@ class Paypal
     ).body == 'VERIFIED'
   end
 
+  def verify_receiver?(params)
+    params[:receiver_email] == 'joe.gatt@nembrot.com'
+  end
+
   def ipn_subscr_signup(params)
     users = User.where(token_for_paypal: params[:custom])
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
     else
-      users.first.update_from_paypal_ipn!(params)
+      users.first.update_subscription_from_paypal_ipn!(params)
     end
   end
 
@@ -91,7 +99,16 @@ class Paypal
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
     else
-      users.first.update_from_paypal_ipn!(params)
+      users.first.update_payment_from_paypal_ipn!(params)
+    end
+  end
+
+  def ipn_subscr_cancel(params)
+    users = User.where(token_for_paypal: params[:custom])
+    if users.empty?
+      PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
+    else
+      users.first.update_cancellation_from_paypal_ipn!(params)
     end
   end
 end

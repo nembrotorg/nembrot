@@ -43,7 +43,7 @@ module Upgradable
     end
   end
 
-  def update_from_paypal_ipn!(params)
+  def update_subscription_from_paypal_ipn!(params)
     new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
     if new_plan.nil?
       PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
@@ -54,18 +54,59 @@ module Upgradable
         downgrade_at: nil,
         downgrade_warning_at: nil,
         email: params[:payer_email],
-        expires_at: params[:period3] == '1 Y' ? 1.year.from_now : 1.month.from_now,
+        # expires_at: params[:period3] == '1 Y' ? 1.year.from_now : 1.month.from_now,
         first_name: params[:first_name],
+        last_ipn_txn_type: params[:txn_type],
         last_name: params[:last_name],
         paypal_last_ipn: params[:ipn_track_id],
         paypal_payer_id: params[:payer_id],
         paypal_subscriber_id: params[:subscr_id],
         plan: Plan.find_from_payment(params[:mc_currency], params[:mc_amount3]),
-        token_for_paypal: generate_token,
+        subscription_term_days: params[:period3] == '1 Y' ? 365 : 31,
         unconfirmed_email: nil)
       save!(validate: false)
       PlanMailer.successful_upgrade(user)
       PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
     end
+  end
+
+  def update_payment_from_paypal_ipn!(params)
+    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+    term_days = params[:item_number].include? 'yearly' ? 365 : 31
+    if new_plan.nil?
+      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+    else
+      skip_confirmation!
+      update_attributes(
+        country: params[:residence_country],
+        downgrade_at: nil,
+        downgrade_warning_at: nil,
+        email: params[:payer_email],
+        expires_at: term_days.days.from_now,
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        last_ipn_txn_type: params[:txn_type],
+        paypal_last_ipn: params[:ipn_track_id],
+        paypal_payer_id: params[:payer_id],
+        paypal_subscriber_id: params[:subscr_id],
+        plan: Plan.find_from_payment(params[:mc_currency], params[:mc_gross]),
+        subscription_term_days: term_days,
+        token_for_paypal: generate_token,
+        unconfirmed_email: nil)
+      save!(validate: false)
+      PlanMailer.successful_upgrade(user)
+      PAY_LOG.info "User #{ user.id } payment for #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
+    end
+  end
+
+  def update_cancellation_from_paypal_ipn!(params)
+    skip_confirmation!
+    # This is just for our own records. We will let the term expire.
+    update_attributes(
+      paypal_cancelled_at: Time.now
+    )
+    save!(validate: false)
+    PlanMailer.successful_upgrade(user)
+    PAY_LOG.info "User #{ user.id } cancelled subscription. (IPN track id: #{ params[:ipn_track_id] }.)"
   end
 end

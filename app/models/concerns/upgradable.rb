@@ -3,7 +3,7 @@
 module Upgradable
   extend ActiveSupport::Concern
 
-  private
+  #private
 
   def update_from_paypal_callback!(params)
     new_plan = Plan.find_from_payment(params[:cc], params[:amt])

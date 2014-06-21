@@ -14,7 +14,7 @@ class Channel < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :owned_by_nembrot, -> { active.joins(:theme).where.not('themes.public = ?', true) }
   scope :not_owned_by_nembrot, -> { active.joins(:theme).where('themes.public = ?', true) }
-  scope :premium_themed, -> { where(premium: true) }
+  scope :premium_themed, -> { joins(:theme).where.not('themes.premium = ?', true).readonly(false) }
   scope :sitemappable, -> { active.where(index_on_google: true) }
   scope :promotable, -> { active.where(promote: true) }
   scope :promoted, -> { not_owned_by_nembrot.where(promote: true, promoted: true) }

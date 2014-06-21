@@ -26,6 +26,7 @@ module Downgradable
     PlanMailer.downgrade_warning(self).deliver
     self.downgrade_warning_at = nil
     save!(validate: false)
+    PAY_LOG.info "User #{ id } warned about downgrade."
   end
 
   def downgrade
@@ -36,11 +37,13 @@ module Downgradable
     deactivate_extra_channels
     downgrade_themes
     save!(validate: false)
+    PAY_LOG.info "User #{ id } downgraded."
   end
 
   def downgrade_themes
+    PAY_LOG.info "User #{ id }: de-theming #{ channels.premium_themed.size } channels."
     channels.premium_themed.each do |channel|
-      self.channel.theme = Channel.default.theme if channel.theme.premium?
+      channel.theme = Channel.default.theme if channel.theme.premium?
       channel.save!
     end
   end
@@ -50,8 +53,9 @@ module Downgradable
   end
 
   def deactivate_extra_channels
+    PAY_LOG.info "User #{ id }: deactivating #{ deactivatable.size } channels."
     deactivatable.each do |channel|
-      self.channel.active = false
+      channel.active = false
       channel.save!
     end
   end

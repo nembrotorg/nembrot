@@ -1,5 +1,5 @@
 class PlanMailer < ActionMailer::Base
-  default from: 'subscriptions@nembrot.com'
+  default from: 'nembrot.com <subscriptions@nembrot.com>'
 
   def successful_upgrade(user)
     @first_name = user.first_name

@@ -4,33 +4,35 @@ module Downgradable
   extend ActiveSupport::Concern
 
   included do
-    scope :downgrade_warnable, -> { where('downgrade_warning_at > ?', Time.now) }
+    scope :downgrade_warnable, -> { where('downgrade_warning_at < ?', Time.now) }
     scope :downgradable, -> { where('downgrade_at < ?', Time.now) }
   end
 
-  def self.audit_downgrade_warnings
-    downgrade_warnable.each do |user|
-      user.warn_about_downgrade
+  module ClassMethods
+    def audit_downgrade_warnings
+      self.downgrade_warnable.each do |user|
+        user.warn_about_downgrade
+      end
     end
-  end
 
-  def self.audit_downgrades
-    downgradable.each do |user|
-      user.warn_about_downgrade
+    def audit_downgrades
+      self.downgradable.each do |user|
+        user.downgrade
+      end
     end
   end
 
   def warn_about_downgrade
-    PlanMailer.downgrade_warning(user)
-    downgrade_warning_at = nil
+    PlanMailer.downgrade_warning(self).deliver
+    self.downgrade_warning_at = nil
     save!(validate: false)
   end
 
   def downgrade
-    PlanMailer.downgrade(user)
-    plan = Plan.free
-    downgrade_warning_at = nil
-    downgrade_at = nil
+    PlanMailer.downgrade(self).deliver
+    self.plan = Plan.free
+    self.downgrade_warning_at = nil
+    self.downgrade_at = nil
     deactivate_extra_channels
     downgrade_themes
     save!(validate: false)
@@ -38,7 +40,7 @@ module Downgradable
 
   def downgrade_themes
     channels.premium_themed.each do |channel|
-      channel.theme = Channel.default.theme if channel.theme.premium?
+      self.channel.theme = Channel.default.theme if channel.theme.premium?
       channel.save!
     end
   end
@@ -49,7 +51,7 @@ module Downgradable
 
   def deactivate_extra_channels
     deactivatable.each do |channel|
-      channel.active = false
+      self.channel.active = false
       channel.save!
     end
   end

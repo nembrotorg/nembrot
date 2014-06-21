@@ -14,7 +14,6 @@ module Upgradable
       update_attributes(
         downgrade_at: 1.day.from_now,
         downgrade_warning_at: 3.hours.from_now,
-        expires_at: 3.hours.from_now, # Grace period pending IPN (clearing, etc) - put in settings
         paypal_last_tx: params[:tx],
         plan: new_plan,
         unconfirmed_email: nil)
@@ -33,7 +32,6 @@ module Upgradable
         downgrade_at: 2.weeks.from_now,
         downgrade_warning_at: 1.week.from_now,
         email: params[:payer_email],
-        expires_at: 1.week.from_now, # Grace period pending IPN (clearing, etc) - put in settings
         first_name: params[:first_name],
         last_name: params[:last_name],
         plan: new_plan,
@@ -78,8 +76,8 @@ module Upgradable
       skip_confirmation!
       update_attributes(
         country: params[:residence_country],
-        downgrade_at: nil,
-        downgrade_warning_at: nil,
+        downgrade_at: (term_days + 7).days.from_now,
+        downgrade_warning_at: term_days.days.from_now,
         email: params[:payer_email],
         expires_at: term_days.days.from_now,
         first_name: params[:first_name],

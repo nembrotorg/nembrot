@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140615212453) do
+ActiveRecord::Schema.define(version: 20140621212155) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -383,7 +383,6 @@ ActiveRecord::Schema.define(version: 20140615212453) do
     t.string   "remember_token"
     t.integer  "plan_id",                default: 0, null: false
     t.string   "paypal_email"
-    t.datetime "expires_at"
     t.string   "paypal_last_ipn"
     t.string   "country"
     t.string   "paypal_payer_id"

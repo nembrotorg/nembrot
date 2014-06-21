@@ -67,6 +67,10 @@
           | Advanced settings
         div
 
+          label for='active'
+            span Active
+            = f.check_box :active, id: 'active', checked: @channel.active
+
           label for='breadcrumbs'
             span Breadcrumbs
             = f.check_box :breadcrumbs, id: 'breadcrumbs', checked: @channel.breadcrumbs
@@ -172,14 +176,17 @@ javascript:
     notebooks_div.scrollTop(notebooks_checked.position().top);
   }
 
-  window.Nembrot.transform_radio_buttons_to_select()
+  window.Nembrot.transform_radio_buttons_to_select();
   window.Nembrot.track_dashboard();
 
 - if mode == 'edit'
 
   javascript:
 
-    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id }) {
+    // Automatically open settings for current channel
+    // Except is current channel is inactive
+    // Otherwise we could never activate a channel
+    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } && #{ @channel.active == true }) {
       $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
     }
 

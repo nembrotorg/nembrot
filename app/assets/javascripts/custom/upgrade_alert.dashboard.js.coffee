@@ -18,8 +18,8 @@ business_alert = (message, category) ->
 
 $ ->
   # Alert if free user tries to create more than one site
-  $(document).on 'click', '#dashboard a[href*="channels/new"].disabled', (event) ->
-    upgrade_alert 'You can create up to three websites.', 'extra website'
+  $(document).on 'click', '#dashboard a[href*="channels/new"].disabled, #dashboard li.deactivated a.disabled', (event) ->
+    upgrade_alert 'You can have up to three websites.', 'extra website'
     event.preventDefault()
 
   # Automatically open name panel when a notebook is selected, if this is a new channel

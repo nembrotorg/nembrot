@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-caching
   before_action :set_locale
-  before_action :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
   before_action :set_channel_defaults, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
+  before_action :set_current_channel, only: [:index, :show, :map, :choose, :new, :edit, :admin, :show_channel]
   before_action :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_action :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
   before_action :get_sections, only: [:index, :show, :map, :new, :edit, :admin, :show_channel]
@@ -36,6 +36,12 @@ class ApplicationController < ActionController::Base
 
   def set_current_channel
     @current_channel = Channel.active.where('slug = ?', params[:channel] || 'default').first
+    
+    # Set current channel to home unless current user is editing, and can set advanced settings
+    if @current_channel.nil? && !(self.class.name == 'channels' && current_user.plan.advanced_settings == true)
+      @current_channel = @default_channel
+    end
+
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
 

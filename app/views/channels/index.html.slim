@@ -11,9 +11,17 @@
 
   ul
     - @channels.each do |channel|
-      li
-        = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
-        = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
+
+      - if channel.active
+        li
+          = link_to channel.name, edit_channel_path(channel), title: "Change settings for #{ channel.name }"
+          = link_to 'View', home_path(channel), class: 'show-channel', title: "View #{ channel.name }"
+      - elsif current_user.plan != Plan.free
+        li.deactivated
+          = link_to channel.name, edit_channel_path(channel), title: "#{ channel.name } is deactivated. You can reactivate it in Advanced Settings."
+      - else
+        li.deactivated
+          = link_to channel.name, edit_channel_path(channel), class:'disabled', title: "#{ channel.name } is deactivated. Upgrade now to reactivate it."
 
   ul.actions
 

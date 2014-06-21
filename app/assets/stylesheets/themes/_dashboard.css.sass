@@ -84,6 +84,13 @@ $error-color: #cc0000
             +icon-screen
             padding-left: $text-indent
             padding-right: $text-indent * 2/3
+      &.deactivated
+        a
+          color: $dashboard-off-color
+          text-decoration: line-through
+          &:before
+            color: $dashboard-off-color
+            text-decoration: line-through
 
   ul.actions
     +horizontal-list

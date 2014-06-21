@@ -11,6 +11,7 @@ class Channel < ActiveRecord::Base
 
   # before_validation :slug, if: :name_changed?, unless: :slug_changed?
 
+  default_scope { order('active DESC, name') }
   scope :active, -> { where(active: true) }
   scope :owned_by_nembrot, -> { active.joins(:theme).where.not('themes.public = ?', true) }
   scope :not_owned_by_nembrot, -> { active.joins(:theme).where('themes.public = ?', true) }

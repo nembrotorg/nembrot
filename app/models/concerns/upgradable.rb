@@ -23,19 +23,19 @@ module Upgradable
     end
   end
 
-  def update_from_paypal_pdt!(response)
-    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+  def update_from_paypal_pdt!(params)
+    new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
     if new_plan.nil?
-      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+      PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:payment_gross] }. (PDT.)"
     else
       skip_confirmation!
       update_attributes(
         downgrade_at: 2.weeks.from_now,
         downgrade_warning_at: 1.week.from_now,
-        email: response[:payer_email],
+        email: params[:payer_email],
         expires_at: 1.week.from_now, # Grace period pending IPN (clearing, etc) - put in settings
-        first_name: response[:first_name],
-        last_name: response[:last_name],
+        first_name: params[:first_name],
+        last_name: params[:last_name],
         plan: new_plan,
         unconfirmed_email: nil)
       save!(validate: false)
@@ -44,9 +44,9 @@ module Upgradable
   end
 
   def update_subscription_from_paypal_ipn!(params)
-    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+    new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
     if new_plan.nil?
-      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+      PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:payment_gross] }. (PDT.)"
     else
       skip_confirmation!
       update_attributes(
@@ -71,10 +71,10 @@ module Upgradable
   end
 
   def update_payment_from_paypal_ipn!(params)
-    new_plan = Plan.find_from_payment(response[:mc_currency], response[:payment_gross])
+    new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
     term_days = params[:item_number].include? 'yearly' ? 365 : 31
     if new_plan.nil?
-      PAY_LOG.error "No plan found with #{ response[:mc_currency] } #{ response[:payment_gross] }. (PDT.)"
+      PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:payment_gross] }. (PDT.)"
     else
       skip_confirmation!
       update_attributes(

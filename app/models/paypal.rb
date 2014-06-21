@@ -12,25 +12,23 @@ class Paypal
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:cm] }."
       message_type = :error
-      message = 'An error has occurred!'
-      return
+        message = '<span id="cancelled-upgrade">An error has occurred.</span>'
     elsif params[:st] == 'Completed' && !users.empty?
       user = users.first
       if pdt_not_repeated
         user.update_from_paypal_callback!(params)
+        message_type = :notice
+        message = '<span id="successful-upgrade">You are now a Premium user. Thanks!</span>'
+        verify_pdt(params)
       else
+        message_type = :error
+        message = '<span id="cancelled-upgrade">Your upgrade was cancelled.</span>'
         PAY_LOG.error "Paypal tx parameter in callback not unique: #{ params[:tx] }. (Sig: #{ params[:sig] }.)"
-        return
       end
-      message_type = :notice
-      message = '<span id="successful-upgrade">You are now a Premium user. Thanks!</span>'
-      verify_pdt(params)
-      return
     else
       message_type = :error
       message = '<span id="cancelled-upgrade">Your upgrade was cancelled.</span>'
       PAY_LOG.info "User #{ users.first.id } upgrade cancelled by browser redirect. (Status: params[:st].)"
-      return
     end
     [message_type, message]
   end

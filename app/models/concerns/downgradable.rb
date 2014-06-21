@@ -31,9 +31,18 @@ module Downgradable
 
   def downgrade
     PlanMailer.downgrade(self).deliver
-    self.plan = Plan.free
-    self.downgrade_warning_at = nil
     self.downgrade_at = nil
+    self.downgrade_warning_at = nil
+    self.last_ipn_txn_type = nil
+    self.paypal_cancelled_at = nil
+    self.paypal_email = nil
+    self.paypal_last_ipn = nil
+    self.paypal_last_tx = nil
+    self.paypal_payer_id = nil
+    self.paypal_subscriber_id = nil
+    self.plan = Plan.free
+    self.subscription_term_days = nil
+    self.token_for_paypal = generate_token
     deactivate_extra_channels
     downgrade_themes
     save!(validate: false)

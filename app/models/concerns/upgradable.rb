@@ -19,7 +19,7 @@ module Upgradable
         plan: new_plan,
         unconfirmed_email: nil)
       save!(validate: false)
-      PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } from paypal callback."
+      PAY_LOG.info "User #{ id } provisionally upgraded to #{ plan.name } from paypal callback."
     end
   end
 
@@ -39,7 +39,7 @@ module Upgradable
         plan: new_plan,
         unconfirmed_email: nil)
       save!(validate: false)
-      PAY_LOG.info "User #{ user.id } provisionally upgraded to #{ user.plan.name } from paypal PDT."
+      PAY_LOG.info "User #{ id } provisionally upgraded to #{ plan.name } from paypal PDT."
     end
   end
 
@@ -54,7 +54,6 @@ module Upgradable
         downgrade_at: nil,
         downgrade_warning_at: nil,
         email: params[:payer_email],
-        # expires_at: params[:period3] == '1 Y' ? 1.year.from_now : 1.month.from_now,
         first_name: params[:first_name],
         last_ipn_txn_type: params[:txn_type],
         last_name: params[:last_name],
@@ -66,7 +65,7 @@ module Upgradable
         unconfirmed_email: nil)
       save!(validate: false)
       PlanMailer.successful_upgrade(self).deliver
-      PAY_LOG.info "User #{ user.id } upgrade to #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
+      PAY_LOG.info "User #{ id } upgrade to #{ plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
     end
   end
 
@@ -95,7 +94,7 @@ module Upgradable
         unconfirmed_email: nil)
       save!(validate: false)
       PlanMailer.successful_upgrade(self).deliver
-      PAY_LOG.info "User #{ user.id } payment for #{ user.plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
+      PAY_LOG.info "User #{ id } payment for #{ plan.name } confirmed by IPN. (IPN track id: #{ params[:ipn_track_id] }.)"
     end
   end
 
@@ -108,6 +107,6 @@ module Upgradable
       paypal_last_ipn: params[:ipn_track_id]
     )
     save!(validate: false)
-    PAY_LOG.info "User #{ user.id } cancelled subscription. (IPN track id: #{ params[:ipn_track_id] }.)"
+    PAY_LOG.info "User #{ id } cancelled subscription. (IPN track id: #{ params[:ipn_track_id] }.)"
   end
 end

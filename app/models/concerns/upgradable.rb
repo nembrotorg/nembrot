@@ -72,7 +72,7 @@ module Upgradable
 
   def update_payment_from_paypal_ipn!(params)
     new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
-    term_days = params[:item_number].include? 'yearly' ? 365 : 31
+    term_days = (params[:item_number].include? 'yearly') ? 365 : 31
     if new_plan.nil?
       PAY_LOG.error "No plan found with #{ params[:mc_currency] } #{ params[:payment_gross] }. (PDT.)"
     else

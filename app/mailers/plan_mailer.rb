@@ -34,7 +34,7 @@ class PlanMailer < ActionMailer::Base
 
     mail(
       to: "#{ @first_name } #{ @last_name } <#{ @email }>",
-      subject: "Your nembrot.com account has been reset to #{ @free_plan }"
+      subject: "Your nembrot.com websites are now restricted to #{ @free_plan } features"
     )
   end
 end

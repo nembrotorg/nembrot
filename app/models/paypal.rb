@@ -14,10 +14,10 @@ class Paypal
       message_type = :error
       message = 'An error has occurred!'
       return
-    elsif params[:st] == 'Completed' && !users.empty? 
+    elsif params[:st] == 'Completed' && !users.empty?
       user = users.first
       if pdt_not_repeated
-        update_from_paypal_callback!(params)
+        user.update_from_paypal_callback!(params)
       else
         PAY_LOG.error "Paypal tx parameter in callback not unique: #{ params[:tx] }. (Sig: #{ params[:sig] }.)"
         return

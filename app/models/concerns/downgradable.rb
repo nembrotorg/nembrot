@@ -35,7 +35,6 @@ module Downgradable
     self.downgrade_warning_at = nil
     self.last_ipn_txn_type = nil
     self.paypal_cancelled_at = nil
-    self.paypal_email = nil
     self.paypal_last_ipn = nil
     self.paypal_last_tx = nil
     self.paypal_payer_id = nil

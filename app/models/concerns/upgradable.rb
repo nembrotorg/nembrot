@@ -79,7 +79,6 @@ module Upgradable
         downgrade_at: (term_days + 7).days.from_now,
         downgrade_warning_at: term_days.days.from_now,
         paypal_email: params[:payer_email],
-        expires_at: term_days.days.from_now,
         first_name: params[:first_name],
         last_name: params[:last_name],
         last_ipn_txn_type: params[:txn_type],

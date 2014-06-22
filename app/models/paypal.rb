@@ -34,27 +34,31 @@ class Paypal
   end
 
   def verify_pdt(params)
-    request_uri = URI.parse('https://www.paypal.com/cgi-bin/webscr')
-    request_uri.scheme = 'https'
-    response = self.class.post(
-      request_uri.to_s,
-      :body => params.merge(
-        'cmd' => '_notify-synch',
-        'tx'  => params[:tx],
-        'at'  => Secret.auth.paypal.secret
-      )
-    )
+    # REVIEW: Currently disabled
+    #  See note near update_from_pdt method
+
+    # request_uri = URI.parse('https://www.paypal.com/cgi-bin/webscr')
+    # request_uri.scheme = 'https'
+    # response = self.class.post(
+    #   request_uri.to_s,
+    #   :body => params.merge(
+    #     'cmd' => '_notify-synch',
+    #     'tx'  => params[:tx],
+    #     'at'  => Secret.auth.paypal.secret
+    #   )
+    # )
+
     # Even if PDT fails, we provisionally upgrade user, pending IPN
-    parsed_response = response.body.split('\n')
-    status = parsed_response.shift
+    # parsed_response = response.body.split('\n')
+    # status = parsed_response.shift
 
-    response_params = {}
-    parsed_response.each do |line|
-      pair = line.split('\n')
-      response_params[pair.first.to_sym] = CGI.unescape(pair.last)
-    end
+    # response_params = {}
+    # parsed_response.each do |line|
+    #   pair = line.split('\n')
+    #   response_params[pair.first.to_sym] = CGI.unescape(pair.last)
+    # end
 
-    update_from_pdt!(response_params) if status == 'SUCCESS'
+    # update_from_pdt!(response_params) if status == 'SUCCESS'
   end
 
   def process_ipn(params)

@@ -22,6 +22,9 @@ module Upgradable
     end
   end
 
+  # REVIEW: Currently disabled
+  # PDT is not confirmation that funds have been cleared
+  # If we set expiry temporarily, it may overwrite valid IPN dates (race conditions)
   def update_from_paypal_pdt!(params)
     new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
     if new_plan.nil?
@@ -41,6 +44,9 @@ module Upgradable
     end
   end
 
+  # REVIEW: Currently disabled
+  # subscription is not confirmation that funds have been cleared
+  # If we set expiry temporarily, it may overwrite valid IPN payment (race conditions)
   def update_subscription_from_paypal_ipn!(params)
     new_plan = Plan.find_from_payment(params[:mc_currency], params[:payment_gross])
     if new_plan.nil?

@@ -22,7 +22,7 @@
 //= require_tree ./polyfills/
 //= require enquire
 //= require rails-timeago
-//= require modernizr.minimal
+//= require modernizr.large
 //= require underscore
 //= require gmaps/google
 //= require document

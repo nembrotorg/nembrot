@@ -41,7 +41,7 @@ class Paypal
       :body => params.merge(
         'cmd' => '_notify-synch',
         'tx'  => params[:tx],
-        'at'  => Secret.paypal.secret
+        'at'  => Secret.auth.paypal.secret
       )
     )
     # Even if PDT fails, we provisionally upgrade user, pending IPN

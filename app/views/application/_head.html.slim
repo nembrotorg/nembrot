@@ -1,5 +1,12 @@
 head
 
+  -# Load Typekit first, for the benefit of IE9
+
+  script src="//use.typekit.net/#{ @current_channel.theme.typekit_code }.js"
+
+  javascript:
+    try{Typekit.load();}catch(e){};
+
   meta charset="utf-8"
 
   = display_meta_tags
@@ -18,13 +25,6 @@ head
   -# = auto_discovery_link_tag :atom, notes_url(:atom), title: @current_channel.name
 
   = stylesheet_link_tag 'application'
-
-  -# Load Typekit first, for the benefit of IE9
-
-  script src="//use.typekit.net/#{ @current_channel.theme.typekit_code }.js"
-
-  javascript:
-    try{Typekit.load();}catch(e){};
 
   = javascript_include_tag 'application'
 

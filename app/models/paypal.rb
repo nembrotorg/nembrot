@@ -45,10 +45,18 @@ class Paypal
       )
     )
     # Even if PDT fails, we provisionally upgrade user, pending IPN
-    ###############################################################
     PAY_LOG.info "PDT response:" + response
     PAY_LOG.info "PDT body:" + response.body
-    update_from_pdt!(response) if response.body == 'SUCCESS'
+    parsed_response = response.body.split('\n')
+    status = parsed_response.shift
+
+    response_params = {}
+    parsed_response.each do |line|
+      pair = line.split('\n')
+      response_params[pair.first.to_sym] = CGI.unescape(pair.last)
+    end
+
+    update_from_pdt!(response_params) if status == 'SUCCESS'
   end
 
   def process_ipn(params)

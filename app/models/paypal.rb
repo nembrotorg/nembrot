@@ -45,8 +45,6 @@ class Paypal
       )
     )
     # Even if PDT fails, we provisionally upgrade user, pending IPN
-    PAY_LOG.info "PDT response:" + response
-    PAY_LOG.info "PDT body:" + response.body
     parsed_response = response.body.split('\n')
     status = parsed_response.shift
 

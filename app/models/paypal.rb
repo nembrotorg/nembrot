@@ -45,6 +45,9 @@ class Paypal
       )
     )
     # Even if PDT fails, we provisionally upgrade user, pending IPN
+    ###############################################################
+    PAY_LOG.info "PDT response:" + response
+    PAY_LOG.info "PDT body:" + response.body
     update_from_pdt!(response) if response.body == 'SUCCESS'
   end
 
@@ -88,7 +91,8 @@ class Paypal
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:custom] } while upgrading. (IPN id: #{ params[:ipn_track_id] }.)"
     else
-      users.first.update_subscription_from_paypal_ipn!(params)
+      # No unique data comes from subscription notice, skip it
+      # users.first.update_subscription_from_paypal_ipn!(params)
     end
   end
 

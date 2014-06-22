@@ -7,7 +7,7 @@ class Paypal
     # https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
     # Temporarily upgrades user's account (pending IPN)
     users = User.where(token_for_paypal: params[:cm])
-    pdt_not_repeated = User.where(paypal_last_tx: params[:tx]).empty?
+    pdt_not_repeated = true # User.where(paypal_last_tx: params[:tx]).empty?
 
     if users.empty?
       PAY_LOG.error "No user found with token: #{ params[:cm] }."
@@ -49,7 +49,7 @@ class Paypal
   end
 
   def process_ipn(params)
-    ipn_not_repeated = User.where(paypal_last_ipn: params[:ipn_track_id]).empty?
+    ipn_not_repeated = true # User.where(paypal_last_ipn: params[:ipn_track_id]).empty?
     verified_ipn_message = verify_ipn?(params)
     verified_receiver = verify_receiver?(params)
 

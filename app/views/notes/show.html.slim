@@ -1,11 +1,4 @@
-- cache [cache_buster(2), @current_channel, @note, @source, @all_interrelated_notes_and_features] do
-
-  - document_title = "#{ @note.headline } | #{ @current_channel.name } | #{ t('site.title') }"
-  - set_meta_tags title: document_title,
-                  description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                  open_graph: { title: @note.title }
-  - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
-  - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
+- cache [cache_buster(4), @current_channel, @note, @source, @all_interrelated_notes_and_features] do
 
   == page_wrapper('article', @note.instruction_list)
 

@@ -1,5 +1,26 @@
 - cache [cache_buster(2), @current_channel, note] do
 
+  - document_title = "#{ @note.headline } | #{ @current_channel.name } | #{ t('site.title') }"
+
+  - set_meta_tags title: document_title,
+                  description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                  open_graph: { title: @note.title }
+
+  - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
+
+  - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
+
+  - if @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+    - set_meta_tags 'twitter:card' => "summary"
+  - else
+    - set_meta_tags 'twitter:card' => "summary_large_image",
+                    'twitter:image:src' => "#{ cut_image_binary_path(note.resources.attached_images.first, type: :standard, effects: @current_channel.theme.effects) }"
+
+  - set_meta_tags 'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                  'twitter:title' => "#{ @note.title }",
+                  'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                  'twitter:site' => "#{ Setting['advanced.twitter_user_name'] }"
+
   = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title
 
   section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)

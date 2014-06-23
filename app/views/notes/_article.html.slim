@@ -16,7 +16,6 @@
 
   - set_meta_tags 'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
                   'twitter:title' => "#{ @note.title }",
-                  'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
                   'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
 
   = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title

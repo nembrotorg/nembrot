@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first
     @channels_owned_by_nembrot = Channel.owned_by_nembrot
+    @themes_for_js = Theme.hash_for_js
   rescue
     redirect_to home_url, notice: 'This website does not exist!'
   end

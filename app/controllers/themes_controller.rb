@@ -13,6 +13,13 @@ class ThemesController < ApplicationController
     @themes = Theme.all
   end
 
+  def hash
+    @themes_for_js = Theme.hash_for_js
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /themes/new
   def new
     @theme = Theme.new

@@ -2,6 +2,7 @@
 
 Nembrot::Application.routes.draw do
 
+  get 'themes/hash' => 'themes#hash'
   resources :themes, except: :show
 
   mount Commontator::Engine => '/commontator'

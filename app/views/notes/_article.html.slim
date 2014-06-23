@@ -1,10 +1,8 @@
 - cache [cache_buster(2), @current_channel, note] do
 
-  - document_title = "#{ @note.headline } | #{ @current_channel.name } | #{ t('site.title') }"
-
-  - set_meta_tags title: document_title,
+  - set_meta_tags title: title,
                   description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                  open_graph: { title: @note.title }
+                  open_graph: { title: title }
 
   - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
 
@@ -19,7 +17,7 @@
   - set_meta_tags 'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
                   'twitter:title' => "#{ @note.title }",
                   'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                  'twitter:site' => "#{ Setting['advanced.twitter_user_name'] }"
+                  'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
 
   = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title
 

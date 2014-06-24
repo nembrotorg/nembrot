@@ -1,6 +1,7 @@
 - cache [cache_buster(1), @current_channel, @note, @promoted_notes] do
 
-  - document_title = t('site.title')
+  - document_title = @current_channel == @default_channel ? t('site.title') : @current_channel.name
+
   - set_meta_tags title: document_title,
                   description: '',
                   open_graph: { title: document_title }

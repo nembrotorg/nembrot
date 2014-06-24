@@ -24,7 +24,7 @@
     content: 'nb'
     display: inline-block
     font:
-      family: 'proxima-nova', arial, sans-serif
+      family: 'proxima-nova', arial, sans-serif !important
       size: 0.7em
       style: normal
       variant: small-caps
@@ -40,10 +40,12 @@
 =brand
   +logo
   font:
+    family: 'proxima-nova', arial, sans-serif !important
     style: normal
     variant: small-caps
-    weight: 800
+    weight: bold
   text-transform: lowercase
+  text-decoration: none
 
 =image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.7)
   #main

@@ -21,6 +21,10 @@ class Theme < ActiveRecord::Base
     themes_hash
   end
 
+  def fx
+    effects.split(/ |\, ?/)
+  end
+
   private
 
   def update_slug

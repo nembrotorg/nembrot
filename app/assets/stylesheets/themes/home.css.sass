@@ -40,9 +40,8 @@
   +image-gradient
   +typekit-home
 
-  body
-    width: 100%
-    padding-top: 368px + $line-height !important
+  #curtain_shim
+    border-top: 396px + $line-height solid #000
 
   #dashboard
     background-color: rgba(#ffffff, 1)
@@ -105,7 +104,7 @@
           +simple-blurb
 
     figure.image
-      top: 368px + $line-height !important
+      top: 396px + $line-height !important
 
   // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,6 +112,10 @@
 
     body
       padding-top: 0 !important
+
+    #curtain_shim
+      border-top: none
+      padding-top: none
 
     // Re-iterated here from _dashboard.css.sass
     #dashboard

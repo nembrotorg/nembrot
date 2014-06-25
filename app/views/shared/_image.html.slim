@@ -1,4 +1,8 @@
-- image_path = cut_image_binary_path(image, type: type, effects: (@current_channel.theme.fx + image.note.fx).uniq)
+- effects = @current_channel.theme.fx
+- effects += image.note.fx unless image.note.fx.nil?
+- effects = effects.uniq
+
+- image_path = cut_image_binary_path(image, type: type, effects: effects)
 figure.image style="background-image: url(#{ Constant.asset_host }#{ image_path })"
   = image_tag(image_path, alt: strip_tags(image.description))
   figcaption

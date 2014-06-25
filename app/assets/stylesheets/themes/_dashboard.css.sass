@@ -25,6 +25,7 @@ $error-color: #cc0000
   padding: 5px 0
   right: 0
   top: 5%
+  width: 90%
   z-index: 1000
 
   nav
@@ -247,7 +248,7 @@ $error-color: #cc0000
           position: relative
           text-overflow: ellipsis
           white-space: nowrap
-          width: 215px // FIXME: This should be percentage
+          width: 190px // FIXME: This should be percentage
           &:after
             color: $secondary-color
             position: absolute
@@ -260,6 +261,7 @@ $error-color: #cc0000
       div
         height: $line-height * 4
         padding-top: $text-indent / 2
+        overflow-x: hidden
         overflow-y: scroll
       &.oauth div
         overflow: hidden
@@ -386,6 +388,12 @@ $error-color: #cc0000
     top: auto
     width: 330px
     z-index: 1000
+
+  form
+    fieldset
+      label
+        span
+          width: 215px // FIXME: This should be percentage
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

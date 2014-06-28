@@ -5,9 +5,4 @@
 - image_path = cut_image_binary_path(image, type: type, effects: effects)
 figure.image style="background-image: url(#{ Constant.asset_host }#{ image_path })"
   = image_tag(image_path, alt: strip_tags(image.description))
-  figcaption
-    - unless image.caption.blank? && image.credit.blank?
-        p
-          = simple_blurbify(image.caption) unless image.caption.blank?
-          - unless image.credit.blank?
-            span.credit = simple_blurbify(image.credit)
+  = render 'shared/image_caption', image: image

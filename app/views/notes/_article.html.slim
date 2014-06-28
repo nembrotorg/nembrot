@@ -60,3 +60,5 @@
       -#= render 'notes/notes_list_headlines', note: note
 
       = render 'notes/versions_list', note: note if Setting['advanced.versions'] == 'true'
+
+      = render 'shared/footer_captions', images: note.resources.attached_images

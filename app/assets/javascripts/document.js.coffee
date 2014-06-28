@@ -36,10 +36,12 @@ update_titles = () ->
     document.title = title_data
 
 truncate_blurbs = () ->
-  $('.notes li a, .channels li a').dotdotdot({
-    tolerance: 2,
-    watch: true
-  })
+  truncate_blurbs_delay = setTimeout (->
+    $('.notes li a, .channels li a').dotdotdot({
+      tolerance: 2,
+      watch: true
+    })
+  ), 500
 
 _normalize_count = (data) ->
     count = ''

@@ -1,7 +1,7 @@
 #upgrade_alert style='display:none'
   #message
   #pay
-    - if current_user && current_user.role == 'admin'
+    - if current_user && current_user.role == 'xxxadmin'
       = link_to '€0.01 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AKUVW9YCEANTQ&custom=#{ @paypal_transaction_token }", id: 'pay-monthly'
       = link_to '€0.01 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NSKJWFUD8WG9Y&custom=#{ @paypal_transaction_token }", id: 'pay-yearly'
     - elsif @country == 'GB'

@@ -14,6 +14,28 @@ premium_alert = (message, category) ->
 business_alert = (message, category) ->
   upgrade_alert message, category
 
+handle_notebook_selection = (element) ->
+  clearTimeout(notebooks_timer)
+  if element.data('shared') && !$('fieldset.notebooks').data('shared-notebooks')
+    premium_alert 'You have chosen a shared notebook.', 'shared notebook'
+  else if element.data('business') && !$('fieldset.notebooks').data('business-notebooks')
+    business_alert 'You have chosen a business notebook.', 'business notebook'
+  else if $('#dashboard .name input').val() == ''
+    close_alert()
+    notebooks_timer = setTimeout (->
+      $('#dashboard .notebooks legend').addClass('completed')
+      $('#dashboard form').accordion 'option', 'active', 2
+      $('#dashboard .name input').focus()
+    ), 500
+  else
+    close_alert()
+
+handle_theme_selection = (element) ->
+  if element.data('premium') && !$('fieldset.theme').data('premium-themes')
+    premium_alert 'You have chosen a premium theme.', 'premium theme'
+  else
+    close_alert()
+
 # Document hooks ******************************************************************************************************
 
 $ ->
@@ -24,33 +46,16 @@ $ ->
 
   # Automatically open name panel when a notebook is selected, if this is a new channel
   $(document).on 'focus', '#dashboard .notebooks input', (event) ->
-    clearTimeout(notebooks_timer)
-    if $(event.target).data('shared') && !$('fieldset.notebooks').data('shared-notebooks')
-      premium_alert 'You have chosen a shared notebook.', 'shared notebook'
-    else if $(event.target).data('business') && !$('fieldset.notebooks').data('business-notebooks')
-      business_alert 'You have chosen a business notebook.', 'business notebook'
-    else if $('#dashboard .name input').val() == ''
-      close_alert()
-      notebooks_timer = setTimeout (->
-        $('#dashboard .notebooks legend').addClass('completed')
-        $('#dashboard form').accordion 'option', 'active', 2
-        $('#dashboard .name input').focus()
-      ), 500
-    else
-      close_alert()
+    handle_notebook_selection($(event.target))
+
+  # Can be DRYed up
+  $(document).on 'blur', '#dashboard .notebooks select', (event) ->
+    handle_notebook_selection($('#dashboard .notebooks select option:selected'))
 
   # Alert if free user chooses a premium theme
   $(document).on 'focus', '#dashboard .theme input', (event) ->
-    if $(event.target).data('premium') && !$('fieldset.theme').data('premium-themes')
-      premium_alert 'You have chosen a premium theme.', 'premium theme'
-    else
-      close_alert()
+    handle_theme_selection($(event.target))
 
   # Can be DRYed up
   $(document).on 'blur', '#dashboard .theme select', (event) ->
-    if $("#dashboard .theme select option:selected").data('premium') && !$('fieldset.theme').data('premium-themes')
-      premium_alert 'You have chosen a premium theme.', 'premium theme'
-    else
-      close_alert()
-
-  # select[name='channel[notebooks]']
+    handle_theme_selection($('#dashboard .theme select option:selected'))

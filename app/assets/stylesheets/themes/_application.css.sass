@@ -109,6 +109,14 @@ figure.image
   background-size: cover
   img
     visibility: hidden
+  figcaption
+    p
+      display: none
+
+figure.footer_captions
+  font-style: italic
+  p:before
+    content: 'Image: '
 
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -143,6 +151,14 @@ figure.image
         &:last-of-type
           a:first-of-type
             margin-left: 0.25em
+
+  figure.image
+    figcaption
+      p
+        display: block
+
+  figure.footer_captions
+    display: none
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

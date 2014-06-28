@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621212155) do
+ActiveRecord::Schema.define(version: 20140625191620) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(version: 20140621212155) do
     t.boolean  "tags",                      default: true
     t.boolean  "locale_auto",               default: true
     t.text     "copyright"
+    t.boolean  "notes_index",               default: true
+    t.integer  "read_more_notes",           default: 10
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true

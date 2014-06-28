@@ -155,7 +155,7 @@
   = f.text_field :id, hidden: true
 
   .actions
-    = f.submit t("channels.#{ mode }.submit")
+    = f.submit t("channels.#{ mode }.submit"), disabled: (signed_in_with_evernote ? nil : true)
 
     = link_to 'My sites', channels_path, class: 'cancel', title: 'Cancel and back to My Sites' if user_signed_in? && !current_user.channels.empty?
 

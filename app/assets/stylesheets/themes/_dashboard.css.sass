@@ -189,7 +189,7 @@ $error-color: #cc0000
     height: $line-height * 8
     left: -1px
     position: absolute
-    top: ($line-height * -4) - 1
+    top: -1px
     width: 100%
     z-index: 100
     #message
@@ -384,16 +384,21 @@ $error-color: #cc0000
     bottom: 48px
     height: $line-height * 14
     margin: 0
+    overflow: visible
     right: $text-indent / 2
     top: auto
     width: 330px
     z-index: 1000
+    #upgrade_alert
+      top: ($line-height * -4) - 1
+      a[href='#close']
+        display: none
 
-  form
-    fieldset
-      label
-        span
-          width: 215px // FIXME: This should be percentage
+    form
+      fieldset
+        label
+          span
+            width: 215px // FIXME: This should be percentage
 
 // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 

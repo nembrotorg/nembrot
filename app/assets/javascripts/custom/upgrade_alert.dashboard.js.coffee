@@ -45,3 +45,12 @@ $ ->
       premium_alert 'You have chosen a premium theme.', 'premium theme'
     else
       close_alert()
+
+  # Can be DRYed up
+  $(document).on 'blur', '#dashboard .theme select', (event) ->
+    if $("#dashboard .theme select option:selected").data('premium') && !$('fieldset.theme').data('premium-themes')
+      premium_alert 'You have chosen a premium theme.', 'premium theme'
+    else
+      close_alert()
+
+  # select[name='channel[notebooks]']

@@ -13,3 +13,6 @@
     - else
       = link_to '$7.99 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GUJ28BG2PHGHW&custom=#{ @paypal_token }", id: 'pay-monthly'
       = link_to '$79 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SWPU72DQDT8TL&custom=#{ @paypal_transaction_token }", id: 'pay-yearly'
+
+  a href='#close'
+    | Close

@@ -25,3 +25,8 @@ html data={ controller: controller.controller_name, action: controller.action_na
     = render 'google_analytics' unless Setting['advanced.google_analytics_key'].blank?
 
     = render 'async_share_scripts' if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'
+
+
+    div style="display:none"
+      = @current_channel.updated_at < Constant.uncache_channel_minutes.minutes.ago ? 0 : Constant.cache_minutes
+

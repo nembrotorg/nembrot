@@ -5,7 +5,7 @@ place_annotations = () ->
     place_annotations_undo()
 
 place_annotations_do = () ->
-  if $('.annotations') > 0
+  if $('.annotations').length > 0
     $('.annotations').addClass('side-annotations')
     annotations = $('li[id^=annotation-]')
     minimum = $('.body').offset().top

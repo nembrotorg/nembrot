@@ -31,4 +31,5 @@ html data={ controller: controller.controller_name, action: controller.action_na
       = request.remote_ip
       div
         = request.env['HTTP_X_FORWARDED_FOR']
+        = Geocoder.search(request.remote_ip).first.country_code
 

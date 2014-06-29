@@ -122,8 +122,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_public_cache_headers
-    # If we're using a channel owned by current_user, we set this to 0
-    cache_minutes = @current_channel.updated_at < Constant.uncache_channel_minutes.minutes.ago ? 0 : Constant.cache_minutes
+    # If channel was updated recently, we do not cache
+    # Also, if current channel is owned by current_user?
+    cache_minutes = @current_channel.updated_at > Constant.uncache_channel_minutes.minutes.ago ? 0 : Constant.cache_minutes
     expires_in cache_minutes.minutes, public: cache_minutes != 0
   end
 

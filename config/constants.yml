@@ -4,7 +4,7 @@ defaults: &defaults
   blank_image_location: '/public/resources/cut/blank.png'
   cache_buster: 8
   cache_evernote_notebooks_for_minutes: 5
-  cache_minutes: 5
+  cache_minutes: 10
   uncache_channel_minutes: 10
   daemon_frequency: 30
   detect_language_sample_length: 250

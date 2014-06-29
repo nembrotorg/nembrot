@@ -25,6 +25,7 @@ class ChannelsController < ApplicationController
   end
 
   def index
+    user_related_settings
     @channels = current_user.channels.order('slug')
     @paypal_transaction_token = current_user.token_for_paypal
   end
@@ -68,7 +69,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     @channel.destroy
-    redirect_to channels_url, notice: 'Your website has been deleted.'
+    redirect_to root_url, notice: 'Your website has been deleted.'
   end
 
   def available

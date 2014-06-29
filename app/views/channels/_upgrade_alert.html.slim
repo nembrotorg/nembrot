@@ -1,7 +1,7 @@
 #upgrade_alert style='display:none'
   #message
   #pay
-    - if current_user && current_user.role == 'xxxadmin'
+    - if current_user && current_user.role == 'debug_admin'
       = link_to '€0.01 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AKUVW9YCEANTQ&custom=#{ @paypal_transaction_token }", id: 'pay-monthly'
       = link_to '€0.01 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NSKJWFUD8WG9Y&custom=#{ @paypal_transaction_token }", id: 'pay-yearly'
     - elsif @country == 'GB'
@@ -13,6 +13,9 @@
     - else
       = link_to '$7.99 monthly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GUJ28BG2PHGHW&custom=#{ @paypal_token }", id: 'pay-monthly'
       = link_to '$79 yearly', "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SWPU72DQDT8TL&custom=#{ @paypal_transaction_token }", id: 'pay-yearly'
+
+    = @country
+    = @country_in_eu
 
   a href='#close'
     | Close

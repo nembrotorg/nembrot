@@ -157,9 +157,9 @@
   .actions
     = f.submit t("channels.#{ mode }.submit"), disabled: (signed_in_with_evernote ? nil : true)
 
-    = link_to 'My sites', channels_path, class: 'cancel', title: 'Cancel and back to My Sites' if user_signed_in? && !current_user.channels.empty?
+    = link_to 'My sites', channels_path, class: 'cancel', title: 'Cancel and back to My Websites' if user_signed_in? && !current_user.channels.empty?
 
-    = link_to 'Delete', @channel, data: { confirm: 'Are you sure you want to delete this channel?' }, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
+    = link_to 'Delete', @channel, data: { confirm: 'Are you sure you want to delete this website?' }, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
 
 javascript:
   $(function() {

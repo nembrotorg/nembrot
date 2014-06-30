@@ -201,6 +201,8 @@ GEM
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-rails-cdn (1.0.3)
+      jquery-rails
     jquery-ui-rails (4.2.0)
       railties (>= 3.2.16)
     json (1.8.1)
@@ -490,6 +492,7 @@ DEPENDENCIES
   isbn_validation
   jquery-dotdotdot-rails
   jquery-rails
+  jquery-rails-cdn
   jquery-ui-rails
   json
   kaminari

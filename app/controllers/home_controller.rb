@@ -8,7 +8,12 @@ class HomeController < ApplicationController
     # REVIEW: This could go in the Note model as part of channelled
     #  However, channelled would need to be a scope so that it returns an ActiveRecord
     #  relation rather than an array.
-    @note = @default_note if @note.nil?
+    if @note.nil?
+      @note = @default_note
+      @current_channel.update_attributes(has_notes: false) if @current_channel.has_notes == true
+    else
+      @current_channel.update_attributes(has_notes: true) if @current_channel.has_notes == false
+    end
 
     interrelated_notes_features_and_citations
     note_tags(@note)

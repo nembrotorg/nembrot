@@ -15,7 +15,7 @@ head
 
   meta name="viewport" content="width=device-width" initial-scale="1.0" maximum-scale="1.0"
 
-  - unless @current_channel.index_on_google?
+  - unless @current_channel.index_on_google? && @current_channel.has_notes?
     meta name="robots" content="noindex, nofollow"
 
   - if Setting['advanced.facebook_app_id']

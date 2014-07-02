@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
   has_paper_trail
   acts_as_commontator
 
-  validates_presence_of :email, :plan
-  # REVIEW: validate uniqueness of tekens, paypal subscriptions, etc
+  validates_presence_of :plan
+  # REVIEW: validate uniqueness of tokens, paypal subscriptions, etc
 
   before_save :update_plan
 

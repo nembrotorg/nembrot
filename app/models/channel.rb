@@ -1,6 +1,6 @@
 class Channel < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :user, autosave: true, validate: false
   belongs_to :theme
 
   validates :name, :notebooks, presence: true
@@ -19,6 +19,8 @@ class Channel < ActiveRecord::Base
   scope :sitemappable, -> { active.where(index_on_google: true) }
   scope :promotable, -> { active.where(promote: true) }
   scope :promoted, -> { not_owned_by_nembrot.where(promote: true, promoted: true) }
+
+  delegate :newsletter, :newsletter=, to: :user
 
   extend FriendlyId
   friendly_id :name, use: :slugged

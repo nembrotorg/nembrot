@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625191620) do
+ActiveRecord::Schema.define(version: 20140702214035) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 20140625191620) do
     t.boolean  "menu_at_top",               default: false
     t.boolean  "menu_at_bottom",            default: true
     t.string   "follow_on_googleplus"
-    t.boolean  "newsletter",                default: true
     t.boolean  "promoted",                  default: false
     t.boolean  "tags",                      default: true
     t.boolean  "locale_auto",               default: true
     t.text     "copyright"
     t.boolean  "notes_index",               default: true
     t.integer  "read_more_notes",           default: 10
+    t.boolean  "has_notes",                 default: false
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
@@ -383,7 +383,7 @@ ActiveRecord::Schema.define(version: 20140625191620) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "remember_token"
-    t.integer  "plan_id",                default: 0, null: false
+    t.integer  "plan_id",                default: 0,    null: false
     t.string   "paypal_email"
     t.string   "paypal_last_ipn"
     t.string   "country"
@@ -396,6 +396,7 @@ ActiveRecord::Schema.define(version: 20140625191620) do
     t.string   "last_ipn_txn_type"
     t.integer  "subscription_term_days"
     t.datetime "paypal_cancelled_at"
+    t.boolean  "newsletter",             default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

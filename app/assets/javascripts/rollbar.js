@@ -1,5 +1,5 @@
 var _rollbarConfig = {
-    accessToken: "#{ Secret.auth.rollbar.client_side.key }",
+    accessToken: '1bb9edd8e22a42928132db65844cbf79',
     captureUncaught: true,
     payload: {
         environment: "production"

@@ -1,29 +1,17 @@
 =panel-blurb
   display: block
-  height: $line-height * 8
+  height: $line-height * 9
   margin-bottom: $line-height
   overflow: hidden
   padding-right: 0
   position: relative
   h2
-    position: absolute
-    bottom: 0
-    left: 0
     display: inline
-    background-color: rgba(0, 0, 0, 0.5)
-    color: #fff !important
-    font-weight: 400
-  &:hover
-    h2
-      background-color: rgba(0, 0, 0, 1)
-
-  li
-    height: $line-height * 6
-
-  @media only screen and (min-width: 1024px)
-
-    li
-      height: $line-height * 5
+    &:after
+      content: ' '
+  img
+    border: 1px solid #000
+    height: $line-height * 7
 
 =panel-blurbs
   .infowindow
@@ -46,14 +34,9 @@
   @media only screen and (min-width: 1024px)
 
     .notes
-      li
-        +panel-blurb
-
-    .home-index
-      .notes
-        +span-columns(12)
-        padding-right: 0
-        ul
-          +columns($promotions-home-columns)
-          +column-gap($gutter-width * 1px)
-          margin-bottom: $line-height
+      +span-columns(12)
+      padding-right: 0
+      ul
+        +columns($promotions-home-columns)
+        +column-gap($gutter-width * 1px)
+        margin-bottom: $line-height

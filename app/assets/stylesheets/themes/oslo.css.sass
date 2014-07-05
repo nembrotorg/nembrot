@@ -1,9 +1,8 @@
 // Modules:
 // simple-blurbs-module
-// content-left-module
 // standard-widths-module
 
-.theme-magazine
+.theme-oslo
 
   $background-color: #f7f7f7
   $body-font-color: #070707
@@ -16,10 +15,10 @@
   // $facebook-color:
   $font-color: $body-font-color
   $furniture-color: $body-font-color
-  $headline-font-color: #b70000
+  $headline-font-color: #070707
   $insert-background-color: #ff0
   $invalid-background-color: #ccc
-  $link-hover-color: #00c
+  $link-hover-color: #090
   $link-visited-color: #0c0
   $map-background-color: #ccc
   $map-font-color: $body-font-color
@@ -31,35 +30,29 @@
   $static-url-color: #0c0
   $success-background-color: #0c0
 
-  $map-marker-outline-color: #fff
-  $map-marker-color: #000
-
   +colors
   +typekit-nembrot
-  +curtain(0.001px)
-  +hanging-caption
-  +home-one-column-list
-  +home-image-in-indices
-  +image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.2)
 
-  #main
+  #main *
+    font:
+      family: 'felt-tip-woman', script !important
+      weight: 400 !important
+      size: $font-size * 1.5
 
-    header
-      height: 0
-      h1
-        // bottom: $line-height * 1.666
-        top: $line-height * -6
-        position: absolute
-        z-index: 2
+    footer.channel
+      li:last-child
+        a
+          font-size: $font-size !important
 
-    #introduction
-      color: #222 !important
+    h1
+      font-size: $font-size * 3
+
+    h1, h2, h3, h4
       font:
-        style: normal
-        weight: 700
+        weight: 700 !important
 
-    &.home-index
-      .notes
-        ul
-          +columns(1)
-          +column-gap(0)
+    a
+      text-decoration: underline
+
+    figure.image
+      border: 1px solid black

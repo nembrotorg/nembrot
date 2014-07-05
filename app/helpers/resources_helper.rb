@@ -55,7 +55,7 @@ module ResourcesHelper
 
       # REVIEW: Here we re-open the image - this must slow things down
       image = MiniMagick::Image.new(file_name_out)
-      image = pre_fx(image, effects)
+      pre_fx(image, effects)
 
       # TODO: This needs to do crop/resize, not just resize.
       # image.resize "#{ width }x#{ height }"
@@ -65,8 +65,11 @@ module ResourcesHelper
       # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
       # resize_with_crop(image, width, height, gravity_options = {})
 
-      image = fx(image, effects)
-      image = post_fx(image, effects)
+      fx(image, effects)
+      post_fx(image, effects)
+
+      image_optim = ImageOptim.new
+      image_optim.optimize_image!(file_name_out)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
       # image.write file_name_out

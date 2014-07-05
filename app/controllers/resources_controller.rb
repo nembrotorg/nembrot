@@ -23,6 +23,7 @@ class ResourcesController < ApplicationController
         params[:effects]
       )
 
+    expires_in 1.year, public: true
     send_file(image, disposition: 'inline')
 
     rescue

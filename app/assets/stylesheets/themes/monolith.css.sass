@@ -1,0 +1,62 @@
+// Modules:
+// simple-blurbs-module
+// standard-widths-module
+
+.theme-monolith
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #333
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b70000
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  +colors
+
+  #main
+    font:
+      family: 'adelle', serif
+      style: normal
+      weight: 400  !important
+    h2, h3, h4
+      font-weight: 700  !important
+    h1
+      font-weight: 900  !important
+    div, article, section, aside, nav, header, footer, h1, h2, h3, h4, ol, ul, li, p, a
+      clear: none !important
+      display: inline !important
+      float: none !important
+      font-size: $font-size * 2 !important
+      height: auto !important
+      left: 0 !important
+      line-height: $line-height * 2 !important
+      margin: 0 !important
+      padding: 0 !important
+      position: relative !important
+      text-align: justify !important
+      top: 0 !important
+      width: auto !important
+      &:after
+        content: ' '
+    p:before
+      content: '¶ '
+      vertical-align: 10%

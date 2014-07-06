@@ -44,12 +44,14 @@
         a
           font-size: $font-size !important
 
-    h1
-      font-size: $font-size * 3
-
-    h1, h2, h3, h4
+    h1, h2
       font:
-        weight: 700 !important
+        family: 'jaf-herb', sans-serif !important
+        size: $font-size * 3
+        weight: 400
+
+    h2
+      line-height: $line-height * 2
 
     .tags, .shares
       a
@@ -74,8 +76,8 @@
         text-decoration: underline
 
     figure.image
-      border: 1px solid black
+      border: 2px solid black
 
     .notes
       ul
-        +column-gap($gutter-width - 1px)
+        +column-gap($gutter-width - 2px)

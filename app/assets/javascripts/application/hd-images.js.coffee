@@ -18,7 +18,7 @@ window.Nembrot.load_hd_images = load_hd_images
 # Document hooks ******************************************************************************************************
 
 $ ->
-  #load_hd_images()
+  load_hd_images()
 
   $(document).on 'pjax:success', '#main', (data) ->
     load_hd_images()

@@ -14,8 +14,8 @@
     - set_meta_tags 'twitter:card' => "summary_large_image",
                     'twitter:image:src' => "#{ Constant.asset_host }#{ cut_image_binary_path(note.resources.attached_images.first, type: :standard, effects: @current_channel.theme.effects) }"
 
-  - set_meta_tags 'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                  'twitter:title' => "#{ @note.title }",
+  -# 'twitter:description' => "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+  - set_meta_tags 'twitter:title' => "#{ @note.title }",
                   'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
 
   = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title

@@ -13,6 +13,8 @@ load_hd_images = (tolerance = 120) ->
           container.css('backgroundImage', "url(#{ new_source })")
           image.attr('src', new_image.src)
 
+window.Nembrot.load_hd_images = load_hd_images
+
 # Document hooks ******************************************************************************************************
 
 $ ->

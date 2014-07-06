@@ -1,0 +1,107 @@
+// Modules:
+// magazine-everywhere-module
+// simple-blurbs-module
+// standard-widths-module
+
+.theme-magazine-2
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #999
+  $count-color: #c00
+  $delete-font-color: #ccc
+  $error-background-color: #c00
+  // $evernote-color:
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #b70000
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #00c
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  $theme-home-logo-color: #e7e7e7
+  $curtain-padding-lines: 8
+
+  +colors
+  +curtain($curtain-padding-lines * $line-height)
+  +home-image-in-indices
+  +image-gradient
+  +typekit-home
+
+  #curtain_shim
+    border-top: 396px + $line-height solid #000
+
+  #main
+    header
+      height: 0
+      h1
+        +brand
+        bottom: $line-height * 1.666
+        color: $theme-home-logo-color !important
+        font-size: 3em
+        position: absolute
+        z-index: 2
+        &:before
+          margin-right: $text-indent / 2
+
+    #introduction
+      color: #171717
+      font:
+        size: 28px
+        style: normal
+      line-height: $line-height
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    body
+      padding-top: 0 !important
+
+    #curtain_shim
+      border-top: none
+      padding-top: none
+
+    #main
+      header
+        margin-top: 0
+        h1
+          font:
+            size: 4em
+
+      #introduction
+        +hyphens
+        color: #171717
+        font:
+          size: 38px
+          style: normal
+        line-height: $line-height * 2
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      header
+        h1
+          font:
+            size: 5em
+          &:before
+            margin-right: $text-indent
+
+      #introduction
+        +hyphens
+        font:
+          size: 48px

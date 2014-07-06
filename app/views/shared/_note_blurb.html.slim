@@ -11,6 +11,9 @@
   = link_to note_or_feature_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang), data: image_data do
     -# - if note.is_embeddable_source_url
     -#   = render 'shared/media', url: note.source_url
+    - unless image.nil?
+      figure.image style="background-image: url(#{ Constant.asset_host }#{ image_src })"
+        = image_tag(image_src, alt: image_alt)
 
     h2 = simple_blurbify(headline)
     = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)

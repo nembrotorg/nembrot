@@ -1,17 +1,18 @@
 =panel-blurb
   display: block
-  height: $line-height * 9
+  height: $line-height * 10
   margin-bottom: $line-height
   overflow: hidden
   padding-right: 0
   position: relative
+  figure.image
+    display: block
+    height: $line-height * 8
+    overflow: hidden
   h2
     display: inline
     &:after
       content: ' '
-  img
-    border: 1px solid #000
-    height: $line-height * 7
 
 =panel-blurbs
   .infowindow

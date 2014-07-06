@@ -123,7 +123,7 @@
     background-color: transparent
     height: 100%
     padding-top: $line-height * 2/3
-    &> article, &> section
+    &> article:first-of-type, &> section:first-of-type
       height: 100%
       &> header
         margin: 0
@@ -163,7 +163,7 @@
     #curtain_shim
       height: calc(100% - #{$bottom-height})
     #main
-      &> article, &> section
+      &> article:first-of-type, &> section:first-of-type
         &> header
         section
           +use-background-image($bottom-height, $position)
@@ -194,7 +194,7 @@
 
   @media only screen and (min-width: 720px)
     #main
-      &> article, &> section
+      &> article:first-of-type, &> section:first-of-type
         section
           figure.image
             border: $border-width solid $border-color

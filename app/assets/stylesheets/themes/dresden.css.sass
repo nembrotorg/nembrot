@@ -1,0 +1,81 @@
+// Modules:
+// simple-blurbs-module
+// standard-widths-module
+
+.theme-dresden
+
+  $background-color: #f7f7f7
+  $body-font-color: #070707
+  $border-color: $body-font-color
+  $caption-color: #333
+  $count-color: #c00
+  $delete-font-color: #ccc 
+  $error-background-color: #c00 
+  // $evernote-color: 
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #070707
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #090
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #ccc
+  $row-hover-color: #ff0
+  $secondary-color: #666
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  +colors
+  +typekit-nembrot
+
+  #main *
+    font:
+      family: 'poetica-std', script !important
+      weight: 400 !important
+      size: $font-size * 1.5
+
+    footer.channel
+      li:last-child
+        a
+          font-size: $font-size !important
+
+    h1
+      font-size: $font-size * 3
+
+    h1, h2, h3, h4
+      font:
+        weight: 700 !important
+
+    .tags, .shares
+      a
+        text-decoration: none !important
+
+    nav
+      a, span
+        text-decoration: none !important
+        &:before
+          font:
+            size: $font-size * 2/3 !important
+
+    #content
+
+      #introduction
+        p
+          font:
+            style: normal
+            weight: 700 !important
+
+      a
+        text-decoration: underline
+
+    figure.image
+      border: 1px solid black
+
+    .notes
+      ul
+        +column-gap($gutter-width - 1px)

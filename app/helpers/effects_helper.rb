@@ -47,6 +47,10 @@ module EffectsHelper
     image.charcoal 3
   end
 
+  def fx_chathin(image) #
+    image.charcoal 2
+  end
+
   def fx_colortone(image, color = '#222b6d', level = 100, type = 0)
     color_image = image.clone
     color_image.combine_options do |c|

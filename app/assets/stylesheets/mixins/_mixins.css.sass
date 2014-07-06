@@ -51,14 +51,14 @@
   #main
     &> article, &> section
       section
-        figure.image
+        figure.image.main-image
           figcaption
             +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
 
 =use-background-image($bottom-height: 0, $position: absolute)
   // We may want to use a wrapper for the image and put the background on it, to allow more flexibility
   //  with positioning the caption
-  figure.image
+  figure.image.main-image
     background-size: cover
     @if $position == absolute
       background-attachment: scroll
@@ -89,7 +89,7 @@
       width: auto
 
 =overlay-caption-top
-  figure.image
+  figure.image.main-image
     figcaption
       p
         +outline($color: $caption-outline-color)
@@ -100,7 +100,7 @@
         top: $line-height * 2/3
 
 =hanging-caption
-  figure.image
+  figure.image.main-image
     figcaption
       p
         font-size: 0.75em // Should this be here?
@@ -123,13 +123,13 @@
     background-color: transparent
     height: 100%
     padding-top: $line-height * 2/3
-    &> article:first-of-type, &> section:first-of-type
+    &> article, &> section
       height: 100%
       &> header
         margin: 0
       section
         +use-background-image(50%, $position)
-        figure.image
+        figure.image.main-image
           position: $position 
           z-index: 1
           figcaption
@@ -153,7 +153,7 @@
             height: 100%
             li
               height: 100%
-              figure.image
+              figure.image.main-image
                 height: 100%
 
   // Screen > 720px //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +163,7 @@
     #curtain_shim
       height: calc(100% - #{$bottom-height})
     #main
-      &> article:first-of-type, &> section:first-of-type
+      &> article, &> section
         &> header
         section
           +use-background-image($bottom-height, $position)
@@ -172,7 +172,7 @@
 
 =home-image-in-indices
   [data-action=index]
-    figure.image
+    figure.image.main-image
       display: block
 
 =large-images
@@ -194,9 +194,9 @@
 
   @media only screen and (min-width: 720px)
     #main
-      &> article:first-of-type, &> section:first-of-type
+      &> article, &> section
         section
-          figure.image
+          figure.image.main-image
             border: $border-width solid $border-color
             margin: $text-indent $line-height 0 $text-indent
             width: calc(100% - #{$text-indent * 2})

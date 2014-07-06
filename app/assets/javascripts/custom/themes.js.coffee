@@ -15,7 +15,6 @@ change_theme = (theme) ->
   window.Nembrot.load_maps(theme)
   window.Nembrot.add_thumbnails()
   change_image_effects(theme)
-  window.Nembrot.load_hd_images()
 
 change_theme_if_editing_channel = (theme) ->
   if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit #channel_id').val()) then change_theme(theme)

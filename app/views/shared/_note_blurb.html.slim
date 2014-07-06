@@ -4,7 +4,12 @@
   - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
   - headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
   - image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
-  - image_src = cut_image_binary_path(image, type: :thumbnail) unless image.nil?
+
+  - effects = @current_channel.theme.fx
+  - effects += note.fx unless note.fx.nil?
+  - effects = effects.uniq
+
+  - image_src = cut_image_binary_path(image, type: :thumbnail, effects: effects) unless image.nil?
   - image_alt = strip_tags(image.description) unless image.nil?
   - image_data = { image_src: image_src, image_alt: image_alt }
 

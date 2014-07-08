@@ -1,17 +1,21 @@
 add_thumbnails = () ->
   $('.thumbnails-module .notes ul li a[data-image-src]').each ->
+    figure = $('<figure>',
+      class: 'image'
+    )
     image = $('<img>',
       src: $(this).data('image-src')
       alt: $(this).data('image-alt')
     )
-    $(this).prepend image
+    figure.prepend image
+    $(this).prepend figure
     $(this).removeAttr('data-image-src', 'data-image-alt')
     return
 
-  $('.thumbnails-module .notes ul li a img').each ->
+  $('.thumbnails-module .notes ul li a figure.image').each ->
     $(this).show()
 
-  $('html:not(.thumbnails-module) .notes ul li a img').each ->
+  $('html:not(.thumbnails-module) .notes ul li a figure.image').each ->
     $(this).hide()
 
 window.Nembrot.add_thumbnails = add_thumbnails

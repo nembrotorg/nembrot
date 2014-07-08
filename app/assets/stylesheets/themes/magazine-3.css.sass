@@ -3,7 +3,7 @@
 // simple-blurbs-module
 // standard-widths-module
 
-.theme-home
+.theme-magazine-3
 
   $background-color: #f7f7f7
   $body-font-color: #070707
@@ -43,21 +43,7 @@
   #curtain_shim
     border-top: 396px + $line-height solid #000
 
-  #dashboard
-    background-color: rgba(#ffffff, 1)
-    height: 396px
-    position: absolute
-    top: $line-height / 2
-    bottom: none
-    > a[href='#close']
-      display: none
-
-  #tools
-    display: none
-
   #main
-    nav
-      display: none
     header
       height: 0
       h1
@@ -77,35 +63,6 @@
         style: normal
       line-height: $line-height
 
-    #text
-      clear: both
-      display: inline
-      width: auto !important
-      ul
-        +horizontal-list
-        +arrow-links-all
-        text-transform: lowercase
-        li:before
-          display: none
-        a
-          // margin-right: $text-indent / 2
-          text-decoration: none
-
-    aside
-      display: inline
-      width: auto
-      .shares
-        display: none
-
-    .channels
-      ul
-        margin-bottom: 0
-        li
-          +simple-blurb
-
-    figure.image
-      top: 396px + $line-height !important
-
   // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 720px)
@@ -117,25 +74,12 @@
       border-top: none
       padding-top: none
 
-    // Re-iterated here from _dashboard.css.sass
-    #dashboard
-      bottom: 48px
-      height: $line-height * 14
-      top: auto
-
     #main
       header
         margin-top: 0
         h1
           font:
             size: 4em
-
-      figure.image
-        top: 0 !important
-
-      #content
-        +span-columns(7)
-        margin-top: 0
 
       #introduction
         +hyphens
@@ -144,18 +88,6 @@
           size: 38px
           style: normal
         line-height: $line-height * 2
-
-      aside
-        .shares
-          display: block
-          a:before
-            font-size: 1.2em
-
-      .channels
-        +span-columns(12)
-        height: auto
-        margin-top: $line-height
-        overflow: display
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -173,25 +105,3 @@
         +hyphens
         font:
           size: 48px
-
-      #content
-        +span-columns(12)
-
-      .channels
-        +span-columns(9)
-
-        a[href^='theme-demo-']
-          h2
-            color: $font-color
-          &:hover
-            h2
-              color: $font-hover-color
-
-  // Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1200px)
-
-    #main
-      header
-        h1
-          margin-left: -1.45em

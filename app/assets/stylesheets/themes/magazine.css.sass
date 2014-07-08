@@ -40,7 +40,7 @@
   +hanging-caption
   +home-one-column-list
   +home-image-in-indices
-  +image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.2)
+  +image-gradient
 
   #main
 
@@ -48,14 +48,15 @@
       height: 0
       h1
         // bottom: $line-height * 1.666
-        color: #fff
+        color: #fff !important
         font:
           family: 'quatro-slab', serif
-          size: 300
+          size: 2.5em
           weight: 900
-        top: $line-height * -12
+        line-height: 2.5em
+        top: $line-height * -10
         position: absolute
-        z-index: 2
+        z-index: 1000
 
     #introduction
       color: #222 !important

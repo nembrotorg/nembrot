@@ -13,7 +13,7 @@ defaults: &defaults
     column_width: 60
     container_style: magic
     count_color: '#900'
-    css_for_instructions: __FX_POL __SECTION __ENUMERATE
+    css_for_instructions: __FX_POL __SECTION __ENUMERATE  __CURTAIN __CURTAIN_50 __CURTAIN_75
     delete_font_color: '#000'
     error_background_color: '#ff4545'
     evernote_color: '#61b737'

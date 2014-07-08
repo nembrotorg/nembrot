@@ -2,7 +2,9 @@ change_theme = (theme) ->
   load_typekit_font(window.Nembrot.THEMES[theme]['typekit_code'])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
   $('html, [data-theme]').alterClass('*-module', window.Nembrot.THEMES[theme]['css'])
-  $('html').alterClass('ins-*', $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/).join( ' '))
+  instructions = $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/)
+  if instructions
+    $('html').alterClass('ins-*', instructions.join( ' '))
   $('[data-theme]').attr('data-theme', window.Nembrot.THEMES[theme]['name'])
 
   # REVIEW: http://stackoverflow.com/questions/17762906/cant-update-data-attribute-value-jquery

@@ -1,6 +1,6 @@
 doctype 5
 
-html data={ controller: controller.controller_name, action: controller.action_name } class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug } #{ @current_channel_css_modules unless @current_channel.nil? } #{ css_instructions(@note.instruction_list) unless @note.nil? } document-loading" lang="#{ @current_channel.nil? ? 'en' : @current_channel.locale }"
+html data={ controller: controller.controller_name, action: controller.action_name } class="no-js theme-#{ @current_channel.nil? ? 'home' : @current_channel.theme.slug } #{ @current_channel_css_modules unless @current_channel.nil? } #{ css_instructions(@note.instruction_list).join(' ') unless @note.nil? } document-loading" lang="#{ @current_channel.nil? ? 'en' : @current_channel.locale }"
 
   = render 'head'
 

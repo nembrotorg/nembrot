@@ -18,13 +18,21 @@ head
   - unless @current_channel.index_on_google? && @current_channel.has_notes?
     meta name="robots" content="noindex, nofollow"
 
-  - if Setting['advanced.facebook_app_id']
-    meta property="fb:app_id" content="#{ Setting['advanced.facebook_app_id'] }"
+  -# if Setting['advanced.facebook_app_id']
+  -#  meta property="fb:app_id" content="#{ Setting['advanced.facebook_app_id'] }"
 
   -# REVIEW
   -# = auto_discovery_link_tag :atom, notes_url(:atom), title: @current_channel.name
 
   = stylesheet_link_tag 'application'
+
+
+  -# Not working in production
+  -# = javascript_include_tag '/themes/hash.js'
+
+  - cache [cache_buster(1), @themes_for_js] do
+    javascript:
+      window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };
 
   = javascript_include_tag 'rollbar' if Rails.env.staging? || Rails.env.production?
   = jquery_include_tag :google
@@ -34,10 +42,3 @@ head
   script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js'
   -# script src='http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js'
   script src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker-compiled.js'
-
-  -# Not working in production
-  -# = javascript_include_tag '/themes/hash.js'
-
-  - cache [cache_buster(1), @themes_for_js] do
-    javascript:
-      window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };

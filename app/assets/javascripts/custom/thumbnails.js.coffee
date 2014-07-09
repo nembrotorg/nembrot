@@ -3,11 +3,15 @@ add_thumbnails = () ->
     figure = $('<figure>',
       class: 'image'
     )
+    wrapper = $('<div>',
+      class: 'wrapper'
+    )
     image = $('<img>',
       src: $(this).data('image-src')
       alt: $(this).data('image-alt')
     )
-    figure.prepend image
+    figure.prepend wrapper
+    wrapper.prepend image
     $(this).prepend figure
     $(this).removeAttr('data-image-src', 'data-image-alt')
     return

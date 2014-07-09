@@ -4,7 +4,8 @@ add_thumbnails = () ->
       class: 'image'
     )
     wrapper = $('<div>',
-      class: 'wrapper'
+      class: 'wrapper',
+      style: 'background: url(' + $(this).data('image-src') + ')'
     )
     image = $('<img>',
       src: $(this).data('image-src')

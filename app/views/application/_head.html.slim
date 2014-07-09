@@ -26,12 +26,12 @@ head
 
   = stylesheet_link_tag 'application'
 
-
   -# Not working in production
   -# = javascript_include_tag '/themes/hash.js'
 
   - cache [cache_buster(1), @themes_for_js] do
     javascript:
+      window.Nembrot = {}
       window.Nembrot.THEMES = #{ raw @themes_for_js.to_json };
 
   = javascript_include_tag 'rollbar' if Rails.env.staging? || Rails.env.production?

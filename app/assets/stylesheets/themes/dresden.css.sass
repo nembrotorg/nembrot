@@ -49,7 +49,7 @@
         family: 'jaf-herb', sans-serif !important
     h1
       font:
-        size: $font-size * 3  !important
+        size: $font-size * 2  !important
     h2
       font:
         size: $font-size  !important
@@ -82,3 +82,11 @@
     .notes
       ul
         +column-gap($gutter-width - 2px)
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    h1
+      font:
+        size: $font-size * 3  !important

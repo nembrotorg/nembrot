@@ -52,15 +52,9 @@
       height: 0
       margin-top: 0
       h1
-        color: #fff !important
         font:
           family: 'quatro-slab', serif
-          size: 3em
           weight: 900
-        line-height: 1em
-        top: $line-height * -10
-        position: absolute
-        z-index: 1000
 
     h2
       font:
@@ -78,3 +72,20 @@
         ul
           +columns(1)
           +column-gap(0)
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+
+    #main
+      header[data-title]
+        height: 0
+        margin-top: 0
+        h1
+          color: #fff !important
+          font:
+            size: 3em
+          line-height: 1em
+          top: $line-height * -10
+          position: absolute
+          z-index: 1000

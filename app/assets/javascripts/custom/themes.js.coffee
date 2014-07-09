@@ -23,7 +23,7 @@ change_theme_if_editing_channel = (theme) ->
   if String($('[data-channel-id]').data('channel-id')) == String($('#dashboard .channels-edit #channel_id').val()) then change_theme(theme)
 
 change_image_effects = (theme) ->
-  $('figure.image').each ->
+  $('figure.image .wrapper').each ->
     container = $(this)
     image = $(this).find('img')
     image.on 'load', ->

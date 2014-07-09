@@ -147,14 +147,16 @@ form
       text-transform: lowercase
 
 figure.image
-  +box-sizing(border-box)
-  background-size: 0 0
+  .wrapper
+    +box-sizing(border-box)
+    background-size: 0 0
 
 .gallery
   overflow: hidden
   position: relative
   figure.image
-    margin: 0
+    .wrapper
+      margin: 0
   .flex-control-nav
     position: absolute
   .flex-control-paging

@@ -3,6 +3,7 @@
 - effects = effects.uniq
 
 - image_path = cut_image_binary_path(image, type: type, effects: effects)
-figure.image.main-image style="background-image: url(#{ Constant.asset_host }#{ image_path })"
-  = image_tag(image_path, alt: strip_tags(image.description))
+figure.image.main-image
+  div class="wrapper" style="background-image: url(#{ Constant.asset_host }#{ image_path })"
+    = image_tag(image_path, alt: strip_tags(image.description))
   = render 'shared/image_caption', image: image

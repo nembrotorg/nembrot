@@ -4,7 +4,7 @@ change_theme = (theme) ->
   $('html, [data-theme]').alterClass('*-module', window.Nembrot.THEMES[theme]['css'])
   instructions = $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/)
   if instructions
-    $('html').alterClass('ins-*', instructions.join( ' '))
+    $('html').alterClass('ins-*', instructions.join(' '))
   $('[data-theme]').attr('data-theme', theme)
 
   # REVIEW: http://stackoverflow.com/questions/17762906/cant-update-data-attribute-value-jquery

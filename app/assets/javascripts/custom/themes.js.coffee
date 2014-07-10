@@ -5,6 +5,8 @@ change_theme = (theme) ->
   instructions = $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/)
   if instructions
     $('html').alterClass('ins-*', instructions.join(' '))
+  else
+    $('html').alterClass('ins-*', '')  
   $('[data-theme]').attr('data-theme', theme)
 
   # REVIEW: http://stackoverflow.com/questions/17762906/cant-update-data-attribute-value-jquery

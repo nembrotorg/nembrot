@@ -9,6 +9,8 @@ class TagsController < ApplicationController
     @tags = all_tags.page(page_number).per(Setting['advanced.tags_index_per_page'].to_i).load
     @references_count = all_tags.to_a.sum { |t| t.count }
     @tags_count = all_tags.size
+
+    @note = @home_note
   end
 
   def show

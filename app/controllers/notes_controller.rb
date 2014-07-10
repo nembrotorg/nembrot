@@ -16,6 +16,8 @@ class NotesController < ApplicationController
     @total_count = all_notes.size
     @word_count = all_notes.empty? ? 0 : all_notes.sum(:word_count)
 
+    @note = @home_note
+
     respond_to do |format|
       format.html
       format.atom { render atom: all_notes }

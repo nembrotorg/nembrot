@@ -14,7 +14,7 @@ class NotesController < ApplicationController
     interrelated_notes_features_and_citations
     mapify(all_notes.mappable)
     @total_count = all_notes.size
-    @word_count = all_notes.sum(:word_count)
+    @word_count = all_notes.empty? ? 0 : all_notes.sum(:word_count)
 
     respond_to do |format|
       format.html
@@ -25,7 +25,7 @@ class NotesController < ApplicationController
 
   def map
     @notes = Note.channelled(@current_channel).publishable.listable.blurbable.mappable
-    @word_count = @notes.sum(:word_count)
+    @word_count = @notes.empty? ? 0 : @notes.sum(:word_count)
 
     mapify(@notes)
 

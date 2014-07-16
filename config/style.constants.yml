@@ -47,6 +47,9 @@ defaults: &defaults
     images_thumbnail_aspect_x: 16
     images_thumbnail_aspect_y: 9
     images_thumbnail_width: 3
+    images_full_aspect_x: 16
+    images_full_aspect_y: 9
+    images_full_width: 2000
     insert_background_color: '#ffff45'
     invalid_background_color: '#ff0'
     line_height: 28

@@ -46,7 +46,9 @@ class ApplicationController < ActionController::Base
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
 
     # Add plan-specific css
-    @current_channel_css_modules = @current_channel.theme.css
+    # HOTFIX for #15
+    @current_channel_css_modules = ''
+    @current_channel_css_modules += @current_channel.theme.css
     @current_channel_css_modules += ' hd-images-module' if @current_channel.user.plan.hd_images?
   end
 

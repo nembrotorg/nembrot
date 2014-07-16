@@ -13,7 +13,7 @@
   - unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
     - image = @note.resources.attached_images.first
     - set_meta_tags open_graph: { image: "#{ Constant.asset_host }#{ cut_image_binary_path(note.resources.attached_images.first, type: :full, effects: @current_channel.theme.effects) }" }
-    - set_meta_tags open_graph: { 'image:type' => "image/#{ image.type }" }
+    - set_meta_tags open_graph: { 'image:type' => "image/#{ image.file_ext }" }
     - set_meta_tags open_graph: { 'image:width' => '2000' }
     - set_meta_tags open_graph: { 'image:height' => '1125' }
 

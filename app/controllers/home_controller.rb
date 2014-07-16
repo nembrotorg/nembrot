@@ -26,8 +26,8 @@ class HomeController < ApplicationController
     all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
     mapify(all_notes.mappable)
 
-    @channels = Channel.promoted.first(12)
-    @channels = (@channels + Channel.promotable.first(12 - @channels.size)).uniq if @channels.size < 12
+    @channels = Channel.promoted.first(30)
+    @channels = (@channels + Channel.promotable.first(30 - @channels.size)).uniq if @channels.size < 30
   end
 
   def default_url_options

@@ -296,7 +296,7 @@ class Note < ActiveRecord::Base
     return false if new_record?
     too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < Setting['advanced.version_gap_minutes'].to_i.minutes
     too_minor = get_real_distance < Setting['advanced.version_gap_distance'].to_i
-    too_recent || too_minor
+    too_recent && too_minor
   end
 
   def update_is_citation?

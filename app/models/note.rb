@@ -25,7 +25,7 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   only: [:title, :body],
                   if:  proc { |note| note.save_new_version? },
-                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -294,7 +294,7 @@ class Note < ActiveRecord::Base
   def minor_edit?
     # Should we consider all canges in title a major edit?
     return false if new_record?
-    too_recent = (external_updated_at - external_updated_at_was) < Setting['advanced.version_gap_minutes'].to_i.minutes
+    too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < Setting['advanced.version_gap_minutes'].to_i.minutes
     too_minor = get_real_distance < Setting['advanced.version_gap_distance'].to_i
     too_recent || too_minor
   end

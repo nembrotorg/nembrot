@@ -42,6 +42,14 @@
   +home-one-column-list
   +home-image-in-indices
 
+  &.ins-features-index
+
+    #curtain_shim, figure.image
+      display: none !important
+
+    header[data-title]
+      display: block !important
+
   #persistent_map
     .marker
       a
@@ -64,14 +72,6 @@
     article, section
       &> nav
         margin-bottom: $line-height
-
-    html.ins-features-index, [data-theme-wrapper].ins-features-index
-
-      #curtain_shim, figure.image
-        display: none !important
-
-      header[data-title]
-        display: block !important
 
     #text
       .target .body

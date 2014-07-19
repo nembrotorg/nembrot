@@ -2,7 +2,7 @@ change_theme = (theme) ->
   load_typekit_font(window.Nembrot.THEMES[theme]['typekit_code'])
   $('html, [data-theme]').alterClass('theme-*', 'theme-' + theme)
   $('html, [data-theme]').alterClass('*-module', window.Nembrot.THEMES[theme]['css'])
-  instructions = $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/)
+  instructions = $('[data-theme]').attr('class').match(/ins-[a-z0-9\-]*/g).join(' ')
   if instructions
     $('html').alterClass('ins-*', instructions.join(' '))
   else

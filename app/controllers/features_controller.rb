@@ -23,6 +23,7 @@ class FeaturesController < ApplicationController
     @map = @notes.mappable
     @total_count = @notes.size
     @word_count = @notes.sum(:word_count)
+    @special_css_instructions = 'ins-features-index'
     add_breadcrumb @notes.first.get_feature_name, feature_path(@notes.first.feature)
     render template: 'notes/index'
   end

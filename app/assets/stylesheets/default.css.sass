@@ -499,21 +499,22 @@ footer
         &:last-of-type
           td
             padding-bottom: 0
-    ol
-      counter-reset: items
-      li
-        counter-reset: subitems
-        counter-increment: items 1
-        padding-left: $text-indent
-        &:before
-          content: counter(items)
-          margin-left: $text-indent * -1
-          position: absolute
-          width: $text-indent
-        li
-          counter-increment: subitems
+    *:not(ol)
+      ol
+        counter-reset: items
+        &> li
+          counter-reset: subitems
+          counter-increment: items 1
+          padding-left: $text-indent
           &:before
-            content: counter(items) "." counter(subitems)
+            content: counter(items)
+            margin-left: $text-indent * -1
+            position: absolute
+            width: $text-indent
+          li
+            counter-increment: subitems
+            &:before
+              content: counter(items) "." counter(subitems)
     ul
       li
         padding-left: $text-indent

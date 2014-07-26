@@ -513,8 +513,12 @@ footer
           counter-reset: subitems
           li
             counter-increment: subitems
+          padding-left: $text-indent
             &:before
               content: counter(items) "." counter(subitems)
+              margin-left: $text-indent * -1
+              position: absolute
+              width: $text-indent
     ul
       li
         padding-left: $text-indent

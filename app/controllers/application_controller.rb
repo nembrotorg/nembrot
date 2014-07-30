@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
     @default_channel = Channel.where('slug = ?', 'default').first
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first
-    @current_channel_author = @default_note.author.blank? ? 'anon' : @default_note.author
     @channels_owned_by_nembrot = Channel.owned_by_nembrot
     @themes_for_js = Theme.hash_for_js
   rescue
@@ -45,6 +44,8 @@ class ApplicationController < ActionController::Base
 
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
+
+    @current_channel_author = @home_note.author.blank? ? 'anon' : @home_note.author
 
     # Add plan-specific css
     # HOTFIX for #15

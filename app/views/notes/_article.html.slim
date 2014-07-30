@@ -24,7 +24,7 @@
   - set_meta_tags 'twitter:title' => "#{ @note.title }",
                   'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
 
-  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title
+  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title, show_byline: true
 
   section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)
 

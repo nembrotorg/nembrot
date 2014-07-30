@@ -11,5 +11,7 @@
 
   = link_to home_path(channel), lang: lang_attr(note.lang), dir: dir_attr(note.lang) do
 
-    h2 = channel.name
+    h2
+      = channel.name
+      = render 'shared/byline'
     = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)

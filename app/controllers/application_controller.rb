@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
     @default_channel = Channel.where('slug = ?', 'default').first
     @default_notes = Note.channelled(@default_channel).with_instruction('demo')
     @default_note = @default_notes.first
+    @current_channel_author = @default_note.author.blank? ? 'anon' : @default_note.author
     @channels_owned_by_nembrot = Channel.owned_by_nembrot
     @themes_for_js = Theme.hash_for_js
   rescue

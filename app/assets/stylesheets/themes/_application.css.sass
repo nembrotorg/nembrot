@@ -27,6 +27,24 @@ a[href='#close']
 #main
   margin-bottom: 0
 
+h2
+  span.byline
+    color: $secondary-color
+    font:
+      weight: 400
+      size: 12px
+    :before
+      content: ' '
+    .author
+      font:
+        size: 18px
+        variant: small-caps
+      text-transform: lowercase
+
+h2
+  span.byline
+    display: none
+
 .home-index
   .breadcrumb
     visibility: hidden

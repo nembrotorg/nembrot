@@ -1,5 +1,6 @@
 - note = channel.home_note
 - note = @default_note if note.nil?
+- author = note.author.blank? ? 'anon' : note.author
 
 - all_interrelated_notes_and_features = all_interrelated_notes_and_features || []
 
@@ -13,5 +14,5 @@
 
     h2
       = channel.name
-      = render 'shared/byline'
+      = render 'shared/byline', author: author
     = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)

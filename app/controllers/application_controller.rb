@@ -46,6 +46,8 @@ class ApplicationController < ActionController::Base
     @current_user_owns_current_channel = user_signed_in? && @current_channel.user_id == current_user.id
     @home_note = Note.channelled(@current_channel).publishable.homeable.first
 
+    @home_note = @default_note if @home_note.blank?
+
     @current_channel_author = @home_note.author.blank? ? 'anon' : @home_note.author
 
     # Add plan-specific css

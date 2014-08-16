@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_channel
-    @current_channel = Channel.active.where('slug = ?', params[:channel] || 'default').first
-    
+    @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
+
     # Set current channel to home unless current user is editing, and can set advanced settings
     if @current_channel.nil? && !(self.class.name == 'channels' && current_user.plan.advanced_settings == true)
       @current_channel = @default_channel

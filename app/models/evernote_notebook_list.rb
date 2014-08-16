@@ -23,9 +23,9 @@ class EvernoteNotebookList
 
     list = evernote_auth.note_store.listNotebooks(oauth_token)
 
-    list_hash = []
+    list_array = []
     list.each do |n|
-      list_hash.push({
+      list_array.push({
         name: n.name,
         guid: n.guid,
         default: n.defaultNotebook,
@@ -34,11 +34,11 @@ class EvernoteNotebookList
       })
     end
 
-    list_hash = list_hash.sort_by { |n| n.name }
+    list_array = list_array.sort_by { |i| i[:name] }
 
-    Rails.cache.write(cache_key, list_hash, expires_in: 0.minutes)
+    Rails.cache.write(cache_key, list_array, expires_in: 0.minutes)
 
-    return list_hash
+    return list_array
   end
 
   def cache_key

@@ -5,7 +5,7 @@ class ChannelsController < ApplicationController
   load_and_authorize_resource except: :create
   skip_authorize_resource only: :create
 
-  before_action :set_channel_defaults, only: [:index, :show, :new, :edit, :update, :destroy]
+  # before_action :set_channel_defaults, only: [:index, :show, :new, :edit, :update, :destroy]
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
   before_action :fetch_evernote_notebooks, only: [:show, :new, :edit, :update, :destroy]
 

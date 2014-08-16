@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_channel
+    # REVIEW: Channel is here selected even if inactive
     @current_channel = Channel.where('slug = ?', params[:channel] || 'default').first
 
     # Set current channel to home unless current user is editing, and can set advanced settings

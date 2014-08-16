@@ -35,9 +35,9 @@ class EvernoteNotebookList
       })
     end
 
-    list_array = list_array.sort_by { |i| i[:name] }
+    list_array = list_array.sort_by { |i| i[:name].downcase }
 
-    Rails.cache.write(cache_key, list_array, expires_in: 0.minutes)
+    # Rails.cache.write(cache_key, list_array, expires_in: 0.minutes)
 
     return list_array
   end

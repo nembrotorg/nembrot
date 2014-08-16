@@ -11,7 +11,8 @@ class EvernoteNotebookList
   end
 
   def array
-    Rails.cache.exist?(cache_key) ? Rails.cache.fetch(cache_key) : fetch_notebooks_list
+    fetch_notebooks_list
+    # Rails.cache.exist?(cache_key) ? Rails.cache.fetch(cache_key) : fetch_notebooks_list
   end
 
   private

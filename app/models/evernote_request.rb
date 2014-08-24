@@ -163,24 +163,24 @@ class EvernoteRequest
 
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
-    cloud_resources = cloud_note_data.resources
-
-    # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
-    #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
-    captions = cloud_note_data.content.scan(/\{s*cap:\s*(.*?)\s*\}/i)
-    descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
-    credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
-
     # First we remove all resources (to make sure deleted resources disappear -
     #  but we don't want to delete binaries so we use #delete rather than #destroy)
     evernote_note.note.resources.delete_all
 
-    # Sort resources according to their order in the content
-    #  http://stackoverflow.com/questions/11961685/sort-an-array-according-to-the-elements-of-another-array
-    resources_order_in_content = cloud_note_data.content.scan(/<en-media hash=\"([0-9a-z]{32})\"/).flatten
-    cloud_resources.sort_by { |i| resources_order_in_content.index i.cloud_resource.data.bodyHash }
+    cloud_resources = cloud_note_data.resources
 
     if cloud_resources
+      # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
+      #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
+      captions = cloud_note_data.content.scan(/\{s*cap:\s*(.*?)\s*\}/i)
+      descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
+      credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
+
+      # Sort resources according to their order in the content
+      #  http://stackoverflow.com/questions/11961685/sort-an-array-according-to-the-elements-of-another-array
+      resources_order_in_content = cloud_note_data.content.scan(/<en-media hash=\"([0-9a-z]{32})\"/).flatten
+      cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash }
+
       cloud_resources.each_with_index do |cloud_resource, index|
 
         if cloud_resource.width > Setting['style.images_min_width'].to_i

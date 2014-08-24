@@ -12,6 +12,7 @@ module FormattingHelper
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
     text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
+    text = relativize(text)
     text = headerize(text)
     text = sectionize(text)
     text = paragraphize(text)
@@ -37,6 +38,7 @@ module FormattingHelper
     target_text = clean_whitespace(target_text)
     target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
     target_text = linkify(target_text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
+    target_text = relativize(target_text)
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
     target_text = paragraphize(target_text)
@@ -56,6 +58,7 @@ module FormattingHelper
     text = deheaderize(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
     text = linkify(text, links, links_citation_style) if Setting['advanced.links_section'] == 'true'
+    text = relativize(text)
     text = clean_up_via_dom(text, true)
     text = strip_tags(text)
   end
@@ -145,7 +148,6 @@ module FormattingHelper
   end
 
   def linkify(text, links, citation_style)
-    # Make all local links relative
     # Sort the links by reverse length order of the url to avoid catching partial urls.
     links.each do |link|
       # Simplify links wrapped around themselves.
@@ -168,6 +170,11 @@ module FormattingHelper
                    accessed_at: (timeago_tag link.updated_at)))
     end
     text
+  end
+
+  def relativize(text)
+    # Make all local links relative
+    text.gsub!(/(<a href=")http:\/\/#{ Constant.host }("[^>]*?>)/, "\\1\\2")
   end
 
   def related_notify(text, related_notes = [], blurbify = false)

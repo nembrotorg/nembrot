@@ -175,6 +175,11 @@ class EvernoteRequest
     #  but we don't want to delete binaries so we use #delete rather than #destroy)
     evernote_note.note.resources.delete_all
 
+    # Sort resources according to their order in the content
+    #  http://stackoverflow.com/questions/11961685/sort-an-array-according-to-the-elements-of-another-array
+    resources_order_in_content = cloud_note_data.content.scan(/<en-media hash=\"([0-9a-z]{32})\"/).flatten
+    cloud_resources.sort_by { |i| resources_order_in_content.index i.cloud_resource.data.bodyHash }
+
     if cloud_resources
       cloud_resources.each_with_index do |cloud_resource, index|
 

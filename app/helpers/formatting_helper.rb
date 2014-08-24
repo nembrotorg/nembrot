@@ -72,7 +72,7 @@ module FormattingHelper
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags
-    text = text.gsub(/<([^<]*)(“|\u201C|\u201D)([^<]*)(“|\u201C|\u201D)([^<]*)>/, "<\\1\"\\3\"\\5>").html_safe
+    text = text.gsub(/<([^<]*)("|“|\u201C|\u201D)([^>]*)("|“|\u201C|\u201D)([^>]*)>/, "<\\1\"\\3\"\\5>").html_safe
     # clean_up(text)
   end
 
@@ -81,7 +81,7 @@ module FormattingHelper
     text = paragraphize(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags
-    text = text.gsub(/<([^<]*)(“|\u201C|\u201D)([^<]*)(“|\u201C|\u201D)([^<]*)>/, "<\\1\"\\3\"\\5>").html_safe
+    text = text.gsub(/<([^<]*)("|“|\u201C|\u201D)([^>]*)("|“|\u201C|\u201D)([^>]*)>/, "<\\1\"\\3\"\\5>").html_safe
     # clean_up(text)
   end
 

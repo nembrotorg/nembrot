@@ -178,7 +178,7 @@ class EvernoteRequest
 
       # Sort resources according to their order in the content
       #  http://stackoverflow.com/questions/11961685, http://stackoverflow.com/questions/22700113
-      resources_order_in_content = cloud_note_data.content.scan(/<en-media hash="([0-9a-z]{32})"/).flatten
+      resources_order_in_content = cloud_note_data.content.scan(/<en-media [^>]*? hash="([0-9a-z]{32})"/).flatten
       cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash.unpack('H*').first }
 
       cloud_resources.each_with_index do |cloud_resource, index|

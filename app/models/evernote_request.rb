@@ -177,8 +177,8 @@ class EvernoteRequest
       credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
 
       # Sort resources according to their order in the content
-      #  http://stackoverflow.com/questions/11961685/sort-an-array-according-to-the-elements-of-another-array
-      resources_order_in_content = cloud_note_data.content.scan(/<en-media hash=\"([0-9a-z]{32})\"/).flatten
+      #  http://stackoverflow.com/questions/11961685
+      resources_order_in_content = cloud_note_data.content.scan(/<en-media hash="([0-9a-z]{32})"/).flatten
       cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash }
 
       cloud_resources.each_with_index do |cloud_resource, index|

@@ -174,7 +174,7 @@ module FormattingHelper
 
   def relativize(text)
     # Make all local links relative
-    text.gsub!(/(<a href=")http:\/\/#{ Constant.host }([^"]*?"[^>]*?>)/, "\\1\\2")
+    text.gsub(/(<a href=")http:\/\/#{ Constant.host }([^"]*?"[^>]*?>)/, "\\1\\2")
   end
 
   def related_notify(text, related_notes = [], blurbify = false)

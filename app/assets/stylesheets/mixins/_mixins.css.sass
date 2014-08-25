@@ -104,7 +104,7 @@
         right: $text-indent * 3
         top: $line-height * 2/3
 
-=hanging-caption
+=hanging-caption($extra: 0)
   figure.image.main-image
     figcaption
       p
@@ -113,7 +113,7 @@
         position: absolute
         right: $text-indent
         text-align: right
-        top: calc(100% + (#{$line-height} / 2))
+        top: calc(100% + ((#{$line-height} / 2) + $extra))
         bottom: auto
         width: 25%
 

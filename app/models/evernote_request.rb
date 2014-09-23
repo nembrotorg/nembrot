@@ -172,7 +172,7 @@ class EvernoteRequest
     if cloud_resources
       # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
       #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
-      captions = cloud_note_data.content.scan(/\{s*cap:\s*(.*?)\s*\}/i)
+      captions = cloud_note_data.content.scan(/\{\s*cap:\s*(.*?)\s*\}/i)
       descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
       credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
 

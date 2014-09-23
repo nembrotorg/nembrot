@@ -59,9 +59,7 @@ class Note < ActiveRecord::Base
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
   def self.channelled(channel)
-    # REVIEW
-    evernote_notes_note_id = EvernoteNote.where(cloud_notebook_identifier: channel.notebooks).pluck(:note_id)
-    where(id: evernote_notes_note_id)
+    joins(:evernote_notes).where(evernote_notes: { cloud_notebook_identifier: channel.notebooks })
   end
 
   # REVIEW: Store in columns like is_section?

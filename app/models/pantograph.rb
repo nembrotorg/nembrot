@@ -37,13 +37,16 @@ class Pantograph < ActiveRecord::Base
 
   def self.skipped(text)
     # Calculate the number of pantographs that have been skipped due to repeated spaces.
-    #  This is basically a triangular function on the legth of the string - 1.
+    #  This is basically a triangular function on the length of the string - 1.
     #  So, for a string that is five letters long, we do 4 + 3 + 2 + 1.
     return 0 if text.length == 1 && alphabet.index(text.last) > alphabet.index(' ')
     return 1 unless text.length > 1
     use_length = text.length - 1
     use_length -= 1 unless alphabet.index(text.last) > alphabet.index(' ')
-    (1..use_length).inject(:+) + 2 # We add two for when the space appears in the beginning or the end
+    # We add two for when the space appears in the beginning or the end
+    #  This is the standard formula for calculating a triangular number
+    #  Test with this more literal approach: (1..use_length).inject(:+) + 2
+    use_length  * (use_length + 1) / 2 + 2
   end
 
   def self.total_duration
@@ -108,6 +111,7 @@ class Pantograph < ActiveRecord::Base
   def self.calculate_next
     next_candidate = calculate_after(last_by_self_text)
     next_candidate = calculate_after(next_candidate) while Pantograph.where(text: next_candidate).exists?
+    next_candidate = calculate_after(next_candidate) if looks_like_direct_message?(next_candidate)
     next_candidate
   end
 
@@ -176,6 +180,11 @@ class Pantograph < ActiveRecord::Base
     letters.join
   end
 
+  def self.looks_like_direct_message?(text)
+    # Tweets that look like direct messages are refused silently by Twitter
+    !text[/\b(d|m)$/i].nil?
+  end
+
   def self.update_saved_timeline
     min_id = first.nil? ? 0 : first.tweet_id
     get_timeline(min_id)
@@ -226,11 +235,13 @@ class Pantograph < ActiveRecord::Base
   end
 
   def scheduled_for
-   (Constant.pantography.start_date.to_datetime + (sequence * 10).minutes).strftime('%A, %e %B %Y CE at %H:%M UTC')
+   (Constant.pantography.start_date.to_datetime + (sequence * Constant.pantography.frequency).seconds)
+    .strftime('%A, %e %B %Y CE at %H:%M UTC')
     .gsub(/([\d]{9,})/) { |d| "<span title=\"#{ d }\">#{ d.to_f.to_s.gsub(/(\d)\.(\d+)+e\+(\d+)/, '\1.\2 x 10<sup>\3</sup>') }</span>" }
   end
 
   def sequence
+    # Sequence number for this text (decimal)
     decimal = 0
     radix = self.class.alphabet.length
     text.split('').reverse.each_with_index do |letter, position|
@@ -240,6 +251,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def percentage
+    # Sequence as a percentage of total texts
     #{ }"<span title=\"#{ ((sequence * 100) / self.class.total_texts).to_f }%\">#{ (sequence * 100) / self.class.total_texts }</span>"
     (sequence * 100) / self.class.total_texts
   end

@@ -159,7 +159,7 @@
 
     = link_to 'My sites', channels_path, class: 'cancel', title: 'Cancel and back to My Websites' if user_signed_in? && !current_user.channels.empty?
 
-    = link_to 'Delete', @channel, data: { confirm: 'Are you sure you want to delete this website?' }, method: :delete, class: 'delete', title: 'Delete channel' if mode == 'edit'
+    = link_to 'Delete', @channel, data: { confirm: "Are you sure you want to delete this website (#{ @channel.name })?" }, method: :delete, class: 'delete', title: "Delete this website (#{ @channel.name })" if mode == 'edit'
 
 javascript:
   $(function() {

@@ -7,7 +7,7 @@
 
   == page_wrapper
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
 
     = render 'shared/map_script', map: @map unless @map.blank?
 

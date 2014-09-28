@@ -7,7 +7,7 @@
 
   section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-    = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, document_title: document_title
+    = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, introduction: nil, document_title: document_title
 
     section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 

@@ -24,7 +24,9 @@
   - set_meta_tags 'twitter:title' => "#{ @note.title }",
                   'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
 
-  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title, show_byline: true
+  - introduction = note.introduction unless note.has_instruction?('hide_introduction')
+
+  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title, introduction: introduction, show_byline: true
 
   section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)
 
@@ -32,10 +34,6 @@
 
     -#.first(Setting['style.note_images_number'].to_i)
     = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
-
-    - unless note.introduction.blank? || note.has_instruction?('hide_introduction')
-      section#introduction
-        p == note.introduction
 
     - if @source.nil?
       section#text.regular

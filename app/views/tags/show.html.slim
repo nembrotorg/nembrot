@@ -7,7 +7,7 @@
 
   == page_wrapper
 
-      = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
+      = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, introduction: nil, document_title: document_title
 
       = render 'shared/notes_list', notes: @notes,
          all_interrelated_notes_and_features: @all_interrelated_notes_and_features

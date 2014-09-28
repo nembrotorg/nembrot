@@ -1,11 +1,17 @@
 header data-title="#{ document_title }"
 
-  h1 == title
+  hgroup
 
-  h2
-    == subtitle unless subtitle.blank?
-    - show_byline = show_byline || false
-    = render 'shared/byline' if show_byline
+    h1 == title
 
-  - show_flashes = show_flashes || false
-  = render 'flashes' if show_flashes
+    h2
+      == subtitle unless subtitle.blank?
+      - show_byline = show_byline || false
+      = render 'shared/byline' if show_byline
+
+    - show_flashes = show_flashes || false
+    = render 'flashes' if show_flashes
+
+    - unless introduction.blank?
+      section#introduction
+        p == introduction

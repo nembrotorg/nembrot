@@ -7,7 +7,7 @@
 
   = render 'upgrade_alert'
 
-  = render 'header', title: t('.title'), subtitle: "#{ current_user.authorizations.where(provider: 'evernote').first.nickname }'s websites", document_title: document_title, show_flashes: true
+  = render 'header', title: t('.title'), subtitle: "#{ current_user.authorizations.where(provider: 'evernote').first.nickname }'s websites", introduction: nil, document_title: document_title, show_flashes: true
 
   ul
     - @channels.each do |channel|

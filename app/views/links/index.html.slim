@@ -5,7 +5,7 @@
 
 == page_wrapper
 
-  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
 
   section = render 'shared/images', note: @home_note, type: :standard unless @home_note.resources.attached_images.empty? || @home_note.has_instruction?('hide_image')
 

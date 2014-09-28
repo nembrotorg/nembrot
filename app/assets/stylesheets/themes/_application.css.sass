@@ -30,9 +30,11 @@ a[href='#close']
 h2
   span.byline
     color: $secondary-color
+    display: block
     font:
       weight: 400
       size: 12px
+    margin-bottom: $line-height
     :before
       content: ' '
     .author
@@ -41,10 +43,10 @@ h2
         variant: small-caps
       text-transform: lowercase
 
-.notes-show
-  h2
-    span.byline
-      display: none
+// .notes-show
+//   h2
+//     span.byline
+//       display: none
 
 .home-index
   .breadcrumb
@@ -62,6 +64,7 @@ h2
 nav ul li a:first-of-type
   &[href^='/channels']:before
     +icon-settings
+    text-shadow: -1px -1px 0 rgba(#fff, 0.5), 1px -1px 0 rgba(#fff, 0.5), -1px 1px 0 rgba(#fff, 0.5), 1px 1px 0 rgba(#fff, 0.5)
 
 .dashboard-open
   nav ul li a[href^='/channels']

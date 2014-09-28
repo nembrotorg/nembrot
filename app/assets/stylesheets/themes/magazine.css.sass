@@ -86,11 +86,16 @@
       header[data-title]
         height: 0
         margin-top: 0
-        h1
-          color: #fff !important
-          font:
-            size: 3em
-          line-height: 1em
+        hgroup
           top: $line-height * -10
           position: absolute
           z-index: 1000
+          h1, h2, p, .byline
+            color: #f0f0f0 !important
+          h1
+            font:
+              size: 3em
+          h2
+            margin-top: $line-height / 2
+          #introduction
+            margin-top: $line-height

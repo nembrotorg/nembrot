@@ -63,7 +63,7 @@
       height: 0
       h1
         +brand
-        bottom: $line-height * 1.666
+        top: $line-height * -4
         color: $theme-home-logo-color !important
         font-size: 3em
         position: absolute
@@ -143,12 +143,14 @@
         margin-top: 0
 
       #introduction
+        +span-columns(9)
         +hyphens
         color: #171717
         font:
           size: 38px
           style: normal
         line-height: $line-height * 2
+        margin-bottom: $line-height
 
       aside
         .shares

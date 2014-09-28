@@ -16,7 +16,8 @@ class HomeController < ApplicationController
     end
 
     interrelated_notes_features_and_citations
-    note_tags(@note)
+    # note_tags(@note)
+    @tags = []
     @map_this_marker = note_map(@note)
     note_source(@note)
 

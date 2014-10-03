@@ -1,4 +1,5 @@
 # Nembrot
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/nembrotorg/nembrot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/nembrotorg/nembrot.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/nembrotorg/nembrot.png)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/nembrotorg/nembrot.png)][codeclimate]

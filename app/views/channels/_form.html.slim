@@ -62,7 +62,92 @@
             = f.radio_button :theme_id, theme.id, checked: (@channel.theme_id == theme.id || @channel.theme.nil? && theme.name == 'Nembrot'), data: { slug: theme.slug, premium: theme.premium }, required: true
 
     - if @plan.advanced_settings
-      = render 'advanced_settings'
+      fieldset class="advanced-settings"
+        legend
+          | Advanced settings
+        div
+
+          label for='active'
+            span Active
+            = f.check_box :active, id: 'active', checked: @channel.active
+
+          label for='breadcrumbs'
+            span Breadcrumbs
+            = f.check_box :breadcrumbs, id: 'breadcrumbs', checked: @channel.breadcrumbs
+
+          label for='menu_at_top'
+            span Menu at top
+            = f.check_box :menu_at_top, id: 'menu_at_top', checked: @channel.menu_at_top
+
+          label for='menu_at_bottom'
+            span Menu as footer
+            = f.check_box :menu_at_bottom, id: 'menu_at_bottom', checked: @channel.menu_at_bottom
+
+          label for='show_nembrot_link'
+            span Show Nembrot link in footer
+            = f.check_box :show_nembrot_link, id: 'show_nembrot_link', checked: @channel.show_nembrot_link
+
+          label for='tags'
+            span Tags
+            = f.check_box :tags, id: 'tags', checked: @channel.tags
+
+          -# label for='versions'
+          -#   span Versions
+          -#   = f.check_box :versions, id: 'versions', id: '', checked: @channel.versions
+
+          -# label for='bibliography'
+          -#   span Always reset on create
+          -#   = f.check_box :bibliography, id: '', checked: @channel.bibliography
+
+          -# label for='links_section'
+          -#   span Links section
+          -#   = f.check_box :links_section, id: '', checked: @channel.links_section
+
+          -# label for='always_reset_on_create'
+          -#   span Always reset on create
+          -#   = f.check_box :always_reset_on_create, id: '', checked: @channel.always_reset_on_create
+
+          -# label for='private'
+          -#   span Private
+          -#   = f.check_box :private, id: '', checked: @channel.private
+
+          label for='index_on_google'
+            span Index on Google
+            = f.check_box :index_on_google, id: 'index_on_google', checked: @channel.index_on_google
+
+          label for='promote'
+            span Promote this website
+            = f.check_box :promote, id: 'promote', checked: @channel.promote
+
+          -#label for='locale'
+          -#  span Website's language
+          -#  = f.select :locale, options_for_select([['English', 'en'], ['French', 'fr']], @channel.locale)
+
+          -#label for='only_show_notes_in_locale'
+          -#  span Notes in website's language
+          -#  = f.check_box :only_show_notes_in_locale, id: '', checked: @channel.only_show_notes_in_locale
+
+          label for='comments-cb'
+            span Disqus comments
+            = f.check_box :comments, id: 'comments-cb', checked: @channel.comments
+
+          label.text = f.text_field :disqus_shortname, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Disqus shortname'
+          label.text = f.text_field :follow_on_facebook, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Facebook page (full url)'
+          label.text = f.text_field :follow_on_googleplus, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Google+ page (full url)'
+          label.text = f.text_field :follow_on_soundcloud, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Soundcloud channel (full url)'
+          label.text = f.text_field :follow_on_tumblr, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Tumblr (full url)'
+          label.text = f.text_field :follow_on_twitter, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Twitter (full url)'
+          label.text = f.text_field :follow_on_vimeo, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Vimeo channel (full url)'
+          label.text = f.text_field :follow_on_youtube, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Youtube channel (full url)'
+          label.text = f.text_field :contact_email, pattern: "[a-zA-Z0-9\-\_]@[a-z\.]{2,8}", placeholder: 'Contact email (public)'
+          -#label.text = f.text_field :google_analytics_key, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Google Analytics key'
+          -#label.text = f.text_field :facebook_app_id, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Facebok app id'
+          label.text = f.text_field :url, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Your url (redirect to 77.68.58.244)'
+          label for='newsletter'
+            span Occasional newsletter
+            = f.check_box :newsletter, id: 'newsletter', checked: @channel.newsletter
+          label.text = f.text_area :copyright, placeholder: 'Copyright/CC notice'
+            = @channel.copyright
 
   - else
     = f.text_field :theme_id, value: 1, hidden: true

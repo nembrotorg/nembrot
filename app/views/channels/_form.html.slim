@@ -101,7 +101,7 @@ javascript:
     // Automatically open settings for current channel
     // Except is current channel is inactive
     // Otherwise we could never activate a channel
-    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } && #{ @channel.active == true }) {
+    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } && #{ @channel.active == true && location.href != '#{ home_path(@channel) }' }) {
       $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
     }
 

@@ -1,5 +1,5 @@
-/* Modernizr 2.8.0 (Custom Build) | MIT & BSD
- * Build: http://modernizr.com/download/#-touch-printshiv-mq-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-load
+/* Modernizr 2.8.3 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-multiplebgs-geolocation-touch-printshiv-cssclasses-teststyles-prefixes-load
  */
 ;
 
@@ -7,7 +7,7 @@
 
 window.Modernizr = (function( window, document, undefined ) {
 
-    var version = '2.8.0',
+    var version = '2.8.3',
 
     Modernizr = {},
 
@@ -26,13 +26,6 @@ window.Modernizr = (function( window, document, undefined ) {
 
     prefixes = ' -webkit- -moz- -o- -ms- '.split(' '),
 
-
-
-    omPrefixes = 'Webkit Moz O ms',
-
-    cssomPrefixes = omPrefixes.split(' '),
-
-    domPrefixes = omPrefixes.toLowerCase().split(' '),
 
 
     tests = {},
@@ -84,25 +77,6 @@ window.Modernizr = (function( window, document, undefined ) {
       return !!ret;
 
     },
-
-    testMediaQuery = function( mq ) {
-
-      var matchMedia = window.matchMedia || window.msMatchMedia;
-      if ( matchMedia ) {
-        return matchMedia(mq) && matchMedia(mq).matches || false;
-      }
-
-      var bool;
-
-      injectElementWithStyles('@media ' + mq + ' { #' + mod + ' { position: absolute; } }', function( node ) {
-        bool = (window.getComputedStyle ?
-                  getComputedStyle(node, null) :
-                  node.currentStyle)['position'] == 'absolute';
-      });
-
-      return bool;
-
-     },
     _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
 
     if ( !is(_hasOwnProperty, 'undefined') && !is(_hasOwnProperty.call, 'undefined') ) {
@@ -175,15 +149,6 @@ window.Modernizr = (function( window, document, undefined ) {
         return !!~('' + str).indexOf(substr);
     }
 
-    function testProps( props, prefixed ) {
-        for ( var i in props ) {
-            var prop = props[i];
-            if ( !contains(prop, "-") && mStyle[prop] !== undefined ) {
-                return prefixed == 'pfx' ? prop : true;
-            }
-        }
-        return false;
-    }
 
     function testDOMProps( props, obj, elem ) {
         for ( var i in props ) {
@@ -201,20 +166,7 @@ window.Modernizr = (function( window, document, undefined ) {
         }
         return false;
     }
-
-    function testPropsAll( prop, prefixed, elem ) {
-
-        var ucProp  = prop.charAt(0).toUpperCase() + prop.slice(1),
-            props   = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
-
-            if(is(prefixed, "string") || is(prefixed, "undefined")) {
-          return testProps(props, prefixed);
-
-            } else {
-          props = (prop + ' ' + (domPrefixes).join(ucProp + ' ') + ucProp).split(' ');
-          return testDOMProps(props, prefixed, elem);
-        }
-    }    tests['touch'] = function() {
+    tests['touch'] = function() {
         var bool;
 
         if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
@@ -227,7 +179,20 @@ window.Modernizr = (function( window, document, undefined ) {
 
         return bool;
     };
-    for ( var feature in tests ) {
+
+
+
+    tests['geolocation'] = function() {
+        return 'geolocation' in navigator;
+    };
+
+
+
+    tests['multiplebgs'] = function() {
+                setCss('background:url(https://),url(https://),red url(https://)');
+
+            return (/(url\s*\(.*?){3}/).test(mStyle.background);
+    };    for ( var feature in tests ) {
         if ( hasOwnProp(tests, feature) ) {
                                     featureName  = feature.toLowerCase();
             Modernizr[featureName] = tests[feature]();
@@ -273,18 +238,6 @@ window.Modernizr = (function( window, document, undefined ) {
     Modernizr._version      = version;
 
     Modernizr._prefixes     = prefixes;
-    Modernizr._domPrefixes  = domPrefixes;
-    Modernizr._cssomPrefixes  = cssomPrefixes;
-
-    Modernizr.mq            = testMediaQuery;
-
-
-    Modernizr.testProp      = function(prop){
-        return testProps([prop]);
-    };
-
-    Modernizr.testAllProps  = testPropsAll;
-
 
     Modernizr.testStyles    = injectElementWithStyles;    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
 

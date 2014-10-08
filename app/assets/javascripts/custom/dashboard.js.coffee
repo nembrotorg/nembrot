@@ -6,11 +6,13 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
-  if $('.theme-home').size() > 0 || $('#dashboard header aside').size() > 0 
+  if $('#main .theme-home').size() > 0 || $('#dashboard header aside').size() > 0 
     load_dashboard()
-    if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
     $('#dashboard').show()
     $('html').addClass('dashboard-open')
+    if $('#main .theme-home').size() > 0
+      if $('#dashboard').draggable() then $('#dashboard').draggable('destroy')
+      $('#dashboard').removeAttr('style');
   else
     $('#dashboard').draggable()
 

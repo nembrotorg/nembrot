@@ -21,3 +21,7 @@
         -#= t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map.blank?
 
       = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?
+
+javascript:
+  // TODO: Rather than showing/hiding, just highlight the marker
+  window.Nembrot.show_one_map_tag("#{ @tag.name }");

@@ -6,7 +6,7 @@ class FeaturesController < ApplicationController
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."
       redirect_to root_path
-    elsif @notes.listable.size > 1 && params[:feature_id].nil?
+    elsif @notes.listable.size > 1 && params[:feature_id].nil? # TODO: Here we can choose to show index note on index page
       show_feature_index
     else
       show_feature

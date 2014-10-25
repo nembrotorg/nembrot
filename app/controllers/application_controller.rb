@@ -109,7 +109,7 @@ class ApplicationController < ActionController::Base
       markers.push({
         'lat'       => note.inferred_latitude,
         'lng'       => note.inferred_longitude,
-        'marker'    => "<a href=\"#{ note_path(note) }\">#{ note.headline }</a>"
+        'marker'    => "<a href=\"#{ note_path(note) }\" data-tags=\"#{ note.tag_list }\" title=\"#{ note.tag_list }\">#{ note.headline }</a>"
       })
     end
     markers

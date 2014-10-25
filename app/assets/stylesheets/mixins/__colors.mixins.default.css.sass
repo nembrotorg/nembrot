@@ -203,6 +203,14 @@
         +outline(rgba($map-marker-outline-color, 0.8))
         color: $map-marker-color
 
+    #tags
+      +box-shadow(0 0 5px rgba(0, 0, 0, 0.1), 0 0 5px 1px rgba(0, 0, 0, 0.1))
+      background: rgba(#fff, 0.65)
+      li
+        label
+          input
+            border: 1px solid #ccc
+
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)

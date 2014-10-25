@@ -34,6 +34,8 @@ load_maps = (theme) ->
       else
         window.Nembrot.map_handler.fitMapToBounds()
 
+      setTimeout build_tags, 2000 # REVIEW: Use a suitable callback
+
     else if typeof window.Nembrot.MAP_THIS_MARKER isnt 'undefined' and window.Nembrot.MAP_THIS_MARKER isnt 'rendered'
       render_map(map_container_id, window.Nembrot.MAP_THIS_MARKER, theme, false)
       window.Nembrot.map_object.serviceObject.setZoom(16)
@@ -64,7 +66,56 @@ render_map = (map_container_id, markers, theme, show_map_type_control) ->
     $('#' + map_container_id).addClass('rendered').data('theme', theme).data('channel', channel)
     return
 
+build_tags = () ->
+  if $('#persistent_map ol#tags').length == 0
+    all_tags = ''
+    _.each $('#persistent_map .marker a'), (marker) ->
+      all_tags += ', ' + $(marker).data('tags')
+
+    tags = all_tags.split ', '
+    tags = _.compact tags
+    tags = tags.sort()
+    tags = _.uniq tags, true
+
+    list = $('<ol>', { id: 'tags' } )
+
+    _.each tags, (tag) ->
+      itemx = $('<li>')
+      labelx = $('<label>')
+      labelx.append $('<input>', { checked: true, type: 'checkbox', value: tag } )
+      labelx.append "#{ tag }"
+      itemx.append labelx
+      list.append itemx
+
+    $('#persistent_map').append list
+
+    if $('[data-controller="tags"][data-action="show"]').length > 0
+      show_one_map_tag $('#main h1').text()
+
+    $(document).on 'click', '#persistent_map ol#tags input', () ->
+      update_map_tags()
+
+update_map_tags = () ->
+  all_checked_inputs = $('#persistent_map ol#tags input:checked')
+  all_selected_tags = _.map all_checked_inputs, (input) ->
+    input.value
+  update_map_markers_according_to_tags(all_selected_tags)
+
+show_one_map_tag = (tag_list) ->
+  if $('#persistent_map ol#tags').length > 0
+    tags = tag_list.split(/, ?/)
+    update_map_markers_according_to_tags(tags)
+    $('#persistent_map ol#tags input').prop('checked', false)
+    _.each tags, (tag) ->
+      $("#persistent_map ol#tags input[value=\"#{ tag }\"]").prop('checked', true)
+
+update_map_markers_according_to_tags = (all_selected_tags) ->
+  _.each $('#persistent_map .marker'), (marker) ->
+    required_tags_for_marker = _.intersection $(marker).find('a').data('tags').split(/, ?/), all_selected_tags
+    if _.isEmpty required_tags_for_marker then $(marker).hide() else $(marker).show()
+
 window.Nembrot.load_maps = load_maps
+window.Nembrot.show_one_map_tag = show_one_map_tag
 
 # Document hooks ******************************************************************************************************
 

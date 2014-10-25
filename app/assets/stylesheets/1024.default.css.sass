@@ -26,7 +26,8 @@
     header
       clear: both
     section#content
-      +span-columns(12)
+      +prefix(2)
+      +span-columns(8)
       .gallery
         // +suffix(1, 12)
         +span-columns(8, 12)
@@ -35,13 +36,13 @@
           // +suffix(1, 12)
           +span-columns(8, 12)
       #introduction
-        +span-columns(9, 12)
+        +span-columns(8, 12)
       #text
         overflow: visible
         // aside
         //   +span-columns(6, 12)
         &.regular, &.parallel
-          +span-columns(6, 12)
+          +span-columns(8, 8)
         &.enface
           +span-columns(12, 12)
           line-height: $line-height

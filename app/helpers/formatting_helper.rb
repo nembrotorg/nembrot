@@ -109,8 +109,10 @@ module FormattingHelper
     # Make all local links relative and
     #  Evernote expects all paragraphs to be wrapped in divs
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
-    text.gsub(/\n|\r/, '')
+    text = text.gsub(/\n|\r/, '')
         .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
+        .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/mi, "<div>{quote:\n\\2\n}</div>")
+        .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/i, "<div>{quote:\\2}</div>")
         .gsub(/(<div)/i, "\n\\1")
         .gsub(/(<\/div>)/i, "\\1\n")
         #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")

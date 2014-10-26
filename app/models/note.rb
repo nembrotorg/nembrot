@@ -35,7 +35,7 @@ class Note < ActiveRecord::Base
                     distance: proc { |note| Note.find(note.id).distance }
                   }
 
-  default_scope { order('external_updated_at DESC') }
+  default_scope { order('weight ASC, external_updated_at DESC') }
   # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
   scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
 
@@ -229,6 +229,14 @@ class Note < ActiveRecord::Base
     self.lang = lang
   end
 
+  def update_weight
+    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    if weight_instruction
+     weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
+    end
+    self.weight = weight
+  end
+
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
@@ -267,6 +275,7 @@ class Note < ActiveRecord::Base
     update_is_feature?
     update_is_section?
     update_lang
+    update_weight
     update_feature
     update_feature_id
     update_word_count

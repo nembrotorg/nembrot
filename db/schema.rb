@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702214035) do
+ActiveRecord::Schema.define(version: 20141026151557) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "try_again_at"
   end
 
-  add_index "books", ["slug"], name: "index_books_on_slug", unique: true
+  add_index "books", ["slug"], name: "index_books_on_slug", unique: true, using: :btree
 
   create_table "books_notes", force: true do |t|
     t.integer "book_id"
@@ -97,7 +100,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.boolean  "comments",                  default: true
     t.boolean  "active",                    default: true
     t.boolean  "breadcrumbs",               default: true
-    t.boolean  "menu_at_top",               default: false
+    t.boolean  "menu_at_top",               default: true
     t.boolean  "menu_at_bottom",            default: true
     t.string   "follow_on_googleplus"
     t.boolean  "promoted",                  default: false
@@ -109,7 +112,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.boolean  "has_notes",                 default: false
   end
 
-  add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true
+  add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true, using: :btree
 
   create_table "commontator_comments", force: true do |t|
     t.string   "creator_type"
@@ -126,11 +129,11 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
-  add_index "commontator_comments", ["cached_votes_total"], name: "index_commontator_comments_on_cached_votes_total"
-  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
-  add_index "commontator_comments", ["creator_type", "creator_id", "thread_id"], name: "index_c_c_on_c_type_and_c_id_and_t_id"
-  add_index "commontator_comments", ["thread_id"], name: "index_commontator_comments_on_thread_id"
+  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down", using: :btree
+  add_index "commontator_comments", ["cached_votes_total"], name: "index_commontator_comments_on_cached_votes_total", using: :btree
+  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up", using: :btree
+  add_index "commontator_comments", ["creator_type", "creator_id", "thread_id"], name: "index_c_c_on_c_type_and_c_id_and_t_id", using: :btree
+  add_index "commontator_comments", ["thread_id"], name: "index_commontator_comments_on_thread_id", using: :btree
 
   create_table "commontator_subscriptions", force: true do |t|
     t.string   "subscriber_type",             null: false
@@ -141,8 +144,8 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_subscriptions", ["subscriber_type", "subscriber_id", "thread_id"], name: "index_c_s_on_s_type_and_s_id_and_t_id", unique: true
-  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  add_index "commontator_subscriptions", ["subscriber_type", "subscriber_id", "thread_id"], name: "index_c_s_on_s_type_and_s_id_and_t_id", unique: true, using: :btree
+  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id", using: :btree
 
   create_table "commontator_threads", force: true do |t|
     t.string   "commontable_type"
@@ -154,7 +157,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true
+  add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true, using: :btree
 
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"
@@ -169,8 +172,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.text     "cloud_notebook_identifier"
   end
 
-  add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
-  add_index "evernote_notes", ["note_id"], name: "index_evernote_notes_on_note_id"
+  add_index "evernote_notes", ["note_id"], name: "index_evernote_notes_on_note_id", using: :btree
 
   create_table "links", force: true do |t|
     t.string   "title"
@@ -195,7 +197,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "try_again_at"
   end
 
-  add_index "links", ["slug"], name: "index_links_on_slug", unique: true
+  add_index "links", ["slug"], name: "index_links_on_slug", unique: true, using: :btree
 
   create_table "links_notes", force: true do |t|
     t.integer "link_id"
@@ -232,6 +234,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.boolean  "is_section"
     t.boolean  "is_mapped"
     t.boolean  "is_promoted"
+    t.integer  "weight"
   end
 
   create_table "plans", force: true do |t|
@@ -272,9 +275,9 @@ ActiveRecord::Schema.define(version: 20140702214035) do
   create_table "resources", force: true do |t|
     t.string   "cloud_resource_identifier"
     t.string   "mime"
-    t.text     "caption",                   limit: 255
-    t.text     "description",               limit: 255
-    t.text     "credit",                    limit: 255
+    t.text     "caption"
+    t.text     "description"
+    t.text     "credit"
     t.string   "source_url"
     t.datetime "external_updated_at"
     t.float    "latitude"
@@ -297,8 +300,8 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "try_again_at"
   end
 
-  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true
-  add_index "resources", ["note_id"], name: "index_resources_on_note_id"
+  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true, using: :btree
+  add_index "resources", ["note_id"], name: "index_resources_on_note_id", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -307,8 +310,8 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false
@@ -319,7 +322,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -331,15 +334,15 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
     t.string "slug"
   end
 
-  add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true
+  add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true, using: :btree
 
   create_table "themes", force: true do |t|
     t.boolean  "premium"
@@ -399,25 +402,25 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.boolean  "newsletter",             default: true
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: true do |t|
-    t.string   "item_type",                       null: false
-    t.integer  "item_id",                         null: false
-    t.string   "event",                           null: false
+    t.string   "item_type",           null: false
+    t.integer  "item_id",             null: false
+    t.string   "event",               null: false
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
     t.integer  "sequence"
     t.text     "tag_list"
-    t.text     "instruction_list",    limit: 255
+    t.text     "instruction_list"
     t.integer  "word_count"
     t.datetime "external_updated_at"
     t.integer  "distance"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"
@@ -431,7 +434,7 @@ ActiveRecord::Schema.define(version: 20140702214035) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
 end

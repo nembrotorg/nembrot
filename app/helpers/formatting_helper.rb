@@ -260,7 +260,7 @@ module FormattingHelper
 
   def clean_up_dom(dom, unwrap_p = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
-    dom.css('h2 p, cite cite, p section, p header, p p, p h2, blockquote blockquote').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
+    dom.css('h2 p, cite cite, p section, p header, p p, p h2, blockquote blockquote').find_all.each { |e| e.replace e.parent.inner_html } # Sanitise wrong nesting 
     dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs

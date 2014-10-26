@@ -170,6 +170,7 @@ javascript:
     });
   });
 
+  // Scroll selected notebook into view
   var notebooks_div = $('#dashboard .notebooks div');
   var notebooks_checked = $('#dashboard .notebooks input:checked');
   if (notebooks_div.length && notebooks_checked.length) {
@@ -179,20 +180,4 @@ javascript:
   window.Nembrot.transform_radio_buttons_to_select();
   window.Nembrot.track_dashboard();
 
-- if mode == 'edit'
-
-  javascript:
-
-    // Automatically open settings for current channel
-    // Except is current channel is inactive
-    // Otherwise we could never activate a channel
-    if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } && #{ @channel.active == true } && location.href != '#{ home_path(@channel) }' )) {
-      $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
-    }
-
-    var theme_div = $('#dashboard .theme div');
-    var theme_checked = $('#dashboard .theme input:checked');
-    if (theme_div.length && theme_checked.length) {
-      theme_div.scrollTop(theme_checked.position().top);
-    }
-    $('#dashboard .theme input:checked').focus();
+  // Scroll selected theme into view

@@ -6,8 +6,9 @@ module FormattingHelper
 
   def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
-    text = related_notify(text, related_notes)
-    text = related_citationify(text, related_citations)
+    # REVIEW: Reinstate but add settings condition
+    # text = related_notify(text, related_notes)
+    # text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -32,8 +33,9 @@ module FormattingHelper
     source_text = denumber_headers(source_text)
     source_text = clean_up_via_dom(source_text)
 
-    target_text = related_notify(target_text, related_notes)
-    target_text = related_citationify(target_text, related_citations)
+    # REVIEW: Reinstate but add settings condition
+    # target_text = related_notify(target_text, related_notes)
+    # target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
     target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -51,8 +53,9 @@ module FormattingHelper
 
   def blurbify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
-    text = related_notify(text, related_notes, true)
-    text = related_citationify(text, related_citations)
+    # REVIEW: Reinstate but add settings condition
+    # text = related_notify(text, related_notes, true)
+    # text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -116,10 +119,12 @@ module FormattingHelper
   end
 
   def format_blockquotes(text)
-    text.gsub(/\{?\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}?/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*?)\n? ?-- *([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
-        .gsub(/\{?\s*quote:([^\}]*?)\s*\}?/i, "\n<blockquote>\\1</blockquote>\n")
-        .gsub(/\{\s*quote:([^\}]*?)\s*\}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
+    text.gsub(/{\s*quote:([^}]*?)\n? ?-- *([^}]*?)\s*}/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+        .gsub(/{\s*quote:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
+        .gsub(/{\s*quote:([^}]*?)\s*}/i, "\n<blockquote>\\1</blockquote>\n")
+        .gsub(/{\s*quote:([^}]*?)\s*}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
+        .gsub(/\s*quote:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+        .gsub(/\s*quote:([^}]*?)\s*/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
   def remove_instructions(text)

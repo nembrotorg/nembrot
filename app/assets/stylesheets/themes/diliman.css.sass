@@ -1,0 +1,93 @@
+// Modules:
+// standard-widths
+// simple-blurbs-module
+
+.theme-diliman
+
+  $background-color: #f7f7f7
+  $body-font-color: #240f17
+  $border-color: $body-font-color
+  $caption-color: #757575
+  $caption-outline-color: rgba(#d5d5d5, 0.9)
+  $count-color: #ff007f
+  $delete-font-color: #999
+  $error-background-color: #c00
+  // $evernote-color:
+  // $facebook-color:
+  $font-color: $body-font-color
+  $furniture-color: $body-font-color
+  $headline-font-color: #ff007f
+  $insert-background-color: #ff0
+  $invalid-background-color: #ccc
+  $link-hover-color: #46bcec // This color is the blue of the sea in the map
+  $link-visited-color: #0c0
+  $map-background-color: #ccc
+  $map-font-color: $body-font-color
+  $off-color: #561933
+  $row-hover-color: #d71639
+  $secondary-color: #441328
+  $selected-background-color: #ff0
+  $selected-font-color: $body-font-color
+  $static-url-color: #0c0
+  $success-background-color: #0c0
+
+  $map-marker-outline-color: #fff
+  $map-marker-color: $headline-font-color
+
+  +colors
+  +typekit-manila
+
+  &.ins-features-index,
+  &[data-action='index'][data-controller='notes']
+
+    #curtain_shim, figure.image
+      display: none !important
+
+    #main
+      header[data-title]
+        display: block !important
+
+  #persistent_map
+    .marker
+      a
+        font:
+          family: 'abril-fatface'
+          size: 16px
+      &:before
+        color: $headline-font-color
+
+  #main
+
+    [data-controller=home]
+      .channel
+        display: none
+
+    header[data-title]
+      h2
+        margin-top: $line-height / 2
+
+    article, section
+      &> nav
+        margin-bottom: $line-height
+
+    #text
+      .target .body
+        p
+          color: $headline-font-color
+          a
+            color: $headline-font-color
+            &:hover
+              color: $link-hover-color
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    #main
+      #text .target .body
+        p
+          color: $body-font-color
+          a
+            color: $body-font-color
+            &:hover
+              color: $link-hover-color

@@ -14,7 +14,7 @@
 
       section = render 'shared/images', note: @home_note, type: :standard unless @home_note.resources.attached_images.empty? || @home_note.has_instruction?('hide_image')
 
-      = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+      = render 'shared/notes_list', notes: @notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, context: controller.controller_name
 
       aside.statistics
         = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))

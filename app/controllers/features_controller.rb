@@ -6,6 +6,8 @@ class FeaturesController < ApplicationController
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."
       redirect_to root_path
+    elsif !@notes.where(feature: params[:feature], feature_id: nil).empty?
+      show_feature
     elsif @notes.listable.size > 1 && params[:feature_id].nil? # TODO: Here we can choose to show index note on index page
       show_feature_index
     else
@@ -37,9 +39,6 @@ class FeaturesController < ApplicationController
     @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
     add_breadcrumb @note.get_feature_name, feature_path(@note.feature)
     add_breadcrumb @note.get_feature_id, feature_path(@note.feature, @note.feature_id) unless params[:feature_id].nil?
-
-    # REVIEW: These are declared twice!
-    get_promoted_notes(@note)
 
     render template: 'notes/show'
   end

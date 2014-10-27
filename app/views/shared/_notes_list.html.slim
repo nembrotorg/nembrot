@@ -1,3 +1,5 @@
+- context = context || 'notes'
+
 - cache [cache_buster(1), notes] do
 
   section.notes
@@ -8,4 +10,4 @@
     ul
       - notes.each do |note|
         li
-          = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features
+          = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features, context: context

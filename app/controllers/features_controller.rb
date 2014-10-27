@@ -1,7 +1,7 @@
 class FeaturesController < ApplicationController
 
   def show
-    @notes = Note.publishable.where(feature: params[:feature], lang: Setting['advanced.locale'])
+    @notes = Note.channelled(@current_channel).publishable.where(feature: params[:feature], lang: @current_channel.locale)
 
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."

@@ -31,7 +31,7 @@ load_maps = (theme) ->
         window.Nembrot.map_object.serviceObject.panTo(new google.maps.LatLng(this_marker['lat'], this_marker['lng']))
         window.Nembrot.map_object.serviceObject.setZoom(16)
         window.Nembrot.MAP_THIS_MARKER = 'rendered' # REVIEW: delete window.Nembrot.MAP_THIS_MARKER does not work
-      else
+      else if window.Nembrot.map_handler isnt 'undefined'
         window.Nembrot.map_handler.fitMapToBounds()
 
       setTimeout build_tags, 2000 # REVIEW: Use a suitable callback

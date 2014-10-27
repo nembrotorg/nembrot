@@ -4,7 +4,7 @@
   - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
 
   - if context == 'features'
-    - headline, blurb = blurb(note.main_title, nil, note.clean_body, note.introduction, blurb_length)
+    - headline, blurb = blurb(note.subtitle, nil, note.clean_body, note.introduction, blurb_length)
   - else
     - headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
 

@@ -1,4 +1,4 @@
-- disqus_shortname = @current_channel.disqus_shortname.nil? ? Setting['advanced.disqus_shortname'] : @current_channel.disqus_shortname
+- disqus_shortname = @current_channel.disqus_shortname.blank? ? Setting['advanced.disqus_shortname'] : @current_channel.disqus_shortname
 
 section#disqus_thread
 

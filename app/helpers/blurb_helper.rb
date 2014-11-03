@@ -4,7 +4,7 @@ module BlurbHelper
 
   def blurb(main_title, subtitle, clean_body, introduction = nil, blurb_length = Setting['advanced.blurb_length'].to_i, omission: Setting['advanced.blurb_omission'])
 
-    headline = subtitle.nil? ? "#{ main_title }" : "<span>#{ main_title }: </span>#{ subtitle }"
+    headline = subtitle.blank? ? "#{ main_title }" : "<span>#{ main_title }: </span>#{ subtitle }"
 
     # If an introduction exists, use it
     # If the title is derived from the body, do not include it in the blurb

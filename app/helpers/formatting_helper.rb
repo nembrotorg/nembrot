@@ -68,13 +68,13 @@ module FormattingHelper
 
   def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     sanitize(text,
-      tags: allowed_tags.split(/, ?| /) - ['span'],
+      tags: allowed_tags.split(/, ?| /) - ['span'], # REVIEW: Why remove <span> here?
       attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
   end
 
   def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
-    text = sanitize_by_settings(text, allowed_tags)
+    text = sanitize(text, { tags: ['span'] })
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags

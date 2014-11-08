@@ -74,7 +74,7 @@ module FormattingHelper
 
   def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
-    text = sanitize(text, { tags: ['span'] })
+    text = sanitize(text, { tags: allowed_tags })
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags

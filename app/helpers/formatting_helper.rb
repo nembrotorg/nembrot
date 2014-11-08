@@ -102,6 +102,7 @@ module FormattingHelper
     #  e.g. image tags for inline image.
     text = sanitize_by_settings(text, allowed_tags)
     text = format_blockquotes(text)
+    text = format_code(text)
     text = remove_instructions(text)
   end
 
@@ -127,6 +128,15 @@ module FormattingHelper
         .gsub(/{\s*quote:([^}]*?)\s*}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
         .gsub(/\s*quote:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
         .gsub(/\s*quote:([^}]*?)\s*/i, "\n<blockquote>\\1</blockquote>\n")
+  end
+
+  def format_code(text)
+    text.gsub(/{\s*code:([^}]*?)\n? ?-- *([^}]*?)\s*}/i, "\n<pre><code>\\1[\\2]</code></pre>\n")
+        .gsub(/{\s*code:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<pre><code>\n\\1[\\2]\n</code></pre>\n")
+        .gsub(/{\s*code:([^}]*?)\s*}/i, "\n<pre><code>\\1</code></pre>\n")
+        .gsub(/{\s*code:([^}]*?)\s*}/mi, "\n<pre><code>\n\\1\n</code></pre>\n")
+        .gsub(/\s*code:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<pre><code>\\1[\\2]</code></pre>\n")
+        .gsub(/\s*code:([^}]*?)\s*/i, "\n<pre><code>\\1</code></pre>\n")
   end
 
   def remove_instructions(text)

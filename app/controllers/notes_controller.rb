@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   def index
     page_number = params[:page] ||= 1
     #all_notes = Note.publishable.listable.blurbable
-    all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
+    all_notes = Note.includes(:resources).channelled(@current_channel).publishable.listable.blurbable
     # all_notes = Note.channelled(@default_channel).with_instruction('demo')
     @notes = all_notes.page(page_number).load
 
@@ -26,7 +26,7 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.channelled(@current_channel).publishable.listable.blurbable.mappable
+    @notes = Note.includes(:resources).channelled(@current_channel).publishable.listable.blurbable.mappable
     @word_count = @notes.empty? ? 0 : @notes.sum(:word_count)
 
     mapify(@notes)
@@ -35,7 +35,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = Note.channelled(@current_channel).publishable.find(params[:id])
+    @note = Note.includes(:resources).channelled(@current_channel).publishable.find(params[:id])
     interrelated_notes_features_and_citations
     note_tags(@note)
     @map_this_marker = note_map(@note)
@@ -53,7 +53,7 @@ class NotesController < ApplicationController
   end
 
   def version
-    @note = Note.channelled(@current_channel).publishable.find(params[:id])
+    @note = Note.includes(:resources).channelled(@current_channel).publishable.find(params[:id])
     @diffed_version = DiffedNoteVersion.new(@note, params[:sequence].to_i)
     @diffed_tag_list = DiffedNoteTagList.new(@diffed_version.previous_tag_list, @diffed_version.tag_list).list
 

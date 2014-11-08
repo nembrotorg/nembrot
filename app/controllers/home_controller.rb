@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     get_promoted_notes(@note)
 
     # FIXME: Cache this
-    all_notes = Note.channelled(@current_channel).publishable.listable.blurbable
+    all_notes = Note.includes(:resources).channelled(@current_channel).publishable.listable.blurbable
     mapify(all_notes.mappable)
 
     @channels = Channel.promoted.first(30)

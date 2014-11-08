@@ -18,7 +18,7 @@ class ThemesController < ApplicationController
     respond_to do |format|
       format.js
     end
-    expires_in 10.minutes, public: true unless current_user.admin?
+    # expires_in 10.minutes, public: true unless current_user.admin?
   end
 
   # GET /themes/new

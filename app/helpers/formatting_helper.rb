@@ -114,8 +114,8 @@ module FormattingHelper
         .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
         .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/mi, "<div>{quote:\n\\2\n}</div>")
         .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/i, "<div>{quote:\\2}</div>")
-        .gsub(/(<div)/i, "\n\\1")
-        .gsub(/(<\/div>)/i, "\\1\n")
+        .gsub(/(<p>|<div)/i, "\n\\1")
+        .gsub(/(<\/p>|<\/div>)/i, "\\1\n")
         #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
         #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
     text = "\n#{ text }\n"
@@ -371,6 +371,8 @@ module FormattingHelper
 
   def headerize(text)
     text.gsub(/^\s*<strong>(.+?)<\/strong>\s*$/m, '<header><h2>\1</h2></header>')
+        .gsub(/^\s*<p><strong>(.+?)<\/strong><\/p>\s*$/m, '<header><h2>\1</h2></header>')
+        .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
         .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
   end
 

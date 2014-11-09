@@ -1,13 +1,13 @@
 load_dashboard = () ->
   $.ajax
-    url: '/channels/choose/' + String($('[data-channel-slug]').data('channel-slug'))
+    url: '/channels/choose/' + String($('#main [data-channel-slug]').data('channel-slug'))
     cache: false
     success: (html) ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
+  load_dashboard()
   if $('#main .theme-home').size() > 0 || $('#dashboard header aside').size() > 0
-    load_dashboard()
     $('#dashboard').show()
     $('html').addClass('dashboard-open')
     if $('#main .theme-home').size() > 0

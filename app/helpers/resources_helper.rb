@@ -83,8 +83,9 @@ module ResourcesHelper
         post_fx(image, effects)
       end
 
-      image_optim = ImageOptim.new
-      image_optim.optimize_image!(file_name_out)
+      # TODO: Test for speed
+      # image_optim = ImageOptim.new
+      # image_optim.optimize_image!(file_name_out)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
       # image.write file_name_out

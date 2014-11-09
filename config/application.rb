@@ -42,7 +42,7 @@ module Nembrot
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.image_optim = { :svgo => false }
+    # config.assets.image_optim = { :svgo => false }
 
     # Generators
     config.generators do |g|

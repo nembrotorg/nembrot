@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
 
   # before_action :set_channel_defaults, only: [:index, :show, :new, :edit, :update, :destroy]
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
-  before_action :fetch_evernote_notebooks, only: [:show, :new, :edit, :update, :destroy]
+  before_action :fetch_evernote_notebooks, only: [:new, :edit]
 
   skip_before_action :get_map_all_markers
 

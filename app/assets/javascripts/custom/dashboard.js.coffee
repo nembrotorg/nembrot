@@ -6,8 +6,8 @@ load_dashboard = () ->
       $('#dashboard').html(html)
 
 auto_open_dashboard = () ->
-  if $('#main .theme-home').size() > 0 || $('#dashboard header aside').size() > 0 
-    load_dashboard()
+  load_dashboard()
+  if $('#main .theme-home').size() > 0 || $('#dashboard header aside').size() > 0
     $('#dashboard').show()
     $('html').addClass('dashboard-open')
     if $('#main .theme-home').size() > 0

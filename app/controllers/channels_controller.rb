@@ -97,7 +97,7 @@ class ChannelsController < ApplicationController
 
   def user_related_settings
     @country = 'US'
-    @country = request.location.country_code unless request.location.nil?
+    @country = request.location.country_code unless request.location.blank?
     @country_in_eu = @country == 'RD' ? false : Country.new(@country).in_eu?
     @plan = current_user.nil? ? Plan.free : current_user.plan
     @themes = user_signed_in? && current_user.admin? ? Theme.all : Theme.public

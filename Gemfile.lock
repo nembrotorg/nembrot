@@ -132,7 +132,6 @@ GEM
     eventmachine (1.0.3)
     evernote-thrift (1.25.1)
     execjs (2.0.2)
-    exifr (1.1.3)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.0)
@@ -151,7 +150,6 @@ GEM
     formatador (0.2.4)
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
-    fspath (2.1.0)
     fssm (0.2.10)
     fuubar (1.3.2)
       rspec (>= 2.14.0, < 3.1.0)
@@ -196,14 +194,6 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
-    image_optim (0.13.3)
-      exifr (~> 1.1.3)
-      fspath (~> 2.1.0)
-      image_size (~> 1.3.0)
-      in_threads (~> 1.2.0)
-      progress (~> 3.0.0)
-    image_size (1.3.1)
-    in_threads (1.2.1)
     isbn_validation (1.2.1)
       activerecord (>= 3)
     jquery-dotdotdot-rails (1.6.5)
@@ -306,7 +296,6 @@ GEM
       railties (>= 3.2, < 5.0)
     polyglot (0.3.4)
     powerpack (0.0.9)
-    progress (3.0.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -502,7 +491,6 @@ DEPENDENCIES
   guard-sass
   guard-spork
   httparty
-  image_optim
   isbn_validation
   jquery-dotdotdot-rails
   jquery-rails

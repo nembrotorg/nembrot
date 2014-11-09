@@ -1,6 +1,8 @@
 place_annotations = () ->
   if $('html.wider-than-720px').length > 0
-    place_annotations_do()
+    # Not sure what we're waiting for but it works more reliably
+    # place_annotations_do()
+    setTimeout place_annotations_do, 500
   else
     place_annotations_undo()
 

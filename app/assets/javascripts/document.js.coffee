@@ -38,7 +38,7 @@ update_titles = () ->
 truncate_blurbs = () ->
   truncate_blurbs_delay = setTimeout (->
     $('.notes li a, .channels li a').dotdotdot({
-      tolerance: 2,
+      tolerance: 5,
       watch: true
     })
   ), 1000

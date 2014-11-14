@@ -8,7 +8,9 @@ class Resource < ActiveRecord::Base
   belongs_to :note
 
   default_scope { order('id ASC') }
-  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', Setting['style.images_min_width'].to_i) }
+  # REVIEW: Evernote's attachment flag is inconsistent across source apps, use __INLINE
+  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', Setting['style.images_min_width'].to_i) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', Setting['style.images_min_width'].to_i) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
   validates_presence_of :cloud_resource_identifier, :note

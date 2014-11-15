@@ -74,7 +74,7 @@ module FormattingHelper
 
   def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
-    text = sanitize(text, { tags: allowed_tags })
+    text = sanitize(text, { tags: allowed_tags.split(/, ?| /) + ['span'] })# REVIEW: Why add <span> here? For Feature titles
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags

@@ -41,6 +41,10 @@ load_maps = (theme) ->
       window.Nembrot.map_object.serviceObject.setZoom(16)
       window.Nembrot.MAP_THIS_MARKER = 'rendered'
 
+    else
+      # If we do not render the map, Firefox keeps trying to load the Google maps API
+      render_map($('figure.map_container .map'), {}, theme, false)
+
 render_map = (map_container_id, markers, theme, show_map_type_control) ->
   map_style = window.Nembrot.THEMES[theme]['map_style']
   handler = (if map_container_id is 'single_map' then  Gmaps.build('Google') else Gmaps.build('Google', { builders: { Marker: RichMarkerBuilder } }))

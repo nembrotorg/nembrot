@@ -11,7 +11,6 @@ place_annotations_do = () ->
     $('.annotations').addClass('side-annotations')
     annotations = $('li[id^=annotation-]')
     minimum = $('.body').offset().top
-    if $('#introduction').length then minimum += $('#introduction').outerHeight(true)
     if $('#single_map:visible').length > 0 then minimum += $('#single_map').outerHeight(true)
     new_top = minimum
     corrected_top = minimum

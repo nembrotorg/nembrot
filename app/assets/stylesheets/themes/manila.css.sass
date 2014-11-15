@@ -75,6 +75,11 @@
       &> nav
         margin-bottom: $line-height
 
+    #introduction
+      font:
+        style: normal
+        weight: 300
+
     #text
       .target .body
         p
@@ -83,12 +88,21 @@
             color: $headline-font-color
             &:hover
               color: $link-hover-color
+          strong
+            font-weight: 500
 
   // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @media only screen and (min-width: 1024px)
 
     #main
+      h1
+        font-size: 2.2em
+
+      #introduction
+        +span-columns(9)
+        margin-bottom: $line-height
+
       #text .target .body
         p
           color: $body-font-color

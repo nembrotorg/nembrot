@@ -97,6 +97,7 @@ $ ->
   insert_qr_code()
   load_user_menu()
   truncate_blurbs()
+  hljs.initHighlightingOnLoad()
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
@@ -108,6 +109,7 @@ $(document).on 'pjax:success', '#main', (data) ->
   update_titles()
   insert_qr_code()
   truncate_blurbs()
+  hljs.initHighlightingOnLoad()
 
   # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_controller, page_action)

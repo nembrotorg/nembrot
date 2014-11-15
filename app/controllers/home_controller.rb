@@ -10,9 +10,9 @@ class HomeController < ApplicationController
     #  relation rather than an array.
     if @note.nil?
       @note = @default_note
-      @current_channel.update_attributes(has_notes: false) if @current_channel.has_notes == true
+      @current_channel.update_attributes(has_notes: false) if @current_channel.has_notes?
     else
-      @current_channel.update_attributes(has_notes: true) if @current_channel.has_notes == false
+      @current_channel.update_attributes(has_notes: true) unless @current_channel.has_notes?
     end
 
     interrelated_notes_features_and_citations

@@ -295,18 +295,6 @@
       "src": "entypo"
     },
     {
-      "uid": "ef5e2b339a93fff038cc6a28f8c91edd",
-      "css": "stumbleupon",
-      "code": 59423,
-      "src": "entypo"
-    },
-    {
-      "uid": "ae49d5a5d0c2f7253f375bde5f0da2d2",
-      "css": "lastfm",
-      "code": 62241,
-      "src": "entypo"
-    },
-    {
       "uid": "882d407598d4e60074f5c08b3372811e",
       "css": "spotify",
       "code": 62247,
@@ -381,19 +369,13 @@
     {
       "uid": "134184de1e4f1dc3d40e0d93bb1ef15e",
       "css": "industrial-building",
-      "code": 59433,
+      "code": 59418,
       "src": "maki"
     },
     {
       "uid": "f5281239de27061e68f4367ba3efee15",
       "css": "paypal",
       "code": 59429,
-      "src": "zocial"
-    },
-    {
-      "uid": "aaf371ab44841e9aaffebd179d324ce4",
-      "css": "android",
-      "code": 59418,
       "src": "zocial"
     },
     {
@@ -409,15 +391,9 @@
       "src": "zocial"
     },
     {
-      "uid": "8625d6e45fba1219638069e21eedbce8",
-      "css": "digg",
-      "code": 59938,
-      "src": "zocial"
-    },
-    {
-      "uid": "b3a537446285bb3510bba57d20374818",
-      "css": "reddit",
-      "code": 62,
+      "uid": "799d6108751f684ac9d018983251a08f",
+      "css": "pinterest",
+      "code": 59436,
       "src": "zocial"
     },
     {
@@ -463,15 +439,9 @@
       "src": "brandico"
     },
     {
-      "uid": "cd65196712e52477b9252b4b296b0c44",
-      "css": "visa",
-      "code": 59431,
-      "src": "brandico"
-    },
-    {
-      "uid": "c3043114c56d36658e5cae51d36281c8",
-      "css": "mastercard",
-      "code": 59430,
+      "uid": "cc20f2a7fa05a475130c406740bbbd26",
+      "css": "instagram-filled",
+      "code": 59437,
       "src": "brandico"
     },
     {

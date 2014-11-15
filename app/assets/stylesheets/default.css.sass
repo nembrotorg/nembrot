@@ -48,57 +48,68 @@ button, input
   &::-moz-focus-inner
   border: 0
 
-nav:not(.tags) ul, aside ul.shares
-  li a:first-of-type
-    &[href*=pdf]
-    &[dir=rtl]
-      text-align: right
-    &[rel=tag]
-      text-transform: lowercase
-    &:focus
-      outline: 0
-    &[href*=admin]:before, &[href*=settings]:before
-      +icon-settings
-      +icon-medium
-    &[href*=users]:before
-      +icon-user-2-empty
-    &[href$='#disqus_thread']:before,
-    &[href$='#comments']:before
-      +icon-comment-empty
-    &[href$='#menu']:before
-      +icon-list
-    &[href*=evernote]:before,
-      +icon-evernote
-    &[href*=facebook]:before,
-      +icon-facebook
-    &[href*=github]:before
-      +icon-github-circled
-    &[href*=google]:before, &[href*=gplus]:before
-      +icon-gplus
-    &[href*=linkedin]:before
-      +icon-linkedin
-    &[href^=mailto]:before
-      +icon-mail
-      +icon-regular
-    &[href$=rss]:before,
-    &[href$=atom]:before      
-      +icon-rss
-      +icon-regular
-    &[href*=reset]:before
-      +icon-undo
-    &[href*=signout]:before
-      +icon-x
-    &[href*=soundcloud]:before
-      +icon-soundcloud
-    &[href*=spotify]:before
-      +icon-spotify
-    &[href*=twitter]:before
-      +icon-twitter
-    &[href*=vimeo]:before
-      +icon-vimeo
-      +icon-medium
-    &[href*=youtube]:before
-      +icon-youtube
+#main
+  nav:not(.tags) ul, aside ul.shares
+    li a:first-of-type
+      &[href*=pdf]
+      &[dir=rtl]
+        text-align: right
+      &[rel=tag]
+        text-transform: lowercase
+      &:focus
+        outline: 0
+      &:before
+        font-size: 16px !important
+      &[href^=http]
+        text-transform: lowercase  
+      &[href*=admin]:before, &[href*=settings]:before
+        +icon-settings
+        +icon-medium
+      &[href*=users]:before
+        +icon-user-2-empty
+      &[href$='#disqus_thread']:before,
+      &[href$='#comments']:before
+        +icon-comment-empty
+      &[href$='#menu']:before
+        +icon-list
+      &[href*=evernote]:before,
+        +icon-evernote
+      &[href*=facebook]:before,
+        +icon-facebook
+      &[href*=flickr]:before
+        +icon-flickr
+      &[href*=pinterest]:before
+        +icon-pinterest
+      &[href*=instagram]:before
+        +icon-instagram
+      &[href*=github]:before
+        +icon-github-circled
+      &[href*=google]:before, &[href*=gplus]:before
+        +icon-gplus
+      &[href*=linkedin]:before
+        +icon-linkedin
+      &[href^=mailto]:before
+        +icon-mail
+        +icon-regular
+      &[href$=rss]:before,
+      &[href$=atom]:before      
+        +icon-rss
+        +icon-regular
+      &[href*=reset]:before
+        +icon-undo
+      &[href*=signout]:before
+        +icon-x
+      &[href*=soundcloud]:before
+        +icon-soundcloud
+      &[href*=spotify]:before
+        +icon-spotify
+      &[href*=twitter]:before
+        +icon-twitter
+      &[href*=vimeo]:before
+        +icon-vimeo
+        +icon-medium
+      &[href*=youtube]:before
+        +icon-youtube
 
 a.signed_in:first-of-type
   &[href*=users]:before

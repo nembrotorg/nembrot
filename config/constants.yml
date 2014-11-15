@@ -17,6 +17,7 @@ defaults: &defaults
     format: html5
   repository: git@github.com:joegatt/nembrotcom.git
   rtl_langs: 'ar arc arz bcc bqi ckb dv fa glk he ku mzn pnb ps sd ug ur yi'
+  social_services: ['Facebook', 'Flickr', 'Github', 'Instagram', 'Pinterest', 'Soundcloud', 'Tumblr', 'Twitter', 'Vimeo', 'Youtube']
   stream_binaries: false
   synchronous: false
   version: 0.9

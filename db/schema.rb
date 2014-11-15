@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026151557) do
+ActiveRecord::Schema.define(version: 20141115183149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,10 @@ ActiveRecord::Schema.define(version: 20141026151557) do
     t.boolean  "notes_index",               default: true
     t.integer  "read_more_notes",           default: 10
     t.boolean  "has_notes",                 default: false
+    t.string   "follow_on_github"
+    t.string   "follow_on_instagram"
+    t.string   "follow_on_pinterest"
+    t.string   "follow_on_flickr"
   end
 
   add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true, using: :btree

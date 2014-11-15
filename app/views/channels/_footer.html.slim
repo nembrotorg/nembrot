@@ -16,29 +16,16 @@
           - @sections.each do |section|
             li = link_to_unless_current_or_wrap section.get_feature_name.titlecase, feature_path(feature: section.feature)
 
-        - unless @current_channel.follow_on_facebook.blank?
-          li = link_to 'Facebook', @current_channel.follow_on_facebook, title: "Follow #{ @current_channel.name } on Facebook"
-
-        - unless @current_channel.follow_on_twitter.blank?
-          li = link_to 'Twitter', @current_channel.follow_on_twitter, title: "Follow #{ @current_channel.name } on Twitter"
+        - Constant.social_services.each do |service|
+          - column = @current_channel.try("follow_on_#{ service.downcase }".to_sym)
+          - unless column.blank?
+            li = link_to service, follow_url(column), title: "Follow #{ @current_channel.name } on #{ service }"
 
         - unless @current_channel.follow_on_googleplus.blank?
           li = link_to 'Google+', @current_channel.follow_on_googleplus, title: "Follow #{ @current_channel.name } on Google+"
 
-        - unless @current_channel.follow_on_tumblr.blank?
-          li = link_to 'Tumblr', @current_channel.follow_on_tumblr, title: "Follow #{ @current_channel.name } on Tumblr"
-
-        - unless @current_channel.follow_on_soundcloud.blank?
-          li = link_to 'Soundcloud', @current_channel.follow_on_soundcloud, title: "Follow #{ @current_channel.name } on Soundcloud"
-
-        - unless @current_channel.follow_on_vimeo.blank?
-          li = link_to 'Vimeo', @current_channel.follow_on_vimeo, title: "Follow #{ @current_channel.name } on Vimeo"
-
-        - unless @current_channel.follow_on_youtube.blank?
-          li = link_to 'Youtube', @current_channel.follow_on_youtube, title: "Follow #{ @current_channel.name } on Youtube"
-
         - if @current_channel.contact_email?
-          li = mail_to 'Contact', @current_channel.contact_email
+          li = mail_to @current_channel.contact_email, @current_channel.contact_email
 
         - if @current_channel.show_nembrot_link?
           li = link_to_unless_current_or_wrap 'Nembrot', '/'

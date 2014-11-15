@@ -132,17 +132,16 @@
             = f.check_box :comments, id: 'comments-cb', checked: @channel.comments
 
           label.text = f.text_field :disqus_shortname, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Disqus shortname'
-          label.text = f.text_field :follow_on_facebook, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Facebook page (full url)'
-          label.text = f.text_field :follow_on_googleplus, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Google+ page (full url)'
-          label.text = f.text_field :follow_on_soundcloud, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Soundcloud channel (full url)'
-          label.text = f.text_field :follow_on_tumblr, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Tumblr (full url)'
-          label.text = f.text_field :follow_on_twitter, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Twitter (full url)'
-          label.text = f.text_field :follow_on_vimeo, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Vimeo channel (full url)'
-          label.text = f.text_field :follow_on_youtube, pattern: "[a-zA-Z0-9\/\:\.\-\_]{3,40}", placeholder: 'Youtube channel (full url)'
-          label.text = f.text_field :contact_email, pattern: "[a-zA-Z0-9\-\_]@[a-z\.]{2,8}", placeholder: 'Contact email (public)'
+
+          - Constant.social_services.each do |service|
+            label.text = f.text_field "follow_on_#{ service.downcase }".to_sym, pattern: url_pattern(service.downcase), placeholder: "#{ service } page (full url)"
+
+          label.text = f.text_field :follow_on_googleplus, pattern: url_pattern('google'), placeholder: 'Google+ page (full url)'
+
+          label.text = f.text_field :contact_email, pattern: email_pattern, placeholder: 'Contact email (public)'
           -#label.text = f.text_field :google_analytics_key, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Google Analytics key'
           -#label.text = f.text_field :facebook_app_id, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Facebok app id'
-          label.text = f.text_field :url, pattern: "[a-zA-Z0-9\-\_]{3,40}", placeholder: 'Your url (redirect to 77.68.58.244)'
+          label.text = f.text_field :url, pattern: "[a-zA-Z0-9\-\_\.]{3,40}", placeholder: 'Your url (redirect to 77.68.58.244)'
           label for='newsletter'
             span Occasional newsletter
             = f.check_box :newsletter, id: 'newsletter', checked: @channel.newsletter

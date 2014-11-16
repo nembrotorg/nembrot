@@ -42,11 +42,22 @@ class Channel < ActiveRecord::Base
     slug.blank? || name_changed?
   end
 
-  private
+  def self.update_locales(note)
+    # Update a channel's locale according to the language it most uses
+    where(notebooks: note.evernote_notes.first.cloud_notebook_identifier, locale_auto: true).each do |channel|
+      locale =  Note.unscoped
+          .channelled(channel)
+          .publishable
+          .select("COUNT(*) AS count, lang")
+          .group("lang")
+          .order("count DESC")
+          .first
+          .lang
+      channel.update_attribute(:locale, locale)
+    end
+  end
 
-  # def notebook_in_plan?
-  #   user.plan
-  # end
+  private
 
   def theme_in_plan?
     theme.premium == false || user.plan.premium_themes?

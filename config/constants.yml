@@ -1,6 +1,6 @@
 defaults: &defaults
   asset_host: http://localhost:3000
-  assets_version: 1.3
+  assets_version: 1.4
   blank_image_location: '/public/resources/cut/blank.png'
   cache_buster: 10
   cache_evernote_notebooks_for_minutes: 5

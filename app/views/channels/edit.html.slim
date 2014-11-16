@@ -15,12 +15,13 @@ a href='#close'
 javascript:
 
   // Automatically open settings for current channel
-  // Except is current channel is inactive
+  // Except if current channel is inactive
   // Otherwise we could never activate a channel
   if ($('[data-theme-wrapper]').data('channel-id') != #{ @channel.id } && #{ @channel.active == true } && location.href != '#{ home_path(@channel) }') {
     $.pjax({ url: '#{ home_path(@channel) }', container: '[data-pjax-container]' });
   }
 
+  // Scroll selected theme into view
   var theme_div = $('#dashboard .theme div');
   var theme_checked = $('#dashboard .theme input:checked');
   if (theme_div.length && theme_checked.length) {

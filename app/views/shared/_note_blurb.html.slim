@@ -11,9 +11,12 @@
   - effects += note.fx unless note.fx.nil?
   - effects = effects.uniq
 
-  - image_src = cut_image_binary_path(image, type: :thumbnail, effects: effects) unless image.nil?
-  - image_alt = strip_tags(image.description) unless image.nil?
-  - image_data = { image_src: image_src, image_alt: image_alt }
+  - if image.nil?
+    - image_data = nil
+  - else
+    - image_src = cut_image_binary_path(image, type: :thumbnail, effects: effects)
+    - image_alt = strip_tags(image.description)
+    - image_data = { image_src: image_src, image_alt: image_alt }
 
   = link_to note_or_feature_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang), data: image_data do
     -# Thumbnails are loaded asynchronously if the theme requires them

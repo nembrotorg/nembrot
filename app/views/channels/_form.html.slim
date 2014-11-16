@@ -176,7 +176,12 @@ javascript:
     notebooks_div.scrollTop(notebooks_checked.position().top);
   }
 
+  // Scroll selected theme into view
+  var themes_div = $('#dashboard .themes div');
+  var themes_checked = $('#dashboard .themes input:checked');
+  if (themes_div.length && themes_checked.length) {
+    themes_div.scrollTop(themes_checked.position().top);
+  }
+
   window.Nembrot.transform_radio_buttons_to_select();
   window.Nembrot.track_dashboard();
-
-  // Scroll selected theme into view

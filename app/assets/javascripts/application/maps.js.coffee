@@ -77,27 +77,29 @@ build_tags = () ->
       all_tags += ', ' + $(marker).data('tags')
 
     tags = all_tags.split ', '
-    tags = _.compact tags
-    tags = tags.sort()
-    tags = _.uniq tags, true
 
-    list = $('<ol>', { id: 'tags' } )
+    if tags.length > 0
+      tags = _.compact tags
+      tags = tags.sort()
+      tags = _.uniq tags, true
 
-    _.each tags, (tag) ->
-      itemx = $('<li>')
-      labelx = $('<label>')
-      labelx.append $('<input>', { checked: true, type: 'checkbox', value: tag } )
-      labelx.append "#{ tag }"
-      itemx.append labelx
-      list.append itemx
+      list = $('<ol>', { id: 'tags' } )
 
-    $('#persistent_map').append list
+      _.each tags, (tag) ->
+        itemx = $('<li>')
+        labelx = $('<label>')
+        labelx.append $('<input>', { checked: true, type: 'checkbox', value: tag } )
+        labelx.append "#{ tag }"
+        itemx.append labelx
+        list.append itemx
 
-    if $('[data-controller="tags"][data-action="show"]').length > 0
-      show_one_map_tag $('#main h1').text()
+      $('#persistent_map').append list
 
-    $(document).on 'click', '#persistent_map ol#tags input', () ->
-      update_map_tags()
+      if $('[data-controller="tags"][data-action="show"]').length > 0
+        show_one_map_tag $('#main h1').text()
+
+      $(document).on 'click', '#persistent_map ol#tags input', () ->
+        update_map_tags()
 
 update_map_tags = () ->
   all_checked_inputs = $('#persistent_map ol#tags input:checked')

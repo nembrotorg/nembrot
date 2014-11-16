@@ -92,7 +92,46 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :notebooks, :theme_id, :always_reset_on_create, :bibliography, :contact_email, :disqus_shortname, :facebook_app_id, :follow_on_facebook, :follow_on_soundcloud, :follow_on_tumblr, :follow_on_twitter, :follow_on_vimeo, :follow_on_youtube, :google_analytics_key, :index_on_google, :links_section, :locale, :only_show_notes_in_locale, :private, :promote, :show_nembrot_link, :url, :versions, :comments, :active, :breadcrumbs, :menu_at_top, :menu_at_bottom, :follow_on_googleplus, :newsletter, :promoted, :tags, :locale_auto, :copyright)
+    params.require(:channel).permit(
+      :active,
+      :always_reset_on_create,
+      :bibliography,
+      :breadcrumbs,
+      :comments,
+      :contact_email,
+      :copyright,
+      :disqus_shortname,
+      :facebook_app_id,
+      :follow_on_facebook,
+      :follow_on_flickr,
+      :follow_on_github,
+      :follow_on_googleplus,
+      :follow_on_instagram,
+      :follow_on_pinterest,
+      :follow_on_soundcloud,
+      :follow_on_tumblr,
+      :follow_on_twitter,
+      :follow_on_vimeo,
+      :follow_on_youtube,
+      :google_analytics_key,
+      :index_on_google,
+      :links_section,
+      :locale,
+      :menu_at_bottom,
+      :menu_at_top,
+      :name,
+      :newsletter,
+      :notebooks,
+      :only_show_notes_in_locale,
+      :private,
+      :promote,
+      :promoted,
+      :show_nembrot_link,
+      :tags,
+      :theme_id,
+      :url,
+      :versions
+    )
   end
 
   def user_related_settings

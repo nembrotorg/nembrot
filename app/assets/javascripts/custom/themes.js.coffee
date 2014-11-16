@@ -27,14 +27,16 @@ change_theme_if_editing_channel = (theme) ->
 change_image_effects = (theme) ->
   $('figure.image .wrapper').each ->
     container = $(this)
-    image = $(this).find('img')
-    image.on 'load', ->
-      new_image = new Image
-      new_source = image.attr('src').replace(/^(.*\-)([^\-]*?)(\-\d{1,9}\.)(gif|jpeg|png)$/, '$1' + window.Nembrot.THEMES[theme]['effects'] + '$3$4')
-      new_image.src = new_source
-      $(new_image).on 'load', ->
-        container.css('backgroundImage', "url(#{ new_source })")
-        image.attr('src', new_image.src)
+    image = container.find('img')
+    old_source = image.attr('src')
+    if old_source
+      new_source = old_source.replace(/^(.*\-)([^\-]*?)(\-\d{1,9}\.)(gif|jpeg|png)$/, '$1' + window.Nembrot.THEMES[theme]['effects'] + '$3$4')
+      if new_source != old_source
+        new_image = new Image
+        new_image.src = new_source
+        $(new_image).on 'load', ->
+          container.css('backgroundImage', "url(#{ new_source })")
+          image.attr('src', new_image.src)
 
 load_typekit_font = (code) ->
   $.cachedScript('//use.typekit.net/' + code + '.js').done (script) ->

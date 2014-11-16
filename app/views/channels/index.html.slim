@@ -36,3 +36,7 @@ a href='#close'
 
 javascript:
   window.Nembrot.track_dashboard();
+
+coffee:
+  if $('#dashboard #channel-updated').length > 0
+    $.pjax({ url: location.href, container: '[data-pjax-container]' }, cache: false);

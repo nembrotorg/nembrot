@@ -72,6 +72,11 @@ class ChannelsController < ApplicationController
     redirect_to root_url, notice: 'Your website has been deleted.'
   end
 
+  def evernote_notebooks
+    @evernote_notebooks_list = EvernoteNotebookList.new(current_user).arry(false)
+    render partial: 'channels/evernote_notebooks'
+  end
+
   def available
     @name_candidate = params[:name]
     forbidden_names = %w(default help faqs nembrot cunt pussy) #REVIEW: Put in settings
@@ -88,7 +93,7 @@ class ChannelsController < ApplicationController
   def fetch_evernote_notebooks
     # REVIEW: Cache this
     # Check not only that user is signed in, but that she is connected to evernote
-    @evernote_notebooks_list = user_signed_in? ? EvernoteNotebookList.new(current_user).array : []
+    @evernote_notebooks_list = user_signed_in? ? EvernoteNotebookList.new(current_user).arry : []
   end
 
   def channel_params

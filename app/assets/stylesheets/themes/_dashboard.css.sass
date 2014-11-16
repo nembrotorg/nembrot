@@ -371,6 +371,35 @@ $error-color: #cc0000
     margin: 0 5%
     width: 90%
 
+  .notebooks
+    legend
+      a#refresh_evernote_notebooks_list
+        display: none
+        height: $line-height
+        line-height: $line-height
+        overflow: hidden
+        padding: 0 !important
+        position: absolute
+        right: 60px
+        top: 0
+        width: $text-indent
+        &:before
+          display: inline-block
+          height: $line-height
+          line-height: $line-height
+          color: #999
+          padding: 0 !important
+          text-align: center
+          width: $text-indent
+          +icon-refresh
+      &.refreshing
+        a#refresh_evernote_notebooks_list
+          &:before
+            +animate-spin
+      &.ui-accordion-header-active
+        a#refresh_evernote_notebooks_list
+          display: inline-block
+
 // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only screen and (min-width: 720px)

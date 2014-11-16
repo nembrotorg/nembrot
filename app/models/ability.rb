@@ -19,6 +19,7 @@ class Ability
       can :show_channel, Link
       can :menu, User
       can :create, Channel
+      can :evernote_notebooks, Channel
       can :available, Channel
       can :choose, Channel
       cannot :read, Channel

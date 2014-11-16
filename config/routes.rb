@@ -11,6 +11,7 @@ Nembrot::Application.routes.draw do
 
   get 'channels/available/:name' => 'channels#available'
   get 'channels/choose(/:channel)' => 'channels#choose'
+  get 'channels/evernote_notebooks' => 'channels#evernote_notebooks'
   resources :channels
 
   get '/(:channel)' => 'home#index', as: :home

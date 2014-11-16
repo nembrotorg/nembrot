@@ -59,6 +59,15 @@ $ ->
       , 500)
     return
 
+  $(document).on 'click', ':not(.refreshing) #refresh_evernote_notebooks_list', (event) ->
+    $('.notebooks legend').addClass('refreshing')
+    $.ajax
+      url: "/channels/evernote_notebooks"
+      cache: false
+      success: (html) ->
+        $("#evernote_notebooks_list").html html
+        $('.notebooks legend').removeClass('refreshing')
+
   $(document).on 'pjax:success', '#main', (data) ->
     auto_open_dashboard()
 

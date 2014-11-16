@@ -25,17 +25,13 @@
 
   fieldset class="notebooks #{ signed_in_with_evernote ? '' : 'disabled' }" data-shared-notebooks="#{ @plan.shared_notebooks }" data-business-notebooks="#{ @plan.business_notebooks }"
     legend class="#{ @channel.notebooks.nil? ? '' : 'completed' }"
+      a#refresh_evernote_notebooks_list Refresh
       | Choose an Evernote notebook
-    div
+    div#evernote_notebooks_list
       - unless @channel.errors[:notebooks].empty?
         p.error = "Notebook #{ @channel.errors.messages[:notebooks].join(', ') }."
 
-      - @evernote_notebooks_list.each do |notebook|
-        = f.label :notebooks, notebook[:name], value: notebook[:guid]
-          -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
-          span class="#{ notebook[:shared] ? 'shared' : nil } #{ notebook[:business] ? 'business' : nil }"
-            = notebook[:name]
-          = f.radio_button :notebooks, notebook[:guid], required: true, data: { shared: notebook[:shared], business: notebook[:business] }
+      = render 'evernote_notebooks'
 
   fieldset class="name #{ signed_in_with_evernote ? '' : 'disabled' }"
     legend class="#{ @channel.name.nil? ? '' : 'completed' }"

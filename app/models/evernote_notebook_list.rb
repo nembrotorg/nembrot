@@ -10,8 +10,8 @@ class EvernoteNotebookList
     self.user = user
   end
 
-  def array
-    Rails.cache.exist?(cache_key) ? Rails.cache.fetch(cache_key) : fetch_notebooks_list
+  def arry(cache = true)
+    Rails.cache.exist?(cache_key) && cache ? Rails.cache.fetch(cache_key) : fetch_notebooks_list
   end
 
   private
@@ -36,7 +36,7 @@ class EvernoteNotebookList
 
     list_array = list_array.sort_by { |i| i[:name].downcase }
 
-    Rails.cache.write(cache_key, list_array, expires_in: 10.minutes)
+    Rails.cache.write(cache_key, list_array, expires_in: 1.hours)
 
     return list_array
   end

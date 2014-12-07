@@ -18,6 +18,7 @@ Nembrot::Application.routes.draw do
   root to: 'home#index'
 
   get 'users/menu' => 'users#menu'
+  get 'users/reconnect_prompt' => 'users#reconnect_prompt'
   get 'users/upgrade/cancel' => 'users#cancel_upgrade'
   get 'users/upgrade' => 'users#process_paypal_pdt'
 

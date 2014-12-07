@@ -35,6 +35,12 @@ class UsersController < ApplicationController
     render partial: 'user_tools'
   end
 
+  def reconnect_prompt
+    sign_out
+    flash[:error] = 'Reconnect with Evernote to continue!'
+    redirect_to home_url
+  end
+
   private
 
   def set_user

@@ -39,6 +39,9 @@ class EvernoteNotebookList
     Rails.cache.write(cache_key, list_array, expires_in: 3.hours)
 
     return list_array
+
+    rescue Evernote::EDAM::Error::EDAMUserException => error
+      return ['AUTH_EXPIRED'] if Constant.evernote_errors[error.errorCode] == 'AUTH_EXPIRED'
   end
 
   def cache_key

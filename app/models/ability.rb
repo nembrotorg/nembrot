@@ -18,6 +18,7 @@ class Ability
       can :hash, Theme
       can :show_channel, Link
       can :menu, User
+      can :reconnect_prompt, User
       can :create, Channel
       can :evernote_notebooks, Channel
       can :available, Channel

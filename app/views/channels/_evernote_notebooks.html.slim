@@ -1,6 +1,12 @@
 -# We use this instead of the standard form_for so that we can include this list as a partial
-- @evernote_notebooks_list.each do |notebook|
-  label for="channel_notebooks_#{ notebook[:guid] }"
-    -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
-    span = notebook[:name]
-    input data-business="#{ notebook[:business] }" data-shared="#{ notebook[:shared] }" id="channel_notebooks_#{ notebook[:guid] }" name="channel[notebooks]" required="required" type="radio" value="#{ notebook[:guid] }"
+
+- if @evernote_notebooks_list == ['AUTH_EXPIRED']
+  javascript:
+    location.href = '/users/reconnect_prompt';
+
+- else
+  - @evernote_notebooks_list.each do |notebook|
+    label for="channel_notebooks_#{ notebook[:guid] }"
+      -# FIXME: Not ideal, this span is unsemantic. put radio button outside label
+      span = notebook[:name]
+      input data-business="#{ notebook[:business] }" data-shared="#{ notebook[:shared] }" id="channel_notebooks_#{ notebook[:guid] }" name="channel[notebooks]" required="required" type="radio" value="#{ notebook[:guid] }"

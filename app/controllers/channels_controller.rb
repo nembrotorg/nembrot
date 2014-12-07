@@ -74,6 +74,7 @@ class ChannelsController < ApplicationController
 
   def evernote_notebooks
     @evernote_notebooks_list = EvernoteNotebookList.new(current_user).arry(false)
+    flash[:error] = 'Reconnect with Evernote to continue.' if @evernote_notebooks_list == ['AUTH_EXPIRED']
     render partial: 'channels/evernote_notebooks'
   end
 

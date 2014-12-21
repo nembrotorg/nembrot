@@ -183,7 +183,7 @@ class EvernoteRequest
 
       cloud_resources.each_with_index do |cloud_resource, index|
 
-        if cloud_resource.width > Setting['style.images_min_width'].to_i
+        if cloud_resource.width.nil? || cloud_resource.width > Setting['style.images_min_width'].to_i
           resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
           caption = captions[index] ? captions[index][0] : ''

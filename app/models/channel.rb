@@ -42,9 +42,14 @@ class Channel < ActiveRecord::Base
     slug.blank? || name_changed?
   end
 
+  def self.channels_that_use_this_note(note)
+    # REVIEW: Should this be a scope?
+    where(notebooks: note.evernote_notes.first.cloud_notebook_identifier, locale_auto: true)
+  end
+
   def self.update_locales(note)
     # Update a channel's locale according to the language it most uses
-    where(notebooks: note.evernote_notes.first.cloud_notebook_identifier, locale_auto: true).each do |channel|
+    self.channels_that_use_this_note(note).each do |channel|
       locale =  Note.unscoped
           .channelled(channel)
           .publishable

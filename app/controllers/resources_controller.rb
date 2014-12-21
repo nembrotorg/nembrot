@@ -11,6 +11,12 @@ class ResourcesController < ApplicationController
                      :get_map_all_markers,
                      :set_public_cache_headers
 
+  def download
+    file_name = "#{ params[:file_name] }.pdf"
+    expires_in 1.year, public: true
+    send_file "/resources/raw/#{ file_name }.pdf", type: 'application/pdf', filename: file_name
+  end
+
   def cut
     image = cut_image_binary(
         params[:id],

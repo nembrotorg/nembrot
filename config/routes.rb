@@ -36,6 +36,7 @@ Nembrot::Application.routes.draw do
   put 'settings' => 'settings#update', as: :update_settings
   get 'settings/edit' => 'settings#edit', as: :edit_settings
 
+  get 'resources/raw/(:file_name)' => 'resources#download', constraints: { format: /pdf/ }
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,
     aspect_x: /\d+/,

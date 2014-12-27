@@ -6,29 +6,29 @@ describe BookMailer do
     let(:mail) { BookMailer.missing_metadata(book) }
 
     it 'renders the receiver email' do
-      mail.to.should == [Setting['advanced.admin_email']]
+      expect(mail.to).to eq([Setting['advanced.admin_email']])
     end
 
     it 'renders the sender email' do
-      mail.from.should == [Setting['advanced.admin_email']]
+      expect(mail.from).to eq([Setting['advanced.admin_email']])
     end
 
     it 'assigns @name' do
-      mail.body.encoded.should match(Setting['advanced.admin_name'])
+      expect(mail.body.encoded).to match(Setting['advanced.admin_name'])
     end
 
     it 'includes book details in the subject' do
-      mail.subject.should match(book.isbn)
-      mail.subject.should match(book.author)
-      mail.subject.should match(book.title)
-      mail.subject.should match(book.published_date.year.to_s)
+      expect(mail.subject).to match(book.isbn)
+      expect(mail.subject).to match(book.author)
+      expect(mail.subject).to match(book.title)
+      expect(mail.subject).to match(book.published_date.year.to_s)
     end
 
     it 'includes book details in the body' do
-      mail.body.encoded.should match(book.isbn)
-      mail.body.encoded.should match(book.author)
-      mail.body.encoded.should match(book.title)
-      mail.body.encoded.should match(book.published_date.year.to_s)
+      expect(mail.body.encoded).to match(book.isbn)
+      expect(mail.body.encoded).to match(book.author)
+      expect(mail.body.encoded).to match(book.title)
+      expect(mail.body.encoded).to match(book.published_date.year.to_s)
     end
   end
 end

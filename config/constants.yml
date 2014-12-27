@@ -11,7 +11,7 @@ defaults: &defaults
     pretty_body: false
     sort_attrs: true
     tabsize: 2
-    format: html5
+    format: html
   repository: git://github.com/nembrotorg/nembrot.git
   rtl_langs: 'ar arc arz bcc bqi ckb dv fa glk he ku mzn pnb ps sd ug ur yi'
   stream_binaries: false

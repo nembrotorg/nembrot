@@ -22,10 +22,10 @@ describe 'Notes' do
       visit notes_path
     end
     it 'should have the title Notes' do
-      page.should have_selector('h1', text: I18n.t('notes.index.title'))
+      expect(page).to have_selector('h1', text: I18n.t('notes.index.title'))
     end
     it 'should have a link to note' do
-      page.should have_selector('a', note_path(@note))
+      expect(page).to have_selector('a', note_path(@note))
     end
 
     context 'when a note is not active' do
@@ -34,7 +34,7 @@ describe 'Notes' do
         visit notes_path
       end
       it 'should not have a link to an inactive note' do
-        page.should_not have_link(body: 'New title: New body', href: note_path(@note))
+        expect(page).not_to have_link(body: 'New title: New body', href: note_path(@note))
       end
     end
 
@@ -45,7 +45,7 @@ describe 'Notes' do
       end
       it 'should display the introduction in the blurb' do
         # Review: give option to truncate blurb or not
-        page.should have_text('It has a rather long introduction,...')
+        expect(page).to have_text('It has a rather long introduction,...')
       end
     end
 
@@ -55,7 +55,7 @@ describe 'Notes' do
         visit notes_path
       end
       it 'should link to map' do
-        page.should_not have_link('See map', href: notes_map_path)
+        expect(page).not_to have_link('See map', href: notes_map_path)
       end
     end
 
@@ -65,7 +65,7 @@ describe 'Notes' do
         visit notes_path
       end
       it 'should link to map' do
-        page.should have_link('See map', href: notes_map_path)
+        expect(page).to have_link('See map', href: notes_map_path)
       end
     end
 
@@ -76,7 +76,7 @@ describe 'Notes' do
         visit notes_path
       end
       it 'should link to map' do
-        page.should have_link('See map', href: notes_map_path)
+        expect(page).to have_link('See map', href: notes_map_path)
       end
     end
 
@@ -90,10 +90,10 @@ describe 'Notes' do
         visit notes_path
       end
       it 'has the language attribute if note is not in default language' do
-        page.should have_css('ul li a[lang=ar]')
+        expect(page).to have_css('ul li a[lang=ar]')
       end
       it 'has the text direction if note is not in default language' do
-        page.should have_css('ul li a[dir=rtl]')
+        expect(page).to have_css('ul li a[dir=rtl]')
       end
     end
   end
@@ -108,31 +108,31 @@ describe 'Notes' do
       visit note_path(@note)
     end
     it 'should have the note title as title' do
-      page.should have_selector('h1', text: @note.title)
+      expect(page).to have_selector('h1', text: @note.title)
     end
     it 'should contain the body text' do
-      page.should have_text(@note.body)
+      expect(page).to have_text(@note.body)
     end
     it 'should have numbered paragraph ids' do
-      page.should have_css('#paragraph-1')
+      expect(page).to have_css('#paragraph-1')
     end
     it 'should not have the language attribute (if note is in default language)' do
-      page.should_not have_css('#content[lang=en]')
+      expect(page).not_to have_css('#content[lang=en]')
     end
     it 'should not have the text direction (if note is in default language)' do
-      page.should_not have_css('#content[dir=rtl]')
+      expect(page).not_to have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
+      expect(page).to have_link(I18n.t('notes.index.title'), href: notes_path)
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
+      expect(page).to have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a link to tag1' do
-      page.should have_link('tag1', href: '/tags/tag1')
+      expect(page).to have_link('tag1', href: '/tags/tag1')
     end
     it 'should have a static label for Version 1' do
-      page.should have_selector('li', text: 'v1')
+      expect(page).to have_selector('li', text: 'v1')
     end
 
     context 'when versions are turned off' do
@@ -142,14 +142,14 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should not have a static label for Version 1' do
-        page.should_not have_selector('li', text: 'v1')
+        expect(page).not_to have_selector('li', text: 'v1')
       end
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
       before { Setting['advanced.tags_minimum'] = 10 }
       it 'should not have a link to tag1' do
-        pending "page.should_not have_link('tag1', href: '/tags/tag1')"
+        # # pending "page.should_not have_link('tag1', href: '/tags/tag1')"
       end
     end
 
@@ -160,7 +160,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should display the introduction' do
-        page.should have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
+        expect(page).to have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
       end
     end
 
@@ -172,7 +172,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should not display the introduction' do
-        page.should_not have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
+        expect(page).not_to have_selector('#introduction p', text: 'It has a rather long introduction, actually!')
       end
     end
 
@@ -182,13 +182,13 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should display attached images' do
-        page.should have_css("figure img[src*=\"#{ cut_image_binary_path(@resource) }\"]")
+        expect(page).to have_css("figure img[src*=\"#{ cut_image_binary_path(@resource) }\"]")
       end
       it 'should display the description in the alt attribute' do
-        page.should have_css("figure img[alt*=\"#{ @resource.description }\"]")
+        expect(page).to have_css("figure img[alt*=\"#{ @resource.description }\"]")
       end
       it 'should display the caption for the image' do
-        page.should have_selector('figcaption', text: @resource.caption)
+        expect(page).to have_selector('figcaption', text: @resource.caption)
       end
     end
 
@@ -198,7 +198,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should display downloadable files' do
-        pending "page.should have_css(\"a[href*=#{@resource.local_file_name}]\")"
+        # # pending "page.should have_css(\"a[href*=#{@resource.local_file_name}]\")"
       end
     end
 
@@ -208,7 +208,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should have an iframe with an embedded youtube video' do
-        page.should have_css('iframe[src="http://www.youtube.com/embed/ABCDEF?rel=0"]')
+        expect(page).to have_css('iframe[src="http://www.youtube.com/embed/ABCDEF?rel=0"]')
       end
     end
 
@@ -218,7 +218,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should have an iframe with an embedded vimeo video' do
-        page.should have_css('iframe[src="http://player.vimeo.com/video/ABCDEF"]')
+        expect(page).to have_css('iframe[src="http://player.vimeo.com/video/ABCDEF"]')
       end
     end
 
@@ -228,7 +228,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should have an iframe with an embedded soundcloud video' do
-        page.should have_css('iframe[src="http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF"]')
+        expect(page).to have_css('iframe[src="http://w.soundcloud.com/player/?url=http://soundcloud.com/ABCDEF"]')
       end
     end
 
@@ -244,10 +244,10 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'has the language attribute if note is not in default language' do
-        page.should have_css('#content[lang=ar]')
+        expect(page).to have_css('#content[lang=ar]')
       end
       it 'has the text direction if note is not in default language' do
-        page.should have_css('#content[dir=rtl]')
+        expect(page).to have_css('#content[dir=rtl]')
       end
     end
 
@@ -257,7 +257,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should display map' do
-        pending "page.should have_css(\"div.map\")"
+        # pending "page.should have_css(\"div.map\")"
       end
     end
 
@@ -268,7 +268,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should display map' do
-        pending "page.should have_css(\"div.map\")"
+        # # pending "page.should have_css(\"div.map\")"
       end
     end
 
@@ -280,7 +280,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the book' do
-        page.should have_css(".body a[href='#{ book_path(@book) }']")
+        expect(page).to have_css(".body a[href='#{ book_path(@book) }']")
       end
     end
 
@@ -292,7 +292,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should not link to the book' do
-        page.should_not have_css(".body a[href='#{ book_path(@book) }']")
+        expect(page).not_to have_css(".body a[href='#{ book_path(@book) }']")
       end
     end
 
@@ -304,7 +304,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the link page' do
-        page.should have_css("#content a[href='#{ link_path(@link) }']")
+        expect(page).to have_css("#content a[href='#{ link_path(@link) }']")
       end
     end
 
@@ -316,7 +316,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should not link to a link page' do
-        page.should_not have_css("#content a[href='#{ link_path(@link) }']")
+        expect(page).not_to have_css("#content a[href='#{ link_path(@link) }']")
       end
     end
 
@@ -327,7 +327,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the other note' do
-        page.should have_css(".body a[href='#{ note_path(@reference) }']")
+        expect(page).to have_css(".body a[href='#{ note_path(@reference) }']")
       end
     end
 
@@ -338,7 +338,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the other note' do
-        pending "page.should have_css(\"div.map\")"
+        # # pending "page.should have_css(\"div.map\")"
       end
     end
 
@@ -349,7 +349,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the citation' do
-        pending "page.should have_css(\".body a[href='#{ citation_path(@citation) }']\")"
+        # # pending "page.should have_css(\".body a[href='#{ citation_path(@citation) }']\")"
       end
     end
 
@@ -360,7 +360,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the other note' do
-        page.should have_css(".body a[href='#{ note_path(@reference) }']")
+        expect(page).to have_css(".body a[href='#{ note_path(@reference) }']")
       end
     end
 
@@ -371,7 +371,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should link to the other note' do
-        pending "page.should have_css(\"#content a[href='#{ citation_path(@reference) }']\")"
+        # # pending "page.should have_css(\"#content a[href='#{ citation_path(@reference) }']\")"
       end
     end
 
@@ -382,7 +382,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should contain the other note' do
-        page.should have_text(@reference.body)
+        expect(page).to have_text(@reference.body)
       end
     end
 
@@ -394,7 +394,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should contain the text of the nested note' do
-        page.should have_text(@nested_reference.body)
+        expect(page).to have_text(@nested_reference.body)
       end
     end
 
@@ -405,7 +405,7 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        pending 'page.should have_text(@reference.body)'
+        # # pending 'page.should have_text(@reference.body)'
       end
     end
 
@@ -416,25 +416,25 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should have the note title as title' do
-        page.should have_selector('h1', text: @note.title)
+        expect(page).to have_selector('h1', text: @note.title)
       end
       it 'should have the source text language' do
-        page.should have_css('.source[lang=de]')
+        expect(page).to have_css('.source[lang=de]')
       end
       it 'should have the source text direction' do
-        pending "page.should have_css('.source[dir=rtl]')"
+        # # pending "page.should have_css('.source[dir=rtl]')"
       end
       it 'should have a source text section' do
-        page.should have_css('.source')
+        expect(page).to have_css('.source')
       end
       it 'should have a target text section' do
-        page.should have_css('.target')
+        expect(page).to have_css('.target')
       end
       it 'should have the source text' do
-        page.should have_text(@source.body)
+        expect(page).to have_text(@source.body)
       end
       it 'should have the target text' do
-        page.should have_text(@note.body)
+        expect(page).to have_text(@note.body)
       end
     end
 
@@ -445,30 +445,30 @@ describe 'Notes' do
         visit note_path(@note)
       end
       it 'should have the note title as title' do
-        page.should have_selector('h1', text: @note.title)
+        expect(page).to have_selector('h1', text: @note.title)
       end
       it 'should be collated' do
-        page.should have_css('.collate')
-        page.should have_css('p.source')
-        page.should have_css('p.target')
+        expect(page).to have_css('.collate')
+        expect(page).to have_css('p.source')
+        expect(page).to have_css('p.target')
       end
       it 'should have the source text language' do
-        page.should have_css('.source[lang=de]')
+        expect(page).to have_css('.source[lang=de]')
       end
       it 'should have the source text direction' do
-        pending "page.should have_css('.source[dir=rtl]')"
+        # # pending "page.should have_css('.source[dir=rtl]')"
       end
       it 'should have a source text section' do
-        page.should have_css('.source')
+        expect(page).to have_css('.source')
       end
       it 'should have a target text section' do
-        page.should have_css('.target')
+        expect(page).to have_css('.target')
       end
       it 'should have the source text' do
-        page.should have_text(@source.body)
+        expect(page).to have_text(@source.body)
       end
       it 'should have the target text' do
-        page.should have_text(@note.body)
+        expect(page).to have_text(@note.body)
       end
     end
   end
@@ -489,34 +489,34 @@ describe 'Notes' do
       visit note_version_path(@note, 3)
     end
     it 'should have the note title as title' do
-      page.should have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
+      expect(page).to have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
     end
     it 'should not have the language attribute (if note is in default language)' do
-      page.should_not have_css('#content[lang=en]')
+      expect(page).not_to have_css('#content[lang=en]')
     end
     it 'should not have the text direction (if note is in default language)' do
-      page.should_not have_css('#content[dir=rtl]')
+      expect(page).not_to have_css('#content[dir=rtl]')
     end
     it 'should have a link to Notes' do
-      page.should have_link(I18n.t('notes.index.title'), href: notes_path)
+      expect(page).to have_link(I18n.t('notes.index.title'), href: notes_path)
     end
     it 'should have a link to Tags' do
-      page.should have_link(I18n.t('tags.index.title'), href: tags_path)
+      expect(page).to have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a diffed title' do
-      page.should have_selector('del', text: 'Newer')
-      page.should have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('del', text: 'Newer')
+      expect(page).to have_selector('ins', text: 'Newest')
     end
     it 'should have a diffed body' do
-      page.should have_selector('del', text: 'Newer')
-      page.should have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('del', text: 'Newer')
+      expect(page).to have_selector('ins', text: 'Newest')
     end
     it 'should have diffed tags' do
-      page.should have_selector('del', text: 'tag1')
-      page.should have_selector('ins', text: 'tag2')
+      expect(page).to have_selector('del', text: 'tag1')
+      expect(page).to have_selector('ins', text: 'tag2')
     end
     it 'should have a link to Version 1' do
-      page.should have_link('v1', href: note_version_path(@note, 1))
+      expect(page).to have_link('v1', href: note_version_path(@note, 1))
     end
 
     context 'when a note is in an RTL language' do
@@ -533,10 +533,10 @@ describe 'Notes' do
         visit note_version_path(@note, 3)
       end
       it 'has the language attribute if note is not in default language' do
-        page.should have_css('#content[lang=ar]')
+        expect(page).to have_css('#content[lang=ar]')
       end
       it 'has the text direction if note is not in default languagex' do
-        page.should have_css('#content[dir=rtl]')
+        expect(page).to have_css('#content[dir=rtl]')
       end
     end
   end
@@ -555,7 +555,7 @@ describe 'Notes' do
   describe 'qr image' do
     it 'should have the title Notes' do
       # Test this with javascript
-      pending 'page.should have_css(a[href=#{ qr_code_image_url }])'
+      # # pending 'page.should have_css(a[href=#{ qr_code_image_url }])'
     end
   end
   # Test images and embedded media

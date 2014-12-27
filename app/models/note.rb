@@ -36,7 +36,7 @@ class Note < ActiveRecord::Base
 
   default_scope { order(external_updated_at: :desc) }
 
-  scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  scope :blurbable, -> { where('word_count > ?', Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length']) }
   scope :citations, -> { where(is_citation: true) }
   scope :features, -> { where.not(feature: nil) }
   scope :notes_and_features, -> { where(is_citation: false) }
@@ -58,14 +58,14 @@ class Note < ActiveRecord::Base
 
   # REVIEW: Store in columns like is_section?
   def self.mappable
-    all.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
+    all.to_a.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
   end
 
   # REVIEW: Store in columns like is_section?
   def self.promotable
     promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
     greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
-    (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
+    (all.to_a.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
   def self.sections
@@ -213,8 +213,8 @@ class Note < ActiveRecord::Base
 
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
-    self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
+    self.books = Book.citable.to_a.keep_if { |book| body.include?(book.tag) }
+    self.links = Link.publishable.to_a.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
 
     new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
     new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)

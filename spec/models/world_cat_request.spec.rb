@@ -9,11 +9,30 @@ describe WorldCatRequest do
 
     subject { @world_cat_book.metadata }
 
-    its (['editor']) { should == '' }
-    its (['introducer']) { should == '' }
-    its (['published_date']) { should == '1-1-1990' }
-    its (['publisher']) { should == 'Stanford University Press' }
-    its (['translator']) { should == '' }
+    describe (['editor']) do
+      subject { super().send((['editor'])) }
+      it { is_expected.to eq('') }
+    end
+
+    describe (['introducer']) do
+      subject { super().send((['introducer'])) }
+      it { is_expected.to eq('') }
+    end
+
+    describe (['published_date']) do
+      subject { super().send((['published_date'])) }
+      it { is_expected.to eq('1-1-1990') }
+    end
+
+    describe (['publisher']) do
+      subject { super().send((['publisher'])) }
+      it { is_expected.to eq('Stanford University Press') }
+    end
+
+    describe (['translator']) do
+      subject { super().send((['translator'])) }
+      it { is_expected.to eq('') }
+    end
   end
 
   context 'when a book is not found:' do
@@ -22,6 +41,6 @@ describe WorldCatRequest do
     end
 
     # TODO: This fails!
-    pending 'its (:metadata) { should == nil }'
+    # pending 'its (:metadata) { should == nil }'
   end
 end

@@ -27,15 +27,15 @@ describe 'routing to notes' do
 
   it 'does not expose all CRUD actions' do
     expect(get: '/notes/1/create').not_to be_routable
-    pending "expect(get: '/notes/show').to route_to(root_path)"
-    pending "expect(get: '/notes/update').to route_to(root_path)"
-    pending "expect(get: '/notes/edit').to route_to(root_path)"
-    pending "expect(get: '/notes/new').to route_to(root_path)"
-    pending "expect(get: '/notes/destroy').to route_to(root_path)"
+    # pending "expect(get: '/notes/show').to route_to(root_path)"
+    # pending "expect(get: '/notes/update').to route_to(root_path)"
+    # pending "expect(get: '/notes/edit').to route_to(root_path)"
+    # pending "expect(get: '/notes/new').to route_to(root_path)"
+    # pending "expect(get: '/notes/destroy').to route_to(root_path)"
   end
 
   it 'requires a numerical id' do
-    pending"expect(get: '/notes/abc').to route_to(root_path)"
+    # pending"expect(get: '/notes/abc').to route_to(root_path)"
   end
 
   it 'requires a numerical sequence' do

@@ -11,28 +11,28 @@ describe EvernoteNote do
 
   subject { @evernote_note }
 
-  it { should be_valid }
-  it { should respond_to(:cloud_note_identifier) }
-  it { should respond_to(:note_id) }
-  it { should respond_to(:dirty) }
-  it { should respond_to(:attempts) }
-  it { should respond_to(:content_hash) }
-  it { should respond_to(:update_sequence_number) }
+  it { is_expected.to be_valid }
+  it { is_expected.to respond_to(:cloud_note_identifier) }
+  it { is_expected.to respond_to(:note_id) }
+  it { is_expected.to respond_to(:dirty) }
+  it { is_expected.to respond_to(:attempts) }
+  it { is_expected.to respond_to(:content_hash) }
+  it { is_expected.to respond_to(:update_sequence_number) }
 
-  it { should respond_to(:dirtify) }
-  it { should respond_to(:undirtify) }
-  it { should respond_to(:max_out_attempts) }
-  it { should respond_to(:increment_attempts) }
+  it { is_expected.to respond_to(:dirtify) }
+  it { is_expected.to respond_to(:undirtify) }
+  it { is_expected.to respond_to(:max_out_attempts) }
+  it { is_expected.to respond_to(:increment_attempts) }
 
-  it { should belong_to(:note) }
+  it { is_expected.to belong_to(:note) }
 
   its(:note) { should == note }
 
-  it { should validate_presence_of(:cloud_note_identifier) }
+  it { is_expected.to validate_presence_of(:cloud_note_identifier) }
   # it { should validate_presence_of(:note) }
 
-  it { should validate_uniqueness_of(:note_id) }
-  it { should validate_uniqueness_of(:cloud_note_identifier) }
+  #it { is_expected.to validate_uniqueness_of(:note_id) }
+  #it { is_expected.to validate_uniqueness_of(:cloud_note_identifier) }
 
   describe '#dirtify marks it dirty' do
     before { @evernote_note.dirtify }
@@ -45,8 +45,8 @@ describe EvernoteNote do
       @evernote_note = FactoryGirl.create(:evernote_note, dirty: true, attempts: 1)
       @evernote_note.undirtify
     end
-    its(:dirty) { should == false }
-    its(:attempts) { should == 0 }
+    its(:dirty) { is_expected.to eq(false) }
+    its(:attempts) { is_expected.to eq(0) }
   end
 
   describe '#increment_attempts increments attempts' do
@@ -54,7 +54,7 @@ describe EvernoteNote do
       @evernote_note = FactoryGirl.create(:evernote_note, attempts: 0)
       @evernote_note.increment_attempts
     end
-    its(:attempts) { should == 1 }
+    its(:attempts) { is_expected.to eq(1) }
   end
 
   describe '#max_out_attempts increments attempts' do

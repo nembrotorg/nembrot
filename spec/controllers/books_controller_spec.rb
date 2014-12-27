@@ -15,7 +15,7 @@ describe BooksController do
         @book.reload
         get :admin
       end
-      it { should respond_with(:redirect) }
+      it { is_expected.to respond_with(:redirect) }
     end
     context 'when a non-admin user is signed in' do
       before do
@@ -25,7 +25,7 @@ describe BooksController do
         @book.reload
         get :admin
       end
-      it { should respond_with(:redirect) }
+      it { is_expected.to respond_with(:redirect) }
     end
     context 'when an admin user is signed in' do
       before do
@@ -36,12 +36,12 @@ describe BooksController do
       end
       it 'populates an array of books' do
         get :admin
-        assigns(:books).should eq([@book])
+        expect(assigns(:books)).to eq([@book])
       end
 
       it 'renders the :admin view' do
         get :admin
-        response.should render_template :admin
+        expect(response).to render_template :admin
       end
     end
   end
@@ -49,12 +49,12 @@ describe BooksController do
   describe 'GET #index' do
     it 'populates an array of books' do
       get :index
-      assigns(:books).should eq([@book])
+      expect(assigns(:books)).to eq([@book])
     end
 
     it 'renders the :index view' do
       get :index
-      response.should render_template :index
+      expect(response).to render_template :index
     end
   end
 
@@ -65,29 +65,29 @@ describe BooksController do
       get :show, slug: @book.slug
     end
     it 'assigns the requested book to @book' do
-      assigns(:book).should eq(@book)
+      expect(assigns(:book)).to eq(@book)
     end
 
     it 'assigns books to @books' do
-      assigns(:books).should eq([@book, @related_book])
+      expect(assigns(:books)).to eq([@book, @related_book])
     end
 
     it 'assigns related books to @related_books' do
-      assigns(:related_books).should eq([@related_book])
+      expect(assigns(:related_books)).to eq([@related_book])
     end
 
     it 'renders the #show view' do
       get :show, slug: @book.slug
-      response.should render_template :show
+      expect(response).to render_template :show
     end
 
     context 'when book is not available' do
       before do
         get :show, slug: 'nonexistent'
       end
-      it { should respond_with(:redirect) }
+      it { is_expected.to respond_with(:redirect) }
       it 'sets the flash' do
-        flash[:error].should == I18n.t('books.show.not_found', slug: 'nonexistent')
+        expect(flash[:error]).to eq(I18n.t('books.show.not_found', slug: 'nonexistent'))
       end
     end
   end
@@ -100,20 +100,20 @@ describe BooksController do
     context 'valid attributes' do
       it 'located the requested @book' do
         put :update, id: @book.id, book: FactoryGirl.attributes_for(:book)
-        assigns(:book).should eq(@book)
+        expect(assigns(:book)).to eq(@book)
       end
 
       it 'changes @books attributes' do
         put :update, id: @book.id, book: FactoryGirl.attributes_for(:book, author: 'New Author')
         @book.reload
-        @book.author.should eq('New Author')
+        expect(@book.author).to eq('New Author')
       end
 
       it 'redirects to books admin index' do
         put :update, id: @book.id, book: FactoryGirl.attributes_for(:book)
         @book.reload
-        response.should redirect_to books_admin_path
-        flash[:success].should == I18n.t('books.edit.success', title: @book.title)
+        expect(response).to redirect_to books_admin_path
+        expect(flash[:success]).to eq(I18n.t('books.edit.success', title: @book.title))
       end
     end
 
@@ -123,15 +123,15 @@ describe BooksController do
         @book.reload
       end
       it 'rejects invalid attributes' do
-        @book.author.should_not eq('New Author')
+        expect(@book.author).not_to eq('New Author')
       end
 
       it 'rejects invalid attributes' do
-        response.should render_template :edit
+        expect(response).to render_template :edit
       end
 
       it 'rejects invalid attributes' do
-        flash[:error].should == I18n.t('books.edit.failure')
+        expect(flash[:error]).to eq(I18n.t('books.edit.failure'))
       end
     end
   end

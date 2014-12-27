@@ -37,7 +37,7 @@ Advanced (beta):
 
 
 ## Getting started
-You will need to have Ruby > 1.9.3 installed on your machine. Clone this code and install the gems.
+You will need to have Ruby > 2.1 installed on your machine. Clone this code and install the gems.
 
 #### 1. Get the code
 ```

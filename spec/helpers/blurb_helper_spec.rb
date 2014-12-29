@@ -2,7 +2,7 @@
 
 describe BlurbHelper do
 
-  before(:each) do
+  before(:example) do
     Setting['advanced.blurb_length'] = 40
   end
 

@@ -85,7 +85,7 @@ Spork.prefork do
     RESERVED_IVARS = %w(@loaded_fixtures)
     last_gc_run = Time.now
 
-    config.before(:each) do
+    config.before(:example) do
       GC.disable
     end
 
@@ -100,7 +100,7 @@ Spork.prefork do
     # Release instance variables and trigger garbage collection
     # manually every second to make tests faster
     # http://blog.carbonfive.com/2011/02/02/crank-your-specs/
-    config.after(:each) do
+    config.after(:example) do
       (instance_variables - RESERVED_IVARS).each do |ivar|
         instance_variable_set(ivar, nil)
       end

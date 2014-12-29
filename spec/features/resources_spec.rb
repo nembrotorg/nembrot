@@ -4,7 +4,7 @@ describe 'Resources' do
 
   include ResourcesHelper
 
-  before(:each) do
+  before(:example) do
     @note = FactoryGirl.create(:note)
   end
 

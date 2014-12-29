@@ -1,7 +1,7 @@
 describe TagsController do
 
   describe 'GET #index' do
-    before(:each) do
+    before(:example) do
       Setting['advanced.tags_minimum'] = 1
       @tag_name = Faker::Lorem.words(1)
       note = FactoryGirl.create(:note, tag_list: @tag_name)
@@ -30,7 +30,7 @@ describe TagsController do
   end
 
   describe 'GET #show' do
-    before(:each) do
+    before(:example) do
       @tag_name = Faker::Lorem.words(1)
       note = FactoryGirl.create(:note, tag_list: @tag_name)
       @tag = Tag.first

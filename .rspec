@@ -2,3 +2,4 @@
 --drb
 --format Fuubar
 --require spec_helper
+--order rand

@@ -16,11 +16,11 @@ describe EvernoteNote do
       context 'when a note is new' do
         # OPTIMIZE: This test is at the top to ensure that the note is new
         before { Setting['advanced.always_reset_on_create'] = false }
-        its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.updated / 1000) }
+        its(:calculate_updated_at) { is_expected.to eq(Time.at(@evernote_request.cloud_note_data.updated / 1000)) }
       end
       context 'when a note is new and always_reset is true' do
         before { Setting['advanced.always_reset_on_create'] = true }
-        its(:calculate_updated_at) { should == Time.at(@evernote_request.cloud_note_data.created / 1000) }
+        its(:calculate_updated_at) { is_expected.to eq(Time.at(@evernote_request.cloud_note_data.created / 1000)) }
       end
     end
 
@@ -28,23 +28,23 @@ describe EvernoteNote do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
       end
-      its(:update_necessary?) { should be_truthy }
+      its(:update_necessary?) { is_expected.to be_truthy }
     end
 
     context 'when note is not in a required notebook' do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'ANOTHER_NOTEBOOK_GUID'
       end
-      its(:update_necessary?) { should be_falsey }
+      its(:update_necessary?) { is_expected.to be_falsey }
     end
 
     context 'when cloud note is not active' do
       before do
         @evernote_request.cloud_note_metadata[:active] = false
       end
-      its(:update_necessary?) { should be_falsey }
+      its(:update_necessary?) { is_expected.to be_falsey }
       it 'destroys evernote_note' do
-        @evernote_note.should be_nil
+        expect(@evernote_note).to be_nil
       end
     end
 
@@ -53,10 +53,10 @@ describe EvernoteNote do
         @evernote_request.evernote_note.note.external_updated_at = 0
         @evernote_request.cloud_note_metadata[:updated] = 0
       end
-      its(:update_necessary?) { should be_falsey }
+      its(:update_necessary?) { is_expected.to be_falsey }
       it 'undirtifies evernote_note' do
-        @evernote_request.evernote_note.dirty { should be_falsey }
-        @evernote_request.evernote_note.attempts { should == 0 }
+        @evernote_request.evernote_note.dirty { is_expected.to be_falsey }
+        @evernote_request.evernote_note.attempts { is_expected.to eq(0) }
       end
     end
 
@@ -64,9 +64,9 @@ describe EvernoteNote do
       before do
         @evernote_request.cloud_note_tags = %w(__NOT_PUBLISH)
       end
-      its(:update_necessary?) { should be_falsey }
+      its(:update_necessary?) { is_expected.to be_falsey }
       it 'destroys evernote_note' do
-        @evernote_note.should be_nil
+        expect(@evernote_note).to be_nil
       end
     end
 
@@ -75,9 +75,9 @@ describe EvernoteNote do
         Setting['advanced.instructions_ignore'] = '__IGNORE'
         @evernote_request.cloud_note_tags = %w(__IGNORE)
       end
-      its(:update_necessary?) { should be_falsey }
+      its(:update_necessary?) { is_expected.to be_falsey }
       it 'destroys evernote_note' do
-        @evernote_note.should be_nil
+        expect(@evernote_note).to be_nil
       end
     end
   end
@@ -88,7 +88,7 @@ describe EvernoteNote do
       before do
         @evernote_request.cloud_note_data[:content] = 'Plain text.'
       end
-      its(:note_is_not_conflicted?) { should be_truthy }
+      its(:note_is_not_conflicted?) { is_expected.to be_truthy }
     end
 
     context 'when note content contains a conflict warning' do

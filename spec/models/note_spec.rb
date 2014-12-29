@@ -321,27 +321,27 @@ describe Note do
   describe '#feature_id' do
     context 'when title has no feature_id' do
       before { note.title = 'Title' }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
     context 'when title has a numerical feature_id' do
       before { note.update_attributes(title: '1. Title') }
-      its (:feature_id) { should eq('1') }
+      its (:feature_id) { is_expected.to eq('1') }
     end
     context 'when title has an alphabetic feature_id' do
       before { note.update_attributes(title: 'a. Title') }
-      its (:feature_id) { should eq('a') }
+      its (:feature_id) { is_expected.to eq('a') }
     end
     context 'when title has a word as feature_id' do
       before { note.update_attributes(title: 'First. Title') }
-      its (:feature_id) { should eq('first') }
+      its (:feature_id) { is_expected.to eq('first') }
     end
     context 'when title has a subtitle' do
       before { note.update_attributes(title: 'Main Title: Subtitle') }
-      its (:feature_id) { should eq('subtitle') }
+      its (:feature_id) { is_expected.to eq('subtitle') }
     end
     context 'when title has more than one word before a period' do
       before { note.update_attributes(title: 'Two words. Title') }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
   end
 

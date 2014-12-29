@@ -7,7 +7,7 @@ describe Resource do
 
   it { is_expected.to belong_to(:note) }
 
-  its(:note) { should == note }
+  its(:note) { is_expected.to eq(note) }
 
   it { is_expected.to be_valid }
   it { is_expected.to respond_to(:altitude) }
@@ -71,8 +71,8 @@ describe Resource do
 
   describe '#dirtify' do
     before { @resource.dirtify }
-    its(:dirty) { should == true }
-    its(:attempts) { should == 0 }
+    its(:dirty) { is_expected.to eq(true) }
+    its(:attempts) { is_expected.to eq(0) }
   end
 
   describe '#undirtify' do
@@ -80,8 +80,8 @@ describe Resource do
       @resource = FactoryGirl.create(:resource, dirty: true, attempts: 1)
       @resource.undirtify
     end
-    its(:dirty) { should == false }
-    its(:attempts) { should == 0 }
+    its(:dirty) { is_expected.to eq(false) }
+    its(:attempts) { is_expected.to eq(0) }
   end
 
   describe '#increment_attempts' do
@@ -89,21 +89,21 @@ describe Resource do
       @resource = FactoryGirl.create(:resource, attempts: 0)
       @resource.increment_attempts
     end
-    its(:attempts) { should == 1 }
+    its(:attempts) { is_expected.to eq(1) }
   end
 
   describe '#max_out_attempts' do
     before { @resource.max_out_attempts }
-    its(:attempts) { should >=  Setting['advanced.attempts'].to_i }
+    its(:attempts) { is_expected.to be >=  Setting['advanced.attempts'].to_i }
   end
 
   describe '#file_ext' do
     before { @resource.update_attributes(mime: 'image/png') }
-    its(:file_ext) { should == 'png' }
+    its(:file_ext) { is_expected.to eq('png') }
   end
 
   describe '#raw_location' do
-    its(:raw_location) { should == File.join(Rails.root, 'public', 'resources', 'raw', "#{ @resource.id }.png") }
+    its(:raw_location) { is_expected.to eq(File.join(Rails.root, 'public', 'resources', 'raw', "#{ @resource.id }.png")) }
   end
 
   describe '#template_location' do
@@ -122,38 +122,38 @@ describe Resource do
 
   describe '#blank_location' do
     before { @resource.update_attributes(mime: 'image/png') }
-    its(:blank_location) { should == File.join(Rails.root, 'public', 'resources', 'cut', 'blank.png') }
+    its(:blank_location) { is_expected.to eq(File.join(Rails.root, 'public', 'resources', 'cut', 'blank.png')) }
   end
 
   describe '#local_file_name' do
     context 'when mime type is not image and file_name is available' do
       before { @resource.update_attributes(mime: 'application/pdf', file_name: 'ORIGINAL FILE NAME') }
-      its(:local_file_name) { should == 'original-file-name' }
+      its(:local_file_name) { is_expected.to eq('original-file-name') }
     end
 
     context 'when mime type is image and caption is available' do
       before { @resource.update_attributes(caption: 'IMAGE CAPTION') }
-      its(:local_file_name) { should == 'image-caption' }
+      its(:local_file_name) { is_expected.to eq('image-caption') }
     end
 
     context 'when mime type is image, caption is nil and a description exists' do
       before { @resource.update_attributes(caption: nil, description: 'IMAGE DESCRIPTION') }
-      its(:local_file_name) { should == 'image-description' }
+      its(:local_file_name) { is_expected.to eq('image-description') }
     end
 
     context 'when mime type is image, cap. and description are nil, and file_name exists' do
       before { @resource.update_attributes(caption: nil, description: nil, file_name: 'ORIGINAL FILE NAME') }
-      its(:local_file_name) { should == 'original-file-name' }
+      its(:local_file_name) { is_expected.to eq('original-file-name') }
     end
 
     context 'when caption is not in Latin script' do
       before { @resource.update_attributes(caption: 'نين السياسة', description: nil, file_name: 'ORIGINAL FILE NAME') }
-      its(:local_file_name) { should == 'original-file-name' }
+      its(:local_file_name) { is_expected.to eq('original-file-name') }
     end
 
     context 'when mime type is image, file_name is empty and all else is nil' do
       before { @resource.update_attributes(caption: nil, description: nil, file_name: '') }
-      its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
+      its(:local_file_name) { is_expected.to eq(@resource.cloud_resource_identifier.parameterize) }
     end
 
     describe 'when mime type is image and all else is nil' do
@@ -161,7 +161,7 @@ describe Resource do
         @resource.update_attributes(caption: nil, description: nil, file_name: '')
         @resource.valid?
       end
-      its(:local_file_name) { should == @resource.cloud_resource_identifier.parameterize }
+      its(:local_file_name) { is_expected.to eq(@resource.cloud_resource_identifier.parameterize) }
     end
   end
 

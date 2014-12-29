@@ -261,12 +261,12 @@ describe Note do
   end
 
   describe '#type' do
-    its(:type) { should == 'Note' }
+    its(:type) { is_expected.to eq('Note') }
     context 'when note is a citation' do
       before do
         note.is_citation = true
       end
-      its(:type) { should == 'Citation' }
+      its(:type) { is_expected.to eq('Citation') }
     end
   end
 

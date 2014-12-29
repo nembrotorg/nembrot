@@ -122,7 +122,7 @@ Please report issues on the [issue tracker](https://github.com/nembrotorg/nembro
 * Fork the project
 * Use a topic/feature branch
 * Make sure to add tests for your changes
-* Run "rspec spec" and ake sure all tests are passing
+* Run "rspec spec" and make sure all tests are passing
 * Open a [pull request](https://help.github.com/articles/using-pull-requests).
 
 

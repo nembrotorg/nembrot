@@ -30,7 +30,7 @@ describe EvernoteNote do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
       end
-      # pending its(:update_necessary?) { is_expected.to eq(@evernote_request) }
+      # pending its(:update_necessary?) { is_expected.to be_truthy }
     end
 
     context 'when note is not in a required notebook' do

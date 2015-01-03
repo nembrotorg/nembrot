@@ -5,7 +5,7 @@ include ApplicationHelper
 
 describe Note do
 
-  before { Setting['advanced.versions'] = true }
+  before(:example) { Setting['advanced.versions'] = true }
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
   subject { note }
 
@@ -261,18 +261,18 @@ describe Note do
   end
 
   describe '#type' do
-    its(:type) { should == 'Note' }
+    its(:type) { is_expected.to eq('Note') }
     context 'when note is a citation' do
       before do
         note.is_citation = true
       end
-      its(:type) { should == 'Citation' }
+      its(:type) { is_expected.to eq('Citation') }
     end
   end
 
   describe 'is taggable' do
     before { note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
-    its(:tag_list) { should == %w(tag1 tag2 tag3) }
+    its(:tag_list) { is_expected.to eq(%w(tag1 tag2 tag3)) }
   end
 
   describe 'is findable by tag' do
@@ -285,7 +285,7 @@ describe Note do
       note.tag_list = %w(Žižek Café 井戸端)
       note.save
     end
-    its(:tag_list) { should == ['Žižek', 'Café', '井戸端'] }
+    its(:tag_list) { is_expected.to eq(['Žižek', 'Café', '井戸端']) }
   end
 
   describe '#clean_body_with_instructions' do
@@ -299,49 +299,49 @@ describe Note do
   describe '#is_embeddable_source_url' do
     context 'when source_url is not known to be embeddable' do
       before { note.source_url = 'http://www.example.com' }
-      its(:is_embeddable_source_url) { should be_falsey }
+      its(:is_embeddable_source_url) { is_expected.to be_falsey }
     end
 
     context 'when source_url is a youtube link' do
       before { note.source_url = 'http://youtube.com?v=ABCDEF' }
-      its(:is_embeddable_source_url) { should be_truthy }
+      its(:is_embeddable_source_url) { is_expected.to be_truthy }
     end
 
     context 'when source_url is a vimeo link' do
       before { note.source_url = 'http://vimeo.com/video/ABCDEF' }
-      its(:is_embeddable_source_url) { should be_truthy }
+      its(:is_embeddable_source_url) { is_expected.to be_truthy }
     end
 
     context 'when source_url is a soundcloud link' do
       before { note.source_url = 'http://soundcloud.com?v=ABCDEF' }
-      its (:is_embeddable_source_url) { should be_truthy }
+      its (:is_embeddable_source_url) { is_expected.to be_truthy }
     end
   end
 
   describe '#feature_id' do
     context 'when title has no feature_id' do
       before { note.title = 'Title' }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
     context 'when title has a numerical feature_id' do
       before { note.update_attributes(title: '1. Title') }
-      its (:feature_id) { should eq('1') }
+      its (:feature_id) { is_expected.to eq('1') }
     end
     context 'when title has an alphabetic feature_id' do
       before { note.update_attributes(title: 'a. Title') }
-      its (:feature_id) { should eq('a') }
+      its (:feature_id) { is_expected.to eq('a') }
     end
     context 'when title has a word as feature_id' do
       before { note.update_attributes(title: 'First. Title') }
-      its (:feature_id) { should eq('first') }
+      its (:feature_id) { is_expected.to eq('first') }
     end
     context 'when title has a subtitle' do
       before { note.update_attributes(title: 'Main Title: Subtitle') }
-      its (:feature_id) { should eq('subtitle') }
+      its (:feature_id) { is_expected.to eq('subtitle') }
     end
     context 'when title has more than one word before a period' do
       before { note.update_attributes(title: 'Two words. Title') }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
   end
 
@@ -350,25 +350,25 @@ describe Note do
     Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
     before { note.update_attributes(title: 'Title Has Three Words') }
     context 'when note has no instruction' do
-      its (:feature) { should be_nil }
+      its (:feature) { is_expected.to be_nil }
     end
     context 'when note has feature instruction' do
       before { note.update_attributes(instruction_list: %w(__FEATURE)) }
-      its (:feature) { should eq('title-has-three-words') }
+      its (:feature) { is_expected.to eq('title-has-three-words') }
     end
     context 'when note has an instruction to use the first word' do
       before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_FIRST)) }
-      its (:feature) { should eq('title') }
+      its (:feature) { is_expected.to eq('title') }
     end
     context 'when note has an instruction to use the last word' do
       before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_LAST)) }
-      its (:feature) { should eq('words') }
+      its (:feature) { is_expected.to eq('words') }
     end
   end
 
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
-    its (:fx) { should == ['abc', 'def'] }
+    its (:fx) { is_expected.to eq(['abc', 'def']) }
   end
 
   describe '#looks_like_a_citation?' do

@@ -6,7 +6,7 @@ describe 'Notes' do
 
   include ResourcesHelper
 
-  before(:each) do
+  before(:example) do
     Constant['rtl_langs'] = 'ar'
     Setting['advanced.blurb_length'] = 40
     Setting['advanced.instructions_map'] = '__MAP'

@@ -13,13 +13,13 @@
   // $error-background-color: 
   // $evernote-color: 
   // $facebook-color:
-  $font-color: #ecebd6
+  $font-color: $body-font-color
   // $furniture-color:
   $headline-font-color: #070707
   // $insert-background-color:
   // $invalid-background-color:
   $link-hover-color: #c5b358
-  // $link-visited-color:
+  $link-visited-color: $font-color
   // $map-background-color:
   // $map-font-color:
   // $off-color:
@@ -41,26 +41,15 @@
   body
     font-weight: 400
 
-  #main
-    // +magazine
-    font:
-      weight: 500
-      size: 18px
-    width: 40%
-    margin: 35% 20% $line-height auto
-    #text
-      .body, .annotations
-        font-weight: 400
+  #curtain_shim
+    background-color: #333
 
-    .breadcrumb
-      position: fixed
-      left: $text-indent
-      top: $line-height * 2/3
-      li
-        &:first-of-type
-          display: none
-        a, .current
-          +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+  #main
+
+    padding-top: 0
+
+    nav
+      margin-top: $line-height
 
     h1, .notes h2, h2, h4
       text-transform: lowercase
@@ -71,44 +60,70 @@
       letter-spacing: 0.03em
 
     header[data-title]
-      height: $line-height * 1.5
-      margin-top: $line-height * 2/3
-      margin-bottom: 0
+      height: auto
+      margin-top: $line-height
+      margin-bottom: $line-height
 
-    > div
-      +clearfix
-      background: rgba($background-color, 0.65)
-      padding: 0 ($text-indent * 2/3) ($line-height * 2/3) ($text-indent * 2/3)
-      a
-        color: #006b55
-        text-decoration: none
-        &:hover
-          color: $link-hover-color
-          +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+    #introduction
+      color: #222 !important
+      font:
+        style: normal
 
-      article
-        header
-          height: $line-height
-        figure.image
-          margin-bottom: $line-height * 2/3
+    &.home-index
+      .notes
+        ul
+          +columns(1)
+          +column-gap(0)
 
-      #text
-        .body, .annotations
-          font-size: 1.2em
-          a
-            color: #006b55
-            text-decoration: none
-            &:hover
-              color: $link-hover-color
-              +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    article section#content #text.regular, article section#content #text.parallel, #comments, #disqus_thread
-      width: 100%
+  @media only screen and (min-width: 720px)
 
-  #tools
-    background-color: transparent
-    padding-left: $text-indent
-    ul li a, a:before
-      border-color: rgba($background-color, 0.65)
-      color: rgba($background-color, 0.65)
-      +text-shadow(rgba(#000, 0.2) 1px 1px 0)
+    // FIXME: +collapse-header should handle the margin-top/top of header, .hgroup, #content
+
+    #main
+      +prefix(3)
+      header[data-title]
+        height: 0
+        margin-top: $line-height * 5
+        .hgroup
+          top: $line-height * -14
+          position: absolute
+          z-index: 1000
+          h1, h2, p, .byline
+            color: #f0f0f0 !important
+          h1
+            font:
+              size: 3em
+          h2
+            margin-top: $line-height / 2
+          #introduction
+            margin-top: $line-height
+      #content
+        margin-top: $line-height * -5
+
+      .notes, .tags
+        ul
+          +span-columns(10, 12)
+
+      .notes-index, .tags-index, .ins-curtain-0
+        header[data-title]
+          height: auto
+          margin-bottom: $line-height
+          margin-top: $line-height
+          padding-bottom: $line-height
+          position: relative
+          .hgroup
+            position: relative
+            top: 0
+            h1
+              color: #1f6b51 !important
+            h2, p, .byline
+              color: $headline-font-color !important
+        #content
+          margin-top: 0
+
+    // This should be global
+    section.body
+      blockquote:first-child
+        margin-top: 0 !important

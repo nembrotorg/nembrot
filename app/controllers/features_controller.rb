@@ -5,7 +5,7 @@ class FeaturesController < ApplicationController
 
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."
-      redirect_to root_path
+      redirect_to "/#{@current_channel.slug}"
     elsif @notes.listable.size > 1 && params[:feature_id].nil? && @notes.where(feature_id: nil).blank?
       show_feature_index
     elsif @notes.listable.size > 1 && params[:feature_id].nil?

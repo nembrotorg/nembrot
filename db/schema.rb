@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20141115183149) do
     t.boolean  "comments",                  default: true
     t.boolean  "active",                    default: true
     t.boolean  "breadcrumbs",               default: true
-    t.boolean  "menu_at_top",               default: true
+    t.boolean  "menu_at_top",               default: false
     t.boolean  "menu_at_bottom",            default: true
     t.string   "follow_on_googleplus"
     t.boolean  "promoted",                  default: false

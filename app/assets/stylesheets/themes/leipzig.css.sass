@@ -38,6 +38,18 @@
   +hanging-caption($line-height / 2)
   +home-one-column-list
 
+  // This should be genericised (together with corresponding header css below)
+  &.ins-features-index,
+  &[data-action='index'][data-controller='notes'],
+  &[data-action='index'][data-controller='tags']
+
+    #curtain_shim, figure.image
+      display: none !important
+
+    #main
+      header[data-title]
+        display: block !important
+
   body
     font-weight: 400
 

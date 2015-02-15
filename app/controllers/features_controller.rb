@@ -69,7 +69,10 @@ class FeaturesController < ApplicationController
 
     # If there are no more notes in this feature, load notes index
     @promoted_notes = Note.channelled(@current_channel)
-                          .publishable.where(lang: @current_channel.locale)
+                          .publishable
+                          .listable
+                          .blurbable
+                          .where(lang: @current_channel.locale)
                           .where.not(id: @note.id)
                           .page(1) if @promoted_notes.empty?
 

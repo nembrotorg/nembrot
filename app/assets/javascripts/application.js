@@ -18,7 +18,7 @@
 //= require jquery.flexslider
 //= require jquery.pjax
 //= require jquery.alterclass
-//= require_tree ./polyfills/
+//= require media_match
 //= require enquire
 //= require rails-timeago
 //= require modernizr.minimal

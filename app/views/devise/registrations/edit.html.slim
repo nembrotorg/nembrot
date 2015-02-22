@@ -3,11 +3,9 @@
 
 - add_breadcrumb t('.title'), edit_user_registration_path
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
 
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     = devise_error_messages!

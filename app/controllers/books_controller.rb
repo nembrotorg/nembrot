@@ -67,4 +67,7 @@ class BooksController < ApplicationController
                                  :published_date, :publisher, :tag, :title, :translator, :weight)
   end
 
+  def default_url_options
+    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
+  end
 end

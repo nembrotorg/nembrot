@@ -1,22 +1,20 @@
-- document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                canonical: note_or_feature_path(@note),
-                description: @diffed_version.body,
-                open_graph: { title: @diffed_version.title },
-                noindex: true
+- cache [cache_buster(1), @diffed_version] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ @diffed_version.title } | #{ t('notes.version.full', id: @note.id, sequence: @diffed_version.sequence) } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  canonical: note_or_feature_path(@note),
+                  description: @diffed_version.body,
+                  open_graph: { title: @diffed_version.title },
+                  noindex: true
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-  article
+  == page_wrapper('article')
 
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
       - diffed_title = Differ.diff_by_word(@diffed_version.title, @diffed_version.previous_title)
       - title = t('.title_html', title: diffed_title, sequence: @diffed_version.sequence)
 
-      = render 'header', title: title, subtitle: nil, document_title: document_title
+      = render 'header', title: title, subtitle: nil, introduction: nil, document_title: document_title
 
       = render 'shared/media', url: @diffed_version.source_url if @diffed_version.is_embeddable_source_url
 

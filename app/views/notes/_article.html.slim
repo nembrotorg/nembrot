@@ -1,0 +1,68 @@
+- cache [cache_buster(2), @current_channel, note] do
+
+  - set_meta_tags title: title,
+                  description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                  open_graph: { title: @note.headline }
+  - if @current_channel.name == 'Home'
+    - set_meta_tags open_graph: { site_name: 'nembrot.com' }
+  -else
+    - set_meta_tags open_graph: { site_name: @current_channel.name }
+
+  - set_meta_tags open_graph: { description: "#{ @note.introduction.blank? ? @note.clean_body.truncate(200).html_safe : @note.introduction }" }
+
+  - unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+    - image = @note.resources.attached_images.first
+    - set_meta_tags open_graph: { image: "#{ Constant.asset_host }#{ cut_image_binary_path(note.resources.attached_images.first, type: :full, effects: @current_channel.theme.effects) }" }
+    - set_meta_tags open_graph: { 'image:type' => "image/#{ image.file_ext }" }
+    - set_meta_tags open_graph: { 'image:width' => '2000' }
+    - set_meta_tags open_graph: { 'image:height' => '1125' }
+
+  - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
+
+  - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
+
+  - set_meta_tags 'twitter:title' => "#{ @note.title }",
+                  'twitter:site' => "@#{ Setting['advanced.twitter_user_name'] }"
+
+  - introduction = simple_blurbify(note.introduction) unless note.has_instruction?('hide_introduction')
+
+  = render 'header', title: note.main_title, subtitle: note.subtitle, document_title: title, introduction: introduction, show_byline: true
+
+  section#content lang=lang_attr(note.lang) dir=dir_attr(note.lang)
+
+    = render 'shared/media', url: note.source_url if note.is_embeddable_source_url
+
+    -#.first(Setting['style.note_images_number'].to_i)
+    = render 'shared/images', note: note, type: :standard unless note.resources.attached_images.empty? || note.has_instruction?('hide_image')
+
+    - if @source.nil?
+      section#text.regular
+        = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+
+    - elsif note.has_instruction?('collate')
+      section#text class="parallel collate#{ note.has_instruction?('interlinear') ? '' : ' enface'  }"
+        = bodify_collate(@source.body, note.body, @source.lang, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+
+    - else
+      section#text class="parallel#{ note.has_instruction?('interlinear') ? '' : ' enface' }"
+        section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
+          = bodify(@source.body, [], [], [], [], '', '', false)
+
+        section.target
+          = bodify(note.body, note.books, note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+
+    = render 'shared/map', map: @map_this_marker, key: 'MAP_THIS_MARKER' unless @map_this_marker.blank?
+
+    = render 'downloads', downloads: note.resources.attached_files unless note.resources.attached_files.empty?
+
+    aside
+
+      = render 'notes/tag_list', tags: tags unless @current_channel.tags == false || tags.empty?
+
+      ul.shares = render 'share_tools'
+
+      -#= render 'notes/notes_list_headlines', note: note
+
+      = render 'notes/versions_list', note: note if Setting['advanced.versions'] == 'true'
+
+      = render 'shared/footer_captions', images: note.resources.attached_images

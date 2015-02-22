@@ -3,11 +3,11 @@
 
 - add_breadcrumb t('devise.registrations.resend_unlock.title'), new_user_registration_path
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('devise.registrations.resend_unlock.title'), subtitle: nil, document_title: document_title
+  = render 'header', title: t('devise.registrations.resend_unlock.title'), subtitle: nil, introduction: nil, document_title: document_title
 
   h2 Resend unlock instructions
   = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|

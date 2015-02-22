@@ -2,14 +2,25 @@
 
 class User < ActiveRecord::Base
 
+  include UserCustom, Upgradable, Downgradable, Tokenable
+
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  validates_presence_of :email
+  # REVIEW: This needs to go in so notes, etc, are destroyed when user delets account
+  #  But check what consequences it would have on business notebooks.
+  # has_many :notes, dependent: :destroy
 
   has_many :authorizations, dependent: :destroy
+  belongs_to :plan
 
+  has_paper_trail
   acts_as_commontator
+
+  validates_presence_of :plan
+  # REVIEW: validate uniqueness of tokens, paypal subscriptions, etc
+
+  before_save :update_plan
 
   def self.new_with_session(params, session)
     if session['devise.user_attributes']
@@ -50,6 +61,8 @@ class User < ActiveRecord::Base
       user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
     end
 
+    user.token_for_paypal = user.generate_token
+
     user.skip_confirmation!
     user.save!(validate: false) # Allow users to not have an email address
 
@@ -61,7 +74,6 @@ class User < ActiveRecord::Base
 
   def soft_delete
     authorizations.destroy_all
-
     skip_confirmation!
 
     update_attributes(
@@ -92,7 +104,18 @@ class User < ActiveRecord::Base
     (role == 'admin')
   end
 
-  def valid_password?(password)  
-    !authorizations.nil? || super(password)  
+  def valid_password?(password)
+    !authorizations.nil? || super(password)
+  end
+
+  # http://dev.mensfeld.pl/2013/12/rails-devise-and-remember_me-rememberable-by-default/
+  def remember_me
+    true
+  end
+
+  private
+
+  def update_plan
+    self.plan = Plan.free if plan.nil?
   end
 end

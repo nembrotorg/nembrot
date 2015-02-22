@@ -6,11 +6,9 @@
 
 - add_breadcrumb t(".title.#{ @event }"), user_event_path(@event)
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-  = render 'header', title: t(".title.#{ @event }"), subtitle: nil, document_title: document_title
+  = render 'header', title: t(".title.#{ @event }"), subtitle: nil, introduction: nil, document_title: document_title
 
   - unless flash.blank?
     - flash.each do |type, message|

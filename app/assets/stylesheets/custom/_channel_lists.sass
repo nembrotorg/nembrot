@@ -1,0 +1,38 @@
+=channel-lists-panel-blurbs
+
+  section.channels
+    clear: both
+    margin-top: $line-height
+    ul
+      +columns(1)
+      +column-gap($gutter-width * 1px)
+      margin-bottom: 0
+      li
+        +panel-blurb
+        height: $line-height * 6
+
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    section.channels
+      ul
+        +columns(3)
+        li
+          height: $line-height * 5
+
+=home-one-column-list
+  .home-index
+    .notes
+      +span-columns(12)
+      padding-right: 0
+      ul
+        +columns(1)
+
+  // Screen > 720px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+    .home-index
+      .notes
+        +span-columns(8)
+

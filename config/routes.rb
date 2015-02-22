@@ -2,37 +2,41 @@
 
 Nembrot::Application.routes.draw do
 
+  get 'themes/hash' => 'themes#hash', constraints: { format: /js/ }
+  resources :themes, except: :show
+
   mount Commontator::Engine => '/commontator'
 
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', omniauth_callbacks: 'omniauth_callbacks' }
 
+  get 'channels/available/:name' => 'channels#available'
+  get 'channels/choose(/:channel)' => 'channels#choose'
+  get 'channels/evernote_notebooks' => 'channels#evernote_notebooks'
+  resources :channels
+
+  get '/(:channel)' => 'home#index', as: :home
   root to: 'home#index'
 
-  put 'bibliography/update' => 'books#update', as: :update_book
-  get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
-  get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/
-  get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
-  get 'bibliography(/p/:page)' => 'books#index', as: :books
+  get 'users/menu' => 'users#menu'
+  get 'users/reconnect_prompt' => 'users#reconnect_prompt'
+  get 'users/upgrade/cancel' => 'users#cancel_upgrade'
+  get 'users/upgrade' => 'users#process_paypal_pdt'
 
-  get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
-  get 'citations(/p/:page)' => 'citations#index', as: :citations
+  devise_scope :user do
+    get 'users' => 'users#destroy', :via => :delete, as: :destroy_user
+    get 'users/event/:event' => 'devise/sessions#event', as: :user_event
+  end
 
-  put 'links/update' => 'links#update', as: :update_link
-  get 'links/admin' => 'links#admin', as: :links_admin
-  get 'links/:id/edit' => 'links#edit', as: :edit_link
-  get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
-  get 'links(/p/:page)' => 'links#index', as: :links
-
-  get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
-  get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
-  get 'notes/map' => 'notes#map'
-  get 'notes/p/:page' => 'notes#index'
-  get 'notes' => 'notes#index', as: :notes
+  post 'webhooks/evernote/webhooks/Paypal_IPN' => 'users#process_paypal_ipn' #TEMPORARY
+  post 'webhooks/paypal' => 'users#process_paypal_ipn'
+  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
+  resources :evernote_notes, only: [:add_evernote_task]
 
   get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings
   get 'settings/edit' => 'settings#edit', as: :edit_settings
 
+  get 'resources/raw/(:file_name)' => 'resources#download', constraints: { format: /pdf/ }
   get 'resources/cut/(:file_name)-(:aspect_x)-(:aspect_y)-(:width)-(:snap)-(:gravity)-(:effects)-(:id)' => 'resources#cut',
     as: :cut_resource,
     aspect_x: /\d+/,
@@ -40,22 +44,36 @@ Nembrot::Application.routes.draw do
     width: /\d+/,
     snap: /[01]/,
     gravity: /0|north_west|north|north_east|east|south_east|south|south_west|west|center/,
+    id: /\d+/,
     constraints: { format: /(gif|jpg|jpeg|png)/ }
 
-  get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
-  get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
-  get 'tags(/p/:page)' => 'tags#index', as: :tags
+  scope ':channel' do
+    put 'bibliography/update' => 'books#update', as: :update_book
+    get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
+    get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/
+    get 'bibliography/:slug' => 'books#show', slug: /[\_a-z\d\-]+/, as: :book
+    get 'bibliography(/p/:page)' => 'books#index', as: :books
 
-  devise_scope :user do
-    get 'users/event/:event' => 'devise/sessions#event', as: :user_event
+    get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
+    get 'citations(/p/:page)' => 'citations#index', as: :citations
+
+    put 'links/update' => 'links#update', as: :update_link
+    get 'links/admin' => 'links#admin', as: :links_admin
+    get 'links/:id/edit' => 'links#edit', as: :edit_link
+    get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
+    get 'links(/p/:page)' => 'links#index', as: :links
+
+    get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+    get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
+    get 'notes/map' => 'notes#map'
+    get 'notes/p/:page' => 'notes#index'
+    get 'notes' => 'notes#index', as: :notes
+
+    get 'tags/:slug/map' => 'tags#map', slug: /[\_a-z\d\-]+/, as: :tag_map
+    get 'tags/:slug' => 'tags#show', slug: /[\_a-z\d\-]+/, as: :tag
+    get 'tags(/p/:page)' => 'tags#index', as: :tags
+
+    get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
+    get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature
   end
-
-  get 'users/menu' => 'users#menu'
-
-  get 'webhooks/evernote_note' => 'evernote_notes#add_task'
-
-  resources :evernote_notes, only: [:add_evernote_task]
-
-  get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
-  get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature
 end

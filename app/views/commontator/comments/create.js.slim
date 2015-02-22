@@ -3,7 +3,7 @@
 -#| $("#thread_#{ @thread.id.to_s } #new_comment").hide();
 -#| $("#thread_#{ @thread.id.to_s } a[href$='comments/new']").fadeIn();
 | $("#comment_#{ @comment.id.to_s }").hide().fadeIn()[0];
-| window.Nembrot.content_initializers();
+-#| window.Nembrot.content_initializers(); FIXME: content_initializers no longer exists - why did we need this?
 -#.scrollIntoView();
 | window.Nembrot.track_comment('new');
 = javascript_proc

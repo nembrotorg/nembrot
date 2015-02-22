@@ -21,10 +21,14 @@ class CitationsController < ApplicationController
 
     interrelated_notes_features_and_citations
 
-    add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
+    # add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t('citations.show.not_found', id: params[:id])
       redirect_to citations_path
+  end
+
+  def default_url_options
+    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
   end
 end

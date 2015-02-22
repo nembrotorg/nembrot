@@ -1,12 +1,4 @@
 //////////////////////////////
-//                          //
-// Default theme            //
-//                          //
-//////////////////////////////
-
-@import mixins.default
-
-//////////////////////////////
 //
 // Resets
 //
@@ -23,85 +15,105 @@ a, p, input, textarea, h1, h2, h3, h4, h5, h6, ol, ul, li, div, section, nav
 //////////////////////////////
 
 ::selection
-  background: $selected-background-color
   text-shadow: none
 
 ::-moz-selection
-  background: $selected-background-color
   text-shadow: none
 
 html
+  height: 100%
+  overflow-x: hidden
   overflow-y: scroll
   -webkit-text-size-adjust: auto
 
 body
-  +font-color
+  font:
+    size: $font-size
+  height: 100%
+  line-height: $line-height
+
+// Disable dotted outline.
+//  See: http://stackoverflow.com/questions/179510
+*:focus
+  outline: 0
 
 a
   text-decoration: none
-  // &[href*=http]:after
-  //   padding-left: 5px
-  //   +icon-link-ext
-  //   +icon-medium
+  // Disable grey box around tapped areas (particularly on iPhone).
+  //  See: http://stackoverflow.com/questions/9009377
+  &:link
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
 
-nav ul li a:first-of-type
-  &[href*=pdf]
-    +body-font-citation
-    &:before
-      +icon-download
-  &[dir=rtl]
-    text-align: right
-  &[rel=tag]
-    text-transform: lowercase
-  &:focus
-    outline: 0
-  &[href*=admin]:before, &[href*=settings]:before
-    +icon-settings
-    +icon-medium
+button, input
+  &::-moz-focus-inner
+  border: 0
+
+#main
+  nav:not(.tags) ul, aside ul.shares
+    li a:first-of-type
+      &[href*=pdf]
+      &[dir=rtl]
+        text-align: right
+      &[rel=tag]
+        text-transform: lowercase
+      &:focus
+        outline: 0
+      &:before
+        font-size: 16px !important
+      &[href^=http]
+        text-transform: lowercase  
+      &[href*=admin]:before, &[href*=settings]:before
+        +icon-settings
+        +icon-medium
+      &[href*=users]:before
+        +icon-user-2-empty
+      &[href$='#disqus_thread']:before,
+      &[href$='#comments']:before
+        +icon-comment-empty
+      &[href$='#menu']:before
+        +icon-list
+      &[href*=evernote]:before,
+        +icon-evernote
+      &[href*=facebook]:before,
+        +icon-facebook
+      &[href*=flickr]:before
+        +icon-flickr
+      &[href*=pinterest]:before
+        +icon-pinterest
+      &[href*=instagram]:before
+        +icon-instagram
+      &[href*=github]:before
+        +icon-github-circled
+      &[href*=google]:before, &[href*=gplus]:before
+        +icon-gplus
+      &[href*=linkedin]:before
+        +icon-linkedin
+      &[href^=mailto]:before
+        +icon-mail
+        +icon-regular
+      &[href$=rss]:before,
+      &[href$=atom]:before      
+        +icon-rss
+        +icon-regular
+      &[href*=reset]:before
+        +icon-undo
+      &[href*=signout]:before
+        +icon-x
+      &[href*=soundcloud]:before
+        +icon-soundcloud
+      &[href*=spotify]:before
+        +icon-spotify
+      &[href*=twitter]:before
+        +icon-twitter
+      &[href*=vimeo]:before
+        +icon-vimeo
+        +icon-medium
+      &[href*=youtube]:before
+        +icon-youtube
+
+a.signed_in:first-of-type
   &[href*=users]:before
-    +icon-user-2-empty
-  &[href$='#disqus_thread']:before,
-  &[href$='#comments']:before
-    +icon-comment-empty
-  &[href$='#menu']:before
-    +icon-list
-  &[href*=evernote]:before,
-    +icon-evernote
-  &[href*=facebook]:before,
-    +icon-facebook
-  &[href*=github]:before
-    +icon-github-circled
-  &[href*=google]:before, &[href*=gplus]:before
-    +icon-gplus
-  &[href*=linkedin]:before
-    +icon-linkedin
-  &[href^=mailto]:before
-    +icon-mail
-    +icon-regular
-  &[href$=rss]:before,
-  &[href$=atom]:before      
-    +icon-rss
-    +icon-regular
-  &[href*=reset]:before
-    +icon-undo
-  &[href*=signout]:before
-    +icon-signout
-  &[href*=soundcloud]:before
-    +icon-soundcloud
-  &[href*=spotify]:before
-    +icon-spotify
-  &[href*=twitter]:before
-    +icon-twitter
-  &[href*=vimeo]:before
-    +icon-vimeo
-    +icon-medium
-  &[href*=youtube]:before
-    +icon-youtube
-
-ul li.signed_in
-  a:first-of-type
-    &[href*=users]:before
-      +icon-user-2
+    +icon-user-2
 
 abbr
   font-variant: small-caps
@@ -111,15 +123,10 @@ article[dir=rtl]
   text-align: right
   float: right
 
-body, small
-  +dashboard-font
-  line-height: $line-height
-
 cite + a[href*=annotation]
   margin-left: 3px
 
 del
-  +font-color($delete-font-color)
   text-decoration: strike-through
 
 form
@@ -129,51 +136,54 @@ form
   label
     display: block
     height: $line-height
-    line-height: $line-height
-    &:hover
-      background-color: $row-hover-color
+  select, input:not([type=button]):not([type=submit])
+    border: 
+      width: 1px
+      style: solid
+    height: 24px
+    margin: 2px 0
+    padding: 0 !important
+    &.important:not([value])
+      border-color: $error-background-color
   input
-    &[type=email],
-    &[type=number],
-    &[type=password],
-    &[type=text],
-    &[type=url],
-      border: 1px solid $border-color
-      color: $font-color
-      height: 24px
-      margin: 2px 0
-      padding: 0 !important // Override auto-fillers
-      &.important:not([value])
-        border-color: $error-background-color
     &[type=button],
     &[type=submit]
-      border: 1px solid $border-color
+      border:
+        width: 1px
+        style: solid
       font-variant: small-caps
       font-weight: bold
       height: $line-height
       margin-top: $line-height
       padding: 0 ($text-indent / 2)
       text-transform: lowercase
-      &:hover
-        background-color: $link-hover-color
-        color: $background-color
+
+figure.image
+  .wrapper
+    +box-sizing(border-box)
+    background-size: 0 0
+    height: 100%
+
+.gallery
+  overflow: visible
+  position: relative
+  ul
+    overflow: visible
+  figure.image
+    .wrapper
+      margin: 0
+  .flex-direction-nav
+    display: none
+  .flex-control-nav
+    display: none
+    position: absolute
+  .flex-control-paging
+    display: none
+    top: 0
+    left: 0
 
 h1
   margin: $line-height 0
-  line-height: $line-height
-  font:
-    family: $headline-font-family
-    weight: normal
-    size: $headline-font-size
-
-section:not(.ins-section) section, .home-index
-  h2
-    +font-color($headline-font-color)
-
-section.ins-section
-  section
-    h2
-      font-weight: bold
 
 iframe
   border: 0
@@ -185,7 +195,6 @@ img, iframe
 
 ins
   text-decoration: none
-  background-color: $insert-background-color
 
 ol, ul
   +no-bullets
@@ -193,17 +202,15 @@ ol, ul
 
 table
   width: 100%
-  tr
-    &:hover
-      background-color: $row-hover-color
   td
     margin-left: $gutter-width
-    &:empty
-      background-color: $error-background-color
+    vertical-align: top
     &:first-child
       margin-left: 0
 
-cite, em
+// REVIEW: Why did we have this?
+// cite, em
+cite
   &:after
     content: ' '
 
@@ -212,14 +219,7 @@ cite, em
     cite:after
       content: ''
 
-.home-index, .notes-index, .notes-show, .notes-version,
-.features-index section:not(.ins-section), .features-show section:not(.ins-section), 
-.features-show article:not(.ins-section), .features-version
-  h1
-    +font-color($headline-font-color)
-
 .url
-  color: $static-url-color
   &:link
     &:after
       content: ''
@@ -229,7 +229,7 @@ cite, em
       +icon-link-ext
       +icon-medium
 
-// REVIEW - icon CSS above is too specific
+// REVIEW: icon CSS above is too specific
 ul li.deep-link
   a[href$='#disqus_thread']:before,
   a:first-of-type[href$='#comments']:before
@@ -240,7 +240,6 @@ ul li.deep-link
 
 footer
   nav
-    margin-bottom: $line-height
     ul
       margin-bottom: 0
 
@@ -250,22 +249,18 @@ footer
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+pass-media-query('default')
-
-#main, .hello-world, footer
-  width: 90%
+#main
+  box-sizing: padding-box
+  padding: 0
   margin: 0 5%
+  width: 90%
 
-#main > div, .hello-world p, footer
-  +clearfix
+  // #main > section, #main > article, .hello-world p, footer:not(.channel)
+  // +clearfix
 
 ol, ul, .statistics, iframe, table, form, fieldset
   margin-bottom: $line-height
   overflow: hidden
-
-// ol, ul, .statistics, iframe, table, form, fieldset
-//  ol, ul, .statistics, iframe, table, form, fieldset
-//    margin-bottom: 0  
 
 .breadcrumb
   +arrow-links
@@ -289,7 +284,7 @@ header
   background-color: $error-background-color
   &:before
     +icon-attention
-.notice, 
+.notice,
 .success
   background-color: $success-background-color
   &:before
@@ -297,11 +292,9 @@ header
 
 footer
   ul
-    &.promotions
-      +font-color($headline-font-color)
     &.promotions, &.sections
       +arrow-links
-    &.sections, &.channels
+    &.sections, &.web-channels
       text-transform: lowercase
     li
       a
@@ -310,7 +303,7 @@ footer
         &[href*=vimeo]:before
           +icon-medium
   small:before
-    +icon-cc-by-nc-sa
+    //+icon-cc-by-nc-sa
     letter-spacing: 0.25em
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -325,10 +318,9 @@ figure
     img
       clear: both
     figcaption
-      +font-color($caption-color)
       .credit
         &:before
-          content: '('
+          content: ' ('
         &:after
           content: ')'
   &.citation
@@ -337,14 +329,11 @@ figure
       text-align: left
       &:before
         +icon-quote-left
-        color: $secondary-color
         display: inline-block
-        font-size: $body-font-size
         margin-left: $line-height * -1
         padding: 0
         width: $text-indent
     figcaption
-      +body-font-citation
       margin-left: $text-indent
       padding: 0
       &:before
@@ -356,22 +345,24 @@ iframe
     height: $line-height * 8
   &[src*='soundcloud.com']
     height: $line-height * 2
-  &[src*='soundcloud.com%2Fplaylist']
+  &[src*='soundcloud.com%2Fplaylist'],
+  &[src*='soundcloud.com'][src*='sets']
     height: $line-height * 8
+  &[src*='spotify'],
+    height: $line-height * 3
 
 .annotations
   font:
-    size: $small-font-size + 1px
+    size: 0.8em
   line-height: $line-height * 2/3
   text-align: left !important
   text-indent: 0
   ol
     padding-left: $text-indent
   li
+    margin-bottom: $line-height * 2/3
     position: relative
     text-indent: $text-indent * -1
-    &:target
-      background-color: $selected-background-color
     a
       display: inline
       text-indent: 0
@@ -379,22 +370,54 @@ iframe
         display: inline-block
         width: $text-indent
 
-.citation
-  +body-font-citation
-
-.count
-  color: $count-color
+//.citation
+//   +body-font-citation
 
 .map_container
   +reset
-  #map
+  #single_map, #persistent_map
     +reset
-    background-color: $map-background-color
-    color:  $map-font-color
     img, object, embed
       max-width: none
-    .infowindow
-      +blurb(3, 3)
+
+#persistent_map
+  .marker
+    display: inline-block
+    max-width: 200px
+    overflow: display
+    white-space: nowrap
+    a
+      font:
+        weight: 600
+        size: 14px
+    &:before
+      +icon
+      +outline
+      content: '\e810'
+      font-size: 22px
+      padding-right: 5px
+      vertical-align: -4px
+    a
+      +outline
+
+  #tags
+    border-radius: 2px
+    padding: 5px 2px 5px 5px
+    bottom: 43px
+    position: absolute
+    right: 6px
+    max-width: 81px
+    width: 81px
+    li
+      label
+        display: block
+        font-size: 11px
+        height: $line-height
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        input
+          margin-right: 5px
 
 .notes li, .citations li, .map-infowindow
   +clearfix
@@ -406,10 +429,6 @@ iframe
 .references
   +arrow-links
 
-section:not(.ins-section), .home-index
-  .notes li, .citations li, .map-infowindow
-    +body-font
-
 .features-index, .features-show
   .notes li
     h2
@@ -417,15 +436,15 @@ section:not(.ins-section), .home-index
         display: none
 
 .pagination
-  +pagination-nav($font-color)
+  +pagination-nav
 
 article
   .tags
     ul
       +horizontal-list
+      margin-bottom: $line-height // REVIEW: Genericise this
       &:before
         +icon-tags
-        color: $secondary-color
         display: inline
         float: left
       li
@@ -450,7 +469,7 @@ ul li a
     +icon-only
     +icon-large
   &[href$='sign_out']:before
-    +icon-signout
+    +icon-x
     +icon-large
 
 blockquote
@@ -466,7 +485,7 @@ footer
       &.sections
         +columns(2)
         +span-columns(12)
-      &.channels
+      &.web-channels
         +columns(2)
         +span-columns(12)
   small
@@ -480,66 +499,98 @@ footer
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #introduction
-  +body-font
   +hyphens(none)
-  font-style: italic
   text-align: left
-  font-size: $font-size * 1.5
-  margin-bottom: $line-height
+  font-size: 1.2em
 
 #text
   .body, .annotations
-    +body-font
     p
-      margin: 0
-      text-indent: $text-indent
-      &:first-of-type
-        text-indent: 0
+      margin: 0 0 ($line-height * 2/3) 0
+    blockquote
+      p
+        margin: 0
     a
       &[href*=http]:after
         display: none
       &[id*=annotation-mark]
-        font-size: $small-font-size - 2px
+        font-size: 0.6em
+        line-height: 0
         vertical-align: super
+  .body
     blockquote
-      +body-font-citation
-      margin: ($line-height / 2) $text-indent
+      margin: ($line-height * 2/3) $text-indent
+    table
+      td
+        font:
+          size: 0.8em
+        line-height: $line-height * 2/3
+        padding: ($line-height * 1/3) ($line-height * 2/3) ($line-height * 1/3) 0
+      tr
+        &:first-of-type
+          font-weight: 600
+          td
+            padding-bottom: ($line-height * 1/3) - 1px
+        &:last-of-type
+          td
+            padding-bottom: 0
+    ol
+      counter-reset: items
+      &> li
+        counter-increment: items 1
+        padding-left: $text-indent
+        &:before
+          content: counter(items)
+          margin-left: $text-indent * -1
+          position: absolute
+          width: $text-indent
+        ol
+          counter-reset: subitems
+          li
+            counter-increment: subitems
+            padding-left: $text-indent
+            &:before
+              content: counter(items) "." counter(subitems)
+              margin-left: $text-indent * -1
+              position: absolute
+              width: $text-indent
+    ul
+      li
+        padding-left: $text-indent
+        &:before
+          +icon-circle
+          +icon-small
+          font-size: 7px
+          left: 0
+          position: absolute
+          width: $text-indent
+    li
+      margin-bottom: $line-height * 1/3
+      &:last-of-type
+        margin-bottom: 0
+
     section
       margin-bottom: $line-height
       h2
-        color: $body-font-color
         display: block
         margin: 0
         font:
-          family: $headline-font-family
-          size: $body-font-size
-      &:first-of-type
-        h2
-          display: none
+          size: 1.2em
       &:last-of-type
         margin-bottom: 0
       p:first-of-type
         text-indent: 0
   &.parallel
-    line-height: $line-height * 2
-    .source
-      p
-        color: $headline-font-color
-    .target
-      position: absolute
-      padding-top: $line-height
-      top: 0
-      left: 0
     &.collate
-      p
-        text-indent: $text-indent
+      line-height: $line-height * 2
+      .target
+        padding-top: $line-height
     div
       overflow: show
       position: relative
       .source
-        color: $headline-font-color
         &:before
-          top: $line-height / 2
+          top: $line-height * 2/3
       .target
         position: absolute
         top: 0
@@ -547,25 +598,9 @@ footer
         p
           text-indent: 0
 
-.tags, .versions, .annotations
-  margin: $line-height 0 0 0
-
-section.ins-section, article.ins-section
-  #text
-    .body
-      +body-font-citation
-      text-align: left
-  .statistics
-    display: none
-
 #disqus_thread,
 #comments
   +span-columns(12)
-
-.notes
-  li
-    +blurb(8)
-    position: relative
 
 .versions
   li
@@ -591,10 +626,6 @@ section.ins-section, article.ins-section
     &:before,
       +icon-edit
       +icon-only
-
-.books-admin, .books-edit, .links-admin, .links-edit
-  .breadcrumb
-    background-color: $selected-background-color
 
 .books-show
   iframe[src*='books.google']
@@ -630,7 +661,7 @@ section.ins-section, article.ins-section
       display: block
 
 .notes-map, .tags-map, .features-map
-  #map
+  #single_map
     height: $line-height * 20
     margin-bottom: $line-height
 
@@ -639,15 +670,15 @@ section.ins-section, article.ins-section
   font-style: italic
 
 .tags-index
-  ul
-    +columns(2)
-    &.cloud
-      +inline-block-list
+  .tags
+    ul
+      +columns(2)
+      &.cloud
+        +inline-block-list
 
 .tags-show, .tags-map
   h1:before
     +icon-tag
-    color: $secondary-color
 
 .confirmations-edit, .confirmations-new, .registrations-new, .passwords-new, .sessions-new, .signed-out .sessions-event
   h1:before
@@ -657,80 +688,11 @@ section.ins-section, article.ins-section
   h1:before
     +icon-user-2
 
-.scrolling, .mousemoving
-  #tools
-    bottom: 0
-    +transition(0.35s)
-
-#tools:hover
-  bottom: 0
-
-#tools
-  +transition
-  background-color: $background-color
-  border-top: 1px solid $body-font-color
-  bottom: $line-height * -2.25
-  display: block
-  height: $line-height * 1.5
-  margin: 0
-  padding-left: 5%
-  padding-top: $line-height * 0.5
-  position: fixed
-  width: 100%
-  iframe
-    margin-bottom: 0
-  ul
-    display: inline-block
-    margin-bottom: 0
-    li
-      display: inline-block
-      li
-        height: $line-height
-        // margin-right: $text-indent/2
-        position: relative
-        width: $text-indent
-      &.fb-like
-        overflow: visible
-      a
-        font-size: $small-font-size - 2px
-        height: $line-height * 1/3
-        padding-bottom: $line-height * 2/3
-        position: absolute
-        text-align: right
-        top: $line-height * 2/3
-        width: $text-indent
-        &:before
-          font-size: $line-height * 24/30
-          height: $line-height * 2/3
-          left: $line-height * -0.1
-          position: absolute
-          text-align: center
-          top: $line-height * 2/3 * -1
-          width: $text-indent
-        &:after
-          display: none
-        &:hover
-          &[href*=facebook]:before
-            color: $facebook-color
-          &[href*=google]:before
-            color: $gplus-color
-          &[href*=twitter]:before
-            color: $twitter-color
-      &.user ul, &.menu ul
-        li
-          +icon-only
-          a
-            padding-top: $line-height
-
-    .deep-link
-      a
-        color: $count-color
-
 ul.admin
   bottom: $line-height * 2
+  left: $text-indent / 2
   position: absolute !important
   width: auto !important
-  left: $text-indent / 2
 
 .oauth
   margin-top: $line-height
@@ -743,7 +705,6 @@ ul.admin
       width: $text-indent * 2
       &.connected:before
         +icon-ok
-        color: $font-color
         display: block
         height: $line-height
         left: 0
@@ -760,6 +721,7 @@ ul.admin
         +icon-only($text-indent * 2)
         color: $background-color
         padding-left: $text-indent / 2
+      // Hardcoded colors
       .evernote:before, a[href*=evernote]:before
         +icon-evernote
         background-color: $evernote-color
@@ -779,23 +741,9 @@ ul.admin
         +icon-twitter
         background-color: $twitter-color
 
-.ins-enumerate
-  counter-reset: paragraphs
-  #text
-    &.regular p, section.source p, p.source 
-      counter-increment: paragraphs 1
-      position: relative
-      &:before
-        +monospace-font
-        color: $off-color
-        content: counter(paragraphs)
-        display: block
-        font-size: $small-font-size - 3px
-        left: $text-indent * -3
-        line-height: $line-height
-        position: absolute
-        text-align: right
-        width: $text-indent * 2
+aside
+  ul
+    margin-bottom: $line-height
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -804,8 +752,6 @@ ul.admin
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media only print
-
-  +pass-media-query('print')
 
   iframe, nav
     display: none
@@ -838,32 +784,27 @@ ul.admin
 
 @media only screen and (min-width: 720px)
 
-  +pass-media-query('screen-and-min-width-720px')
-
   body
-    padding-top: $line-height / 2
+    padding-top: $line-height * 2/3
 
-  #main,
-  .hello-world,
-  footer
+  #main
+    padding: 0
+
+  #main > section, #main > article, .hello-world p, footer:not(.channel), .hello-world
     margin: 0 auto $line-height auto
-
-  #tools
-    bottom: 0
-    li.menu
-      display: none
 
   form
     +span-columns(6)
     label
-      input
+      input, select
         float: right
         width: space(6)
 
   header[data-title]
-    height: $line-height * 3
+    // height: $line-height * 3
     margin-bottom: $line-height
     margin-top: $line-height
+    padding-bottom: $line-height
     position: relative
     #notice
       position: absolute
@@ -881,18 +822,16 @@ ul.admin
     &[src*='soundcloud.com']
       height: $line-height * 6
     &[src*='soundcloud.com%2Fplaylist']
+    &[src*='soundcloud.com'][src*='sets']
       height: $line-height * 15
+    &[src*='spotify'],
+      height: $line-height * 3
 
   .citations
     +span-columns(6)
     +suffix(6)
     a
       display: block
-      // padding-right: 34.38889%
-
-  .notes
-    li
-      +blurb(5, 4)
 
   ul.user
     clear: both
@@ -907,12 +846,9 @@ ul.admin
       &.image
         margin-bottom: $line-height
         figcaption
-          padding-top: $line-height / 2
-      &.ins-fx-pol
-        figcaption
-          display: none
+          padding-top: $line-height * 2/3
       .map_container
-        #map
+        #single_map
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
     aside
@@ -920,7 +856,6 @@ ul.admin
 
     #text
       +span-columns(8)
-      +font-color($body-font-color)
       counter-reset: term
       overflow: visible
       position: relative
@@ -929,30 +864,14 @@ ul.admin
       .body
         +span-columns(8, 8)
       .annotations
-        +prefix(8, 8)
-        +span-columns(4, 8)
         li
           +hyphens
-          font:
-            size: $small-font-size + 1px
-      .side-annotations
-        position: relative
-        ol
-          display: block
-          padding-left: 0
-          li
-            +font-color($headline-font-color, $headline-font-color)
-            display: block
-            position: absolute
-            a[href*=annotation-mark]
-              font:
-                size: $small-font-size - 2px
-              padding-right: 3px
-              text-align: right
-              vertical-align: super
-              width: $text-indent - 3px
       .aside
         clear: both
+    #single_map
+      +span-columns(4)
+      height: $line-height * 7
+      margin-bottom: $line-height * 2/3
     &:hover
       #text
         a
@@ -962,6 +881,9 @@ ul.admin
     &[dir=rtl]
       header
         +span-columns(6)
+
+  #disqus_thread, #comments
+    +span-columns(9)
 
   .books-edit, .books-update, .links-edit, .links-update
     .tools
@@ -986,12 +908,18 @@ ul.admin
         margin-bottom: $line-height
 
   .links-index
-    ul
-      +columns(2)
+    .links
+      ul
+        +columns(2)
+
+  .notes
+    +span-columns(9)
+    // +suffix(3)
 
   .tags-index
-    ul
-      +columns(4)
+    .tags
+      ul
+        +columns(4)
 
   footer
     nav
@@ -1001,159 +929,8 @@ ul.admin
         &.sections
           +columns(2)
           +span-columns(4)
-        &.channels
+        &.web-channels
           +columns(2)
           +span-columns(4 omega)
     small
       +span-columns(12)
-
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1024px)
-
-  +pass-media-query('screen-and-min-width-1024px')
-
-  .fade-annotations
-    .side-annotations
-      +fade(0)
-    &:hover
-      .side-annotations
-        +fade(1)
-
-  iframe
-    +span-columns(9, 12)
-
-  article
-    header
-      clear: both
-    section#content
-      +span-columns(12)
-      figure
-        &.image
-          +suffix(1, 12)
-          +span-columns(8, 12)
-      #introduction
-        +span-columns(9, 12)
-      #text
-        overflow: visible
-        aside
-          +span-columns(6, 12)
-        .side-annotations
-          +prefix(6, 6)
-          +span-columns(3, 6)
-          height: 0
-          margin-top: 0
-        &.regular, &.parallel
-          +span-columns(6, 12)
-        &.enface
-          +span-columns(12, 12)
-          p
-            line-height: $line-height
-            &:before
-              top: 0
-          .source, p.source
-            +span-columns(6, 12)
-            color: $body-font-color
-            p
-              color: $body-font-color
-          .target, p.target
-            +prefix(6)
-            +span-columns(6 omega, 12)
-            padding-top: 0
-          .side-annotations
-            +prefix(12)
-            +span-columns(2, 12)
-          div
-            overflow: hidden
-      #map
-        +span-columns(3)
-    #extra
-      +span-columns(3 omega, 12)
-
-  #main,
-  .hello-world,
-  footer
-    width: 1080px
-
-  #disqus_thread,
-  #comments
-    +span-columns(6)
-
-  .notes
-    +span-columns(9)
-    +suffix(3)
-    li
-      +blurb(5, 3, 9)
-      img, iframe
-        width: auto // OPTIMIZE: We get these measurements from the columns.
-        height: $line-height * 5
-
-  .books-index
-    ul
-      +columns(2)
-
-  .links-index
-    ul
-      +columns(3)
-
-  .home-index
-    .notes
-      +span-columns(12)
-      padding-right: 0
-      ul
-        +columns($promotions-home-columns)
-        +column-gap($gutter-width * 1px)
-        margin-bottom: 0
-        li
-          +blurb($promotions-home-lines)
-          margin-bottom: $line-height
-
-  .tags-index
-    ul
-      +columns(6)
-
-  .share
-    display: inline-block
-    margin-bottom: $line-height / 2
-
-  #admin
-    ul
-      bottom: $line-height * 2
-      padding-left: $text-indent
-      position: fixed
-
-// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1200px)
-
-  +pass-media-query('screen-and-min-width-1200px')
-
-  figure.image
-    img
-      height: 390px
-      width: 690px
-
-  #tools
-    background-color: transparent
-    border: none
-    padding-left: $text-indent / 2
-    width: space(2)
-
-  footer
-    margin-bottom: 0
-    small
-      margin-bottom: 0
-
-// Screen > 1600px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1601px)
-
-  +pass-media-query('screen-and-min-width-1601px')
-
-  article
-    section#content
-      #text
-        &.enface
-          .side-annotations
-            +prefix(12)
-            +span-columns(3, 12)

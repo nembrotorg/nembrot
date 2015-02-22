@@ -1,0 +1,69 @@
+=font-family($document-font-family, $body-font-family, $headline-font-family)
+  body
+    font:
+      family: $document-font-family
+      // size: $font-size
+
+  #main
+    header[data-title]
+      h1, h2
+        font:
+          family: $headline-font-family
+      .byline
+        font:
+          family: $document-font-family
+
+    aside
+      ul li a:first-of-type
+        &[href*=pdf]
+          font:
+            family: $document-font-family
+
+    figure.citation
+      figcaption
+        font:
+          family: $document-font-family
+
+    .citation
+      font:
+        family: $document-font-family
+
+    section:not(.ins-section), .home-index
+      .notes li, .citations li, .map-infowindow
+        font:
+          family: $body-font-family
+
+    #introduction
+      font:
+        family: $body-font-family
+      font-style: italic // ????
+
+    #text
+      .body, .annotations
+        font:
+          family: $body-font-family
+        blockquote
+          font:
+            family: $document-font-family
+        section
+          h2
+            font:
+              family: $headline-font-family
+
+    section.ins-section, article.ins-section
+      #text
+        .body
+          font:
+            family: $body-font-family
+
+    ul
+      li
+        font-family: $body-font-family 
+        h2
+          font:
+            family: $headline-font-family
+
+    .channel
+      ul
+        li
+          font-family: $document-font-family

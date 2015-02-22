@@ -10,4 +10,5 @@ copyright.*.yml             merge=ours
 appcontrollers              merge=ours
 app/helpers/page_helper.rb  merge=ours
 app/models/ability.rb       merge=ours
+config/routes.rb            merge=ours
 models/evernote_note.rb     merge=ours

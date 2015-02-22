@@ -16,10 +16,10 @@ en:
 
   email:
     greeting: "Hi %{name}"
-    signature: 'nembrot.org'
+    signature: 'nembrot.com'
 
   site:
-    title: 'nembrot.org'
+    title: 'nembrot.com'
     breadcrumbs: 'Breadcrumbs'
     chromeframe_html: 'Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.'
 
@@ -31,7 +31,7 @@ en:
     sign_in: 'Sign in'
 
   home:
-    title: 'Home'
+    title: 'Nembrot'
 
   books:
     index:
@@ -242,7 +242,7 @@ en:
       delete:
         title: 'Sign out'
       oauth:
-        signed_in: "Signed in with your %{provider} account."
+        signed_in_html: '<span id="%{provider}-connected">Your %{provider} account is connected.'
       new:
         title: 'Sign in'
         submit: 'Sign in'

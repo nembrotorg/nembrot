@@ -1,62 +1,17 @@
-- document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                open_graph: { title: @note.title }
-- set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
-- set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
+- cache [cache_buster(4), @current_channel, @note, @source, @all_interrelated_notes_and_features] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ @note.headline } | #{ t('site.title') }"
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  == page_wrapper('article', @note.instruction_list)
 
-  article class=css_instructions(@note.instruction_list)
+    = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
 
-    = render 'header', title: @note.main_title, subtitle: @note.subtitle, document_title: document_title
+    - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 
-    section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+        section#comments = commontator_thread(@note)
 
-      = render 'shared/images', images: @note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+      = render 'disqus' if @current_channel.comments?
 
-      = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
-
-      - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
-        section#introduction
-          p == @note.introduction
-
-      - if @source.nil?
-        section#text.regular
-          = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-      - elsif @note.has_instruction?('collate')
-        section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-      - else
-        section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
-          section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-            = bodify(@source.body, [], [], [], [], '', '', false)
-
-          section.target
-            = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-
-        / Collated
-
-        = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
-
-      = render 'shared/map', map: @map unless @map.nil?
-
-      - unless @note.is_section
-
-        aside
-
-          = render 'notes/tag_list', tags: @tags unless @tags.empty?
-
-          -# = render 'notes/notes_list_headlines', note: @note
-
-          = render 'notes/versions_list', note: @note if Setting['advanced.versions']
-
-  - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
-
-    section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
-
-    = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+    - unless @current_channel == @default_channel || @promoted_notes.blank?
+      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'

@@ -1,0 +1,174 @@
+=image-gradient($top-color: #000, $top-opacity: 0, $bottom-color: #000, $bottom-opacity: 0.35)
+  #main
+    &> article, &> section
+      section
+        figure.image.main-image
+          figcaption
+            +background-image(linear-gradient(rgba($top-color, $top-opacity), rgba($bottom-color, $bottom-opacity)))
+
+=use-background-image($bottom-height: 0, $position: absolute)
+  figure.image.main-image
+    height: calc(100% - #{$bottom-height})
+    left: 0
+    margin: 0
+    padding: 0
+    position: $position
+    right: 0
+    top: 0
+    width: 100%
+    .wrapper
+      @if $position == absolute
+        background-attachment: scroll
+      @else
+        background-attachment: fixed
+      background-position: center 33% // 33% works better than center (rule of thirds) but maybe use instructions
+      bottom: 0
+      height: 100%
+      left: 0
+      margin: 0
+      padding: 0
+      position: $position
+      right: 0
+      top: 0
+      width: 100%
+      img
+        bottom: 0
+        height: auto
+        left: 0
+        margin: auto 
+        min-height: 100%
+        min-width: 100%
+        position: absolute 
+        right: 0
+        top: 0
+        visibility: hidden
+        width: auto
+
+=overlay-caption-top
+  figure.image.main-image
+    figcaption
+      p
+        +outline($color: $caption-outline-color)
+        color: $caption-color // Reiterated because of outline - necessary?
+        font-size: 0.75em // Should this be here?
+        position: absolute
+        right: $text-indent * 3
+        top: $line-height * 2/3
+
+=hanging-caption($extra: 1px) // 0 kills this
+  figure.image.main-image
+    figcaption
+      p
+        font-size: 0.75em // Should this be here?
+        line-height: $line-height * 2/3
+        position: absolute
+        right: $text-indent
+        text-align: right
+        top: calc(100% + ((#{$line-height} / 2) + #{$extra}))
+        bottom: auto
+        width: 25%
+
+=curtain($bottom-height: 0, $position: absolute)
+  body
+    padding-top: 0
+
+  #curtain_shim
+    height: 50%
+  #main
+    background-color: transparent
+    height: 100%
+    padding-top: $line-height * 2/3
+    &> article, &> section
+      height: 100%
+      &> header
+        margin: 0
+      section
+        +use-background-image(50%, $position)
+        figure.image.main-image
+          position: $position 
+          z-index: 1
+          figcaption
+            bottom: 0
+            height: auto
+            left: 0
+            position: absolute
+            top: 0
+            width: 100%
+        .gallery
+          bottom: 0
+          height: 50%
+          left: 0
+          margin: 0
+          overflow: visible
+          padding: 0
+          position: $position
+          right: 0
+          top: 0
+          width: 100%
+          ul
+            height: 100%
+            overflow: visible
+            li
+              height: 100%
+              figure.image.main-image
+                height: 100%
+
+  // Screen > 720px //////////////////////////////////////////////////////////////////////////////////////////////////
+  // OR TRY: Screen > $bottom-height * 2 //////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+    #curtain_shim
+      height: calc(100% - #{$bottom-height})
+    #main
+      &> article, &> section
+        &> header
+        section
+          +use-background-image($bottom-height, $position)
+          .gallery
+            height: calc(100% - #{$bottom-height})
+
+=home-image-in-indices
+  [data-action=index]
+    figure.image.main-image
+      display: block
+
+=large-images
+  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 1024px)
+
+    article
+      section#content
+        &> figure
+          &.image
+            +suffix(0, 12)
+            +span-columns(12, 12)
+
+=portfolio($bottom-height: 0, $position: absolute, $border-color: #000, $border-width: 5px)
+  +curtain($bottom-height, $position)
+
+  // Screen > 720px //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+    #curtain_shim
+      margin-bottom: $line-height
+
+    #main
+      &> article, &> section
+        section
+          figure.image.main-image
+            .wrapper
+              border: $border-width solid $border-color
+              margin: $text-indent $line-height 0 $text-indent
+              width: calc(100% - #{$text-indent * 2})
+
+=collapse-header
+  // FIXME: +collapse-header should handle the margin-top/top of header, .hgroup, #content
+  #main
+    .breadcrumb
+      margin-top: $line-height
+    header[data-title]
+      height: auto
+      margin-top: $line-height * 1/3
+    #content
+      margin-top: $line-height

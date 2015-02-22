@@ -1,22 +1,27 @@
-- document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @notes] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  == page_wrapper
 
-  section
+      = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, introduction: nil, document_title: document_title
 
-    = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
+      = render 'shared/notes_list', notes: @notes,
+         all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+         unless @notes.empty?
 
-    = render 'shared/notes_list', notes: @notes, 
-       all_interrelated_notes_and_features: @all_interrelated_notes_and_features 
-       unless @notes.empty?
+      -# REVIEW: Add tags to maps
+      -#= render 'shared/map_script', map: @map unless @map.blank?
 
-    aside.statistics
-      = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
-      = t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map.blank?
+      aside.statistics
+        = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
+        -#= t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map.blank?
 
-    = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?
+      = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?
+
+javascript:
+  // TODO: Rather than showing/hiding, just highlight the marker
+  window.Nembrot.show_one_map_tag("#{ @tag.name }");

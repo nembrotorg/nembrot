@@ -1,0 +1,31 @@
+=simple-blurb($lines: 3)
+  margin-bottom: $line-height
+  a
+    display: block
+    height: $line-height * $lines
+    overflow: hidden
+    h2
+      display: inline
+      font-size: 1.2em
+      &:after
+        content: ' '
+    img, iframe
+      display: none
+
+  // Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @media only screen and (min-width: 720px)
+    a
+      h2
+        display: block
+
+=simple-blurbs
+  .infowindow
+    +simple-blurb
+
+  .notes
+    ul
+      +columns(1)
+      +column-gap(0)
+      li
+        +simple-blurb

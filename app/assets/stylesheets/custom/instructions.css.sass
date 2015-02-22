@@ -1,0 +1,53 @@
+section.ins-section
+  section
+    h2
+      font-weight: bold
+
+section.ins-section, article.ins-section
+  #text
+    .body
+      text-align: left
+  .statistics
+    display: none
+
+.ins-enumerate
+  counter-reset: paragraphs
+  #text
+    &.regular p, section.source p, p.source
+      counter-increment: paragraphs 1
+      position: relative
+      &:before
+        +monospace-font
+        content: counter(paragraphs)
+        display: block
+        font-size: 0.6em
+        left: $text-indent * -3
+        position: absolute
+        text-align: right
+        width: $text-indent * 2
+
+.ins-hide-first-header
+  section
+    &:first-of-type
+      h2
+        display: none
+
+.ins-hide-header
+  #main
+    header[data-title]
+      display: none
+
+.notes-show.ins-show-byline
+  header[data-title]
+    span.byline
+      display: inline-block !important
+
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 720px)
+
+  article
+    figure
+      &.ins-fx-pol
+        figcaption
+          display: none

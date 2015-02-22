@@ -2,9 +2,10 @@
 
 class Note < ActiveRecord::Base
 
-  include Syncable
+  include NoteCustom, Syncable
 
-  attr_writer :tag_list, :instruction_list
+  attr_writer   :tag_list, :instruction_list
+  attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
@@ -23,8 +24,8 @@ class Note < ActiveRecord::Base
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
-                  if:  proc { |note| (note.external_updated_at - Note.find(note.id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || note.get_real_distance > Setting['advanced.version_gap_distance'].to_i  },
-                  unless: proc { |note| Setting['advanced.versions'] == false || note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  if:  proc { |note| note.save_new_version? },
+                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -34,9 +35,9 @@ class Note < ActiveRecord::Base
                     distance: proc { |note| Note.find(note.id).distance }
                   }
 
-  default_scope { order(external_updated_at: :desc) }
-
-  scope :blurbable, -> { where('word_count > ?', Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length']) }
+  default_scope { order('weight ASC, external_updated_at DESC') }
+  # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
   scope :citations, -> { where(is_citation: true) }
   scope :features, -> { where.not(feature: nil) }
   scope :notes_and_features, -> { where(is_citation: false) }
@@ -68,12 +69,20 @@ class Note < ActiveRecord::Base
     (all.to_a.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
+  def self.homeable
+    (all.keep_if { |note| note.has_instruction?('home') } + promotable).uniq
+  end
+
+  def self.with_instruction(instruction)
+    all.keep_if { |note| note.has_instruction?(instruction) }
+  end
+
   def self.sections
-    where(is_section: true).pluck(:feature).uniq
+    where(is_section: true).uniq
   end
 
   def self.features
-    where(is_feature: true, is_section: false).pluck(:feature).uniq
+    where(is_feature: true, is_section: false).uniq
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -121,7 +130,7 @@ class Note < ActiveRecord::Base
   # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
-    (source_url && source_url =~ /youtube|vimeo|soundcloud/)
+    (source_url && source_url =~ /youtube|vimeo|soundcloud|spotify/)
   end
 
   def fx
@@ -186,6 +195,10 @@ class Note < ActiveRecord::Base
     Levenshtein.distance(previous_title_and_body, title + body)
   end
 
+  def save_new_version?
+    Setting['advanced.versions'] == 'true' && ((external_updated_at - Note.find(id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+  end
+
   private
 
   def is_untitled?
@@ -209,6 +222,14 @@ class Note < ActiveRecord::Base
       lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
     end
     self.lang = lang
+  end
+
+  def update_weight
+    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    if weight_instruction
+     weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
+    end
+    self.weight = weight
   end
 
   # REVIEW: Are the following two methods duplicated in Book?
@@ -242,23 +263,33 @@ class Note < ActiveRecord::Base
 
   def update_metadata
     discard_versions?
+    update_date
     update_is_hidable?
     update_is_citation?
     update_is_listable?
     update_is_feature?
     update_is_section?
-    keep_old_date?
     update_lang
+    update_weight
     update_feature
     update_feature_id
     update_word_count
     update_distance
   end
 
+  def update_date
+    self.external_updated_at = external_updated_at_was unless save_new_version? || new_record?
+    reset_date?
+  end
+
+  def reset_date?
+    self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true' && new_record?
+  end
+
   def discard_versions?
-    if has_instruction?('reset') && !versions.empty?
-      self.external_updated_at = versions.first.reify.external_updated_at if Setting['advanced.always_reset_on_create']
-      versions.destroy_all
+    if has_instruction?('reset')
+      self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true'
+      versions.destroy_all unless versions.empty?
     end
   end
 
@@ -272,11 +303,6 @@ class Note < ActiveRecord::Base
 
   def update_is_listable?
     self.listable = !has_instruction?('unlist')
-  end
-
-  def keep_old_date?
-    # If this is a minor update (i.e. we're not creating a new version), we keep the old date.
-    self.external_updated_at = external_updated_at_was unless title_changed? || body_changed?
   end
 
   def update_is_hidable?

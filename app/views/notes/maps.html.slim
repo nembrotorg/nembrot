@@ -1,0 +1,16 @@
+- cache [cache_buster(1), @notes] do
+
+  - document_title = "#{ t('.title') } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
+
+  == page_wrapper
+
+    = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
+
+    = render 'shared/map_script', map: @map unless @map.blank?
+
+    aside.statistics
+      = t('.statistics', count: @notes.size)
+      = t('.other_view_html', path: notes_path)

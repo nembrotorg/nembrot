@@ -2,8 +2,7 @@
 
 class EvernoteNote < ActiveRecord::Base
 
-  include Evernotable
-  include Syncable
+  include Evernotable, Syncable
 
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.)
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )
@@ -18,8 +17,15 @@ class EvernoteNote < ActiveRecord::Base
   # validates_associated :note
 
   def self.add_task(guid, notebook_guid)
-    evernote_note = where(cloud_note_identifier: guid).first_or_create
-    evernote_note.dirtify
+    # This test is repeated in EvernoteRequest, and below in #evernote_auth - do we need all of them?
+    evernote_note = where(cloud_note_identifier: guid).first_or_initialize
+    if !Settings['channel.evernote_notebooks'].include? notebook_guid
+      SYNC_LOG.error 'Note is not in any required notebook.'
+      evernote_note.note.destroy! unless evernote_note.note.nil?
+    else
+      evernote_note.cloud_notebook_identifier = notebook_guid
+      evernote_note.dirtify
+    end
   end
 
   def self.sync_all
@@ -42,7 +48,14 @@ class EvernoteNote < ActiveRecord::Base
   end
 
   def evernote_auth
-    EvernoteAuth.new
+    channel = Channel.where(notebooks: cloud_notebook_identifier).first
+    if channel.nil?
+      SYNC_LOG.error 'Channel does not exist.'
+      destroy
+    else
+      user = channel.user
+      EvernoteAuth.new(user)
+    end
   end
 
   private

@@ -2,7 +2,7 @@
 
 class EvernoteRequest
 
-  include Evernotable
+  include EvernoteRequestCustom, Evernotable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data,
                 :cloud_note_tags, :offline
@@ -14,11 +14,13 @@ class EvernoteRequest
     self.guid = evernote_note.cloud_note_identifier
     self.evernote_auth = evernote_note.evernote_auth
 
-    evernote_note.increment_attempts
+    unless evernote_note.destroyed? # REVIEW: evernote_note could have been destroyed by #evernote_auth
+      self.evernote_note.increment_attempts
 
-    self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
+      self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
-    update_note if update_necessary? && note_is_not_conflicted?
+      update_note if update_necessary? && note_is_not_conflicted?
+    end
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
       evernote_note.max_out_attempts
@@ -53,7 +55,7 @@ class EvernoteRequest
   end
 
   def evernote_notebook_required?
-    required = Setting['channel.evernote_notebooks'].split(/ |, ?/).include?(cloud_note_metadata.notebookGuid)
+    required = required_evernote_notebooks.include?(cloud_note_metadata.notebookGuid)
     unless required
       evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)
@@ -71,7 +73,9 @@ class EvernoteRequest
   end
 
   def cloud_note_updated?
-    updated = evernote_note.update_sequence_number.blank? || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    updated = evernote_note.update_sequence_number.blank?
+    updated = updated || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    # updated = updated || 
     unless updated
       evernote_note.undirtify
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_latest', logger_details)
@@ -122,11 +126,6 @@ class EvernoteRequest
     self.cloud_note_data = cloud_note_data
   end
 
-  def calculate_updated_at
-    reset_new_note = Setting['advanced.always_reset_on_create'] && evernote_note.note.versions.size == 0
-    Time.at((reset_new_note ? cloud_note_data.created : cloud_note_data.updated) / 1000).to_datetime
-  end
-
   def populate
     self.data = {
       'active'              => true,
@@ -134,7 +133,8 @@ class EvernoteRequest
       'author'              => cloud_note_data.attributes.author,
       'body'                => cloud_note_data.content,
       'content_class'       => cloud_note_data.attributes.contentClass,
-      'external_updated_at' => calculate_updated_at,
+      'external_created_at' => Time.at(cloud_note_data.created / 1000).to_datetime,
+      'external_updated_at' => Time.at(cloud_note_data.updated / 1000).to_datetime,
       'instruction_list'    => cloud_note_tags.grep(/^_/),
       'introduction'        => cloud_note_data.content.scan(/\{\s*intro:\s*(.*?)\s*\}/i).flatten.first,
       'last_edited_by'      => cloud_note_data.attributes.lastEditedBy,
@@ -162,22 +162,27 @@ class EvernoteRequest
 
   # REVIEW: When a note contains both images and downloads, the alt/cap is disrupted
   def update_resources_with_evernote_data(cloud_note_data)
-    cloud_resources = cloud_note_data.resources
-
-    # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
-    #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
-    captions = cloud_note_data.content.scan(/\{s*cap:\s*(.*?)\s*\}/i)
-    descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
-    credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
-
     # First we remove all resources (to make sure deleted resources disappear -
     #  but we don't want to delete binaries so we use #delete rather than #destroy)
     evernote_note.note.resources.delete_all
 
+    cloud_resources = cloud_note_data.resources
+
     if cloud_resources
+      # Since we're reading straight from Evernote data we use <div> and </div> rather than ^ and $ as line delimiters.
+      #  If we end up using a sanitized version of the body for other uses (e.g. wordcount), then we can use that.
+      captions = cloud_note_data.content.scan(/\{\s*cap:\s*(.*?)\s*\}/i)
+      descriptions = cloud_note_data.content.scan(/\{\s*(?:alt|description):\s*(.*?)\s*\}/i)
+      credits = cloud_note_data.content.scan(/\{\s*credit:\s*(.*?)\s*\}/i)
+
+      # Sort resources according to their order in the content
+      #  http://stackoverflow.com/questions/11961685, http://stackoverflow.com/questions/22700113
+      resources_order_in_content = cloud_note_data.content.scan(/<en-media[^>]*?hash="([0-9a-z]{32})"/).flatten
+      cloud_resources = cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash.unpack('H*').first }
+
       cloud_resources.each_with_index do |cloud_resource, index|
 
-        if cloud_resource.width > Setting['style.images_min_width'].to_i
+        if cloud_resource.width.nil? || cloud_resource.width > Setting['style.images_min_width'].to_i
           resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
           caption = captions[index] ? captions[index][0] : ''

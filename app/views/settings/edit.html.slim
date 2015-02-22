@@ -3,50 +3,45 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title, show_flashes: true
 
-  section
+  form action="#{ update_settings_path }" method="post"
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    fieldset
+      header
+        h2 = t('.channel_header')
 
+      - @channel_settings.each do |key, value|
+        label for="#{ key.to_param }"
+          | #{ key.gsub(/^.*?\./, '').humanize }:
+          input name="settings[#{ key }]" type="text" value="#{ value }"
 
-    form action="#{ update_settings_path }" method="post"
+      p = link_to t('.reset.label_channel'), reset_settings_path(namespace: 'channel'), data: { confirm: t('.reset.confirm') }
 
-      fieldset
-        header
-          h2 = t('.channel_header')
+    fieldset
+      header
+        h2 = t('.advanced_header')
 
-        - @channel_settings.each do |key, value|
-          label for="#{ key.to_param }"
-            | #{ key.gsub(/^.*?\./, '').humanize }:
-            input name="settings[#{ key }]" type="text" value="#{ value }"
+      - @advanced_settings.each do |key, value|
+        label for="#{ key.to_param }"
+          | #{ key.gsub(/^.*?\./, '').humanize }:
+          input name="settings[#{ key }]" type="text" value="#{ value }"
 
-        p = link_to t('.reset.label_channel'), reset_settings_path(namespace: 'channel'), data: { confirm: t('.reset.confirm') }
+      p = link_to t('.reset.label_advanced'), reset_settings_path(namespace: 'advanced'), data: { confirm: t('.reset.confirm') }
 
-      fieldset
-        header
-          h2 = t('.advanced_header')
+    fieldset
+      header
+        h2 = t('.style_header')
 
-        - @advanced_settings.each do |key, value|
-          label for="#{ key.to_param }"
-            | #{ key.gsub(/^.*?\./, '').humanize }:
-            input name="settings[#{ key }]" type="text" value="#{ value }"
+      - @style_settings.each do |key, value|
+        label for="#{ key.to_param }"
+          | #{ key.gsub(/^.*?\./, '').humanize }:
+          input name="settings[#{ key }]" type="text" value="#{ value }"
 
-        p = link_to t('.reset.label_advanced'), reset_settings_path(namespace: 'advanced'), data: { confirm: t('.reset.confirm') }
+      p = link_to t('.reset.label_style'), reset_settings_path(namespace: 'style'), data: { confirm: t('.reset.confirm') }
 
-      fieldset
-        header
-          h2 = t('.style_header')
-
-        - @style_settings.each do |key, value|
-          label for="#{ key.to_param }"
-            | #{ key.gsub(/^.*?\./, '').humanize }:
-            input name="settings[#{ key }]" type="text" value="#{ value }"
-
-        p = link_to t('.reset.label_style'), reset_settings_path(namespace: 'style'), data: { confirm: t('.reset.confirm') }
-
-        input name="_method" type="hidden" value="put"
-        = token_tag form_authenticity_token
-        input type="submit" value="Save"
+      input name="_method" type="hidden" value="put"
+      = token_tag form_authenticity_token
+      input type="submit" value="Save"

@@ -34,7 +34,7 @@ ul.user
 
             li = link_to provider.to_s.titleize, omniauth_authorize_path(resource_name, provider), title: link_title
 
-  - if user_signed_in? && current_user.admin?
+  - if 1 == 0 && user_signed_in? && current_user.admin?
     li
       ul.admin
         li= link_to t('settings.edit.title'), edit_settings_path

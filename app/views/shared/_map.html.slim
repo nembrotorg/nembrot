@@ -1,11 +1,5 @@
-figure
-  .map_container 
-    #map
+figure#single_map_container.map_container
+  #single_map.map
 
-  javascript:
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(#{ raw map.to_json });
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-    });
+  - cache [cache_buster(1), map, key] do
+    = render 'shared/map_script', map: map, key: key

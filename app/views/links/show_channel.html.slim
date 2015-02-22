@@ -3,16 +3,12 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = render 'header', title: t('.title'), subtitle: @channel, document_title: document_title
 
-  section
+  section.details
+    p.main= @name.titlecase
+    = link_to @channel, @channel, class: 'url'
 
-    = render 'header', title: t('.title'), subtitle: @channel, document_title: document_title
-
-    section.details
-      p.main= @name.titlecase
-      = link_to @channel, @channel, class: 'url'
-
-    = render 'links_list', links: @links_channel, all_interrelated_notes_and_features: @all_interrelated_notes_and_features unless @links_channel.empty?
+  = render 'links_list', links: @links_channel, all_interrelated_notes_and_features: @all_interrelated_notes_and_features unless @links_channel.empty?

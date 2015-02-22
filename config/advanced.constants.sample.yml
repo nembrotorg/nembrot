@@ -3,7 +3,7 @@ defaults: &defaults
     admin_email: CHANGE_ME@CHANGE_ME
     admin_name: CHANGE_ME
     allowed_html_attributes: href src alt cite
-    allowed_html_tags: a blockquote del ins li ol ul img strong
+    allowed_html_tags: a blockquote del ins li ol ul img strong table tbody td tr
     always_reset_on_create: true
     attempts: 3
     author: CHANGE_ME
@@ -11,7 +11,7 @@ defaults: &defaults
     blurb_length: 400
     blurb_omission: ...
     books_index_per_page: 30
-    books_section: true
+    books_section: false
     citation_blurb_length: 230
     citation_max_length: 9999
     citations_index_per_page: 10
@@ -20,7 +20,7 @@ defaults: &defaults
     detect_language_sample_length: 250
     disqus_shortname: CHANGE_ME_OPTIONAL
     facebook_app_id: CHANGE_ME_OPTIONAL
-    google_analytics_key: CHANGE_ME
+    google_analytics_key: 'UA-16898823-3'
     instructions_citation: __QUOTE __CITATION
     instructions_collate: __COLLATE
     instructions_default: __TRI
@@ -53,7 +53,7 @@ defaults: &defaults
     twitter_user_name: CHANGE_ME_OPTIONAL
     version_gap_distance: 100
     version_gap_minutes: 60
-    versions: true
+    versions: false
     web_channels: facebook.com/CHANGE_ME_OPTIONAL twitter.com/CHANGE_ME_OPTIONAL github.com/nembrotorg/nembrot googleplus.com/CHANGE_ME_OPTIONAL
 
 development:
@@ -67,4 +67,3 @@ staging:
 
 production:
   <<: *defaults
-  google_analytics_key: 'UA-16898823-3'

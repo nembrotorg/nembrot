@@ -1,6 +1,6 @@
 doctype 5
 
-html class="no-js" lang="#{ I18n.locale }"
+html data={ controller: controller.controller_name, action: controller.action_name } class="no-js #{ css_instructions(@note.instruction_list).join(' ') unless @note.nil? } document-loading" lang="#{ Setting['advanced.locale'] }"
 
   = render 'head'
 
@@ -8,6 +8,7 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'chromeframe'
 
+    #curtain_shim
     #main role="main" data-pjax-container="true"
 
       = yield
@@ -18,7 +19,12 @@ html class="no-js" lang="#{ I18n.locale }"
 
     = render 'tools'
 
-    = render 'footer'
+    -# = render 'footer'
+
+    figure#persistent_map_container.map_container
+      #persistent_map.map
+
+    aside#dashboard data-pjax-dashboard='true' style='display: none'
 
     = render 'google_analytics' unless Setting['advanced.google_analytics_key'].blank?
 

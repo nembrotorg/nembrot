@@ -1,0 +1,6 @@
+figcaption
+  - unless image.caption.blank? && image.credit.blank?
+      p
+        = simple_blurbify(image.caption, ['a', 'span']) unless image.caption.blank?
+        - unless image.credit.blank?
+          span.credit = simple_blurbify(image.credit, ['a', 'span'])

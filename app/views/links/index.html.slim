@@ -3,18 +3,16 @@
                 description: '',
                 open_graph: { title: document_title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
 
-  section
+  section = render 'shared/images', note: @home_note, type: :standard unless @home_note.resources.attached_images.empty? || @home_note.has_instruction?('hide_image')
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+  - unless @channels.empty?
+    = render 'channels_list', channels: @channels
 
-    - unless @channels.empty?
-      = render 'channels_list', channels: @channels
+    aside.statistics
+      = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
 
-      aside.statistics
-        = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
-
-      = paginate @channels
+    = paginate @channels

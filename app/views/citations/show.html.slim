@@ -3,22 +3,18 @@
                 description: @citation.body,
                 open_graph: { title: @citation.title }
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+== page_wrapper('article')
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-  article
+    = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, introduction: nil, document_title: document_title
 
-    section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+    section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-      = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, document_title: document_title
+      - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
 
-      section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+      figure.citation
+        blockquote= blurbify(citation_text, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+        figcaption= blurbify(attribution, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations, 'citation.book.inline_html', 'citation.link.inline_html')
 
-        - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
-
-        figure.citation
-          blockquote= blurbify(citation_text, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-          figcaption= blurbify(attribution, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations, 'citation.book.inline_html', 'citation.link.inline_html')
-
-    = render 'notes/tag_list', tags: @tags unless @tags.empty?
+  = render 'notes/tag_list', tags: @tags unless @current_channel.tags == false || @tags.empty?

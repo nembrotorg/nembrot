@@ -93,7 +93,7 @@ class Paypal
   end
 
   def verify_receiver?(params)
-    params[:receiver_email] == 'joe.gatt@nembrot.com'
+    params[:receiver_email] == 'joe.gatt@nembrot.org'
   end
 
   def ipn_subscr_signup(params)

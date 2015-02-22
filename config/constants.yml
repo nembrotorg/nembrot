@@ -35,7 +35,7 @@ test:
 
 staging:
   <<: *defaults
-  host: staging.nembrot.com
+  host: staging.nembrot.org
   asset_host: http://a8.joegatt.org
   synchronous: true
 

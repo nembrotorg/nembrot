@@ -20,9 +20,9 @@ set :user,            'deployer'
 set :group,           'staff'
 set :use_sudo,        false
 
-role :web,    'nembrot.com'
-role :app,    'nembrot.com'
-role :db,     'nembrot.com', primary: true
+role :web,    'nembrot.org'
+role :app,    'nembrot.org'
+role :db,     'nembrot.org', primary: true
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }

@@ -16,10 +16,10 @@ en:
 
   email:
     greeting: "Hi %{name}"
-    signature: 'nembrot.com'
+    signature: 'nembrot.org'
 
   site:
-    title: 'nembrot.com'
+    title: 'nembrot.org'
     breadcrumbs: 'Breadcrumbs'
     chromeframe_html: 'Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.'
 

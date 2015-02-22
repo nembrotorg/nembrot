@@ -4,7 +4,7 @@
                   description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
                   open_graph: { title: @note.headline }
   - if @current_channel.name == 'Home'
-    - set_meta_tags open_graph: { site_name: 'nembrot.com' }
+    - set_meta_tags open_graph: { site_name: 'nembrot.org' }
   -else
     - set_meta_tags open_graph: { site_name: @current_channel.name }
 

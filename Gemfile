@@ -13,7 +13,6 @@ gem 'cancan'
 gem 'coffee-rails'
 gem 'commontator'
 gem 'compass-rails'
-gem 'countries'
 gem 'coveralls', require: false
 gem 'dalli'
 gem 'detect_language'

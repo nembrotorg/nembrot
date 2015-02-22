@@ -13,7 +13,7 @@ Nembrot is a complete Rails 4 web application that takes notes from your Evernot
 
 [nembrot.org](http:nembrot.org) is actually a vanilla implementation of this code.
 
-A fork of this code is used on the hosted service [nembrot.com](http://nembrot.com).
+A fork of this code is used on the hosted service [nembrot.org](http://nembrot.org).
 
 ##Features
 * Syncs notes from any [Evernote](http://evernote.com) notebook

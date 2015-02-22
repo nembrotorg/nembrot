@@ -103,8 +103,6 @@ GEM
       sass (~> 3.2.19)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
-    countries (0.10.0)
-      currencies (~> 0.4.2)
     coveralls (0.7.10)
       multi_json (~> 1.10)
       rest-client (>= 1.6.8, < 2)
@@ -113,7 +111,6 @@ GEM
       thor (~> 0.19.1)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    currencies (0.4.2)
     daemons (1.1.9)
     dalli (2.7.2)
     database_cleaner (1.0.1)
@@ -491,7 +488,6 @@ DEPENDENCIES
   coffee-rails
   commontator
   compass-rails
-  countries
   coveralls
   dalli
   database_cleaner (= 1.0.1)

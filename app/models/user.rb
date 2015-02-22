@@ -2,7 +2,7 @@
 
 class User < ActiveRecord::Base
 
-  include UserCustom, Upgradable, Downgradable, Tokenable
+  include UserCustom, Tokenable
 
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
@@ -12,15 +12,9 @@ class User < ActiveRecord::Base
   # has_many :notes, dependent: :destroy
 
   has_many :authorizations, dependent: :destroy
-  belongs_to :plan
 
   has_paper_trail
   acts_as_commontator
-
-  validates_presence_of :plan
-  # REVIEW: validate uniqueness of tokens, paypal subscriptions, etc
-
-  before_save :update_plan
 
   def self.new_with_session(params, session)
     if session['devise.user_attributes']
@@ -111,11 +105,5 @@ class User < ActiveRecord::Base
   # http://dev.mensfeld.pl/2013/12/rails-devise-and-remember_me-rememberable-by-default/
   def remember_me
     true
-  end
-
-  private
-
-  def update_plan
-    self.plan = Plan.free if plan.nil?
   end
 end

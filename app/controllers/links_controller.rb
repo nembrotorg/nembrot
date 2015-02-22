@@ -61,8 +61,4 @@ class LinksController < ApplicationController
                                  :lang, :latitude, :longitude, :modified, :name, :paywall, :protocol, :publisher,
                                  :title, :url, :website_name)
   end
-
-  def default_url_options
-    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
-  end
 end

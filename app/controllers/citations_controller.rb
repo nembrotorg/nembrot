@@ -27,8 +27,4 @@ class CitationsController < ApplicationController
       flash[:error] = I18n.t('citations.show.not_found', id: params[:id])
       redirect_to citations_path
   end
-
-  def default_url_options
-    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
-  end
 end

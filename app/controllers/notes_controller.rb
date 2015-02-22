@@ -67,8 +67,4 @@ class NotesController < ApplicationController
       flash[:error] = t('notes.version.not_found', id: params[:id], sequence: params[:sequence])
       redirect_to note_path(@note)
   end
-
-  def default_url_options
-    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
-  end
 end

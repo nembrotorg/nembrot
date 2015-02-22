@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-    @all_interrelated_notes_and_features = Note.channelled(@current_channel).interrelated.publishable.notes_and_features
-    @all_interrelated_citations = Note.channelled(@current_channel).interrelated.publishable.citations
+    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
+    @all_interrelated_citations = Note.interrelated.publishable.citations
 
     @note = @home_note
     # REVIEW: This could go in the Note model as part of channelled
@@ -29,10 +29,5 @@ class HomeController < ApplicationController
 
     @channels = Channel.promoted.first(30)
     @channels = (@channels + Channel.promotable.first(30 - @channels.size)).uniq if @channels.size < 30
-  end
-
-  def default_url_options
-    # return { channel: @current_channel.slug } unless @current_channel.name == 'default'
-    { channel: @current_channel.slug }
   end
 end

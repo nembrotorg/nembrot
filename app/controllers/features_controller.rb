@@ -1,7 +1,7 @@
 class FeaturesController < ApplicationController
 
   def show
-    @notes = Note.channelled(@current_channel).publishable.where(feature: params[:feature], lang: @current_channel.locale)
+    @notes = Note.publishable.where(feature: params[:feature], lang: @current_channel.locale)
 
     if @notes.empty?
       flash[:error] = "404 error! #{ request.url } does not exist."
@@ -68,7 +68,7 @@ class FeaturesController < ApplicationController
     @promoted_notes = @notes.where.not(id: @note.id)
 
     # If there are no more notes in this feature, load notes index
-    @promoted_notes = Note.channelled(@current_channel)
+    @promoted_notes = Note
                           .publishable
                           .listable
                           .blurbable
@@ -77,9 +77,5 @@ class FeaturesController < ApplicationController
                           .page(1) if @promoted_notes.empty?
 
     render template: 'notes/show'
-  end
-
-  def default_url_options
-    return { channel: @current_channel.nil? ? 'default' : @current_channel.slug }
   end
 end

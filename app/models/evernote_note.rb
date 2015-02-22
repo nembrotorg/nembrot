@@ -2,8 +2,7 @@
 
 class EvernoteNote < ActiveRecord::Base
 
-  include Evernotable
-  include Syncable
+  include Evernotable, Syncable
 
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.)
   #  See: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html ("Options" ... ":dependent") )

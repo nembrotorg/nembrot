@@ -10,5 +10,7 @@ copyright.*.yml             merge=ours
 app/helpers/page_helper.rb  merge=ours
 app/models/ability.rb       merge=ours
 
+models/evernote_note.rb     merge=ours
+
 # app/models/note.rb        ... only  .channelled that is different from upstream
 # app/models/evernote_request.rb      .evernote_notebook_required?

@@ -2,8 +2,7 @@
 
 class Note < ActiveRecord::Base
 
-  include NoteCustom
-  include Syncable
+  include NoteCustom, Syncable
 
   attr_writer   :tag_list, :instruction_list
   attr_accessor :external_created_at

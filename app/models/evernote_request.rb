@@ -2,7 +2,7 @@
 
 class EvernoteRequest
 
-  include Evernotable
+  include EvernoteRequestCustom, Evernotable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data,
                 :cloud_note_tags, :offline
@@ -55,8 +55,7 @@ class EvernoteRequest
   end
 
   def evernote_notebook_required?
-    # required = Setting['channel.evernote_notebooks'].split(/ |, ?/).include?(cloud_note_metadata.notebookGuid)
-    required = Channel.pluck(:notebooks).include?(cloud_note_metadata.notebookGuid)
+    required = required_evernote_notebooks.include?(cloud_note_metadata.notebookGuid)
     unless required
       evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.not_in_notebook', logger_details)

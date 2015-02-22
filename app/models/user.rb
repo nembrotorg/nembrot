@@ -2,7 +2,7 @@
 
 class User < ActiveRecord::Base
 
-  include Upgradable, Downgradable, Tokenable
+  include UserCustom, Upgradable, Downgradable, Tokenable
 
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   # has_many :notes, dependent: :destroy
 
   has_many :authorizations, dependent: :destroy
-  has_many :channels, dependent: :destroy
   belongs_to :plan
 
   has_paper_trail

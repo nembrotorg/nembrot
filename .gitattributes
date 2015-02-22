@@ -1,16 +1,13 @@
 Gemfile.lock                merge=ours
 README.md                   merge=ours
-copyright.*.yml             merge=ours
 *constants.yml              merge=ours
 *custom*                    merge=ours
 *icon*                      merge=ours
 *themes*                    merge=ours
 *vcr_cassettes*             merge=ours
+copyright.*.yml             merge=ours
 
+appcontrollers              merge=ours
 app/helpers/page_helper.rb  merge=ours
 app/models/ability.rb       merge=ours
-
 models/evernote_note.rb     merge=ours
-
-# app/models/note.rb        ... only  .channelled that is different from upstream
-# app/models/evernote_request.rb      .evernote_notebook_required?

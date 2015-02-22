@@ -2,6 +2,7 @@
 
 class Note < ActiveRecord::Base
 
+  include NoteCustom
   include Syncable
 
   attr_writer   :tag_list, :instruction_list
@@ -55,14 +56,8 @@ class Note < ActiveRecord::Base
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
   after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
-  # FIXME: This breaks for new notes because note_id is not found (see Channel.channels_that_use_this_note)
-  # after_save :update_channels_locale, if: :body_changed?
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
-
-  def self.channelled(channel)
-    joins(:evernote_notes).where(evernote_notes: { cloud_notebook_identifier: channel.notebooks })
-  end
 
   # REVIEW: Store in columns like is_section?
   def self.mappable
@@ -345,9 +340,5 @@ class Note < ActiveRecord::Base
   def update_feature_id
     feature_id_candidate = get_feature_id
     self.feature_id = get_feature_id.parameterize unless feature_id_candidate.nil?
-  end
-
-  def update_channels_locale
-    Channel.update_locales(self)
   end
 end

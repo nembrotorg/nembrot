@@ -15,7 +15,7 @@ describe OpenLibraryRequest do
     its (['library_thing_id']) { should == '430888' }
     its (['open_library_id']) { should == '212450' }
     its (['page_count']) { should == 459 }
-    its (['publisher']) { should == 'Stanford University press' }
+    its (['publisher']) { should == 'Stanford University Press' }
     its (['title']) { should == 'Discourse Networks, 1800-1900' }
 
   end

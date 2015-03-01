@@ -11,7 +11,7 @@ describe 'Notes' do
     Setting['advanced.blurb_length'] = 40
     Setting['advanced.instructions_map'] = '__MAP'
     Setting['advanced.tags_minimum'] = 1
-    Setting['advanced.versions'] = true
+    Setting['advanced.versions'] = 'true'
     Setting['advanced.version_gap_distance'] = 10
     Setting['advanced.version_gap_minutes'] = 60
   end
@@ -100,7 +100,7 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      Setting['advanced.versions'] = true
+      Setting['advanced.versions'] = 'true'
       Setting['advanced.tags_minimum'] = 1
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']

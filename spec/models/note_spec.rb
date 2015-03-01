@@ -5,7 +5,7 @@ include ApplicationHelper
 
 describe Note do
 
-  before(:example) { Setting['advanced.versions'] = true }
+  before(:example) { Setting['advanced.versions'] = 'true' }
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
   subject { note }
 

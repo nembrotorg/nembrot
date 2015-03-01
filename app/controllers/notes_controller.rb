@@ -4,19 +4,15 @@ class NotesController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    #all_notes = Note.publishable.listable.blurbable
-    all_notes = Note.includes(:resources).channelled(@current_channel).publishable.listable.blurbable
-    # all_notes = Note.channelled(@default_channel).with_instruction('demo')
-    @notes = all_notes.page(page_number).load
+    all_notes = Note.publishable.listable.blurbable
 
+    @notes = all_notes.page(page_number).load
     # Send all interrelated notes. (It's not enough to send just this note's interrelated notes since there could be nested r
     #  eferences.) We can also create a method in notes to do this. Not sure it would be more efficient.
     interrelated_notes_features_and_citations
-    mapify(all_notes.mappable)
+    @map = all_notes.mappable
     @total_count = all_notes.size
-    @word_count = all_notes.empty? ? 0 : all_notes.sum(:word_count)
-
-    @note = @home_note
+    @word_count = all_notes.sum(:word_count)
 
     respond_to do |format|
       format.html
@@ -26,24 +22,21 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.includes(:resources).channelled(@current_channel).publishable.listable.blurbable.mappable
-    @word_count = @notes.empty? ? 0 : @notes.sum(:word_count)
+    @notes = Note.publishable.listable.blurbable.mappable
+    @word_count = @notes.sum(:word_count)
 
-    mapify(@notes)
+    @map = mapify(@notes)
 
     add_breadcrumb I18n.t('map'), notes_map_path
   end
 
   def show
-    @note = Note.includes(:resources).channelled(@current_channel).publishable.find(params[:id])
+    @note = Note.publishable.find(params[:id])
     interrelated_notes_features_and_citations
     note_tags(@note)
-    @map_this_marker = note_map(@note)
+    note_map(@note)
     note_source(@note)
     commontator_thread_show(@note)
-
-    # REVIEW: These are declared twice!
-    get_promoted_notes(@note)
 
     add_breadcrumb I18n.t('notes.show.title', id: @note.id), note_path(@note)
 
@@ -53,7 +46,7 @@ class NotesController < ApplicationController
   end
 
   def version
-    @note = Note.includes(:resources).channelled(@current_channel).publishable.find(params[:id])
+    @note = Note.publishable.find(params[:id])
     @diffed_version = DiffedNoteVersion.new(@note, params[:sequence].to_i)
     @diffed_tag_list = DiffedNoteTagList.new(@diffed_version.previous_tag_list, @diffed_version.tag_list).list
 

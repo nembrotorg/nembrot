@@ -1,35 +1,25 @@
 class ApplicationController < ActionController::Base
 
-  layout proc{|c| c.request.xhr? ? false : 'application' }
-
   protect_from_forgery
 
-  # REVIEW: only use before filters for locale and cache headers. Otherwise we can't use page-caching
-  before_action :set_locale
-  before_action :add_home_breadcrumb, only: [:index, :show, :map, :new, :edit, :admin]
-  before_action :get_promoted_notes, only: [:index, :show, :map, :new, :edit, :admin]
-  before_action :get_sections, only: [:index, :show, :map, :new, :edit, :admin]
-  before_action :get_map_all_markers, only: [:index, :show, :map]
-  before_action :set_public_cache_headers, only: [:index, :show, :map]
+  before_filter :set_locale
+  before_filter :add_home_breadcrumb
+  before_filter :get_promoted_notes
+  before_filter :get_sections
+  before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
-  skip_before_action :get_promoted_notes, if: proc { |c| request.xhr? }
+  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
   end
 
   def add_home_breadcrumb
-    add_breadcrumb t('site.title')
+    add_breadcrumb I18n.t('home.title'), :root_path
   end
 
-  def get_promoted_notes(exclude_note = nil)
-    # REVIEW: If promotable did not return an array this could be simpler
-    @promoted_notes = Note.publishable.listable.blurbable
-    @promoted_notes = @promoted_notes.where.not(id: exclude_note.id) unless exclude_note.nil?
-    @promoted_notes = @promoted_notes.promotable
-    # This injects default note into the list when channel has one note (which is excluded)
-    # @promoted_notes = @default_notes if @promoted_notes.empty?
-    @promoted_notes
+  def get_promoted_notes
+    @promoted_notes = Note.publishable.listable.blurbable.promotable
   end
 
   def get_sections
@@ -45,34 +35,20 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    # user_event_path('signed_in')
-    root_path
+    user_event_path('signed_in')
   end
 
   def after_sign_out_path_for(resource)
-    # user_event_path('signed_out')
-    root_path
-  end
-
-  def get_map_all_markers
-    all_mappable_notes = Note.publishable.listable.blurbable.mappable
-    @map_all_markers = mapify(all_mappable_notes)
-  end
-
-  def note_map(note)
-    @map = mapify(note) if note.has_instruction?('map') && !note.inferred_latitude.nil?
+    user_event_path('signed_out')
   end
 
   def mapify(notes)
-    markers = []
-    Array(notes).each do |note|
-      markers.push({
-        'lat'       => note.inferred_latitude,
-        'lng'       => note.inferred_longitude,
-        'marker'    => "<a href=\"#{ note_path(note) }\" data-tags=\"#{ note.tag_list }\" title=\"#{ note.tag_list }\">#{ note.headline }</a>"
-      })
+    @map = Gmaps4rails.build_markers(notes) do |note, marker|
+      marker.lat note.inferred_latitude
+      marker.lng note.inferred_longitude
+      marker.infowindow render_to_string(partial: '/notes/maps_infowindow', locals: { note: note })
+      marker.title note.headline
     end
-    markers
   end
 
   def interrelated_notes_features_and_citations
@@ -84,16 +60,19 @@ class ApplicationController < ActionController::Base
     @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
   end
 
+  def note_map(note)
+    @map = mapify(note) if note.has_instruction?('map') && !note.inferred_latitude.nil?
+  end
+
   def note_source(note)
     @source = Note.where(title: note.title).where.not(lang: note.lang).first if note.has_instruction?('parallel')
   end
 
   def set_public_cache_headers
-    expires_in Constant.uncache_channel_minutes.minutes
+    expires_in Constant.cache_minutes.minutes, public: true
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    # redirect_to root_path, alert: exception.message
-    redirect_to root_path, alert: exception.message
+    redirect_to new_user_session_path, alert: exception.message
   end
 end

@@ -3,18 +3,22 @@
                 description: @citation.body,
                 open_graph: { title: @citation.title }
 
-== page_wrapper('article')
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, introduction: nil, document_title: document_title
+  article
 
-    section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+    section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-      - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
+      = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, document_title: document_title
 
-      figure.citation
-        blockquote= blurbify(citation_text, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
-        figcaption= blurbify(attribution, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations, 'citation.book.inline_html', 'citation.link.inline_html')
+      section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
 
-  = render 'notes/tag_list', tags: @tags unless @current_channel.tags == false || @tags.empty?
+        - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
+
+        figure.citation
+          blockquote= blurbify(citation_text, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+          figcaption= blurbify(attribution, @citation.books, @citation.links, @all_interrelated_notes_and_features, @all_interrelated_citations, 'citation.book.inline_html', 'citation.link.inline_html')
+
+    = render 'notes/tag_list', tags: @tags unless @tags.empty?

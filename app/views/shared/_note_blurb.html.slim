@@ -1,30 +1,15 @@
-- cache [cache_buster(1), note] do
+- all_interrelated_notes_and_features = all_interrelated_notes_and_features || []
+- blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+- headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
+- image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
 
-  - all_interrelated_notes_and_features = all_interrelated_notes_and_features || []
-  - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+= link_to note_or_feature_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang) do
 
-  - headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
+  - if image
+    = image_tag(cut_image_binary_path(image, type: :thumbnail), alt: strip_tags(image.description))
 
-  - image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
+  - elsif note.is_embeddable_source_url
+    = render 'shared/media', url: note.source_url
 
-  - effects = @current_channel.theme.fx
-  - effects += note.fx unless note.fx.nil?
-  - effects = effects.uniq
-
-  - if image.nil?
-    - image_data = nil
-  - else
-    - image_src = cut_image_binary_path(image, type: :thumbnail, effects: effects)
-    - image_alt = strip_tags(image.description)
-    - image_data = { image_src: image_src, image_alt: image_alt }
-
-  = link_to note_or_feature_path(note), lang: lang_attr(note.lang), dir: dir_attr(note.lang), data: image_data do
-    -# Thumbnails are loaded asynchronously if the theme requires them
-    -# - if note.is_embeddable_source_url
-    -#   = render 'shared/media', url: note.source_url
-    -# unless image.nil?
-    -#  figure.image style="background-image: url(#{ Constant.asset_host }#{ image_src })"
-    -#    = image_tag(image_src, alt: image_alt)
-
-    h2 = simple_blurbify(headline, ['span'])
-    = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)
+  h2 = simple_blurbify(headline)
+  = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)

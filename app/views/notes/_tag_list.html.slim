@@ -1,10 +1,8 @@
-- cache [cache_buster(1), tags] do
+nav.tags
 
-  nav.tags
+  header
+    h3 = title ||= t('tags.index.title')
 
-    header
-      h3 = title ||= t('tags.index.title')
-
-    ul
-      - tags.each do |tag|
-        li = link_to tag.name, tag_path(tag), rel: 'tag'
+  ul
+    - tags.each do |tag|
+      li = link_to tag.name, tag_path(tag), rel: 'tag'

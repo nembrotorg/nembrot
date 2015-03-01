@@ -1,22 +1,18 @@
-- cache [cache_buster(1), @tags] do
+- document_title = "#{ t('.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-  - document_title = "#{ t('.title') } | #{ t('site.title') }"
-  - set_meta_tags title: document_title,
-                  description: '',
-                  open_graph: { title: document_title }
-  - note = @home_note
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  == page_wrapper
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
+  section
 
-    section = render 'shared/images', note: @home_note, type: :standard unless @home_note.resources.attached_images.empty? || @home_note.has_instruction?('hide_image')
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
     - unless @tags.empty?
       = render 'tags_list', tags: @tags
-
-      -# REVIEW: Add tags to maps
-      -#= render 'shared/map_script', map: @map unless @map.blank?
 
       aside.statistics
         = t('.statistics', count: number_with_delimiter(@tags_count), references_count: number_with_delimiter(@references_count))

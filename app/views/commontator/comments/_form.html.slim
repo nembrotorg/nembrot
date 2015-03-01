@@ -14,5 +14,4 @@
 
 = form_for([commontator, thread, comment], remote: !no_remote) do |f|
   = f.text_area :body
-  = f.hidden_field :channel, value: @current_channel
   = f.submit (comment.id.blank? ? config.comment_create_verb_present : config.comment_edit_verb_present).capitalize + ' ' + config.comment_name

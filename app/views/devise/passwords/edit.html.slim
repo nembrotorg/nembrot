@@ -3,11 +3,11 @@
 
 - add_breadcrumb t('.title'), new_user_password_path
 
-== page_wrapper
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
   nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
+  = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
     = devise_error_messages!

@@ -1,16 +1,16 @@
-- cache [cache_buster(3), @current_channel, @note, @promoted_notes] do
+- document_title = t('site.title')
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
 
-  - document_title = @current_channel == @default_channel ? t('site.title') : @current_channel.name
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  - set_meta_tags title: document_title,
-                  description: '',
-                  open_graph: { title: document_title }
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  == page_wrapper('article', @note.instruction_list)
+  = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
 
-    = render 'notes/article', note: @note, title: document_title, tags: @tags, map: @map
+  - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
 
-    = render 'channels_list', title: 'Featured websites' if @current_channel == @default_channel
-
-    - unless @current_channel == @default_channel || @promoted_notes.blank?
-      = render 'shared/notes_list', notes: @promoted_notes, all_interrelated_notes_and_features: @all_interrelated_notes_and_features, title: 'Read more...'
+  = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), 
+                                all_interrelated_notes_and_features: @all_interrelated_notes_and_features, 
+                                blurb_length: Setting['advanced.blurb_length'].to_i

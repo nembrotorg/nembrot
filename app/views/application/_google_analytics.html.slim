@@ -5,5 +5,5 @@ javascript:
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', '#{ Setting["advanced.google_analytics_key"] }'#{ Rails.env.production? ? ', { "siteSpeedSampleRate": 100 }'.html_safe : ', { "siteSpeedSampleRate": 100, "cookieDomain":"none" }'.html_safe });
+  ga('create', '#{ Setting["advanced.google_analytics_key"] }'#{ Rails.env.production? ? '' : ', {"cookieDomain":"none"}'.html_safe });
   ga('require', 'linkid', 'linkid.js');

@@ -1,13 +1,9 @@
-- context = context || 'notes'
+section.notes
 
-- cache [cache_buster(1), notes] do
+  header
+    h3 = title ||= t('notes.index.title')
 
-  section.notes
-
-    header
-      h3 = link_to (title ||= t('notes.index.title')), notes_path
-
-    ul
-      - notes.each do |note|
-        li
-          = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features, context: context
+  ul
+    - notes.each do |note|
+      li
+        = render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: all_interrelated_notes_and_features

@@ -1,8 +1,10 @@
-- if user_signed_in?
-  = link_to '', edit_user_registration_path, class: 'signed_in', title: "Signed in as #{ current_user.public_name }"
+ul
+  - if user_signed_in?
+    li.signed_in title="Signed in as #{ current_user.public_name }"
+      = link_to current_user.public_name, edit_user_registration_path
 
-- else
-  = link_to '', new_user_session_path, title: 'Sign in'
+  - else
+    li= link_to t('tools.sign_in'), new_user_session_path
 
 -# Add sign-in status CSS class to body and CSRF token meta tags
 javascript:
@@ -10,5 +12,3 @@ javascript:
 
   $('head').append('#{ tag('meta', name: 'csrf-param', content: request_forgery_protection_token).html_safe }');
   $('head').append('#{ tag('meta', name: 'csrf-token', content: form_authenticity_token).html_safe }');
-
-  window.Nembrot.my_channels = #{ raw Array(@channels_owned_by_current_user) };

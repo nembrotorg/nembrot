@@ -2,18 +2,19 @@
 - set_meta_tags title: document_title,
                 description: '',
                 open_graph: { title: document_title }
-- note = @home_note
 
-== page_wrapper
+div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  = render 'header', title: t('.title'), subtitle: nil, introduction: nil, document_title: document_title
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  section = render 'shared/images', note: @home_note, type: :standard unless @home_note.resources.attached_images.empty? || @home_note.has_instruction?('hide_image')
+  section
 
-  - unless @citations.empty?
-    = render 'citations_list', citations: @citations
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    aside.statistics
-      = t('.statistics', count: number_with_delimiter(@total_count), books_count: @books_count, links_count: 0)
+    - unless @citations.empty?
+      = render 'citations_list', citations: @citations
 
-    = paginate @citations
+      aside.statistics
+        = t('.statistics', count: number_with_delimiter(@total_count), books_count: @books_count, links_count: 0)
+
+      = paginate @citations

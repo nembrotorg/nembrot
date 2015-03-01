@@ -1,8 +1,0 @@
-section.channels
-
-  header
-    h3 = title ||= t('channels.index.title')
-
-  ul
-    - @channels.each do |channel|
-      li = render 'channel_blurb', channel: channel

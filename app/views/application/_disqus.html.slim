@@ -1,36 +1,16 @@
-- disqus_shortname = @current_channel.disqus_shortname.blank? ? Setting['advanced.disqus_shortname'] : @current_channel.disqus_shortname
-
 section#disqus_thread
 
   javascript:
     function disqus_config() {
-        this.title = $('h1').text();
-        this.language = $('html').attr('lang');
-        this.callbacks.onNewComment = [function(comment) {
-          ga('send', 'event', 'Comments', 'new', location.href);
+        this.callbacks.onNewComment = [function(comment) { 
+          _gaq.push ['_trackEvent', 'Comments', 'new', location.href + '#comment-' + comment.id]
         }];
     }
-
-    window.Nembrot.DISQUS_SHORT_NAME = "#{ disqus_shortname }";
-
-    // Move this to main script and load after page has loaded?
+    var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] || Setting['channel.name'].parameterize }";
     (function() {
-
-      if (typeof DISQUS === 'undefined') {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + window.Nembrot.DISQUS_SHORT_NAME + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      } else {
-
-        DISQUS.reset({
-          reload: true,
-          config: function () {
-            // this.page.identifier = "newidentifier";  
-            this.page.url = location.href + '#!newthread';
-          }
-        });
-
-      }
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + DISQUS_SHORT_NAME + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 
   noscript = t('noscript.disqus')

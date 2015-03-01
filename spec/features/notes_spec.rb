@@ -45,7 +45,7 @@ describe 'Notes' do
       end
       it 'should display the introduction in the blurb' do
         # Review: give option to truncate blurb or not
-        expect(page).to have_text('It has a rather long introduction,...')
+        expect(page).to have_text('It has a rather long introduction')
       end
     end
 

@@ -25,6 +25,15 @@ class Resource < ActiveRecord::Base
     need_syncdown.each { |resource| resource.sync_binary }
   end
 
+  def self.blank_location(file_ext = 'png')
+    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
+  end
+
+  def blank_location
+    # REVIEW: Reuse above
+    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
+  end
+
   def sync_binary
     unless File.file?(raw_location)
       increment_attempts
@@ -94,10 +103,6 @@ class Resource < ActiveRecord::Base
       end
     end
     candidates.first
-  end
-
-  def blank_location
-    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
   end
 
   def gmaps4rails_title

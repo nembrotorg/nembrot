@@ -69,17 +69,17 @@ describe FormattingHelper do
   describe '#sanitize_from_db' do
     it 'truncates all text after --30-- or similar' do
       expect(sanitize_from_db("Text.#{ Setting['advanced.truncate_after_regexp'] }THIS SHOULD NOT\n BE INCLUDED."))
-        .to eq('Text.')
+        .to eq("\nText.")
     end
     it 'removes superfluous html tags and attributes' do
       expect(sanitize_from_db('Text. <font>More.</font> <strong id="extra">Even more.</strong> <a href="link">Link</a>.'))
-        .to eq('Text. More. <strong>Even more.</strong> <a href="link">Link</a>.')
+        .to eq("\nText. More. <strong>Even more.</strong> <a href=\"link\">Link</a>.\n")
     end
     it 'converts bold tags to strong' do
-      expect(sanitize_from_db("Text.\n<b>Bold text.</b>More.")).to eq("Text.<strong>Bold text.</strong>More.")
+      expect(sanitize_from_db("Text.\n<b>Bold text.</b>More.")).to eq("\nText.<strong>Bold text.</strong>More.\n")
     end
     it 'converts headline tags to strong' do
-      expect(sanitize_from_db("Text.\n<h3>Bold.</h3>More.")).to eq("Text.<strong>Bold.</strong>More.")
+      expect(sanitize_from_db("Text.\n<h3>Bold.</h3>More.")).to eq("\nText.<strong>Bold.</strong>More.\n")
     end
   end
 
@@ -190,7 +190,7 @@ describe FormattingHelper do
   describe '#sectionize' do
     it 'wraps text under <h2> in a <section>' do
       expect(sectionize("<header><h2>Header</h2></header>\nMore text\n<header><h2>Header</h2></header>\nMore text"))
-        .to eq("<section><header><h2>Header</h2></header>\nMore text\n</section><section><header><h2>Header</h2></header>\nMore text</section>")
+        .to eq("<section>\n<header><h2>Header</h2></header>\nMore text\n\n</section><section>\n<header><h2>Header</h2></header>\nMore text\n</section>")
     end
   end
 
@@ -201,6 +201,10 @@ describe FormattingHelper do
     it 'wraps paragraphs in <p> tags even when they start with <strong>' do
       expect(paragraphize("<strong>Plain</strong> text\nMore plain text"))
         .to eq("<p><strong>Plain</strong> text</p>\n<p>More plain text</p>")
+    end
+    it 'wraps paragraphs in <p> tags even when they end with <strong>' do
+      expect(paragraphize("Plain text\n<strong>More plain</strong> text"))
+        .to eq("<p>Plain text</p>\n<p><strong>More plain</strong> text</p>")
     end
     it 'does not wrap headers in <p> tags' do
       expect(paragraphize("Plain text\nMore plain text")).to eq("<p>Plain text</p>\n<p>More plain text</p>")

@@ -156,8 +156,7 @@ en:
   resources:
     cut:
       failed:
-        raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
-        record_not_found: "Record not found when cutting %{local_file_name}"
+        record_not_found: "Record not found when cutting ID %{id}"
 
   settings:
     edit:

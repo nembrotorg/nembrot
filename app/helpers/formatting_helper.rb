@@ -6,9 +6,9 @@ module FormattingHelper
 
   def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
-    # REVIEW: Reinstate but add settings condition
-    # text = related_notify(text, related_notes)
-    # text = related_citationify(text, related_citations)
+    # REVIEW: Add settings condition
+    text = related_notify(text, related_notes)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -32,10 +32,9 @@ module FormattingHelper
     source_text = remove_annotations(source_text)
     source_text = denumber_headers(source_text)
     source_text = clean_up_via_dom(source_text)
-
-    # REVIEW: Reinstate but add settings condition
-    # target_text = related_notify(target_text, related_notes)
-    # target_text = related_citationify(target_text, related_citations)
+    # REVIEW: Add settings condition
+    target_text = related_notify(target_text, related_notes)
+    target_text = related_citationify(target_text, related_citations)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
     target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -53,9 +52,9 @@ module FormattingHelper
 
   def blurbify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
-    # REVIEW: Reinstate but add settings condition
-    # text = related_notify(text, related_notes, true)
-    # text = related_citationify(text, related_citations)
+    # REVIEW: Add settings condition
+    text = related_notify(text, related_notes, true)
+    text = related_citationify(text, related_citations)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -386,7 +385,8 @@ module FormattingHelper
 
   def paragraphize(text)
     text.gsub(/^\s*([^<].*?)\s*$/, "<p>\\1</p>") # Wrap lines that do not begin with a tag
-        .gsub(/^\s*(<a|<del|<em|<i|<ins)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
+        .gsub(/^\s*(<a|<del|<em|<i|<ins|<strong)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
+        .gsub(/^\s*(.*?)(a>|del>|em>|i>|ins>|strong>)\s*$/, "<p>\\1\\2</p>") # Wrap lines that end with inline tags
   end
 
   def sectionize(text)

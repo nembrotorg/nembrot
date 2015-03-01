@@ -11,9 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require jquery.ui.draggable
-//= require jquery.ui.accordion
-//= require jquery.ui.effect-clip
 //= require jquery.dotdotdot
 //= require jquery.flexslider
 //= require jquery.pjax

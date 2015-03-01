@@ -61,6 +61,10 @@ GEM
       debug_inspector (>= 0.0.1)
     breadcrumbs_on_rails (2.3.0)
     builder (3.2.2)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     cancan (1.6.10)
     capistrano (2.15.5)
       highline
@@ -94,6 +98,7 @@ GEM
       execjs
     coffee-script-source (1.9.1)
     colored (1.2)
+    columnize (0.9.0)
     commontator (4.10.3)
       jquery-rails
       rails (>= 3.1)
@@ -115,6 +120,7 @@ GEM
     dalli (2.7.2)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
     detect_language (1.0.7)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -481,6 +487,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   breadcrumbs_on_rails
+  byebug
   cancan
   capistrano (= 2.15.5)
   capybara

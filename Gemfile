@@ -66,6 +66,7 @@ gem 'validate_url'
 gem 'whenever', require: false
 
 group :development, :test do
+  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'fuubar'
   gem 'rspec-rails'

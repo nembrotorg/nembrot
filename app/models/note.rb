@@ -196,7 +196,9 @@ class Note < ActiveRecord::Base
   end
 
   def save_new_version?
-    Setting['advanced.versions'] == 'true' && ((external_updated_at - Note.find(id).external_updated_at) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+    return false if external_updated_at_was.blank?
+    return false if external_updated_at == external_updated_at_was
+    Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
   end
 
   private

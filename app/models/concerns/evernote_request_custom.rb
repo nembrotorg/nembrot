@@ -4,6 +4,6 @@ module EvernoteRequestCustom
   extend ActiveSupport::Concern
 
   def required_evernote_notebooks
-    Settings['channel.evernote_notebooks']
+    Setting['channel.evernote_notebooks']
   end
 end

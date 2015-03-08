@@ -21,6 +21,7 @@
 //= require modernizr.minimal
 //= require underscore
 //= require gmaps/google
-//= require document
+//= require modernizr.minimal
 //= require_tree ./application/
 //= require_tree ./custom/
+//= require_tree ./default/

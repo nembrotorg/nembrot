@@ -51,9 +51,11 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          -# = render 'notes/notes_list_headlines', note: @note
+          -# = render 'notes/related_notes_and_citations', note: @note
 
           = render 'notes/versions_list', note: @note if Setting['advanced.versions']
+
+          = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
 
   - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 

@@ -18,7 +18,7 @@ footer
           li = link_to t('tags.index.title'), tags_path
 
           - @sections.each do |section|
-            li = link_to section.titlecase, feature_path(feature: section)
+            li = link_to section.get_feature_name.titlecase, feature_path(feature: section)
 
       li
         ul.channels

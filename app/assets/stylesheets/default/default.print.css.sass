@@ -1,0 +1,20 @@
+@media only print
+
+  +pass-media-query('print')
+
+  iframe, nav
+    display: none
+
+  a
+    text-decoration: none
+
+  #text
+    +columns(2)
+
+  img.qr_code
+    +span-columns(2)
+    height: $qr-code-image-size
+    width: $qr-code-image-size
+
+  small
+    +span-columns(10)

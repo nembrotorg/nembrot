@@ -47,14 +47,16 @@
     textarea
       height: $line-height * 7
       line-height: $line-height
-      width: 99%
+      width: 100%
+      padding: $line-height / 2
+      margin: 0 $line-height / -2
       border: 1px solid $border-color
       color: $body-font-color
 
   .dashboard
     +font-color($caption-color)
     +horizontal-list
-    font-size: 0.8em
+    font-size: $small-font-size
     line-height: $line-height
 
   .comments
@@ -84,10 +86,3 @@
     h4
       a[href$=sign_in]
         display: none
-
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-
-    .dashboard
-      +font-color-hover($caption-color)

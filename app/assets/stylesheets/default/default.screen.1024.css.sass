@@ -1,0 +1,112 @@
+@media only screen and (min-width: 1024px)
+
+  +pass-media-query('screen-and-min-width-1024px')
+
+  .fade-annotations
+    .side-annotations
+      +fade(0)
+    &:hover
+      .side-annotations
+        +fade(1)
+
+  iframe
+    +span-columns(9, 12)
+
+  article
+    header
+      clear: both
+    section#content
+      +span-columns(12)
+      figure
+        &.image
+          +suffix(1, 12)
+          +span-columns(8, 12)
+      #introduction
+        +span-columns(9, 12)
+      #text
+        overflow: visible
+        aside
+          +span-columns(6, 12)
+        .side-annotations
+          +prefix(6, 6)
+          +span-columns(3, 6)
+          height: 0
+          margin-top: 0
+        &.regular, &.parallel
+          +span-columns(6, 12)
+        &.enface
+          +span-columns(12, 12)
+          p
+            line-height: $line-height
+            &:before
+              top: 0
+          .source, p.source
+            +span-columns(6, 12)
+            color: $body-font-color
+            p
+              color: $body-font-color
+          .target, p.target
+            +prefix(6)
+            +span-columns(6 omega, 12)
+            padding-top: 0
+          .side-annotations
+            +prefix(12)
+            +span-columns(2, 12)
+          div
+            overflow: hidden
+      #map
+        +span-columns(3)
+    #extra
+      +span-columns(3 omega, 12)
+
+  #main,
+  .hello-world,
+  footer
+    width: 1080px
+
+  #disqus_thread,
+  #comments
+    +span-columns(6)
+
+  .notes
+    +span-columns(9)
+    +suffix(3)
+    li
+      +blurb(5, 3, 9)
+      img, iframe
+        width: auto // OPTIMIZE: We get these measurements from the columns.
+        height: $line-height * 5
+
+  .books-index
+    ul
+      +columns(2)
+
+  .links-index
+    ul
+      +columns(3)
+
+  .home-index
+    .notes
+      +span-columns(12)
+      padding-right: 0
+      ul
+        +columns($promotions-home-columns)
+        +column-gap($gutter-width * 1px)
+        margin-bottom: 0
+        li
+          +blurb($promotions-home-lines)
+          margin-bottom: $line-height
+
+  .tags-index
+    ul
+      +columns(6)
+
+  .share
+    display: inline-block
+    margin-bottom: $line-height / 2
+
+  #admin
+    ul
+      bottom: $line-height * 2
+      padding-left: $text-indent
+      position: fixed

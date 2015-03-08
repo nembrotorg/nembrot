@@ -2,26 +2,51 @@
   a:first-of-type, .current
     &:before
       display: inline-block
-  //REVIEW
-  //.current
-  //  font-weight: bold
-
-=arrow-link
-  +icon-right
-  +icon-small
-  width: $text-indent / 2
+  .current
+    font-weight: bold
 
 =arrow-links
   +icon-links
   a:first-of-type, .current
     &:before
-      +arrow-link
+      +icon-right
+      +icon-small
+      width: $text-indent / 2
 
-=arrow-links-all
-  +icon-links
-  a, .current
-    &:before
-      +arrow-link
+=blurb($lines: 3, $image-width: 0, $context: $total-columns)
+  +font-color
+  h2
+    +font-color($headline-font-color)
+    display: inline
+    font:
+      family: $headline-font-family
+      size: $body-font-size
+      weight: normal
+  a
+    display: block
+    height: $line-height * $lines
+    overflow: hidden
+    padding-right: space($image-width, $context)
+    &:after
+      background-color: $background-color
+      border-left:
+        width: 1px
+        style: solid
+      bottom: -3px
+      content: ''
+      font-family: fontello
+      font-size: 14px
+      margin-right: space($image-width, $context)
+      padding-left: 5px
+      position: absolute
+      right: 0
+    img, iframe
+      height: auto
+      margin: 0
+      padding-right: 0
+      position: absolute
+      right: 0
+      width: columns($image-width, $context)
 
 =compact-text
   line-height: $line-height * 2/3
@@ -54,47 +79,30 @@
     &:after
       border-color: $color
       color: $color
-
-=font-color-hover($color: $font-color, $hover-color: $link-hover-color)
-
-  // We can't put this in the above because when we invoke it, it's already nested
-  // Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @media only screen and (min-width: 1024px)
-    a
-      &:hover
+    &:hover
+      border-color: $hover-color
+      color: $hover-color
+      &:before
         border-color: $hover-color
         color: $hover-color
-        &:before
-          border-color: $hover-color
-          color: $hover-color
-        &:after
-          border-color: $hover-color
-          color: $hover-color
+      &:after
+        border-color: $hover-color
+        color: $hover-color
 
-=icon-only($button-width: $text-indent, $height: $line-height)
-  display: inline-block
-  height: $height
-  overflow: hidden
-  width: $button-width
-
-=outline($color: rgba(#fff, 0.5), $distance: 1px, $blur: 1px)
-  $negative-distance: $distance * -1
-  +text-shadow(($color $distance $distance $blur), ($color $negative-distance $negative-distance 1px), ($color 1px $negative-distance 1px), ($color $negative-distance 1px 1px))
-
-=pagination-nav($button-width: $text-indent)
+=pagination-nav($line-color: $furniture-color, $button-width: $text-indent)
+  +font-color($line-color)
   clear: both
   margin-bottom: $line-height
   ol
-    margin-top: ($line-height * 2/3) * -1
+    margin-top: ($line-height / 2) * -1
     position: relative
     li
       display: inline-block
       height: $line-height
-      // .current
-        // color: $off-color
-        // &:before
-        //   border-color: $off-color
+      .current
+        color: $off-color
+        &:before
+          border-color: $off-color
       a, .current
         display: block
         text-align: center
@@ -128,6 +136,13 @@
           &:before
             +icon-to-end-2
 
+=pass-media-query($media-query)
+  body
+    &:after
+      content: $media-query
+      line-height: 0
+      visibility: hidden
+
 =reset
   margin: 0
   padding: 0
@@ -154,61 +169,11 @@
     top: $line-top
     z-index: -1
 
-=side-annotations
-
-  @media only screen and (min-width: 720px)
-
-    article
-      #text
-        .side-annotations
-          +prefix(8, 8)
-          +span-columns(4, 8)
-          position: relative
-          ol
-            display: block
-            padding-left: 0
-            li
-              display: block
-              position: absolute
-              a[href*=annotation-mark]
-                font:
-                  size: 0.6em
-                line-height: 0
-                padding-right: 3px
-                text-align: right
-                vertical-align: super
-                width: $text-indent - 3px
-
-  @media only screen and (min-width: 1024px)
-
-    .fade-annotations
-      .side-annotations
-        +fade(0)
-      &:hover
-        .side-annotations
-          +fade(1)
-
-    article
-      #text
-        .side-annotations
-          +prefix(6, 6)
-          +span-columns(3, 6)
-          height: 0
-          margin-top: 0
-        &.enface
-          .side-annotations
-            +prefix(12)
-            +span-columns(2, 12)
-
-  @media only screen and (min-width: 1601px)
-
-    article
-      section#content
-        #text
-          &.enface
-            .side-annotations
-              +prefix(12)
-              +span-columns(3, 12)
+=icon-only($button-width: $text-indent, $height: $line-height)
+  display: inline-block
+  height: $height
+  overflow: hidden
+  width: $button-width
 
 =transition($duration: 1s)
   transition: all $duration ease-out
@@ -216,17 +181,36 @@
   -moz-transition: all $duration ease-out
   -o-transition: all $duration ease-out
 
-=book-style-paragraphs
-  #text
-    .body, .annotations
-      p
-        +hyphens
-        margin: 0
-        text-indent: $text-indent
-        text-align: justify
-        ms-text-justify: auto
-        &:first-of-type
-          text-indent: 0
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Fonts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
++embed-font($headline-font, $headline-font-variant)
+
++embed-font($monospace-font, $monospace-font-variant)
+
+=body-font
+  +hyphens
+  color: $body-font-color
+  font:
+    family: $body-font-family
+    size: $body-font-size
+  text-align: justify
+  ms-text-justify: auto
+
+=body-font-citation
+  color: $body-font-citation-color
+  font:
+    family: $body-font-citation-family
+    size: $body-font-citation-size
+  text-align: justify
+
+=dashboard-font
+  color: $font-color
+  font-family: $font-family
+  font-size: $font-size
 
 =monospace-font
   font:
@@ -235,8 +219,3 @@
 =pre-with-emdash
   &:before
     content: '\2014 '
-
-=visible-header
-  h3
-    display: block
-    margin-bottom: $line-height

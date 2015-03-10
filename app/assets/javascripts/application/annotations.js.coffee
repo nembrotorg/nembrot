@@ -1,7 +1,6 @@
 place_annotations = () ->
   if $('html.wider-than-720px').length > 0
     # Not sure what we're waiting for but it works more reliably
-    # place_annotations_do()
     setTimeout place_annotations_do, 500
   else
     place_annotations_undo()
@@ -21,15 +20,25 @@ place_annotations_do = () ->
       minimum = corrected_top + $(this).outerHeight(true)
       $(this).offset top: corrected_top
 
-    # _correct_annotations_from_bottom()
+    _correct_annotations_from_bottom(annotations)
 
 # Prevent notes from going below end of body text
-_correct_annotations_from_bottom = () ->
-  maximum = $('#text').offset().top + $('#text').outerHeight(false)
-  annotations.reverse().each () ->
-    if $(this).offset().top + $(this).outerHeight(true) >= maximum 
-      maximum = $(this).offset().top - $(this).outerHeight(true)
-      $(this).offset top: maximum
+_correct_annotations_from_bottom = (annotations) ->
+  reversed_annotations = annotations.reverse()
+  maximum = $('#text .body').offset().top + $('#text .body').outerHeight(false)
+
+  summed_heights = _.reduce(reversed_annotations, ((memo, num) ->
+    memo + $(num).outerHeight(true)
+  ), 0)
+
+  # Only do this second pass if there is enough space
+  if $('#text .body').outerHeight(false) > summed_heights
+    reversed_annotations.each () ->
+      this_top = $(this).offset().top
+      this_bottom = $(this).offset().top + $(this).outerHeight(true)
+      new_top = (if this_bottom > maximum then (maximum - $(this).outerHeight(true)) else this_top)
+      $(this).offset top: new_top
+      maximum = new_top
 
 place_annotations_undo = () ->
   $('.annotations').removeClass('side-annotations')

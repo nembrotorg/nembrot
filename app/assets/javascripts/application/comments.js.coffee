@@ -26,6 +26,9 @@ load_comments_count = (page_controller, page_action) ->
 $ ->
   $(document).on 'submit', '#main section:not(#comments) form', (event) ->
     $.pjax.submit event, '[data-pjax-container]'
+  
+  page_controller = $('html').data('controller')
+  page_action = $('html').data('action')
 
   # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_controller, page_action)
@@ -39,5 +42,8 @@ $ ->
   #      return
 
 $(document).on 'pjax:success', '#main', (data) ->
+  page_controller = $('html').data('controller')
+  page_action = $('html').data('action')
+
   # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
   if $('#comments').length > 0 then load_comments_count(page_controller, page_action)

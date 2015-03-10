@@ -109,8 +109,5 @@ $(document).on 'pjax:success', '#main', (data) ->
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
 
-  # if $('#disqus_thread').length > 0 then load_disqus_comments_count(page_controller, page_action) # Check Settings first
-  if $('#comments').length > 0 then load_comments_count(page_controller, page_action)
-
 #$(window).on 'resize', ->
 #  truncate_blurbs()

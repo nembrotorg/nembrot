@@ -10,9 +10,7 @@ load_share_links_in_iframes = () ->
 FACEBOOK_API_URL = 'http://graph.facebook.com/'
 TWITTER_API_URL = "http://cdn.api.twitter.com/1/urls/count.json"
 
-load_share_links = () ->
-  page_controller = $('[data-controller]').data('controller');
-  page_action = $('[data-action]').data('action');
+load_share_links = (page_controller, page_action) ->
   if page_action == 'show'
     $('.share').addClass('deep-link')
     title = $('h1').text().trim()
@@ -52,8 +50,12 @@ fix_facebook_dialog = () ->
 
 $ ->
   $(document).on 'click', '.fb-like', ->
+    page_controller = $('html').data('controller')
+    page_action = $('html').data('action')
     fix_facebook_dialog()
-    load_share_links()
+    load_share_links(page_controller, page_action)
 
   $(document).on 'pjax:success', '#main', (data) ->
-    load_share_links()
+    page_controller = $('html').data('controller')
+    page_action = $('html').data('action')
+    load_share_links(page_controller, page_action)

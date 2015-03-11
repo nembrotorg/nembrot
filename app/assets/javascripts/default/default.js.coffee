@@ -96,6 +96,7 @@ $ ->
   load_user_menu()
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
+  unorphan($('h1, h2, h3, p, li'))
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
@@ -108,6 +109,7 @@ $(document).on 'pjax:success', '#main', (data) ->
   insert_qr_code()
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
+  unorphan($('h1, h2, h3, p, li'))
 
 #$(window).on 'resize', ->
 #  truncate_blurbs()

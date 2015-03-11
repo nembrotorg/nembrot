@@ -15,6 +15,7 @@
 //= require jquery.flexslider
 //= require jquery.pjax
 //= require jquery.alterclass
+//= require unorphan
 //= require media_match
 //= require enquire
 //= require rails-timeago

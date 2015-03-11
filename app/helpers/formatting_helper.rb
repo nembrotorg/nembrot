@@ -19,7 +19,7 @@ module FormattingHelper
     text = paragraphize(text)
     text = annotated ? annotate(text) : remove_annotations(text)
     text = denumber_headers(text)
-    clean_up_via_dom(text)
+    clean_up_via_dom(text, false, true)
   end
 
   def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes  = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
@@ -258,23 +258,22 @@ module FormattingHelper
                .html_safe
   end
 
-  def clean_up_via_dom(text, unwrap_p = false)
+  def clean_up_via_dom(text, unwrap_p = false, number_paragraphs = false)
     text = text.gsub(/ +/m, ' ')
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
-    dom = clean_up_dom(dom, unwrap_p)
+    dom = clean_up_dom(dom, unwrap_p, number_paragraphs)
     dom.css('body').children.to_html.html_safe
   end
 
-  def clean_up_dom(dom, unwrap_p = false)
+  def clean_up_dom(dom, unwrap_p = false, number_paragraphs = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
     dom.css('h2 p, cite cite, p section, p header, p p, p h2, blockquote blockquote').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
     dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs
-    all_paragraphs = dom.css('.target').empty? ? dom.css('p') : dom.css('.target p')
-    all_paragraphs.each_with_index { |e, i| e['id'] = "paragraph-#{ i + 1 }" }
+    dom.css('p').each_with_index { |e, i| e['id'] = "paragraph-#{ i + 1 }" } if number_paragraphs
 
     dom.xpath('//text()').find_all.each do |t|
       t.content = smartify_punctuation(t.content)
@@ -307,7 +306,7 @@ module FormattingHelper
       p['class'] = 'target'
       source_paragraph_html = source_paragraphs[i].nil? ? '<!-- -->' : source_paragraphs[i].to_html
       target_paragraph_html = target_paragraphs[i].nil? ? '<!-- -->' : target_paragraphs[i].to_html
-      p.replace "<div id=\"paragraph-#{ i + 1 }\">#{ source_paragraph_html }#{ target_paragraph_html }</div>"
+      p.replace "<div id=\paragraph-#{ i+1 }\>#{ source_paragraph_html }#{ target_paragraph_html }</div>"
     end
 
     dom = clean_up_dom(target_dom)

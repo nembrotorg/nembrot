@@ -8,7 +8,7 @@ FactoryGirl.define do
     is_citation true
     lang 'en'
     listable true
-    external_updated_at 1.day.ago
+    sequence(:external_updated_at) { |n| (1000 - n).days.ago }
     sequence(:id) { |n| "#{n}" }
     title { 'Fixed note title' }
     word_count nil

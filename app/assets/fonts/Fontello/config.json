@@ -19,6 +19,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "31972e4e9d080eaa796290349ae6c1fd",
+      "css": "users",
+      "code": 59432,
+      "src": "fontawesome"
+    },
+    {
       "uid": "12f4ece88e46abd864e40b35e05b11cd",
       "css": "ok-1",
       "code": 59475,
@@ -139,6 +145,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "a73c5deb486c8d66249811642e5d719a",
+      "css": "arrows-cw",
+      "code": 59423,
+      "src": "fontawesome"
+    },
+    {
       "uid": "dea706a9bd3144316ce37406ec10f469",
       "css": "level-up",
       "code": 59394,
@@ -157,9 +169,27 @@
       "src": "fontawesome"
     },
     {
+      "uid": "757afacc32d82967975cbb3b45cfb41b",
+      "css": "desktop",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
       "uid": "130380e481a7defc690dfb24123a1f0c",
       "css": "circle",
       "code": 59400,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "422e07e5afb80258a9c4ed1706498f8a",
+      "css": "circle-empty",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "81bb68665e8e595505272a746db07c7a",
+      "css": "dot-circled",
+      "code": 59427,
       "src": "fontawesome"
     },
     {
@@ -271,12 +301,6 @@
       "src": "entypo"
     },
     {
-      "uid": "ae49d5a5d0c2f7253f375bde5f0da2d2",
-      "css": "lastfm",
-      "code": 62241,
-      "src": "entypo"
-    },
-    {
       "uid": "882d407598d4e60074f5c08b3372811e",
       "css": "spotify",
       "code": 62247,
@@ -349,9 +373,15 @@
       "src": "mfglabs"
     },
     {
-      "uid": "aaf371ab44841e9aaffebd179d324ce4",
-      "css": "android",
+      "uid": "134184de1e4f1dc3d40e0d93bb1ef15e",
+      "css": "industrial-building",
       "code": 59418,
+      "src": "maki"
+    },
+    {
+      "uid": "f5281239de27061e68f4367ba3efee15",
+      "css": "paypal",
+      "code": 59429,
       "src": "zocial"
     },
     {
@@ -367,15 +397,9 @@
       "src": "zocial"
     },
     {
-      "uid": "8625d6e45fba1219638069e21eedbce8",
-      "css": "digg",
-      "code": 59938,
-      "src": "zocial"
-    },
-    {
-      "uid": "b3a537446285bb3510bba57d20374818",
-      "css": "reddit",
-      "code": 62,
+      "uid": "799d6108751f684ac9d018983251a08f",
+      "css": "pinterest",
+      "code": 59436,
       "src": "zocial"
     },
     {
@@ -415,6 +439,24 @@
       "src": "brandico"
     },
     {
+      "uid": "076f25da90f45dd112e006f2cd7ea76b",
+      "css": "tumblr",
+      "code": 59428,
+      "src": "brandico"
+    },
+    {
+      "uid": "cc20f2a7fa05a475130c406740bbbd26",
+      "css": "instagram-filled",
+      "code": 59437,
+      "src": "brandico"
+    },
+    {
+      "uid": "caed304a2bf6248f01e98c2aa30db1d7",
+      "css": "star-circled",
+      "code": 59434,
+      "src": "elusive"
+    },
+    {
       "uid": "62b0580ee8edc3a3edfbf68a47c852d5",
       "css": "pencil",
       "code": 59401,
@@ -425,6 +467,18 @@
       "css": "location",
       "code": 59405,
       "src": "elusive"
+    },
+    {
+      "uid": "838db85de51df09e2d0c34a17dc30ff6",
+      "css": "code",
+      "code": 59425,
+      "src": "websymbols"
+    },
+    {
+      "uid": "74b2f1d1ee541715b3f389f7cdf63d1c",
+      "css": "logout",
+      "code": 59435,
+      "src": "websymbols"
     }
   ]
 }

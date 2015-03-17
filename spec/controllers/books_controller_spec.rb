@@ -3,7 +3,7 @@
 describe BooksController do
 
   before do
-    Setting['advanced.books_section'] = true
+    Setting['advanced.books_section'] = 'true'
     @book = FactoryGirl.create(:book, tag: 'Author 2001')
     @note = FactoryGirl.create(:note, body: @book.tag)
   end

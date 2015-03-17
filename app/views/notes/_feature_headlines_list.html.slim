@@ -1,0 +1,8 @@
+nav.feature
+
+  header
+    h3 = @note.main_title
+
+  ul
+    - notes.each do |note|
+      li = link_to_unless_current_or_wrap note.subtitle, note_or_feature_path(note)

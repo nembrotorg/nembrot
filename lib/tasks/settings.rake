@@ -12,15 +12,15 @@ namespace :settings do
     end
 
     Constant.channel.map do |key, value|
-      Setting.save_default("channel.#{ key }", value)
+      Setting.save_default("channel.#{ key }", value.to_s)
     end
 
     Constant.advanced.map do |key, value|
-      Setting.save_default("advanced.#{ key }", value)
+      Setting.save_default("advanced.#{ key }", value.to_s)
     end
 
     Constant.style.map do |key, value|
-      Setting.save_default("style.#{ key }", value)
+      Setting.save_default("style.#{ key }", value.to_s)
     end
 
     puts 'Done.'

@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20141222151916) do
     t.binary   "content_hash"
     t.integer  "update_sequence_number"
     t.datetime "try_again_at"
+    t.text     "cloud_notebook_identifier"
   end
 
   add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_cloud_note_id_and_cloud_service_id", unique: true
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(version: 20141222151916) do
     t.boolean  "is_section"
     t.boolean  "is_mapped"
     t.boolean  "is_promoted"
+    t.integer  "weight"
   end
 
   create_table "related_notes", force: true do |t|
@@ -197,9 +199,9 @@ ActiveRecord::Schema.define(version: 20141222151916) do
   create_table "resources", force: true do |t|
     t.string   "cloud_resource_identifier"
     t.string   "mime"
-    t.string   "caption"
-    t.string   "description"
-    t.string   "credit"
+    t.text     "caption",                   limit: 255
+    t.text     "description",               limit: 255
+    t.text     "credit",                    limit: 255
     t.string   "source_url"
     t.datetime "external_updated_at"
     t.float    "latitude"
@@ -292,6 +294,7 @@ ActiveRecord::Schema.define(version: 20141222151916) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "remember_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

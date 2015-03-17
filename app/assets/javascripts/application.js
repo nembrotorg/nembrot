@@ -10,11 +10,19 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
 //= require jquery_ujs
-//=	require jquery.pjax
+//= require jquery.dotdotdot
+//= require jquery.flexslider
+//= require jquery.pjax
+//= require jquery.alterclass
+//= require unorphan
+//= require media_match
+//= require enquire
 //= require rails-timeago
 //= require modernizr.minimal
 //= require underscore
 //= require gmaps/google
-//= require nembrot.document
+//= require modernizr.minimal
+//= require_tree ./application/
+//= require_tree ./custom/
+//= require_tree ./default/

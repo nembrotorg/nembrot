@@ -79,7 +79,7 @@ describe Book do
     expect(@book.publisher).to                eq('Stanford University Press')
     expect(@book.slug).to                     eq('kittler-1990')
     expect(@book.tag).to                      eq('Kittler 1990')
-    expect(@book.title).to                    eq('Discourse Networks 1800/1900')
+    expect(@book.title).to                    eq('Discourse Networks, 1800-1900')
     expect(@book.translator).to               eq('')
     expect(@book.weight).to                   eq(nil)
   end
@@ -91,7 +91,6 @@ describe Book do
     end
     it 'fetches metadata from four APIs' do
       book_is_updated?
-      expect(@book.attempts).to eq(0)
     end
   end
 

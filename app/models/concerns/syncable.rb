@@ -34,7 +34,12 @@ module Syncable
   def merge(new_values, overwrite = false, object = self)
     new_values.each do |key, value|
       value.strip! if value.is_a? String
-      object.send("#{ key }=", value) if !value.nil? && (object.send("#{ key }").nil? || overwrite)
+      # REVIEW
+      #  We can have various strategies here
+      #  object.send("#{ key }=", value) if !value.nil? && (object.send("#{ key }").nil? || overwrite)
+      #  The one shown above, for instance, resulted in introductions not being removed when removed from Evernote
+      #  Create test for the above scenario.
+      object.send("#{ key }=", value) if !value.nil? || overwrite
     end unless new_values.blank?
   end
 

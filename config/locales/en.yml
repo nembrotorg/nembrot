@@ -31,7 +31,7 @@ en:
     sign_in: 'Sign in'
 
   home:
-    title: 'Home'
+    title: 'Nembrot'
 
   books:
     index:
@@ -156,8 +156,7 @@ en:
   resources:
     cut:
       failed:
-        raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
-        record_not_found: "Record not found when cutting %{local_file_name}"
+        record_not_found: "Record not found when cutting ID %{id}"
 
   settings:
     edit:
@@ -242,7 +241,7 @@ en:
       delete:
         title: 'Sign out'
       oauth:
-        signed_in: "Signed in with your %{provider} account."
+        signed_in_html: '<span id="%{provider}-connected">Your %{provider} account is connected.'
       new:
         title: 'Sign in'
         submit: 'Sign in'

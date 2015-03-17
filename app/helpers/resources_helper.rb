@@ -24,55 +24,76 @@ module ResourcesHelper
     )
   end
 
-  def cut_image_binary(local_file_name, format, aspect_x, aspect_y, width, snap, gravity, effects)
-
-    image_record = Resource.find_by_local_file_name(local_file_name)
-
-    if image_record.nil?
-      logger.info t('resources.cut.failed.record_not_found', local_file_name: local_file_name)
-      return Constant.blank_image_location
-    end
-
-    file_name_template = image_record.template_location(aspect_x, aspect_y)
-    file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
-
-    # Shorthand: small integers are taken to be number of columns rather than absolute width
-    width = column_width(width) if width <= Setting['style.total_columns'].to_i
-
-    # The height is derived from the aspect ratio and width.
-    height = (width * aspect_y) / aspect_x
-
-    # We snap the height to nearest baseline to maintain a vertical grid.
-    height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
-
-    # We check if a (manually-cropped) template exists.
-    file_name_in = (File.exists?(file_name_template) ? file_name_template : image_record.raw_location)
+  def cut_image_binary(id, format, aspect_x, aspect_y, width, snap, gravity, effects)
 
     begin
+
+      image_record = Resource.find(id)
+
+      file_name_template = image_record.template_location(aspect_x, aspect_y)
+      file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
+
+      # Shorthand: small integers are taken to be number of columns rather than absolute width
+      width = column_width(width) if width <= Setting['style.total_columns'].to_i
+
+      # The height is derived from the aspect ratio and width.
+      height = (width * aspect_y) / aspect_x
+
+      # We snap the height to nearest baseline to maintain a vertical grid.
+      height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
+
+      larger_cut_image_with_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, Setting['style.total_columns'].to_i)
+      larger_cut_image_without_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, '', Setting['style.total_columns'].to_i)
+
+      template_already_has_effects = false
+
+      if !larger_cut_image_with_effects.nil?
+        template_already_has_effects = true
+        file_name_in = larger_cut_image_with_effects
+      elsif !larger_cut_image_without_effects.nil?
+        file_name_in = larger_cut_image_without_effects
+      elsif File.exists?(file_name_template)
+        file_name_in = file_name_template
+      else
+        file_name_in = image_record.raw_location
+      end
+
       image =  MiniMagick::Image.open(file_name_in)
-      image = pre_fx(image, effects)
+      image = resize_with_crop(image, width, height, gravity_options = {})
+      image.write file_name_out
 
-      # TODO: This needs to do crop/resize, not just resize.
-      # image.resize "#{ width }x#{ height }"
+      unless template_already_has_effects
+        # REVIEW: Here we re-open the image - this must slow things down
+        image = MiniMagick::Image.new(file_name_out)
+        pre_fx(image, effects)
 
-      gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
-      resize_with_crop(image, width, height, gravity_options = {})
+        # TODO: This needs to do crop/resize, not just resize.
+        # image.resize "#{ width }x#{ height }"
 
-      image = fx(image, effects)
-      image = post_fx(image, effects, image_record)
+        # Gravity
+        # image = image.resize_to_fit(width, height, EastGravity)
+        # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
+        # resize_with_crop(image, width, height, gravity_options = {})
 
-      # Gravity
-      # image = image.resize_to_fit(width, height, EastGravity)
+        fx(image, effects)
+        post_fx(image, effects)
+      end
+
+      # TODO: Test for speed
+      # image_optim = ImageOptim.new
+      # image_optim.optimize_image!(file_name_out)
 
       # We save the image so next time it can be served directly, totally bypassing Rails.
-      image.write file_name_out
+      # image.write file_name_out
       return file_name_out
     rescue => error
-      image_record.dirty = true
-      image_record.save!
-      logger.info t('resources.cut.failed.image_record_not_found', local_file_name: local_file_name)
+      if image_record
+        image_record.dirty = true
+        image_record.save!
+      end
+      logger.info t('resources.cut.failed.image_record_not_found', id: id)
       logger.info error
-      return image_record.blank_location
+      return Resource.blank_location
     end
   end
 

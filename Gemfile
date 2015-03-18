@@ -91,6 +91,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-webkit' # Requires QT, see: https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
+  gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
   gem 'faker'
   gem 'guard'

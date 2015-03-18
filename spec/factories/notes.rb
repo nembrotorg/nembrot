@@ -8,7 +8,8 @@ FactoryGirl.define do
     is_citation true
     lang 'en'
     listable true
-    sequence(:external_updated_at) { |n| (1000 - n).days.ago }
+    external_updated_at 1.day.ago
+    external_created_at 2.days.ago # Not in schema but passed by EvernoteNoteRequest
     sequence(:id) { |n| "#{n}" }
     title { 'Fixed note title' }
     word_count nil

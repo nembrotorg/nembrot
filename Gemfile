@@ -47,7 +47,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-twitter'
 gem 'paper_trail'
 gem 'pjax_rails'
-gem 'rails-settings-cached'
+gem "rails-settings-cached", "0.4.1"
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
@@ -91,6 +91,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-webkit' # Requires QT, see: https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
+  gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
   gem 'faker'
   gem 'guard'

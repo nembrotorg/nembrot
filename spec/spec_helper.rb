@@ -3,10 +3,9 @@
 require 'rubygems'
 require 'spork'
 require 'simplecov'
+require 'codeclimate-test-reporter'
 
-# See https://coveralls.io
-require 'coveralls'
-Coveralls.wear!
+CodeClimate::TestReporter.start
 
 # uncomment the following line to use spork with the debugger
 # require 'spork/ext/ruby-debug'

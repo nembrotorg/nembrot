@@ -12,7 +12,7 @@ set :migrate_target,  :current
 set :ssh_options,     { forward_agent: true }
 set :normalize_asset_timestamps, false
 
-set :repository,      'git@github.com:joegatt/nembrotcom.git'
+set :repository,      'git@github.com:nembrotorg/nembrot.git'
 
 # See https://help.github.com/articles/deploying-with-capistrano
 

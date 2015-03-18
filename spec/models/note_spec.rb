@@ -6,7 +6,7 @@ include ApplicationHelper
 describe Note do
 
   before(:example) { Setting['advanced.versions'] = 'true' }
-  let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
+  let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago, external_created_at: 200.minutes.ago) }
   subject { note }
 
   it { is_expected.to be_valid }

@@ -7,6 +7,7 @@
 [travis]: http://travis-ci.org/nembrotorg/nembrot
 [gemnasium]: https://gemnasium.com/nembrotorg/nembrot
 [codeclimate]: https://codeclimate.com/github/nembrotorg/nembrot
+[![Test Coverage](https://codeclimate.com/github/nembrotorg/nembrot/badges/coverage.svg)](https://codeclimate.com/github/nembrotorg/nembrot)
 [coveralls]: https://coveralls.io/r/nembrotorg/nembrot
 
 Nembrot is a complete Rails 4 web application that takes notes from your Evernote notebooks and publishes them online. For more details see [nembrot.org](http:nembrot.org).

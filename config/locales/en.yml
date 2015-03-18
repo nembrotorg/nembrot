@@ -36,7 +36,7 @@ en:
     sign_in: 'Sign in'
 
   home:
-    title: 'Home'
+    title: 'Nembrot'
 
   books:
     index:
@@ -141,7 +141,7 @@ en:
         version_not_ok: "%{provider}: note %{guid} failed! The SDK is out of date."
         not_authenticated: "%{provider}: note %{guid} rejected! Your %{provider} API key is not authenticated."
         not_in_notebook: "%{provider}: note %{guid} rejected! Not in required notebook."
-        deleted_note: "%{provider}: note %{guid} rejected! Note has been deleted from cloud notebook."
+        deleted_note: "%{provider}: note %{guid} deleted! Note has been deleted from cloud notebook."
         tag_missing: "%{provider}: note %{guid} (%{title}) rejected! Missing required tag."
         ignore: "%{provider}: note %{guid} (%{title}) rejected! Contains instructions to ignore."
         not_latest: "%{provider}: note %{guid} (%{title}) rejected! Already have latest version."
@@ -161,8 +161,7 @@ en:
   resources:
     cut:
       failed:
-        raw_image_not_found: "Raw image not found when cutting %{local_file_name}"
-        record_not_found: "Record not found when cutting %{local_file_name}"
+        record_not_found: "Record not found when cutting ID %{id}"
 
   settings:
     edit:
@@ -247,7 +246,7 @@ en:
       delete:
         title: 'Sign out'
       oauth:
-        signed_in: "Signed in with your %{provider} account."
+        signed_in_html: '<span id="%{provider}-connected">Your %{provider} account is connected.'
       new:
         title: 'Sign in'
         submit: 'Sign in'

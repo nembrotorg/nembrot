@@ -3,15 +3,18 @@
 class EvernoteNotesController < ApplicationController
 
   def add_task
-    EvernoteNote.add_task(params[:guid])
+    unless params[:guid].blank? || params[:notebookGuid].blank?
+      EvernoteNote.add_task(params[:guid], params[:notebookGuid])
+      render json: { 'Status' => 'OK' }
 
-    if Constant.synchronous
-      EvernoteNote.sync_all
-      Resource.sync_all_binaries
-      Book.sync_all
-      Link.sync_all
+      if Constant.synchronous
+        EvernoteNote.sync_all
+        Resource.sync_all_binaries
+        Book.sync_all
+        Link.sync_all
+      end
+    else
+      render json: { 'Status' => 'Refused: insufficient parameters.' }
     end
-
-    render json: { 'status' => 'OK' }
   end
 end

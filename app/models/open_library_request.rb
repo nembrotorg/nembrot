@@ -31,8 +31,9 @@ class OpenLibraryRequest
     metadata['library_thing_id']  = response.try { |r| Array(r['identifiers']['librarything']).first }
     metadata['open_library_id']   = response.try { |r| Array(r['identifiers']['goodreads']).first }
     metadata['page_count']        = response.try { |r| r['number_of_pages'] }
-    metadata['publisher']         = response.try { |r| Array(r['publishers']).first }
+    metadata['publisher']         = response.try { |r| Array(r['publishers']).first.titlecase }
     metadata['title']             = response.try { |r| r['title'].titlecase }
+    metadata['published_date']    = response.try { |r| "1-1-#{ r['publish_date'] }" }
 
     self.metadata = metadata unless metadata.empty?
   end

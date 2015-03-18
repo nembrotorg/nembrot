@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def note_tags(note)
-    @tags = note.tags.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
+    @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
   end
 
   def note_map(note)

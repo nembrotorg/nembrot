@@ -2,13 +2,18 @@
 
 class User < ActiveRecord::Base
 
+  include UserCustom, Tokenable
+
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  validates_presence_of :email
+  # REVIEW: This needs to go in so notes, etc, are destroyed when user delets account
+  #  But check what consequences it would have on business notebooks.
+  # has_many :notes, dependent: :destroy
 
   has_many :authorizations, dependent: :destroy
 
+  has_paper_trail
   acts_as_commontator
 
   def self.new_with_session(params, session)
@@ -28,7 +33,7 @@ class User < ActiveRecord::Base
     authorization.secret = auth.credentials.secret
 
     if authorization.user.blank?
-      # Wouldn't this find any other user with blank email?????
+      # REVIEW: Wouldn't this find any other user with blank email?
       user = current_user.nil? ? User.where('email = ?', auth['info']['email']).first_or_initialize : current_user
       user = User.new if user.blank?
     else
@@ -43,11 +48,11 @@ class User < ActiveRecord::Base
     end
 
     # Save extra so that we can use keys to sync later
-    #  If secret provided matches those in settings, set user role to secret
+    #  If username matches the one in settings, set user role to admin
     if auth.provider == 'evernote'
       authorization.extra = auth.extra
       authorization.key = auth.extra.access_token.consumer.key
-      user.role = 'admin' if auth.extra.access_token.consumer.secret.to_s == Secret.auth.evernote.secret
+      user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
     end
 
     user.skip_confirmation!
@@ -61,7 +66,6 @@ class User < ActiveRecord::Base
 
   def soft_delete
     authorizations.destroy_all
-
     skip_confirmation!
 
     update_attributes(
@@ -92,7 +96,12 @@ class User < ActiveRecord::Base
     (role == 'admin')
   end
 
-  def valid_password?(password)  
-    !authorizations.nil? || super(password)  
+  def valid_password?(password)
+    !authorizations.nil? || super(password)
+  end
+
+  # http://dev.mensfeld.pl/2013/12/rails-devise-and-remember_me-rememberable-by-default/
+  def remember_me
+    true
   end
 end

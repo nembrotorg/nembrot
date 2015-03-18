@@ -15,7 +15,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-      = render 'shared/images', note: @note, type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+      = render 'shared/images', images: @note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
 
       = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
 
@@ -51,9 +51,11 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          -# = render 'notes/notes_list_headlines', note: @note
+          -# = render 'notes/related_notes_and_citations', note: @note
 
-          = render 'notes/versions_list', note: @note
+          = render 'notes/versions_list', note: @note if Setting['advanced.versions']
+
+          = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
 
   - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
 

@@ -5,41 +5,42 @@ include ApplicationHelper
 
 describe Note do
 
-  let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago) }
+  before(:example) { Setting['advanced.versions'] = 'true' }
+  let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago, external_created_at: 200.minutes.ago) }
   subject { note }
 
-  it { should be_valid }
-  it { should respond_to(:active) }
-  it { should respond_to(:altitude) }
-  it { should respond_to(:author) }
-  it { should respond_to(:body) }
-  it { should respond_to(:distance) }
-  it { should respond_to(:external_updated_at) }
-  it { should respond_to(:feature) }
-  it { should respond_to(:fx) }
-  it { should respond_to(:hide) }
-  it { should respond_to(:introduction) }
-  it { should respond_to(:is_embeddable_source_url) }
-  it { should respond_to(:last_edited_by) }
-  it { should respond_to(:latitude) }
-  it { should respond_to(:longitude) }
-  it { should respond_to(:place) }
-  it { should respond_to(:feature_id) }
-  it { should respond_to(:source) }
-  it { should respond_to(:source_application) }
-  it { should respond_to(:source_url) }
-  it { should respond_to(:title) }
-  it { should respond_to(:word_count) }
+  it { is_expected.to be_valid }
+  it { is_expected.to respond_to(:active) }
+  it { is_expected.to respond_to(:altitude) }
+  it { is_expected.to respond_to(:author) }
+  it { is_expected.to respond_to(:body) }
+  it { is_expected.to respond_to(:distance) }
+  it { is_expected.to respond_to(:external_updated_at) }
+  it { is_expected.to respond_to(:feature) }
+  it { is_expected.to respond_to(:fx) }
+  it { is_expected.to respond_to(:hide) }
+  it { is_expected.to respond_to(:introduction) }
+  it { is_expected.to respond_to(:is_embeddable_source_url) }
+  it { is_expected.to respond_to(:last_edited_by) }
+  it { is_expected.to respond_to(:latitude) }
+  it { is_expected.to respond_to(:longitude) }
+  it { is_expected.to respond_to(:place) }
+  it { is_expected.to respond_to(:feature_id) }
+  it { is_expected.to respond_to(:source) }
+  it { is_expected.to respond_to(:source_application) }
+  it { is_expected.to respond_to(:source_url) }
+  it { is_expected.to respond_to(:title) }
+  it { is_expected.to respond_to(:word_count) }
 
-  it { should have_many(:evernote_notes) }
-  it { should have_many(:instructions).through(:instruction_taggings) }
-  it { should have_many(:related_notes) }
-  it { should have_many(:resources) }
-  it { should have_many(:tags).through(:tag_taggings) }
-  it { should have_many(:versions) }
+  it { is_expected.to have_many(:evernote_notes) }
+  it { is_expected.to have_many(:instructions).through(:instruction_taggings) }
+  it { is_expected.to have_many(:related_notes) }
+  it { is_expected.to have_many(:resources) }
+  it { is_expected.to have_many(:tags).through(:tag_taggings) }
+  it { is_expected.to have_many(:versions) }
 
-  it { should validate_presence_of(:external_updated_at) }
-  it { should validate_presence_of(:title) }
+  it { is_expected.to validate_presence_of(:external_updated_at) }
+  it { is_expected.to validate_presence_of(:title) }
 
   describe 'rejects update when body, embeddable url and resources are all nil' do
     before do
@@ -47,8 +48,10 @@ describe Note do
       notesource_url = nil
       note.save
     end
-    it { should_not be_valid }
-    it { should have(1).error_on(:note) }
+    it { is_expected.not_to be_valid }
+    it 'has 1 error_on' do
+      expect(subject.error_on(:note).size).to eq(1)
+    end
   end
 
   # Not yet implemented
@@ -85,17 +88,18 @@ describe Note do
         note.save
       end
       it 'saves a version' do
-        note.versions.should_not be_empty
+        expect(note.versions).not_to be_empty
       end
     end
-    context 'when title is changed' do
+    context 'when versions are turned off' do
       before do
+        Setting['advanced.versions'] = false
         note.title = 'New Title'
         note.external_updated_at = 1.minute.ago
         note.save
       end
-      it 'saves a version' do
-        note.versions.should_not be_empty
+      it 'does not save a version' do
+        expect(note.versions).to be_empty
       end
     end
     context 'when body is changed' do
@@ -105,7 +109,7 @@ describe Note do
         note.save
       end
       it 'saves a version' do
-        note.versions.should_not be_empty
+        expect(note.versions).not_to be_empty
       end
     end
     context 'when other attributes (e.g. altitude) is changed' do
@@ -115,7 +119,7 @@ describe Note do
         note.save
       end
       it 'does not save a version' do
-        note.versions.should be_empty
+        expect(note.versions).to be_empty
       end
     end
     context 'when note is tagged to __RESET' do
@@ -126,7 +130,7 @@ describe Note do
         note.save
       end
       it 'does not save a version' do
-        note.versions.should be_empty
+        expect(note.versions).to be_empty
       end
     end
 
@@ -137,7 +141,7 @@ describe Note do
         note.save!
       end
       it 'does not save a version' do
-        note.versions.should be_empty
+        expect(note.versions).to be_empty
       end
     end
 
@@ -148,7 +152,7 @@ describe Note do
         note.save!
       end
       it 'saves a version' do
-        note.versions.should_not be_empty
+        expect(note.versions).not_to be_empty
       end
     end
 
@@ -159,7 +163,7 @@ describe Note do
         note.save!
       end
       it 'saves a version' do
-        note.versions.should_not be_empty
+        expect(note.versions).not_to be_empty
       end
     end
 
@@ -177,18 +181,18 @@ describe Note do
         note.save
       end
       it 'saves metadata' do
-        note.versions.last.external_updated_at.to_i.should == note.versions.last.reify.external_updated_at.to_i
+        expect(note.versions.last.external_updated_at.to_i).to eq(note.versions.last.reify.external_updated_at.to_i)
         note.versions.last.instruction_list = %w(__FIRST_INSTRUCTION)
-        note.versions.last.sequence.should == note.versions.size
+        expect(note.versions.last.sequence).to eq(note.versions.size)
         note.versions.last.tag_list = %w(first_tag)
-        note.versions.last.word_count.should == 2
-        note.versions.last.distance.should == 26
+        expect(note.versions.last.word_count).to eq(2)
+        expect(note.versions.last.distance).to eq(26)
       end
     end
   end
 
   describe '#has_instruction?' do
-    pending 'Add tests'
+    # pending 'Add tests'
   end
 
   describe '#has_instruction?' do
@@ -199,27 +203,27 @@ describe Note do
     end
     context 'when an instruction has synonyms in Settings' do
       it 'returns true' do
-        note.has_instruction?('hide').should be_true
+        expect(note.has_instruction?('hide')).to be_truthy
       end
     end
     context 'when an instruction is set as a synonym' do
       it 'returns true' do
-        note.has_instruction?('hidesynonym').should be_true
+        expect(note.has_instruction?('hidesynonym')).to be_truthy
       end
     end
     context 'when an instruction is set in default for all' do
       it 'returns true' do
-        note.has_instruction?('default_instruction').should be_true
+        expect(note.has_instruction?('default_instruction')).to be_truthy
       end
     end
     context 'when a note is tagged with an instruction' do
       it 'returns true' do
-        note.has_instruction?('noteinstruction').should be_true
+        expect(note.has_instruction?('noteinstruction')).to be_truthy
       end
     end
     context 'when an instruction is not present' do
       it 'returns false' do
-        note.has_instruction?('notpresent').should be_false
+        expect(note.has_instruction?('notpresent')).to be_falsey
       end
     end
   end
@@ -227,7 +231,7 @@ describe Note do
   describe '#headline' do
     context 'when title is present' do
       it 'returns title' do
-        note.headline.should == note.title
+        expect(note.headline).to eq(note.title)
       end
     end
     context 'when title is missing' do
@@ -235,7 +239,7 @@ describe Note do
         note.title = I18n.t('notes.untitled_synonyms').first
       end
       it 'returns preformatted title (e.g. Note 1)' do
-        note.headline.should == I18n.t('notes.show.title', id: note.id)
+        expect(note.headline).to eq(I18n.t('notes.show.title', id: note.id))
       end
     end
     context 'when title is missing (but in a different case from untitled synonyms)' do
@@ -243,7 +247,7 @@ describe Note do
         note.title = I18n.t('notes.untitled_synonyms').first.upcase
       end
       it 'returns preformatted title (e.g. Note 1)' do
-        note.headline.should == I18n.t('notes.show.title', id: note.id)
+        expect(note.headline).to eq(I18n.t('notes.show.title', id: note.id))
       end
     end
     context 'when note is a citation' do
@@ -251,28 +255,28 @@ describe Note do
         note.is_citation = true
       end
       it 'returns preformatted title (e.g. Citation 1)' do
-        note.headline.should == I18n.t('citations.show.title', id: note.id)
+        expect(note.headline).to eq(I18n.t('citations.show.title', id: note.id))
       end
     end
   end
 
   describe '#type' do
-    its(:type) { should == 'Note' }
+    its(:type) { is_expected.to eq('Note') }
     context 'when note is a citation' do
       before do
         note.is_citation = true
       end
-      its(:type) { should == 'Citation' }
+      its(:type) { is_expected.to eq('Citation') }
     end
   end
 
   describe 'is taggable' do
     before { note.update_attributes(tag_list: %w(tag1 tag2 tag3)) }
-    its(:tag_list) { should == %w(tag1 tag2 tag3) }
+    its(:tag_list) { is_expected.to eq(%w(tag1 tag2 tag3)) }
   end
 
   describe 'is findable by tag' do
-    before { note.update_attributes(tag_list: 'tag4') }
+    # before { note.update_attributes(tag_list: 'tag4') }
     # Note.tagged_with('tag4').last.should == note
   end
 
@@ -281,65 +285,63 @@ describe Note do
       note.tag_list = %w(Žižek Café 井戸端)
       note.save
     end
-    # FIXME: Getting "Encoding::UndefinedConversionError" (line 282)
-    #  as from 05.01.2014
-    pending "its(:tag_list) { should == ['Žižek', 'Café', '井戸端'] }"
+    its(:tag_list) { is_expected.to eq(['Žižek', 'Café', '井戸端']) }
   end
 
   describe '#clean_body_with_instructions' do
-    pending 'TODO'
+    # pending 'TODO'
   end
 
   describe '#clean_body' do
-    pending 'TODO'
+    # pending 'TODO'
   end
 
   describe '#is_embeddable_source_url' do
     context 'when source_url is not known to be embeddable' do
       before { note.source_url = 'http://www.example.com' }
-      its(:is_embeddable_source_url) { should be_false }
+      its(:is_embeddable_source_url) { is_expected.to be_falsey }
     end
 
     context 'when source_url is a youtube link' do
       before { note.source_url = 'http://youtube.com?v=ABCDEF' }
-      its(:is_embeddable_source_url) { should be_true }
+      its(:is_embeddable_source_url) { is_expected.to be_truthy }
     end
 
     context 'when source_url is a vimeo link' do
       before { note.source_url = 'http://vimeo.com/video/ABCDEF' }
-      its(:is_embeddable_source_url) { should be_true }
+      its(:is_embeddable_source_url) { is_expected.to be_truthy }
     end
 
     context 'when source_url is a soundcloud link' do
       before { note.source_url = 'http://soundcloud.com?v=ABCDEF' }
-      its (:is_embeddable_source_url) { should be_true }
+      its (:is_embeddable_source_url) { is_expected.to be_truthy }
     end
   end
 
   describe '#feature_id' do
     context 'when title has no feature_id' do
       before { note.title = 'Title' }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
     context 'when title has a numerical feature_id' do
       before { note.update_attributes(title: '1. Title') }
-      its (:feature_id) { should eq('1') }
+      its (:feature_id) { is_expected.to eq('1') }
     end
     context 'when title has an alphabetic feature_id' do
       before { note.update_attributes(title: 'a. Title') }
-      its (:feature_id) { should eq('a') }
+      its (:feature_id) { is_expected.to eq('a') }
     end
     context 'when title has a word as feature_id' do
       before { note.update_attributes(title: 'First. Title') }
-      its (:feature_id) { should eq('first') }
+      its (:feature_id) { is_expected.to eq('first') }
     end
     context 'when title has a subtitle' do
       before { note.update_attributes(title: 'Main Title: Subtitle') }
-      its (:feature_id) { should eq('subtitle') }
+      its (:feature_id) { is_expected.to eq('subtitle') }
     end
     context 'when title has more than one word before a period' do
       before { note.update_attributes(title: 'Two words. Title') }
-      its (:feature_id) { should be_nil }
+      its (:feature_id) { is_expected.to be_nil }
     end
   end
 
@@ -348,57 +350,57 @@ describe Note do
     Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
     before { note.update_attributes(title: 'Title Has Three Words') }
     context 'when note has no instruction' do
-      its (:feature) { should be_nil }
+      its (:feature) { is_expected.to be_nil }
     end
     context 'when note has feature instruction' do
       before { note.update_attributes(instruction_list: %w(__FEATURE)) }
-      its (:feature) { should eq('title-has-three-words') }
+      its (:feature) { is_expected.to eq('title-has-three-words') }
     end
     context 'when note has an instruction to use the first word' do
       before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_FIRST)) }
-      its (:feature) { should eq('title') }
+      its (:feature) { is_expected.to eq('title') }
     end
     context 'when note has an instruction to use the last word' do
       before { note.update_attributes(instruction_list: %w(__FEATURE __FEATURE_LAST)) }
-      its (:feature) { should eq('words') }
+      its (:feature) { is_expected.to eq('words') }
     end
   end
 
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
-    its (:fx) { should == ['abc', 'def'] }
+    its (:fx) { is_expected.to eq(['abc', 'def']) }
   end
 
   describe '#looks_like_a_citation?' do
     it 'returns false for ordinary text' do
       note = FactoryGirl.create(:note, body: 'Plain text.')
-      note.is_citation.should be_false
+      expect(note.is_citation).to be_falsey
     end
     it 'recognises one-line citations' do
       note = FactoryGirl.create(:note, body: "\n{quote:Plain text. -- Author 2000}\n")
-      pending 'note.looks_like_a_citation?.should be_true'
+      # pending 'note.looks_like_a_citation?.should be_truthy'
     end
     it 'recognises two-line citations' do
       note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\n")
-      pending 'note.looks_like_a_citation?.should be_true'
+      # pending 'note.looks_like_a_citation?.should be_truthy'
     end
     context 'when a note merely contains a citation' do
       context 'when text precedes quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\n")
-          note.is_citation.should be_false
+          expect(note.is_citation).to be_falsey
         end
       end
       context 'when text succeeds quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          note.is_citation.should be_false
+          expect(note.is_citation).to be_falsey
         end
       end
       context 'when text surrounds quote' do
         it 'does not return a false positive' do
           note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          note.is_citation.should be_false
+          expect(note.is_citation).to be_falsey
         end
       end
     end
@@ -411,7 +413,7 @@ describe Note do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: [])
       end
       it 'returns en' do
-        note.lang.should == 'en'
+        expect(note.lang).to eq('en')
       end
     end
     context 'when language is given via an instruction' do
@@ -419,7 +421,7 @@ describe Note do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", lang: nil, instruction_list: ['__LANG_MT'])
       end
       it 'does not overwrite it' do
-        note.lang.should == 'mt'
+        expect(note.lang).to eq('mt')
       end
     end
     context 'when text is in Russian' do
@@ -428,7 +430,7 @@ describe Note do
        note.save!
      end
      it 'returns ru' do
-       note.lang.should == 'ru'
+       expect(note.lang).to eq('ru')
      end
     end
     context 'when text is in Malaysian' do
@@ -436,7 +438,7 @@ describe Note do
         note.update_attributes(title: 'അനാട്ടമി ഓഫ് മെലൻകൊളീ', body: "'അനാട്ടമി'-യുടെ കർത്താവായ", instruction_list: [])
       end
       it 'returns ml' do
-        note.lang.should == 'ml'
+        expect(note.lang).to eq('ml')
       end
     end
   end

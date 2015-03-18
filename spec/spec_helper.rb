@@ -3,10 +3,9 @@
 require 'rubygems'
 require 'spork'
 require 'simplecov'
+require 'codeclimate-test-reporter'
 
-# See https://coveralls.io
-require 'coveralls'
-Coveralls.wear!
+CodeClimate::TestReporter.start
 
 # uncomment the following line to use spork with the debugger
 # require 'spork/ext/ruby-debug'
@@ -28,7 +27,6 @@ Spork.prefork do
   end
 
   require 'rspec/rails'
-  require 'rspec/autorun'
   require 'capybara/rails'
   require 'capybara/rspec'
   require 'paper_trail/frameworks/rspec'
@@ -86,7 +84,7 @@ Spork.prefork do
     RESERVED_IVARS = %w(@loaded_fixtures)
     last_gc_run = Time.now
 
-    config.before(:each) do
+    config.before(:example) do
       GC.disable
     end
 
@@ -101,7 +99,7 @@ Spork.prefork do
     # Release instance variables and trigger garbage collection
     # manually every second to make tests faster
     # http://blog.carbonfive.com/2011/02/02/crank-your-specs/
-    config.after(:each) do
+    config.after(:example) do
       (instance_variables - RESERVED_IVARS).each do |ivar|
         instance_variable_set(ivar, nil)
       end
@@ -139,6 +137,17 @@ Spork.prefork do
       end
     end
 
+
+    # rspec-rails 3 will no longer automatically infer an example group's spec type
+    # from the file location. You can explicitly opt-in to the feature using this
+    # config option.
+    # To explicitly tag specs without using automatic inference, set the `:type`
+    # metadata manually:
+    #
+    #     describe ThingsController, :type => :controller do
+    #       # Equivalent to being in spec/controllers
+    #     end
+    config.infer_spec_type_from_file_location!
   end
 
   # Find files to put into preload

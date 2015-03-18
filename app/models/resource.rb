@@ -7,7 +7,10 @@ class Resource < ActiveRecord::Base
 
   belongs_to :note
 
-  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil) }
+  default_scope { order('id ASC') }
+  # REVIEW: Evernote's attachment flag is inconsistent across source apps, use __INLINE
+  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', Setting['style.images_min_width'].to_i) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', Setting['style.images_min_width'].to_i) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
   validates_presence_of :cloud_resource_identifier, :note
@@ -20,6 +23,15 @@ class Resource < ActiveRecord::Base
 
   def self.sync_all_binaries
     need_syncdown.each { |resource| resource.sync_binary }
+  end
+
+  def self.blank_location(file_ext = 'png')
+    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
+  end
+
+  def blank_location
+    # REVIEW: Reuse above
+    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
   end
 
   def sync_binary
@@ -72,12 +84,25 @@ class Resource < ActiveRecord::Base
     File.join(Rails.root, 'public', 'resources', 'templates', "#{ id }-#{ aspect_x }-#{ aspect_y }.#{ file_ext }")
   end
 
-  def cut_location(aspect_x, aspect_y, width, snap, gravity, effects = '0')
+  def cut_location(aspect_x, aspect_y, width, snap, gravity, effects = '')
     File.join(Rails.root, 'public', 'resources', 'cut', "#{ local_file_name }-#{ aspect_x }-#{ aspect_y }-#{ width }-#{ snap }-#{ gravity }-#{ effects }-#{ id }.#{ file_ext }")
   end
 
-  def blank_location
-    File.join(Rails.root, 'public', 'resources', 'cut', "blank.#{ file_ext }")
+  def larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, total_columns)
+    # Try to find a larger image which has already been cut
+    pattern = File.join(Rails.root, 'public', 'resources', 'cut', "#{ local_file_name }-#{ aspect_x }-#{ aspect_y }-*-#{ snap }-#{ gravity }-#{ effects }-#{ id }.#{ file_ext }")
+    candidates = Dir.glob(pattern)
+    candidates.select! do |c|
+      file_width = c.match(/#{ local_file_name }-#{ aspect_x }-#{ aspect_y }-([0-9]*)-#{ snap }-#{ gravity }-#{ effects }-#{ id }.#{ file_ext }$/)[1].to_i
+      # Allow for shorthand width
+      # (This misses cases where cut width is, say, 200 and requested width is 12 - but not a 'real' use case)
+      if width <= total_columns
+        file_width >= width && file_width <= total_columns
+      else
+        file_width >= width 
+      end
+    end
+    candidates.first
   end
 
   def gmaps4rails_title

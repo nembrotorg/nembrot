@@ -14,6 +14,8 @@ set :normalize_asset_timestamps, false
 
 set :repository,      'git://github.com/joegattnet/joegattnet_v3.git'
 
+# See https://help.github.com/articles/deploying-with-capistrano
+
 set :user,            "deployer"
 set :group,           "staff"
 set :use_sudo,        false
@@ -36,6 +38,7 @@ namespace :deploy do
   desc "Deploy your application"
   task :default do
     update
+    migrate
     restart
   end
 
@@ -62,6 +65,7 @@ namespace :deploy do
   task :update_code, :except => { :no_release => true } do
     run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
     finalize_update
+    notify_rollbar
   end
 
   desc "Update the database (overwritten to avoid symlink)"
@@ -145,6 +149,17 @@ namespace :deploy do
     start
   end
 
+  desc "Notify rollbar error tracker"
+  # Update from Rollbar site for Capistrano 3
+  task :notify_rollbar, :roles => :app do
+    set :revision, `git log -n 1 --pretty=format:"%H"`
+    set :local_user, `whoami`
+    # NOT OK FOR PUBLIC REPOSITORY!
+    set :rollbar_token, '885bce046090426dab9765480c87382e'
+    rails_env = fetch(:rails_env, 'production')
+    run "curl https://api.rollbar.com/api/1/deploy/ -F access_token=#{rollbar_token} -F environment=#{rails_env} -F revision=#{revision} -F local_username=#{local_user} >/dev/null 2>&1", :once => true
+  end
+
   namespace :rollback do
     desc "Moves the repo back to the previous version of HEAD"
     task :repo, :except => { :no_release => true } do
@@ -184,8 +199,9 @@ namespace :settings do
   end
 end
 
-after 'deploy:update_code', 'whenever:update_crontab'
-after 'deploy:update_code', 'settings:update_defaults'
+# after 'deploy:update_code', 'whenever:update_crontab'
+# after 'deploy:update_code', 'settings:update_defaults'
+# after :deploy, 'notify_rollbar'
 
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"

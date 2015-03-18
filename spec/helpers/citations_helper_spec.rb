@@ -8,32 +8,32 @@ describe CitationsHelper do
 
   describe '#main_details' do
     it 'returns a string containing book details' do
-      main_details(@book).should ==  "#{ @book.author }, <cite>#{ @book.title }</cite>. #{ @book.published_city }: #{ @book.publisher } #{ @book.published_date.year }."
+      expect(main_details(@book)).to eq("#{ @book.author }, <cite>#{ @book.title }</cite>. #{ @book.published_city }: #{ @book.publisher } #{ @book.published_date.year }.")
     end
 
     context 'when city is not present' do
       before { @book.published_city = nil }
       it 'adjusts the punctuation' do
-        main_details(@book).should ==  "#{ @book.author }, <cite>#{ @book.title }</cite>. #{ @book.publisher } #{ @book.published_date.year }."
+        expect(main_details(@book)).to eq("#{ @book.author }, <cite>#{ @book.title }</cite>. #{ @book.publisher } #{ @book.published_date.year }.")
       end
     end
   end
 
   describe '#contributors' do
     it 'returns a string containing all the contributors' do
-      contributors(@book).should ==  I18n.t('citation.book.translator_editor_introducer.true_true_true',
+      expect(contributors(@book)).to eq(I18n.t('citation.book.translator_editor_introducer.true_true_true',
                                             translator: @book.translator,
                                             editor: @book.editor,
-                                            introducer: @book.introducer)
+                                            introducer: @book.introducer))
     end
 
     context 'when a book has no translator' do
       before { @book.translator = nil }
       it 'adjusts the punctuation' do
-        contributors(@book).should ==  I18n.t('citation.book.translator_editor_introducer.false_true_true',
+        expect(contributors(@book)).to eq(I18n.t('citation.book.translator_editor_introducer.false_true_true',
                                               translator: @book.translator,
                                               editor: @book.editor,
-                                              introducer: @book.introducer)
+                                              introducer: @book.introducer))
       end
     end
 
@@ -44,7 +44,7 @@ describe CitationsHelper do
         @book.introducer = nil
       end
       it 'returns nil' do
-        contributors(@book).should == nil
+        expect(contributors(@book)).to eq(nil)
       end
     end
   end
@@ -57,7 +57,7 @@ describe CitationsHelper do
         @book.introducer = nil
       end
       it 'returns just the ISBNs' do
-        classification(@book).should == "ISBN: #{ [@book.isbn_10, @book.isbn_13].compact.join(', ') }."
+        expect(classification(@book)).to eq("ISBN: #{ [@book.isbn_10, @book.isbn_13].compact.join(', ') }.")
       end
     end
   end
@@ -71,7 +71,7 @@ describe CitationsHelper do
         @book.open_library_id = nil
       end
       it 'returns nil' do
-        links(@book).should == ''
+        expect(links(@book)).to eq('')
       end
     end
   end

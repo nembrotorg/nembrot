@@ -12,7 +12,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find_by_slug(params[:slug])
+    @tag = Tag.find_by_slug(params[:slug]) # .friendly.find is not working here
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
     @citations = Note.publishable.citations.tagged_with(@tag.name)
     @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
@@ -29,7 +29,7 @@ class TagsController < ApplicationController
   end
 
   def map
-    @tag = Tag.find_by_slug(params[:slug])
+    @tag = Tag.find_by_slug(params[:slug]) # .friendly.find is not working here
     @notes = Note.publishable.listable.tagged_with(@tag.name)
     @word_count = @notes.sum(:word_count)
 

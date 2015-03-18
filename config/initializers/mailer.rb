@@ -1,7 +1,7 @@
 ActionMailer::Base.smtp_settings = {
-  address:              Constant.mailer.address,
-  port:                 Constant.mailer.port,
-  domain:               Constant.mailer.domain,
+  address:              Secret.mailer.address,
+  port:                 Secret.mailer.port,
+  domain:               Secret.mailer.domain,
   user_name:            Secret.mailer.user_name,
   password:             Secret.mailer.password,
   authentication:       'plain',

@@ -1,0 +1,27 @@
+en:
+
+  channels:
+    edit:
+      title: 'Edit Website'
+      submit: 'Save Website'
+    index:
+      title: 'My Websites'
+    new:
+      title: 'New Website'
+      submit: 'Create Website'
+    show:
+      title: 'Website'
+    available:
+      name_true: '<strong>%{name}</strong> is available.'
+      name_false: '<strong>%{name}</strong> is not available.'
+      url: "Your website's url would be:"
+
+  themes:
+    index:
+      title:  'Themes'
+    show:
+      title:  "%{theme} theme"
+    edit:
+      title:  "%{theme} theme"
+    new:
+      title:  'New theme'

@@ -540,7 +540,7 @@ DEPENDENCIES
   pg
   pjax_rails
   rails (= 4.1)
-  rails-settings-cached
+  rails-settings-cached (= 0.4.1)
   rails-timeago
   rails_best_practices
   rb-inotify (~> 0.9)

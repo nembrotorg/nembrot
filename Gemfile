@@ -47,7 +47,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-twitter'
 gem 'paper_trail'
 gem 'pjax_rails'
-gem 'rails-settings-cached'
+gem "rails-settings-cached", "0.4.1"
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'

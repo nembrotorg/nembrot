@@ -55,8 +55,6 @@ class User < ActiveRecord::Base
       user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
     end
 
-    user.token_for_paypal = user.generate_token
-
     user.skip_confirmation!
     user.save!(validate: false) # Allow users to not have an email address
 

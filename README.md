@@ -2,13 +2,12 @@
 [![Build Status](https://travis-ci.org/nembrotorg/nembrot.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/nembrotorg/nembrot.png)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/nembrotorg/nembrot.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/nembrotorg/nembrot/badge.png?branch=master)][coveralls]
+[![Test Coverage](https://codeclimate.com/github/nembrotorg/nembrot/badges/coverage.svg)][testcoverage]
 
 [travis]: http://travis-ci.org/nembrotorg/nembrot
 [gemnasium]: https://gemnasium.com/nembrotorg/nembrot
 [codeclimate]: https://codeclimate.com/github/nembrotorg/nembrot
-[![Test Coverage](https://codeclimate.com/github/nembrotorg/nembrot/badges/coverage.svg)](https://codeclimate.com/github/nembrotorg/nembrot)
-[coveralls]: https://coveralls.io/r/nembrotorg/nembrot
+[testcoverage]: https://codeclimate.com/github/nembrotorg/nembrot
 
 Nembrot is a complete Rails 4 web application that takes notes from your Evernote notebooks and publishes them online. For more details see [nembrot.org](http:nembrot.org).
 

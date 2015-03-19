@@ -1,10 +1,8 @@
 defaults: &defaults
-  admin_email: joe@joegatt.net
-  admin_name: Joe
   app_name: joegattnet
-  assets_version: 1.4
+  assets_version: 1.5
   blank_image_location: '/public/resources/cut/blank.png'
-  cache_buster: 2
+  cache_buster: 3
   cache_minutes: 10
   daemon_frequency: 30
   detect_language_sample_length: 250

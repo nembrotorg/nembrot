@@ -113,11 +113,11 @@ ActiveRecord::Schema.define(version: 20141222151916) do
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.boolean  "dirty"
     t.integer  "attempts"
-    t.binary   "content_hash"
+    t.binary   "content_hash",              limit: 255
     t.integer  "update_sequence_number"
     t.datetime "try_again_at"
     t.text     "cloud_notebook_identifier"
@@ -231,8 +231,8 @@ ActiveRecord::Schema.define(version: 20141222151916) do
     t.boolean  "dirty"
     t.integer  "attempts"
     t.integer  "note_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.binary   "data_hash"
     t.integer  "width"
     t.integer  "height"

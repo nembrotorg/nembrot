@@ -40,7 +40,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
 
-          = render 'notes/notes_list_headlines', note: @note
+          -#= render 'notes/notes_list_headlines', note: @note
 
           = render 'notes/versions_list', note: @note
 

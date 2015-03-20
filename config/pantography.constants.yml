@@ -7,7 +7,7 @@ defaults: &defaults
     max_length: 140
     sidereal_year_in_days: 365.256363004
     timeline_length: 20
-    twitter_user_id: 237443494
+    twitter_user_id: 66855083
 
 development:
   <<: *defaults

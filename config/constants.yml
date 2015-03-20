@@ -12,7 +12,7 @@ defaults: &defaults
     pretty_body: false
     sort_attrs: true
     tabsize: 2
-    format: html5
+    format: html
   mailer:
     address: smtp.gmail.com
     port: 587

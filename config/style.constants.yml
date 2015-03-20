@@ -1,7 +1,7 @@
 defaults: &defaults
   style:
     background_color: '#fff'
-    body_font: Georgia
+    body_font: Slabo
     body_font_citation_color: '#000'
     body_font_citation_family: sans-serif
     body_font_color: '#000'

@@ -15,7 +15,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
-      = render 'shared/images', images: @note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+      = render 'shared/images', note: @note, type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
 
       = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
 

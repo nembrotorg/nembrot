@@ -12,10 +12,6 @@ html data={ controller: controller.controller_name, action: controller.action_na
 
       = yield
 
-    = render 'hello_world' if Secret.auth.evernote.key == 'CHANGE_ME' or Secret.auth.evernote.secret == 'CHANGE_ME'
-
-    = render 'github_ribbon'
-
     = render 'tools'
 
     = render 'footer'

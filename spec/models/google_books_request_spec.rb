@@ -14,7 +14,7 @@ describe GoogleBooksRequest do
     its (['google_books_id']) { should == 'nRo0Pk8djjoC' }
     its (['lang']) { should == 'en' }
     its (['page_count']) { should == 459 }
-    its (['published_date']) { should == '1990' }
+    its (['published_date']) { should == '1992' }
     its (['title']) { should == 'Discourse Networks 1800/1900' }
   end
 

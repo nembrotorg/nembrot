@@ -8,7 +8,7 @@ describe 'Notes' do
 
   before(:example) do
     Constant['rtl_langs'] = 'ar'
-    Setting['advanced.blurb_length'] = '40'
+    Setting['advanced.blurb_length'] = 40
     Setting['advanced.instructions_map'] = '__MAP'
     Setting['advanced.tags_minimum'] = 1
     Setting['advanced.versions'] = 'true'

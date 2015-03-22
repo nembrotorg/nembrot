@@ -85,8 +85,8 @@ describe ResourcesHelper do
 
   describe '#column_width' do
     before do
-      Setting['style.column_width'] = '60'
-      Setting['style.gutter_width'] = '30'
+      Setting['style.column_width'] = 60
+      Setting['style.gutter_width'] = 30
     end
     it 'calculates the right width' do
       expect(column_width(3)).to eq(240)

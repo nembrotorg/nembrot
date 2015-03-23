@@ -194,35 +194,33 @@ module FormattingHelper
   end
 
   def related_notify(text, related_notes = [], blurbify = false)
-    loop do
-      start_text = text
-      related_notes.each do |note|
-        body = blurbify ? sanitize(note.clean_body) : note.body
-        text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
-        text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
-        text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: [])) # Sending related_notes causes stack level too deep
-        text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: []))
-        text.gsub!(/\{insert:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
-        text.gsub!(/\{insert:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
-      end
-      break if text == start_text
+    # REVIEW: Do this with titles; use this for citations; and remove interrelated
+    note_ids = text.scan(/\{ *(link|blurb|text)\:? *\/texts\/([\d]+) *\}/).map(&:last).flatten
+    related_notes = Note.publishable.where(id: note_ids, is_citation: false)
+    related_notes.each do |note|
+      body = blurbify ? sanitize(note.clean_body) : note.body
+      text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
+      text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
+      text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: [])) # Sending related_notes causes stack level too deep
+      text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: []))
+      text.gsub!(/\{text:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
+      text.gsub!(/\{text:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
     end
+    # text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
     text = strip_tags(text) if blurbify
     text
   end
 
   def related_citationify(text, related_citations = [], blurbify = false)
-    loop do
-      start_text = text
-      related_citations.each do |citation|
-        body = blurbify ? sanitize(citation.clean_body) : citation.body
-        text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
-        text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
-        text.gsub!(/\{insert:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
-      end
-      break if text == start_text
+    citation_ids = text.scan(/\{ *(link|blurb|text)\:? *\/citations\/([\d]+) *\}/).map(&:last).flatten
+    related_citations = Note.citations.publishable.where(id: citation_ids)
+    related_citations.each do |citation|
+      body = blurbify ? sanitize(citation.clean_body) : citation.body
+      text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
+      text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
+      text.gsub!(/\{text:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
     end
-    text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
+    # text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
     text = strip_tags(text) if blurbify
     text
   end

@@ -17,7 +17,6 @@ describe Pantographer do
   it { is_expected.to validate_presence_of(:twitter_real_name) }
   it { is_expected.to validate_presence_of(:twitter_user_id) }
 
-  # FIXME: "Twitter::Error::NotFound"
-  pending "it { should validate_uniqueness_of(:twitter_screen_name) }"
-  pending "{ should validate_uniqueness_of(:twitter_user_id) }"
+  # it { is_expected.to validate_uniqueness_of(:twitter_screen_name) }
+  # it { is_expected.to validate_uniqueness_of(:twitter_user_id) }
 end

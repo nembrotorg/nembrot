@@ -378,7 +378,7 @@ describe 'Notes' do
     context 'when a note contains another note' do ####
       before do
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
+        @note.update_attributes(body: "This note contains a reference to {text: #{ note_path(@reference) }}.")
         visit note_path(@note)
       end
       it 'should contain the other note' do
@@ -390,7 +390,7 @@ describe 'Notes' do
       before do
         @nested_reference = FactoryGirl.create(:note)
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
+        @note.update_attributes(body: "This note contains a reference to {text: #{ note_path(@reference) }}.")
         visit note_path(@note)
       end
       it 'should contain the text of the nested note' do
@@ -400,12 +400,12 @@ describe 'Notes' do
 
     context 'when a note contains a citation' do
       before do
-        @citation = FactoryGirl.create(:note, is_citation: true)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ citation_path(@citation) }}.")
+        @citation = FactoryGirl.create(:note, instruction_list: ['__PUBLISH', '__QUOTE'])
+        @note.update_attributes(body: "This note contains a reference to {text: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        # # pending 'page.should have_text(@reference.body)'
+        expect(page).to have_text(@citation.body)
       end
     end
 
@@ -488,9 +488,6 @@ describe 'Notes' do
       @note.save
       visit note_version_path(@note, 3)
     end
-    it 'should have the note title as title' do
-      expect(page).to have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
-    end
     it 'should not have the language attribute (if note is in default language)' do
       expect(page).not_to have_css('#content[lang=en]')
     end
@@ -504,12 +501,12 @@ describe 'Notes' do
       expect(page).to have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a diffed title' do
-      expect(page).to have_selector('del', text: 'Newer')
-      expect(page).to have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('h1 del', text: 'Newer')
+      expect(page).to have_selector('h1 ins', text: 'Newest')
     end
     it 'should have a diffed body' do
-      expect(page).to have_selector('del', text: 'Newer')
-      expect(page).to have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('.body del', text: 'Newer')
+      expect(page).to have_selector('.body ins', text: 'Newest')
     end
     it 'should have diffed tags' do
       expect(page).to have_selector('del', text: 'tag1')

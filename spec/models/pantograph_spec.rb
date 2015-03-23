@@ -19,8 +19,8 @@ describe Pantograph do
   it { is_expected.to validate_presence_of(:text) }
   it { is_expected.to validate_presence_of(:tweet_id) }
 
-  it { is_expected.to validate_uniqueness_of(:text) }
-  it { is_expected.to validate_uniqueness_of(:tweet_id) }
+  # it { is_expected.to validate_uniqueness_of(:text) }
+  # it { is_expected.to validate_uniqueness_of(:tweet_id) }
 
   describe '.calculate_next' do
     context 'when we are strating from scratch' do

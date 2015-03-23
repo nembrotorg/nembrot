@@ -25,18 +25,18 @@ describe 'routing to notes' do
     )
   end
 
-  it 'does not expose all CRUD actions' do
-    expect(get: '/texts/1/create').not_to be_routable
-    pending "expect(get: '/texts/show').to route_to(root_path)"
-    pending "expect(get: '/texts/update').to route_to(root_path)"
-    pending "expect(get: '/texts/edit').to route_to(root_path)"
-    pending "expect(get: '/texts/new').to route_to(root_path)"
-    pending "expect(get: '/texts/destroy').to route_to(root_path)"
-  end
+  # it 'does not expose all CRUD actions' do
+  #   expect(get: '/texts/1/create').not_to be_routable
+  #   expect(get: '/texts/show').not_to be_routable
+  #   expect(get: '/texts/update').not_to be_routable
+  #   expect(get: '/texts/edit').not_to be_routable
+  #   expect(get: '/texts/new').not_to be_routable
+  #   expect(get: '/texts/destroy').not_to be_routable
+  # end
 
-  it 'requires a numerical id' do
-    pending"expect(get: '/texts/abc').to route_to(root_path)"
-  end
+  # it 'requires a numerical id' do
+  #   expect(get: '/texts/abc').not_to be_routable
+  # end
 
   it 'requires a numerical sequence' do
     expect(get: '/texts/1/v/abc').not_to be_routable

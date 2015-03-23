@@ -19,8 +19,6 @@ class CitationsController < ApplicationController
     @citation = Note.publishable.citations.find(params[:id])
     @tags = @citation.tags
 
-    interrelated_notes_features_and_citations
-
     add_breadcrumb I18n.t('citations.show.title', id: @citation.id), citation_path(@citation)
 
     rescue ActiveRecord::RecordNotFound

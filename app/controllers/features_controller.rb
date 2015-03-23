@@ -27,7 +27,6 @@ class FeaturesController < ApplicationController
 
     note_tags(@note)
     commontator_thread_show(@note)
-    interrelated_notes_features_and_citations
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
     @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
 
@@ -44,7 +43,6 @@ class FeaturesController < ApplicationController
     page_number = params[:page] ||= 1
     @notes = @notes.listable.page(page_number).load
     @title = @notes.first.main_title
-    interrelated_notes_features_and_citations
     @map = @notes.mappable
     @total_count = @notes.size
     @word_count = @notes.sum(:word_count)
@@ -57,7 +55,6 @@ class FeaturesController < ApplicationController
     @note = params[:feature_id].nil? ? @notes.first : @notes.where(feature_id: params[:feature_id]).first
     note_tags(@note)
     commontator_thread_show(@note)
-    interrelated_notes_features_and_citations
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
     @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
     add_breadcrumb @note.get_feature_name, feature_path(@note.feature)

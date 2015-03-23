@@ -34,7 +34,6 @@ describe Note do
 
   it { is_expected.to have_many(:evernote_notes) }
   it { is_expected.to have_many(:instructions).through(:instruction_taggings) }
-  it { is_expected.to have_many(:related_notes) }
   it { is_expected.to have_many(:resources) }
   it { is_expected.to have_many(:tags).through(:tag_taggings) }
   it { is_expected.to have_many(:versions) }

@@ -4,11 +4,11 @@
 
 module FormattingHelper
 
-  def bodify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify(text, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
     # REVIEW: Add settings condition
-    text = related_notify(text, related_notes)
-    text = related_citationify(text, related_citations)
+    text = related_notify(text)
+    text = related_citationify(text)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -22,7 +22,7 @@ module FormattingHelper
     clean_up_via_dom(text, false, true)
   end
 
-  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], related_notes  = [], related_citations = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], links = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
@@ -33,8 +33,8 @@ module FormattingHelper
     source_text = denumber_headers(source_text)
     source_text = clean_up_via_dom(source_text)
     # REVIEW: Add settings condition
-    target_text = related_notify(target_text, related_notes)
-    target_text = related_citationify(target_text, related_citations)
+    target_text = related_notify(target_text)
+    target_text = related_citationify(target_text)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
     target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
@@ -50,11 +50,11 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], links = [], related_notes = [], related_citations = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+  def blurbify(text, books = [], links = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
     # REVIEW: Add settings condition
-    text = related_notify(text, related_notes, true)
-    text = related_citationify(text, related_citations)
+    text = related_notify(text, true)
+    text = related_citationify(text)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
@@ -193,16 +193,16 @@ module FormattingHelper
     text.gsub(/(<a href=")http:\/\/#{ Constant.host }([^"]*?"[^>]*?>)/, "\\1\\2")
   end
 
-  def related_notify(text, related_notes = [], blurbify = false)
-    # REVIEW: Do this with titles; use this for citations; and remove interrelated
-    note_ids = text.scan(/\{ *(link|blurb|text)\:? *\/texts\/([\d]+) *\}/).map(&:last).flatten
-    related_notes = Note.publishable.where(id: note_ids, is_citation: false)
+  def related_notify(text, blurbify = false)
+    # REVIEW: Do this with note titles?
+    note_ids = mentioned_notes(text)
+    related_notes = Note.related_notes(note_ids)
     related_notes.each do |note|
       body = blurbify ? sanitize(note.clean_body) : note.body
       text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
       text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
-      text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: [])) # Sending related_notes causes stack level too deep
-      text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note, all_interrelated_notes_and_features: []))
+      text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note))
+      text.gsub!(/\{blurb:? *#{ note.headline }\}/, (render 'shared/note_blurb', note: note))
       text.gsub!(/\{text:? *#{ note_or_feature_path(note) }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
       text.gsub!(/\{text:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
     end
@@ -211,18 +211,26 @@ module FormattingHelper
     text
   end
 
-  def related_citationify(text, related_citations = [], blurbify = false)
-    citation_ids = text.scan(/\{ *(link|blurb|text)\:? *\/citations\/([\d]+) *\}/).map(&:last).flatten
-    related_citations = Note.citations.publishable.where(id: citation_ids)
+  def mentioned_notes(text)
+    text.scan(/\{ *(link|blurb|text)\:? *\/texts\/([\d]+) *\}/).map(&:last).flatten
+  end
+
+  def related_citationify(text, blurbify = false)
+    citation_ids = mentioned_citations(text)
+    related_citations = Note.related_citations(citation_ids)
     related_citations.each do |citation|
       body = blurbify ? sanitize(citation.clean_body) : citation.body
       text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
-      text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body) # Sending related_notes causes stack level too deep
+      text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body)
       text.gsub!(/\{text:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
     end
     # text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
     text = strip_tags(text) if blurbify
     text
+  end
+
+  def mentioned_citations(text)
+    text.scan(/\{ *(link|blurb|text)\:? *\/citations\/([\d]+) *\}/).map(&:last).flatten
   end
 
   def annotate(text)

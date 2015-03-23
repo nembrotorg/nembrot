@@ -25,19 +25,19 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       - if @source.nil?
         section#text.regular
-          = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+          = bodify(@note.body, @note.books, @note.links)
 
       - elsif @note.has_instruction?('collate')
         section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links)
 
       - else
         section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
           section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-            = bodify(@source.body, [], [], [], [], '', '', false)
+            = bodify(@source.body, [], [], '', '', false)
 
           section.target
-            = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+            = bodify(@note.body, @note.books, @note.links)
 
         / Collated
 
@@ -50,8 +50,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
         aside
 
           = render 'notes/tag_list', tags: @tags unless @tags.empty?
-
-          -# = render 'notes/related_notes_and_citations', note: @note
 
           = render 'notes/versions_list', note: @note if Setting['advanced.versions']
 

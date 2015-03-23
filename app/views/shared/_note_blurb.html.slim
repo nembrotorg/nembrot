@@ -1,4 +1,3 @@
-- all_interrelated_notes_and_features = all_interrelated_notes_and_features || []
 - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
 - headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
 - image = note.resources.attached_images.first unless note.has_instruction?('hide_image')
@@ -12,4 +11,4 @@
     = render 'shared/media', url: note.source_url
 
   h2 = simple_blurbify(headline)
-  = blurbify(blurb, note.books, note.links, all_interrelated_notes_and_features)
+  = blurbify(blurb, note.books, note.links)

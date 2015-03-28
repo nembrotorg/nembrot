@@ -11,8 +11,6 @@ atom_feed do |feed|
           note.body,
           note.books,
           note.links,
-          @all_interrelated_notes_and_features,
-          @all_interrelated_citations,
           'citation.book.inline_annotated_html',
           'citation.link.inline_annotated_html',
           false # REVIEW: Annotations should not be excluded from atom feed

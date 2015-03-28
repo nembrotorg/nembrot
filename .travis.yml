@@ -1,8 +1,22 @@
+sudo: false
+
 rvm:
-  - 2.0.0
+- 2.1.5
 
 script:
-  - "bundle exec rake db:migrate RAILS_ENV=test"
-  - "bundle exec rake db:test:prepare"
-  - "bundle exec rake settings:update_defaults RAILS_ENV=test"
-  - "bundle exec rspec"
+- bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake settings:update_defaults RAILS_ENV=test
+- bundle exec rspec
+
+before_script:
+- cp config/channel.constants.sample.yml config/channel.constants.yml
+- cp config/advanced.constants.sample.yml config/advanced.constants.yml
+
+notifications:
+  hipchat:
+    rooms:
+      secure: hzm5pp3qtwFIJu+Uh7WjUbIwi4vLOjCzvLoSSREKttlakWNHTV4BVfUKkwvFFTaLorG0xwPGL5iWZll9KjCDMSM+Y7cxx+GhnV+bLfMe5ywl5MBPgCBRag1iYhPl19UQvxorFj/KJOMGEpWuqFSRRgctuzcyjDVO6+NqZPkDuu4=
+
+addons:
+  code_climate:
+    repo_token: 24d5e8746ee2bcfc0db4df0ac6e09886a13e2903b4b6e7f25f64da9e86017c8c

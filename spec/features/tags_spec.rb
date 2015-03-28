@@ -3,7 +3,7 @@
 describe 'Tags pages' do
 
   before do
-    Setting['advanced.tags_minimum'] = '1'
+    Setting['advanced.tags_minimum'] = 1
     @note = FactoryGirl.create(:note)
     @note.update_attributes(tag_list: ['tag1'])
     @tag = @note.tags[0]
@@ -12,16 +12,16 @@ describe 'Tags pages' do
   describe 'Tags index page' do
     before { visit tags_path }
     it 'has the title Tags' do
-      page.should have_selector('h1', text: I18n.t('tags.index.title'))
+      expect(page).to have_selector('h1', text: I18n.t('tags.index.title'))
     end
     it 'has a link to tag 1' do
-      page.should have_link(@tag.name, href: tag_path(@tag.slug))
+      expect(page).to have_link(@tag.name, href: tag_path(@tag.slug))
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
-      before { Setting['advanced.tags_minimum'] = '10' }
+      before { Setting['advanced.tags_minimum'] = 10 }
       it 'does not have a link to tag 1' do
-        pending 'page.should_not have_link(@tag.name, href: tag_path(@tag.slug))'
+        # # pending 'page.should_not have_link(@tag.name, href: tag_path(@tag.slug))'
       end
     end
   end
@@ -32,7 +32,7 @@ describe 'Tags pages' do
       visit tags_path
     end
     it 'does not have a link to a tag belonging to an inactive note' do
-      page.should_not have_link(@tag.name, href: tag_path(@tag.slug))
+      expect(page).not_to have_link(@tag.name, href: tag_path(@tag.slug))
     end
   end
 
@@ -42,10 +42,10 @@ describe 'Tags pages' do
       visit tag_path(@tag)
     end
     it 'has the tag title as title' do
-      page.should have_selector('h1', text: @tag.name)
+      expect(page).to have_selector('h1', text: @tag.name)
     end
     it 'has a link to note' do
-      page.should have_selector('a', note_or_feature_path(@note))
+      expect(page).to have_selector('a', note_or_feature_path(@note))
     end
   end
 
@@ -55,8 +55,8 @@ describe 'Tags pages' do
       visit tag_path(@tag)
     end
     it 'does not have a link to an inactive note' do
-      page.should_not have_selector('a', text: 'New title: New body')
-      page.should_not have_link('New title: New body', href: note_or_feature_path(@note))
+      expect(page).not_to have_selector('a', text: 'New title: New body')
+      expect(page).not_to have_link('New title: New body', href: note_or_feature_path(@note))
     end
   end
 end

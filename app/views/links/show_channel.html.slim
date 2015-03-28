@@ -15,4 +15,4 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
       p.main= @name.titlecase
       = link_to @channel, @channel, class: 'url'
 
-    = render 'links_list', links: @links_channel, all_interrelated_notes_and_features: @all_interrelated_notes_and_features unless @links_channel.empty?
+    = render 'links_list', links: @links_channel unless @links_channel.empty?

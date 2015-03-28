@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111083223) do
+ActiveRecord::Schema.define(version: 20150323212826) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -113,13 +113,14 @@ ActiveRecord::Schema.define(version: 20140111083223) do
   create_table "evernote_notes", force: true do |t|
     t.string   "cloud_note_identifier"
     t.integer  "note_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.boolean  "dirty"
     t.integer  "attempts"
-    t.binary   "content_hash",           limit: 255
+    t.binary   "content_hash",              limit: 255
     t.integer  "update_sequence_number"
     t.datetime "try_again_at"
+    t.text     "cloud_notebook_identifier"
   end
 
   add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_identifier_service_id", unique: true
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(version: 20140111083223) do
     t.boolean  "is_section"
     t.boolean  "is_mapped"
     t.boolean  "is_promoted"
+    t.integer  "weight"
   end
 
   create_table "pantographers", force: true do |t|
@@ -204,19 +206,12 @@ ActiveRecord::Schema.define(version: 20140111083223) do
     t.integer  "tweet_id",            limit: 8
   end
 
-  create_table "related_notes", force: true do |t|
-    t.integer  "note_id"
-    t.integer  "related_note_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "resources", force: true do |t|
     t.string   "cloud_resource_identifier"
     t.string   "mime"
-    t.string   "caption"
-    t.string   "description"
-    t.string   "credit"
+    t.text     "caption",                   limit: 255
+    t.text     "description",               limit: 255
+    t.text     "credit",                    limit: 255
     t.string   "source_url"
     t.datetime "external_updated_at"
     t.float    "latitude"
@@ -229,8 +224,8 @@ ActiveRecord::Schema.define(version: 20140111083223) do
     t.boolean  "dirty"
     t.integer  "attempts"
     t.integer  "note_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.binary   "data_hash"
     t.integer  "width"
     t.integer  "height"
@@ -273,14 +268,16 @@ ActiveRecord::Schema.define(version: 20140111083223) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", force: true do |t|
-    t.string "name"
-    t.string "slug"
+    t.string  "name"
+    t.string  "slug"
+    t.integer "taggings_count", default: 0
   end
 
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
   add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true
 
   create_table "users", force: true do |t|
@@ -307,6 +304,7 @@ ActiveRecord::Schema.define(version: 20140111083223) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "remember_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

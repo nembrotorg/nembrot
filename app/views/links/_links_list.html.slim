@@ -20,6 +20,5 @@ section.links
           links: [link] unless link.notes.publishable.citations.empty?
 
         = render 'shared/notes_list',
-          notes: link.notes.publishable.listable, 
-          all_interrelated_notes_and_features: all_interrelated_notes_and_features
+          notes: link.notes.publishable.listable
           unless link.notes.publishable.listable.empty?

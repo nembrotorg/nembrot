@@ -23,8 +23,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
        unless @book.notes.publishable.citations.empty?
 
     = render 'shared/notes_list', 
-       notes: @book.notes.publishable.listable, 
-       all_interrelated_notes_and_features: @all_interrelated_notes_and_features
+       notes: @book.notes.publishable.listable
        unless @book.notes.publishable.listable.empty?
 
     = render 'books_list', title: t('.related_books'), books: @related_books unless @related_books.empty?

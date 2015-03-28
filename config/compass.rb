@@ -20,4 +20,8 @@ preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass app/stylesheets scss && rm -rf sass && mv scss sass
 
-sass_options = { :debug_info => true }
+if environment == :development
+    line_comments = true
+    output_style = :nested
+    sass_options = {:debug_info => true}
+end

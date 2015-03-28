@@ -1,6 +1,6 @@
 doctype 5
 
-html class="no-js" lang="#{ I18n.locale }"
+html data={ controller: controller.controller_name, action: controller.action_name } class="no-js" lang="#{ I18n.locale }"
 
   = render 'head'
 
@@ -12,13 +12,11 @@ html class="no-js" lang="#{ I18n.locale }"
 
       = yield
 
-    = render 'hello_world' if Secret.auth.evernote.key == 'CHANGE_ME' or Secret.auth.evernote.secret == 'CHANGE_ME'
-
     = render 'tools'
 
     = render 'footer'
 
-    = render 'google_analytics' unless Constant.google_analytics_key.blank?
+    = render 'google_analytics' unless Setting['advanced.google_analytics_key'].blank?
 
     = render 'async_share_scripts' if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'
 

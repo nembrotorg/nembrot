@@ -11,9 +11,9 @@ class SettingsController < ApplicationController
   end
 
   def edit
-    @channel_settings = Setting.all('channel.')
-    @advanced_settings = Setting.all('advanced.')
-    @style_settings = Setting.all('style.')
+    @channel_settings = Setting.get_all('channel.')
+    @advanced_settings = Setting.get_all('advanced.')
+    @style_settings = Setting.get_all('style.')
 
     add_breadcrumb I18n.t('settings.edit.title'), edit_settings_path
   end

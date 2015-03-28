@@ -8,36 +8,36 @@ describe DiffedNoteTagList do
   end
 
   it 'contains each unique item of both lists' do
-    @diffed_note_tag_list.size.should == 4
+    expect(@diffed_note_tag_list.size).to eq(4)
   end
 
   context 'when a tag is deleted' do
     it 'has a status of 1' do
-      @diffed_note_tag_list['tag1']['status'].should == -1
+      expect(@diffed_note_tag_list['tag1']['status']).to eq(-1)
     end
   end
 
   context 'when a tag is retained' do
     it 'has a status of 0' do
-      @diffed_note_tag_list['tag2']['status'].should == 0
+      expect(@diffed_note_tag_list['tag2']['status']).to eq(0)
     end
   end
 
   context 'when a tag is added' do
     it 'has a status of 1' do
-      @diffed_note_tag_list['tag4']['status'].should == 1
+      expect(@diffed_note_tag_list['tag4']['status']).to eq(1)
     end
   end
 
   context 'when a tag still exists' do
     it '#obsolete is false' do
-      @diffed_note_tag_list['tag1']['obsolete'].should == false
+      expect(@diffed_note_tag_list['tag1']['obsolete']).to eq(false)
     end
   end
 
   context 'when a tag does not exist' do
     it '#obsolete is true' do
-      @diffed_note_tag_list['tag2']['obsolete'].should == true
+      expect(@diffed_note_tag_list['tag2']['obsolete']).to eq(true)
     end
   end
 end

@@ -13,7 +13,7 @@ class DiffedNoteVersion
       version = versions.first.reify
       self.previous_title = ''
       self.previous_body = ''
-      self.tag_list = versions.first.tag_list
+      self.tag_list = versions.first.tag_list['internal']
       self.previous_tag_list = []
     elsif sequence == versions.size + 1
       version = note
@@ -21,14 +21,14 @@ class DiffedNoteVersion
       self.previous_title = previous_version.title
       self.previous_body = previous_version.body
       self.tag_list = version.tag_list
-      self.previous_tag_list = versions.find_by_sequence(sequence - 1).tag_list
+      self.previous_tag_list = versions.find_by_sequence(sequence - 1).tag_list['internal']
     else
       version = versions.find_by_sequence(sequence).reify
       previous_version = version.previous_version
       self.previous_title = previous_version.title
       self.previous_body = previous_version.body
-      self.tag_list = versions.find_by_sequence(sequence).tag_list
-      self.previous_tag_list = versions.find_by_sequence(sequence - 1).tag_list
+      self.tag_list = versions.find_by_sequence(sequence).tag_list['internal']
+      self.previous_tag_list = versions.find_by_sequence(sequence - 1).tag_list['internal']
     end
 
     self.sequence = sequence

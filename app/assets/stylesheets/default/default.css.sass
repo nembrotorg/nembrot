@@ -1,22 +1,4 @@
 //////////////////////////////
-//                          //
-// Default theme            //
-//                          //
-//////////////////////////////
-
-@import mixins.default
-
-//////////////////////////////
-//
-// Resets
-//
-//////////////////////////////
-
-a, p, input, textarea, h1, h2, h3, h4, h5, h6, ol, ul, li, div, section, nav
-  margin: 0
-  padding: 0
-
-//////////////////////////////
 //
 // Elements
 //
@@ -92,6 +74,8 @@ nav ul li a:first-of-type
     +icon-spotify
   &[href*=tumblr]:before
     +icon-tumblr
+  &[href*=instapaper]:before
+    +icon-instapaper
   &[href*=twitter]:before
     +icon-twitter
   &[href*=vimeo]:before
@@ -503,10 +487,61 @@ footer
         display: none
       &[id*=annotation-mark]
         font-size: $small-font-size - 2px
+        line-height: 0
         vertical-align: super
+
+  .body
     blockquote
       +body-font-citation
       margin: ($line-height / 2) $text-indent
+    table
+      td
+        font:
+          size: 0.8em
+        line-height: $line-height * 2/3
+        padding: ($line-height * 1/3) ($line-height * 2/3) ($line-height * 1/3) 0
+      tr
+        &:first-of-type
+          font-weight: 600
+          td
+            padding-bottom: ($line-height * 1/3) - 1px
+        &:last-of-type
+          td
+            padding-bottom: 0
+    ol
+      counter-reset: items
+      &> li
+        counter-increment: items 1
+        padding-left: $text-indent
+        &:before
+          content: counter(items)
+          margin-left: $text-indent * -1
+          position: absolute
+          width: $text-indent
+        ol
+          counter-reset: subitems
+          li
+            counter-increment: subitems
+            padding-left: $text-indent
+            &:before
+              content: counter(items) "." counter(subitems)
+              margin-left: $text-indent * -1
+              position: absolute
+              width: $text-indent
+    ul
+      li
+        padding-left: $text-indent
+        &:before
+          +icon-circle
+          +icon-small
+          font-size: 7px
+          left: 0
+          position: absolute
+          width: $text-indent
+    li
+      margin-bottom: $line-height * 1/3
+      &:last-of-type
+        margin-bottom: 0
     section
       margin-bottom: $line-height
       h2
@@ -536,7 +571,6 @@ footer
     &.collate
       p
         text-indent: $text-indent
-      div
     div
       overflow: show
       position: relative
@@ -570,6 +604,8 @@ section.ins-section, article.ins-section
   li
     +blurb(8)
     position: relative
+  h2:after
+    content: ' '
 
 .versions
   li
@@ -690,7 +726,7 @@ section.ins-section, article.ins-section
       display: inline-block
       li
         height: $line-height
-        // margin-right: $text-indent / 2
+        // margin-right: $text-indent/2
         position: relative
         width: $text-indent
       &.fb-like
@@ -800,369 +836,3 @@ ul.admin
         position: absolute
         text-align: right
         width: $text-indent * 2
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Media-queries
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only print
-
-  +pass-media-query('print')
-
-  iframe, nav
-    display: none
-
-  a
-    text-decoration: none
-
-  #text
-    +columns(2)
-
-  img.qr_code
-    +span-columns(2)
-    height: $qr-code-image-size
-    width: $qr-code-image-size
-
-  small
-    +span-columns(10)
-
-// Screen /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen
-
-  h3
-    display: none
-
-  img.qr_code
-    display: none
-
-// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 720px)
-
-  +pass-media-query('screen-and-min-width-720px')
-
-  body
-    padding-top: $line-height / 2
-
-  #main,
-  .hello-world,
-  footer
-    margin: 0 auto $line-height auto
-
-  #tools
-    bottom: 0
-    li.menu
-      display: none
-
-  form
-    +span-columns(6)
-    label
-      input
-        float: right
-        width: space(6)
-
-  header[data-title]
-    height: $line-height * 3
-    margin-bottom: $line-height
-    margin-top: $line-height
-    position: relative
-    #notice
-      position: absolute
-      top: $line-height
-    h1
-      margin: 0
-    h2
-      margin-top: $line-height
-
-  iframe
-    clear: both
-    &[src*='vimeo'],
-    &[src*='youtube']
-      height: $line-height * 16
-    &[src*='soundcloud.com']
-      height: $line-height * 6
-    &[src*='soundcloud.com%2Fplaylist']
-      height: $line-height * 15
-
-  .citations
-    +span-columns(6)
-    +suffix(6)
-    a
-      display: block
-      // padding-right: 34.38889%
-
-  .notes
-    li
-      +blurb(5, 4)
-
-  ul.user
-    clear: both
-    a
-      text-transform: lowercase
-      &:before
-        +icon-right
-        +icon-small
-
-  article
-    figure
-      &.image
-        margin-bottom: $line-height
-        figcaption
-          padding-top: $line-height / 2
-      &.ins-fx-pol
-        figcaption
-          display: none
-      .map_container
-        #map
-          height: $line-height * 6
-          margin-bottom: $line-height * 2/3
-    aside
-      +span-columns(12)
-
-    #text
-      +span-columns(8)
-      +font-color($body-font-color)
-      counter-reset: term
-      margin-bottom: $line-height
-      overflow: visible
-      position: relative
-      p
-        position: relative
-      .body
-        +span-columns(8, 8)
-      .annotations
-        +prefix(8, 8)
-        +span-columns(4, 8)
-        li
-          +hyphens
-          font:
-            size: $small-font-size + 1px
-      .side-annotations
-        position: relative
-        ol
-          display: block
-          padding-left: 0
-          li
-            +font-color($headline-font-color, $headline-font-color)
-            display: block
-            position: absolute
-            a[href*=annotation-mark]
-              font:
-                size: $small-font-size - 2px
-              padding-right: 3px
-              text-align: right
-              vertical-align: super
-              width: $text-indent - 3px
-      .aside
-        clear: both
-    &:hover
-      #text
-        a
-          color: $link-hover-color
-    &[dir=rtl]
-      header
-        +span-columns(6)
-
-  .books-edit, .books-update, .links-edit, .links-update
-    .tools
-      +span-columns(6)
-      ul
-        margin: 0
-
-  .books-show, .links-show_channel
-    .details
-      margin-bottom: $line-height
-      p
-        margin: 0
-        &.main
-          font-weight: bold
-
-  .citations-show
-    figure.citation
-      +span-columns(6, 12)
-      +suffix(3, 12)
-      margin-bottom: $line-height
-      blockquote
-        margin-bottom: $line-height
-
-  .links-index
-    ul
-      +columns(2)
-
-  .tags-index
-    ul
-      +columns(4)
-
-  footer
-    nav
-      ul
-        &.promotions
-          +span-columns(4)
-        &.sections
-          +columns(2)
-          +span-columns(4)
-        &.channels
-          +columns(2)
-          +span-columns(4 omega)
-    small
-      +span-columns(12)
-
-// Screen > 1024px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1024px)
-
-  +pass-media-query('screen-and-min-width-1024px')
-
-  .fade-annotations
-    .side-annotations
-      +fade(0)
-    &:hover
-      .side-annotations
-        +fade(1)
-
-  iframe
-    +span-columns(9, 12)
-
-  article
-    header
-      clear: both
-    section#content
-      +span-columns(12)
-      figure
-        &.image
-          +suffix(1, 12)
-          +span-columns(8, 12)
-      #introduction
-        +span-columns(9, 12)
-      #text
-        overflow: visible
-        aside
-          +span-columns(6, 12)
-        .side-annotations
-          +prefix(6, 6)
-          +span-columns(3, 6)
-          height: 0
-          margin-top: 0
-        &.regular, &.parallel
-          +span-columns(6, 12)
-        &.enface
-          +span-columns(12, 12)
-          p
-            line-height: $line-height
-            &:before
-              top: 0
-          .source, p.source
-            +span-columns(6, 12)
-            color: $body-font-color
-            p
-              color: $body-font-color
-          .target, p.target
-            +prefix(6)
-            +span-columns(6 omega, 12)
-            padding-top: 0
-          .side-annotations
-            +prefix(12)
-            +span-columns(2, 12)
-          div
-            overflow: hidden
-      #map
-        +span-columns(3)
-    #extra
-      +span-columns(3 omega, 12)
-
-  #main,
-  .hello-world,
-  footer
-    width: 1080px
-
-  #disqus_thread,
-  #comments
-    +span-columns(6)
-
-  .notes
-    +span-columns(9)
-    +suffix(3)
-    li
-      +blurb(5, 3, 9)
-      img, iframe
-        width: auto // OPTIMIZE: We get these measurements from the columns.
-        height: $line-height * 5
-
-  .books-index
-    ul
-      +columns(2)
-
-  .links-index
-    ul
-      +columns(3)
-
-  .home-index
-    .notes
-      +span-columns(12)
-      padding-right: 0
-      ul
-        +columns($promotions-home-columns)
-        +column-gap($gutter-width * 1px)
-        margin-bottom: 0
-        li
-          +blurb($promotions-home-lines)
-          margin-bottom: $line-height
-
-  .tags-index
-    ul
-      +columns(6)
-
-  .share
-    display: inline-block
-    margin-bottom: $line-height / 2
-
-  #admin
-    ul
-      bottom: $line-height * 2
-      padding-left: $text-indent
-      position: fixed
-
-// Screen > 1200px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1200px)
-
-  +pass-media-query('screen-and-min-width-1200px')
-
-  figure.image
-    img
-      height: 390px
-      width: 690px
-
-  .gallery
-    overflow: hidden
-    position: relative
-    figure.image
-      margin-bottom: 0
-
-  #tools
-    background-color: transparent
-    border: none
-    padding-left: $text-indent / 2
-    width: space(2)
-
-  footer
-    margin-bottom: 0
-    small
-      margin-bottom: 0
-
-// Screen > 1600px ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@media only screen and (min-width: 1601px)
-
-  +pass-media-query('screen-and-min-width-1601px')
-
-  article
-    section#content
-      #text
-        &.enface
-          .side-annotations
-            +prefix(12)
-            +span-columns(3, 12)

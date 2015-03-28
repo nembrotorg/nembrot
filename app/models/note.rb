@@ -2,18 +2,13 @@
 
 class Note < ActiveRecord::Base
 
-  include Syncable
+  include NoteCustom, Syncable
 
   attr_writer   :tag_list, :instruction_list
   attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
-
-  has_many :related_notes_association, class_name: 'RelatedNote'
-  has_many :related_notes, through: :related_notes_association, source: :related_note
-  has_many :inverse_related_notes_association, class_name: 'RelatedNote', foreign_key: 'related_note_id'
-  has_many :inverse_related_notes, through: :inverse_related_notes_association, source: :note
 
   has_and_belongs_to_many :books
   has_and_belongs_to_many :links
@@ -25,7 +20,7 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   only: [:title, :body],
                   if:  proc { |note| note.save_new_version? },
-                  unless: proc { |note| note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -35,16 +30,14 @@ class Note < ActiveRecord::Base
                     distance: proc { |note| Note.find(note.id).distance }
                   }
 
-  default_scope { order('external_updated_at DESC') }
+  default_scope { order('weight ASC, external_updated_at DESC') }
   # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
-  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
-
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
   scope :citations, -> { where(is_citation: true) }
   scope :features, -> { where.not(feature: nil) }
   scope :notes_and_features, -> { where(is_citation: false) }
   scope :listable, -> { where(listable: true, is_citation: false) }
   scope :publishable, -> { where(active: true, hide: false) }
-  scope :interrelated, -> { where(id: RelatedNote.pluck(:note_id, :related_note_id)) }
   # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
@@ -60,14 +53,22 @@ class Note < ActiveRecord::Base
 
   # REVIEW: Store in columns like is_section?
   def self.mappable
-    all.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
+    all.to_a.keep_if { |note| note.has_instruction?('map') && !note.inferred_latitude.nil? }
   end
 
   # REVIEW: Store in columns like is_section?
   def self.promotable
     promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
     greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
-    (all.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
+    (all.to_a.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
+  end
+
+  def self.homeable
+    (all.keep_if { |note| note.has_instruction?('home') } + promotable).uniq
+  end
+
+  def self.with_instruction(instruction)
+    all.keep_if { |note| note.has_instruction?(instruction) }
   end
 
   def self.homeable
@@ -84,6 +85,14 @@ class Note < ActiveRecord::Base
 
   def self.features
     where(is_feature: true, is_section: false).uniq
+  end
+
+  def self.related_notes(note_ids)
+    publishable.where(id: note_ids, is_citation: false)
+  end
+
+  def self.related_citations(citation_ids)
+    citations.publishable.where(id: citation_ids)
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -165,14 +174,6 @@ class Note < ActiveRecord::Base
     has_instruction?('full_title') ? nil : headline.scan(/\:\s*(.*)/).flatten.first
   end
 
-  # def related_notes_resolved
-  #   all_related_notes << related_notes
-  #   all_related_notes.uniq.each do |r|
-  #     all_related_notes << r.related_notes
-  #   end
-  #   all_related_notes
-  # end
-
   def get_feature_name
     title_candidate = main_title
     title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
@@ -197,7 +198,9 @@ class Note < ActiveRecord::Base
   end
 
   def save_new_version?
-    Setting['advanced.versions'] == 'true' && !minor_edit?
+    return false if external_updated_at_was.blank?
+    return false if external_updated_at == external_updated_at_was
+    Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
   end
 
   private
@@ -225,17 +228,18 @@ class Note < ActiveRecord::Base
     self.lang = lang
   end
 
+  def update_weight
+    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    if weight_instruction
+     weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
+    end
+    self.weight = weight
+  end
+
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
-    self.books = Book.citable.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section']
-
-    new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
-    new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
-    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*) *\}/).flatten, feature_id: nil)
-    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*)\//).flatten, feature_id: body.scan(/\{[a-z ]*:? *\/?[a-z0-9\-\_]*\/([a-z0-9\-\_]*) *\}/).flatten)
-
-    self.related_notes = new_related_notes.flatten.uniq
+    self.books = Book.citable.to_a.keep_if { |book| body.include?(book.tag) }
+    self.links = Link.publishable.to_a.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
   end
 
   def scan_note_for_isbns
@@ -257,12 +261,14 @@ class Note < ActiveRecord::Base
   def update_metadata
     update_date
     discard_versions?
+    update_date
     update_is_hidable?
     update_is_citation?
     update_is_listable?
     update_is_feature?
     update_is_section?
     update_lang
+    update_weight
     update_feature
     update_feature_id
     update_word_count
@@ -270,8 +276,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_date
-    # Keep old date if this is a minor edit and versioning is switched on
-    self.external_updated_at = external_updated_at_was if skip_new_version?
+    self.external_updated_at = external_updated_at_was unless save_new_version? || new_record?
     reset_date?
   end
 

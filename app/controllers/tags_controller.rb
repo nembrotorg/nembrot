@@ -14,7 +14,7 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find_by_slug(params[:slug]) # .friendly.find is not working here
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
-    @citations = Note.publishable.citations.tagged_with(@tag.name)
+    @citations = Note.publishable.citation.tagged_with(@tag.name)
     @word_count = @notes.sum(:word_count)
     @map = mapify(@notes.mappable)
 

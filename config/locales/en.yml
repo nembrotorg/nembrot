@@ -85,6 +85,13 @@ en:
       title: "Citation %{id}"
       not_found: "Citation %{id} is not available."
 
+  clippings:
+    index:
+      title: 'Clippings'
+      statistics:
+        zero: "0 clippings."
+        one: "1 clipping."
+
   links:
     index:
       title: 'Links'

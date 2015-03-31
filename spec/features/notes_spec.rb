@@ -344,7 +344,7 @@ describe 'Notes' do
 
     context 'when a note has a reference to a citation' do
       before do
-        @citation = FactoryGirl.create(:note, is_citation: true)
+        @citation = FactoryGirl.create(:note, content_type: 1)
         @note.update_attributes(body: "This note contains a reference to {link: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
@@ -366,7 +366,7 @@ describe 'Notes' do
 
     context 'when a note contains a blurb for a citation' do
       before do
-        @reference = FactoryGirl.create(:note, is_citation: true)
+        @reference = FactoryGirl.create(:note, content_type: 1)
         @note.update_attributes(body: "This note contains a reference to {blurb: #{ citation_path(@reference) }}.")
         visit note_path(@note)
       end

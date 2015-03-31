@@ -1,0 +1,7 @@
+- blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+- headline, blurb = blurb(clipping.main_title, clipping.subtitle, clipping.clean_body, clipping.introduction, blurb_length)
+
+= link_to note_path(note), lang: lang_attr(clipping.lang), dir: dir_attr(clipping.lang) do
+
+  h2 = simple_blurbify(headline)
+  = blurbify(blurb, clipping.books, clipping.links)

@@ -5,7 +5,7 @@ FactoryGirl.define do
     active true
     body { 'Fixed note content used to prevent multiple calls to VCR.' }
     hide false
-    is_citation false
+    content_type 0
     lang 'en'
     listable true
     external_updated_at 1.day.ago

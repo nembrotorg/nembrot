@@ -400,12 +400,12 @@ describe 'Notes' do
 
     context 'when a note contains a citation' do
       before do
-        @citation = FactoryGirl.create(:note, instruction_list: ['__PUBLISH', '__QUOTE'])
+        @citation = FactoryGirl.create(:note, body:'Citation text', content_type: 1, instruction_list: ['__PUBLISH', '__QUOTE'])
         @note.update_attributes(body: "This note contains a reference to {text: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        expect(page).to have_text(@citation.body)
+        expect(page).to have_text('Citation text')
       end
     end
 

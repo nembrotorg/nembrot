@@ -9,8 +9,8 @@ describe 'Books' do
     fill_in 'Password', with: 'changeme'
     click_button('Sign in')
     @book = FactoryGirl.create(:book)
-    @note = FactoryGirl.create(:note, books: [@book], content_type: 1, body: 'Note text.')
-    @citation = FactoryGirl.create(:note, books: [@book], content_type: 1, body: "{quote:Text. -- (#{ @book.tag }), p. 1}")
+    @note = FactoryGirl.create(:note, books: [@book], body: 'Note text.')
+    @citation = FactoryGirl.create(:note, books: [@book], content_type: 1, body: "{quote:Citation text. -- (#{ @book.tag }), p. 1}")
   end
 
   describe 'admin page' do
@@ -49,12 +49,17 @@ describe 'Books' do
     specify { expect(page).to have_content(@book.translator) }
     specify { expect(page).to have_content(@book.editor) }
     specify { expect(page).to have_content(@book.introducer) }
-    specify { expect(page).to have_content(@citation.headline) }
+
+    it 'has a contains the citation text' do
+      expect(page).to have_content('Citation text')
+    end
+
+    it 'has a link to the note' do
+      expect(page).to have_selector("a[href='#{ note_or_feature_path(@note) }']")
+    end
 
     it 'has a link to the citation' do
-      expect(page).to have_content(ActionController::Base.helpers.strip_tags(@book.headline))
-      # # pending "page.should have_selector(\"a[href='#{ note_or_feature_path(@note) }']\") FIXME: Citation is being shown as a note"
-      # # pending "page.should have_selector(\"a[href='#{ citation_path(@citation) }']\") FIXME: Citation is being shown as a note"
+      expect(page).to have_selector("a[href='#{ citation_path(@citation) }']")
     end
   end
 

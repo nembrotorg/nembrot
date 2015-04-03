@@ -88,7 +88,7 @@ class Note < ActiveRecord::Base
   end
 
   def self.related_notes(note_ids)
-    publishable.where(id: note_ids, content_type: :note)
+    note.publishable.where(id: note_ids)
   end
 
   def self.related_citations(citation_ids)
@@ -264,10 +264,10 @@ class Note < ActiveRecord::Base
     discard_versions?
     update_date
     update_is_hidable?
+    update_content_type
     update_is_listable?
     update_is_feature?
     update_is_section?
-    update_content_type
     update_lang
     update_weight
     update_feature

@@ -18,9 +18,9 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
       p= links(@book)
 
     = render 'citations/citations_list', 
-       citations: sort_by_page_reference(@book.notes.publishable.citation), 
+       citations: sort_by_page_reference(@book.notes.citation), 
        books: @books
-       unless @book.notes.publishable.citation.empty?
+       unless @book.notes.citation.publishable.empty?
 
     = render 'shared/notes_list', 
        notes: @book.notes.publishable.listable

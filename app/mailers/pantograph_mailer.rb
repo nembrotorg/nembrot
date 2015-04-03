@@ -1,5 +1,5 @@
 class PantographMailer < ActionMailer::Base
-  default from: Constant.admin_email
+  default from: Setting['advanced.admin_email']
 
   def tweet_failed(message)
     @message = message

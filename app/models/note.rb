@@ -13,6 +13,8 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :books
   has_and_belongs_to_many :links
 
+  enum content_type: [ :note, :citation, :clipping ]
+
   acts_as_commontable
 
   acts_as_taggable_on :tags, :instructions
@@ -32,11 +34,9 @@ class Note < ActiveRecord::Base
 
   default_scope { order('weight ASC, external_updated_at DESC') }
   # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
-  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
-  scope :citations, -> { where(is_citation: true) }
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
   scope :features, -> { where.not(feature: nil) }
-  scope :notes_and_features, -> { where(is_citation: false) }
-  scope :listable, -> { where(listable: true, is_citation: false) }
+  scope :listable, -> { note.where(listable: true) }
   scope :publishable, -> { where(active: true, hide: false) }
   # scope :mappable, -> { where (is_mapped: true) }
 
@@ -88,11 +88,11 @@ class Note < ActiveRecord::Base
   end
 
   def self.related_notes(note_ids)
-    publishable.where(id: note_ids, is_citation: false)
+    note.publishable.where(id: note_ids)
   end
 
   def self.related_citations(citation_ids)
-    citations.publishable.where(id: citation_ids)
+    citation.publishable.where(id: citation_ids)
   end
 
   def has_instruction?(instruction, instructions = instruction_list)
@@ -108,12 +108,8 @@ class Note < ActiveRecord::Base
   end
 
   def headline
-    return I18n.t('citations.show.title', id: id) if is_citation
+    return I18n.t('citations.show.title', id: id) if citation?
     is_untitled? ? I18n.t('notes.show.title', id: id) : title
-  end
-
-  def type
-    is_citation ? 'Citation' : 'Note'
   end
 
   def clean_body_with_instructions
@@ -217,6 +213,11 @@ class Note < ActiveRecord::Base
     end
   end
 
+  def update_content_type
+    content_type = Note.content_types[:citation] if has_instruction?('citation')
+    content_type = Note.content_types[:clipping] if has_instruction?('clipping')
+  end
+
   def update_lang(content = "#{ title } #{ clean_body }")
     lang_instruction = Array(instruction_list).select { |v| v =~ /__LANG_/ } .first
     if lang_instruction
@@ -263,7 +264,7 @@ class Note < ActiveRecord::Base
     discard_versions?
     update_date
     update_is_hidable?
-    update_is_citation?
+    update_content_type
     update_is_listable?
     update_is_feature?
     update_is_section?
@@ -302,14 +303,6 @@ class Note < ActiveRecord::Base
     too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < Setting['advanced.version_gap_minutes'].to_i.minutes
     too_minor = get_real_distance < Setting['advanced.version_gap_distance'].to_i
     too_recent && too_minor
-  end
-
-  def update_is_citation?
-    self.is_citation = has_instruction?('citation') || looks_like_a_citation?(clean_body)
-  end
-
-  def looks_like_a_citation?(content = clean_body)
-    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1 # OPTIMIZE: Replace 'quote': by i18n
   end
 
   def update_is_listable?

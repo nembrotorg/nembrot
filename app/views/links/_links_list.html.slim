@@ -15,9 +15,9 @@ section.links
         p = link_to link.url.gsub(%r(https?://), ''), link.url, class: 'url'
 
         = render 'citations/citations_list',
-          citations: link.notes.publishable.citations,
+          citations: link.notes.citation.publishable,
           books: '',
-          links: [link] unless link.notes.publishable.citations.empty?
+          links: [link] unless link.notes.citation.publishable.empty?
 
         = render 'shared/notes_list',
           notes: link.notes.publishable.listable

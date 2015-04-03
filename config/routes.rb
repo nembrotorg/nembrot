@@ -19,6 +19,8 @@ Nembrot::Application.routes.draw do
   get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
   get 'citations(/p/:page)' => 'citations#index', as: :citations
 
+  get 'clippings(/:tab)(/p/:page)' => 'clippings#index', as: :clippings
+
   put 'links/update' => 'links#update', as: :update_link
   get 'links/admin' => 'links#admin', as: :links_admin
   get 'links/:id/edit' => 'links#edit', as: :edit_link

@@ -1,11 +1,11 @@
 defaults: &defaults
   style:
     background_color: '#fff'
-    body_font: Slabo
+    body_font: "Slabo, Georgia, serif"
     body_font_citation_color: '#000'
     body_font_citation_family: sans-serif
     body_font_color: '#000'
-    body_font_family: serif
+    body_font_family: "Slabo, Georgia, serif"
     body_font_size: 18px
     body_font_variant: regular
     body_font_citation_size: 18px

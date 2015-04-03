@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323212826) do
+ActiveRecord::Schema.define(version: 20150328160523) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150323212826) do
     t.boolean  "is_mapped"
     t.boolean  "is_promoted"
     t.integer  "weight"
+    t.integer  "content_type",                  default: 0,     null: false
   end
 
   create_table "pantographers", force: true do |t|

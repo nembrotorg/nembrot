@@ -251,21 +251,11 @@ describe Note do
     end
     context 'when note is a citation' do
       before do
-        note.is_citation = true
+        note.citation!
       end
       it 'returns preformatted title (e.g. Citation 1)' do
         expect(note.headline).to eq(I18n.t('citations.show.title', id: note.id))
       end
-    end
-  end
-
-  describe '#type' do
-    its(:type) { is_expected.to eq('Note') }
-    context 'when note is a citation' do
-      before do
-        note.is_citation = true
-      end
-      its(:type) { is_expected.to eq('Citation') }
     end
   end
 
@@ -368,41 +358,6 @@ describe Note do
   describe '#fx should return fx for images' do
     before { note.instruction_list = %w(__FX_ABC __FX_DEF) }
     its (:fx) { is_expected.to eq(['abc', 'def']) }
-  end
-
-  describe '#looks_like_a_citation?' do
-    it 'returns false for ordinary text' do
-      note = FactoryGirl.create(:note, body: 'Plain text.')
-      expect(note.is_citation).to be_falsey
-    end
-    it 'recognises one-line citations' do
-      note = FactoryGirl.create(:note, body: "\n{quote:Plain text. -- Author 2000}\n")
-      # pending 'note.looks_like_a_citation?.should be_truthy'
-    end
-    it 'recognises two-line citations' do
-      note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\n")
-      # pending 'note.looks_like_a_citation?.should be_truthy'
-    end
-    context 'when a note merely contains a citation' do
-      context 'when text precedes quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\n")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-      context 'when text succeeds quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-      context 'when text surrounds quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-    end
   end
 
   describe 'lang_from_cloud' do

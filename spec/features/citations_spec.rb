@@ -4,7 +4,7 @@ describe 'Citations' do
 
   before do
     @book = FactoryGirl.create(:book)
-    @citation = FactoryGirl.create(:note, books: [@book], is_citation: true, body: "Text. -- (#{ @book.tag }), p. 1")
+    @citation = FactoryGirl.create(:note, books: [@book], content_type: 1, body: "Text. -- (#{ @book.tag }), p. 1")
   end
 
   describe 'index page' do

@@ -12,6 +12,6 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
     = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
     - unless @clippings.empty?
-      = render 'clippings_list', books: @clippings
+      = render 'clippings_list', clippings: @clippings
 
       = paginate @clippings

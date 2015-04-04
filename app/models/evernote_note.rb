@@ -48,14 +48,7 @@ class EvernoteNote < ActiveRecord::Base
   end
 
   def evernote_auth
-    channel = Channel.where(notebooks: cloud_notebook_identifier).first
-    if channel.nil?
-      SYNC_LOG.error 'Channel does not exist.'
-      destroy
-    else
-      user = channel.user
-      EvernoteAuth.new(user)
-    end
+    EvernoteAuth.new
   end
 
   private

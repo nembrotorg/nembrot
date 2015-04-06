@@ -25,7 +25,7 @@ footer
         ul.channels
 
           - Setting['advanced.web_channels'].split(/, ?| /).each do |link|
-            li = link_to link.gsub(/.*medium.*/, 'Medium').gsub(/.*instapaper.*/, 'Instapaper').gsub(/.*tumblr.*/, 'Tumblr').gsub(/plus\.google/, 'Google+').gsub(/^([^\.]*).*$/, '\1').titlecase, "http://#{ link }"
+            li = link_to site_title_from_url(link), "http://#{ link }"
 
           li = link_to t('atom_feed'), notes_url(:atom)
           li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?

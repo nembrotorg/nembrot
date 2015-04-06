@@ -12,7 +12,7 @@
         a href="#view"
           | View
       -#li
-      -#  a href="#tabs-4"
+      -#  a href="#logs"
       -#    | log
 
     #model
@@ -24,10 +24,6 @@
     #view
       h2 == @view_file
       .CodeRay == @view_script
-    -#div#tabs-4
-    -#  pre = File.read File.join(Rails.root, 'log', 'development.log')
-
-    javascript:
-      $(function() {
-        $("#tabs").tabs();
-      });
+    -#logs
+    -#  h2 Logs
+    -#  .CodeRay == File.read File.join(Rails.root, 'log', 'development.log')

@@ -53,6 +53,30 @@ describe Note do
     end
   end
 
+  describe 'saves the correct content type' do
+    it 'note by default' do
+      expect(note.content_type).to eq('note')
+    end
+    context 'when note has __QUOTE tag' do
+      before do
+        note.instruction_list = %w(__QUOTE)
+        note.save
+      end
+      it 'content_type is Citation' do
+        expect(note.content_type).to eq('citation')
+      end
+    end
+    context 'when note has __CLIPPING tag' do
+      before do
+        note.instruction_list = %w(__CLIPPING)
+        note.save
+      end
+      it 'content_type is Clipping' do
+        expect(note.content_type).to eq('clipping')
+      end
+    end
+  end
+
   # Not yet implemented
   # describe "refuses update when external_updated_at is unchanged" do
   #   before do
@@ -191,10 +215,6 @@ describe Note do
   end
 
   describe '#has_instruction?' do
-    # pending 'Add tests'
-  end
-
-  describe '#has_instruction?' do
     before do
       Setting['advanced.instructions_hide'] = '__HIDESYNONYM'
       Setting['advanced.instructions_default'] = '__DEFAULT_INSTRUCTION'
@@ -255,6 +275,28 @@ describe Note do
       end
       it 'returns preformatted title (e.g. Citation 1)' do
         expect(note.headline).to eq(I18n.t('citations.show.title', id: note.id))
+      end
+    end
+  end
+
+  describe '#inferred_url' do
+    context 'when source url exists' do
+      before do
+        note.source_url = 'http://example.com'
+        note.save
+      end
+      it 'returns source url' do
+        expect(note.inferred_url).to eq('http://example.com')
+      end
+    end
+    context 'when source urldoes not exist' do
+      before do
+        note.source_url = nil
+        note.body = 'Normal body. http://example2.com'
+        note.save
+      end
+      it 'returns the first url from the body' do
+        expect(note.inferred_url).to eq('http://example2.com')
       end
     end
   end

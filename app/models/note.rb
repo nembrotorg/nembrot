@@ -133,6 +133,11 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
+  def inferred_url
+    return source_url unless source_url.blank?
+    body.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten.first
+  end
+
   # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
@@ -214,8 +219,8 @@ class Note < ActiveRecord::Base
   end
 
   def update_content_type
-    content_type = Note.content_types[:citation] if has_instruction?('citation')
-    content_type = Note.content_types[:clipping] if has_instruction?('clipping')
+    self.content_type = Note.content_types[:citation] if has_instruction?('citation')
+    self.content_type = Note.content_types[:clipping] if has_instruction?('clipping')
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")

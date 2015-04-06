@@ -72,4 +72,12 @@ module ApplicationHelper
     #  Imitate for home blurbs
     note.has_instruction?('feature') ? feature_path(feature: note.feature) : note_path(note)
   end
+
+  def site_title_from_url(url)
+    url.gsub(/.*tumblr.*/, 'Tumblr')
+       .gsub(/plus\.google/, 'Google+')
+       .gsub(/^www\./, '')
+       .gsub(/^([^\.]*).*$/, '\1')
+       .titlecase
+  end
 end

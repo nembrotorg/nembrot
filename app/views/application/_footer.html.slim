@@ -6,7 +6,7 @@ footer
       li#menu
         ul.promotions
           - @promoted_notes.first(Setting['style.promotions_footer'].to_i).each do |note|
-            li = link_to note.headline, note_or_feature_path(note)
+            li = link_to note.headline, note_or_feature_index_path(note)
 
       li
         ul.sections

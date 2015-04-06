@@ -12,7 +12,6 @@
 //
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.ui.tabs
 //= require jquery.dotdotdot
 //= require jquery.flexslider
 //= require jquery.pjax

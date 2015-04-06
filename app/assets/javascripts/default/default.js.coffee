@@ -41,11 +41,14 @@ truncate_blurbs = () ->
     watch: true
   })
 
+build_tabs = () ->
+  $("#tabs").tabs()
+
 _normalize_count = (data) ->
-    count = ''
-    count = data
-    if count == 0 then count = ''
-    count
+  count = ''
+  count = data
+  if count == 0 then count = ''
+  count
 
 _shorter_total = (num) ->
   if num >= 1e6
@@ -64,7 +67,7 @@ $ ->
   $(document).on 'pjax:timeout', 'body', ->
     false
 
-  $(document).pjax('#main a:not([data-remote])', '[data-pjax-container]')
+  $(document).pjax('.breadcrumb a,#menu a,#main a:not([data-remote])', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()
@@ -96,7 +99,8 @@ $ ->
   load_user_menu()
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('h1, h2, h3, p, li'))
+  unorphan($('h1, header h2, header h3, p, li'))
+  build_tabs()
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
@@ -109,7 +113,8 @@ $(document).on 'pjax:success', '#main', (data) ->
   insert_qr_code()
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('h1, h2, h3, p, li'))
+  unorphan($('h1, header h2, header h3, p, li'))
+  build_tabs()
 
 #$(window).on 'resize', ->
 #  truncate_blurbs()

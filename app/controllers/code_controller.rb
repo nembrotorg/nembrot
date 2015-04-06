@@ -18,7 +18,7 @@ class CodeController < ApplicationController
     @view_script = coderay(@view_file)
 
     render partial: 'show'
-  #rescue
-  #  render partial: 'error'
+  rescue
+    render partial: 'error'
   end
 end

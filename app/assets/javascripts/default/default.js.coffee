@@ -97,9 +97,9 @@ $ ->
   update_titles()
   insert_qr_code()
   load_user_menu()
-  truncate_blurbs()
+  #truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('h1, header h2, header h3, p, li'))
+  unorphan($('p'))
   build_tabs()
 
   # REVIEW: This isn't working at the moment
@@ -111,9 +111,9 @@ $(document).on 'pjax:success', '#main', (data) ->
   $('time').timeago()
   update_titles()
   insert_qr_code()
-  truncate_blurbs()
+  #truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('h1, header h2, header h3, p, li'))
+  unorphan($('p'))
   build_tabs()
 
 #$(window).on 'resize', ->

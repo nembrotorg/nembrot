@@ -57,6 +57,8 @@ nav ul li a:first-of-type
     +icon-gplus
   &[href*=linkedin]:before
     +icon-linkedin
+  &[href*=medium]:before
+    +icon-mediumcom
   &[href^=mailto]:before
     +icon-mail
     +icon-regular
@@ -383,7 +385,7 @@ iframe
     .infowindow
       +blurb(3, 3)
 
-.notes li, .citations li, .map-infowindow
+.notes li, .citations li, .clippings li, .map-infowindow
   +clearfix
   display: block
   margin-bottom: $line-height
@@ -394,7 +396,7 @@ iframe
   +arrow-links
 
 section:not(.ins-section), .home-index
-  .notes li, .citations li, .map-infowindow
+  .notes li, .map-infowindow
     +body-font
 
 .features-index, .features-show
@@ -606,6 +608,32 @@ section.ins-section, article.ins-section
     position: relative
   h2:after
     content: ' '
+
+.clippings
+  li
+    h2
+      color: $body-font-color !important
+      font:
+        family: $headline-font-family
+        size: $body-font-size
+        weight: bold
+    a
+      display: block
+      height: $line-height * 3
+      overflow: hidden
+      position: relative
+      &:after
+        background-color: $background-color
+        border-left:
+          width: 1px
+          style: solid
+        bottom: -3px
+        content: '\f08e'
+        font-family: fontello
+        font-size: 14px
+        padding-left: 5px
+        position: absolute
+        right: 0
 
 .versions
   li

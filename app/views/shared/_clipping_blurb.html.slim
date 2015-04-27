@@ -2,6 +2,9 @@
 - headline, blurb = blurb(clipping.main_title, clipping.subtitle, clipping.clean_body, clipping.introduction, blurb_length)
 
 = link_to clipping.inferred_url, lang: lang_attr(clipping.lang), dir: dir_attr(clipping.lang) do
-
-  h2 = simple_blurbify(headline)
+  p
+    strong = simple_blurbify_clipping(headline)
   = blurbify(blurb, clipping.books, clipping.links)
+
+= link_to clipping.inferred_url_domain
+= render 'notes/tag_list', tags: clipping.tags

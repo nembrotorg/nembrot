@@ -133,6 +133,11 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
+  def inferred_url_domain
+    return nil unless inferred_url
+    inferred_url.scan(%r(https?://([a-z0-9\&\.\-]*))).flatten.first
+  end
+
   def inferred_url
     return source_url unless source_url.blank?
     body.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten.first

@@ -71,6 +71,11 @@ module FormattingHelper
       attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
   end
 
+  def simple_blurbify_clipping(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+    text = text.gsub(/ *\|.*$/, '').gsub(/ *—.*$/, '')
+    simple_blurbify(text, allowed_tags)
+  end
+
   def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
     text = sanitize(text, { tags: allowed_tags.split(/, ?| /) + ['span'] })# REVIEW: Why add <span> here? For Feature titles

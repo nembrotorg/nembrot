@@ -87,10 +87,10 @@ en:
 
   clippings:
     index:
-      title: 'Clippings'
+      title: 'Links'
       statistics:
-        zero: "0 clippings."
-        one: "1 clipping."
+        zero: "0 links."
+        one: "1 link."
 
   links:
     index:

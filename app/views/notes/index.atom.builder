@@ -10,7 +10,6 @@ atom_feed do |feed|
         bodify(
           note.body,
           note.books,
-          note.links,
           'citation.book.inline_annotated_html',
           'citation.link.inline_annotated_html',
           false # REVIEW: Annotations should not be excluded from atom feed

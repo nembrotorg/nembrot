@@ -643,7 +643,7 @@ section.ins-section, article.ins-section
     &:nth-child(n+2)
       display: none
 
-.books-admin, .links-admin
+.books-admin
   section
     nav
       ul
@@ -660,7 +660,7 @@ section.ins-section, article.ins-section
       +icon-edit
       +icon-only
 
-.books-admin, .books-edit, .links-admin, .links-edit
+.books-admin, .books-edit
   .breadcrumb
     background-color: $selected-background-color
 
@@ -668,29 +668,10 @@ section.ins-section, article.ins-section
   iframe[src*='books.google']
     height: $line-height * 24
 
-.books-show, .links-show_channel
+.books-show
   figure.citation
     cite
       display: none
-
-.links-show_channel .links
-  & > ul
-    margin-bottom: 0
-    & > li
-      margin-bottom: $line-height
-      &:last
-        margin-bottom: 0
-      cite
-        a
-          display: inline
-      p
-        margin: 0
-        .url
-          margin: 0 0 $line-height 0
-          padding: 0
-      ul
-        clear: both
-        display: block
 
 .notes-version, .features-version
   .versions

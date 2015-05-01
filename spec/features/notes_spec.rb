@@ -296,30 +296,6 @@ describe 'Notes' do
       end
     end
 
-    context 'when a note has a reference to a link' do
-      before do
-        Setting['advanced.links_section'] = 'true'
-        @link = FactoryGirl.create(:link)
-        @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
-        visit note_path(@note)
-      end
-      it 'should link to the link page' do
-        expect(page).to have_css("#content a[href='#{ link_path(@link) }']")
-      end
-    end
-
-    context 'links section is turned off' do
-      before do
-        Setting['advanced.links_section'] = 'false'
-        @link = FactoryGirl.create(:link)
-        @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
-        visit note_path(@note)
-      end
-      it 'should not link to a link page' do
-        expect(page).not_to have_css("#content a[href='#{ link_path(@link) }']")
-      end
-    end
-
     context 'when a note has a reference to another note (using path)' do ####
       before do
         @reference = FactoryGirl.create(:note)

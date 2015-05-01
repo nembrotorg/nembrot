@@ -41,8 +41,8 @@ defaults: &defaults
     instructions_reset: __RESET
     instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
     instructions_unversion: __UNVERSION __NO_VERSION
-    links_index_per_page: 60
-    links_section: false
+    links_index_per_page: 100
+    links_section: true
     locale: en
     notes_index_per_page: 10
     share_native_or_iframes_or_none: native

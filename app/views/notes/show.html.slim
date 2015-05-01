@@ -25,19 +25,19 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
       - if @source.nil?
         section#text.regular
-          = bodify(@note.body, @note.books, @note.links)
+          = bodify(@note.body, @note.books)
 
       - elsif @note.has_instruction?('collate')
         section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links)
+          = bodify_collate(@source.body, @note.body, @source.lang, @note.books)
 
       - else
         section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
           section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-            = bodify(@source.body, [], [], '', '', false)
+            = bodify(@source.body, [], '', '', false)
 
           section.target
-            = bodify(@note.body, @note.books, @note.links)
+            = bodify(@note.body, @note.books)
 
         / Collated
 

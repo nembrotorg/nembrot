@@ -34,7 +34,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name } features-
     section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
 
       section#text.regular
-        = bodify(@note.body, @note.books, @note.links)
+        = bodify(@note.body, @note.books)
 
         aside
 

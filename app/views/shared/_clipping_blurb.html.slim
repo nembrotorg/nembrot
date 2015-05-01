@@ -4,7 +4,7 @@
 = link_to clipping.inferred_url, lang: lang_attr(clipping.lang), dir: dir_attr(clipping.lang) do
   p
     strong = simple_blurbify_clipping(headline)
-  = blurbify(blurb, clipping.books, clipping.links)
+  = blurbify(blurb, clipping.books)
 
 = link_to clipping.inferred_url_domain
 = render 'notes/tag_list', tags: clipping.tags

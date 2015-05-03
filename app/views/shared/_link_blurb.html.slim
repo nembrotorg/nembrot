@@ -9,4 +9,5 @@
 ul.details
   li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
   li == timeago_tag(link.created_at)
-  li = render 'notes/tag_list', tags: link.tags
+  - unless link.tags.blank?
+    li = render 'notes/tag_list', tags: link.tags

@@ -12,5 +12,5 @@ section.citations
 
       li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
         figure.citation
-          blockquote= blurbify(citation_text, citation.books, citation.links)
-          figcaption= blurbify(attribution, citation.books, citation.links)
+          blockquote= blurbify(citation_text, citation.books)
+          figcaption= blurbify(attribution, citation.books)

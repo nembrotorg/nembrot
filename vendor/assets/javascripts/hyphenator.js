@@ -3005,7 +3005,7 @@ if (Hyphenator.isBookmarklet()) {
 
 Hyphenator.config({
     selectorfunction : function (hyphenateClass) {
-    return $('.body p, .notes li, .citations li, .clippings li, .annotations li');
+    return $('.body p, .notes li, .citations li, .links li, .annotations li');
 },
     useCSS3hyphenation : true
 });

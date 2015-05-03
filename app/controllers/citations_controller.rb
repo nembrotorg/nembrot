@@ -11,8 +11,8 @@ class CitationsController < ApplicationController
 
     @citations = all_citations.page(page_number).per(Setting['advanced.citations_index_per_page'].to_i).load
     @total_count = all_citations.size
-    @books_count = all_citations.to_a.keep_if { |citation| !citation.books.nil? } .size
-    @links_count = all_citations.to_a.keep_if { |citation| !citation.links.nil? } .size
+    @books_count = all_citations.map { |citation| citation.books unless citation.books.nil? } .uniq.size
+    @domains_count = all_citations.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size
   end
 
   def show

@@ -11,9 +11,8 @@ class Note < ActiveRecord::Base
   has_many :resources, dependent: :destroy
 
   has_and_belongs_to_many :books
-  has_and_belongs_to_many :links
 
-  enum content_type: [ :note, :citation, :clipping ]
+  enum content_type: [ :note, :citation, :link ]
 
   acts_as_commontable
 
@@ -47,7 +46,6 @@ class Note < ActiveRecord::Base
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
-  after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -131,6 +129,11 @@ class Note < ActiveRecord::Base
     clean_body_with_parentheses
       .gsub(/\([^\]]*?\)|\[[^\]]*?\]|\n|\r/, ' ')
       .gsub(/\s+/, ' ')
+  end
+
+  def inferred_url_domain
+    return nil unless inferred_url
+    inferred_url.scan(%r(https?://([a-z0-9\&\.\-]*))).flatten.first
   end
 
   def inferred_url
@@ -220,7 +223,7 @@ class Note < ActiveRecord::Base
 
   def update_content_type
     self.content_type = Note.content_types[:citation] if has_instruction?('citation')
-    self.content_type = Note.content_types[:clipping] if has_instruction?('clipping')
+    self.content_type = Note.content_types[:link] if has_instruction?('link')
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")
@@ -245,17 +248,11 @@ class Note < ActiveRecord::Base
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.to_a.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.to_a.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
   end
 
   def scan_note_for_isbns
     # REVIEW: try checking for setting as an unless: after before_save
     Book.grab_isbns(body) unless Setting['advanced.books_section'] == 'false' || body.blank?
-  end
-
-  def scan_note_for_urls
-    # REVIEW: try checking for setting as an unless: after before_save
-    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == 'false' || clean_body.blank? && source_url.blank?
   end
 
   def body_or_source_or_resource?

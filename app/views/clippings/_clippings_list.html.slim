@@ -1,9 +1,0 @@
-section.clippings
-
-  header
-    h3 = title ||= t('clippings.index.title')
-
-  ul
-    - clippings.each do |clipping|
-      li
-        = render 'shared/clipping_blurb', clipping: clipping

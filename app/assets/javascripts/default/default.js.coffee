@@ -36,7 +36,7 @@ update_titles = () ->
     document.title = title_data
 
 truncate_blurbs = () ->
-  $('.notes li a, .channels li a').dotdotdot({
+  $('.links li a').dotdotdot({
     tolerance: 5,
     watch: true
   })
@@ -97,7 +97,7 @@ $ ->
   update_titles()
   insert_qr_code()
   load_user_menu()
-  #truncate_blurbs()
+  truncate_blurbs()
   hljs.initHighlightingOnLoad()
   unorphan($('p'))
   build_tabs()

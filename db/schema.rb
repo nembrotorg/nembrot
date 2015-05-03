@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328160523) do
+ActiveRecord::Schema.define(version: 20150501134033) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -125,36 +125,6 @@ ActiveRecord::Schema.define(version: 20150328160523) do
 
   add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_identifier_service_id", unique: true
   add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id"
-
-  create_table "links", force: true do |t|
-    t.string   "title"
-    t.string   "website_name"
-    t.string   "author"
-    t.string   "lang"
-    t.date     "modified"
-    t.string   "url"
-    t.string   "canonical_url"
-    t.boolean  "error"
-    t.boolean  "paywall"
-    t.string   "publisher"
-    t.boolean  "dirty"
-    t.integer  "attempts"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.float    "altitude"
-    t.string   "channel"
-    t.string   "slug"
-    t.datetime "try_again_at"
-  end
-
-  add_index "links", ["slug"], name: "index_links_on_slug", unique: true
-
-  create_table "links_notes", force: true do |t|
-    t.integer "link_id"
-    t.integer "note_id"
-  end
 
   create_table "notes", force: true do |t|
     t.string   "title",                                         null: false

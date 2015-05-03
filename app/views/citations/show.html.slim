@@ -18,7 +18,7 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
         - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
 
         figure.citation
-          blockquote= blurbify(citation_text, @citation.books, @citation.links)
-          figcaption= blurbify(attribution, @citation.books, @citation.links, 'citation.book.inline_html', 'citation.link.inline_html')
+          blockquote= blurbify(citation_text, @citation.books)
+          figcaption= blurbify(attribution, @citation.books, 'citation.book.inline_html', 'citation.link.inline_html')
 
     = render 'notes/tag_list', tags: @tags unless @tags.empty?

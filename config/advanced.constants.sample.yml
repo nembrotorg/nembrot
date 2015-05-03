@@ -22,7 +22,7 @@ defaults: &defaults
     facebook_app_id: CHANGE_ME_OPTIONAL
     google_analytics_key: 'UA-16898823-3'
     instructions_citation: __QUOTE __CITATION
-    instructions_clipping: __CLIP __CLIPPING
+    instructions_link: __CLIP __LINK
     instructions_collate: __COLLATE
     instructions_default: __TRI
     instructions_feature: __FEATURE
@@ -41,8 +41,8 @@ defaults: &defaults
     instructions_reset: __RESET
     instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
     instructions_unversion: __UNVERSION __NO_VERSION
-    links_index_per_page: 60
-    links_section: false
+    links_index_per_page: 100
+    links_section: true
     locale: en
     notes_index_per_page: 10
     share_native_or_iframes_or_none: native

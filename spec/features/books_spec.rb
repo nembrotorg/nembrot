@@ -50,12 +50,12 @@ describe 'Books' do
     specify { expect(page).to have_content(@book.editor) }
     specify { expect(page).to have_content(@book.introducer) }
 
-    it 'has a contains the citation text' do
+    it 'contains the citation text' do
       expect(page).to have_content('Citation text')
     end
 
     it 'has a link to the note' do
-      expect(page).to have_selector("a[href='#{ note_or_feature_path(@note) }']")
+      expect(page).to have_selector("a[href='#{ note_path(@note) }']")
     end
 
     it 'has a link to the citation' do

@@ -11,10 +11,10 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-    - unless @channels.empty?
-      = render 'channels_list', channels: @channels
+    - unless @links.empty?
+      = render 'links_list', links: @links
+
+      = paginate @links
 
       aside.statistics
-        = t('.statistics', links_count: number_with_delimiter(@links_count), channels_count: number_with_delimiter(@channels_count))
-
-      = paginate @channels
+        = t('.statistics', count: number_with_delimiter(@total_count), domains_count: number_with_delimiter(@domains_count))

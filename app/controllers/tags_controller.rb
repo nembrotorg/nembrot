@@ -30,7 +30,7 @@ class TagsController < ApplicationController
 
     rescue
      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
-     #redirect_to tags_path
+     redirect_to tags_path
   end
 
   def map

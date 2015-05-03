@@ -19,7 +19,7 @@ class TagsController < ApplicationController
 
     @citations = Note.citation.publishable.tagged_with(@tag.name)
     @citations_count = @citations.size
-    @citations_books_count = @citations.map { |citation| citation.books unless citation.books.nil? } .uniq.size
+    @citations_books_count = @citations.map { |citation| citation.books unless citation.books.blank? } .uniq.size
     @citations_domains_count = @citations.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size
 
     @links = Note.link.publishable.tagged_with(@tag.name)

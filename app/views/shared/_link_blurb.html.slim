@@ -1,0 +1,12 @@
+- blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+- headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
+
+= link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
+  p
+    strong = simple_blurbify_link(headline)
+  = blurbify(blurb, link.books)
+
+ul.details
+  li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
+  li == timeago_tag(link.created_at)
+  li = render 'notes/tag_list', tags: link.tags

@@ -66,13 +66,13 @@ describe Note do
         expect(note.content_type).to eq('citation')
       end
     end
-    context 'when note has __CLIPPING tag' do
+    context 'when note has __link tag' do
       before do
-        note.instruction_list = %w(__CLIPPING)
+        note.instruction_list = %w(__link)
         note.save
       end
-      it 'content_type is Clipping' do
-        expect(note.content_type).to eq('clipping')
+      it 'content_type is Link' do
+        expect(note.content_type).to eq('link')
       end
     end
   end

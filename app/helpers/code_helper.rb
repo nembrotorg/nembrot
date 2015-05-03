@@ -2,7 +2,7 @@
 
 module CodeHelper
   def model_file(controller)
-    controller.gsub!(/(feature|citation|clipping)/, 'notes')
+    controller.gsub!(/(feature|citation|link)/, 'notes')
     File.join('app', 'models', "#{ controller.singularize }.rb")
   end
 
@@ -11,7 +11,7 @@ module CodeHelper
   end
 
   def view_file(controller, action)
-    controller.gsub!(/(feature|citation|clipping)/, 'notes')
+    controller.gsub!(/(feature|citation|link)/, 'notes')
     action.gsub!(/.*show/, 'show')
     action = 'index' if controller == 'pantograph'
     File.join('app', 'views', "#{ controller.pluralize }/#{ action }.html.slim")

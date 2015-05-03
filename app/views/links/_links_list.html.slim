@@ -1,0 +1,9 @@
+section.links
+
+  header
+    h3 = title ||= t('links.index.title')
+
+  ul
+    - links.each do |link|
+      li
+        = render 'shared/link_blurb', link: link

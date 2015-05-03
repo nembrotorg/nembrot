@@ -25,6 +25,8 @@ module BlurbHelper
     citation_text = Array(clean_body.scan(/^(.*?)\s*\-\-/).first).first
                                     .truncate(blurb_length, separator: ' ', omission: Setting['advanced.blurb_omission'])
     attribution = Array(clean_body.scan(/\-\- *(.*?)$/).first).first
+    # Same algorithm as Note#inferred_url_domain. DRY up?
+    attribution = attribution.gsub(%r(https?://([^/]*).*$), "\\1")
     [citation_text, attribution]
   end
 

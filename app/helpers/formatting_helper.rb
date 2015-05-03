@@ -68,7 +68,7 @@ module FormattingHelper
       attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
   end
 
-  def simple_blurbify_clipping(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+  def simple_blurbify_link(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     text = text.gsub(/ *\|.*$/, '').gsub(/ *—.*$/, '')
     simple_blurbify(text, allowed_tags)
   end

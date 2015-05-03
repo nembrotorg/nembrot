@@ -385,7 +385,7 @@ iframe
     .infowindow
       +blurb(3, 3)
 
-.notes li, .citations li, .clippings li, .map-infowindow
+.notes > ul > li, .citations > ul > li, .links > ul > li, .map-infowindow
   +clearfix
   display: block
   margin-bottom: $line-height
@@ -408,7 +408,7 @@ section:not(.ins-section), .home-index
 .pagination
   +pagination-nav($font-color)
 
-article, .clippings-index li, .links-index li
+article, .links > ul > li
   .tags
     ul
       +horizontal-list
@@ -418,11 +418,26 @@ article, .clippings-index li, .links-index li
         display: inline
         float: left
       li
-        a:after
-          content: ', '
+        height: $line-height
+        a
+          &:after
+            content: ', '
         &:last-child
           a:after
             content: ''
+
+.links > ul > li
+  ul.details
+    +horizontal-list
+    &> li
+      &:first-child
+        a
+          &:before
+            +icon-link-ext
+          &:after
+            content: ', '
+    .tags
+      margin: 0
 
 ul li a
   &.back
@@ -609,31 +624,19 @@ section.ins-section, article.ins-section
   h2:after
     content: ' '
 
-.clippings
-  li
+.links
+  &> ul > li
     h2
       color: $body-font-color !important
       font:
         family: $headline-font-family
         size: $body-font-size
         weight: bold
-    a
+    &> a
       display: block
       height: $line-height * 3
       overflow: hidden
       position: relative
-      &:after
-        background-color: $background-color
-        border-left:
-          width: 1px
-          style: solid
-        bottom: -3px
-        content: '\f08e'
-        font-family: fontello
-        font-size: 14px
-        padding-left: 5px
-        position: absolute
-        right: 0
 
 .versions
   li

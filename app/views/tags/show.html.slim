@@ -11,10 +11,17 @@ div class="#{ controller.controller_name }-#{ controller.action_name }"
 
     = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
 
-    = render 'shared/notes_list', notes: @notes unless @notes.empty?
+    - unless @notes.blank?
+      = render 'shared/notes_list', notes: @notes
+      aside.statistics
+        = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
 
-    aside.statistics
-      = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
-      = t('.other_view_html', path: tag_map_path(@tag.slug)) unless @map.blank?
+    - unless @citations.blank?
+      = render 'citations/citations_list', citations: @citations, books: @books
+      aside.statistics
+        = t('citations.index.statistics', count: number_with_delimiter(@citations_count), books_count: @citations_books_count, domains_count: @citations_domains_count)
 
-    = render 'citations/citations_list', citations: @citations, books: @books unless @citations.empty?
+    - unless @links.blank?
+      = render 'links/links_list', links: @links
+      aside.statistics
+        = t('links.index.statistics', count: number_with_delimiter(@links_count), domains_count: number_with_delimiter(@links_domains_count))

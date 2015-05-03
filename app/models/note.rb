@@ -12,7 +12,7 @@ class Note < ActiveRecord::Base
 
   has_and_belongs_to_many :books
 
-  enum content_type: [ :note, :citation, :clipping ]
+  enum content_type: [ :note, :citation, :link ]
 
   acts_as_commontable
 
@@ -223,7 +223,7 @@ class Note < ActiveRecord::Base
 
   def update_content_type
     self.content_type = Note.content_types[:citation] if has_instruction?('citation')
-    self.content_type = Note.content_types[:clipping] if has_instruction?('clipping')
+    self.content_type = Note.content_types[:link] if has_instruction?('link')
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")

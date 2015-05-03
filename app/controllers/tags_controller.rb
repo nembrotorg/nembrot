@@ -14,15 +14,23 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find_by_slug(params[:slug]) # .friendly.find is not working here
     @notes = Note.publishable.listable.blurbable.tagged_with(@tag.name)
-    @citations = Note.citation.publishable.tagged_with(@tag.name)
     @word_count = @notes.sum(:word_count)
     @map = mapify(@notes.mappable)
+
+    @citations = Note.citation.publishable.tagged_with(@tag.name)
+    @citations_count = @citations.size
+    @citations_books_count = @citations.map { |citation| citation.books unless citation.books.nil? } .uniq.size
+    @citations_domains_count = @citations.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size
+
+    @links = Note.link.publishable.tagged_with(@tag.name)
+    @links_count = @links.size
+    @links_domains_count = @links.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size
 
     add_breadcrumb @tag.name, tag_path(params[:slug])
 
     rescue
      flash[:error] = I18n.t('tags.show.not_found', slug: 'nonexistent')
-     redirect_to tags_path
+     #redirect_to tags_path
   end
 
   def map

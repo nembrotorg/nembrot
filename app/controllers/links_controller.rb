@@ -4,7 +4,7 @@ class LinksController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_links = Note.publishable.link
+    all_links = Note.publishable.link.processed_urls
 
     @links = all_links.page(page_number).load
     @total_count = all_links.size

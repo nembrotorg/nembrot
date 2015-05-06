@@ -4,7 +4,7 @@ class Note < ActiveRecord::Base
 
   include NoteCustom, Syncable
 
-  attr_writer   :tag_list, :instruction_list
+  attr_writer   :tag_list, :instruction_list, :keyword_list
   attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
@@ -16,7 +16,7 @@ class Note < ActiveRecord::Base
 
   acts_as_commontable
 
-  acts_as_taggable_on :tags, :instructions
+  acts_as_taggable_on :tags, :instructions, :keywords
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
@@ -37,6 +37,7 @@ class Note < ActiveRecord::Base
   scope :features, -> { where.not(feature: nil) }
   scope :listable, -> { note.where(listable: true) }
   scope :publishable, -> { where(active: true, hide: false) }
+  scope :processed_urls, -> { where.not(url_accessed_at: nil) }
   # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
@@ -46,6 +47,7 @@ class Note < ActiveRecord::Base
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
+  after_save :process_url, if: "body_changed? || source_url_changed?"
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -137,6 +139,7 @@ class Note < ActiveRecord::Base
   end
 
   def inferred_url
+    return url unless url.blank?
     return source_url unless source_url.blank?
     body.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten.first
   end
@@ -205,6 +208,12 @@ class Note < ActiveRecord::Base
     return false if external_updated_at_was.blank?
     return false if external_updated_at == external_updated_at_was
     Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+  end
+
+  def process_url
+    # REVIEW: This should be run lazily (but then the Note update itself is already lazy...)
+    return if content_type != 'link' || !url_accessed_at.nil? || inferred_url.blank?
+    Url.new(self)
   end
 
   private

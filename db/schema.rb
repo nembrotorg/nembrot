@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501134033) do
+ActiveRecord::Schema.define(version: 20150506065312) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -158,6 +158,13 @@ ActiveRecord::Schema.define(version: 20150501134033) do
     t.boolean  "is_promoted"
     t.integer  "weight"
     t.integer  "content_type",                  default: 0,     null: false
+    t.string   "url"
+    t.string   "url_author"
+    t.binary   "url_html"
+    t.text     "url_lede"
+    t.string   "url_title"
+    t.datetime "url_updated_at"
+    t.datetime "url_accessed_at"
   end
 
   create_table "pantographers", force: true do |t|

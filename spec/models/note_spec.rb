@@ -5,11 +5,11 @@ include ApplicationHelper
 
 describe Note do
 
-  before(:example) { 
-    Setting['advanced.versions'] = 'true',
-    Setting['advanced.version_gap_distance'] = 100,
+  before(:example) do
+    Setting['advanced.versions'] = 'true'
+    Setting['advanced.version_gap_distance'] = 10
     Setting['advanced.version_gap_minutes'] = 60
-  }
+  end
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago, external_created_at: 200.minutes.ago) }
   subject { note }
 
@@ -70,9 +70,9 @@ describe Note do
         expect(note.content_type).to eq('citation')
       end
     end
-    context 'when note has __link tag' do
+    context 'when note has __LINK tag' do
       before do
-        note.instruction_list = %w(__link)
+        note.instruction_list = %w(__LINK)
         note.save
       end
       it 'content_type is Link' do
@@ -185,7 +185,7 @@ describe Note do
 
     context 'when a note is not much older, is the same length, but is different from the last version' do
       before do
-        note.body = note.body[16..-1] + note.body[0..15]
+        note.body = note.body.reverse
         note.external_updated_at = 199.minutes.ago
         note.save!
       end

@@ -8,8 +8,8 @@ FactoryGirl.define do
     editor { Faker::Lorem.words(2).join(' ') }
     google_books_id { Faker::Lorem.characters(10) }
     introducer { Faker::Lorem.words(2).join(' ') }
-    isbn_10 '0123456789'
-    isbn_13 '0123456789012'
+    isbn_10 '0140446044'
+    isbn_13 '9780140446043'
     lang 'en'
     library_thing_id { Faker::Lorem.characters(10) }
     open_library_id { Faker::Lorem.characters(10) }

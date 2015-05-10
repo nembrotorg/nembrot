@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :book do
     attempts 0
-    author { 'Book Author' }
+    author 'Book Author'
     dirty false
     editor { Faker::Lorem.words(2).join(' ') }
     google_books_id { Faker::Lorem.characters(10) }
@@ -18,7 +18,7 @@ FactoryGirl.define do
     published_date '2001-1-1'
     publisher { Faker::Lorem.words(3).join(' ') }
     sequence(:id) { |n| "#{n}" }
-    title { 'Book title' }
+    title 'Book title'
     translator { Faker::Lorem.words(2).join(' ') }
   end
 end

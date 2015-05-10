@@ -36,6 +36,14 @@ describe Note do
   it { is_expected.to respond_to(:title) }
   it { is_expected.to respond_to(:word_count) }
 
+  it { is_expected.to respond_to(:url) }
+  it { is_expected.to respond_to(:url_title) }
+  it { is_expected.to respond_to(:url_author) }
+  it { is_expected.to respond_to(:url_accessed_at) }
+  it { is_expected.to respond_to(:url_updated_at) }
+  it { is_expected.to respond_to(:url_html) }
+  it { is_expected.to respond_to(:url_lang) }
+
   it { is_expected.to have_many(:evernote_notes) }
   it { is_expected.to have_many(:instructions).through(:instruction_taggings) }
   it { is_expected.to have_many(:resources) }

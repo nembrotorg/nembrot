@@ -12,22 +12,19 @@ class Url
 
     doc = Pismo::Document.new(url)
 
-    note.url = url
-    note.url_author = doc.author
-    note.url_html = ActiveSupport::Gzip.compress(doc.html)
-    note.url_lede = doc.lede
-    note.url_title = doc.title
-    note.url_updated_at = doc.datetime
-    note.url_accessed_at = Time.now
-    note.keyword_list = doc.keywords.map { |k| k.first }
-
-    note.save!
+    update_note_attributes(note, url, doc)
 
     URL_LOG.info "Note #{ note.id }: #{ url } processed successfully."
 
     rescue
       URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
   end
+
+  def self.sync_all
+    Note.link.unprocessed_urls.each { |note| Url.new(note) }
+  end
+
+  private
 
   def resolve_url(url)
     # REVIEW: This makes an extra call and could be avoided (by forking gem)
@@ -38,6 +35,19 @@ class Url
     response.header['location']
     rescue
       return url
+  end
+
+  def update_note_attributes(note, url, doc)
+    note.url = url
+    note.url_author = doc.author
+    note.url_html = ActiveSupport::Gzip.compress(doc.html)
+    note.url_lede = doc.lede
+    note.url_title = doc.title
+    note.url_updated_at = doc.datetime
+    note.url_accessed_at = Time.now
+    note.url_lang = DetectLanguage.simple_detect(doc.body[0..Constant.detect_language_sample_length.to_i])
+    note.keyword_list = doc.keywords.map { |k| k.first }
+    note.save!
   end
 
 end

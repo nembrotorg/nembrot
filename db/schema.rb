@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506065312) do
+ActiveRecord::Schema.define(version: 20150509151146) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150506065312) do
     t.string   "url_title"
     t.datetime "url_updated_at"
     t.datetime "url_accessed_at"
+    t.string   "url_lang"
   end
 
   create_table "pantographers", force: true do |t|

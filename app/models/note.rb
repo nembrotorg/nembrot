@@ -37,6 +37,7 @@ class Note < ActiveRecord::Base
   scope :features, -> { where.not(feature: nil) }
   scope :listable, -> { note.where(listable: true) }
   scope :publishable, -> { where(active: true, hide: false) }
+  scope :unprocessed_urls, -> { where(url_accessed_at: nil) }
   scope :processed_urls, -> { where.not(url_accessed_at: nil) }
   # scope :mappable, -> { where (is_mapped: true) }
 
@@ -47,7 +48,7 @@ class Note < ActiveRecord::Base
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
-  after_save :process_url, if: "body_changed? || source_url_changed?"
+  after_save :reset_url, if: "body_changed? || source_url_changed?"
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -210,10 +211,18 @@ class Note < ActiveRecord::Base
     Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
   end
 
-  def process_url
-    # REVIEW: This should be run lazily (but then the Note update itself is already lazy...)
+  def reset_url
     return if content_type != 'link' || !url_accessed_at.nil? || inferred_url.blank?
-    Url.new(self)
+    self.url = nil
+    self.url_author = nil
+    self.url_html = nil
+    self.url_lede = nil
+    self.url_title = nil
+    self.url_updated_at = nil
+    self.url_accessed_at = nil
+    self.url_lang = nil
+    self.keyword_list = []
+    self.save!
   end
 
   private

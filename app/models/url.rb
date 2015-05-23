@@ -14,8 +14,8 @@ class Url
 
     URL_LOG.info "Note #{ note.id }: #{ url } processed successfully."
 
-    rescue
-      URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
+    #rescue
+    #  URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
   end
 
   def self.sync_all
@@ -31,8 +31,8 @@ class Url
     return url if uri.path.blank?
     response = http.get(uri.path)
     response.header['location']
-    rescue
-      return url
+    #rescue
+    #  return url
   end
 
   def update_note_attributes(note, url, doc)

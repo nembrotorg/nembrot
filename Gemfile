@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # REVIEW: Some gems are listed more than once. Travis warns about it.
 
-gem 'rails',          '4.2'
+gem 'rails',          '4.2.1'
 
 gem 'activerecord-session_store'
 gem 'acts-as-taggable-on'

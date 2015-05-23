@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe OpenLibraryRequest do
-
+RSpec.describe OpenLibraryRequest do
   context 'when a book is found:' do
     before do
       @open_library_book = OpenLibraryRequest.new('0804720991')
@@ -17,7 +16,6 @@ describe OpenLibraryRequest do
     its (['page_count']) { should == 459 }
     its (['publisher']) { should == 'Stanford University Press' }
     its (['title']) { should == 'Discourse Networks, 1800-1900' }
-
   end
 
   context 'when a book is not found:' do

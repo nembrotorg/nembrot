@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-describe BookMailer do
+RSpec.describe BookMailer do
   describe 'missing_metadata' do
-    let(:book) { FactoryGirl.create(:book) }
+    let(:book) { FactoryGirl.build(:book) }
     let(:mail) { BookMailer.missing_metadata(book) }
 
     it 'renders the receiver email' do

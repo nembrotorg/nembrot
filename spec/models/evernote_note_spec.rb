@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe EvernoteNote do
+RSpec.describe EvernoteNote do
   let(:note) { FactoryGirl.build_stubbed(:note) }
   let(:evernote_auth) { FactoryGirl.build_stubbed(:evernote_auth) }
   before do
@@ -62,28 +62,34 @@ describe EvernoteNote do
     its(:attempts) { should >=  Setting['advanced.attempts'].to_i }
   end
 
-  describe 'scope :need_syncdown contains all dirty notes' do
+  describe 'scope :need_syncdown' do
     before do
       @evernote_note = FactoryGirl.create(:evernote_note, dirty: true, attempts: 0)
     end
-    EvernoteNote.need_syncdown.last.should == @evernote_note
+    it 'contains all dirty notes' do
+      expect(EvernoteNote.need_syncdown.last).to eq(@evernote_note)
+    end
   end
 
-  describe 'scope :need_syncdown does not contain dirty notes retried too often' do
+  describe 'scope :need_syncdown' do
     before do
       @evernote_note = FactoryGirl.create(:evernote_note,
                                           dirty: true,
                                           attempts: Setting['advanced.attempts'].to_i + 1)
     end
-    EvernoteNote.need_syncdown.last.should == nil
+    it 'does not contain dirty notes retried too often' do
+      EvernoteNote.need_syncdown.last.should == nil
+    end
   end
 
-  describe 'is disincluded from :need_syncdown after #max_out_attempts' do
+  describe 'scope :need_syncdown' do
     before do
       @evernote_note = FactoryGirl.create(:evernote_note, dirty: true)
       @evernote_note.increment_attempts
       @evernote_note.max_out_attempts
     end
-    EvernoteNote.need_syncdown.last.should == nil
+    it 'does not include notes after #max_out_attempts' do
+      EvernoteNote.need_syncdown.last.should == nil
+    end
   end
 end

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe CitationsController do
-
+RSpec.describe CitationsController do
   before do
     @citation = FactoryGirl.create(:note, content_type: 1)
   end

@@ -1,12 +1,10 @@
 # encoding: utf-8
 
 class DiffedNoteVersion
-
   attr_accessor :sequence, :title, :body, :tag_list, :previous_body, :previous_title, :previous_tag_list,
                 :is_embeddable_source_url, :external_updated_at
 
   def initialize(note, sequence)
-
     versions = note.versions
 
     if sequence == 1
@@ -37,5 +35,4 @@ class DiffedNoteVersion
     self.is_embeddable_source_url = version.is_embeddable_source_url
     self.external_updated_at = version.external_updated_at
   end
-
 end

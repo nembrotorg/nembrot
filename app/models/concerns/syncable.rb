@@ -42,5 +42,4 @@ module Syncable
       object.send("#{ key }=", value) if !value.nil? || overwrite
     end unless new_values.blank?
   end
-
 end

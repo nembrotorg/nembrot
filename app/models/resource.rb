@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Resource < ActiveRecord::Base
-
   include Evernotable
   include Syncable
 
@@ -22,7 +21,7 @@ class Resource < ActiveRecord::Base
   before_destroy :delete_binaries
 
   def self.sync_all_binaries
-    need_syncdown.each { |resource| resource.sync_binary }
+    need_syncdown.each(&:sync_binary)
   end
 
   def self.blank_location(file_ext = 'png')
@@ -51,7 +50,7 @@ class Resource < ActiveRecord::Base
     connection = Net::HTTP.new(uri.host)
     connection.use_ssl = true if uri.scheme == 'https'
 
-    connection.start do |http|
+    connection.start do |_http|
       response = connection.post_form(uri.path, { 'auth' => oauth_token })
       File.open(raw_location, 'wb') do |file|
         file.write(response.body)
@@ -153,12 +152,12 @@ class Resource < ActiveRecord::Base
   end
 
   def delete_binaries
-    File.delete raw_location if File.exists? raw_location
+    File.delete raw_location if File.exist? raw_location
     Dir.glob("public/resources/templates/#{ id }*.*").each do |binary|
-      File.delete binary if File.exists? binary
+      File.delete binary if File.exist? binary
     end
     Dir.glob("public/resources/cut/*-#{ id }.*").each do |binary|
-      File.delete binary if File.exists? binary
+      File.delete binary if File.exist? binary
     end
   end
 end

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Book < ActiveRecord::Base
-
   include Syncable
 
   has_and_belongs_to_many :notes
@@ -11,10 +10,12 @@ class Book < ActiveRecord::Base
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
   scope :missing_metadata, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
-  scope :cited, -> { where('title IS NOT ? AND tag IS NOT ?', nil, nil)
-    .joins('left outer join books_notes on books.id = books_notes.book_id')
-    .where('books_notes.book_id IS NOT ?', nil)
-    .uniq } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
+  scope :cited, -> { 
+                  where('title IS NOT ? AND tag IS NOT ?', nil, nil)
+                    .joins('left outer join books_notes on books.id = books_notes.book_id')
+                    .where('books_notes.book_id IS NOT ?', nil)
+                    .uniq 
+  } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
@@ -54,7 +55,7 @@ class Book < ActiveRecord::Base
   end
 
   def self.sync_all
-    need_syncdown.missing_metadata.each { |book| book.populate! }
+    need_syncdown.missing_metadata.each(&:populate!)
   end
 
   def isbn

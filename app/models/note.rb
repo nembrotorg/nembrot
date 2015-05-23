@@ -1,10 +1,9 @@
 # encoding: utf-8
 
 class Note < ActiveRecord::Base
-
   include NoteCustom, Syncable
 
-  attr_writer   :tag_list, :instruction_list, :keyword_list
+  attr_writer :tag_list, :instruction_list, :keyword_list
   attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
@@ -37,17 +36,18 @@ class Note < ActiveRecord::Base
   scope :features, -> { where.not(feature: nil) }
   scope :listable, -> { note.where(listable: true) }
   scope :publishable, -> { where(active: true, hide: false) }
+  scope :unprocessed_urls, -> { where(url_accessed_at: nil) }
   scope :processed_urls, -> { where.not(url_accessed_at: nil) }
   # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
-  validate :body_or_source_or_resource?, before: :update
+  validate :body_or_source_or_resource?
   # validate :external_updated_is_latest?, before: :update
 
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
   after_save :scan_note_for_isbns, if: :body_changed?
-  after_save :process_url, if: "body_changed? || source_url_changed?"
+  after_save :reset_url, if: "body_changed? || source_url_changed?"
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -135,13 +135,13 @@ class Note < ActiveRecord::Base
 
   def inferred_url_domain
     return nil unless inferred_url
-    inferred_url.scan(%r(https?://([a-z0-9\&\.\-]*))).flatten.first
+    inferred_url.scan(%r{https?://([a-z0-9\&\.\-]*)}).flatten.first
   end
 
   def inferred_url
     return url unless url.blank?
     return source_url unless source_url.blank?
-    body.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten.first
+    body.scan(%r{(https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?}).flatten.first
   end
 
   # REVIEW: If we named this embeddable_source_url? then we can't do
@@ -210,10 +210,18 @@ class Note < ActiveRecord::Base
     Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
   end
 
-  def process_url
-    # REVIEW: This should be run lazily (but then the Note update itself is already lazy...)
+  def reset_url
     return if content_type != 'link' || !url_accessed_at.nil? || inferred_url.blank?
-    Url.new(self)
+    self.url = nil
+    self.url_author = nil
+    self.url_html = nil
+    self.url_lede = nil
+    self.url_title = nil
+    self.url_updated_at = nil
+    self.url_accessed_at = nil
+    self.url_lang = nil
+    self.keyword_list = []
+    self.save!
   end
 
   private
@@ -236,7 +244,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")
-    lang_instruction = Array(instruction_list).select { |v| v =~ /__LANG_/ } .first
+    lang_instruction = Array(instruction_list).find { |v| v =~ /__LANG_/ } 
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
@@ -247,7 +255,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_weight
-    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    weight_instruction = Array(instruction_list).find { |v| v =~ /__WEIGHT_|__ORDER_/ } 
     if weight_instruction
      weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
     end

@@ -1,9 +1,10 @@
 # encoding: utf-8
 
-describe NotesController do
-
+RSpec.describe NotesController do
   before(:example) do
     Setting['advanced.blurb_length'] = 40
+    Setting['advanced.version_gap_distance'] = 10
+    Setting['advanced.version_gap_minutes'] = 60
     @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
     @note.update_attributes(title: 'New Title', external_updated_at: 100.minutes.ago)
     @note.update_attributes(title: 'Newer Title', external_updated_at: 1.minute.ago)

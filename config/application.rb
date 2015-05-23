@@ -2,7 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-Bundler.require(:default, Rails.env)
+#UP???Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Nembrot
   class Application < Rails::Application
@@ -55,5 +56,7 @@ module Nembrot
         request_specs: true
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Books' do
-
+RSpec.describe 'Books' do
   before do
     @user = FactoryGirl.create(:user)
     visit new_user_session_path

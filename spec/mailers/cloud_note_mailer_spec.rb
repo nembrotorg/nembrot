@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe CloudNoteMailer do
+RSpec.describe CloudNoteMailer do
   describe '.syncdown_note_failed' do
     let(:provider) { 'PROVIDER01' }
     let(:guid) { 'USER01' }

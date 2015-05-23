@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-
   add_breadcrumb I18n.t('notes.index.title'), :notes_path
 
   def index

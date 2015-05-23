@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe IsbndbRequest do
-
+RSpec.describe IsbndbRequest do
   context 'when a book is found:' do
     before do
       @isbndb_book = IsbndbRequest.new('0804720991')

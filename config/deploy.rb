@@ -155,7 +155,7 @@ namespace :deploy do
     set :revision, `git log -n 1 --pretty=format:"%H"`
     set :local_user, `whoami`
     # NOT OK FOR PUBLIC REPOSITORY!
-    set :rollbar_token, '885bce046090426dab9765480c87382e'
+    set :rollbar_token, '67933336625a4f6e87e071210dd5e650'
     rails_env = fetch(:rails_env, 'production')
     run "curl https://api.rollbar.com/api/1/deploy/ -F access_token=#{rollbar_token} -F environment=#{rails_env} -F revision=#{revision} -F local_username=#{local_user} >/dev/null 2>&1", :once => true
   end

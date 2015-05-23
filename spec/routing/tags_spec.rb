@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'routing to tags' do
+RSpec.describe 'routing to tags' do
   it 'routes /tags to tag#index' do
     expect(get: '/tags').to route_to(
       controller: 'tags',

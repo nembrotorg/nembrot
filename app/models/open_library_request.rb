@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class OpenLibraryRequest
-
   include HTTParty
 
   base_uri Constant.books.open_library.domain

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe Resource do
+RSpec.describe Resource do
   let(:note) { FactoryGirl.create(:note) }
   before { @resource = FactoryGirl.create(:resource, note: note) }
   subject { @resource }
@@ -53,7 +53,9 @@ describe Resource do
 
     context 'when resources are maxed_out or dirty' do
       before { @resource.update_attributes(dirty: true, attempts: Setting['advanced.attempts'].to_i + 1, try_again_at: 1.minute.ago) }
-      Resource.need_syncdown.last.should == nil
+      it 'is empty' do
+        expect(Resource.need_syncdown.last).to be_nil
+      end
     end
   end
 
@@ -65,7 +67,9 @@ describe Resource do
 
     context 'does not contain resources smaller than half the standard width' do
       before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i - 1) }
-      Resource.attached_images.last.should == nil
+      it 'is empty' do
+        expect(Resource.need_syncdown.last).to be_nil
+      end
     end
   end
 

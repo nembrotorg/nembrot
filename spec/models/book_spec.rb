@@ -1,8 +1,7 @@
 # encoding: utf-8
 
-describe Book do
-
-  before { @book = FactoryGirl.create(:book) }
+RSpec.describe Book do
+  before { @book = FactoryGirl.build(:book) }
   subject { @book }
 
   it { is_expected.to respond_to(:attempts) }
@@ -56,32 +55,32 @@ describe Book do
   end
 
   def book_is_updated?
-    expect(@book.author).to                   eq('Friedrich A. Kittler')
-    expect(@book.attempts).to                 eq(0)
-    expect(@book.dewey_decimal).to            eq('830.9357')
-    expect(@book.dimensions).to               eq(nil)
-    expect(@book.dirty).to                    eq(false)
-    expect(@book.editor).to                   eq('')
-    expect(@book.format).to                   eq(nil)
-    expect(@book.full_text_url).to            eq(nil)
-    expect(@book.google_books_embeddable).to  eq(true)
-    expect(@book.google_books_id).to          eq('nRo0Pk8djjoC')
-    expect(@book.introducer).to               eq('')
-    expect(@book.isbn_10).to                  eq('0804720991')
-    expect(@book.isbn_13).to                  eq('9780804720991')
-    expect(@book.lang).to                     eq('en')
-    expect(@book.lcc_number).to               eq('')
-    expect(@book.library_thing_id).to         eq('430888')
-    expect(@book.open_library_id).to          eq('212450')
-    expect(@book.page_count).to               eq(459)
-    expect(@book.published_city).to           eq('Stanford, Calif.')
-    expect(@book.published_date.year).to      eq(1990)
-    expect(@book.publisher).to                eq('Stanford University Press')
-    expect(@book.slug).to                     eq('kittler-1990')
-    expect(@book.tag).to                      eq('Kittler 1990')
-    expect(@book.title).to                    eq('Discourse Networks, 1800-1900')
-    expect(@book.translator).to               eq('')
-    expect(@book.weight).to                   eq(nil)
+    expect(@book.author).to eq('Friedrich A. Kittler')
+    expect(@book.attempts).to eq(0)
+    expect(@book.dewey_decimal).to eq('830.9357')
+    expect(@book.dimensions).to eq(nil)
+    expect(@book.dirty).to eq(false)
+    expect(@book.editor).to eq('')
+    expect(@book.format).to eq(nil)
+    expect(@book.full_text_url).to eq(nil)
+    expect(@book.google_books_embeddable).to eq(true)
+    expect(@book.google_books_id).to eq('nRo0Pk8djjoC')
+    expect(@book.introducer).to eq('')
+    expect(@book.isbn_10).to eq('0804720991')
+    expect(@book.isbn_13).to eq('9780804720991')
+    expect(@book.lang).to eq('en')
+    expect(@book.lcc_number).to eq('')
+    expect(@book.library_thing_id).to eq('430888')
+    expect(@book.open_library_id).to eq('212450')
+    expect(@book.page_count).to eq(459)
+    expect(@book.published_city).to eq('Stanford, Calif.')
+    expect(@book.published_date.year).to eq(1990)
+    expect(@book.publisher).to eq('Stanford University Press')
+    expect(@book.slug).to eq('kittler-1990')
+    expect(@book.tag).to eq('Kittler 1990')
+    expect(@book.title).to eq('Discourse Networks, 1800-1900')
+    expect(@book.translator).to eq('')
+    expect(@book.weight).to eq(nil)
   end
 
   describe '#populate!' do

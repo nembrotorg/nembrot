@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class IsbndbRequest
-
   include HTTParty
 
   base_uri Constant.books.isbndb.domain
@@ -29,7 +28,6 @@ class IsbndbRequest
     # metadata['author_statement'] = response[''] if title.nil?
     # Guess introducer and translator from authortext and description
     response.try do |r|
-
       parsed_publisher_text       = r['publisher_text'].scan(/(.*?) : (.*?)\, (c?\d\d\d\d)/)
       metadata['published_city']  = parsed_publisher_text[0][0] if parsed_publisher_text.size > 0
       metadata['published_date']  = parsed_publisher_text[0][2] if parsed_publisher_text.size > 0

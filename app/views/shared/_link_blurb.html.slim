@@ -1,7 +1,7 @@
 = link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
   p
     strong = simple_blurbify_link(link.url_title)
-  = blurbify(link.url_lede, link.books)
+    = blurbify(link.url_lede, [])
 
 ul.details
   li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url

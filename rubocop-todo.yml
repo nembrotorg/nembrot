@@ -3,142 +3,142 @@
 # one by one as the offences are removed from the code base.
 
 AlignHash:
-  Enabled: false
+  Enabled: true
 
 AlignParameters:
-  Enabled: false
+  Enabled: true
 
 BlockAlignment:
-  Enabled: false
+  Enabled: true
 
 Blocks:
-  Enabled: false
+  Enabled: true
 
 BracesAroundHashParameters:
-  Enabled: false
+  Enabled: true
 
 CaseIndentation:
-  Enabled: false
+  Enabled: true
 
 ClassLength:
-  Enabled: false
+  Enabled: true
 
 ClassVars:
-  Enabled: false
+  Enabled: true
 
 CollectionMethods:
-  Enabled: false
+  Enabled: true
 
 CommentAnnotation:
-  Enabled: false
+  Enabled: true
 
 CyclomaticComplexity:
-  Enabled: false
+  Enabled: true
 
 Documentation:
-  Enabled: false
+  Enabled: true
 
 EmptyLines:
-  Enabled: false
+  Enabled: true
 
 EmptyLinesAroundAccessModifier:
-  Enabled: false
+  Enabled: true
 
 EmptyLinesAroundBody:
-  Enabled: false
+  Enabled: true
 
 EmptyLiteral:
-  Enabled: false
+  Enabled: true
 
 FavorUnlessOverNegatedIf:
-  Enabled: false
+  Enabled: true
 
 FinalNewline:
-  Enabled: false
+  Enabled: true
 
 HashSyntax:
-  Enabled: false
+  Enabled: true
 
 IndentationWidth:
-  Enabled: false
+  Enabled: true
 
 Lambda:
-  Enabled: false
+  Enabled: true
 
 LeadingCommentSpace:
-  Enabled: false
+  Enabled: true
 
 LineLength:
-  Enabled: false
+  Enabled: true
 
 MethodLength:
-  Enabled: false
+  Enabled: true
 
 MultilineTernaryOperator:
-  Enabled: false
+  Enabled: true
 
 NestedTernaryOperator:
-  Enabled: false
+  Enabled: true
 
 NilComparison:
-  Enabled: false
+  Enabled: true
 
 ParameterLists:
-  Enabled: false
+  Enabled: true
 
 ParenthesesAroundCondition:
-  Enabled: false
+  Enabled: true
 
 ParenthesesAsGroupedExpression:
-  Enabled: false
+  Enabled: true
 
 PerlBackrefs:
-  Enabled: false
+  Enabled: true
 
 RedundantSelf:
-  Enabled: false
+  Enabled: true
 
 RegexpLiteral:
-  Enabled: false
+  Enabled: true
 
 SignalException:
-  Enabled: false
+  Enabled: true
 
 SpaceAroundBlockBraces:
-  Enabled: false
+  Enabled: true
 
 SpaceAroundEqualsInParameterDefault:
-  Enabled: false
+  Enabled: true
 
 SpaceAroundOperators:
-  Enabled: false
+  Enabled: true
 
 SpaceInsideBrackets:
-  Enabled: false
+  Enabled: true
 
 SpaceInsideParens:
-  Enabled: false
+  Enabled: true
 
 StringLiterals:
-  Enabled: false
+  Enabled: true
 
 SymbolName:
-  Enabled: false
+  Enabled: true
 
 Tab:
-  Enabled: false
+  Enabled: true
 
 TrailingWhitespace:
-  Enabled: false
+  Enabled: true
 
 UselessAssignment:
-  Enabled: false
+  Enabled: true
 
 Void:
-  Enabled: false
+  Enabled: true
 
 WhileUntilDo:
-  Enabled: false
+  Enabled: true
 
 WordArray:
-  Enabled: false
+  Enabled: true

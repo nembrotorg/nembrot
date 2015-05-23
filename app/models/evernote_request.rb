@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteRequest
-
   include EvernoteRequestCustom, Evernotable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data,
@@ -74,7 +73,7 @@ class EvernoteRequest
 
   def cloud_note_updated?
     updated = evernote_note.update_sequence_number.blank?
-    updated = updated || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    updated ||= (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
     # updated = updated || 
     unless updated
       evernote_note.undirtify
@@ -181,7 +180,6 @@ class EvernoteRequest
       cloud_resources = cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash.unpack('H*').first }
 
       cloud_resources.each_with_index do |cloud_resource, index|
-
         if cloud_resource.width.nil? || cloud_resource.width > Setting['style.images_min_width'].to_i
           resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
@@ -195,5 +193,4 @@ class EvernoteRequest
       end
     end
   end
-
 end

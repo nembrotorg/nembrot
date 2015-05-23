@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Pantography' do
-
+RSpec.describe 'Pantography' do
   before do
     @pantograph = FactoryGirl.create(:pantograph)
     @note = FactoryGirl.create(:note, tag_list: ['pantography'], instruction_list: ['__COPY'])

@@ -1,8 +1,7 @@
 # encoding: utf-8
 
-describe 'Notes' do
-
-  # REVIEW: Refactor this, use describe and consistent selectors
+RSpec.describe 'Notes' do
+  # REVIEW: Refactor this, use RSpec.describe and consistent selectors
 
   include ResourcesHelper
 
@@ -376,7 +375,7 @@ describe 'Notes' do
 
     context 'when a note contains a citation' do
       before do
-        @citation = FactoryGirl.create(:note, body:'Citation text', content_type: 1, instruction_list: ['__PUBLISH', '__QUOTE'])
+        @citation = FactoryGirl.create(:note, body: 'Citation text', content_type: 1, instruction_list: ['__PUBLISH', '__QUOTE'])
         @note.update_attributes(body: "This note contains a reference to {text: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
@@ -515,7 +514,7 @@ describe 'Notes' do
   end
 
   # REVIEW: Test this on all pages using behaves like
-  # describe 'promotions' do
+  # RSpec.describe 'promotions' do
   #   before do
   #     @note = FactoryGirl.create(:note, instruction_list: ['__PROMOTE'])
   #     visit notes_path

@@ -1,11 +1,9 @@
 # encoding: utf-8
 
 class DiffedNoteTagList
-
   attr_accessor :list
 
   def initialize(previous_tag_list, tag_list)
-
     added_tags = (tag_list - previous_tag_list)
     removed_tags = (previous_tag_list - tag_list)
     unchanged_tags = (tag_list - added_tags - removed_tags)

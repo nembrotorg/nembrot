@@ -3,8 +3,7 @@
 # REVIEW: All these functions should be moved to Nokogiri
 
 module FormattingHelper
-
-  def bodify(text, books = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify(text, books = [], books_citation_style = 'citation.book.inline_annotated_html', _links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
     # REVIEW: Add settings condition
     text = related_notify(text)
@@ -21,7 +20,7 @@ module FormattingHelper
     clean_up_via_dom(text, false, true)
   end
 
-  def bodify_collate(source_text, target_text, source_lang, books = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], books_citation_style = 'citation.book.inline_annotated_html', _links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
@@ -48,7 +47,7 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html')
+  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', _links_citation_style = 'citation.link.inline_unlinked_html')
     return '' if text.blank?
     # REVIEW: Add settings condition
     text = related_notify(text, true)
@@ -75,7 +74,7 @@ module FormattingHelper
 
   def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     return '' if text.blank?
-    text = sanitize(text, { tags: allowed_tags.split(/, ?| /) + ['span'] })# REVIEW: Why add <span> here? For Feature titles
+    text = sanitize(text, { tags: allowed_tags.split(/, ?| /) + ['span'] }) # REVIEW: Why add <span> here? For Feature titles
     text = clean_whitespace(text)
     text = smartify_punctuation(text)
     # FIXME: Clean up smart quotes inside tags
@@ -96,9 +95,9 @@ module FormattingHelper
   def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
     text = sanitize_from_evernote(text)
     text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
-               .gsub(/<br[^>]*?>/, "\n")
-               .gsub(/<b>|<h\d>/, '<strong>')
-               .gsub(%r(</b>|</h\d>), '</strong>')
+           .gsub(/<br[^>]*?>/, "\n")
+           .gsub(/<b>|<h\d>/, '<strong>')
+           .gsub(%r{</b>|</h\d>}, '</strong>')
     # OPTIMIZE: Here we need to allow a few more tags than we do on output
     #  e.g. image tags for inline image.
     text = sanitize_by_settings(text, allowed_tags)
@@ -112,49 +111,49 @@ module FormattingHelper
     #  Evernote expects all paragraphs to be wrapped in divs
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text = text.gsub(/\n|\r/, '')
-        .gsub(%r(^http:\/\/[a-z0-9]*\.?#{ Constant.host }), '')
-        .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/mi, "<div>{quote:\n\\2\n}</div>")
-        .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/i, "<div>{quote:\\2}</div>")
-        .gsub(/(<p>|<div)/i, "\n\\1")
-        .gsub(/(<\/p>|<\/div>)/i, "\\1\n")
-        #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
-        #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
+           .gsub(%r{^http:\/\/[a-z0-9]*\.?#{ Constant.host }}, '')
+           .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/mi, "<div>{quote:\n\\2\n}</div>")
+           .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/i, "<div>{quote:\\2}</div>")
+           .gsub(/(<p>|<div)/i, "\n\\1")
+           .gsub(/(<\/p>|<\/div>)/i, "\\1\n")
+    #.gsub(/(<aside|<blockquote|<br|<div|<fig|<p|<ul|<ol|<li|<nav|<section|<table)/i, "\n\\1")
+    #.gsub(/(<\/aside>|<\/blockquote>|<\/br>|<\/div>|<\/figure>|<\/p>|<\/figcaption>|<\/ul>|<\/ol>|<\/li>|<\/nav>|<\/section>|<\/table>)/i, "\\1\n")
     text = "\n#{ text }\n"
   end
 
   def format_blockquotes(text)
     text.gsub(/{\s*quote:([^}]*?)\n? ?-- *([^}]*?)\s*}/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
-        .gsub(/{\s*quote:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
-        .gsub(/{\s*quote:([^}]*?)\s*}/i, "\n<blockquote>\\1</blockquote>\n")
-        .gsub(/{\s*quote:([^}]*?)\s*}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
-        .gsub(/\s*quote:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
-        .gsub(/\s*quote:([^}]*?)\s*/i, "\n<blockquote>\\1</blockquote>\n")
+      .gsub(/{\s*quote:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<blockquote>\n\\1[\\2]\n</blockquote>\n")
+      .gsub(/{\s*quote:([^}]*?)\s*}/i, "\n<blockquote>\\1</blockquote>\n")
+      .gsub(/{\s*quote:([^}]*?)\s*}/mi, "\n<blockquote>\n\\1\n</blockquote>\n")
+      .gsub(/\s*quote:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<blockquote>\\1[\\2]</blockquote>\n")
+      .gsub(/\s*quote:([^}]*?)\s*/i, "\n<blockquote>\\1</blockquote>\n")
   end
 
   def format_code(text)
     text.gsub(/{\s*code:([^}]*?)\n? ?-- *([^}]*?)\s*}/i, "\n<pre><code>\\1[\\2]</code></pre>\n")
-        .gsub(/{\s*code:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<pre><code>\n\\1[\\2]\n</code></pre>\n")
-        .gsub(/{\s*code:([^}]*?)\s*}/i, "\n<pre><code>\\1</code></pre>\n")
-        .gsub(/{\s*code:([^}]*?)\s*}/mi, "\n<pre><code>\n\\1\n</code></pre>\n")
-        .gsub(/\s*code:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<pre><code>\\1[\\2]</code></pre>\n")
-        .gsub(/\s*code:([^}]*?)\s*/i, "\n<pre><code>\\1</code></pre>\n")
+      .gsub(/{\s*code:([^}]*?)\n? ?-- *([^}]*?)\s*}/mi, "\n<pre><code>\n\\1[\\2]\n</code></pre>\n")
+      .gsub(/{\s*code:([^}]*?)\s*}/i, "\n<pre><code>\\1</code></pre>\n")
+      .gsub(/{\s*code:([^}]*?)\s*}/mi, "\n<pre><code>\n\\1\n</code></pre>\n")
+      .gsub(/\s*code:([^}]*?)\n? ?-- *([^\}]*?)\s*/i, "\n<pre><code>\\1[\\2]</code></pre>\n")
+      .gsub(/\s*code:([^}]*?)\s*/i, "\n<pre><code>\\1</code></pre>\n")
   end
 
   def remove_instructions(text)
     text.gsub(/\{fork:.*\}/i, '')
-        .gsub(/\{(cap|alt|description|credit|intro):.*\}/i, '')
+      .gsub(/\{(cap|alt|description|credit|intro):.*\}/i, '')
   end
 
   def clean_whitespace(text)
     text.gsub(/\n(<\/)/, '\1')
-        .gsub(/&amp;/, '&')
-        .gsub(/&quot;/, '"')
-        .gsub(/&nbsp;/, ' ')
-        .gsub(/ +/m, ' ')
-        .gsub(/\r\n?/, "\n")
-        .gsub(/\n\n+/, "\n")
-        .gsub(/^ +$/, '')
-        .strip
+      .gsub(/&amp;/, '&')
+      .gsub(/&quot;/, '"')
+      .gsub(/&nbsp;/, ' ')
+      .gsub(/ +/m, ' ')
+      .gsub(/\r\n?/, "\n")
+      .gsub(/\n\n+/, "\n")
+      .gsub(/^ +$/, '')
+      .strip
   end
 
   def bookify(text, books, citation_style)
@@ -214,8 +213,8 @@ module FormattingHelper
     text.gsub!(/(\[[^\]]*)\[([^\]]*)\]([^\[]*\])/, '\1\3') # Remove any nested annotations
     annotations = text.scan(/\[([^\.].*? .*?)\]/)
     if !annotations.empty?
-      text.gsub!(/\s*( *\[)([^\.].*? .*?)(\])/m).each_with_index do |match, index|
-        %Q(<a href="#annotation-#{ index + 1 }" id="annotation-mark-#{ index + 1 }">#{ index + 1 }</a>)
+      text.gsub!(/\s*( *\[)([^\.].*? .*?)(\])/m).each_with_index do |_match, index|
+        %(<a href="#annotation-#{ index + 1 }" id="annotation-mark-#{ index + 1 }">#{ index + 1 }</a>)
       end
       render 'notes/annotated_text', text: text, annotations: annotations.flatten
     else
@@ -229,16 +228,16 @@ module FormattingHelper
     "<section class=\"body\">#{ text.html_safe }</section>"
   end
 
-  def clean_up(text, clean_up_dom = true)
+  def clean_up(text, _clean_up_dom = true)
     # REVIEW: These operations should not be necessary!
     # .gsub(/(<[^>"]*?)[\u201C|\u201D]([^<"]*?>)/, '\1"\2') # FIXME: This is for links in credits but it should not be necessary
     text.gsub!(/^<p>\s*<\/p>$/m, '') # Removes empty paragraphs # FIXME
     text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
-               .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
-               .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
-               .gsub(/'/, "\u2018") # Same here
-               .html_safe
+           .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
+           .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
+           .gsub(/'/, "\u2018") # Same here
+           .html_safe
   end
 
   def clean_up_via_dom(text, unwrap_p = false, number_paragraphs = false)
@@ -277,7 +276,7 @@ module FormattingHelper
 
     annotations = target_dom.css('.annotations')
 
-    source_paragraphs.each_with_index do |p, i|
+    source_paragraphs.each_with_index do |p, _i|
       # REVIEW: We can also add 'notranslate' here rather than as a metatag
       #  https://support.google.com/translate/?hl=en-GB#2641276
       p['class'] = 'source'
@@ -319,7 +318,7 @@ module FormattingHelper
 
   def smartify_hyphens_mixed(text)
     text.gsub(/ +- +([^-^.]+) +- +/, "\u2013\\1\u2013") # Em-dashes for parentheses
-        .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
+      .gsub(/(^|>| +)--?( +)/, "\u2014") # En-dashes for everything else
   end
 
   def smartify_quotation_marks(text)
@@ -327,23 +326,23 @@ module FormattingHelper
     # The following assumes we are not running this on HTML text. This is not hugely concerning since for body text we
     #  run this via Nokogiri and other strings should not be marked up. (But: cite links in headers?)
     text.gsub(/'([\d]{2})/, "\u2019\\1")
-        .gsub(/\&lsquo\;/, "\u2018")
-        .gsub(/\&rsquo\;/, "\u2019")
-        .gsub(/\&\#x27\;/, "\u2019")
-        .gsub(/s' /, "s\u2019 ")
-        .gsub(/(\b)'(\b)/, "\u2019")
-        .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
-        .gsub(/'(\w|<)/, "\u2018\\1")
-        .gsub(/([\w\.\,\?\!>])'/, "\\1\u2019")
-        .gsub(/\&\#39\;/, '"')
-        .gsub(/"(\w|<)/, "\u201C\\1")
-        .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
-        .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
+      .gsub(/\&lsquo\;/, "\u2018")
+      .gsub(/\&rsquo\;/, "\u2019")
+      .gsub(/\&\#x27\;/, "\u2019")
+      .gsub(/s' /, "s\u2019 ")
+      .gsub(/(\b)'(\b)/, "\u2019")
+      .gsub(/(\w)'(\w)/, "\\1\u2019\\2")
+      .gsub(/'(\w|<)/, "\u2018\\1")
+      .gsub(/([\w\.\,\?\!>])'/, "\\1\u2019")
+      .gsub(/\&\#39\;/, '"')
+      .gsub(/"(\w|<)/, "\u201C\\1")
+      .gsub(/([\w\.\,\?\!>])"/, "\\1\u201D")
+      .gsub(/(\u2019|\u201C)([\.\,<])/, '\\2\\1')
   end
 
   def force_double_quotes(text)
     text.gsub(/'(\w|<)(.*?)([\w\.\,\?\!>])'(\W)/, "\u201C\\1\\2\\3\u201D\\4")
-        .gsub(/\u2018(\w|<)(.*?)([\w\.\,\?\!>])\u2019(\W)/, "\u201C\\1\\2\\3\u201D\\4")
+      .gsub(/\u2018(\w|<)(.*?)([\w\.\,\?\!>])\u2019(\W)/, "\u201C\\1\\2\\3\u201D\\4")
   end
 
   def smartify_numbers(text)
@@ -352,9 +351,9 @@ module FormattingHelper
 
   def headerize(text)
     text.gsub(/^\s*<strong>(.+?)<\/strong>\s*$/m, '<header><h2>\1</h2></header>')
-        .gsub(/^\s*<p><strong>(.+?)<\/strong><\/p>\s*$/m, '<header><h2>\1</h2></header>')
-        .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
-        .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
+      .gsub(/^\s*<p><strong>(.+?)<\/strong><\/p>\s*$/m, '<header><h2>\1</h2></header>')
+      .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
+      .gsub(/^\s*<b>(.+?)<\/b>\s*$/m, '<header><h2>\1</h2></header>')
   end
 
   def deheaderize(text)
@@ -367,34 +366,34 @@ module FormattingHelper
 
   def paragraphize(text)
     text.gsub(/^\s*([^<].*?)\s*$/, "<p>\\1</p>") # Wrap lines that do not begin with a tag
-        .gsub(/^\s*(<a|<del|<em|<i|<ins|<strong)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
-        .gsub(/^\s*(.*?)(a>|del>|em>|i>|ins>|strong>)\s*$/, "<p>\\1\\2</p>") # Wrap lines that end with inline tags
+      .gsub(/^\s*(<a|<del|<em|<i|<ins|<strong)(.*?)\s*$/, "<p>\\1\\2</p>") # Wrap lines that begin with inline tags
+      .gsub(/^\s*(.*?)(a>|del>|em>|i>|ins>|strong>)\s*$/, "<p>\\1\\2</p>") # Wrap lines that end with inline tags
   end
 
   def sectionize(text)
     text = text.split(/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/)
-               .reject(&:empty?)
-               .map { |content| "<section>\n#{ content }\n</section>" }
-               .join unless text[/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/].blank?
+           .reject(&:empty?)
+           .map { |content| "<section>\n#{ content }\n</section>" }
+           .join unless text[/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/].blank?
     text = text.split(/(?=<header)/)
-               .reject(&:empty?)
-               .map { |content| "<section>\n#{ content }\n</section>" } # n#{ content.include? '<h2' ? '<header>' : '' }\
-               .join unless text[/<header/].blank?
+           .reject(&:empty?)
+           .map { |content| "<section>\n#{ content }\n</section>" } # n#{ content.include? '<h2' ? '<header>' : '' }\
+           .join unless text[/<header/].blank?
     text
   end
 
   def hyper_conform(text)
     text.gsub(/\s+([\)\n\.\,\?\!])/m, '\1') # Ensure no space before certain punctuation
-        .gsub(/([\(])\s+/m, '\1') # Ensure no space after certain elements
-        .gsub(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
-        .gsub(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
-        .gsub(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
-        .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
-        .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
-        .gsub(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
-        .gsub(/\s+(<a href=\"#annotation-)/m, '\1')
-        .gsub(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')
-        .gsub(/([\.\?\!])(<\/cite>)([\.\?\!])/, '\1\2') # Ensure no double punctuation after titles
-        .html_safe
+      .gsub(/([\(])\s+/m, '\1') # Ensure no space after certain elements
+      .gsub(/([\.\,\?\!])([a-zA-Z])/m, '\1 \2') # Ensure space after certain punctuation
+      .gsub(/([[:upper:]]{3,})/, '<abbr>\1</abbr>') # Wrap all-caps in <abbr>
+      .gsub(/\b([A-Z]{1})\./, '\1') # Wrap all-caps in <abbr>
+      .gsub(/(<p>|<li>)([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
+      .gsub(/(\.|\?|\!) ([[:lower:]])/) { "#{ Regexp.last_match[1] }#{ Regexp.last_match[2].upcase }" } # Always start with a capital
+      .gsub(/(\w)(<\/p>|<\/li>)/, '\1.\2') # Always end with punctuation -- What about verse? __VERSE ? (& lists?)
+      .gsub(/\s+(<a href=\"#annotation-)/m, '\1')
+      .gsub(/ *(<a href=\"#annotation-.*?<\/a>) *([\.\,\;\?\!])/, '\2\1')
+      .gsub(/([\.\?\!])(<\/cite>)([\.\?\!])/, '\1\2') # Ensure no double punctuation after titles
+      .html_safe
   end
 end

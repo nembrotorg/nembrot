@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class GoogleBooksRequest
-
   include HTTParty
 
   base_uri Constant.books.google_books.domain

@@ -119,7 +119,15 @@
     &:hover
       #text
         a
-          text-decoration: underline
+          //background-image: linear-gradient(to top, rgba(0,0,0,0) 13%, rgba(0,0,0,0.8) 13%, rgba(0,0,0,0.8) 16%, rgba(0,0,0,0) 16%)
+          background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))
+          color: $body-font-color
+          text-decoration: none
+          // text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
+          text-shadow: 0.03em 0 rgb(255, 255, 255), -0.03em 0 rgb(255, 255, 255), 0 0.03em rgb(255, 255, 255), 0 -0.03em rgb(255, 255, 255), 0.06em 0 rgb(255, 255, 255), -0.06em 0 rgb(255, 255, 255), 0.09em 0 rgb(255, 255, 255), -0.09em 0 rgb(255, 255, 255), 0.12em 0 rgb(255, 255, 255), -0.12em 0 rgb(255, 255, 255), 0.15em 0 rgb(255, 255, 255), -0.15em 0 rgb(255, 255, 255)
+          transition: background-image 1s
+          // GD border-bottom: 0.0625rem solid #dcdcdc
+          // GD transition: border-color .15s ease-out
           &[id^=annotation], &[href^='#annotation']
             text-decoration: none
     &[dir=rtl]

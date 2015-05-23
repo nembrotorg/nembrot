@@ -1,10 +1,9 @@
 # encoding: utf-8
 
 class Note < ActiveRecord::Base
-
   include NoteCustom, Syncable
 
-  attr_writer   :tag_list, :instruction_list, :keyword_list
+  attr_writer :tag_list, :instruction_list, :keyword_list
   attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
@@ -42,7 +41,7 @@ class Note < ActiveRecord::Base
   # scope :mappable, -> { where (is_mapped: true) }
 
   validates :title, :external_updated_at, presence: true
-  validate :body_or_source_or_resource?, before: :update
+  validate :body_or_source_or_resource?
   # validate :external_updated_is_latest?, before: :update
 
   before_save :update_metadata
@@ -136,13 +135,13 @@ class Note < ActiveRecord::Base
 
   def inferred_url_domain
     return nil unless inferred_url
-    inferred_url.scan(%r(https?://([a-z0-9\&\.\-]*))).flatten.first
+    inferred_url.scan(%r{https?://([a-z0-9\&\.\-]*)}).flatten.first
   end
 
   def inferred_url
     return url unless url.blank?
     return source_url unless source_url.blank?
-    body.scan(%r((https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?)).flatten.first
+    body.scan(%r{(https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?}).flatten.first
   end
 
   # REVIEW: If we named this embeddable_source_url? then we can't do
@@ -245,7 +244,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")
-    lang_instruction = Array(instruction_list).select { |v| v =~ /__LANG_/ } .first
+    lang_instruction = Array(instruction_list).find { |v| v =~ /__LANG_/ } 
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
@@ -256,7 +255,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_weight
-    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    weight_instruction = Array(instruction_list).find { |v| v =~ /__WEIGHT_|__ORDER_/ } 
     if weight_instruction
      weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
     end

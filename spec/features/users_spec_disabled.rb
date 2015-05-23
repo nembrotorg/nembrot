@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Users' do
-
+RSpec.describe 'Users' do
   before do
     @user = FactoryGirl.create(:user)
   end

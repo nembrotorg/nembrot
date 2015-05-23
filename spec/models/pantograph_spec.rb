@@ -1,9 +1,8 @@
 # encoding: utf-8
 
-describe Pantograph do
-
+RSpec.describe Pantograph do
   before do
-    @pantographer = FactoryGirl.create(:pantographer)
+    @pantographer = FactoryGirl.build(:pantographer)
     @pantograph = FactoryGirl.build_stubbed(:pantograph)
   end
 
@@ -66,11 +65,11 @@ describe Pantograph do
   end
 
   describe '.unspamify' do
-    Pantograph.unspamify('#hashtag @mention #more @more').should == 'Hhashtag Amention Hmore Amore'
+    specify { expect(Pantograph.unspamify('#hashtag @mention #more @more')).to eq('Hhashtag Amention Hmore Amore') }
   end
 
   describe '.spamify' do
-    Pantograph.spamify('Hhashtag Amention Hmore Amore').should == '#hashtag @mention #more @more'
+    specify { expect(Pantograph.spamify('Hhashtag Amention Hmore Amore')).to eq('#hashtag @mention #more @more') }
   end
 
   describe '.previous_pantograph' do
@@ -113,11 +112,11 @@ describe Pantograph do
     its(:last_path) { should eq('/pantography/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }
   end
 
-  # describe '.publish_next' do
+  # RSpec.describe '.publish_next' do
   #   Pantograph.publish_next.should == ''
   # end
 
-  # describe '.last_by_self_text' do
+  # RSpec.describe '.last_by_self_text' do
   #   before do
   #     @pantographer_self = FactoryGirl.create(:pantographer, twitter_user_id: Constant.pantography.twitter_user_id)
   #     @pantographer_other = FactoryGirl.create(:pantographer, twitter_user_id: '1')
@@ -126,5 +125,4 @@ describe Pantograph do
   #   end
   #   Pantograph.last_by_self_text.should == @pantograph_by_self.text
   # end
-
 end

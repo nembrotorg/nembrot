@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class CodeController < ApplicationController
-
   include CodeHelper
 
   def show

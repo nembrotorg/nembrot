@@ -1,5 +1,4 @@
 class TagsController < ApplicationController
-
   add_breadcrumb I18n.t('tags.index.title'), :tags_path
 
   def index
@@ -7,7 +6,7 @@ class TagsController < ApplicationController
     all_tags = Note.publishable.tag_counts_on(:tags, at_least: Setting['advanced.tags_minimum'].to_i)
 
     @tags = all_tags.page(page_number).per(Setting['advanced.tags_index_per_page'].to_i).load
-    @references_count = all_tags.to_a.sum { |t| t.count }
+    @references_count = all_tags.to_a.sum(&:count)
     @tags_count = all_tags.size
   end
 

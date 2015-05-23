@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe NotesController do
-
+RSpec.describe NotesController do
   before(:example) do
     Setting['advanced.blurb_length'] = 40
     Setting['advanced.version_gap_distance'] = 10

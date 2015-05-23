@@ -1,11 +1,9 @@
 # encoding: utf-8
 
 class PantographsController < ApplicationController
-
   add_breadcrumb I18n.t('pantographs.index.title'), :pantographs_path
 
   def index
-
     @pantograph = Pantograph.by_self.first
     copy_and_list
     @no_index = false

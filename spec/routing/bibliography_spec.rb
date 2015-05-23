@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'routing to bibliography' do
+RSpec.describe 'routing to bibliography' do
   it 'routes /bibliography to book#index' do
     expect(get: '/bibliography').to route_to(
       controller: 'books',

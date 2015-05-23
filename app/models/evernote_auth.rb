@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteAuth
-
   attr_accessor :auth
 
   def initialize

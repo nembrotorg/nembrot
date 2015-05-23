@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Pantographer < ActiveRecord::Base
-
   include Pantographable
 
   has_many :pantographs, dependent: :destroy

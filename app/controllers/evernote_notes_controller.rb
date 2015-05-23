@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteNotesController < ApplicationController
-
   def add_task
     unless params[:guid].blank? || params[:notebookGuid].blank?
       EvernoteNote.add_task(params[:guid], params[:notebookGuid])

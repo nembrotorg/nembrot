@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe CitationsHelper do
-
+RSpec.describe CitationsHelper do
   before do
     @book = FactoryGirl.create(:book)
   end

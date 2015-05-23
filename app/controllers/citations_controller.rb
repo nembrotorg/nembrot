@@ -1,11 +1,9 @@
 # encoding: utf-8
 
 class CitationsController < ApplicationController
-
   add_breadcrumb I18n.t('citations.index.title'), :citations_path
 
   def index
-
     page_number = params[:page] ||= 1
     all_citations = Note.citation.publishable
 

@@ -1,5 +1,4 @@
-describe TagsController do
-
+RSpec.describe TagsController do
   describe 'GET #index' do
     before(:example) do
       Setting['advanced.tags_minimum'] = 1
@@ -57,5 +56,4 @@ describe TagsController do
       end
     end
   end
-
 end

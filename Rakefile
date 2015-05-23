@@ -5,3 +5,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 Nembrot::Application.load_tasks
+
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new

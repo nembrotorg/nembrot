@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-
   load_and_authorize_resource
 
   add_breadcrumb I18n.t('books.index.title'), :books_path
@@ -65,5 +64,4 @@ class BooksController < ApplicationController
                                  :library_thing_id, :notes, :open_library_id, :page_count, :pages, :published_city,
                                  :published_date, :publisher, :tag, :title, :translator, :weight)
   end
-
 end

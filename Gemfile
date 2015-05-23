@@ -70,9 +70,10 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'fuubar'
-  gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
   gem 'sqlite3'
 end
 
@@ -98,11 +99,9 @@ group :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
-  gem 'guard-spork'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'spork-rails'
   gem 'vcr'
   gem 'webmock'
 

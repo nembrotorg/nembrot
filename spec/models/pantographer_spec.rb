@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe Pantographer do
-
+RSpec.describe Pantographer do
   before { @pantographer = FactoryGirl.build_stubbed(:pantographer) }
 
   subject { @pantographer }

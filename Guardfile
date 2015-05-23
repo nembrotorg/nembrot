@@ -2,16 +2,7 @@ guard 'bundler' do
   watch('Gemfile')
 end
 
-guard :spork, wait: 60, cucumber: false, rspec: true, test_unit: false do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile')
-  watch('spec/spec_helper.rb')
-end
-
-guard :rspec, cmd: 'rspec --drb --format Fuubar --color', all_after_pass: false, all_after_fail: false do
+guard :rspec, cmd: 'bin/rspec --format Fuubar --color', all_after_pass: false, all_after_fail: false do
     watch('spec/spec_helper.rb') { 'spec' }
 
     watch(%r{^spec/controllers/.+_spec\.rb$})
@@ -42,10 +33,10 @@ guard :rspec, cmd: 'rspec --drb --format Fuubar --color', all_after_pass: false,
     watch(%r{^spec/lib/.+_integration_spec\.rb$})
 end
 
-guard :rubocop, all_on_start: false, notification: true do
-  watch(%r{.+\.rb$})
-  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
-end
+#guard :rubocop, all_on_start: false, notification: true do
+#  watch(%r{.+\.rb$})
+#  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+#end
 
 guard :livereload do
   watch(%r{app/views/.+\.slim$})
@@ -58,5 +49,3 @@ end
 
 # guard 'sass', :input => 'sass', :output => 'css', :noop => true, :hide_success => true
 # guard 'coffeescript', :input => 'app/assets/javascripts', :noop => true, :hide_success => true
-
-

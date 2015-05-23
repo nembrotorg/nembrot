@@ -3,8 +3,7 @@
 include ActionView::Helpers::SanitizeHelper
 include ApplicationHelper
 
-describe Note do
-
+RSpec.describe Note do
   before(:example) do
     Setting['advanced.versions'] = 'true'
     Setting['advanced.version_gap_distance'] = 10
@@ -90,7 +89,7 @@ describe Note do
   end
 
   # Not yet implemented
-  # describe "refuses update when external_updated_at is unchanged" do
+  # RSpec.describe "refuses update when external_updated_at is unchanged" do
   #   before do
   #     note.update_attributes(
   #         title: "New Title",
@@ -102,7 +101,7 @@ describe Note do
   # end
 
   # Not yet implemented
-  # describe "refuses update when external_updated_at is older" do
+  # RSpec.describe "refuses update when external_updated_at is older" do
   #   before {
   #     note.update_attributes(
   #         title: "New Title",

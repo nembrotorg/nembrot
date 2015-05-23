@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery
 
   before_filter :set_locale
@@ -8,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_sections
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
-  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |_c| request.xhr? }
 
   def set_locale
     I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
@@ -26,19 +25,19 @@ class ApplicationController < ActionController::Base
     @sections = Note.sections
   end
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     user_event_path('signed_up')
   end
 
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     user_event_path('signed_up_inactive')
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     user_event_path('signed_in')
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_resource)
     user_event_path('signed_out')
   end
 

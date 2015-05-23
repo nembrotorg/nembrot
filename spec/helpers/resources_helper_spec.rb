@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe ResourcesHelper do
-
+RSpec.describe ResourcesHelper do
   describe '#cut_image_binary_path' do
     before do
       @note = FactoryGirl.create(:note)
@@ -46,10 +45,10 @@ describe ResourcesHelper do
     context 'when the raw image exists' do
       it 'creates an image file' do
         # If a raw file already exists, we do not create a new one, nor do we delete it afterwards.
-        preexisting_raw_file = File.exists? @resource.raw_location
+        preexisting_raw_file = File.exist? @resource.raw_location
         FileUtils.cp(Resource.blank_location, @resource.raw_location) unless preexisting_raw_file
         expect(cut_image_binary(@resource.id, 'png', 16, 9, 100, 1, 0, '')).to eq(@resource.cut_location(16, 9, 100, 1, 0, ''))
-        expect(File.exists?(@resource.cut_location(16, 9, 100, 1, 0, ''))).to eq(true)
+        expect(File.exist?(@resource.cut_location(16, 9, 100, 1, 0, ''))).to eq(true)
         File.delete @resource.cut_location(16, 9, 100, 1, 0, '')
         File.delete @resource.raw_location unless preexisting_raw_file
       end
@@ -57,7 +56,7 @@ describe ResourcesHelper do
     context 'when the raw image does not exist' do
       it 'returns a blank image' do
         # If a raw file already exists, we temporarily rename it.
-        preexisting_raw_file = File.exists? @resource.raw_location
+        preexisting_raw_file = File.exist? @resource.raw_location
         File.rename(@resource.raw_location, "#{ @resource.raw_location }-stashed") if preexisting_raw_file
         expect(cut_image_binary(@resource.id, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
         File.rename("#{ @resource.raw_location }-stashed", @resource.raw_location) if preexisting_raw_file
@@ -65,7 +64,7 @@ describe ResourcesHelper do
     end
     context 'when the image record is not found' do
       it 'returns a blank image' do
-        expect(cut_image_binary(9999999, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
+        expect(cut_image_binary(9_999_999, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
       end
     end
   end

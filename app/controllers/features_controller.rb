@@ -1,5 +1,4 @@
 class FeaturesController < ApplicationController
-
   def show
     @notes = Note.publishable.where(feature: params[:feature], lang: I18n.locale)
 

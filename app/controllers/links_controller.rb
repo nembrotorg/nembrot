@@ -1,5 +1,4 @@
 class LinksController < ApplicationController
-
   add_breadcrumb I18n.t('links.index.title'), :links_path
 
   def index

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 module ApplicationHelper
-
   include CacheHelper
   include FollowUrlsHelper
 
@@ -27,10 +26,10 @@ module ApplicationHelper
 
   def embeddable_url(url)
     url.gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
-       .gsub(/^.*youtube.*list=(.*)\b/, 'http://www.youtube.com/embed/videoseries?list=\\1&rel=0')
-       .gsub(%r(^.*vimeo.*/(\d*)\b), 'http://player.vimeo.com/video/\\1')
-       .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
-       .gsub(/(^.*spotify.*$)/, 'https://embed.spotify.com/?uri=\\1')
+      .gsub(/^.*youtube.*list=(.*)\b/, 'http://www.youtube.com/embed/videoseries?list=\\1&rel=0')
+      .gsub(%r{^.*vimeo.*/(\d*)\b}, 'http://player.vimeo.com/video/\\1')
+      .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
+      .gsub(/(^.*spotify.*$)/, 'https://embed.spotify.com/?uri=\\1')
   end
 
   def link_to_unless_or_wrap(condition, name, options = {}, html_options = {})
@@ -75,9 +74,9 @@ module ApplicationHelper
 
   def site_title_from_url(url)
     url.gsub(/.*tumblr.*/, 'Tumblr')
-       .gsub(/plus\.google/, 'Google+')
-       .gsub(/^www\./, '')
-       .gsub(/^([^\.]*).*$/, '\1')
-       .titlecase
+      .gsub(/plus\.google/, 'Google+')
+      .gsub(/^www\./, '')
+      .gsub(/^([^\.]*).*$/, '\1')
+      .titlecase
   end
 end

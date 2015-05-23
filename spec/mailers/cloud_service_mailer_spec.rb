@@ -1,4 +1,4 @@
-describe CloudServiceMailer do
+RSpec.describe CloudServiceMailer do
   describe 'auth_not_found' do
     let(:provider) { 'PROVIDER01' }
     let(:mail) { CloudServiceMailer.auth_not_found(provider) }

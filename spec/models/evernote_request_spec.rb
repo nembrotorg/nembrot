@@ -2,8 +2,7 @@
 
 # FIXME: These tests are flawed. Content is not being changed at all!
 
-describe EvernoteNote do
-
+RSpec.describe EvernoteNote do
   before(:example) do
     Setting['channel.evernote_notebooks'] = 'NOTEBOOK_GUID'
     Setting['advanced.instructions_required'] = '__PUBLISH'
@@ -13,7 +12,6 @@ describe EvernoteNote do
   subject { @evernote_request }
 
   describe '#update_necessary?' do
-
     context 'when note is in a required notebook' do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
@@ -73,7 +71,6 @@ describe EvernoteNote do
   end
 
   describe '#note_is_not_conflicted?' do
-
     context 'when note content does not contain a conflict warning' do
       before do
         @evernote_request.cloud_note_data[:content] = 'Plain text.'

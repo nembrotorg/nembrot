@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Tags pages' do
-
+RSpec.describe 'Tags pages' do
   before do
     Setting['advanced.tags_minimum'] = 1
     @note = FactoryGirl.create(:note)

@@ -1,9 +1,7 @@
 # encoding: utf-8
 
 class Url
-
   def initialize(note)
-
     url = note.inferred_url
 
     return if url.blank?
@@ -46,8 +44,7 @@ class Url
     note.url_updated_at = doc.datetime
     note.url_accessed_at = Time.now
     note.url_lang = DetectLanguage.simple_detect(doc.body[0..Constant.detect_language_sample_length.to_i])
-    note.keyword_list = doc.keywords.map { |k| k.first }
+    note.keyword_list = doc.keywords.map(&:first)
     note.save!
   end
-
 end

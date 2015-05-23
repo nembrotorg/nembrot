@@ -1,9 +1,7 @@
 # encoding: utf-8
 
-describe 'Static pages' do
-
+RSpec.describe 'Static pages' do
   describe 'Home page' do
-
     before { visit '/' }
 
     it 'has a link to Notes' do

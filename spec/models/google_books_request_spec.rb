@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe GoogleBooksRequest do
-
+RSpec.describe GoogleBooksRequest do
   context 'when a book is found' do
     before do
       @google_books_book = GoogleBooksRequest.new('0804720991')

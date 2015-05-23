@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class WorldCatRequest
-
   include HTTParty
 
   base_uri Constant.books.world_cat.domain
@@ -19,7 +18,7 @@ class WorldCatRequest
     SYNC_LOG.error I18n.t('books.sync.failed.logger', provider: 'WorldCat', isbn: isbn)
   end
 
-  def populate(response, isbn)
+  def populate(response, _isbn)
     response = response['oclcdcs']
     metadata = {}
     # OPTIONAL:

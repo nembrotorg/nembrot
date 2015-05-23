@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Citations' do
-
+RSpec.describe 'Citations' do
   before do
     @book = FactoryGirl.build(:book, slug: 'author-2001')
     @citation = FactoryGirl.build(:note, books: [@book], content_type: 1, body: "Text. -- (#{ @book.tag }), p. 1")

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteNote < ActiveRecord::Base
-
   include Evernotable, Syncable
 
   # REVIEW: , dependent: :destroy (causes Stack Level Too Deep.)

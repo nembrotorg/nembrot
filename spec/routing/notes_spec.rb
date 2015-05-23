@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'routing to notes' do
+RSpec.describe 'routing to notes' do
   it 'routes /texts to note#index' do
     expect(get: '/texts').to route_to(
       controller: 'notes',

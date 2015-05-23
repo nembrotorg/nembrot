@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Links' do
-
+RSpec.describe 'Links' do
   before(:example) do
     @note = FactoryGirl.build(:note, content_type: 2)
     Url.new(@note)

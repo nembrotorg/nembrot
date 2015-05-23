@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe BooksController do
-
+RSpec.describe BooksController do
   before do
     Setting['advanced.books_section'] = 'true'
     @book = FactoryGirl.create(:book, tag: 'Author 2001')
@@ -135,5 +134,4 @@ describe BooksController do
       end
     end
   end
-
 end

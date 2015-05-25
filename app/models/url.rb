@@ -12,10 +12,12 @@ class Url
 
     update_note_attributes(note, url, doc)
 
+    note.save!
+
     URL_LOG.info "Note #{ note.id }: #{ url } processed successfully."
 
-    rescue
-      URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
+    #rescue
+    #  URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
   end
 
   def self.sync_all
@@ -45,6 +47,12 @@ class Url
     note.url_accessed_at = Time.now
     note.url_lang = DetectLanguage.simple_detect(doc.body[0..Constant.detect_language_sample_length.to_i])
     note.keyword_list = doc.keywords.map(&:first)
-    note.save!
+  end
+
+  def dedupe(note)
+    older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at)
+    return unless older_note.inferred_url == note.inferred_url
+    note.created_at = older_note.created_at
+    older_note.destroy!
   end
 end

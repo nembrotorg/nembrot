@@ -1,5 +1,5 @@
 - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
-- headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
+- headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
 - url_title = link.url_title || headline
 - url_lede = link.url_lede || blurb
 

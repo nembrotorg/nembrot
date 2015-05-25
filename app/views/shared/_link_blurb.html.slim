@@ -1,7 +1,12 @@
+- blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+- headline, blurb = blurb(note.main_title, note.subtitle, note.clean_body, note.introduction, blurb_length)
+- url_title = link.url_title || headline
+- url_lede = link.url_lede || blurb
+
 = link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
   p
-    strong = simple_blurbify_link(link.url_title)
-    = blurbify(link.url_lede, [])
+    strong = simple_blurbify_link(url_title)
+    = blurbify(url_lede, [])
 
 ul.details
   li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url

@@ -16,12 +16,27 @@ class Url
 
     URL_LOG.info "Note #{ note.id }: #{ url } processed successfully."
 
-    #rescue
-    #  URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
+    rescue
+      URL_LOG.error "Note #{ note.id }: #{ url } returned an error."
   end
 
   def self.sync_all
     Note.link.unprocessed_urls.each { |note| Url.new(note) }
+  end
+
+  def self.dedupe_all
+    all_links = Note.link
+    URL_LOG.info "All links at start: #{ all_links.size }"
+    all_links.each do |link|
+      older_note = Note.link.where(title: link.title).where('created_at < ?', link.created_at).first
+      if older_note && older_note.inferred_url == link.inferred_url
+        link.created_at = older_note.created_at
+        link.save!
+        older_note.destroy!
+        URL_LOG.info "Deduped: Note #{ link.id } (#{ link.inferred_url })"
+      end
+    end
+    URL_LOG.info "All links at end: #{ Note.link.size }"
   end
 
   private
@@ -50,7 +65,7 @@ class Url
   end
 
   def dedupe(note)
-    older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at)
+    older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at).first
     return unless older_note.inferred_url == note.inferred_url
     note.created_at = older_note.created_at
     older_note.destroy!

@@ -26,7 +26,7 @@ class Url
 
   def self.dedupe_all
     all_links = Note.link
-    URL_LOG.info "All links at start: #{ all_links.size }"
+    URL_LOG.info "Deduping links..."
     all_links.each do |link|
       older_note = Note.link.where(title: link.title).where('created_at < ?', link.created_at).first
       if older_note && older_note.inferred_url == link.inferred_url
@@ -36,7 +36,7 @@ class Url
         URL_LOG.info "Deduped: Note #{ link.id } (#{ link.inferred_url })"
       end
     end
-    URL_LOG.info "All links at end: #{ Note.link.size }"
+    URL_LOG.info "Deduped #{ all_links.size - Note.link.size } links."
   end
 
   private

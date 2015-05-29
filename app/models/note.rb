@@ -46,8 +46,8 @@ class Note < ActiveRecord::Base
 
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
+  before_save :reset_url, if: "body_changed? || source_url_changed?"
   after_save :scan_note_for_isbns, if: :body_changed?
-  after_save :reset_url, if: "body_changed? || source_url_changed?"
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -211,7 +211,7 @@ class Note < ActiveRecord::Base
   end
 
   def reset_url
-    return if content_type != 'link' || !url_accessed_at.nil? || inferred_url.blank?
+    return if content_type != 'link' || inferred_url.blank?
     self.url = nil
     self.url_author = nil
     self.url_html = nil
@@ -221,7 +221,7 @@ class Note < ActiveRecord::Base
     self.url_accessed_at = nil
     self.url_lang = nil
     self.keyword_list = []
-    self.save!
+    save!
   end
 
   private

@@ -7,6 +7,7 @@ class Url
     url = resolve_url(url)
     doc = Pismo::Document.new(url)
     update_note_attributes(note, url, doc)
+    dedupe(note)
     note.save!
     URL_LOG.info "Note #{ note.id }: #{ url } processed successfully."
     rescue
@@ -21,9 +22,8 @@ class Url
     all_links = Note.link
     URL_LOG.info "Deduping links..."
     all_links.each do |link|
-      older_note = Note.link.where(title: link.title).where('created_at < ?', link.external_created_at).first
+      older_note = Note.link.where(title: link.title).where('created_at < ?', link.created_at).first
       if older_note && older_note.inferred_url == link.inferred_url
-        link.external_created_at = older_note.external_created_at
         link.external_updated_at = older_note.external_updated_at
         link.save!
         older_note.destroy!
@@ -60,9 +60,8 @@ class Url
 
   def dedupe(note)
     # REVIEW: do we want external_updated_at here?
-    older_note = Note.link.where(title: note.title).where('created_at < ?', note.external_created_at).first
+    older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at).first
     return unless older_note.inferred_url == note.inferred_url
-    note.external_created_at = older_note.external_created_at
     link.external_updated_at = older_note.external_updated_at
     older_note.destroy!
   end

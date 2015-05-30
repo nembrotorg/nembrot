@@ -11,9 +11,9 @@
       li
         a href="#view"
           | View
-      -#li
-      -#  a href="#logs"
-      -#    | log
+      li
+        a href="#server"
+          | server
 
     #model
       h2 == @model_file
@@ -24,6 +24,9 @@
     #view
       h2 == @view_file
       .CodeRay == @view_script
+    #server
+      h2 == "Server"
+      iframe src="https://rpm.newrelic.com/public/charts/lwlmj9SL0pe" width="100%" height="33%" scrolling="no" frameborder="no"
     -#logs
     -#  h2 Logs
     -#  .CodeRay == File.read File.join(Rails.root, 'log', 'development.log')

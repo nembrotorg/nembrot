@@ -4,7 +4,7 @@
 - url_lede = link.url_lede || blurb
 
 = link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
-  p = simple_blurbify_link(url_title)
+  h2 = simple_blurbify_link(url_title)
   p = blurbify(url_lede, [])
 
 ul.details

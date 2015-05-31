@@ -5,7 +5,8 @@ class LinksController < ApplicationController
     page_number = params[:page] ||= 1
     all_links = Note.publishable.link
 
-    @links = all_links.page(page_number).load
+    page_size = Setting['advanced.notes_index_per_page'].to_i * 10
+    @links = all_links.page(page_number).per(page_size).load
     @total_count = all_links.size
     @domains_count = all_links.pluck(:url_domain).uniq.size
 

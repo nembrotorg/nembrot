@@ -1,20 +1,22 @@
-- document_title = "#{ t('.title') } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @links, @total_count, @domains_count] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ t('.title') } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
 
-  section
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+    section
 
-    - unless @links.empty?
-      = render 'links_list', links: @links
+      = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
 
-      = paginate @links
+      - unless @links.empty?
+        = render 'links_list', links: @links
 
-      aside.statistics
-        = t('.statistics', count: number_with_delimiter(@total_count), domains_count: number_with_delimiter(@domains_count))
+        = paginate @links
+
+        aside.statistics
+          = t('.statistics', count: number_with_delimiter(@total_count), domains_count: number_with_delimiter(@domains_count))

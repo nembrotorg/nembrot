@@ -1,9 +1,11 @@
-section.links
+- cache [cache_buster(1), links] do
 
-  header
-    h3 = title ||= t('links.index.title')
+  section.links
 
-  ul
-    - links.each do |link|
-      li
-        = render 'shared/link_blurb', link: link
+    header
+      h3 = title ||= t('links.index.title')
+
+    ul
+      - links.each do |link|
+        li
+          = render 'shared/link_blurb', link: link

@@ -1,14 +1,16 @@
-- blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
-- headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
-- url_title = link.url_title || headline
-- url_lede = link.url_lede || blurb
+- cache [cache_buster(1), link] do
 
-= link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
-  h2 = simple_blurbify_link(url_title)
-  p = blurbify(url_lede, [])
+  - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+  - headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
+  - url_title = link.url_title || headline
+  - url_lede = link.url_lede || blurb
 
-ul.details
-  li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
-  li == timeago_tag(link.external_updated_at)
-  - unless link.tags.blank?
-    li = render 'notes/tag_list', tags: link.tags
+  = link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
+    h2 = simple_blurbify_link(url_title)
+    p = blurbify(url_lede, [])
+
+  ul.details
+    li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
+    li == timeago_tag(link.external_updated_at)
+    - unless link.tags.blank?
+      li = render 'notes/tag_list', tags: link.tags

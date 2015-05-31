@@ -61,7 +61,7 @@ class Url
   def dedupe(note)
     # REVIEW: do we want external_updated_at here?
     older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at).first
-    return unless older_note.inferred_url == note.inferred_url
+    return unless older_note && older_note.inferred_url == note.inferred_url
     link.external_updated_at = older_note.external_updated_at
     older_note.destroy!
   end

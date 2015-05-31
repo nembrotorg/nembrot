@@ -7,7 +7,7 @@ class LinksController < ApplicationController
 
     @links = all_links.page(page_number).load
     @total_count = all_links.size
-    @domains_count = all_links.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size
+    @domains_count = all_links.pluck(:url_domain).uniq.size
 
     respond_to do |format|
       format.html

@@ -139,6 +139,11 @@ class Note < ActiveRecord::Base
     inferred_url.scan(%r{https?://([a-z0-9\&\.\-]*)}).flatten.first
   end
 
+  def inferred_original_url
+    return url unless url.blank?
+    inferred_url
+  end
+
   def inferred_url
     return url unless url.blank?
     return source_url unless source_url.blank?
@@ -295,6 +300,7 @@ class Note < ActiveRecord::Base
     update_feature_id
     update_word_count
     update_distance
+    update_url_domain
   end
 
   def update_date
@@ -364,4 +370,8 @@ class Note < ActiveRecord::Base
     feature_id_candidate = get_feature_id
     self.feature_id = get_feature_id.parameterize unless feature_id_candidate.nil?
   end
+
+  def update_url_domain
+    self.url_domain = inferred_url_domain if content_type == 'link'
+  end 
 end

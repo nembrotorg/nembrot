@@ -23,7 +23,7 @@ class Url
     URL_LOG.info "Deduping links..."
     all_links.each do |link|
       older_note = Note.link.where(title: link.title).where('created_at < ?', link.created_at).first
-      if older_note && older_note.inferred_url == link.inferred_url
+      if older_note && older_note.inferred_original_url == link.inferred_original_url
         link.external_updated_at = older_note.external_updated_at
         link.save!
         older_note.destroy!
@@ -49,6 +49,7 @@ class Url
   def update_note_attributes(note, url, doc)
     note.url = url
     note.url_author = doc.author
+    note.url_domain = note.inferred_url_domain
     note.url_html = ActiveSupport::Gzip.compress(doc.html)
     note.url_lede = doc.lede
     note.url_title = doc.title
@@ -59,9 +60,8 @@ class Url
   end
 
   def dedupe(note)
-    # REVIEW: do we want external_updated_at here?
     older_note = Note.link.where(title: note.title).where('created_at < ?', note.created_at).first
-    return unless older_note && older_note.inferred_url == note.inferred_url
+    return unless older_note && older_note.inferred_original_url == note.inferred_original_url
     link.external_updated_at = older_note.external_updated_at
     older_note.destroy!
   end

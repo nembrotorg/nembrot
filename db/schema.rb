@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150531093811) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider",   limit: 255
     t.string   "uid",        limit: 255
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "try_again_at"
   end
 
-  add_index "books", ["slug"], name: "index_sources_on_slug", unique: true
+  add_index "books", ["slug"], name: "index_sources_on_slug", unique: true, using: :btree
 
   create_table "books_notes", force: :cascade do |t|
     t.integer "book_id"
@@ -80,11 +83,11 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
-  add_index "commontator_comments", ["cached_votes_total"], name: "index_commontator_comments_on_cached_votes_total"
-  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
-  add_index "commontator_comments", ["creator_type", "creator_id", "thread_id"], name: "index_c_c_on_c_type_and_c_id_and_t_id"
-  add_index "commontator_comments", ["thread_id"], name: "index_commontator_comments_on_thread_id"
+  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down", using: :btree
+  add_index "commontator_comments", ["cached_votes_total"], name: "index_commontator_comments_on_cached_votes_total", using: :btree
+  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up", using: :btree
+  add_index "commontator_comments", ["creator_type", "creator_id", "thread_id"], name: "index_c_c_on_c_type_and_c_id_and_t_id", using: :btree
+  add_index "commontator_comments", ["thread_id"], name: "index_commontator_comments_on_thread_id", using: :btree
 
   create_table "commontator_subscriptions", force: :cascade do |t|
     t.string   "subscriber_type", limit: 255,             null: false
@@ -95,8 +98,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_subscriptions", ["subscriber_type", "subscriber_id", "thread_id"], name: "index_c_s_on_s_type_and_s_id_and_t_id", unique: true
-  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  add_index "commontator_subscriptions", ["subscriber_type", "subscriber_id", "thread_id"], name: "index_c_s_on_s_type_and_s_id_and_t_id", unique: true, using: :btree
+  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id", using: :btree
 
   create_table "commontator_threads", force: :cascade do |t|
     t.string   "commontable_type", limit: 255
@@ -108,7 +111,7 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true
+  add_index "commontator_threads", ["commontable_type", "commontable_id"], name: "index_c_t_on_c_type_and_c_id", unique: true, using: :btree
 
   create_table "evernote_notes", force: :cascade do |t|
     t.string   "cloud_note_identifier",     limit: 255
@@ -123,8 +126,7 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.text     "cloud_notebook_identifier"
   end
 
-  add_index "evernote_notes", ["cloud_note_identifier"], name: "index_cloud_notes_on_identifier_service_id", unique: true
-  add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id"
+  add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.string   "title",               limit: 255,                 null: false
@@ -158,14 +160,14 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.boolean  "is_promoted"
     t.integer  "weight"
     t.integer  "content_type",                    default: 0,     null: false
-    t.string   "url",                 limit: 255
-    t.string   "url_author",          limit: 255
+    t.string   "url"
+    t.string   "url_author"
     t.binary   "url_html"
     t.text     "url_lede"
-    t.string   "url_title",           limit: 255
+    t.string   "url_title"
     t.datetime "url_updated_at"
     t.datetime "url_accessed_at"
-    t.string   "url_lang",            limit: 255
+    t.string   "url_lang"
     t.string   "url_domain"
   end
 
@@ -186,12 +188,25 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.integer  "tweet_id",            limit: 8
   end
 
+  create_table "rails_admin_histories", force: :cascade do |t|
+    t.text     "message"
+    t.string   "username",   limit: 255
+    t.integer  "item"
+    t.string   "table",      limit: 255
+    t.integer  "month",      limit: 2
+    t.integer  "year",       limit: 8
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+
   create_table "resources", force: :cascade do |t|
     t.string   "cloud_resource_identifier", limit: 255
     t.string   "mime",                      limit: 255
-    t.text     "caption",                   limit: 255
-    t.text     "description",               limit: 255
-    t.text     "credit",                    limit: 255
+    t.text     "caption"
+    t.text     "description"
+    t.text     "credit"
     t.string   "source_url",                limit: 255
     t.datetime "external_updated_at"
     t.float    "latitude"
@@ -214,8 +229,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "try_again_at"
   end
 
-  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true
-  add_index "resources", ["note_id"], name: "index_resources_on_note_id"
+  add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true, using: :btree
+  add_index "resources", ["note_id"], name: "index_resources_on_note_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255, null: false
@@ -224,8 +239,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",        limit: 255, null: false
@@ -236,7 +251,7 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -248,8 +263,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name",           limit: 255
@@ -257,8 +272,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.integer "taggings_count",             default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
-  add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "reset_password_token",   limit: 255
@@ -287,8 +302,8 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.string   "remember_token",         limit: 255
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",           limit: 255, null: false
@@ -299,13 +314,13 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "created_at"
     t.integer  "sequence"
     t.text     "tag_list"
-    t.text     "instruction_list",    limit: 255
+    t.text     "instruction_list"
     t.integer  "word_count"
     t.datetime "external_updated_at"
     t.integer  "distance"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -319,7 +334,7 @@ ActiveRecord::Schema.define(version: 20150531093811) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
 end

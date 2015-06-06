@@ -15,6 +15,6 @@ namespace :sync do
   def sync_associated
     Resource.sync_all_binaries
     Book.sync_all
-    Url.sync_all
+    # Url.sync_all
   end
 end

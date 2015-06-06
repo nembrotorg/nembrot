@@ -36,14 +36,9 @@ class Url
   private
 
   def resolve_url(url)
-    # REVIEW: This makes an extra call and could be avoided (by forking gem)
-    uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host)
-    return url if uri.path.blank?
-    response = http.get(uri.path)
-    response.header['location']
-    #rescue
-    #  return url
+    Embiggen::URI(url).expand.to_s
+    rescue
+      return url
   end
 
   def update_note_attributes(note, url, doc)

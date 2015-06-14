@@ -7,7 +7,7 @@ namespace :settings do
     puts 'Updating default settings...'
 
     # First remove obsolete settings
-    Setting.all.each do |key, value|
+    Setting.all.each do |key|
       Setting.destroy key if Constant[key].nil? && !Setting[key].nil?
     end
 

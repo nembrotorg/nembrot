@@ -96,7 +96,7 @@
         li
           +hyphens
           font:
-            size: $small-font-size + 1px
+            size: $small-font-size
       .side-annotations
         position: relative
         ol
@@ -108,26 +108,29 @@
             position: absolute
             a[href*=annotation-mark]
               font:
-                size: $small-font-size - 2px
-              line-height: 0
-              padding-right: 3px
+                size: $small-font-size
+              // line-height: 0
+              padding-right: 2px
               text-align: right
-              vertical-align: super
-              width: $text-indent - 3px
+              // vertical-align: super
+              width: $text-indent - 2px
+              &:after
+                content: '. '
       .aside
         clear: both
     &:hover
       #text
         a
-          //background-image: linear-gradient(to top, rgba(0,0,0,0) 13%, rgba(0,0,0,0.8) 13%, rgba(0,0,0,0.8) 16%, rgba(0,0,0,0) 16%)
-          background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))
+          background:
+            color: transparent
+            image: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 50%)
+            position: 0 ($line-height * 2/3)
+            repeat: repeat-x
+            size: 2px 2px
           color: $body-font-color
-          text-decoration: none
-          // text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
-          text-shadow: 0.03em 0 rgb(255, 255, 255), -0.03em 0 rgb(255, 255, 255), 0 0.03em rgb(255, 255, 255), 0 -0.03em rgb(255, 255, 255), 0.06em 0 rgb(255, 255, 255), -0.06em 0 rgb(255, 255, 255), 0.09em 0 rgb(255, 255, 255), -0.09em 0 rgb(255, 255, 255), 0.12em 0 rgb(255, 255, 255), -0.12em 0 rgb(255, 255, 255), 0.15em 0 rgb(255, 255, 255), -0.15em 0 rgb(255, 255, 255)
-          transition: background-image 1s
-          // GD border-bottom: 0.0625rem solid #dcdcdc
-          // GD transition: border-color .15s ease-out
+          text:
+            decoration: none
+            shadow: 0.03em 0 $background-color, -0.03em 0 $background-color, 0 0.03em $background-color, 0 -0.03em $background-color, 0.06em 0 $background-color, -0.06em 0 $background-color, 0.09em 0 $background-color, -0.09em 0 $background-color, 0.12em 0 $background-color, -0.12em 0 $background-color, 0.15em 0 $background-color, -0.15em 0 $background-color
           &[id^=annotation], &[href^='#annotation']
             text-decoration: none
     &[dir=rtl]

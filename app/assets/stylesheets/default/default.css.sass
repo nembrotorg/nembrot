@@ -18,6 +18,7 @@ html
 
 body
   +font-color
+  background-color: $background-color
 
 a
   text-decoration: none
@@ -28,7 +29,7 @@ a
 
 nav ul li a:first-of-type
   &[href*=pdf]
-    +body-font-citation
+    +citation-font
     &:before
       +icon-download
   &[dir=rtl]
@@ -150,7 +151,7 @@ h1
   margin: $line-height 0
   line-height: $line-height
   font:
-    family: $headline-font-family
+    family: $headline-font-stack
     weight: normal
     size: $headline-font-size
 
@@ -333,7 +334,7 @@ figure
         padding: 0
         width: $text-indent
     figcaption
-      +body-font-citation
+      +citation-font
       margin-left: $text-indent
       padding: 0
       &:before
@@ -350,7 +351,7 @@ iframe
 
 .annotations
   font:
-    size: $small-font-size + 1px
+    size: $small-font-size
   line-height: $line-height * 2/3
   text-align: left !important
   text-indent: 0
@@ -369,7 +370,7 @@ iframe
         width: $text-indent
 
 .citation
-  +body-font-citation
+  +citation-font
 
 .count
   color: $count-color
@@ -509,8 +510,10 @@ footer
 
   .body
     blockquote
-      +body-font-citation
-      margin: ($line-height / 2) $text-indent
+      +citation-font
+      font-size: $small-font-size + 2px
+      line-height: $line-height * 2/3
+      margin: ($line-height / 3) $text-indent
     table
       td
         font:
@@ -566,7 +569,7 @@ footer
         display: block
         margin: 0
         font:
-          family: $headline-font-family
+          family: $headline-font-stack
           size: $body-font-size
       &:first-of-type
         h2
@@ -608,7 +611,7 @@ footer
 section.ins-section, article.ins-section
   #text
     .body
-      +body-font-citation
+      +citation-font
       text-align: left
   .statistics
     display: none
@@ -629,7 +632,7 @@ section.ins-section, article.ins-section
     h2
       color: $body-font-color !important
       font:
-        family: $headline-font-family
+        family: $headline-font-stack
         size: $body-font-size
         weight: bold
     &> a
@@ -838,11 +841,11 @@ ul.admin
       counter-increment: paragraphs 1
       position: relative
       &:before
-        +monospace-font
+        +code-font
         color: $off-color
         content: counter(paragraphs)
         display: block
-        font-size: $small-font-size - 3px
+        font-size: $small-font-size - 2px
         left: $text-indent * -3
         line-height: $line-height
         position: absolute

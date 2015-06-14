@@ -5,7 +5,7 @@
     &:before, &:after
       display: none
 
-+embed-font($monospace-font, $monospace-font-variant)
++embed-font-suite($code-font)
 
 #pantograph
   margin-bottom: 0
@@ -14,7 +14,7 @@
     +rule-once($background-color, 2px, $line-top: 50%)
     background-color: #9ff
     font:
-      family: $monospace-font-family
+      family: $code-font-stack
       size: 25px
     height: $line-height * 2
     margin: 0

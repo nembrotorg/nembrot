@@ -187,6 +187,13 @@ namespace :settings do
   end
 end
 
+namespace :sidekiq do
+  desc "Start sidekiq"
+  task :default do
+    run "cd #{release_path} && sidekiq -C config/sidekiq.yml"
+  end
+end
+
 # after 'deploy:update_code', 'whenever:update_crontab'
 # after 'deploy:update_code', 'settings:update_defaults'
 

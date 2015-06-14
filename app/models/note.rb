@@ -49,6 +49,7 @@ class Note < ActiveRecord::Base
   # REVIEW: Reinstate this - need to react to change sin the url
   # before_save :reset_url, if: "body_changed? || source_url_changed?"
   after_save :scan_note_for_isbns, if: :body_changed?
+  after_save :defer_url_decoration
 
   paginates_per Setting['advanced.notes_index_per_page'].to_i
 
@@ -373,5 +374,9 @@ class Note < ActiveRecord::Base
 
   def update_url_domain
     self.url_domain = inferred_url_domain if content_type == 'link'
-  end 
+  end
+
+  def defer_url_decoration
+    UrlDecorateNoteJob.perform_later(self)
+  end
 end

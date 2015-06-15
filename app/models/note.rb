@@ -33,12 +33,14 @@ class Note < ActiveRecord::Base
   default_scope { order('weight ASC, external_updated_at DESC') }
   # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
   scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
+  scope :dateordered, -> { order('external_updated_at DESC') }
   scope :features, -> { where.not(feature: nil) }
   scope :listable, -> { note.where(listable: true) }
+  # scope :mappable, -> { where (is_mapped: true) }
+  scope :processed_urls, -> { where.not(url_accessed_at: nil) }
   scope :publishable, -> { where(active: true, hide: false) }
   scope :unprocessed_urls, -> { where(url_accessed_at: nil) }
-  scope :processed_urls, -> { where.not(url_accessed_at: nil) }
-  # scope :mappable, -> { where (is_mapped: true) }
+  scope :weighted, -> { order('weight ASC') }
 
   validates :title, :external_updated_at, presence: true
   validate :body_or_source_or_resource?

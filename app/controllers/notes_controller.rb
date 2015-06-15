@@ -3,7 +3,7 @@ class NotesController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_notes = Note.publishable.listable.blurbable
+    all_notes = Note.unscoped.dateordered.publishable.listable.blurbable
 
     @notes = all_notes.page(page_number).load
     @map = all_notes.mappable
@@ -18,7 +18,7 @@ class NotesController < ApplicationController
   end
 
   def map
-    @notes = Note.publishable.listable.blurbable.mappable
+    @notes = Note.unscoped.dateordered.publishable.listable.blurbable
     @word_count = @notes.sum(:word_count)
 
     @map = mapify(@notes)

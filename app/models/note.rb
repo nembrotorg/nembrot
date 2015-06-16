@@ -379,6 +379,6 @@ class Note < ActiveRecord::Base
   end
 
   def queue_url_decoration
-    UrlDecorateNoteJob.perform_later(self) if body_changed? || source_url_changed?
+    UrlDecorateNoteJob.perform_later(self) if !inferred_url.nil? && (body_changed? || source_url_changed?)
   end
 end

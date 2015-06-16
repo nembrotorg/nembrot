@@ -13,7 +13,6 @@
     li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
     - unless link.url_author.blank?
       li = link.url_author
-    li = timeago_tag(link.external_updated_at)
     li == timeago_tag(link.external_updated_at)
     - unless link.tags.blank?
       li = render 'notes/tag_list', tags: link.tags

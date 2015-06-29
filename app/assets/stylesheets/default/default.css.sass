@@ -64,7 +64,7 @@ nav ul li a:first-of-type
     +icon-mail
     +icon-regular
   &[href$=rss]:before,
-  &[href$=atom]:before      
+  &[href$=atom]:before
     +icon-rss
     +icon-regular
   &[href*=reset]:before
@@ -203,7 +203,7 @@ cite, em
       content: ''
 
 .home-index, .notes-index, .notes-show, .notes-version,
-.features-index section:not(.ins-section), .features-show section:not(.ins-section), 
+.features-index section:not(.ins-section), .features-show section:not(.ins-section),
 .features-show article:not(.ins-section), .features-version
   h1
     +font-color($headline-font-color)
@@ -255,7 +255,7 @@ ol, ul, .statistics, iframe, table, form, fieldset
 
 // ol, ul, .statistics, iframe, table, form, fieldset
 //  ol, ul, .statistics, iframe, table, form, fieldset
-//    margin-bottom: 0  
+//    margin-bottom: 0
 
 .breadcrumb
   +arrow-links
@@ -279,7 +279,7 @@ header
   background-color: $error-background-color
   &:before
     +icon-attention
-.notice, 
+.notice,
 .success
   background-color: $success-background-color
   &:before
@@ -570,7 +570,7 @@ footer
         margin: 0
         font:
           family: $headline-font-stack
-          size: $body-font-size
+          size: 1.1em
       &:first-of-type
         h2
           display: none
@@ -837,7 +837,7 @@ ul.admin
 .ins-enumerate
   counter-reset: paragraphs
   #text
-    &.regular p, section.source p, p.source 
+    &.regular p, section.source p, p.source
       counter-increment: paragraphs 1
       position: relative
       &:before

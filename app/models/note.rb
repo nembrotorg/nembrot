@@ -254,7 +254,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_lang(content = "#{ title } #{ clean_body }")
-    lang_instruction = Array(instruction_list).find { |v| v =~ /__LANG_/ } 
+    lang_instruction = Array(instruction_list).find { |v| v =~ /__LANG_/ }
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
@@ -265,7 +265,7 @@ class Note < ActiveRecord::Base
   end
 
   def update_weight
-    weight_instruction = Array(instruction_list).find { |v| v =~ /__WEIGHT_|__ORDER_/ } 
+    weight_instruction = Array(instruction_list).find { |v| v =~ /__WEIGHT_|__ORDER_/ }
     if weight_instruction
      weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
     end

@@ -21,7 +21,7 @@ add_scrolling_class = () ->
 insert_qr_code = () ->
   # Get image size from settings
   $('body > footer img.qr_code').remove()
-  $('body > footer').prepend('<img class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' + location.href + '" alt="QR code">')
+  $('body > footer').prepend('<img onload="$(document).trigger(\'nembrot:painted\')" class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&rnd=' + Math.random() + '&chl=' + location.href + '" alt="QR code">')
 
 load_user_menu = () ->
   $.ajax
@@ -59,11 +59,8 @@ _shorter_total = (num) ->
 
 window.Nembrot.load_user_menu = load_user_menu
 
-# Document hooks ******************************************************************************************************
-
 $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
-
   $(document).on 'pjax:timeout', 'body', ->
     false
 
@@ -95,26 +92,45 @@ $ ->
 
   $('time').timeago()
   update_titles()
-  insert_qr_code()
   load_user_menu()
   truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('p'))
   build_tabs()
+  insert_qr_code()
+  Hyphenator.run()
 
   # REVIEW: This isn't working at the moment
   #  There's a hardcoded script at the end of form.
   #  Also we need to open .active
   # $('#dashboard form').accordion header: 'legend'
 
+  $(window).on 'resize', ->
+    place_annotations()
+
+$(document).on 'nembrot:hyphenated', ->
+  unorphan($('p, blockquote, .annotations li'))
+  window.Nembrot.fix_collated_paragraph_heights()
+  window.Nembrot.place_annotations()
+
 $(document).on 'pjax:success', '#main', (data) ->
   $('time').timeago()
   update_titles()
-  insert_qr_code()
-  #truncate_blurbs()
+  truncate_blurbs()
   hljs.initHighlightingOnLoad()
-  unorphan($('p'))
   build_tabs()
+  insert_qr_code()
+  Hyphenator.run()
 
-#$(window).on 'resize', ->
-#  truncate_blurbs()
+#$ ->
+  #$(window).on 'resize', ->
+  #  truncate_blurbs()
+  # Document hooks ******************************************************************************************************
+
+  #$(document).on 'painted', ->
+  #  place_annotations()
+
+  #$(document).on 'pjax:success', '#main', (data) ->
+  #  place_annotations()
+
+  #$(window).on 'popstate', ->
+  #  place_annotations()

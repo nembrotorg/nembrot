@@ -1,7 +1,6 @@
 place_annotations = () ->
   if $('html.wider-than-720px').length > 0
-    # Not sure what we're waiting for but it works more reliably
-    setTimeout place_annotations_do, 500
+    place_annotations_do()
   else
     place_annotations_undo()
 
@@ -44,16 +43,4 @@ place_annotations_undo = () ->
   $('.annotations').removeClass('side-annotations')
   $('li[id*=annotation-]').css('top', '0')
 
-# Document hooks ******************************************************************************************************
-
-$ ->
-  place_annotations()
-
-  $(document).on 'pjax:success', '#main', (data) ->
-    place_annotations()
-
-  $(window).on 'popstate', ->
-    place_annotations()
-
-  $(window).on 'resize', ->
-    place_annotations()
+window.Nembrot.place_annotations = place_annotations

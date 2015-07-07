@@ -64,7 +64,7 @@ $ ->
   $(document).on 'pjax:timeout', 'body', ->
     false
 
-  $(document).pjax('.breadcrumb a,#menu a,#main a:not([data-remote])', '[data-pjax-container]')
+  $(document).pjax('#main a:not([data-remote]),footer a', '[data-pjax-container]')
 
   $(document).on 'touchmove', 'body', ->
     add_scrolling_class()

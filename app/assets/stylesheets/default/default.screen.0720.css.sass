@@ -50,7 +50,14 @@
     +suffix(6)
     a
       display: block
-      // padding-right: 34.38889%
+      &:hover
+        blockquote, blockquote:before, figcaption
+          color: $link-hover-color
+
+  .links
+    a:hover
+      blockquote, blockquote:before, figcaption
+        color: $external-link-hover-color
 
   .notes
     li
@@ -123,7 +130,7 @@
         a
           background:
             color: transparent
-            image: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 50%)
+            image: linear-gradient(to bottom, rgba($body-font-color,0) 50%, rgba($body-font-color,0.6) 50%)
             position: 0 ($line-height * 2/3)
             repeat: repeat-x
             size: 2px 2px
@@ -133,6 +140,14 @@
             shadow: 0.03em 0 $background-color, -0.03em 0 $background-color, 0 0.03em $background-color, 0 -0.03em $background-color, 0.06em 0 $background-color, -0.06em 0 $background-color, 0.09em 0 $background-color, -0.09em 0 $background-color, 0.12em 0 $background-color, -0.12em 0 $background-color, 0.15em 0 $background-color, -0.15em 0 $background-color
           &[id^=annotation], &[href^='#annotation']
             text-decoration: none
+          &:hover
+            background:
+              image: linear-gradient(to bottom, rgba($link-hover-color,0) 50%, rgba($link-hover-color,0.6) 50%)
+            color: $link-hover-color
+            &[href^='http']
+              background:
+                image: linear-gradient(to bottom, rgba($external-link-hover-color,0) 50%, rgba($external-link-hover-color,0.6) 50%)
+              color: $external-link-hover-color
     &[dir=rtl]
       header
         +span-columns(6)

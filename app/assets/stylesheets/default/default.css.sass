@@ -198,7 +198,7 @@ cite, em
     content: ' '
 
 .caption
-  .figcaption
+  figcaption
     cite:after
       content: ''
 
@@ -295,8 +295,15 @@ footer
       text-transform: lowercase
     li
       a
-        &[href*=http]:after
-          display: none
+        &[href*=http],
+        &[href*=mailto]
+          &:before
+            display: inline-block
+            padding-right: 0.35em !important
+            text-align: center
+            width: $text-indent * 2/3
+          &:after
+            display: none
         &[href*=vimeo]:before
           +icon-medium
   small:before
@@ -334,7 +341,6 @@ figure
         padding: 0
         width: $text-indent
     figcaption
-      +citation-font
       margin-left: $text-indent
       padding: 0
       &:before
@@ -511,8 +517,8 @@ footer
   .body
     blockquote
       +citation-font
-      font-size: $small-font-size + 2px
-      line-height: $line-height * 2/3
+      font-size: 1.1em
+      line-height: $line-height
       margin: ($line-height / 3) $text-indent
     table
       td

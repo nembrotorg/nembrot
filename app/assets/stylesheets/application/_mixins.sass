@@ -13,6 +13,13 @@
       +icon-small
       width: $text-indent / 2
 
+=truncated-line
+  display: block
+  width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
   +font-color
   h2

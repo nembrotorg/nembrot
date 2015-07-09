@@ -233,6 +233,9 @@ footer
     margin-bottom: $line-height
     ul
       margin-bottom: 0
+      li
+        a
+          +truncated-line
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -443,6 +446,8 @@ article, .links > ul > li
             +icon-link-ext
           &:after
             content: ', '
+          h2
+            +truncated-line
     .tags
       margin: 0
 

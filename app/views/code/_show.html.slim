@@ -3,42 +3,42 @@
   #tabs
     ul
       li
+        a href="#view"
+          | View
+      li
         a href="#model"
           | Model
       li
         a href="#controller"
           | Controller
-      li
-        a href="#view"
-          | View
-      li
-        a href="#request"
-          | Request
-      li
-        a href="#application"
-          | Application
-      li
-        a href="#server"
-          | Server
+      -#li
+      -#  a href="#request"
+      -#    | Request
+      -#li
+      -#  a href="#application"
+      -#    | Application
+      -#li
+      -#  a href="#server"
+      -#    | Server
 
+    #view
+      h2 == @view_file
+      .CodeRay == @view_script
     #model
       h2 == @model_file
       .CodeRay == @model_script
     #controller
       h2 == @controller_file
       .CodeRay == @controller_script
-    #view
-      h2 == @view_file
-      .CodeRay == @view_script
-    #request
-      h2 == "Request"
-      -#.CodeRay == File.read File.join(Rails.root, 'log', 'url.log')
-    #application
-      h2 == "Application"
-      iframe src="https://rpm.newrelic.com/public/charts/CjWw80It0D" width="500px" height="300px" scrolling="no" frameborder="no"
-    #server
-      h2 == "Server"
-      iframe src="https://rpm.newrelic.com/public/charts/lwlmj9SL0pe" width="100%" height="33%" scrolling="no" frameborder="no"
+    -##request
+    -#  h2 == "Request"
+    -#  .CodeRay == File.read File.join(Rails.root, 'log', 'url.log')
+    -##application
+    -#  h2 == "Application"
+    -#  iframe src="https://rpm.newrelic.com/public/charts/CjWw80It0D" width="500px" height="300px" scrolling="no" frameborder="no"
+    -##server
+    -#  h2 == "Server"
+    -#  iframe src="https://rpm.newrelic.com/public/charts/lwlmj9SL0pe" width="100%" height="33%" scrolling="no" frameborder="no"
 
   a href="#close"
-    | X
+    | &times;

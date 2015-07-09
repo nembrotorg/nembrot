@@ -12,7 +12,7 @@ a:focus
     height: 100%
     padding-left: $text-indent / 2
     padding-top: $line-height / 2
-    position: absolute
+    position: fixed
     right: 0
     top: 0
     width: 100%
@@ -48,10 +48,18 @@ a:focus
       margin:
         top: $line-height
         bottom: $line-height
+    a[href='#close']
+      color: $secondary-color
+      font-size: 3em
+      position: absolute
+      right: $text-indent / 2
+      top: $line-height / 2
 
     .CodeRay
+      background-color: $background-color
       border: none
       padding: 0
+      overflow: scroll-y
       table
         // margin-left: $text-indent * -1
         padding: 0

@@ -79,11 +79,6 @@ $ ->
       $('body').removeClass('mousemoving')
     , 3000)
 
-  clearTimeout(window.documentloading)
-  window.documentloading = setTimeout(->
-    $('html').removeClass('document-loading')
-  , 3000)
-
   $(document).on 'click', 'a[href="#close"]', (event) ->
     event.preventDefault()
     parent = $(event.target).parent()

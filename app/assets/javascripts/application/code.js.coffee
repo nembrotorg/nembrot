@@ -25,5 +25,5 @@ $ ->
     toggle_code()
     false
 
-  $(document).on 'pjax:success', '#main', (data) ->
-    load_code()
+$(document).on 'pjax:success', '#main', (data) ->
+  load_code()

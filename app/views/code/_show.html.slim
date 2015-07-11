@@ -6,11 +6,11 @@
         a href="#view"
           | View
       li
-        a href="#model"
-          | Model
-      li
         a href="#controller"
           | Controller
+      li
+        a href="#model"
+          | Model
       -#li
       -#  a href="#request"
       -#    | Request
@@ -24,12 +24,12 @@
     #view
       h2 == @view_file
       .CodeRay == @view_script
-    #model
-      h2 == @model_file
-      .CodeRay == @model_script
     #controller
       h2 == @controller_file
       .CodeRay == @controller_script
+    #model
+      h2 == @model_file
+      .CodeRay == @model_script
     -##request
     -#  h2 == "Request"
     -#  .CodeRay == File.read File.join(Rails.root, 'log', 'url.log')

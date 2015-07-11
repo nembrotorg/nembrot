@@ -85,6 +85,14 @@ en:
       title: "Citation %{id}"
       not_found: "Citation %{id} is not available."
 
+  colophon:
+    index:
+      title: 'Colophon'
+    gems:
+      title: 'Gems'
+    palette:
+      title: 'Palette'
+
   links:
     index:
       title: 'Links'

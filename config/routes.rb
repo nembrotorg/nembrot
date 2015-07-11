@@ -19,6 +19,8 @@ Nembrot::Application.routes.draw do
   get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
   get 'citations(/p/:page)' => 'citations#index', as: :citations
 
+  get 'colophon' => 'colophon#index', as: :colophon
+
   get 'links(/:tab)(/p/:page)' => 'links#index', as: :links
 
   get 'texts/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version

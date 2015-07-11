@@ -81,9 +81,17 @@
         width: auto // OPTIMIZE: We get these measurements from the columns.
         height: $line-height * 5
 
-  .books-index
+  .books-index, .colophon-index .gems
     ul
       +columns(2)
+
+  .colophon-index .palette
+    margin-bottom: $line-height
+    ul
+      +horizontal-list
+      li
+        +code-font
+        padding-top: $line-height * 2
 
   .home-index
     .notes

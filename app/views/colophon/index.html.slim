@@ -1,0 +1,29 @@
+- document_title = "#{ t('.title') } | #{ t('site.title') }"
+- set_meta_tags title: document_title,
+                description: '',
+                open_graph: { title: document_title }
+
+div class="#{ controller.controller_name }-#{ controller.action_name }"
+
+  nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+  section
+
+    = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
+
+    section.palette
+      header
+        h3 = title ||= t('colophon.palette.title')
+      ul
+        - @palette.each do |swatch|
+          - swatch = swatch.gsub(/[^#0-9a-f]/, '')
+          - swatch = swatch.gsub(/^#(.)(.)(.)$/, '#\\1\\1\\2\\2\\3\\3')
+          li(style="background-color:#{ swatch }")= swatch
+
+    section.gems
+      header
+        h3 = title ||= t('colophon.gems.title')
+      ul
+        - @gems.each do |gem|
+          - et_al = gem.authors.size > 1 ? ' et al.' : ''
+          li = link_to "#{ gem.name.titlecase } v#{ gem.version.version } by #{ gem.author }#{ et_al }".html_safe, gem.homepage

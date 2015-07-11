@@ -22,8 +22,8 @@
     },
     {
       "uid": "79980efd0ff432ee7722ba84b2a460b7",
-      "css": "glyph",
-      "code": 59430,
+      "css": "glyph-1",
+      "code": 59431,
       "src": "custom_icons",
       "selected": false,
       "svg": {
@@ -236,6 +236,12 @@
       "uid": "0f6a2573a7b6df911ed199bb63717e27",
       "css": "github-circled-1",
       "code": 61595,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b846892636bd74112998bb159bdddf27",
+      "css": "trello",
+      "code": 59431,
       "src": "fontawesome"
     },
     {

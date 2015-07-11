@@ -20,6 +20,8 @@ footer
           - @sections.each do |section|
             li = link_to section.get_feature_name.titlecase, feature_path(feature: section.feature)
 
+          li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?
+
       li
         ul.channels
 
@@ -27,6 +29,5 @@ footer
             li = link_to site_title_from_url(link), "http://#{ link }"
 
           li = link_to t('atom_feed'), notes_url(:atom)
-          li = link_to Setting['advanced.contact_email'], "mailto:#{ Setting['advanced.contact_email'] }" unless Setting['advanced.contact_email'].blank?
 
   small.copyright = t('copyright_html')

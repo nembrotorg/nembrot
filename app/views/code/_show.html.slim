@@ -2,6 +2,9 @@
 
   #tabs
     ul
+      -#li
+      -#  a href="#source"
+      -#    | Source
       li
         a href="#view"
           | View
@@ -21,6 +24,10 @@
       -#  a href="#server"
       -#    | Server
 
+    -##source
+    -#  h2
+    -#    | HTML source
+    -#  pre#html-source
     #view
       h2 == @view_file
       .CodeRay == @view_script

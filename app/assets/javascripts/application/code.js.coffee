@@ -7,6 +7,8 @@ toggle_code = () ->
   ga('send', 'pageview', file)
 
 load_code = () ->
+  #$('#html-source').html(document.documentElement.outerHTML)
+
   # Controller and action are written in <html>
   file = '/code/' + $('#main > div').attr('class').replace(/ .*/, '').replace('s-', '/').replace('-', '/')
   $.ajax

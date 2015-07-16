@@ -81,7 +81,7 @@
   opacity: $opacity
   +transition($transition)
 
-=font-color($color: $font-color, $hover-color: $link-hover-color)
+=font-color($color: $font-color, $link-hover-color: $link-hover-color)
   border-color: $color
   color: $color
   a
@@ -94,14 +94,14 @@
       border-color: $color
       color: $color
     &:hover
-      border-color: $hover-color
-      color: $hover-color
+      border-color: $link-hover-color
+      color: $link-hover-color
       &:before
-        border-color: $hover-color
-        color: $hover-color
+        border-color: $link-hover-color
+        color: $link-hover-color
       &:after
-        border-color: $hover-color
-        color: $hover-color
+        border-color: $link-hover-color
+        color: $link-hover-color
     &[href^=http]
       border-color: $color
       color: $color

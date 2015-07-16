@@ -18,6 +18,18 @@ load_code = () ->
     success: (html) ->
       $('#code').html(html)
       $("#tabs").tabs()
+      html_code = document.documentElement.outerHTML
+      html_code = hljs.highlight('html', html_code, true)
+      html_code = hljs.fixMarkup(html_code.value)
+      $('#htmlsource').html(html_code)
+
+  # $.ajax
+  #   url: "https://raw.githubusercontent.com/joegattnet/joegattnet_v3/master/app/models/note.rb"
+  #   cache: true
+  #   success: (code) ->
+  #     code = hljs.highlight('ruby', code, true)
+  #     code = hljs.fixMarkup(code.value)
+  #     $('#htmlsource').html(code)
 
 # Document hooks ******************************************************************************************************
 

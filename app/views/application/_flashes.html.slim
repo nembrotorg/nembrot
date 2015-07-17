@@ -1,4 +1,6 @@
-- unless flash.blank?
-  aside#notice
-    - flash.each do |type, message|
-      p class=(type) = message
+- cache [cache_buster(1)] do
+
+  - unless flash.blank?
+    aside#notice
+      - flash.each do |type, message|
+        p class=(type) = message

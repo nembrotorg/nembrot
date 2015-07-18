@@ -1,4 +1,4 @@
-- cache [cache_buster(1), @controller, @action] do
+- cache [cache_buster(1)] do
 
   #tabs
     ul
@@ -14,39 +14,24 @@
       li
         a href="#model"
           | Model
-      -#li
-      -#  a href="#request"
-      -#    | Request
-      -#li
-      -#  a href="#application"
-      -#    | Application
-      -#li
-      -#  a href="#server"
-      -#    | Server
 
     #source
       h2
         | Source
       pre
-        code#htmlsource
+        code#html-source
     #view
       h2 == @view_file
-      .CodeRay == @view_script
+      pre
+        code#view-code
     #controller
       h2 == @controller_file
-      .CodeRay == @controller_script
+      pre
+        code#controller-code
     #model
       h2 == @model_file
-      .CodeRay == @model_script
-    -##request
-    -#  h2 == "Request"
-    -#  .CodeRay == File.read File.join(Rails.root, 'log', 'url.log')
-    -##application
-    -#  h2 == "Application"
-    -#  iframe src="https://rpm.newrelic.com/public/charts/CjWw80It0D" width="500px" height="300px" scrolling="no" frameborder="no"
-    -##server
-    -#  h2 == "Server"
-    -#  iframe src="https://rpm.newrelic.com/public/charts/lwlmj9SL0pe" width="100%" height="33%" scrolling="no" frameborder="no"
+      pre
+        code#model-code
 
   a class="close" href="#close"
     | &times;

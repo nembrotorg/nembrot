@@ -1,8 +1,8 @@
-section.books
+- cache [cache_buster(1), books] do
 
-  header
-    h3 = title ||= t('books.index.title')
-
-  ul
-    - books.each do |book|
-      li = link_to_unless_current_or_wrap "#{ book.headline } <span class=\"count\">#{ book.notes.size }</span>".html_safe, book
+  section.books
+    header
+      h3 = title ||= t('books.index.title')
+    ul
+      - books.each do |book|
+        li = link_to_unless_current_or_wrap "#{ book.headline } <span class=\"count\">#{ book.notes.size }</span>".html_safe, book

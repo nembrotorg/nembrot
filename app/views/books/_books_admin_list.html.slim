@@ -1,14 +1,14 @@
-section.books
+- cache [cache_buster(1), books] do
 
-  header
-    h3 = title ||= t('books.index.title')
-
-  table
-    - books.each do |book|
-      tr
-        td= book.author
-        td= mode == 'cited' ? (link_to_unless_current_or_wrap book.title, book_path(book)) : book.title
-        td= book.published_date.nil? ? '' : book.published_date.year
-        td= book.published_city
-        td= book.isbn
-        td= link_to_unless_current_or_wrap 'Edit', edit_book_path(book.id)
+  section.books
+    header
+      h3 = title ||= t('books.index.title')
+    table
+      - books.each do |book|
+        tr
+          td= book.author
+          td= mode == 'cited' ? (link_to_unless_current_or_wrap book.title, book_path(book)) : book.title
+          td= book.published_date.nil? ? '' : book.published_date.year
+          td= book.published_city
+          td= book.isbn
+          td= link_to_unless_current_or_wrap 'Edit', edit_book_path(book.id)

@@ -1,9 +1,9 @@
-nav#admin
+- cache [cache_buster(1)] do
 
-  header
-    h3= title ||= t('admin.title')
-
-  ul
-    li= link_to t('settings.edit.title'), edit_settings_path
-    li= link_to t('books.admin.title_no_mode'), books_admin_path
-    li= link_to t('links.admin.title'), links_admin_path
+  nav#admin
+    header
+      h3= title ||= t('admin.title')
+    ul
+      li= link_to t('settings.edit.title'), edit_settings_path
+      li= link_to t('books.admin.title_no_mode'), books_admin_path
+      li= link_to t('links.admin.title'), links_admin_path

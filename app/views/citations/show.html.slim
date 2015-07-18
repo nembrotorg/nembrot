@@ -1,24 +1,18 @@
-- document_title = "#{ @citation.headline } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: @citation.body,
-                open_graph: { title: @citation.title }
+- cache [cache_buster(1), @citation, @tags] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ @citation.headline } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: @citation.body,
+                  open_graph: { title: @citation.title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-  article
-
-    section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
-
-      = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, document_title: document_title
-
-      section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
-
-        - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
-
-        figure.citation
-          blockquote= blurbify(citation_text, @citation.books)
-          figcaption= blurbify(attribution, @citation.books, 'citation.book.inline_html', 'citation.link.inline_html')
-
-    = render 'notes/tag_list', tags: @tags unless @tags.empty?
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
+    article
+      section#content lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+        = render 'header', title: t('citations.index.title', id: @citation.id), subtitle: nil, document_title: document_title
+        section  lang=lang_attr(@citation.lang) dir=dir_attr(@citation.lang)
+          - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
+          figure.citation
+            blockquote= blurbify(citation_text, @citation.books)
+            figcaption= blurbify(attribution, @citation.books, 'citation.book.inline_html', 'citation.link.inline_html')
+      = render 'notes/tag_list', tags: @tags unless @tags.empty?

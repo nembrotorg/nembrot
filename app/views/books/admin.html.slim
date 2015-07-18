@@ -4,21 +4,15 @@
                 open_graph: { title: document_title }
 
 div class="#{ controller.controller_name }-#{ controller.action_name }"
-
   nav = render_breadcrumbs builder: ::OrderedListBuilder
-
   section
-
     = render 'header', title: t('.title', mode: @mode.humanize), subtitle: nil, document_title: document_title, show_flashes: true
-
     nav
       ul
         li= link_to_unless_current_or_wrap 'Missing Metadata', '/bibliography/admin'
         li= link_to_unless_current_or_wrap 'Cited', '/bibliography/admin/cited'
         li= link_to_unless_current_or_wrap 'Citable', '/bibliography/admin/citable'
         li= link_to_unless_current_or_wrap 'Editable', '/bibliography/admin/editable'
-
     = render 'books_admin_list', books: @books, mode: @mode unless @books.empty?
-
     aside.statistics
       = t('.statistics', count: number_with_delimiter(@books.size))

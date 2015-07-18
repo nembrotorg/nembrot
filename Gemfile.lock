@@ -534,7 +534,6 @@ DEPENDENCIES
   capybara
   capybara-webkit
   codeclimate-test-reporter
-  coderay
   coffee-rails
   commontator
   compass-rails

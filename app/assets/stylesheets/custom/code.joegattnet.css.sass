@@ -47,7 +47,7 @@ a:focus
       height: $line-height
       margin:
         top: $line-height
-        bottom: $line-height
+        bottom: $line-height * 3
     a.close
       color: $secondary-color
       font-size: 2em
@@ -55,25 +55,16 @@ a:focus
       right: $text-indent / 2
       top: $line-height / 2
 
-    .CodeRay
+    .hljs
       background-color: $background-color
       border: none
       padding: 0
       overflow: scroll-y
-      table
-        // margin-left: $text-indent * -1
-        padding: 0
-        width: 100%
-        td
-          background-color: transparent
-          padding: 0
-          &:first-of-type
-            width: $text-indent / 2
-          &:last-of-type
-            padding-left: 5px
-          pre
-            background-color: none
-            width: 100%
+
+      .hljs-comment
+        color: $off-color
+      .hljs-keyword
+        color: $headline-font-color
 
     #tabs
       padding-left: $text-indent / 2

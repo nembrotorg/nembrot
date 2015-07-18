@@ -3,19 +3,18 @@ prepare_modal = () ->
   load_source()
 
 load_source = () ->
-  html_code = document.documentElement.outerHTML
-  html_code = hljs.highlight('html', html_code, true)
-  html_code = hljs.fixMarkup(html_code.value)
-  $('#html-source').html(html_code)
+  code = document.documentElement.outerHTML
+  code = hljs.highlight('html', code, true)
+  code = hljs.fixMarkup(code.value)
+  $('#source pre code').html(code)
 
 open_modal = () ->
   $("#code").show('slide', { direction: 'right' }, 500)
-  #$("#code").toggle('slide', { direction: 'left' }, 500)
+  load_code()
   # ga('send', 'pageview', file)
 
 close_modal = () ->
   $("#code").hide('slide', { direction: 'right' }, 500)
-  #$("#code").toggle('slide', { direction: 'left' }, 500)
 
 load_code = () ->
   current_controller_and_action = $('#main > div').attr('class')
@@ -24,13 +23,17 @@ load_code = () ->
   action = normalize_action(action)
 
   unless $('#view-code').data('loaded') == current_controller_and_action
-    show_code("#{ pluralize(controller) }/#{ action }.html.slim", 'slim', '#view-code', current_controller_and_action)
+    file = "app/views/#{ controller }/#{ action }.html.slim"
+    # This should be Slim - but it's not available
+    fetch_and_show_code(file, 'coffeescript', 'view', current_controller_and_action)
 
   unless $('#controller-code').data('loaded') == current_controller_and_action
-    show_code("#{ controller(controller) }_controller.rb", 'ruby', '#controller-code', current_controller_and_action)
+    file = "app/controllers/#{ controller }_controller.rb"
+    fetch_and_show_code(file, 'ruby', 'controller', current_controller_and_action)
 
   unless $('#model-code').data('loaded') == current_controller_and_action
-    show_code("#{ singularize(controller) }.rb", 'ruby', '#model-code', current_controller_and_action)
+    file = "app/models/#{ singularize(controller) }.rb"
+    fetch_and_show_code(file, 'ruby', 'model', current_controller_and_action)
 
 singularize = (word) ->
   word.replace(/s$/, '')
@@ -39,7 +42,7 @@ pluralize = (word) ->
   "#{word}s".replace(/ss$/, 's')
 
 normalize_controller = (word) ->
-  word.replace(/(feature|citation|link)/, 'notes')
+  word.replace(/(features|citations|links)/, 'notes')
   word
 
 normalize_action = (word, controller) ->
@@ -53,13 +56,14 @@ decorate_code = (code, language) ->
   code = hljs.highlight(language, code, true)
   code = hljs.fixMarkup(code.value)
 
-fetch_from_github = (file, language, div, current_controller_and_action) ->
+fetch_and_show_code = (file, language, div, current_controller_and_action) ->
   $.ajax
-    url: "https://raw.githubusercontent.com/joegattnet/joegattnet_v3/master/app/#{file}"
+    url: "https://raw.githubusercontent.com/joegattnet/joegattnet_v3/master/#{file}"
     cache: true
     success: (code) ->
       code = decorate_code(code, language)
-      $(div).html(code)
+      $("##{ div } h2").html("#{file}")
+      $("##{ div } pre code").html(code)
       $(div).data('loaded', current_controller_and_action)
 
 # Document hooks ******************************************************************************************************
@@ -74,6 +78,10 @@ $ ->
   $(document).on 'click', "a.close", ->
     close_modal()
     false
+
+  $(document).on 'keyup', (event) ->
+    if event.keyCode == 27
+      close_modal()
 
   $(document).on 'pjax:success', '#main', (data) ->
     load_code()

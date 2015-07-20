@@ -1,10 +1,8 @@
 - cache [cache_buster(1), links] do
 
   section.links
-
     header
       h3 = title ||= t('links.index.title')
-
     ul
       - links.each do |link|
         li

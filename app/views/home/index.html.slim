@@ -1,15 +1,13 @@
-- document_title = t('site.title')
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @promoted_notes] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = t('site.title')
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
-
-  = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
-
-  - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
-
-  = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), 
-                                blurb_length: Setting['advanced.blurb_length'].to_i
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
+    = render 'header', title: t('site.title'), subtitle: nil, document_title: document_title
+    - promotions_home_number = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
+    = render 'shared/notes_list', notes: @promoted_notes.first(promotions_home_number), 
+                                  blurb_length: Setting['advanced.blurb_length'].to_i

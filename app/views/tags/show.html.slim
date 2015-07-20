@@ -1,27 +1,27 @@
-- document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @tag, @notes, @citations, @links] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ t('.title', name: @tag.name) } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  section
+    section
+      = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
 
-    = render 'header', title: t('.title_short', name: @tag.name), subtitle: nil, document_title: document_title
+      - unless @notes.blank?
+        = render 'shared/notes_list', notes: @notes
+        aside.statistics
+          = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
 
-    - unless @notes.blank?
-      = render 'shared/notes_list', notes: @notes
-      aside.statistics
-        = t('.statistics', count: @notes.size, word_count: number_with_delimiter(@word_count))
+      - unless @citations.blank?
+        = render 'citations/citations_list', citations: @citations, books: @books
+        aside.statistics
+          = t('citations.index.statistics', count: number_with_delimiter(@citations_count), books_count: @citations_books_count, domains_count: @citations_domains_count)
 
-    - unless @citations.blank?
-      = render 'citations/citations_list', citations: @citations, books: @books
-      aside.statistics
-        = t('citations.index.statistics', count: number_with_delimiter(@citations_count), books_count: @citations_books_count, domains_count: @citations_domains_count)
-
-    - unless @links.blank?
-      = render 'links/links_list', links: @links
-      aside.statistics
-        = t('links.index.statistics', count: number_with_delimiter(@links_count), domains_count: number_with_delimiter(@links_domains_count))
+      - unless @links.blank?
+        = render 'links/links_list', links: @links
+        aside.statistics
+          = t('links.index.statistics', count: number_with_delimiter(@links_count), domains_count: number_with_delimiter(@links_domains_count))

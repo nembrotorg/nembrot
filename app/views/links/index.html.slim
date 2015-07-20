@@ -6,17 +6,11 @@
                   open_graph: { title: document_title }
 
   div class="#{ controller.controller_name }-#{ controller.action_name }"
-
     nav = render_breadcrumbs builder: ::OrderedListBuilder
-
     section
-
       = render 'header', title: t('.title'), subtitle: nil, document_title: document_title
-
       - unless @links.empty?
         = render 'links_list', links: @links
-
         = paginate @links
-
         aside.statistics
           = t('.statistics', count: number_with_delimiter(@total_count), domains_count: number_with_delimiter(@domains_count))

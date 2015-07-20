@@ -66,10 +66,10 @@ defaults: &defaults
     map_font_color: '#333'
     note_images_number: 1
     off_color: '#999'
-    promotions_footer: 3
-    promotions_home_columns: 4
+    promotions_footer: 6
+    promotions_home_columns: 3
     promotions_home_lines: 7
-    promotions_home_rows: 1
+    promotions_home_rows: 2
     promotions_home_show_image?: false
     qr_code_image_size: 150
     row_hover_color: '#ff0'

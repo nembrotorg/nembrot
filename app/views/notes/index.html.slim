@@ -1,22 +1,18 @@
-- document_title = "#{ t('.title') } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: '',
-                open_graph: { title: document_title }
+- cache [cache_buster(1), @notes, @total_count, @title, @map] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ t('.title') } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: '',
+                  open_graph: { title: document_title }
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  - unless @notes.empty?
-
-    section class=css_instructions(@notes.first.instruction_list)
-
-      = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
-
-      = render 'shared/notes_list', notes: @notes
-
-      aside.statistics
-        = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
-        = t('.other_view_html', path: notes_map_path) unless @map.blank?
-
-      = paginate @notes
+    - unless @notes.empty?
+      section class=css_instructions(@notes.first.instruction_list)
+        = render 'header', title: @title || t('.title'), subtitle: nil, document_title: document_title
+        = render 'shared/notes_list', notes: @notes
+        aside.statistics
+          = t('.statistics', count: @total_count, word_count: number_with_delimiter(@word_count))
+          = t('.other_view_html', path: notes_map_path) unless @map.blank?
+        = paginate @notes

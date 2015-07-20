@@ -1,8 +1,6 @@
-- cache [cache_buster(1)] do
-
-  header data-title="#{ document_title }"
-    h1 == title
-    - unless subtitle.blank?
-      h2 == subtitle
-    - show_flashes = show_flashes || false
-    = render 'flashes' if show_flashes
+header data-title="#{ document_title }"
+  h1 == title
+  - unless subtitle.blank?
+    h2 == subtitle
+  - show_flashes = show_flashes || false
+  = render 'flashes' if show_flashes

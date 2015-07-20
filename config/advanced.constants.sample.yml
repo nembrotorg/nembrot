@@ -11,7 +11,7 @@ defaults: &defaults
     blurb_length: 400
     blurb_omission: ...
     books_index_per_page: 30
-    books_section: false
+    books_section: true
     cache_buster: 5
     citation_blurb_length: 230
     citation_max_length: 9999
@@ -56,7 +56,7 @@ defaults: &defaults
     version_gap_distance: 100
     version_gap_minutes: 60
     versions: true
-    web_channels: facebook.com/joegattnet twitter.com/joegattnet github.com/joegattnet plus.google.com/+JoegattNet youtube.com/joegatt0net vimeo.com/joegattnet soundcloud.com/joegattnet joegattnet.tumblr.com
+    web_channels: twitter.com/joegattnet facebook.com/joegattnet plus.google.com/+JoegattNet github.com/joegattnet youtube.com/joegatt0net vimeo.com/joegattnet soundcloud.com/joegattnet trello.com/b/ClFWLboi/joegatt-net www.instapaper.com/p/joegattnet medium.com/@joegattnet www.evernote.com/pub/joegatt/joegatt.net
 
 development:
   <<: *defaults

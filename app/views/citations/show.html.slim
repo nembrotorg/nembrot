@@ -14,5 +14,5 @@
           - citation_text, attribution = citation_blurb(@citation.clean_body_with_parentheses, Setting['advanced.citation_max_length'].to_i)
           figure.citation
             blockquote= blurbify(citation_text, @citation.books)
-            figcaption= blurbify(attribution, @citation.books, 'citation.book.inline_html', 'citation.link.inline_html')
+            figcaption= blurbify(attribution, @citation.books, 'citation.book.inline_html', 'citation.link.inline_html', false)
       = render 'notes/tag_list', tags: @tags unless @tags.empty?

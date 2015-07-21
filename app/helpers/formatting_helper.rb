@@ -47,7 +47,7 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', _links_citation_style = 'citation.link.inline_unlinked_html')
+  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', _links_citation_style = 'citation.link.inline_unlinked_html', strip_tags = true)
     return '' if text.blank?
     # REVIEW: Add settings condition
     text = related_notify(text, true)
@@ -58,7 +58,7 @@ module FormattingHelper
     text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
     text = relativize(text)
     text = clean_up_via_dom(text, true)
-    text = strip_tags(text)
+    text = strip_tags(text) if strip_tags
   end
 
   def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])
@@ -169,12 +169,12 @@ module FormattingHelper
     text.gsub(/(<a href=")http:\/\/#{ Constant.host }([^"]*?"[^>]*?>)/, "\\1\\2")
   end
 
-  def related_notify(text, blurbify = false)
+  def related_notify(text, strip_tags = false)
     # REVIEW: Do this with note titles?
     note_ids = mentioned_notes(text)
     related_notes = Note.related_notes(note_ids)
     related_notes.each do |note|
-      body = blurbify ? sanitize(note.clean_body) : note.body
+      body = strip_tags ? sanitize(note.clean_body) : note.body
       text.gsub!(/\{link:? *#{ note_or_feature_path(note) }\}/, link_to(note.headline, note_path(note)))
       text.gsub!(/\{link:? *#{ note.headline }\}/, link_to(note.headline, note_path(note)))
       text.gsub!(/\{blurb:? *#{ note_or_feature_path(note) }\}/, (render 'shared/note_blurb', note: note))
@@ -183,7 +183,7 @@ module FormattingHelper
       text.gsub!(/\{text:? *#{ note.headline }\}/, "#{ body }\n[#{ link_to(note.headline, note_path(note)) }]")
     end
     # text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
-    text = strip_tags(text) if blurbify
+    text = strip_tags(text) if strip_tags
     text
   end
 
@@ -191,7 +191,7 @@ module FormattingHelper
     text.scan(/\{ *(link|blurb|text)\:? *\/texts\/([\d]+) *\}/).map(&:last).flatten
   end
 
-  def related_citationify(text, blurbify = false)
+  def related_citationify(text, strip_tags = false)
     citation_ids = mentioned_citations(text)
     related_citations = Note.related_citations(citation_ids)
     related_citations.each do |citation|
@@ -201,7 +201,7 @@ module FormattingHelper
       text.gsub!(/\{text:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?
     end
     # text.gsub!(/\{[^\}]*?\}/, '') # Clean up faulty references
-    text = strip_tags(text) if blurbify
+    text = strip_tags(text) if strip_tags
     text
   end
 
@@ -251,7 +251,7 @@ module FormattingHelper
 
   def clean_up_dom(dom, unwrap_p = false, number_paragraphs = false)
     dom.css('a, h2, header, p, section').find_all.each { |e| e.remove if e.content.blank? } # Remove empty tags
-    dom.css('h2 p, cite cite, p section, p header, p p, p h2, blockquote blockquote').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting 
+    dom.css('h2 p, cite cite, p section, p header, p p, p h2, blockquote blockquote').find_all.each { |e| e.replace e.inner_html } # Sanitise wrong nesting
     dom.css('h2').find_all.each { |h| h.content = h.content.gsub(/(<h2>)\d+\.? */, '\1') }  # Denumberise headers
 
     # Number paragraphs

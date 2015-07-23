@@ -10,11 +10,11 @@ class Book < ActiveRecord::Base
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
   scope :missing_metadata, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
-  scope :cited, -> { 
+  scope :cited, -> {
                   where('title IS NOT ? AND tag IS NOT ?', nil, nil)
                     .joins('left outer join books_notes on books.id = books_notes.book_id')
                     .where('books_notes.book_id IS NOT ?', nil)
-                    .uniq 
+                    .uniq
   } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
@@ -82,7 +82,7 @@ class Book < ActiveRecord::Base
   end
 
   def headline
-    "#{ author_surname }: <cite>#{ short_title }</cite>".html_safe
+    "#{ author_surname }: <span class=\"book\">#{ short_title }</span>".html_safe
   end
 
   # REVIEW: this fails if protected and called through sync_all

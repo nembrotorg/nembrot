@@ -59,6 +59,7 @@ module FormattingHelper
     text = relativize(text)
     text = clean_up_via_dom(text, true)
     text = strip_tags(text) if strip_tags
+    text
   end
 
   def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])

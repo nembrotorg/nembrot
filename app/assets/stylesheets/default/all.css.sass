@@ -107,8 +107,13 @@ body, small
   +dashboard-font
   line-height: $line-height
 
-cite + a[href*=annotation]
-  margin-left: 3px
+cite
+  font-style: normal
+  &+a[href*=annotation]
+    margin-left: 3px
+
+.book
+  font-style: italic
 
 del
   +font-color($delete-font-color)

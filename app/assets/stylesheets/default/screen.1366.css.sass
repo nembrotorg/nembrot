@@ -9,7 +9,8 @@
   footer nav,
   footer small,
   #disqus_thread,
-  #comments
+  #comments,
+  .books-show .details
     +prefix(6)
     +suffix(6)
     +span-columns(24, 36)
@@ -21,7 +22,8 @@
     +span-columns(24, 36)
     clear: both
 
-  .citations, .links, .books-show .details
+  .citations,
+  .links,
     +prefix(6)
     +suffix(18)
     +span-columns(12, 36)
@@ -66,6 +68,15 @@
   .tags-index
     ul
       +columns(6)
+
+  .citations-show
+    figure.citation
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      blockquote
+        +suffix(12, 24)
+        +span-columns(12, 24)
 
   .settings-edit
     form
@@ -135,8 +146,11 @@
   #comments
     +span-columns(18)
 
-  .ins-section .body
+  .ins-section #text .body
     margin-bottom: $line-height
+    p
+      margin: $line-height/3 0
+      text-indent: 0
 
   .notes
     +prefix(6)

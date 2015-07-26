@@ -124,8 +124,8 @@
               font:
                 size: $small-font-size
               // line-height: 0
-              padding-right: 2px
-              text-align: right
+              // padding-right: 2px
+              // text-align: right
               // vertical-align: super
               width: $text-indent - 2px
               &:after
@@ -134,12 +134,13 @@
       // Reset indent on annotations
       .side-annotations
         li
-          position: relative
           text-indent: 0
           a
             text-indent: 0
-            &[href*='#annotation-']
+            &[href*=annotation-mark]
               display: inline
+              padding-right: 0
+              text-align: left
               width: auto
 
       .aside

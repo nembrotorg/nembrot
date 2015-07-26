@@ -139,7 +139,7 @@ var Hyphenator_Loader = (function (window) {
     "en": "hyphenationalgorithm",
     "de": "verdinglichung"
 }, "<%= asset_path 'hyphenator.js' %>",{selectorfunction : function (hyphenateClass) {
-    return $('.body p, .body li, .body blockquote, .citations blockquote, .notes li a, .links li a');
+    return $('.body p, .body li, .body blockquote, .annotations li, .citations blockquote, .notes li a, .links li a');
 },
 	persistentconfig : true,
 	onhyphenationdonecallback : onHyphenationDone = function (context) {

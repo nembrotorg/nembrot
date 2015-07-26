@@ -15,12 +15,11 @@
     +span-columns(24, 36)
     clear: both
 
-  article, section, .home-index
-    &> header
-      +prefix(6)
-      +suffix(6)
-      +span-columns(24, 36)
-      clear: both
+  header[data-title]
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    clear: both
 
   .citations, .links, .books-show .details
     +prefix(6)
@@ -93,7 +92,6 @@
         .side-annotations
           +prefix(18, 18)
           +span-columns(9, 18)
-          background-color: red
           height: 0
           margin-top: 0
         &.regular, &.parallel
@@ -118,7 +116,6 @@
           .side-annotations
             +prefix(24, 30)
             +span-columns(6, 30)
-            background-color: purple
           div
             overflow: hidden
       #map
@@ -148,7 +145,7 @@
     li
       +blurb(5, 9, 36)
       img, iframe
-        width: space(6) auto // OPTIMIZE: We get these measurements from the columns.
+        width: space(6) auto
         height: $line-height * 5
 
   .share

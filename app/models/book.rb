@@ -82,7 +82,7 @@ class Book < ActiveRecord::Base
   end
 
   def headline
-    "#{ author_surname }: <span class=\"book\">#{ short_title }</span>".html_safe
+    "#{ author_surname }: <cite class=\"book\">#{ short_title }</cite>".html_safe
   end
 
   # REVIEW: this fails if protected and called through sync_all

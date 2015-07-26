@@ -63,10 +63,20 @@
         blockquote, blockquote:before, figcaption
           color: $link-hover-color
 
+  .citations
+    blockquote
+      height: $line-height * 3
+
   .links
     a:hover
-      blockquote, blockquote:before, figcaption
-        color: $external-link-hover-color
+      color: $external-link-hover-color
+    h2
+      height: $line-height
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      p
+      height: $line-height * 2
 
   .notes
     li

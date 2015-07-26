@@ -22,7 +22,14 @@
     +span-columns(24, 36)
     clear: both
 
-  .citations,
+  .citations
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    blockquote
+      +suffix(12, 24)
+      +span-columns(12, 24)
+
   .links,
     +prefix(6)
     +suffix(18)

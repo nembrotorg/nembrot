@@ -20,6 +20,7 @@ load_code = () ->
   current_controller_and_action = $('#main > div').attr('class')
   [controller, action] = current_controller_and_action.split('-')
   controller = normalize_controller(controller)
+  model =  normalize_model(controller)
   action = normalize_action(action)
 
   unless $('#view-code').data('loaded') == current_controller_and_action
@@ -32,7 +33,7 @@ load_code = () ->
     fetch_and_show_code(file, 'ruby', 'controller', current_controller_and_action)
 
   unless $('#model-code').data('loaded') == current_controller_and_action
-    file = "app/models/#{ singularize(controller) }.rb"
+    file = "app/models/#{ model }.rb"
     fetch_and_show_code(file, 'ruby', 'model', current_controller_and_action)
 
 singularize = (word) ->
@@ -40,6 +41,11 @@ singularize = (word) ->
 
 pluralize = (word) ->
   "#{word}s".replace(/ss$/, 's')
+
+normalize_model = (word) ->
+  singularize(word)
+  word.replace(/(colophon|home)/, 'note')
+  word
 
 normalize_controller = (word) ->
   word.replace(/(features|citations|links)/, 'notes')

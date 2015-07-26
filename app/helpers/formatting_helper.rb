@@ -3,7 +3,7 @@
 # REVIEW: All these functions should be moved to Nokogiri
 
 module FormattingHelper
-  def bodify(text, books = [], books_citation_style = 'citation.book.inline_annotated_html', _links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify(text, books = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if text.blank?
     # REVIEW: Add settings condition
     text = related_notify(text)
@@ -20,7 +20,7 @@ module FormattingHelper
     clean_up_via_dom(text, false, true)
   end
 
-  def bodify_collate(source_text, target_text, source_lang, books = [], books_citation_style = 'citation.book.inline_annotated_html', _links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
+  def bodify_collate(source_text, target_text, source_lang, books = [], books_citation_style = 'citation.book.inline_annotated_html', links_citation_style = 'citation.link.inline_annotated_html', annotated = true)
     return '' if source_text.blank? || target_text.blank?
     source_text = sanitize_from_db(source_text)
     source_text = clean_whitespace(source_text)
@@ -47,7 +47,7 @@ module FormattingHelper
     collate(source_text, target_text, source_lang)
   end
 
-  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', _links_citation_style = 'citation.link.inline_unlinked_html', strip_tags = true)
+  def blurbify(text, books = [], books_citation_style = 'citation.book.inline_unlinked_html', links_citation_style = 'citation.link.inline_unlinked_html', strip_tags = true)
     return '' if text.blank?
     # REVIEW: Add settings condition
     text = related_notify(text, true)

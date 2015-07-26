@@ -8,6 +8,9 @@
 +embed-font-suite($code-font)
 
 #pantograph
+  +prefix(6)
+  +suffix(6)
+  +span-columns(24)
   margin-bottom: 0
   blockquote
     +font-color($caption-color)
@@ -68,7 +71,7 @@
 
 // Screen > 1024px /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1366px)
 
   #pantographs
     +span-columns(9 omega, 36)

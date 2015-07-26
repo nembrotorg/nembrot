@@ -22,10 +22,15 @@
       +span-columns(24, 36)
       clear: both
 
-  .citations, .links, .books
+  .citations, .links, .books-show .details
     +prefix(6)
     +suffix(18)
     +span-columns(12, 36)
+
+  .books, .tags-index .tags
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
 
   .home-index
     .notes
@@ -50,7 +55,7 @@
         li
           +code-font
           padding-top: $line-height * 2
-    .gems
+    .gems, .palette
       +prefix(6)
       +suffix(6)
       +span-columns(24, 36)
@@ -132,6 +137,9 @@
   #disqus_thread,
   #comments
     +span-columns(18)
+
+  .ins-section .body
+    margin-bottom: $line-height
 
   .notes
     +prefix(6)

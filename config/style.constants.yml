@@ -31,7 +31,7 @@ defaults: &defaults
     github_color: '#201f1f'
     gplus_color: '#dd4b39'
     grid_padding: 0
-    gutter_width: 28
+    gutter_width: 1em
     headline_font: SourceSansPro
     headline_font_color: '#900'
     headline_font_fallback: 'Arial, sans-serif'
@@ -79,7 +79,7 @@ defaults: &defaults
     small_font_size: 13px
     static_url_color: '#090'
     success_background_color: '#45ff45'
-    total_columns: 12
+    total_columns: 36
     total_width: 100%
     twitter_color: '#00acee'
 

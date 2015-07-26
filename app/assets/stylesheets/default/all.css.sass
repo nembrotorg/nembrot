@@ -246,13 +246,11 @@ footer
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+pass-media-query('default')
-
-#main, .hello-world, footer
+#main, footer
   width: 90%
   margin: 0 5%
 
-#main > div, .hello-world p, footer
+#main > div, p, footer
   +clearfix
 
 ol, ul, .statistics, iframe, table, form, fieldset
@@ -484,15 +482,15 @@ footer
   nav
     ul
       &.promotions
-        +span-columns(12)
+        +span-columns(36)
       &.sections
         +columns(2)
-        +span-columns(12)
+        +span-columns(36)
       &.channels
         +columns(2)
-        +span-columns(12)
+        +span-columns(36)
   small
-    +span-columns(12)
+    +span-columns(36)
     margin-bottom: $line-height
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -635,7 +633,7 @@ section.ins-section, article.ins-section
 
 #disqus_thread,
 #comments
-  +span-columns(12)
+  +span-columns(36)
 
 .notes
   li

@@ -26,16 +26,16 @@
     ul
       margin-bottom: 0
     #details
-      +span-columns(10, 12)
+      +span-columns(30, 36)
     #percentage, #length
-      +span-columns(1 omega, 12)
+      +span-columns(3 omega, 36)
       text-align: right
   nav
     //+sequential_nav(lighten($caption-color, 15%))
     +pagination-nav
 
 #pantographs
-  +span-columns(12, 12)
+  +span-columns(36, 36)
   ol
     +compact-text
     font-size: 14px
@@ -71,4 +71,4 @@
 @media only screen and (min-width: 1024px)
 
   #pantographs
-    +span-columns(3 omega, 12)
+    +span-columns(9 omega, 36)

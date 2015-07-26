@@ -1,0 +1,167 @@
+@media only screen and (min-width: 1366px)
+
+  $column-width: 15px
+  $gutter-width: 28px
+
+  #main > div > nav,
+  #main aside,
+  #main nav.pagination,
+  footer nav,
+  footer small,
+  #disqus_thread,
+  #comments
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    clear: both
+
+  article, section, .home-index
+    &> header
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      clear: both
+
+  .citations, .links, .books
+    +prefix(6)
+    +suffix(18)
+    +span-columns(12, 36)
+
+  .home-index
+    .notes
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      padding-right: 0
+      ul
+        +columns($promotions-home-columns)
+        //+column-gap($gutter-width * 1px)
+        +column-gap($text-indent)
+        margin-bottom: 0
+        li
+          +blurb($promotions-home-lines)
+          margin-bottom: $line-height
+
+  .colophon-index
+    .palette
+      margin-bottom: $line-height
+      ul
+        +horizontal-list
+        li
+          +code-font
+          padding-top: $line-height * 2
+    .gems
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+
+  .books-index, .colophon-index .gems
+    ul
+      +columns(2)
+
+  .tags-index
+    ul
+      +columns(6)
+
+  article
+    section#content
+      +span-columns(36)
+      figure
+        &.image
+          +prefix(6)
+          +suffix(15)
+          +span-columns(15, 36)
+      #introduction
+        +prefix(6)
+        +span-columns(18, 36)
+      #text
+        overflow: visible
+        aside
+          +prefix(6)
+          +span-columns(12, 36)
+        .side-annotations
+          +prefix(18, 18)
+          +span-columns(9, 18)
+          background-color: red
+          height: 0
+          margin-top: 0
+        &.regular, &.parallel
+          +prefix(6)
+          +span-columns(12, 36)
+        &.enface
+          +prefix(6, 36)
+          +span-columns(30, 36)
+          p
+            line-height: $line-height
+            &:before
+              top: 0
+          .source, p.source
+            +span-columns(12, 30)
+            color: $body-font-color
+            p
+              color: $body-font-color
+          .target, p.target
+            +prefix(12, 30)
+            +span-columns(12, 30)
+            padding-top: 0
+          .side-annotations
+            +prefix(24, 30)
+            +span-columns(6, 30)
+            background-color: purple
+          div
+            overflow: hidden
+      #map
+        +prefix(6)
+        +span-columns(27)
+    #extra
+      +span-columns(9 omega, 36)
+
+  .fade-annotations
+    .side-annotations
+      +fade(0)
+    &:hover
+      .side-annotations
+        +fade(1)
+
+  #disqus_thread,
+  #comments
+    +span-columns(18)
+
+  .notes
+    +prefix(6)
+    +suffix(15)
+    +span-columns(15, 36)
+    li
+      +blurb(5, 9, 36)
+      img, iframe
+        width: space(6) auto // OPTIMIZE: We get these measurements from the columns.
+        height: $line-height * 5
+
+  .share
+    display: inline-block
+    margin-bottom: $line-height / 2
+
+  #admin
+    ul
+      bottom: $line-height * 2
+      padding-left: $text-indent
+      position: fixed
+
+  figure.image
+    img
+      height: 390px
+      width: 690px
+
+  #tools
+    background-color: transparent
+    border: none
+    padding-left: $text-indent / 2
+    width: space(6)
+
+  footer
+    margin-bottom: 0
+    small
+      margin-bottom: 0
+
+  iframe
+    +span-columns(18, 36)

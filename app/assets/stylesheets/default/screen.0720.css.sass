@@ -1,7 +1,5 @@
 @media only screen and (min-width: 720px)
 
-  +pass-media-query('screen-and-min-width-720px')
-
   body
     padding-top: $line-height / 2
 
@@ -24,11 +22,11 @@
       display: none
 
   form
-    +span-columns(6)
+    +span-columns(18)
     label
       input
         float: right
-        width: space(6)
+        width: space(18)
 
   header[data-title]
     height: $line-height * 3
@@ -54,7 +52,7 @@
       height: $line-height * 15
 
   .citations, .links
-    +span-columns(9)
+    +span-columns(27)
     +suffix(3)
     a
       display: block
@@ -93,10 +91,10 @@
           height: $line-height * 6
           margin-bottom: $line-height * 2/3
     aside
-      +span-columns(12)
+      +span-columns(36)
 
     #text
-      +span-columns(8)
+      +span-columns(24)
       +font-color($body-font-color)
       counter-reset: term
       overflow: visible
@@ -104,10 +102,10 @@
       p
         position: relative
       .body
-        +span-columns(8, 8)
+        +span-columns(24, 24)
       .annotations
-        +prefix(8, 8)
-        +span-columns(4, 8)
+        +prefix(24, 24)
+        +span-columns(12, 24)
         li
           +hyphens
           font:
@@ -131,6 +129,18 @@
               width: $text-indent - 2px
               &:after
                 content: '. '
+
+      // Reset indent on annotations
+      .side-annotations
+        li
+          position: relative
+          text-indent: 0
+          a
+            text-indent: 0
+            &[href*='#annotation-']
+              display: inline
+              width: auto
+
       .aside
         clear: both
     &:hover
@@ -158,11 +168,11 @@
               color: $external-link-hover-color
     &[dir=rtl]
       header
-        +span-columns(6)
+        +span-columns(18)
 
   .books-edit, .books-update
     .tools
-      +span-columns(6)
+      +span-columns(18)
       ul
         margin: 0
 
@@ -176,11 +186,11 @@
 
   .citations-show
     figure.citation
-      +span-columns(9, 12)
+      +span-columns(27, 36)
       margin-bottom: $line-height
       blockquote
-        +span-columns(6, 9)
-        +suffix(3, 9)
+        +span-columns(18, 27)
+        +suffix(9, 27)
         margin-bottom: $line-height
 
   .tags-index
@@ -191,12 +201,12 @@
     nav
       ul
         &.promotions
-          +span-columns(4)
+          +span-columns(12)
         &.sections
           +columns(2)
-          +span-columns(4)
+          +span-columns(12)
         &.channels
           +columns(2)
-          +span-columns(4 omega)
+          +span-columns(12 omega)
     small
-      +span-columns(12)
+      +span-columns(36)

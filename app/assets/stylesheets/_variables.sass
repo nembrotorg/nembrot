@@ -1,16 +1,15 @@
-// Variables are picked up from /config/nembrot.yml via the Settings class 
+// Variables are picked up from /config/nembrot.yml via the Settings class
 //  and the settings_style method defines in /config/initializers/sass.rb.
-//  This enables us to use common settings in css and images 
+//  This enables us to use common settings in css and images
 //  (and snap images to the baseline, for instance), and write
 //  out the colophon details.
 
-$column-width:              settings_style('style.column_width')
+//$column-width:              settings_style('style.column_width')
 $container-style:           settings_style('style.container_style')
 $grid-padding:              settings_style('style.grid_padding')
-$gutter-width:              settings_style('style.gutter_width')
+$gutter-width:              settings_style('style.gutter_width') * 1em
 $total-columns:             settings_style('style.total_columns')
 $total-width:               settings_style('style.total_width')
-// $container-width: 1080px
 
 // #main, footer
 //  +susy-grid-background

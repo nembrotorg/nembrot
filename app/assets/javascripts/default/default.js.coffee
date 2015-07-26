@@ -36,7 +36,7 @@ update_titles = () ->
     document.title = title_data
 
 truncate_blurbs = () ->
-  $('.links li a').dotdotdot({
+  $('.links li a, .citations li a').dotdotdot({
     tolerance: 5,
     watch: true
   })

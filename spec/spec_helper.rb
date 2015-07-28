@@ -23,6 +23,7 @@ require 'paper_trail/frameworks/rspec'
 require 'rspec/rails'
 require 'rubygems'
 require 'simplecov'
+require 'shoulda-matchers'
 
 CodeClimate::TestReporter.start
 
@@ -37,6 +38,14 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.include Rails.application.routes.url_helpers
+
+  config.include Capybara::DSL
+
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
+  config.use_transactional_fixtures = true
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

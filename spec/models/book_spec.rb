@@ -137,7 +137,7 @@ RSpec.describe Book do
   describe '#headline' do
     before { @book.update_attributes(author: 'Name Surname', title: 'Short Title: Long Title') }
     it 'returns author and short book title' do
-      expect(@book.headline).to eq('Surname: <cite>Short Title</cite>')
+      expect(@book.headline).to eq('Surname: <cite class=\"book\">Short Title</cite>')
     end
   end
 
@@ -146,7 +146,7 @@ RSpec.describe Book do
     it 'returns editor when author is nil' do
       expect(@book.author_or_editor).to eq("Name2 Surname2 #{ I18n.t('books.show.editor_short') }")
       expect(@book.author_surname).to eq("Surname2 #{ I18n.t('books.show.editor_short') }")
-      expect(@book.headline).to eq("Surname2 #{ I18n.t('books.show.editor_short') }: <cite>Short Title</cite>")
+      expect(@book.headline).to eq(%q{Surname2 #{ I18n.t('books.show.editor_short') }: <cite class="book">Short Title</cite>})
     end
   end
 end

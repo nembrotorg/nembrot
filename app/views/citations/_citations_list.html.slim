@@ -11,4 +11,4 @@
         li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
           figure.citation
             blockquote= blurbify(citation_text, citation.books)
-            figcaption= blurbify(attribution, citation.books)
+            figcaption= blurbify(attribution, citation.books, 'citation.book.inline_unlinked_html', 'citation.link.inline_unlinked_html', false)

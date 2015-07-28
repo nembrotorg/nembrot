@@ -22,10 +22,13 @@ body
 
 a
   text-decoration: none
-  // &[href*=http]:after
-  //   padding-left: 5px
-  //   +icon-link-ext
-  //   +icon-medium
+
+.books-show
+  .details
+    a[href*=http]:after
+      padding-left: 5px
+      +icon-link-ext
+      +icon-medium
 
 nav ul li a:first-of-type
   &[href*=pdf]
@@ -201,9 +204,9 @@ ol, ul
       &:first-child
         margin-left: 0
 
-cite, em
-  &:after
-    content: ' '
+// cite, em
+//   &:after
+//     content: ' '
 
 .caption
   figcaption
@@ -439,6 +442,7 @@ article, .links > ul > li
       li
         height: $line-height
         a
+          text-transform: lowercase
           &:after
             content: ', '
         &:last-child
@@ -718,6 +722,9 @@ section.ins-section, article.ins-section
     +columns(2)
     &.cloud
       +inline-block-list
+    li
+      a
+        text-transform: lowercase
 
 .tags-show, .tags-map
   h1:before

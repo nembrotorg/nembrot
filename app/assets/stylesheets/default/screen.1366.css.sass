@@ -9,23 +9,36 @@
   footer nav,
   footer small,
   #disqus_thread,
-  #comments
+  #comments,
+  .books-show .details
     +prefix(6)
     +suffix(6)
     +span-columns(24, 36)
     clear: both
 
-  article, section, .home-index
-    &> header
-      +prefix(6)
-      +suffix(6)
-      +span-columns(24, 36)
-      clear: both
+  header[data-title]
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    clear: both
 
-  .citations, .links, .books
+  .citations
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    blockquote
+      +suffix(12, 24)
+      +span-columns(12, 24)
+
+  .links,
     +prefix(6)
     +suffix(18)
     +span-columns(12, 36)
+
+  .books, .tags-index .tags
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
 
   .home-index
     .notes
@@ -50,7 +63,7 @@
         li
           +code-font
           padding-top: $line-height * 2
-    .gems
+    .gems, .palette
       +prefix(6)
       +suffix(6)
       +span-columns(24, 36)
@@ -62,6 +75,21 @@
   .tags-index
     ul
       +columns(6)
+
+  .citations-show
+    figure.citation
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      blockquote
+        +suffix(12, 24)
+        +span-columns(12, 24)
+
+  .settings-edit
+    form
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
 
   article
     section#content
@@ -82,7 +110,6 @@
         .side-annotations
           +prefix(18, 18)
           +span-columns(9, 18)
-          background-color: red
           height: 0
           margin-top: 0
         &.regular, &.parallel
@@ -107,7 +134,6 @@
           .side-annotations
             +prefix(24, 30)
             +span-columns(6, 30)
-            background-color: purple
           div
             overflow: hidden
       #map
@@ -127,6 +153,12 @@
   #comments
     +span-columns(18)
 
+  .ins-section #text .body
+    margin-bottom: $line-height
+    p
+      margin: $line-height/3 0
+      text-indent: 0
+
   .notes
     +prefix(6)
     +suffix(15)
@@ -134,7 +166,7 @@
     li
       +blurb(5, 9, 36)
       img, iframe
-        width: space(6) auto // OPTIMIZE: We get these measurements from the columns.
+        width: space(6) auto
         height: $line-height * 5
 
   .share

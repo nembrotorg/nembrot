@@ -3,7 +3,7 @@ defaults: &defaults
     admin_email: CHANGE_ME@CHANGE_ME
     admin_name: CHANGE_ME
     allowed_html_attributes: href src alt cite
-    allowed_html_tags: a blockquote del ins li ol ul img strong table tbody td tr
+    allowed_html_tags: a blockquote cite code del ins li ol ul img strong table tbody td tr
     always_reset_on_create: true
     attempts: 3
     author: CHANGE_ME

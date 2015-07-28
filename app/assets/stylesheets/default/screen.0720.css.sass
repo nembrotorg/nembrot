@@ -7,6 +7,8 @@
     li
       &:last-child
         display: inline
+        .book
+          font-style: normal
 
   #main,
   .hello-world,
@@ -25,8 +27,9 @@
     +span-columns(18)
     label
       input
-        float: right
-        width: space(18)
+        left: space(15)
+        position: absolute
+        width: space(9)
 
   header[data-title]
     height: $line-height * 3
@@ -60,10 +63,17 @@
         blockquote, blockquote:before, figcaption
           color: $link-hover-color
 
+  .citations
+    blockquote
+      height: $line-height * 3
+
   .links
     a:hover
-      blockquote, blockquote:before, figcaption
+      h2, p
         color: $external-link-hover-color
+    p
+      height: $line-height * 2
+      overflow: hidden
 
   .notes
     li
@@ -123,8 +133,8 @@
               font:
                 size: $small-font-size
               // line-height: 0
-              padding-right: 2px
-              text-align: right
+              // padding-right: 2px
+              // text-align: right
               // vertical-align: super
               width: $text-indent - 2px
               &:after
@@ -133,12 +143,13 @@
       // Reset indent on annotations
       .side-annotations
         li
-          position: relative
           text-indent: 0
           a
             text-indent: 0
-            &[href*='#annotation-']
+            &[href*=annotation-mark]
               display: inline
+              padding-right: 0
+              text-align: left
               width: auto
 
       .aside

@@ -1,4 +1,4 @@
-- cache [cache_buster(1), @note, @feature_notes, @map, @source, @tags] do
+- cache [cache_buster(1), @note, @feature_notes, @map, @source, @tags, commontator_thread(@note)] do
 
   - document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
   - set_meta_tags title: document_title,
@@ -49,7 +49,8 @@
             = render 'notes/versions_list', note: @note if Setting['advanced.versions']
             = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
 
-    - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
-      section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+    - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+       section#comments = commontator_thread(@note)
 
-      = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+    - if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+       = render 'disqus'

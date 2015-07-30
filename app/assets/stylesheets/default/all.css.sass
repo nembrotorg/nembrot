@@ -370,7 +370,7 @@ iframe
   &[src*='soundcloud.com%2Fplaylist']
     height: $line-height * 8
 
-.annotations
+#annotations
   font:
     size: $small-font-size
   line-height: $line-height * 2/3
@@ -517,7 +517,7 @@ footer
   margin-bottom: $line-height
 
 #text
-  .body, .annotations
+  .body, #annotations
     +body-font
     p
       margin: 0
@@ -629,7 +629,7 @@ footer
         p
           text-indent: 0
 
-.tags, .versions, .annotations
+#tags, #versions, #annotations
   margin: $line-height 0 0 0
 
 section.ins-section, article.ins-section
@@ -643,6 +643,8 @@ section.ins-section, article.ins-section
 #disqus_thread,
 #comments
   +span-columns(36)
+  ol
+    margin-top: $line-height
 
 .notes
   li
@@ -665,7 +667,7 @@ section.ins-section, article.ins-section
       overflow: hidden
       position: relative
 
-.versions
+#versions
   li
     &:first-child
       a:before
@@ -704,7 +706,7 @@ section.ins-section, article.ins-section
       display: none
 
 .notes-version, .features-version
-  .versions
+  #versions
     li:nth-child(n+2)
       display: block
 
@@ -820,6 +822,7 @@ ul.admin
     +horizontal-list
     display: inline-block
     li
+      font-size: 16px
       overflow: hidden
       position: relative
       width: $text-indent * 2
@@ -835,8 +838,8 @@ ul.admin
         z-index: 1
       span
         opacity: 0.5
-      a:hover, a:hover:before
-        background-color: $link-hover-color !important
+      a:hover:before
+        background-color: $external-link-hover-color !important
       a:before, span:before
         +icon-large
         +icon-only($text-indent * 2)

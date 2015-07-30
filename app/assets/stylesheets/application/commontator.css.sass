@@ -43,15 +43,24 @@
 
   #new_comment
     form
+      position: relative
       width: 100%
+
     textarea
-      height: $line-height * 7
+      background-color: $background-color
+      border: none
+      border-top: 1px dashed $border-color
+      border-bottom: 1px dashed $border-color
+      height: $line-height*7 - 2px
       line-height: $line-height
       width: 100%
-      padding: $line-height / 2
-      margin: 0 $line-height / -2
-      border: 1px solid $border-color
+      padding: $line-height/3 0
       color: $body-font-color
+      &:focus
+        outline: none !important
+        border: none
+        border-top: 1px dashed $border-color
+        border-bottom: 1px dashed $border-color
 
   .dashboard
     +font-color($caption-color)

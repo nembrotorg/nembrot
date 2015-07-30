@@ -100,10 +100,10 @@ $ ->
   # $('#dashboard form').accordion header: 'legend'
 
   $(window).on 'resize', ->
-    place_annotations()
+    window.Nembrot.place_annotations()
 
 $(document).on 'nembrot:hyphenated', ->
-  unorphan($('p, blockquote, .annotations li'))
+  unorphan($('p, blockquote, #annotations li, #comments li'))
   window.Nembrot.fix_collated_paragraph_heights()
   window.Nembrot.place_annotations()
 

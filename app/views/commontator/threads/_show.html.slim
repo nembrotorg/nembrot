@@ -5,7 +5,7 @@
 - can_subscribe = thread.can_subscribe?(user)
 - can_edit = thread.can_be_edited_by?(user)
 
-div id="thread_#{ thread.id.to_s }"
+aside id="thread_#{ thread.id.to_s }"
 
   header
     h2
@@ -22,6 +22,10 @@ div id="thread_#{ thread.id.to_s }"
     -#     li = link_to close_string.capitalize, commontator.polymorphic_path([close_string, thread]), confirm: (!is_closed ? 'Are you sure you want to close this thread?' : 
     -#      nil), method: :put, id: "thread_#{thread.id.to_s}_#{close_string}_link", class: "thread_#{close_string}_link", remote: true
 
+  - unless thread.ordered_comments.empty?
+    ol.comments
+      = render 'commontator/comments/list', comments: thread.ordered_comments, user: user
+
   h4
     - if thread.is_closed?
       = t('.closed')
@@ -32,6 +36,3 @@ div id="thread_#{ thread.id.to_s }"
       = link_to t('.new_comment'), commontator.new_thread_comment_path(thread), remote: true
 
   #new_comment
-
-  ol.comments
-    = render 'commontator/comments/list', comments: thread.ordered_comments, user: user

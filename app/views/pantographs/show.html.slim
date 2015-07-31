@@ -1,4 +1,4 @@
-- cache [cache_buster(1), @pantograph, @note, @tags, @no_index] do
+- cache [cache_buster(1), @pantograph, @note, @tags, @no_index, commontator_thread(@note)] do
 
   - document_title = "#{ t('pantographs.index.title') } | #{ t('site.title') }"
   - set_meta_tags title: document_title,
@@ -39,5 +39,8 @@
             = render 'notes/versions_list', note: @note
         = render 'pantographs_list'
 
-      section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
-      = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+         section#comments = commontator_thread(@note)
+
+      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+         = render 'disqus'

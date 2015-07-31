@@ -24,7 +24,7 @@ ul.user
     li.oauth
       p.instruction = (action == 'default' ? t('.oauth.default_instruction') : t('.oauth.instruction', action: action))
       ul
-        - resource_class.omniauth_providers.each do |provider|
+        - resource_class.omniauth_providers.keep_if { |p| %w(facebook github gplus twitter).include? p.to_s }.each do |provider|
           - if user_signed_in? && current_user.authorizations.pluck(:provider).include?(provider.to_s)
               li.connected
                 span class="#{ provider.to_s }" title="#{ t('.oauth.title_connected', provider: provider.to_s.titleize) }"

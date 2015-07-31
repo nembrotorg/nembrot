@@ -1,10 +1,9 @@
-- cache [cache_buster(1), @notes] do
+atom_feed do |feed|
+  feed.title(Setting['channel.name'])
+  feed.language(Setting['advanced.locale'])
+  feed.updated(@notes[0].external_updated_at) unless @notes.empty?
 
-  atom_feed do |feed|
-    feed.title(Setting['channel.name'])
-    feed.language(Setting['advanced.locale'])
-    feed.updated(@notes[0].external_updated_at) unless @notes.empty?
-
+  cache [cache_buster(1), @notes] do
     @notes.each do |note|
       feed.entry(note) do |entry|
         entry.title(note.headline)
@@ -25,3 +24,4 @@
       end
     end
   end
+end

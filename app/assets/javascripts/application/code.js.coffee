@@ -10,11 +10,13 @@ load_source = () ->
 
 open_modal = () ->
   $("#code").show('slide', { direction: 'right' }, 500)
+  $("#code").data('open', true)
   load_code()
   # ga('send', 'pageview', file)
 
 close_modal = () ->
   $("#code").hide('slide', { direction: 'right' }, 500)
+  $("#code").data('open', false)
 
 load_code = () ->
   current_controller_and_action = $('#main > div').attr('class')
@@ -38,19 +40,16 @@ load_code = () ->
 
 singularize = (word) ->
   word.replace(/s$/, '')
-  word
 
 pluralize = (word) ->
   "#{word}s".replace(/ss$/, 's')
 
 normalize_model = (word) ->
-  singularize(word)
+  word = singularize(word)
   word.replace(/(colophon|home)/, 'note')
-  word
 
 normalize_controller = (word) ->
   word.replace(/(features|citations|links)/, 'notes')
-  word
 
 normalize_action = (word, controller) ->
   if controller == 'pantography'
@@ -91,4 +90,5 @@ $ ->
       close_modal()
 
   $(document).on 'pjax:success', '#main', (data) ->
-    load_code()
+    if $("#code").data('open')
+      load_code()

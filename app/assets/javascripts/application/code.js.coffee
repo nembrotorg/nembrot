@@ -38,6 +38,7 @@ load_code = () ->
 
 singularize = (word) ->
   word.replace(/s$/, '')
+  word
 
 pluralize = (word) ->
   "#{word}s".replace(/ss$/, 's')

@@ -14,5 +14,6 @@
 
 = form_for([commontator, thread, comment], remote: !no_remote) do |f|
   = f.text_area :body
-  = f.submit
+  = f.submit 'Add comment'
+  -# t('commontator.new_comment')
   -# (comment.id.blank? ? 'Create' : 'Edit').capitalize + ' ' + config.comment_name

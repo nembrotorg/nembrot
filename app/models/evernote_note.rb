@@ -22,7 +22,7 @@ class EvernoteNote < ActiveRecord::Base
       SYNC_LOG.error "Note is not in any required notebook! (Notebook #{ notebook_guid } is not in #{ Setting['channel.evernote_notebooks'] }."
       evernote_note.note.destroy! unless evernote_note.note.nil?
     else
-      evernote_note.update_param('cloud_notebook_identifier', notebook_guid)
+      evernote_note.update_attribute('cloud_notebook_identifier', notebook_guid)
       SyncNoteJob.perform_later(evernote_note)
     end
   end

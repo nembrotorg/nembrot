@@ -15,5 +15,5 @@ staging:
 production:
   <<: *defaults
   channel:
-    evernote_notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce,53bcb1f5-93c0-42fd-b28c-a326f57b75c6,b6ca0bf4-d658-4d8f-a535-69251298687a
+    evernote_notebooks: 85d8c66d-f0ee-4c56-acac-e30ab88ce0ce,53bcb1f5-93c0-42fd-b28c-a326f57b75c6,b6ca0bf4-d658-4d8f-a535-69251298687a,b60b1792-1673-4280-88c4-b1493264d204
     name: joegatt.net

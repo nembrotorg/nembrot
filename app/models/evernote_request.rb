@@ -29,7 +29,7 @@ class EvernoteRequest
       evernote_note.destroy! unless evernote_note.nil?
       SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }. (Destroyed.)"
     rescue Evernote::EDAM::Error::EDAMSystemException => error
-      SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }."
+      SYNC_LOG.error "Evernote: User Exception: #{ error }."
   end
 
   def update_necessary?

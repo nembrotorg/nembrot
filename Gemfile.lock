@@ -137,9 +137,6 @@ GEM
     daemons (1.2.3)
     dalli (2.7.4)
     database_cleaner (1.0.1)
-    datadoge (0.0.2)
-      dogstatsd-ruby (~> 0)
-      gem_config (~> 0)
     debug_inspector (0.0.2)
     detect_language (1.0.7)
     devise (3.5.1)
@@ -152,7 +149,6 @@ GEM
     diff-lcs (1.2.5)
     differ (0.1.2)
     docile (1.1.5)
-    dogstatsd-ruby (0.4.0)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     em-websocket (0.5.1)
@@ -189,7 +185,6 @@ GEM
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
-    gem_config (0.3.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     gmaps4rails (2.1.2)
@@ -542,7 +537,6 @@ DEPENDENCIES
   compass-rails (~> 2.0.0)
   dalli
   database_cleaner (= 1.0.1)
-  datadoge
   detect_language
   devise
   differ

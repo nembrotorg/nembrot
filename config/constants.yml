@@ -37,7 +37,7 @@ test:
 staging:
   <<: *defaults
   host: staging.joegatt.net
-  asset_host: http://a4.joegatt.org/
+  asset_host: http://staging.joegatt.net/
   synchronous: true
 
 production:

@@ -196,7 +196,7 @@ module FormattingHelper
     citation_ids = mentioned_citations(text)
     related_citations = Note.related_citations(citation_ids)
     related_citations.each do |citation|
-      body = blurbify ? sanitize(citation.clean_body) : citation.body
+      body = strip_tags ? sanitize(citation.clean_body) : citation.body
       text.gsub!(/\{link:? *#{ citation_path(citation) }\}/, link_to(citation.headline, citation_path(citation)))
       text.gsub!(/\{blurb:? *#{ citation_path(citation) }\}/, body)
       text.gsub!(/\{text:? *#{ citation_path(citation) }\}/, "#{ body }\n") # REVIEW: Also link to citation?

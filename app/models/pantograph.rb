@@ -198,16 +198,8 @@ class Pantograph < ActiveRecord::Base
     self.class.escape_text(text)
   end
 
-  def previous_escaped
-    self.class.escape_text(previous_pantograph)
-  end
-
   def previous_pantograph
     self.class.calculate_before(text)
-  end
-
-  def next_escaped
-    self.class.escape_text(next_pantograph)
   end
 
   def next_pantograph
@@ -223,11 +215,11 @@ class Pantograph < ActiveRecord::Base
   end
 
   def previous_path
-    Rails.application.routes.url_helpers.pantograph_path(previous_escaped)
+    Rails.application.routes.url_helpers.pantograph_path(previous_pantograph)
   end
 
   def next_path
-    Rails.application.routes.url_helpers.pantograph_path(next_escaped)
+    Rails.application.routes.url_helpers.pantograph_path(next_pantograph)
   end
 
   def twitter_url

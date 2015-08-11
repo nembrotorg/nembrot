@@ -60,12 +60,12 @@ RSpec.describe Book do
     expect(@book.dewey_decimal).to eq('830.9357')
     expect(@book.dimensions).to eq(nil)
     expect(@book.dirty).to eq(false)
-    expect(@book.editor).to eq('')
+    expect(@book.editor).to eq(nil)
     expect(@book.format).to eq(nil)
     expect(@book.full_text_url).to eq(nil)
     expect(@book.google_books_embeddable).to eq(true)
     expect(@book.google_books_id).to eq('nRo0Pk8djjoC')
-    expect(@book.introducer).to eq('')
+    expect(@book.introducer).to eq(nil)
     expect(@book.isbn_10).to eq('0804720991')
     expect(@book.isbn_13).to eq('9780804720991')
     expect(@book.lang).to eq('en')
@@ -79,7 +79,7 @@ RSpec.describe Book do
     expect(@book.slug).to eq('kittler-1990')
     expect(@book.tag).to eq('Kittler 1990')
     expect(@book.title).to eq('Discourse Networks, 1800-1900')
-    expect(@book.translator).to eq('')
+    expect(@book.translator).to eq(nil)
     expect(@book.weight).to eq(nil)
   end
 
@@ -95,12 +95,14 @@ RSpec.describe Book do
 
   describe '#tag' do
     it 'creates a tag from author surname and published date' do
+      @book.save!
       expect(@book.tag).to eq("#{ @book.author_surname } #{ @book.published_date.year }")
     end
   end
 
   describe '#slug' do
     it 'should create a slug by parameterizing the tag' do
+      @book.save!
       expect(@book.slug).to eq(@book.tag.parameterize)
     end
   end
@@ -137,7 +139,7 @@ RSpec.describe Book do
   describe '#headline' do
     before { @book.update_attributes(author: 'Name Surname', title: 'Short Title: Long Title') }
     it 'returns author and short book title' do
-      expect(@book.headline).to eq('Surname: <cite class=\"book\">Short Title</cite>')
+      expect(@book.headline).to eq('Surname: <span class="book">Short Title </span>')
     end
   end
 
@@ -146,7 +148,7 @@ RSpec.describe Book do
     it 'returns editor when author is nil' do
       expect(@book.author_or_editor).to eq("Name2 Surname2 #{ I18n.t('books.show.editor_short') }")
       expect(@book.author_surname).to eq("Surname2 #{ I18n.t('books.show.editor_short') }")
-      expect(@book.headline).to eq(%q{Surname2 #{ I18n.t('books.show.editor_short') }: <cite class="book">Short Title</cite>})
+      expect(@book.headline).to eq("Surname2 #{ I18n.t('books.show.editor_short') }: <span class=\"book\">Short Title </span>")
     end
   end
 end

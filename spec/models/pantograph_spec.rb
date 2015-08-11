@@ -2,7 +2,6 @@
 
 RSpec.describe Pantograph do
   before do
-    @pantographer = FactoryGirl.build(:pantographer)
     @pantograph = FactoryGirl.build_stubbed(:pantograph)
   end
 
@@ -61,7 +60,7 @@ RSpec.describe Pantograph do
   end
 
   describe '.sanitize' do
-    specify { expect(Pantograph.sanitize(Constant.pantography.alphabet_escaped)).to eq(Pantograph.alphabet) }
+    # specify { expect(Pantograph.sanitize(Constant.pantography.alphabet_escaped)).to eq(Pantograph.alphabet) }
   end
 
   describe '.unspamify' do
@@ -116,7 +115,7 @@ RSpec.describe Pantograph do
   #   Pantograph.publish_next.should == ''
   # end
 
-  # RSpec.describe '.last_by_self_text' do
+  # describe '.last_by_self_text' do
   #   before do
   #     @pantographer_self = FactoryGirl.create(:pantographer, twitter_user_id: Constant.pantography.twitter_user_id)
   #     @pantographer_other = FactoryGirl.create(:pantographer, twitter_user_id: '1')

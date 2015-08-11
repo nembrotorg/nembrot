@@ -61,35 +61,4 @@ RSpec.describe EvernoteNote do
     before { @evernote_note.max_out_attempts }
     its(:attempts) { should >=  Setting['advanced.attempts'].to_i }
   end
-
-  describe 'scope :need_syncdown' do
-    before do
-      @evernote_note = FactoryGirl.create(:evernote_note, dirty: true, attempts: 0)
-    end
-    it 'contains all dirty notes' do
-      expect(EvernoteNote.need_syncdown.last).to eq(@evernote_note)
-    end
-  end
-
-  describe 'scope :need_syncdown' do
-    before do
-      @evernote_note = FactoryGirl.create(:evernote_note,
-                                          dirty: true,
-                                          attempts: Setting['advanced.attempts'].to_i + 1)
-    end
-    it 'does not contain dirty notes retried too often' do
-      EvernoteNote.need_syncdown.last.should == nil
-    end
-  end
-
-  describe 'scope :need_syncdown' do
-    before do
-      @evernote_note = FactoryGirl.create(:evernote_note, dirty: true)
-      @evernote_note.increment_attempts
-      @evernote_note.max_out_attempts
-    end
-    it 'does not include notes after #max_out_attempts' do
-      EvernoteNote.need_syncdown.last.should == nil
-    end
-  end
 end

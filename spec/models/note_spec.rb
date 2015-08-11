@@ -433,7 +433,7 @@ RSpec.describe Note do
     end
     context 'when text is in Russian' do
      before do
-       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.', instruction_list: [])
+       note.update_attributes(title: 'Анатомия меланхолии', body: 'Автор книги — оксфордский прелат Роберт Бёртон — продолжал дополнять и дописывать книгу до самой смерти в 1640 году.', instruction_list: [])
        note.save!
      end
      it 'returns ru' do

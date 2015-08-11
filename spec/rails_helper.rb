@@ -9,12 +9,9 @@ require 'rspec/rails'
 
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'codeclimate-test-reporter'
 require 'paper_trail/frameworks/rspec'
 require 'rubygems'
 require 'simplecov'
-
-CodeClimate::TestReporter.start
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

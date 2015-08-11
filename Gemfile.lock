@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/rails/sass-rails.git
+  revision: 8588b7b31d708a91516ae3bda0f57601a860ec28
+  branch: 4-0-stable
+  specs:
+    sass-rails (4.0.5)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.2.2)
+      sprockets (~> 2.8, < 3.0)
+      sprockets-rails (~> 2.0)
+
+GIT
   remote: https://github.com/sferik/twitter.git
   revision: 3fc61e1f4860688689df0104347330fb1c796a32
   specs:
@@ -422,12 +433,6 @@ GEM
       nokogiri (>= 1.4.4)
       nokogumbo (= 1.4.1)
     sass (3.2.19)
-    sass-rails (5.0.1)
-      railties (>= 4.0.0, < 5.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (~> 1.1)
     settingslogic (2.0.9)
     sexp_processor (4.6.0)
     shellany (0.0.1)
@@ -530,13 +535,13 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails
   commontator
-  compass-rails
+  compass-rails (~> 2.0.0)
   dalli
-  database_cleaner
+  database_cleaner (= 1.0.1)
   detect_language
   devise
   differ
-  embiggen
+  embiggen (~> 0.2)
   evernote-thrift
   factory_girl_rails
   faker
@@ -579,15 +584,15 @@ DEPENDENCIES
   pismo
   pjax_rails
   rails (= 4.2.1)
-  rails-settings-cached
+  rails-settings-cached (= 0.4.1)
   rails-timeago
   rails_best_practices
-  rb-inotify
+  rb-inotify (~> 0.9)
   rspec-collection_matchers
   rspec-its
   rspec-rails
   safe_yaml
-  sass-rails
+  sass-rails!
   settingslogic
   shoulda-matchers
   sidekiq

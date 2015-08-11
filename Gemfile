@@ -12,12 +12,12 @@ gem 'breadcrumbs_on_rails'
 gem 'cancan'
 gem 'coffee-rails'
 gem 'commontator'
-gem 'compass-rails', '~> 2.0.0'
+gem 'compass-rails'
 gem 'dalli'
 gem 'detect_language'
 gem 'devise'
 gem 'differ'
-gem 'embiggen', '~> 0.2'
+gem 'embiggen'
 gem 'flexslider'
 gem 'jquery-dotdotdot-rails'
 gem 'jquery-rails-cdn'
@@ -49,10 +49,10 @@ gem 'omniauth-twitter'
 gem 'paper_trail'
 gem 'pjax_rails'
 gem 'pismo'
-gem 'rails-settings-cached', '0.4.1'
+gem 'rails-settings-cached'
 gem 'rails-timeago'
 gem 'safe_yaml'
-gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
+gem 'sass-rails'
 gem 'settingslogic'
 gem 'sidekiq'
 gem 'sitemap_generator'
@@ -96,7 +96,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit' # Requires QT, see: https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
   gem 'codeclimate-test-reporter', require: nil
-  gem 'database_cleaner',  '1.0.1'  # See https://github.com/bmabey/database_cleaner/issues/224
+  gem 'database_cleaner'
   gem 'faker'
   gem 'guard'
   gem 'guard-bundler'
@@ -110,7 +110,7 @@ group :test do
   # System-dependent gems
   # Linux
   gem 'libnotify'
-  gem 'rb-inotify', '~> 0.9'
+  gem 'rb-inotify'
 
   # Mac OSX
   # gem 'growl',        '1.0.3'

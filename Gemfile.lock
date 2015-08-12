@@ -149,6 +149,8 @@ GEM
     diff-lcs (1.2.5)
     differ (0.1.2)
     docile (1.1.5)
+    dogapi (1.20.0)
+      multi_json
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     em-websocket (0.5.1)
@@ -540,6 +542,7 @@ DEPENDENCIES
   detect_language
   devise
   differ
+  dogapi
   embiggen (~> 0.2)
   evernote-thrift
   factory_girl_rails

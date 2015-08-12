@@ -59,6 +59,24 @@ _shorter_total = (num) ->
 
 window.Nembrot.load_user_menu = load_user_menu
 
+mini_scrollbar = (elements) ->
+  $(elements).slimScroll
+    height: 'auto'
+    size: '10px'
+    position: 'right'
+    color: '#999'
+    alwaysVisible: false
+    distance: '0'
+    start: $('#child_image_element')
+    railVisible: true
+    railColor: '#ccc'
+    railOpacity: 0.3
+    wheelStep: 10
+    allowPageScroll: true
+    disableFadeOut: false
+
+window.Nembrot.mini_scrollbar = mini_scrollbar
+
 $ ->
   # Implementing a spinner may be a better idea: https://github.com/defunkt/jquery-pjax/issues/129
   $(document).on 'pjax:timeout', 'body', ->

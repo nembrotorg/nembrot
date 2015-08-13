@@ -70,10 +70,10 @@ mini_scrollbar = (elements) ->
     start: $('#child_image_element')
     railVisible: true
     railColor: '#ccc'
-    railOpacity: 0.3
+    railOpacity: 0.5
     wheelStep: 10
     allowPageScroll: true
-    disableFadeOut: false
+    disableFadeOut: true
 
 window.Nembrot.mini_scrollbar = mini_scrollbar
 

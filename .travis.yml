@@ -6,8 +6,9 @@ script:
 - bundle exec rake settings:update_defaults RAILS_ENV=test
 - bundle exec rspec
 before_script:
-- cp config/channel.constants.sample.yml config/channel.constants.yml
+- cp config/application.sample.yml config/application.yml
 - cp config/advanced.constants.sample.yml config/advanced.constants.yml
+- cp config/channel.constants.sample.yml config/channel.constants.yml
 notifications:
   slack:
     secure: a7Lv/6S5pttnC84gGI4RFw0f4X0rC8CXdVt6/IK5xqNNtSJqUaFtL2GhmvQ111HTkOaN81QR6zv3Ynj9EW3cFTHaGZgMab37V/5iVeHO1QM56KQZ2sf/Z+LsyfPfok7GTe6lDr5VzeatN7lptoQkpunoI8fh2Up+DVqccgVOMP0=

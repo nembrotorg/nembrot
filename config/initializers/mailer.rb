@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
-  address:              Secret.mailer.address,
-  port:                 Secret.mailer.port,
-  domain:               Secret.mailer.domain,
-  user_name:            Secret.mailer.user_name,
-  password:             Secret.mailer.password,
+  address:              Figaro.env.mailer_address,
+  port:                 Figaro.env.mailer_port,
+  domain:               Figaro.env.mailer_domain,
+  user_name:            Figaro.env.mailer_user_name,
+  password:             Figaro.env.mailer_password,
   authentication:       'plain',
   enable_starttls_auto: true
 }

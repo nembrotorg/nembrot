@@ -203,12 +203,12 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :evernote, Secret.auth.evernote.key, Secret.auth.evernote.secret, { client_options: { site: Constant.evernote_server } }
-  config.omniauth :facebook, Secret.auth.facebook.key, Secret.auth.facebook.secret, { scope: 'email, offline_access', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :twitter, Secret.auth.twitter.key, Secret.auth.twitter.secret, { scope: 'r_fullprofile, r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :linkedin, Secret.auth.linkedin.key, Secret.auth.linkedin.secret, { scope: 'r_fullprofile r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :github, Secret.auth.github.key, Secret.auth.github.secret, { scope: 'user, public_repo' }
-  config.omniauth :gplus, Secret.auth.gplus.key, Secret.auth.gplus.secret, { scope: 'userinfo.profile' }
+  config.omniauth :evernote, Figaro.env.evernote_key, Figaro.env.evernote_secret, { client_options: { site: Constant.evernote_server } }
+  config.omniauth :facebook, Figaro.env.facebook_key, Figaro.env.facebook_secret, { scope: 'email, offline_access', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :twitter, Figaro.env.twitter_key, Figaro.env.twitter_secret, { scope: 'r_fullprofile, r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :linkedin, Figaro.env.linkedin_key, Figaro.env.linkedin_secret, { scope: 'r_fullprofile r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :github, Figaro.env.github_key, Figaro.env.github_secret, { scope: 'user, public_repo' }
+  config.omniauth :gplus, Figaro.env.gplus_key, Figaro.env.gplus_secret, { scope: 'userinfo.profile' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -219,5 +219,5 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.secret_key = Secret.devise_secret_key
+  config.secret_key = Figaro.env.devise_secret_key
 end

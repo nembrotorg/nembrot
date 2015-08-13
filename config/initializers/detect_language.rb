@@ -1,3 +1,3 @@
 DetectLanguage.configure do |config|
-  config.api_key = Secret.auth.detect_language.key
+  config.api_key = Figaro.env.detect_language_key
 end

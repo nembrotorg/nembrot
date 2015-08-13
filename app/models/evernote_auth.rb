@@ -4,7 +4,7 @@ class EvernoteAuth
   attr_accessor :auth
 
   def initialize
-    self.auth = Authorization.where(provider: 'evernote', key: Secret.auth.evernote.key).first
+    self.auth = Authorization.where(provider: 'evernote', key: Figaro.env.evernote_key).first
     if auth.nil?
       CloudServiceMailer.auth_not_found('evernote').deliver
       SYNC_LOG.error I18n.t('notes.sync.rejected.not_authenticated', provider: 'Evernote', guid: '')

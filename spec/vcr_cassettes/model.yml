@@ -779,4 +779,150 @@ http_interactions:
         }
     http_version: 
   recorded_at: Thu, 13 Aug 2015 18:31:22 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=2cd42c226ffe8719282dbc07a5007ec2
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Fri, 14 Aug 2015 20:34:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
+    http_version: 
+  recorded_at: Fri, 14 Aug 2015 20:34:51 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=2cd42c226ffe8719282dbc07a5007ec2
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Fri, 14 Aug 2015 20:34:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
+    http_version: 
+  recorded_at: Fri, 14 Aug 2015 20:34:52 GMT
+- request:
+    method: get
+    uri: https://api.twitter.com/1.1/users/show.json?user_id=237443494
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - TwitterRubyGem/6.0.0
+      Authorization:
+      - OAuth oauth_consumer_key="LcP5KZsVECxlI7Z7aWz86g", oauth_nonce="cbab5995758b67047dee08f942f8ac5d",
+        oauth_signature="6ncm%2FSGBUGW9ExEwyCf7xn7l6O0%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1439635397", oauth_token="237443494-Up97qun1nvHfxO79kWlGbt6lvQIFY71vWgMjyTR4",
+        oauth_version="1.0"
+      Connection:
+      - close
+      Host:
+      - api.twitter.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      Connection:
+      - close
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Length:
+      - '2057'
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 15 Aug 2015 10:43:17 GMT
+      Expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      Last-Modified:
+      - Sat, 15 Aug 2015 10:43:17 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - tsa_f
+      Set-Cookie:
+      - guest_id=v1%3A143963539778281182; Domain=.twitter.com; Path=/; Expires=Mon,
+        14-Aug-2017 10:43:17 UTC
+      - lang=en; Path=/
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read-write
+      X-Connection-Hash:
+      - 2204a8747d06a77deb4459494b366e58
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - '180'
+      X-Rate-Limit-Remaining:
+      - '179'
+      X-Rate-Limit-Reset:
+      - '1439636297'
+      X-Response-Time:
+      - '207'
+      X-Transaction:
+      - 87c0f575604f45ec
+      X-Twitter-Response-Tags:
+      - BouncerCompliant
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"id":237443494,"id_str":"237443494","name":"Catholicon 140","screen_name":"catholicon140","location":"","profile_location":null,"description":"","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":0,"friends_count":4,"listed_count":0,"created_at":"Wed
+        Jan 12 21:22:18 +0000 2011","favourites_count":0,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":1532,"lang":"en","status":{"created_at":"Wed
+        Mar 04 11:06:38 +0000 2015","id":573077084454707200,"id_str":"573077084454707200","text":"It''s
+        been a great month... so far! #SumUp","source":"\u003ca href=\"http:\/\/twitter.com\"
+        rel=\"nofollow\"\u003eTwitter Web Client\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[{"text":"SumUp","indices":[35,41]}],"symbols":[],"user_mentions":[],"urls":[]},"favorited":false,"retweeted":false,"lang":"en"},"contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"C0DEED","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_tile":false,"profile_image_url":"http:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_image_url_https":"https:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"has_extended_profile":false,"default_profile":true,"default_profile_image":true,"following":false,"follow_request_sent":false,"notifications":false,"suspended":false,"needs_phone_verification":false}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 10:43:17 GMT
 recorded_with: VCR 2.9.3

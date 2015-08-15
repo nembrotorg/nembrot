@@ -50,7 +50,7 @@ class Url
     note.url_title = doc.title
     note.url_updated_at = doc.datetime
     note.url_accessed_at = Time.now
-    note.url_lang = DetectLanguage.simple_detect(doc.body[0..Constant.detect_language_sample_length.to_i])
+    note.url_lang = DetectLanguage.simple_detect(doc.body[0..NB.detect_language_sample_length.to_i])
     note.keyword_list = doc.keywords.map(&:first)
   end
 

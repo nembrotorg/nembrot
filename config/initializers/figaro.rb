@@ -11,3 +11,8 @@ required_keys = [
 ]
 
 Figaro.require_keys(required_keys)
+
+# NB is used as an alias of Alias Figaro.env.
+#  NB is not available in /initializers and neither NB nor Figaro.env are
+#  settable, so ENV is used in /initializers and /spec.
+NB = Figaro.env

@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = Constant.advanced.admin_email
+  config.mailer_sender = ENV['admin_email']
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -203,12 +203,12 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :evernote, Figaro.env.evernote_key, Figaro.env.evernote_secret, { client_options: { site: Constant.evernote_server } }
-  config.omniauth :facebook, Figaro.env.facebook_key, Figaro.env.facebook_secret, { scope: 'email, offline_access', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :twitter, Figaro.env.twitter_key, Figaro.env.twitter_secret, { scope: 'r_fullprofile, r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :linkedin, Figaro.env.linkedin_key, Figaro.env.linkedin_secret, { scope: 'r_fullprofile r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
-  config.omniauth :github, Figaro.env.github_key, Figaro.env.github_secret, { scope: 'user, public_repo' }
-  config.omniauth :gplus, Figaro.env.gplus_key, Figaro.env.gplus_secret, { scope: 'userinfo.profile' }
+  config.omniauth :evernote, ENV['evernote_key'], ENV['evernote_secret'], { client_options: { site: ENV['evernote_server'] } }
+  config.omniauth :facebook, ENV['facebook_key'], ENV['facebook_secret'], { scope: 'email, offline_access', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :twitter, ENV['twitter_key'], ENV['twitter_secret'], { scope: 'r_fullprofile, r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :linkedin, ENV['linkedin_key'], ENV['linkedin_secret'], { scope: 'r_fullprofile r_emailaddress', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' } } }
+  config.omniauth :github, ENV['github_key'], ENV['github_secret'], { scope: 'user, public_repo' }
+  config.omniauth :gplus, ENV['gplus_key'], ENV['gplus_secret'], { scope: 'userinfo.profile' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -219,5 +219,5 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.secret_key = Figaro.env.devise_secret_key
+  config.secret_key = ENV['devise_secret_key']
 end

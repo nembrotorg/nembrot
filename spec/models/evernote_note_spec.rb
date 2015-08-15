@@ -59,6 +59,6 @@ RSpec.describe EvernoteNote do
 
   describe '#max_out_attempts increments attempts' do
     before { @evernote_note.max_out_attempts }
-    its(:attempts) { should >=  Setting['advanced.attempts'].to_i }
+    its(:attempts) { should >=  ENV['attempts'].to_i }
   end
 end

@@ -12,8 +12,8 @@ FactoryGirl.define do
                                                 oauth_token: 'MOCK_TOKEN'
                                               },
                                consumer: {
-                                 key: Figaro.env.evernote_key,
-                                 secret: Figaro.env.evernote_secret
+                                 key: ENV['evernote_key'],
+                                 secret: ENV['evernote_secret']
                                }
                             })
                          })

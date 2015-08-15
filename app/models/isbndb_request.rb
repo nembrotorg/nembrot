@@ -3,12 +3,12 @@
 class IsbndbRequest
   include HTTParty
 
-  base_uri Constant.books.isbndb.domain
+  base_uri NB.isbndb_domain
 
   attr_accessor :metadata
 
   def initialize(isbn)
-    response = self.class.get("#{ Constant.books.isbndb.path }#{ Figaro.env.isbndb_key }/book/#{ isbn }")
+    response = self.class.get("#{ NB.isbndb_path }#{ NB.isbndb_key }/book/#{ isbn }")
 
     response = JSON.parse response
 

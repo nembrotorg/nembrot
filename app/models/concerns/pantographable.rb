@@ -6,10 +6,10 @@ module Pantographable
   module ClassMethods
     def authenticated_twitter_client
       Twitter::REST::Client.new do |config|
-        config.consumer_key = Figaro.env.twitter_pantography_key
-        config.consumer_secret = Figaro.env.twitter_pantography_secret
-        config.access_token = Figaro.env.twitter_pantography_access_token
-        config.access_token_secret = Figaro.env.twitter_pantography_access_secret
+        config.consumer_key = NB.twitter_pantography_key
+        config.consumer_secret = NB.twitter_pantography_secret
+        config.access_token = NB.twitter_pantography_access_token
+        config.access_token_secret = NB.twitter_pantography_access_secret
       end
     end
   end
@@ -19,10 +19,10 @@ module Pantographable
   #  https://github.com/tweetstream/tweetstream/issues/117
   # def self.authenticated_tweetstream_client
   #   TweetStream.configure do |config|
-  #     config.consumer_key       = Figaro.env.twitter_pantography_consumer_key
-  #     config.consumer_secret    = Figaro.env.twitter_pantography_consumer_secret
-  #     config.oauth_token        = Figaro.env.twitter_pantography_access_token
-  #     config.oauth_token_secret = Figaro.env.twitter_pantography_access_secret
+  #     config.consumer_key       = NB.twitter_pantography_consumer_key
+  #     config.consumer_secret    = NB.twitter_pantography_consumer_secret
+  #     config.oauth_token        = NB.twitter_pantography_access_token
+  #     config.oauth_token_secret = NB.twitter_pantography_access_secret
   #     config.auth_method        = :oauth
   #   end
   # end

@@ -6,13 +6,13 @@ RSpec.describe 'Notes' do
   include ResourcesHelper
 
   before(:example) do
-    Constant['rtl_langs'] = 'ar'
-    Setting['advanced.blurb_length'] = 40
-    Setting['advanced.instructions_map'] = '__MAP'
-    Setting['advanced.tags_minimum'] = 1
-    Setting['advanced.versions'] = 'true'
-    Setting['advanced.version_gap_distance'] = 10
-    Setting['advanced.version_gap_minutes'] = 60
+    ENV['rtl_langs'] = 'ar'
+    ENV['blurb_length'] = '40'
+    ENV['instructions_map'] = '__MAP'
+    ENV['tags_minimum'] = '1'
+    ENV['versions'] = 'true'
+    ENV['version_gap_distance'] = '10'
+    ENV['version_gap_minutes'] = '60'
   end
 
   describe 'index page' do
@@ -99,8 +99,8 @@ RSpec.describe 'Notes' do
 
   describe 'show page' do
     before do
-      Setting['advanced.versions'] = 'true'
-      Setting['advanced.tags_minimum'] = 1
+      ENV['versions'] = 'true'
+      ENV['tags_minimum'] = '1'
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']
       @note.save
@@ -136,7 +136,7 @@ RSpec.describe 'Notes' do
 
     context 'when versions are turned off' do
       before do
-        Setting['advanced.versions'] = false
+        ENV['versions'] = 'false'
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
         visit note_path(@note)
       end
@@ -146,7 +146,7 @@ RSpec.describe 'Notes' do
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
-      before { Setting['advanced.tags_minimum'] = 10 }
+      before { ENV['tags_minimum'] = '10' }
       it 'should not have a link to tag1' do
         # # pending "page.should_not have_link('tag1', href: '/tags/tag1')"
       end
@@ -233,7 +233,7 @@ RSpec.describe 'Notes' do
 
     context 'when a note is in an RTL language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
@@ -273,7 +273,7 @@ RSpec.describe 'Notes' do
 
     context 'when a note has a reference to a book' do
       before do
-        Setting['advanced.books_section'] = 'true'
+        ENV['books_section'] = 'true'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)
@@ -285,7 +285,7 @@ RSpec.describe 'Notes' do
 
     context 'when a books section is turned off' do
       before do
-        Setting['advanced.books_section'] = 'false'
+        ENV['books_section'] = 'false'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)

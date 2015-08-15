@@ -8,14 +8,14 @@ RSpec.describe ResourcesHelper do
     end
     it 'uses default settings for path to the cut the image' do
       expect(cut_image_binary_path(@resource))
-        .to eq("/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ Setting['style.images_effects'] }-#{ @resource.id }.png")
+        .to eq("/resources/cut/#{ @resource.local_file_name }-#{ ENV['images_standard_aspect_x'] }-#{ ENV['images_standard_aspect_y'] }-#{ ENV['images_standard_width'] }-#{ ENV['images_snap'] }-#{ ENV['images_gravity'] }-#{ ENV['images_effects'] }-#{ @resource.id }.png")
     end
 
     context 'when cut_image_binary_path has note fx' do
       before { @note.instruction_list = ['__FX_ABC', '__FX_DEF'] }
       it 'uses note#fx if they are set' do
         # cut_image_binary_path(@resource)
-        #  .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ @note.fx.try(:join, '|') }-#{ @resource.id }.png"
+        #  .should == "/resources/cut/#{ @resource.local_file_name }-#{ ENV['images_standard_aspect_x'] }-#{ ENV['images_standard_aspect_y'] }-#{ ENV['images_standard_width'] }-#{ ENV['images_snap'] }-#{ ENV['images_gravity'] }-#{ @note.fx.try(:join, '|') }-#{ @resource.id }.png"
       end
     end
 
@@ -79,16 +79,6 @@ RSpec.describe ResourcesHelper do
       it 'rounds number up if nearer' do
         expect(round_nearest(57, 30)).to eq(60)
       end
-    end
-  end
-
-  describe '#column_width' do
-    before do
-      Setting['style.column_width'] = 60
-      Setting['style.gutter_width'] = 30
-    end
-    it 'calculates the right width' do
-      expect(column_width(3)).to eq(240)
     end
   end
 end

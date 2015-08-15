@@ -10,7 +10,7 @@ module FormattingHelper
     text = related_citationify(text)
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = bookify(text, books, books_citation_style) if NB.books_section == 'true'
     text = relativize(text)
     text = headerize(text)
     text = sectionize(text)
@@ -35,7 +35,7 @@ module FormattingHelper
     target_text = related_citationify(target_text)
     target_text = sanitize_from_db(target_text)
     target_text = clean_whitespace(target_text)
-    target_text = bookify(target_text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    target_text = bookify(target_text, books, books_citation_style) if NB.books_section == 'true'
     target_text = relativize(target_text)
     target_text = headerize(target_text)
     target_text = sectionize(target_text)
@@ -55,25 +55,25 @@ module FormattingHelper
     text = sanitize_from_db(text)
     text = clean_whitespace(text)
     text = deheaderize(text)
-    text = bookify(text, books, books_citation_style) if Setting['advanced.books_section'] == 'true'
+    text = bookify(text, books, books_citation_style) if NB.books_section == 'true'
     text = relativize(text)
     text = clean_up_via_dom(text, true)
     text = strip_tags(text) if strip_tags
     text
   end
 
-  def sanitize_by_settings(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+  def sanitize_by_settings(text, allowed_tags = NB.allowed_html_tags)
     sanitize(text,
       tags: allowed_tags.split(/, ?| /) - ['span'], # REVIEW: Why remove <span> here?
-      attributes: Setting['advanced.allowed_html_attributes'].split(/, ?| /))
+      attributes: NB.allowed_html_attributes.split(/, ?| /))
   end
 
-  def simple_blurbify_link(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+  def simple_blurbify_link(text, allowed_tags = NB.allowed_html_tags)
     text = text.gsub(/ *\|.*$/, '').gsub(/ *—.*$/, '')
     simple_blurbify(text, allowed_tags)
   end
 
-  def simple_blurbify(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+  def simple_blurbify(text, allowed_tags = NB.allowed_html_tags)
     return '' if text.blank?
     text = sanitize(text, { tags: allowed_tags.split(/, ?| /) + ['span'] }) # REVIEW: Why add <span> here? For Feature titles
     text = clean_whitespace(text)
@@ -92,10 +92,10 @@ module FormattingHelper
     # clean_up(text)
   end
 
-  # REVIEW: Overkill with allowed_tags = Setting['advanced.allowed_html_tags']
-  def sanitize_from_db(text, allowed_tags = Setting['advanced.allowed_html_tags'])
+  # REVIEW: Overkill with allowed_tags = NB.allowed_html_tags
+  def sanitize_from_db(text, allowed_tags = NB.allowed_html_tags)
     text = sanitize_from_evernote(text)
-    text = text.gsub(/#{ Setting['advanced.truncate_after_regexp'] }.*\Z/m, '')
+    text = text.gsub(/#{ NB.truncate_after_regexp }.*\Z/m, '')
            .gsub(/<br[^>]*?>/, "\n")
            .gsub(/<b>|<h\d>/, '<strong>')
            .gsub(%r{</b>|</h\d>}, '</strong>')
@@ -112,7 +112,7 @@ module FormattingHelper
     #  Evernote expects all paragraphs to be wrapped in divs
     #  See: http://dev.evernote.com/doc/articles/enml.php#plaintext
     text = text.gsub(/\n|\r/, '')
-           .gsub(%r{^http:\/\/[a-z0-9]*\.?#{ Constant.host }}, '')
+           .gsub(%r{^http:\/\/[a-z0-9]*\.?#{ NB.host }}, '')
            .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/mi, "<div>{quote:\n\\2\n}</div>")
            .gsub(/(<div style="padding\-left: 30px;">)(.*?)(<\/div>)/i, "<div>{quote:\\2}</div>")
            .gsub(/(<p>|<div)/i, "\n\\1")
@@ -167,7 +167,7 @@ module FormattingHelper
 
   def relativize(text)
     # Make all local links relative
-    text.gsub(/(<a href=")http:\/\/#{ Constant.host }([^"]*?"[^>]*?>)/, "\\1\\2")
+    text.gsub(/(<a href=")http:\/\/#{ NB.host }([^"]*?"[^>]*?>)/, "\\1\\2")
   end
 
   def related_notify(text, strip_tags = false)
@@ -233,7 +233,7 @@ module FormattingHelper
     # REVIEW: These operations should not be necessary!
     # .gsub(/(<[^>"]*?)[\u201C|\u201D]([^<"]*?>)/, '\1"\2') # FIXME: This is for links in credits but it should not be necessary
     text.gsub!(/^<p>\s*<\/p>$/m, '') # Removes empty paragraphs # FIXME
-    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = hyper_conform(text) if NB.hyper_conform == 'true'
     text = text.gsub(/  +/m, ' ') # FIXME
            .gsub(/ ?\, ?p\./, 'p.') # Clean up page numbers (we don't always want this) # language-dependent
            .gsub(/"/, "\u201C") # Assume any remaining quotes are opening quotes.
@@ -243,7 +243,7 @@ module FormattingHelper
 
   def clean_up_via_dom(text, unwrap_p = false, number_paragraphs = false)
     text = text.gsub(/ +/m, ' ')
-    text = hyper_conform(text) if Setting['style.hyper_conform'] == 'true'
+    text = hyper_conform(text) if NB.hyper_conform == 'true'
     text = smartify_numbers(text)
     dom = Nokogiri::HTML(text)
     dom = clean_up_dom(dom, unwrap_p, number_paragraphs)
@@ -263,7 +263,7 @@ module FormattingHelper
       # t.content = t.content.strip ... we only want to strip from the beginning of files
       # t.content = hyper_conform(t.content)
     end
-    dom = indent_dom(dom) if Constant.html.pretty_body
+    dom = indent_dom(dom) if NB.html_pretty_body == 'true'
     unwrap_from_paragraph_tag(dom) if unwrap_p
     dom
   end
@@ -310,7 +310,7 @@ module FormattingHelper
   def smartify_punctuation(text)
     text = smartify_hyphens(text)
     text = smartify_quotation_marks(text)
-    text = force_double_quotes(text) if Setting['style.force_double_quotes']
+    text = force_double_quotes(text) if NB.force_double_quotes == 'true'
   end
 
   def smartify_hyphens(text)

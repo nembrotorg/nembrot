@@ -45,7 +45,7 @@ Rails.application.configure do
   config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = Constant.asset_host unless Constant.asset_host.blank?
+  config.action_controller.asset_host = ENV['asset_host'] unless ENV['asset_host'].blank?
 
   # Add the fonts path
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')

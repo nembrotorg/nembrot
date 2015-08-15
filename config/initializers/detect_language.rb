@@ -1,3 +1,3 @@
 DetectLanguage.configure do |config|
-  config.api_key = Figaro.env.detect_language_key
+  config.api_key = ENV['detect_language_key']
 end

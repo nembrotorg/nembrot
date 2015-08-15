@@ -1,6 +1,6 @@
 - cache [cache_buster(1), link] do
 
-  - blurb_length = blurb_length || Setting['advanced.blurb_length'].to_i
+  - blurb_length = blurb_length || NB.blurb_length.to_i
   - headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
   - url_title = link.url_title || headline
   - url_lede = link.url_lede || blurb

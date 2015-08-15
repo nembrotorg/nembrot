@@ -10,7 +10,7 @@ VCR.configure do |c|
     serialize_with: :yaml,
     decode_compressed_response: true
   }
-  Figaro.env.each do |service_key, service_value|
+  NB.each do |service_key, service_value|
     service_value.each do |param_key, param_value|
       c.filter_sensitive_data("<#{ service_key }_#{ param_key }>".upcase) { param_value }
     end

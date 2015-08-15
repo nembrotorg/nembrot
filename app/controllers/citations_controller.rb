@@ -7,7 +7,7 @@ class CitationsController < ApplicationController
     page_number = params[:page] ||= 1
     all_citations = Note.citation.publishable
 
-    @citations = all_citations.page(page_number).per(Setting['advanced.citations_index_per_page'].to_i).load
+    @citations = all_citations.page(page_number).per(NB.citations_index_per_page.to_i).load
     @total_count = all_citations.size
     @books_count = all_citations.map { |citation| citation.books unless citation.books.blank? } .uniq.size
     @domains_count = all_citations.map { |link| link.inferred_url_domain unless link.inferred_url_domain.nil? } .uniq.size

@@ -1,4 +1,4 @@
-=t('email.greeting', name: Setting['advanced.admin_name'])
+=t('email.greeting', name: NB.admin_name)
 | \
 =t('books.sync.failed.missing_metadata.email.body')
 | \
@@ -7,7 +7,7 @@
 ="Title: #{ @title }"
 ="Published date: #{ @published_date }"
 | \
-="http://#{ Constant.host }/admin/book/#{ @id }/edit"
+="http://#{ NB.host }/admin/book/#{ @id }/edit"
 | \
 ="http://www.amazon.com/s/?field-keywords=#{ @isbn }"
 | \

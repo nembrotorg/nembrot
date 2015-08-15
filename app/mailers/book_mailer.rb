@@ -1,5 +1,5 @@
 class BookMailer < ActionMailer::Base
-  default from: Setting['advanced.admin_email']
+  default from: NB.admin_email
 
   def missing_metadata(book)
     @isbn = book.isbn
@@ -9,10 +9,10 @@ class BookMailer < ActionMailer::Base
     @id = book.id
 
     mail(
-      to: Setting['advanced.admin_email'],
+      to: NB.admin_email,
       subject: I18n.t('books.sync.missing_metadata.email.subject',
                       isbn: @isbn, details: "#{ @author } | #{ @title } | #{ @published_date }"),
-      host: Constant.host
+      host: NB.host
     )
   end
 end

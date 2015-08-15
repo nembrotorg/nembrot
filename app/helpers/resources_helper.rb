@@ -12,11 +12,11 @@ module ResourcesHelper
 
     Rails.application.routes.url_helpers.cut_resource_path(
       file_name:  image.local_file_name,
-      aspect_x:   options[:aspect_x]  || Setting["style.images_#{ type }_aspect_x"],
-      aspect_y:   options[:aspect_y]  || Setting["style.images_#{ type }_aspect_y"],
-      width:      options[:width]     || Setting["style.images_#{ type }_width"],
-      snap:       options[:snap]      || Setting['style.images_snap'],
-      gravity:    options[:gravity]   || Setting['style.images_gravity'],
+      aspect_x:   options[:aspect_x]  || ENV["images_#{ type }_aspect_x"].to_i,
+      aspect_y:   options[:aspect_y]  || ENV["images_#{ type }_aspect_y"].to_i,
+      width:      options[:width]     || ENV["images_#{ type }_width"].to_i,
+      snap:       options[:snap]      || NB.images_snap,
+      gravity:    options[:gravity]   || NB.images_gravity,
       effects:    options[:effects]   || image.note.fx,
       id:         options[:id]        || image.id,
       format:     image.file_ext.to_sym
@@ -29,17 +29,14 @@ module ResourcesHelper
     file_name_template = image_record.template_location(aspect_x, aspect_y)
     file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
-    # Shorthand: small integers are taken to be number of columns rather than absolute width
-    width = column_width(width) if width <= Setting['style.total_columns'].to_i
-
     # The height is derived from the aspect ratio and width.
     height = (width * aspect_y) / aspect_x
 
     # We snap the height to nearest baseline to maintain a vertical grid.
-    height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
+    height = round_nearest(height, NB.line_height.to_i) if snap == '1'
 
-    larger_cut_image_with_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, Setting['style.total_columns'].to_i)
-    larger_cut_image_without_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, '', Setting['style.total_columns'].to_i)
+    larger_cut_image_with_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, NB.total_columns.to_i)
+    larger_cut_image_without_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, '', NB.total_columns.to_i)
 
     template_already_has_effects = false
 
@@ -94,10 +91,6 @@ module ResourcesHelper
 
   def round_nearest(number, nearest)
     (number / nearest.to_f).round * nearest
-  end
-
-  def column_width(columns)
-    (Setting['style.column_width'].to_i * columns) + (Setting['style.gutter_width'].to_i * (columns - 1))
   end
 
   # FROM: http://maxivak.com/crop-and-resize-an-image-using-minimagick-ruby-on-rails/

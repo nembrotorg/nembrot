@@ -3,14 +3,14 @@
 class WorldCatRequest
   include HTTParty
 
-  base_uri Constant.books.world_cat.domain
+  base_uri NB.world_cat_domain
 
   attr_accessor :metadata
 
   def initialize(isbn)
     params = { 'recordSchema' => 'info:srw/schema/1/dc', 'servicelevel' => 'full',
-               'wskey' => Figaro.env.world_cat_key }
-    response = self.class.get("#{ Constant.books.world_cat.path }#{ isbn }", query: params)
+               'wskey' => NB.world_cat_key }
+    response = self.class.get("#{ NB.world_cat_path }#{ isbn }", query: params)
 
     populate(response, isbn) if response && response['oclcdcs']
 

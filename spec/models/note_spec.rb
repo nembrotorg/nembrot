@@ -5,9 +5,9 @@ include ApplicationHelper
 
 RSpec.describe Note do
   before(:example) do
-    Setting['advanced.versions'] = 'true'
-    Setting['advanced.version_gap_distance'] = 10
-    Setting['advanced.version_gap_minutes'] = 60
+    ENV['versions'] = 'true'
+    ENV['version_gap_distance'] = '10'
+    ENV['version_gap_minutes'] = '60'
   end
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago, external_created_at: 200.minutes.ago) }
   subject { note }
@@ -127,7 +127,7 @@ RSpec.describe Note do
     end
     context 'when versions are turned off' do
       before do
-        Setting['advanced.versions'] = false
+        ENV['versions'] = 'false'
         note.title = 'New Title'
         note.external_updated_at = 1.minute.ago
         note.save
@@ -227,8 +227,8 @@ RSpec.describe Note do
 
   describe '#has_instruction?' do
     before do
-      Setting['advanced.instructions_hide'] = '__HIDESYNONYM'
-      Setting['advanced.instructions_default'] = '__DEFAULT_INSTRUCTION'
+      ENV['instructions_hide'] = '__HIDESYNONYM'
+      ENV['instructions_default'] = '__DEFAULT_INSTRUCTION'
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
@@ -388,8 +388,8 @@ RSpec.describe Note do
   end
 
   describe '#feature' do
-    Setting['advanced.instructions_feature_first'] = '__FEATURE_FIRST'
-    Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
+    ENV['instructions_feature_first'] = '__FEATURE_FIRST'
+    ENV['instructions_feature_last'] = '__FEATURE_LAST'
     before { note.update_attributes(title: 'Title Has Three Words') }
     context 'when note has no instruction' do
       its (:feature) { is_expected.to be_nil }
@@ -414,7 +414,7 @@ RSpec.describe Note do
   end
 
   describe 'lang_from_cloud' do
-    Setting['advanced.detect_language_sample_length'] = 100
+    ENV['detect_language_sample_length'] = '100'
     context 'when text is in Enlish' do
       before do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: [])

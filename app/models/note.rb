@@ -20,7 +20,7 @@ class Note < ActiveRecord::Base
   has_paper_trail on: [:update],
                   only: [:title, :body],
                   if:  proc { |note| note.save_new_version? },
-                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  unless: proc { |note| NB.versions == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -31,7 +31,7 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope { order('weight ASC, external_updated_at DESC') }
-  # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
+  # scope :blurbable, -> { where('word_count > ?', (NB.blurb_length.to_i / NB.average_word_length.to_f)) }
   scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
   scope :dateordered, -> { order('external_updated_at DESC') }
   scope :features, -> { where.not(feature: nil) }
@@ -53,7 +53,7 @@ class Note < ActiveRecord::Base
   after_save :scan_note_for_isbns, if: :body_changed?
   after_save :queue_url_decoration
 
-  paginates_per Setting['advanced.notes_index_per_page'].to_i
+  paginates_per NB.notes_index_per_page.to_i
 
   # REVIEW: Store in columns like is_section?
   def self.mappable
@@ -62,8 +62,8 @@ class Note < ActiveRecord::Base
 
   # REVIEW: Store in columns like is_section?
   def self.promotable
-    promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
-    greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
+    promotions_home = NB.promotions_home_columns.to_i * NB.promotions_home_rows.to_i
+    greater_promotions_number = [NB.promotions_footer.to_i, promotions_home].max
     (all.to_a.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
   end
 
@@ -101,11 +101,11 @@ class Note < ActiveRecord::Base
 
   def has_instruction?(instruction, instructions = instruction_list)
     instruction_to_find = ["__#{ instruction.upcase }"]
-    instruction_to_find.push(Setting["advanced.instructions_#{ instruction }"].split(/, ?| /)) unless Setting["advanced.instructions_#{ instruction }"].nil?
+    instruction_to_find.push(ENV["instructions_#{ instruction }"].split(/, ?| /)) unless ENV["instructions_#{ instruction }"].nil?
     instruction_to_find.flatten!
 
     all_relevant_instructions = Array(instructions)
-    all_relevant_instructions.push(Setting['advanced.instructions_default'].split(/, ?| /))
+    all_relevant_instructions.push(NB.instructions_default.split(/, ?| /))
     all_relevant_instructions.flatten!
 
     !(all_relevant_instructions & instruction_to_find).empty?
@@ -160,7 +160,7 @@ class Note < ActiveRecord::Base
   end
 
   def fx
-    instructions = Setting['advanced.instructions_default'].split(/, ?| /) + Array(instruction_list)
+    instructions = NB.instructions_default.split(/, ?| /) + Array(instruction_list)
     fx = instructions.keep_if { |i| i =~ /__FX_/ }.each { |i| i.gsub!(/__FX_/, '').downcase! }
     fx.empty? ? nil : fx
   end
@@ -217,7 +217,7 @@ class Note < ActiveRecord::Base
     return false unless content_type == 'note'
     return false if external_updated_at_was.blank?
     return false if external_updated_at == external_updated_at_was
-    Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+    NB.versions == 'true' && ((external_updated_at - external_updated_at_was) > NB.version_gap_minutes.to_i.minutes || get_real_distance > NB.version_gap_distance.to_i)
   end
 
   def reset_url
@@ -258,7 +258,7 @@ class Note < ActiveRecord::Base
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
-      response = DetectLanguage.simple_detect(content[0..Constant.detect_language_sample_length.to_i])
+      response = DetectLanguage.simple_detect(content[0..NB.detect_language_sample_length.to_i])
       lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
     end
     self.lang = lang
@@ -279,7 +279,7 @@ class Note < ActiveRecord::Base
 
   def scan_note_for_isbns
     # REVIEW: try checking for setting as an unless: after before_save
-    Book.grab_isbns(body) unless Setting['advanced.books_section'] == 'false' || body.blank?
+    Book.grab_isbns(body) unless NB.books_section == 'false' || body.blank?
   end
 
   def body_or_source_or_resource?
@@ -312,26 +312,26 @@ class Note < ActiveRecord::Base
   end
 
   def reset_date?
-    self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true' && new_record?
+    self.external_updated_at = external_created_at if NB.always_reset_on_create == 'true' && new_record?
   end
 
   def discard_versions?
     if has_instruction?('reset')
-      self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true'
+      self.external_updated_at = external_created_at if NB.always_reset_on_create == 'true'
       versions.destroy_all unless versions.empty?
     end
   end
 
   def skip_new_version?
     # Do not save a new version even though and versioning is switched on
-    Setting['advanced.versions'] == 'true' && minor_edit?
+    NB.versions == 'true' && minor_edit?
   end
 
   def minor_edit?
     # Should we consider all canges in title a major edit?
     return false if new_record?
-    too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < Setting['advanced.version_gap_minutes'].to_i.minutes
-    too_minor = get_real_distance < Setting['advanced.version_gap_distance'].to_i
+    too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < NB.version_gap_minutes.to_i.minutes
+    too_minor = get_real_distance < NB.version_gap_distance.to_i
     too_recent && too_minor
   end
 

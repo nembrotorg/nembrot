@@ -2,150 +2,605 @@
 http_interactions:
 - request:
     method: get
-    uri: http://openlibrary.org/api/books?bibkeys=ISBN:0804720991&format=json&jscmd=details
+    uri: <GOOGLE_BOOKS_DOMAIN>/books/v<SHLVL>/volumes?country=GB&maxResults=<SHLVL>&q=ISBN:INVALID_ISBN
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
       Accept:
       - '*/*'
-      User-Agent:
+      User-Ag<LOCALE>t:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.1.19
+      Expires:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:<ATTEMPTS><XDG_VTNR> GMT
       Date:
-      - Thu, 13 Aug 2015 18:14:37 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Ol-Stats:
-      - '"IB 1 0.034 MC 2 0.001 TT 0 0.037"'
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:<ATTEMPTS><XDG_VTNR> GMT
+      Cache-Control:
+      - private, max-age=<CACHE_MINUTES>, must-revalidate, no-transform
+      Etag:
+      - '"AEqHJ<ATTEMPTS><IMAGES_STANDARD_ASPECT_Y>cYOcHij<IMAGES_STANDARD_ASPECT_Y>7<PROMOTIONS_FOOTER>IZqD<IMAGES_STANDARD_ASPECT_Y>LCWzE/oUWaC<CACHE_MINUTES>aHbU8Qq-<CACHE_MINUTES><PROMOTIONS_FOOTER>-g<CACHE_BUSTER>fyhyvw<IMAGES_STANDARD_ASPECT_Y>w"'
+      Vary:
+      - Origin
+      - X-Origin
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - <SHLVL>; mode=block
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 44<ATTEMPTS>:quic,p=<SHLVL>
+      Alt-Svc:
+      - quic=":44<ATTEMPTS>"; p="<SHLVL>"; ma=<PROMOTIONS_FOOTER><CACHE_MINUTES>48<CACHE_MINUTES><CACHE_MINUTES>
+      Cont<LOCALE>t-Type:
+      - application/json; charset=UTF-8
+      X-Cont<LOCALE>t-Type-Options:
+      - nosniff
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - <SHLVL><PROMOTIONS_FOOTER>7<ATTEMPTS>
     body:
       encoding: UTF-8
-      string: '{"ISBN:0804720991": {"bib_key": "ISBN:0804720991", "preview": "noview",
-        "preview_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
-        "info_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
-        "details": {"publishers": ["Stanford University press"], "pagination": "xxxiii,
-        459 p. :", "identifiers": {"goodreads": ["212450"], "librarything": ["430888"]},
-        "key": "/books/OL20093119M", "title": "Discourse networks, 1800-1900", "notes":
-        {"type": "/type/text", "value": "Translation of, Aufschreibesysteme 1800/1900.\n\nOriginally
-        published: Fink Verlag, 1985."}, "number_of_pages": 459, "created": {"type":
-        "/type/datetime", "value": "2008-10-25T21:32:21.671026"}, "languages": [{"key":
-        "/languages/eng"}], "isbn_10": ["0804720991"], "latest_revision": 4, "publish_country":
-        "xxu", "last_modified": {"type": "/type/datetime", "value": "2010-08-18T14:02:19.870129"},
-        "authors": [{"name": "Friedrich A. Kittler", "key": "/authors/OL77726A"}],
-        "publish_date": "1990", "by_statement": "Friedrich A. Kittler ; translated
-        by Michael Metteer, with Chris Cullens ; foreword by David A. Wellbery.",
-        "publish_places": ["Stanford, Calif"], "works": [{"key": "/works/OL882892W"}],
-        "type": {"key": "/type/edition"}, "subjects": ["German literature -- 19th
-        century -- History and criticism.", "German literature -- 20th century --
-        History and criticism.", "Books and reading -- Germany -- History -- 20th
-        century.", "Books and reading -- Germany -- History -- 19th century.", "Literature
-        and society -- Germany -- History -- 20th century.", "Literature and society
-        -- Germany -- History -- 19th century.", "Books and reading in literature.",
-        "Critical studies.", "Authorship."], "revision": 4}}}'
+      string: |
+        {
+         "kind": "books#volumes",
+         "totalItems": <SHLVL><SHLVL><XDG_VTNR><ATTEMPTS>,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "qLb4AAAACAAJ",
+           "etag": "PFFKRuYwrP8",
+           "selfLink": "<GOOGLE_BOOKS_DOMAIN>/books/v<SHLVL>/volumes/qLb4AAAACAAJ",
+           "volumeInfo": {
+            "title": "Invalid Isbn",
+            "authors": [
+             "Eric Lomax"
+            ],
+            "publisher": "Arrow",
+            "publishedDate": "<SHLVL><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><PROMOTIONS_FOOTER>-<CACHE_MINUTES><PROMOTIONS_FOOTER>",
+            "industryId<LOCALE>tifiers": [
+             {
+              "type": "ISBN_<SHLVL><CACHE_MINUTES>",
+              "id<LOCALE>tifier": "<SHLVL>8<CACHE_BUSTER><PROMOTIONS_FOOTER>87<CACHE_MINUTES>4<CACHE_MINUTES><CACHE_BUSTER>"
+             },
+             {
+              "type": "ISBN_<SHLVL><ATTEMPTS>",
+              "id<LOCALE>tifier": "<IMAGES_STANDARD_ASPECT_Y>78<SHLVL>8<CACHE_BUSTER><PROMOTIONS_FOOTER>87<CACHE_MINUTES>4<CACHE_MINUTES><CACHE_BUSTER>"
+             }
+            ],
+            "readingModes": {
+             "text": <HTML_PRETTY_BODY>,
+             "image": <HTML_PRETTY_BODY>
+            },
+            "printType": "BOOK",
+            "maturityRating": "NOT_MATURE",
+            "allowAnonLogging": <HTML_PRETTY_BODY>,
+            "cont<LOCALE>tVersion": "preview-<SHLVL>.<CACHE_MINUTES>.<CACHE_MINUTES>",
+            "language": "<LOCALE>",
+            "previewLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=<SHLVL>&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.<HTML_FORMAT>?hl=&id=qLb4AAAACAAJ"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": <HTML_PRETTY_BODY>
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "NO_PAGES",
+            "embeddable": <HTML_PRETTY_BODY>,
+            "publicDomain": <HTML_PRETTY_BODY>,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": <HTML_PRETTY_BODY>
+            },
+            "pdf": {
+             "isAvailable": <HTML_PRETTY_BODY>
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=qLb4AAAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "NONE",
+            "quoteSharingAllowed": <HTML_PRETTY_BODY>
+           }
+          }
+         ]
+        }
     http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:14:37 GMT
+  recorded_at: Sat, 15 Aug 2015 17:26:32 GMT
 - request:
     method: get
-    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
+    uri: <GOOGLE_BOOKS_DOMAIN>/books/v<SHLVL>/volumes?country=GB&maxResults=<SHLVL>&q=ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
       Accept:
       - '*/*'
-      User-Agent:
+      User-Ag<LOCALE>t:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.1.19
+      Expires:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:4<SHLVL> GMT
       Date:
-      - Thu, 13 Aug 2015 18:14:37 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Ol-Stats:
-      - '"IB 1 0.030 TT 0 0.030"'
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:4<SHLVL> GMT
+      Cache-Control:
+      - private, max-age=<CACHE_MINUTES>, must-revalidate, no-transform
+      Etag:
+      - '"AEqHJ<ATTEMPTS><IMAGES_STANDARD_ASPECT_Y>cYOcHij<IMAGES_STANDARD_ASPECT_Y>7<PROMOTIONS_FOOTER>IZqD<IMAGES_STANDARD_ASPECT_Y>LCWzE/EOHeA<ATTEMPTS>pdAXeJ-uNs<IMAGES_STANDARD_ASPECT_Y>V_nfT-vUj8"'
+      Vary:
+      - Origin
+      - X-Origin
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - <SHLVL>; mode=block
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 44<ATTEMPTS>:quic,p=<SHLVL>
+      Alt-Svc:
+      - quic=":44<ATTEMPTS>"; p="<SHLVL>"; ma=<PROMOTIONS_FOOTER><CACHE_MINUTES>48<CACHE_MINUTES><CACHE_MINUTES>
+      Cont<LOCALE>t-Type:
+      - application/json; charset=UTF-8
+      X-Cont<LOCALE>t-Type-Options:
+      - nosniff
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - <ATTEMPTS>78<SHLVL>
     body:
       encoding: UTF-8
-      string: '{}'
+      string: |
+        {
+         "kind": "books#volumes",
+         "totalItems": <SHLVL><PROMOTIONS_FOOTER>,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "nRo<CACHE_MINUTES>Pk8djjoC",
+           "etag": "<PROMOTIONS_FOOTER>UduZI<PROMOTIONS_FOOTER>GKuI",
+           "selfLink": "<GOOGLE_BOOKS_DOMAIN>/books/v<SHLVL>/volumes/nRo<CACHE_MINUTES>Pk8djjoC",
+           "volumeInfo": {
+            "title": "Discourse Networks <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>/<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+            "authors": [
+             "Friedrich A. Kittler"
+            ],
+            "publisher": "Stanford University Press",
+            "publishedDate": "<SHLVL><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>",
+            "description": "This is a highly original book about the connections betwe<LOCALE> historical mom<LOCALE>t, social structure, technology, communication systems, and what is said and thought using these systems - notably literature. The author focuses on the differ<LOCALE>ces betwe<LOCALE> 'discourse networks' in <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES> and in <SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>, in the process developing a new analysis of the shift from romanticism to modernism. The work might be classified as a German equival<LOCALE>t to the New Historicism that is curr<LOCALE>tly of great interest among American literary scholars, both in the intellectual influ<LOCALE>ces to which Kittler responds and in his concern to ground literature in the most concrete details of historical reality. The artful structure of the book begins with Goethe's Faust and <LOCALE>ds with Valery's Faust. In the <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES> section, the author discusses how language was learned, the emerg<LOCALE>ce of the modern university, the associated beginning of the interpretation of contemporary literature, and the canonization of literature. Among the writers and works Kittler analyzes in addition to Goethe's Faust are Schlegel, Hegel, E. T. A. Hoffman's 'The Gold<LOCALE> Pot', and Goethe's Tasso.",
+            "industryId<LOCALE>tifiers": [
+             {
+              "type": "ISBN_<SHLVL><CACHE_MINUTES>",
+              "id<LOCALE>tifier": "<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>"
+             },
+             {
+              "type": "ISBN_<SHLVL><ATTEMPTS>",
+              "id<LOCALE>tifier": "<IMAGES_STANDARD_ASPECT_Y>78<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>"
+             }
+            ],
+            "readingModes": {
+             "text": <HTML_PRETTY>,
+             "image": <HTML_PRETTY>
+            },
+            "pageCount": 4<CACHE_BUSTER><IMAGES_STANDARD_ASPECT_Y>,
+            "printType": "BOOK",
+            "categories": [
+             "Literary Criticism"
+            ],
+            "averageRating": 4.<CACHE_MINUTES>,
+            "ratingsCount": <SHLVL>,
+            "maturityRating": "NOT_MATURE",
+            "allowAnonLogging": <HTML_PRETTY_BODY>,
+            "cont<LOCALE>tVersion": "<CACHE_MINUTES>.<CACHE_MINUTES>.<XDG_VTNR>.<CACHE_MINUTES>.preview.<ATTEMPTS>",
+            "imageLinks": {
+             "smallThumbnail": "http://books.google.co.uk/books/cont<LOCALE>t?id=nRo<CACHE_MINUTES>Pk8djjoC&printsec=frontcover&img=<SHLVL>&zoom=<CACHE_BUSTER>&edge=curl&source=gbs_api",
+             "thumbnail": "http://books.google.co.uk/books/cont<LOCALE>t?id=nRo<CACHE_MINUTES>Pk8djjoC&printsec=frontcover&img=<SHLVL>&zoom=<SHLVL>&edge=curl&source=gbs_api"
+            },
+            "language": "<LOCALE>",
+            "previewLink": "http://books.google.co.uk/books?id=nRo<CACHE_MINUTES>Pk8djjoC&printsec=frontcover&dq=ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>&hl=&cd=<SHLVL>&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=nRo<CACHE_MINUTES>Pk8djjoC&dq=ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Discourse_Networks_<SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>_<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>.<HTML_FORMAT>?hl=&id=nRo<CACHE_MINUTES>Pk8djjoC"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": <HTML_PRETTY_BODY>
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "PARTIAL",
+            "embeddable": <HTML_PRETTY>,
+            "publicDomain": <HTML_PRETTY_BODY>,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": <HTML_PRETTY>,
+             "acsTok<LOCALE>Link": "http://books.google.co.uk/books/download/Discourse_Networks_<SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>_<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>-sample-epub.acsm?id=nRo<CACHE_MINUTES>Pk8djjoC&format=epub&output=acs4_fulfillm<LOCALE>t_tok<LOCALE>&dl_type=sample&source=gbs_api"
+            },
+            "pdf": {
+             "isAvailable": <HTML_PRETTY_BODY>
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=nRo<CACHE_MINUTES>Pk8djjoC&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "SAMPLE",
+            "quoteSharingAllowed": <HTML_PRETTY_BODY>
+           },
+           "searchInfo": {
+            "textSnippet": "This is a highly original book about the connections betwe<LOCALE> historical mom<LOCALE>t, social structure, technology, communication systems, and what is said and thought using these systems - notably literature."
+           }
+          }
+         ]
+        }
     http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:14:37 GMT
+  recorded_at: Sat, 15 Aug 2015 17:26:41 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=%E<CACHE_MINUTES>%B4%8<CACHE_BUSTER>%E<CACHE_MINUTES>%B4%A8%E<CACHE_MINUTES>%B4%BE%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y>F%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8D%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y>F%E<CACHE_MINUTES>%B4%AE%E<CACHE_MINUTES>%B4%BF+%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y><ATTEMPTS>%E<CACHE_MINUTES>%B4%AB%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8D+%E<CACHE_MINUTES>%B4%AE%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8<PROMOTIONS_FOOTER>%E<CACHE_MINUTES>%B4%B<XDG_VTNR>%E<CACHE_MINUTES>%B<CACHE_BUSTER>%BB%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y><CACHE_BUSTER>%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8A%E<CACHE_MINUTES>%B4%B<ATTEMPTS>%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8<CACHE_MINUTES>+%<XDG_VTNR>7%E<CACHE_MINUTES>%B4%8<CACHE_BUSTER>%E<CACHE_MINUTES>%B4%A8%E<CACHE_MINUTES>%B4%BE%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y>F%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8D%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y>F%E<CACHE_MINUTES>%B4%AE%E<CACHE_MINUTES>%B4%BF%<XDG_VTNR>7-%E<CACHE_MINUTES>%B4%AF%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8<SHLVL>%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y>F%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8<PROMOTIONS_FOOTER>+%E<CACHE_MINUTES>%B4%<IMAGES_STANDARD_ASPECT_Y><CACHE_BUSTER>%E<CACHE_MINUTES>%B<CACHE_BUSTER>%BC%E<CACHE_MINUTES>%B4%A4%E<CACHE_MINUTES>%B<CACHE_BUSTER>%8D%E<CACHE_MINUTES>%B4%A4%E<CACHE_MINUTES>%B4%BE%E<CACHE_MINUTES>%B4%B<CACHE_BUSTER>%E<CACHE_MINUTES>%B4%BE%E<CACHE_MINUTES>%B4%AF&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:<CACHE_BUSTER>4 GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 8<CACHE_MINUTES>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ml","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<SHLVL><CACHE_MINUTES>.<XDG_VTNR>4}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:26:54 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=The+Anatomy+of+Melancholy+Burton%<XDG_VTNR>7s+book+consists+mostly+of+a.&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:<CACHE_BUSTER><CACHE_BUSTER> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":7.<CACHE_BUSTER><CACHE_BUSTER>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:26:56 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>%D<CACHE_MINUTES>%BD%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BC%D<CACHE_MINUTES>%B8%D<SHLVL>%8F+%D<CACHE_MINUTES>%BC%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<CACHE_MINUTES>%BD%D<SHLVL>%8<CACHE_BUSTER>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B8+%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>%D<CACHE_MINUTES>%B<XDG_VTNR>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<SHLVL>%8<CACHE_MINUTES>+%D<CACHE_MINUTES>%BA%D<CACHE_MINUTES>%BD%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B<ATTEMPTS>%D<CACHE_MINUTES>%B8+%E<XDG_VTNR>%8<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y>4+%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BA%D<SHLVL>%8<SHLVL>%D<SHLVL>%84%D<CACHE_MINUTES>%BE%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%B4%D<SHLVL>%8<SHLVL>%D<CACHE_MINUTES>%BA%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B<IMAGES_STANDARD_ASPECT_Y>+%D<CACHE_MINUTES>%BF%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>+%D<CACHE_MINUTES>%A<CACHE_MINUTES>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%B<SHLVL>%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<SHLVL>%8<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>+%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><SHLVL>%D<SHLVL>%<IMAGES_STANDARD_ASPECT_Y><SHLVL>%D<SHLVL>%8<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BD+%E<XDG_VTNR>%8<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y>4+%D<CACHE_MINUTES>%BF%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<PROMOTIONS_FOOTER>%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<CACHE_MINUTES>%BB+%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BF%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%BD%D<SHLVL>%8F%D<SHLVL>%8<XDG_VTNR>%D<SHLVL>%8C+%D<CACHE_MINUTES>%B8+%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BF%D<CACHE_MINUTES>%B8%D<SHLVL>%8<SHLVL>%D<SHLVL>%8B%D<CACHE_MINUTES>%B<XDG_VTNR>%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<SHLVL>%8C&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR><PROMOTIONS_FOOTER>:<CACHE_BUSTER>7 GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<ATTEMPTS>.<IMAGES_STANDARD_ASPECT_Y><CACHE_BUSTER>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:26:57 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>%D<CACHE_MINUTES>%BD%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BC%D<CACHE_MINUTES>%B8%D<SHLVL>%8F+%D<CACHE_MINUTES>%BC%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<CACHE_MINUTES>%BD%D<SHLVL>%8<CACHE_BUSTER>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B8+%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>%D<CACHE_MINUTES>%B<XDG_VTNR>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<SHLVL>%8<CACHE_MINUTES>+%D<CACHE_MINUTES>%BA%D<CACHE_MINUTES>%BD%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B<ATTEMPTS>%D<CACHE_MINUTES>%B8+%E<XDG_VTNR>%8<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y>4+%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BA%D<SHLVL>%8<SHLVL>%D<SHLVL>%84%D<CACHE_MINUTES>%BE%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%B4%D<SHLVL>%8<SHLVL>%D<CACHE_MINUTES>%BA%D<CACHE_MINUTES>%B8%D<CACHE_MINUTES>%B<IMAGES_STANDARD_ASPECT_Y>+%D<CACHE_MINUTES>%BF%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>+%D<CACHE_MINUTES>%A<CACHE_MINUTES>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%B<SHLVL>%D<CACHE_MINUTES>%B<CACHE_BUSTER>%D<SHLVL>%8<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>+%D<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y><SHLVL>%D<SHLVL>%<IMAGES_STANDARD_ASPECT_Y><SHLVL>%D<SHLVL>%8<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BD+%E<XDG_VTNR>%8<CACHE_MINUTES>%<IMAGES_STANDARD_ASPECT_Y>4+%D<CACHE_MINUTES>%BF%D<SHLVL>%8<CACHE_MINUTES>%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%B<PROMOTIONS_FOOTER>%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<CACHE_MINUTES>%BB+%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BF%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BB%D<CACHE_MINUTES>%BD%D<SHLVL>%8F%D<SHLVL>%8<XDG_VTNR>%D<SHLVL>%8C+%D<CACHE_MINUTES>%B8+%D<CACHE_MINUTES>%B4%D<CACHE_MINUTES>%BE%D<CACHE_MINUTES>%BF%D<CACHE_MINUTES>%B8%D<SHLVL>%8<SHLVL>%D<SHLVL>%8B%D<CACHE_MINUTES>%B<XDG_VTNR>%D<CACHE_MINUTES>%B<CACHE_MINUTES>%D<SHLVL>%8<XDG_VTNR>%D<SHLVL>%8C&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7<DISPLAY><XDG_VTNR> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<ATTEMPTS>.<IMAGES_STANDARD_ASPECT_Y><CACHE_BUSTER>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:02 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=Title+Has+Three+Words+Fixed+note+cont<LOCALE>t+used+to+prev<LOCALE>t+multiple+calls+to+VCR.&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7<DISPLAY><IMAGES_STANDARD_ASPECT_Y> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<IMAGES_STANDARD_ASPECT_Y>.<IMAGES_STANDARD_ASPECT_Y>8}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:09 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+New+Body&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7:<SHLVL><ATTEMPTS> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<SHLVL><XDG_VTNR>.<XDG_VTNR>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:13 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+First+Body&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7:<SHLVL><CACHE_BUSTER> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 8<CACHE_MINUTES>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<SHLVL><XDG_VTNR>.<CACHE_MINUTES><PROMOTIONS_FOOTER>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:15 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Second+Body+with+more+words&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7:<SHLVL><PROMOTIONS_FOOTER> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 8<CACHE_MINUTES>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":<SHLVL>4.<ATTEMPTS><ATTEMPTS>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:16 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/<CACHE_MINUTES>.<XDG_VTNR>/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Fixed+note+cont<LOCALE>t+used+to+prev<LOCALE>t+multiple+calls+to+VCR.&key=<XDG_VTNR>cd4<XDG_VTNR>c<XDG_VTNR><XDG_VTNR><PROMOTIONS_FOOTER>ffe87<SHLVL><IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>8<XDG_VTNR>dbc<CACHE_MINUTES>7a<CACHE_BUSTER><CACHE_MINUTES><CACHE_MINUTES>7ec<XDG_VTNR>
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Detect Language API ruby gem
+      - Ruby
+      Cont<LOCALE>t-Type:
+      - application/x-www-form-url<LOCALE>coded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>7:<XDG_VTNR><CACHE_BUSTER> GMT
+      Cont<LOCALE>t-Type:
+      - application/json
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 7<IMAGES_STANDARD_ASPECT_Y>
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"<LOCALE>","isReliable":<HTML_PRETTY>,"confid<LOCALE>ce":8.7<SHLVL>}]}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:27:25 GMT
 - request:
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=wRXF1DxPbZ0PLsadbac5BmNSoZWI6MvB5Kx6jXfp2PGSB6DlJSRLzNB9GJkCjNOnLR4zuvjIgxnXmOAy
+    uri: <WORLD_CAT_DOMAIN><WORLD_CAT_PATH><CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>?recordSchema=info:srw/schema/<SHLVL>/dc&servicelevel=full&wskey=wRXF<SHLVL>DxPbZ<CACHE_MINUTES>PLsadbac<CACHE_BUSTER>BmNSoZWI<PROMOTIONS_FOOTER>MvB<CACHE_BUSTER>Kx<PROMOTIONS_FOOTER>jXfp<XDG_VTNR>PGSB<PROMOTIONS_FOOTER>DlJSRLzNB<IMAGES_STANDARD_ASPECT_Y>GJkCjNOnLR4zuvjIgxnXmOAy
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
       Accept:
       - '*/*'
-      User-Agent:
+      User-Ag<LOCALE>t:
       - Ruby
   response:
     status:
       code: 407
-      message: 'org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed: status=UNAUTHENTICATED'
+      message: 'org.oclc.wskey.api.WSKeyException: WSKeyAuth<LOCALE>ticate Failed:
+        status=UNAUTHENTICATED'
     headers:
       Date:
-      - Thu, 13 Aug 2015 18:15:13 GMT
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>8:<SHLVL><IMAGES_STANDARD_ASPECT_Y> GMT
       Server:
       - Apache
-      Content-Length:
-      - '1178'
-      Content-Type:
-      - text/html;charset=utf-8
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - <SHLVL><SHLVL>78
+      Cont<LOCALE>t-Type:
+      - text/<HTML_FORMAT>;charset=utf-8
     body:
       encoding: UTF-8
-      string: '<html><head><title> - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;}
-        H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;}
-        H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;}
+      string: '<<HTML_FORMAT>><head><title> - Error report</title><style><!--H<SHLVL>
+        {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#<CACHE_BUSTER><XDG_VTNR><CACHE_BUSTER>D7<PROMOTIONS_FOOTER>;font-size:<XDG_VTNR><XDG_VTNR>px;}
+        H<XDG_VTNR> {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#<CACHE_BUSTER><XDG_VTNR><CACHE_BUSTER>D7<PROMOTIONS_FOOTER>;font-size:<SHLVL><PROMOTIONS_FOOTER>px;}
+        H<ATTEMPTS> {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#<CACHE_BUSTER><XDG_VTNR><CACHE_BUSTER>D7<PROMOTIONS_FOOTER>;font-size:<SHLVL>4px;}
         BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;}
-        B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;}
-        P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A
-        {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP
-        Status 407 - org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed:
-        status=UNAUTHENTICATED</h1><HR size="1" noshade="noshade"><p><b>type</b> Status
-        report</p><p><b>message</b> <u>org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate
-        Failed: status=UNAUTHENTICATED</u></p><p><b>description</b> <u>The client
-        must first authenticate itself with the proxy (org.oclc.wskey.api.WSKeyException:
-        WSKeyAuthenticate Failed: status=UNAUTHENTICATED).</u></p><HR size="1" noshade="noshade"><h3></h3></body></html>'
+        B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#<CACHE_BUSTER><XDG_VTNR><CACHE_BUSTER>D7<PROMOTIONS_FOOTER>;}
+        P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:<SHLVL><XDG_VTNR>px;}A
+        {color : black;}A.name {color : black;}HR {color : #<CACHE_BUSTER><XDG_VTNR><CACHE_BUSTER>D7<PROMOTIONS_FOOTER>;}--></style>
+        </head><body><h<SHLVL>>HTTP Status 4<CACHE_MINUTES>7 - org.oclc.wskey.api.WSKeyException:
+        WSKeyAuth<LOCALE>ticate Failed: status=UNAUTHENTICATED</h<SHLVL>><HR size="<SHLVL>"
+        noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>org.oclc.wskey.api.WSKeyException:
+        WSKeyAuth<LOCALE>ticate Failed: status=UNAUTHENTICATED</u></p><p><b>description</b>
+        <u>The cli<LOCALE>t must first auth<LOCALE>ticate itself with the proxy (org.oclc.wskey.api.WSKeyException:
+        WSKeyAuth<LOCALE>ticate Failed: status=UNAUTHENTICATED).</u></p><HR size="<SHLVL>"
+        noshade="noshade"><h<ATTEMPTS>></h<ATTEMPTS>></body></<HTML_FORMAT>>'
     http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:13 GMT
+  recorded_at: Sat, 15 Aug 2015 17:28:19 GMT
 - request:
     method: get
-    uri: http://isbndb.com/api/v2/json/5GXH34LU/book/0804720991
+    uri: <ISBNDB_DOMAIN>/api/v<XDG_VTNR>/json/<ISBNDB_KEY>/book/<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
       Accept:
       - '*/*'
-      User-Agent:
+      User-Ag<LOCALE>t:
       - Ruby
   response:
     status:
@@ -153,15 +608,16 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.6.1
+      - nginx/<SHLVL>.<PROMOTIONS_FOOTER>.<SHLVL>
       Date:
-      - Thu, 13 Aug 2015 18:15:14 GMT
-      Content-Length:
-      - '1785'
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>8:<XDG_VTNR><CACHE_MINUTES> GMT
       Connection:
       - keep-alive
       X-Catalyst:
-      - '5.90042'
+      - <CACHE_BUSTER>.<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>4<XDG_VTNR>
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - <SHLVL>78<CACHE_BUSTER>
     body:
       encoding: UTF-8
       string: |
@@ -169,592 +625,63 @@ http_interactions:
            "index_searched" : "isbn",
            "data" : [
               {
-                 "publisher_id" : "stanford_university_press",
-                 "marc_enc_level" : "",
+                 "marc_<LOCALE>c_level" : "",
                  "awards_text" : "",
-                 "dewey_normal" : "830.9357",
-                 "language" : "eng",
-                 "title" : "Discourse networks 1800/1900",
-                 "title_latin" : "Discourse networks 1800/1900",
+                 "dewey_normal" : "8<ATTEMPTS><CACHE_MINUTES>.<IMAGES_STANDARD_ASPECT_Y><ATTEMPTS><CACHE_BUSTER>7",
+                 "publisher_id" : "stanford_university_press",
                  "summary" : "",
-                 "book_id" : "discourse_networks_1800_1900_a01",
-                 "isbn10" : "0804720991",
-                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
-                 "lcc_number" : "",
-                 "dewey_decimal" : "830.9/357",
-                 "title_long" : "",
-                 "isbn13" : "9780804720991",
+                 "title_latin" : "Discourse networks <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>/<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+                 "title" : "Discourse networks <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>/<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+                 "language" : "<LOCALE>g",
+                 "isbn<SHLVL><ATTEMPTS>" : "<IMAGES_STANDARD_ASPECT_Y>78<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>",
                  "edition_info" : "",
-                 "publisher_name" : "Stanford University Press",
-                 "subject_ids" : [
-                    "german_literature_19th_century_history_and_criticism",
-                    "german_literature_20th_century_history_and_criticism",
-                    "books_and_reading_in_literature",
-                    "authorship",
-                    "books_and_reading_germany_history_19th_century",
-                    "books_and_reading_germany_history_20th_century",
-                    "literature_and_society_germany_history_19th_century",
-                    "literature_and_society_germany_history_20th_century"
-                 ],
+                 "lcc_number" : "",
+                 "title_long" : "",
+                 "dewey_decimal" : "8<ATTEMPTS><CACHE_MINUTES>.<IMAGES_STANDARD_ASPECT_Y>/<ATTEMPTS><CACHE_BUSTER>7",
+                 "book_id" : "discourse_networks_<SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>_<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>_a<CACHE_MINUTES><SHLVL>",
+                 "isbn<SHLVL><CACHE_MINUTES>" : "<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>",
+                 "notes" : "Translation of: Aufschreibesysteme <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>/<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>.\n\nIncludes bibliographical refer<LOCALE>ces ([4<SHLVL><IMAGES_STANDARD_ASPECT_Y>]-447) and index.",
+                 "physical_description_text" : "xxxiii, 4<CACHE_BUSTER><IMAGES_STANDARD_ASPECT_Y> p. : ill ; <XDG_VTNR><CACHE_BUSTER> cm.",
                  "author_data" : [
                     {
-                       "id" : "kittler_friedrich_a",
-                       "name" : "Kittler, Friedrich A."
+                       "name" : "Kittler, Friedrich A.",
+                       "id" : "kittler_friedrich_a"
                     },
                     {
-                       "id" : "michael_metteer",
-                       "name" : "Michael Metteer"
+                       "name" : "Michael Metteer",
+                       "id" : "michael_metteer"
                     }
                  ],
                  "urls_text" : "",
-                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
-                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm."
+                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c<SHLVL><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>.",
+                 "subject_ids" : [
+                    "german_literature_<SHLVL><IMAGES_STANDARD_ASPECT_Y>th_c<LOCALE>tury_history_and_criticism",
+                    "german_literature_<XDG_VTNR><CACHE_MINUTES>th_c<LOCALE>tury_history_and_criticism",
+                    "books_and_reading_in_literature",
+                    "authorship",
+                    "books_and_reading_germany_history_<SHLVL><IMAGES_STANDARD_ASPECT_Y>th_c<LOCALE>tury",
+                    "books_and_reading_germany_history_<XDG_VTNR><CACHE_MINUTES>th_c<LOCALE>tury",
+                    "literature_and_society_germany_history_<SHLVL><IMAGES_STANDARD_ASPECT_Y>th_c<LOCALE>tury",
+                    "literature_and_society_germany_history_<XDG_VTNR><CACHE_MINUTES>th_c<LOCALE>tury"
+                 ],
+                 "publisher_name" : "Stanford University Press"
               }
            ]
         }
     http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:14 GMT
+  recorded_at: Sat, 15 Aug 2015 17:28:20 GMT
 - request:
     method: get
-    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:0804720991
+    uri: <OPEN_LIBRARY_DOMAIN><OPEN_LIBRARY_PATH>?bibkeys=ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>&format=json&jscmd=details
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
       Accept:
       - '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Expires:
-      - Thu, 13 Aug 2015 18:15:14 GMT
-      Date:
-      - Thu, 13 Aug 2015 18:15:14 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"AEqHJ39cYOcHij976IZqD9LCWzE/EOHeA3pdAXeJ-uNs9V_nfT-vUj8"'
-      Vary:
-      - Origin
-      - X-Origin
-      Content-Type:
-      - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '3781'
-      Server:
-      - GSE
-      Alternate-Protocol:
-      - 443:quic,p=1
-      Alt-Svc:
-      - quic=":443"; p="1"; ma=604800
-    body:
-      encoding: UTF-8
-      string: |
-        {
-         "kind": "books#volumes",
-         "totalItems": 16,
-         "items": [
-          {
-           "kind": "books#volume",
-           "id": "nRo0Pk8djjoC",
-           "etag": "6UduZI6GKuI",
-           "selfLink": "https://www.googleapis.com/books/v1/volumes/nRo0Pk8djjoC",
-           "volumeInfo": {
-            "title": "Discourse Networks 1800/1900",
-            "authors": [
-             "Friedrich A. Kittler"
-            ],
-            "publisher": "Stanford University Press",
-            "publishedDate": "1992",
-            "description": "This is a highly original book about the connections between historical moment, social structure, technology, communication systems, and what is said and thought using these systems - notably literature. The author focuses on the differences between 'discourse networks' in 1800 and in 1900, in the process developing a new analysis of the shift from romanticism to modernism. The work might be classified as a German equivalent to the New Historicism that is currently of great interest among American literary scholars, both in the intellectual influences to which Kittler responds and in his concern to ground literature in the most concrete details of historical reality. The artful structure of the book begins with Goethe's Faust and ends with Valery's Faust. In the 1800 section, the author discusses how language was learned, the emergence of the modern university, the associated beginning of the interpretation of contemporary literature, and the canonization of literature. Among the writers and works Kittler analyzes in addition to Goethe's Faust are Schlegel, Hegel, E. T. A. Hoffman's 'The Golden Pot', and Goethe's Tasso.",
-            "industryIdentifiers": [
-             {
-              "type": "ISBN_10",
-              "identifier": "0804720991"
-             },
-             {
-              "type": "ISBN_13",
-              "identifier": "9780804720991"
-             }
-            ],
-            "readingModes": {
-             "text": true,
-             "image": true
-            },
-            "pageCount": 459,
-            "printType": "BOOK",
-            "categories": [
-             "Literary Criticism"
-            ],
-            "averageRating": 4.0,
-            "ratingsCount": 1,
-            "maturityRating": "NOT_MATURE",
-            "allowAnonLogging": false,
-            "contentVersion": "0.0.2.0.preview.3",
-            "imageLinks": {
-             "smallThumbnail": "http://books.google.co.uk/books/content?id=nRo0Pk8djjoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-             "thumbnail": "http://books.google.co.uk/books/content?id=nRo0Pk8djjoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            },
-            "language": "en",
-            "previewLink": "http://books.google.co.uk/books?id=nRo0Pk8djjoC&printsec=frontcover&dq=ISBN:0804720991&hl=&cd=1&source=gbs_api",
-            "infoLink": "http://books.google.co.uk/books?id=nRo0Pk8djjoC&dq=ISBN:0804720991&hl=&source=gbs_api",
-            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Discourse_Networks_1800_1900.html?hl=&id=nRo0Pk8djjoC"
-           },
-           "saleInfo": {
-            "country": "GB",
-            "saleability": "NOT_FOR_SALE",
-            "isEbook": false
-           },
-           "accessInfo": {
-            "country": "GB",
-            "viewability": "PARTIAL",
-            "embeddable": true,
-            "publicDomain": false,
-            "textToSpeechPermission": "ALLOWED",
-            "epub": {
-             "isAvailable": true,
-             "acsTokenLink": "http://books.google.co.uk/books/download/Discourse_Networks_1800_1900-sample-epub.acsm?id=nRo0Pk8djjoC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
-            },
-            "pdf": {
-             "isAvailable": false
-            },
-            "webReaderLink": "http://books.google.co.uk/books/reader?id=nRo0Pk8djjoC&hl=&printsec=frontcover&output=reader&source=gbs_api",
-            "accessViewStatus": "SAMPLE",
-            "quoteSharingAllowed": false
-           },
-           "searchInfo": {
-            "textSnippet": "This is a highly original book about the connections between historical moment, social structure, technology, communication systems, and what is said and thought using these systems - notably literature."
-           }
-          }
-         ]
-        }
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:14 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:30 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":8.71}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:30 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+New+Body&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:31 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.2}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:31 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+First+Body&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Thu, 13 Aug 2015 18:15:32 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.06}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:32 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+Second+Body+with+more+words&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Thu, 13 Aug 2015 18:15:33 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":14.33}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:33 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BA%D0%BD%D0%B8%D0%B3%D1%83+%D0%B4%D0%BE+%D1%81%D0%B0%D0%BC%D0%BE%D0%B9+%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8+%D0%B2+1640+%D0%B3%D0%BE%D0%B4%D1%83.&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:35 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":4.33}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:35 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BA%D0%BD%D0%B8%D0%B3%D1%83+%D0%B4%D0%BE+%D1%81%D0%B0%D0%BC%D0%BE%D0%B9+%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8+%D0%B2+1640+%D0%B3%D0%BE%D0%B4%D1%83.&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:35 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":4.33}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:36 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Thu, 13 Aug 2015 18:15:36 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ml","isReliable":true,"confidence":10.24}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:36 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:37 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":7.55}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:37 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Thu, 13 Aug 2015 18:15:39 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":9.98}]}}'
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:15:39 GMT
-- request:
-    method: get
-    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Expires:
-      - Thu, 13 Aug 2015 18:31:09 GMT
-      Date:
-      - Thu, 13 Aug 2015 18:31:09 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"AEqHJ39cYOcHij976IZqD9LCWzE/tsBOi-mTSv9fH-hWSXaaekToWl4"'
-      Vary:
-      - Origin
-      - X-Origin
-      Content-Type:
-      - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '1673'
-      Server:
-      - GSE
-      Alternate-Protocol:
-      - 443:quic,p=1
-      Alt-Svc:
-      - quic=":443"; p="1"; ma=604800
-    body:
-      encoding: UTF-8
-      string: |
-        {
-         "kind": "books#volumes",
-         "totalItems": 1127,
-         "items": [
-          {
-           "kind": "books#volume",
-           "id": "qLb4AAAACAAJ",
-           "etag": "PFFKRuYwrP8",
-           "selfLink": "https://www.googleapis.com/books/v1/volumes/qLb4AAAACAAJ",
-           "volumeInfo": {
-            "title": "Invalid Isbn",
-            "authors": [
-             "Eric Lomax"
-            ],
-            "publisher": "Arrow",
-            "publishedDate": "1996-06",
-            "industryIdentifiers": [
-             {
-              "type": "ISBN_10",
-              "identifier": "1856870405"
-             },
-             {
-              "type": "ISBN_13",
-              "identifier": "9781856870405"
-             }
-            ],
-            "readingModes": {
-             "text": false,
-             "image": false
-            },
-            "printType": "BOOK",
-            "maturityRating": "NOT_MATURE",
-            "allowAnonLogging": false,
-            "contentVersion": "preview-1.0.0",
-            "language": "en",
-            "previewLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
-            "infoLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
-            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=qLb4AAAACAAJ"
-           },
-           "saleInfo": {
-            "country": "GB",
-            "saleability": "NOT_FOR_SALE",
-            "isEbook": false
-           },
-           "accessInfo": {
-            "country": "GB",
-            "viewability": "NO_PAGES",
-            "embeddable": false,
-            "publicDomain": false,
-            "textToSpeechPermission": "ALLOWED",
-            "epub": {
-             "isAvailable": false
-            },
-            "pdf": {
-             "isAvailable": false
-            },
-            "webReaderLink": "http://books.google.co.uk/books/reader?id=qLb4AAAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
-            "accessViewStatus": "NONE",
-            "quoteSharingAllowed": false
-           }
-          }
-         ]
-        }
-    http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:31:09 GMT
-- request:
-    method: get
-    uri: http://isbndb.com/api/v2/json/5GXH34LU/book/INVALID_ISBN
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
+      User-Ag<LOCALE>t:
       - Ruby
   response:
     status:
@@ -762,15 +689,84 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.6.1
+      - nginx/<SHLVL>.<SHLVL>.<SHLVL><IMAGES_STANDARD_ASPECT_Y>
       Date:
-      - Thu, 13 Aug 2015 18:31:22 GMT
-      Content-Length:
-      - '49'
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>8:<XDG_VTNR><SHLVL> GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB <SHLVL> <CACHE_MINUTES>.<CACHE_MINUTES><ATTEMPTS>8 MC <XDG_VTNR> <CACHE_MINUTES>.<CACHE_MINUTES><CACHE_MINUTES><SHLVL>
+        TT <CACHE_MINUTES> <CACHE_MINUTES>.<CACHE_MINUTES>4<SHLVL>"'
+      Cont<LOCALE>t-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>":
+        {"bib_key": "ISBN<DISPLAY>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>",
+        "preview": "noview", "preview_url": "<OPEN_LIBRARY_DOMAIN>/books/OL<XDG_VTNR><CACHE_MINUTES><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><ATTEMPTS><SHLVL><SHLVL><IMAGES_STANDARD_ASPECT_Y>M/Discourse_networks_<SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>-<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+        "info_url": "<OPEN_LIBRARY_DOMAIN>/books/OL<XDG_VTNR><CACHE_MINUTES><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><ATTEMPTS><SHLVL><SHLVL><IMAGES_STANDARD_ASPECT_Y>M/Discourse_networks_<SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>-<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+        "details": {"publishers": ["Stanford University press"], "pagination": "xxxiii,
+        4<CACHE_BUSTER><IMAGES_STANDARD_ASPECT_Y> p. :", "id<LOCALE>tifiers": {"goodreads":
+        ["<XDG_VTNR><SHLVL><XDG_VTNR>4<CACHE_BUSTER><CACHE_MINUTES>"], "librarything":
+        ["4<ATTEMPTS><CACHE_MINUTES>888"]}, "key": "/books/OL<XDG_VTNR><CACHE_MINUTES><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><ATTEMPTS><SHLVL><SHLVL><IMAGES_STANDARD_ASPECT_Y>M",
+        "title": "Discourse networks, <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>-<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>",
+        "notes": {"type": "/type/text", "value": "Translation of, Aufschreibesysteme
+        <SHLVL>8<CACHE_MINUTES><CACHE_MINUTES>/<SHLVL><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>.\n\nOriginally
+        published: Fink Verlag, <SHLVL><IMAGES_STANDARD_ASPECT_Y>8<CACHE_BUSTER>."},
+        "number_of_pages": 4<CACHE_BUSTER><IMAGES_STANDARD_ASPECT_Y>, "created": {"type":
+        "/type/datetime", "value": "<XDG_VTNR><CACHE_MINUTES><CACHE_MINUTES>8-<SHLVL><CACHE_MINUTES>-<XDG_VTNR><CACHE_BUSTER>T<XDG_VTNR><SHLVL>:<ATTEMPTS><XDG_VTNR>:<XDG_VTNR><SHLVL>.<PROMOTIONS_FOOTER>7<SHLVL><CACHE_MINUTES><XDG_VTNR><PROMOTIONS_FOOTER>"},
+        "languages": [{"key": "/languages/<LOCALE>g"}], "isbn_<SHLVL><CACHE_MINUTES>":
+        ["<CACHE_MINUTES>8<CACHE_MINUTES>47<XDG_VTNR><CACHE_MINUTES><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><SHLVL>"],
+        "la<RAILS_ENV>_revision": 4, "publish_country": "xxu", "last_modified": {"type":
+        "/type/datetime", "value": "<XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_MINUTES>-<CACHE_MINUTES>8-<SHLVL>8T<SHLVL>4<DISPLAY><XDG_VTNR>:<SHLVL><IMAGES_STANDARD_ASPECT_Y>.87<CACHE_MINUTES><SHLVL><XDG_VTNR><IMAGES_STANDARD_ASPECT_Y>"},
+        "authors": [{"name": "Friedrich A. Kittler", "key": "/authors/OL777<XDG_VTNR><PROMOTIONS_FOOTER>A"}],
+        "publish_date": "<SHLVL><IMAGES_STANDARD_ASPECT_Y><IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES>",
+        "by_statem<LOCALE>t": "Friedrich A. Kittler ; translated by Michael Metteer,
+        with Chris Cull<LOCALE>s ; foreword by David A. Wellbery.", "publish_places":
+        ["Stanford, Calif"], "works": [{"key": "/works/OL88<XDG_VTNR>8<IMAGES_STANDARD_ASPECT_Y><XDG_VTNR>W"}],
+        "type": {"key": "/type/edition"}, "subjects": ["German literature -- <SHLVL><IMAGES_STANDARD_ASPECT_Y>th
+        c<LOCALE>tury -- History and criticism.", "German literature -- <XDG_VTNR><CACHE_MINUTES>th
+        c<LOCALE>tury -- History and criticism.", "Books and reading -- Germany --
+        History -- <XDG_VTNR><CACHE_MINUTES>th c<LOCALE>tury.", "Books and reading
+        -- Germany -- History -- <SHLVL><IMAGES_STANDARD_ASPECT_Y>th c<LOCALE>tury.",
+        "Literature and society -- Germany -- History -- <XDG_VTNR><CACHE_MINUTES>th
+        c<LOCALE>tury.", "Literature and society -- Germany -- History -- <SHLVL><IMAGES_STANDARD_ASPECT_Y>th
+        c<LOCALE>tury.", "Books and reading in literature.", "Critical studies.",
+        "Authorship."], "revision": 4}}}'
+    http_version: 
+  recorded_at: Sat, 15 Aug 2015 17:28:21 GMT
+- request:
+    method: get
+    uri: <ISBNDB_DOMAIN>/api/v<XDG_VTNR>/json/<ISBNDB_KEY>/book/INVALID_ISBN
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/<SHLVL>.<PROMOTIONS_FOOTER>.<SHLVL>
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<XDG_VTNR>8:<CACHE_BUSTER><IMAGES_STANDARD_ASPECT_Y> GMT
       Connection:
       - keep-alive
       X-Catalyst:
-      - '5.90042'
+      - <CACHE_BUSTER>.<IMAGES_STANDARD_ASPECT_Y><CACHE_MINUTES><CACHE_MINUTES>4<XDG_VTNR>
+      Cont<LOCALE>t-L<LOCALE>gth:
+      - 4<IMAGES_STANDARD_ASPECT_Y>
     body:
       encoding: UTF-8
       string: |
@@ -778,151 +774,42 @@ http_interactions:
            "error" : "Unable to locate INVALID_ISBN"
         }
     http_version: 
-  recorded_at: Thu, 13 Aug 2015 18:31:22 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Fri, 14 Aug 2015 20:34:51 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
-    http_version: 
-  recorded_at: Fri, 14 Aug 2015 20:34:51 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=2cd42c226ffe8719282dbc07a5007ec2
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Fri, 14 Aug 2015 20:34:52 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
-    http_version: 
-  recorded_at: Fri, 14 Aug 2015 20:34:52 GMT
+  recorded_at: Sat, 15 Aug 2015 17:28:59 GMT
 - request:
     method: get
-    uri: https://api.twitter.com/1.1/users/show.json?user_id=237443494
+    uri: <OPEN_LIBRARY_DOMAIN><OPEN_LIBRARY_PATH>?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      User-Agent:
-      - TwitterRubyGem/6.0.0
-      Authorization:
-      - OAuth oauth_consumer_key="LcP5KZsVECxlI7Z7aWz86g", oauth_nonce="cbab5995758b67047dee08f942f8ac5d",
-        oauth_signature="6ncm%2FSGBUGW9ExEwyCf7xn7l6O0%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1439635397", oauth_token="237443494-Up97qun1nvHfxO79kWlGbt6lvQIFY71vWgMjyTR4",
-        oauth_version="1.0"
-      Connection:
-      - close
-      Host:
-      - api.twitter.com
+      Accept-Encoding:
+      - gzip;q=<SHLVL>.<CACHE_MINUTES>,deflate;q=<CACHE_MINUTES>.<PROMOTIONS_FOOTER>,id<LOCALE>tity;q=<CACHE_MINUTES>.<ATTEMPTS>
+      Accept:
+      - '*/*'
+      User-Ag<LOCALE>t:
+      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      Cache-Control:
-      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
-      Connection:
-      - close
-      Content-Disposition:
-      - attachment; filename=json.json
-      Content-Length:
-      - '2057'
-      Content-Type:
-      - application/json;charset=utf-8
-      Date:
-      - Sat, 15 Aug 2015 10:43:17 GMT
-      Expires:
-      - Tue, 31 Mar 1981 05:00:00 GMT
-      Last-Modified:
-      - Sat, 15 Aug 2015 10:43:17 GMT
-      Pragma:
-      - no-cache
       Server:
-      - tsa_f
-      Set-Cookie:
-      - guest_id=v1%3A143963539778281182; Domain=.twitter.com; Path=/; Expires=Mon,
-        14-Aug-2017 10:43:17 UTC
-      - lang=en; Path=/
-      Status:
-      - 200 OK
-      Strict-Transport-Security:
-      - max-age=631138519
-      X-Access-Level:
-      - read-write
-      X-Connection-Hash:
-      - 2204a8747d06a77deb4459494b366e58
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Rate-Limit-Limit:
-      - '180'
-      X-Rate-Limit-Remaining:
-      - '179'
-      X-Rate-Limit-Reset:
-      - '1439636297'
-      X-Response-Time:
-      - '207'
-      X-Transaction:
-      - 87c0f575604f45ec
-      X-Twitter-Response-Tags:
-      - BouncerCompliant
-      X-Xss-Protection:
-      - 1; mode=block
+      - nginx/<SHLVL>.<SHLVL>.<SHLVL><IMAGES_STANDARD_ASPECT_Y>
+      Date:
+      - Sat, <SHLVL><CACHE_BUSTER> Aug <XDG_VTNR><CACHE_MINUTES><SHLVL><CACHE_BUSTER>
+        <SHLVL>7:<ATTEMPTS><CACHE_MINUTES>:<SHLVL>8 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB <SHLVL> <CACHE_MINUTES>.<CACHE_MINUTES><ATTEMPTS>7 TT <CACHE_MINUTES>
+        <CACHE_MINUTES>.<CACHE_MINUTES><ATTEMPTS>7"'
+      Cont<LOCALE>t-Type:
+      - application/json
     body:
       encoding: UTF-8
-      string: '{"id":237443494,"id_str":"237443494","name":"Catholicon 140","screen_name":"catholicon140","location":"","profile_location":null,"description":"","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":0,"friends_count":4,"listed_count":0,"created_at":"Wed
-        Jan 12 21:22:18 +0000 2011","favourites_count":0,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":1532,"lang":"en","status":{"created_at":"Wed
-        Mar 04 11:06:38 +0000 2015","id":573077084454707200,"id_str":"573077084454707200","text":"It''s
-        been a great month... so far! #SumUp","source":"\u003ca href=\"http:\/\/twitter.com\"
-        rel=\"nofollow\"\u003eTwitter Web Client\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[{"text":"SumUp","indices":[35,41]}],"symbols":[],"user_mentions":[],"urls":[]},"favorited":false,"retweeted":false,"lang":"en"},"contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"C0DEED","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_tile":false,"profile_image_url":"http:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_image_url_https":"https:\/\/abs.twimg.com\/sticky\/default_profile_images\/default_profile_1_normal.png","profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"has_extended_profile":false,"default_profile":true,"default_profile_image":true,"following":false,"follow_request_sent":false,"notifications":false,"suspended":false,"needs_phone_verification":false}'
+      string: '{}'
     http_version: 
-  recorded_at: Sat, 15 Aug 2015 10:43:17 GMT
+  recorded_at: Sat, 15 Aug 2015 17:30:18 GMT
 recorded_with: VCR 2.9.3

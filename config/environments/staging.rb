@@ -38,7 +38,7 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new('joegattnet_v3_staging'))
 
   # Use a different cache store in production
   config.cache_store = :mem_cache_store

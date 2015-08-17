@@ -27,7 +27,7 @@ set :repo_url, 'git@github.com:joegattnet/joegattnet_v3.git'
 set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'config/database.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/resources')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public')
 
 # Default value for default_env is {}
 # set :default_env, 'staging'

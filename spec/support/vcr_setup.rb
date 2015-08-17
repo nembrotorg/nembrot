@@ -10,7 +10,9 @@ VCR.configure do |c|
     serialize_with: :yaml,
     decode_compressed_response: true
   }
-  ENV.each do |key, value|
-    c.filter_sensitive_data("<#{ key }>".upcase) { value }
+  ENV.select { |x| x.match(/.*(key|secret|password).*/) }.keys.sort_by(&:length).reverse.each do |key|
+    c.filter_sensitive_data("<#{ key.upcase }>") do
+      ENV[key]
+    end
   end
 end

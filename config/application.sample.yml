@@ -1,5 +1,6 @@
 # Channel
 evernote_notebooks: '0000000000000000000000000000000'
+host: localhost:3000
 name: joegatt.net
 
 # Basics
@@ -180,3 +181,15 @@ pantography_max_length: '140'
 pantography_sidereal_year_in_days: '365.256363004'
 pantography_timeline_length: '20'
 pantography_twitter_user_id: '237443494'
+
+test:
+  # Basics
+  host: rspec-tests
+
+staging:
+  # Basics
+  host: staging.joegatt.net
+
+production:
+  # Basics
+  host: joegatt.net

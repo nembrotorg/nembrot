@@ -56,6 +56,7 @@ gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
 gem 'sidekiq'
 gem 'sitemap_generator'
 gem 'slim-rails'
+gem 'sprockets', '~> 2.8' # See https://github.com/capistrano/rails/issues/111
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'susy'
 gem 'thin'

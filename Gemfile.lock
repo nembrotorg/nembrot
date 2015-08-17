@@ -609,6 +609,7 @@ DEPENDENCIES
   sitemap_generator
   slim-rails
   spring-commands-rspec
+  sprockets (~> 2.8)
   sprockets-rails
   sqlite3
   susy

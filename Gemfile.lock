@@ -286,7 +286,7 @@ GEM
     mime-types (2.6.1)
     mini_magick (4.2.7)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -368,7 +368,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -536,10 +536,10 @@ DEPENDENCIES
   breadcrumbs_on_rails
   byebug
   cancan
-  capistrano (~> 3.0)
-  capistrano-bundler (~> 1.1)
-  capistrano-rails (~> 1.1)
-  capistrano-rvm (~> 0.1)
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rvm
   capybara
   capybara-webkit
   codeclimate-test-reporter
@@ -552,7 +552,7 @@ DEPENDENCIES
   devise
   differ
   dogapi
-  embiggen (~> 0.2)
+  embiggen
   evernote-thrift
   factory_girl_rails
   faker
@@ -609,7 +609,6 @@ DEPENDENCIES
   sitemap_generator
   slim-rails
   spring-commands-rspec
-  sprockets (~> 2.8)
   sprockets-rails
   sqlite3
   susy

@@ -18,7 +18,7 @@ gem 'detect_language'
 gem 'devise'
 gem 'differ'
 gem 'dogapi'
-gem 'embiggen', '~> 0.2'
+gem 'embiggen'
 gem 'flexslider'
 gem 'jquery-dotdotdot-rails'
 gem 'jquery-rails-cdn'
@@ -56,7 +56,6 @@ gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
 gem 'sidekiq'
 gem 'sitemap_generator'
 gem 'slim-rails'
-gem 'sprockets', '~> 2.8' # See https://github.com/capistrano/rails/issues/111
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'susy'
 gem 'thin'
@@ -82,10 +81,10 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano', '~> 3.0', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
-  gem 'capistrano-rails',   '~> 1.1', require: false
-  gem 'capistrano-rvm',   '~> 0.1', require: false
+  gem 'capistrano',           require: false
+  gem 'capistrano-bundler',   require: false
+  gem 'capistrano-rails',     require: false
+  gem 'capistrano-rvm',       require: false
   gem 'flog'
   gem 'guard-coffeescript'
   gem 'guard-livereload'

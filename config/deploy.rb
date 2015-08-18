@@ -3,7 +3,7 @@ lock '3.4.0'
 
 server 'joegatt.org', user: 'deployer', roles: %w{app db web}
 
-set :repo_url, 'git@github.com:joegattnet/joegattnet_v3.git'
+set :repo_url, 'https://github.com/joegattnet/joegattnet_v3.git'
 
 set :ssh_options, keys: ["config/deploy_id_rsa"] if File.exist?("config/deploy_id_rsa")
 

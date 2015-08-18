@@ -11,38 +11,25 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-# Production specific settings
-if env == "production"
-  pid "/tmp/unicorn.joegattnet_v3.pid"
+app_path = "/home/deployer/apps/#{ ENV['app_name'] }"
 
-  # listen on both a Unix domain socket and a TCP port,
-  # we use a shorter backlog for quicker failover when busy
-  listen "/tmp/joegattnet_v3.socket", :backlog => 64
+pid "/tmp/unicorn.#{ ENV['app_name'] }.pid"
 
-  # Help ensure your application will always spawn in the symlinked
-  # "current" directory that Capistrano sets up.
-  working_directory "/home/deployer/apps/joegattnet_v3/current"
+# listen on both a Unix domain socket and a TCP port,
+# we use a shorter backlog for quicker failover when busy
+listen "/tmp/#{ ENV['app_name'] }.socket", :backlog => 64
 
-  # feel free to point this anywhere accessible on the filesystem
-  user 'deployer', 'staff'
-  shared_path = "/home/deployer/apps/joegattnet_v3/shared"
+# feel free to point this anywhere accessible on the filesystem
+user 'deployer', 'staff'
 
-  stderr_path "#{shared_path}/log/unicorn.stderr.log"
-  stdout_path "#{shared_path}/log/unicorn.stdout.log"
-else
-  pid "/tmp/unicorn.joegattnet_v3_staging.pid"
+# Help ensure your application will always spawn in the symlinked
+# "current" directory that Capistrano sets up.
+working_directory "#{ app_path }/current"
 
-  # listen on both a Unix domain socket and a TCP port,
-  # we use a shorter backlog for quicker failover when busy
-  listen "/tmp/joegattnet_v3_staging.socket", :backlog => 64
+stderr_path "#{ app_path }/shared/log/unicorn.stderr.log"
+stdout_path "#{ app_path }/shared/log/unicorn.stdout.log"
 
-  # Staging
-  working_directory "/home/deployer/apps/joegattnet_v3_staging/current"
-  user 'deployer', 'staff'
-  shared_path = "/home/deployer/apps/joegattnet_v3_staging/shared"
-  stderr_path "#{shared_path}/log/unicorn.stderr.log"
-  stdout_path "#{shared_path}/log/unicorn.stdout.log"
-end
+ENV['BUNDLE_GEMFILE'] = "#{ app_path }/current/Gemfile"
 
 before_fork do |server, worker|
   # the following is highly recomended for Rails + "preload_app true"
@@ -53,11 +40,8 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  if env == "production"
-    old_pid = "/tmp/unicorn.joegattnet_v3.pid.oldbin"
-  else
-    old_pid = "/tmp/unicorn.joegattnet_v3_staging.pid.oldbin"
-  end
+  old_pid = "/tmp/unicorn.#{ ENV['app_name'] }.pid.oldbin"
+
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)

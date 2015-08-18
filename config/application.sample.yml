@@ -4,7 +4,7 @@ host: localhost:3000
 name: joegatt.net
 
 # Basics
-app_name: joegattnet
+app_name: joegattnet_v3
 assets_version: '1.7'
 blank_image_location: '/public/resources/cut/blank.png'
 cache_minutes: '10'
@@ -188,6 +188,7 @@ test:
 
 staging:
   # Basics
+  app_name: joegattnet_v3_staging
   host: staging.joegatt.net
 
 production:

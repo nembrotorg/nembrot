@@ -11,13 +11,13 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-app_path = "/home/deployer/apps/joegattnet_v3_staging"
+app_path = "/home/deployer/apps/joegattnet_v3"
 
 pid "#{ app_path }/current/tmp/pids/unicorn.pid"
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/joegattnet_v3_staging.socket", :backlog => 64
+listen "/tmp/joegattnet_v3.socket", :backlog => 64
 
 # feel free to point this anywhere accessible on the filesystem
 user 'deployer', 'staff'

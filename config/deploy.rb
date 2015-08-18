@@ -3,9 +3,9 @@ lock '3.4.0'
 
 server 'joegatt.org', user: 'deployer', roles: %w{app db web}
 
-set :repo_url, 'https://github.com/joegattnet/joegattnet_v3.git'
+set :repo_url, 'git@github.com:joegattnet/joegattnet_v3.git'
 
-set :ssh_options, keys: ["config/deploy_id_rsa"] if File.exist?("config/deploy_id_rsa")
+set :ssh_options, { forward_agent: true, keys: ["config/deploy_id_rsa"] } if File.exist?("config/deploy_id_rsa")
 
 # FIXME: This needs to be hidden
 set :slack_webhook, 'https://hooks.slack.com/services/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'

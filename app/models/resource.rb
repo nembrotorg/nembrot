@@ -8,8 +8,8 @@ class Resource < ActiveRecord::Base
 
   default_scope { order('id ASC') }
   # REVIEW: Evernote's attachment flag is inconsistent across source apps, use __INLINE
-  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', Setting['style.images_min_width'].to_i) }
-  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', Setting['style.images_min_width'].to_i) }
+  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', NB.images_min_width.to_i) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', NB.images_min_width.to_i) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
   validates_presence_of :cloud_resource_identifier, :note
@@ -36,7 +36,7 @@ class Resource < ActiveRecord::Base
   def sync_binary
     unless File.file?(raw_location)
       increment_attempts
-      Constant.stream_binaries ? stream_binary : download_binary
+      NB.stream_binaries ? stream_binary : download_binary
       # Check that the resource has been downloaded correctly. If so, unflag it.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
     end
@@ -114,9 +114,9 @@ class Resource < ActiveRecord::Base
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
     elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is in Latin script and at least 5 characters
-      new_name = caption[0..Setting['style.images_name_length'].to_i]
+      new_name = caption[0..NB.images_name_length.to_i]
     elsif description && !description[/[a-zA-Z\-]{5,}/].blank?
-      new_name = description[0..Setting['style.images_name_length'].to_i]
+      new_name = description[0..NB.images_name_length.to_i]
     elsif file_name && !file_name.empty?
       new_name = File.basename(file_name, File.extname(file_name))
     end

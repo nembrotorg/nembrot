@@ -1,207 +1,416 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
     body:
       encoding: US-ASCII
-      string: ''
+      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=<_FIGARO_DETECT_LANGUAGE_KEY>
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - '*/*'
       User-Agent:
+      - Detect Language API ruby gem
       - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
   response:
     status:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.1.19
-      Date:
-      - Tue, 11 Aug 2015 11:30:12 GMT
       Content-Type:
       - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Ol-Stats:
-      - '"IB 1 0.035 TT 0 0.035"'
-    body:
-      encoding: UTF-8
-      string: '{}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:12 GMT
-- request:
-    method: get
-    uri: http://openlibrary.org/api/books?bibkeys=ISBN:0804720991&format=json&jscmd=details
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx/1.1.19
-      Date:
-      - Tue, 11 Aug 2015 11:30:12 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Ol-Stats:
-      - '"IB 1 0.029 MC 2 0.001 TT 0 0.031"'
-    body:
-      encoding: UTF-8
-      string: '{"ISBN:0804720991": {"bib_key": "ISBN:0804720991", "preview": "noview",
-        "preview_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
-        "info_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
-        "details": {"publishers": ["Stanford University press"], "pagination": "xxxiii,
-        459 p. :", "identifiers": {"goodreads": ["212450"], "librarything": ["430888"]},
-        "key": "/books/OL20093119M", "title": "Discourse networks, 1800-1900", "notes":
-        {"type": "/type/text", "value": "Translation of, Aufschreibesysteme 1800/1900.\n\nOriginally
-        published: Fink Verlag, 1985."}, "number_of_pages": 459, "created": {"type":
-        "/type/datetime", "value": "2008-10-25T21:32:21.671026"}, "languages": [{"key":
-        "/languages/eng"}], "isbn_10": ["0804720991"], "latest_revision": 4, "publish_country":
-        "xxu", "last_modified": {"type": "/type/datetime", "value": "2010-08-18T14:02:19.870129"},
-        "authors": [{"name": "Friedrich A. Kittler", "key": "/authors/OL77726A"}],
-        "publish_date": "1990", "by_statement": "Friedrich A. Kittler ; translated
-        by Michael Metteer, with Chris Cullens ; foreword by David A. Wellbery.",
-        "publish_places": ["Stanford, Calif"], "works": [{"key": "/works/OL882892W"}],
-        "type": {"key": "/type/edition"}, "subjects": ["German literature -- 19th
-        century -- History and criticism.", "German literature -- 20th century --
-        History and criticism.", "Books and reading -- Germany -- History -- 20th
-        century.", "Books and reading -- Germany -- History -- 19th century.", "Literature
-        and society -- Germany -- History -- 20th century.", "Literature and society
-        -- Germany -- History -- 19th century.", "Books and reading in literature.",
-        "Critical studies.", "Authorship."], "revision": 4}}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:12 GMT
-- request:
-    method: get
-    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Expires:
-      - Tue, 11 Aug 2015 11:30:36 GMT
-      Date:
-      - Tue, 11 Aug 2015 11:30:36 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"AEqHJ39cYOcHij976IZqD9LCWzE/-OYtHF2vBbWPdJv-GcNjaMovYOU"'
-      Vary:
-      - Origin
-      - X-Origin
-      Content-Type:
-      - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
       Content-Length:
-      - '1673'
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:18 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":7.55}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:19 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:19 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:19 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:20 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":3.95}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:20 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '80'
+      Date:
+      - Mon, 17 Aug 2015 08:24:21 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"ml","isReliable":true,"confidence":10.24}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:21 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:23 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":9.98}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:23 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+New+Body&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:25 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.2}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:25 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+First+Body&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '80'
+      Date:
+      - Mon, 17 Aug 2015 08:24:27 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.06}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:27 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Second+Body+with+more+words&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '80'
+      Date:
+      - Mon, 17 Aug 2015 08:24:27 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":14.33}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:27 GMT
+- request:
+    method: post
+    uri: http://ws.detectlanguage.com/0.2/detect
+    body:
+      encoding: US-ASCII
+      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<_FIGARO_DETECT_LANGUAGE_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Detect Language API ruby gem
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '79'
+      Date:
+      - Mon, 17 Aug 2015 08:24:29 GMT
+    body:
+      encoding: UTF-8
+      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":8.71}]}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:24:29 GMT
+- request:
+    method: get
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<_FIGARO_WORLD_CAT_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 407
+      message: 'org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed: status=UNAUTHENTICATED'
+    headers:
+      Date:
+      - Mon, 17 Aug 2015 08:25:45 GMT
       Server:
-      - GSE
-      Alternate-Protocol:
-      - 443:quic,p=1
+      - Apache
+      Content-Length:
+      - '1178'
+      Content-Type:
+      - text/html;charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '<html><head><title> - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;}
+        H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;}
+        H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;}
+        BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;}
+        B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;}
+        P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A
+        {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP
+        Status 407 - org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed:
+        status=UNAUTHENTICATED</h1><HR size="1" noshade="noshade"><p><b>type</b> Status
+        report</p><p><b>message</b> <u>org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate
+        Failed: status=UNAUTHENTICATED</u></p><p><b>description</b> <u>The client
+        must first authenticate itself with the proxy (org.oclc.wskey.api.WSKeyException:
+        WSKeyAuthenticate Failed: status=UNAUTHENTICATED).</u></p><HR size="1" noshade="noshade"><h3></h3></body></html>'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:25:45 GMT
+- request:
+    method: get
+    uri: http://isbndb.com/api/v2/json/<_FIGARO_ISBNDB_KEY>/book/0804720991
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.6.1
+      Date:
+      - Mon, 17 Aug 2015 08:25:46 GMT
+      Content-Length:
+      - '1785'
+      Connection:
+      - keep-alive
+      X-Catalyst:
+      - '5.90042'
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "books#volumes",
-         "totalItems": 1121,
-         "items": [
-          {
-           "kind": "books#volume",
-           "id": "qLb4AAAACAAJ",
-           "etag": "PFFKRuYwrP8",
-           "selfLink": "https://www.googleapis.com/books/v1/volumes/qLb4AAAACAAJ",
-           "volumeInfo": {
-            "title": "Invalid Isbn",
-            "authors": [
-             "Eric Lomax"
-            ],
-            "publisher": "Arrow",
-            "publishedDate": "1996-06",
-            "industryIdentifiers": [
-             {
-              "type": "ISBN_10",
-              "identifier": "1856870405"
-             },
-             {
-              "type": "ISBN_13",
-              "identifier": "9781856870405"
-             }
-            ],
-            "readingModes": {
-             "text": false,
-             "image": false
-            },
-            "printType": "BOOK",
-            "maturityRating": "NOT_MATURE",
-            "allowAnonLogging": false,
-            "contentVersion": "preview-1.0.0",
-            "language": "en",
-            "previewLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
-            "infoLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
-            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=qLb4AAAACAAJ"
-           },
-           "saleInfo": {
-            "country": "GB",
-            "saleability": "NOT_FOR_SALE",
-            "isEbook": false
-           },
-           "accessInfo": {
-            "country": "GB",
-            "viewability": "NO_PAGES",
-            "embeddable": false,
-            "publicDomain": false,
-            "textToSpeechPermission": "ALLOWED",
-            "epub": {
-             "isAvailable": false
-            },
-            "pdf": {
-             "isAvailable": false
-            },
-            "webReaderLink": "http://books.google.co.uk/books/reader?id=qLb4AAAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
-            "accessViewStatus": "NONE",
-            "quoteSharingAllowed": false
-           }
-          }
-         ]
+           "index_searched" : "isbn",
+           "data" : [
+              {
+                 "book_id" : "discourse_networks_1800_1900_a01",
+                 "isbn10" : "0804720991",
+                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
+                 "isbn13" : "9780804720991",
+                 "edition_info" : "",
+                 "lcc_number" : "",
+                 "dewey_decimal" : "830.9/357",
+                 "title_long" : "",
+                 "author_data" : [
+                    {
+                       "id" : "kittler_friedrich_a",
+                       "name" : "Kittler, Friedrich A."
+                    },
+                    {
+                       "id" : "michael_metteer",
+                       "name" : "Michael Metteer"
+                    }
+                 ],
+                 "urls_text" : "",
+                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
+                 "publisher_name" : "Stanford University Press",
+                 "subject_ids" : [
+                    "german_literature_19th_century_history_and_criticism",
+                    "german_literature_20th_century_history_and_criticism",
+                    "books_and_reading_in_literature",
+                    "authorship",
+                    "books_and_reading_germany_history_19th_century",
+                    "books_and_reading_germany_history_20th_century",
+                    "literature_and_society_germany_history_19th_century",
+                    "literature_and_society_germany_history_20th_century"
+                 ],
+                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm.",
+                 "dewey_normal" : "830.9357",
+                 "marc_enc_level" : "",
+                 "awards_text" : "",
+                 "publisher_id" : "stanford_university_press",
+                 "title" : "Discourse networks 1800/1900",
+                 "language" : "eng",
+                 "summary" : "",
+                 "title_latin" : "Discourse networks 1800/1900"
+              }
+           ]
         }
     http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:36 GMT
+  recorded_at: Mon, 17 Aug 2015 08:25:46 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:0804720991
@@ -221,9 +430,9 @@ http_interactions:
       message: OK
     headers:
       Expires:
-      - Tue, 11 Aug 2015 11:30:37 GMT
+      - Mon, 17 Aug 2015 08:25:46 GMT
       Date:
-      - Tue, 11 Aug 2015 11:30:37 GMT
+      - Mon, 17 Aug 2015 08:25:46 GMT
       Cache-Control:
       - private, max-age=0, must-revalidate, no-transform
       Etag:
@@ -245,6 +454,8 @@ http_interactions:
       - GSE
       Alternate-Protocol:
       - 443:quic,p=1
+      Alt-Svc:
+      - quic=":443"; p="1"; ma=604800
     body:
       encoding: UTF-8
       string: |
@@ -327,53 +538,10 @@ http_interactions:
          ]
         }
     http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:37 GMT
+  recorded_at: Mon, 17 Aug 2015 08:25:46 GMT
 - request:
     method: get
-    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0804720991?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<WORLD_CAT_KEY>
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 407
-      message: 'org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed: status=UNAUTHENTICATED'
-    headers:
-      Date:
-      - Tue, 11 Aug 2015 11:30:38 GMT
-      Server:
-      - Apache
-      Content-Length:
-      - '1178'
-      Content-Type:
-      - text/html;charset=utf-8
-    body:
-      encoding: UTF-8
-      string: '<html><head><title> - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;}
-        H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;}
-        H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;}
-        BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;}
-        B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;}
-        P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A
-        {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP
-        Status 407 - org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed:
-        status=UNAUTHENTICATED</h1><HR size="1" noshade="noshade"><p><b>type</b> Status
-        report</p><p><b>message</b> <u>org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate
-        Failed: status=UNAUTHENTICATED</u></p><p><b>description</b> <u>The client
-        must first authenticate itself with the proxy (org.oclc.wskey.api.WSKeyException:
-        WSKeyAuthenticate Failed: status=UNAUTHENTICATED).</u></p><HR size="1" noshade="noshade"><h3></h3></body></html>'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:38 GMT
-- request:
-    method: get
-    uri: http://isbndb.com/api/v2/json/<ISBNDB_KEY>/book/0804720991
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:0804720991&format=json&jscmd=details
     body:
       encoding: US-ASCII
       string: ''
@@ -390,358 +558,194 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.6.1
+      - nginx/1.1.19
       Date:
-      - Tue, 11 Aug 2015 11:30:38 GMT
-      Content-Length:
-      - '1785'
+      - Mon, 17 Aug 2015 08:25:46 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
-      X-Catalyst:
-      - '5.90042'
+      X-Ol-Stats:
+      - '"IB 1 0.062 MC 2 0.003 TT 0 0.067"'
+    body:
+      encoding: UTF-8
+      string: '{"ISBN:0804720991": {"bib_key": "ISBN:0804720991", "preview": "noview",
+        "preview_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
+        "info_url": "http://openlibrary.org/books/OL20093119M/Discourse_networks_1800-1900",
+        "details": {"publishers": ["Stanford University press"], "pagination": "xxxiii,
+        459 p. :", "identifiers": {"goodreads": ["212450"], "librarything": ["430888"]},
+        "key": "/books/OL20093119M", "title": "Discourse networks, 1800-1900", "notes":
+        {"type": "/type/text", "value": "Translation of, Aufschreibesysteme 1800/1900.\n\nOriginally
+        published: Fink Verlag, 1985."}, "number_of_pages": 459, "created": {"type":
+        "/type/datetime", "value": "2008-10-25T21:32:21.671026"}, "languages": [{"key":
+        "/languages/eng"}], "isbn_10": ["0804720991"], "latest_revision": 4, "publish_country":
+        "xxu", "last_modified": {"type": "/type/datetime", "value": "2010-08-18T14:02:19.870129"},
+        "authors": [{"name": "Friedrich A. Kittler", "key": "/authors/OL77726A"}],
+        "publish_date": "1990", "by_statement": "Friedrich A. Kittler ; translated
+        by Michael Metteer, with Chris Cullens ; foreword by David A. Wellbery.",
+        "publish_places": ["Stanford, Calif"], "works": [{"key": "/works/OL882892W"}],
+        "type": {"key": "/type/edition"}, "subjects": ["German literature -- 19th
+        century -- History and criticism.", "German literature -- 20th century --
+        History and criticism.", "Books and reading -- Germany -- History -- 20th
+        century.", "Books and reading -- Germany -- History -- 19th century.", "Literature
+        and society -- Germany -- History -- 20th century.", "Literature and society
+        -- Germany -- History -- 19th century.", "Books and reading in literature.",
+        "Critical studies.", "Authorship."], "revision": 4}}}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:25:47 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:INVALID_ISBN
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Mon, 17 Aug 2015 08:25:49 GMT
+      Date:
+      - Mon, 17 Aug 2015 08:25:49 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"AEqHJ39cYOcHij976IZqD9LCWzE/lhf5nNb2kdbzRfjiv6FOzlz5tpM"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1673'
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 443:quic,p=1
+      Alt-Svc:
+      - quic=":443"; p="1"; ma=604800
     body:
       encoding: UTF-8
       string: |
         {
-           "index_searched" : "isbn",
-           "data" : [
-              {
-                 "physical_description_text" : "xxxiii, 459 p. : ill ; 25 cm.",
-                 "subject_ids" : [
-                    "german_literature_19th_century_history_and_criticism",
-                    "german_literature_20th_century_history_and_criticism",
-                    "books_and_reading_in_literature",
-                    "authorship",
-                    "books_and_reading_germany_history_19th_century",
-                    "books_and_reading_germany_history_20th_century",
-                    "literature_and_society_germany_history_19th_century",
-                    "literature_and_society_germany_history_20th_century"
-                 ],
-                 "publisher_name" : "Stanford University Press",
-                 "publisher_text" : "Stanford, Calif. : Stanford University Press, c1990.",
-                 "urls_text" : "",
-                 "author_data" : [
-                    {
-                       "id" : "kittler_friedrich_a",
-                       "name" : "Kittler, Friedrich A."
-                    },
-                    {
-                       "name" : "Michael Metteer",
-                       "id" : "michael_metteer"
-                    }
-                 ],
-                 "dewey_decimal" : "830.9/357",
-                 "title_long" : "",
-                 "lcc_number" : "",
-                 "isbn13" : "9780804720991",
-                 "edition_info" : "",
-                 "notes" : "Translation of: Aufschreibesysteme 1800/1900.\n\nIncludes bibliographical references ([419]-447) and index.",
-                 "isbn10" : "0804720991",
-                 "book_id" : "discourse_networks_1800_1900_a01",
-                 "title_latin" : "Discourse networks 1800/1900",
-                 "summary" : "",
-                 "language" : "eng",
-                 "title" : "Discourse networks 1800/1900",
-                 "publisher_id" : "stanford_university_press",
-                 "awards_text" : "",
-                 "dewey_normal" : "830.9357",
-                 "marc_enc_level" : ""
-              }
-           ]
+         "kind": "books#volumes",
+         "totalItems": 1119,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "qLb4AAAACAAJ",
+           "etag": "PFFKRuYwrP8",
+           "selfLink": "https://www.googleapis.com/books/v1/volumes/qLb4AAAACAAJ",
+           "volumeInfo": {
+            "title": "Invalid Isbn",
+            "authors": [
+             "Eric Lomax"
+            ],
+            "publisher": "Arrow",
+            "publishedDate": "1996-06",
+            "industryIdentifiers": [
+             {
+              "type": "ISBN_10",
+              "identifier": "1856870405"
+             },
+             {
+              "type": "ISBN_13",
+              "identifier": "9781856870405"
+             }
+            ],
+            "readingModes": {
+             "text": false,
+             "image": false
+            },
+            "printType": "BOOK",
+            "maturityRating": "NOT_MATURE",
+            "allowAnonLogging": false,
+            "contentVersion": "preview-1.0.0",
+            "language": "en",
+            "previewLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&cd=1&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=qLb4AAAACAAJ&dq=ISBN:INVALID_ISBN&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/Invalid_Isbn.html?hl=&id=qLb4AAAACAAJ"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": false
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "NO_PAGES",
+            "embeddable": false,
+            "publicDomain": false,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": false
+            },
+            "pdf": {
+             "isAvailable": false
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=qLb4AAAACAAJ&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "NONE",
+            "quoteSharingAllowed": false
+           }
+          }
+         ]
         }
     http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:38 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Title+Has+Three+Words+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:30:56 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":9.98}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:56 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+Fixed+note+content+used+to+prevent+multiple+calls+to+VCR.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:30:57 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":8.71}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:57 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+First+Body&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Tue, 11 Aug 2015 11:30:59 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.06}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:30:59 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+Second+Body+with+more+words&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Tue, 11 Aug 2015 11:31:00 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":14.33}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:00 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=Fixed+note+title+New+Body&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:31:00 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":12.2}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:00 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF+%E0%B4%93%E0%B4%AB%E0%B5%8D+%E0%B4%AE%E0%B5%86%E0%B4%B2%E0%B5%BB%E0%B4%95%E0%B5%8A%E0%B4%B3%E0%B5%80+%27%E0%B4%85%E0%B4%A8%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%AE%E0%B4%BF%27-%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86+%E0%B4%95%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BE%E0%B4%B5%E0%B4%BE%E0%B4%AF&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '80'
-      Date:
-      - Tue, 11 Aug 2015 11:31:02 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ml","isReliable":true,"confidence":10.24}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:02 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '191'
-      Date:
-      - Tue, 11 Aug 2015 11:31:03 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ab","isReliable":false,"confidence":0.01},{"language":"ru","isReliable":false,"confidence":10.24},{"language":"en","isReliable":false,"confidence":0.01}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:03 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%93%D0%B8%D0%B3%D0%B0%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D0%B9+%D1%82%D0%BE%D0%BC+in-quarto+%D1%82%D0%BE%D0%BB%D1%89%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+900.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '191'
-      Date:
-      - Tue, 11 Aug 2015 11:31:03 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ab","isReliable":false,"confidence":0.01},{"language":"ru","isReliable":false,"confidence":10.24},{"language":"en","isReliable":false,"confidence":0.01}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:03 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=The+Anatomy+of+Melancholy+Burton%27s+book+consists+mostly+of+a.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:31:04 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"en","isReliable":true,"confidence":7.55}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:04 GMT
+  recorded_at: Mon, 17 Aug 2015 08:25:49 GMT
 - request:
     method: get
-    uri: http://isbndb.com/api/v2/json/<ISBNDB_KEY>/book/INVALID_ISBN
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:INVALID_ISBN&format=json&jscmd=details
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.1.19
+      Date:
+      - Mon, 17 Aug 2015 08:26:01 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB 1 0.031 TT 0 0.031"'
+    body:
+      encoding: UTF-8
+      string: '{}'
+    http_version: 
+  recorded_at: Mon, 17 Aug 2015 08:26:01 GMT
+- request:
+    method: get
+    uri: http://isbndb.com/api/v2/json/<_FIGARO_ISBNDB_KEY>/book/INVALID_ISBN
     body:
       encoding: US-ASCII
       string: ''
@@ -760,7 +764,7 @@ http_interactions:
       Server:
       - nginx/1.6.1
       Date:
-      - Tue, 11 Aug 2015 11:31:10 GMT
+      - Mon, 17 Aug 2015 08:26:10 GMT
       Content-Length:
       - '49'
       Connection:
@@ -774,69 +778,5 @@ http_interactions:
            "error" : "Unable to locate INVALID_ISBN"
         }
     http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:31:10 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BA%D0%BD%D0%B8%D0%B3%D1%83+%D0%B4%D0%BE+%D1%81%D0%B0%D0%BC%D0%BE%D0%B9+%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8+%D0%B2+1640+%D0%B3%D0%BE%D0%B4%D1%83.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:44:21 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":4.33}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:44:21 GMT
-- request:
-    method: post
-    uri: http://ws.detectlanguage.com/0.2/detect
-    body:
-      encoding: US-ASCII
-      string: q=%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%D0%B8%D1%8F+%D0%BC%D0%B5%D0%BB%D0%B0%D0%BD%D1%85%D0%BE%D0%BB%D0%B8%D0%B8+%D0%90%D0%B2%D1%82%D0%BE%D1%80+%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%E2%80%94+%D0%BE%D0%BA%D1%81%D1%84%D0%BE%D1%80%D0%B4%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%B5%D0%BB%D0%B0%D1%82+%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82+%D0%91%D1%91%D1%80%D1%82%D0%BE%D0%BD+%E2%80%94+%D0%BF%D1%80%D0%BE%D0%B4%D0%BE%D0%BB%D0%B6%D0%B0%D0%BB+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D1%8F%D1%82%D1%8C+%D0%B8+%D0%B4%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BA%D0%BD%D0%B8%D0%B3%D1%83+%D0%B4%D0%BE+%D1%81%D0%B0%D0%BC%D0%BE%D0%B9+%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8+%D0%B2+1640+%D0%B3%D0%BE%D0%B4%D1%83.&key=<DETECT_LANGUAGE_KEY>
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - '*/*'
-      User-Agent:
-      - Detect Language API ruby gem
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '79'
-      Date:
-      - Tue, 11 Aug 2015 11:44:22 GMT
-    body:
-      encoding: UTF-8
-      string: '{"data":{"detections":[{"language":"ru","isReliable":true,"confidence":4.33}]}}'
-    http_version: 
-  recorded_at: Tue, 11 Aug 2015 11:44:22 GMT
+  recorded_at: Mon, 17 Aug 2015 08:26:10 GMT
 recorded_with: VCR 2.9.3

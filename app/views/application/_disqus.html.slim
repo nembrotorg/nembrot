@@ -8,7 +8,7 @@
             _gaq.push ['_trackEvent', 'Comments', 'new', location.href + '#comment-' + comment.id]
           }];
       }
-      var DISQUS_SHORT_NAME = "#{ Setting['advanced.disqus_shortname'] }";
+      var DISQUS_SHORT_NAME = "#{ NB.disqus_shortname }";
       (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + DISQUS_SHORT_NAME + '.disqus.com/embed.js';

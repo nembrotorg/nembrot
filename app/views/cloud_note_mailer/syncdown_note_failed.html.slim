@@ -1,6 +1,6 @@
-p = t('email.greeting', name: Setting['advanced.admin_name'])
+p = t('email.greeting', name: NB.admin_name)
 p = t("notes.sync.#{ @error }.email.body", provider: @provider, guid: @guid, title: @title, username: @username)
-p = "#{ Constant.evernote_server }/Home.action#st=p&n=#{ @guid }"
+p = "#{ NB.evernote_server }/Home.action#st=p&n=#{ @guid }"
 p = @error
 p = t('email.signature')
 p = @host

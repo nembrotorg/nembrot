@@ -4,8 +4,8 @@
 
 RSpec.describe EvernoteNote do
   before(:example) do
-    Setting['channel.evernote_notebooks'] = 'NOTEBOOK_GUID'
-    Setting['advanced.instructions_required'] = '__PUBLISH'
+    ENV['evernote_notebooks'] = 'NOTEBOOK_GUID'
+    ENV['instructions_required'] = '__PUBLISH'
     @evernote_request = FactoryGirl.build(:evernote_request)
   end
 
@@ -60,7 +60,7 @@ RSpec.describe EvernoteNote do
 
     context 'when cloud note has an instruction to ignore' do
       before do
-        Setting['advanced.instructions_ignore'] = '__IGNORE'
+        ENV['instructions_ignore'] = '__IGNORE'
         @evernote_request.cloud_note_tags = %w(__IGNORE)
       end
       its(:update_necessary?) { is_expected.to be_falsey }

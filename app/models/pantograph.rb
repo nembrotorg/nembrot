@@ -13,7 +13,7 @@ class Pantograph < ActiveRecord::Base
   scope :by_self, -> { where(pantographer_id: pantography_twitter_user.id) }
 
   def self.alphabet
-    Constant.pantography.alphabet
+    NB.pantography_alphabet
   end
 
   def self.first_text
@@ -25,7 +25,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.max_length
-    Constant.pantography.max_length
+    NB.pantography_max_length.to_i
   end
 
   def self.total_texts
@@ -50,18 +50,18 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.total_duration
-    (total_texts / (((60 * 60) / Constant.pantography.frequency)  * 24 * Constant.pantography.sidereal_year_in_days));
+    (total_texts / (((60 * 60) / NB.pantography_frequency.to_i)  * 24 * NB.pantography_sidereal_year_in_days.to_i));
   end
 
   def self.sanitize(text, pantographer_id = nil)
     text = self.spamify(text) if pantographer_id == self.pantography_twitter_user.id
-    text.truncate(Constant.pantography.max_length, omission: '')
+    text.truncate(NB.pantography_max_length.to_i, omission: '')
         .gsub(/"|“|”|\‘|\’/, "'")
         .gsub(/\&/, '+')
         .gsub(/\[\{/, '(')
         .gsub(/\]\}/, ')')
         .downcase
-        .gsub(/[^#{ Constant.pantography.alphabet_escaped }]/, '')
+        .gsub(/[^#{ NB.pantography_alphabet_escaped }]/, '')
   end
 
   def self.publish_next
@@ -227,7 +227,7 @@ class Pantograph < ActiveRecord::Base
   end
 
   def scheduled_for
-   (Constant.pantography.start_date.to_datetime + (sequence * Constant.pantography.frequency).seconds)
+   (NB.pantography_start_date.to_datetime + (sequence * NB.pantography_frequency.to_i).seconds)
     .strftime('%A, %e %B %Y CE at %H:%M UTC')
     .gsub(/([\d]{9,})/) { |d| "<span title=\"#{ d }\">#{ d.to_f.to_s.gsub(/(\d)\.(\d+)+e\+(\d+)/, '\1.\2 x 10<sup>\3</sup>') }</span>" }
   end
@@ -263,6 +263,6 @@ class Pantograph < ActiveRecord::Base
   end
 
   def self.pantography_twitter_user
-    Pantographer.where(twitter_user_id: Constant.pantography.twitter_user_id).first
+    Pantographer.where(twitter_user_id: NB.pantography_twitter_user_id.to_i).first
   end
 end

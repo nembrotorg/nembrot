@@ -27,7 +27,7 @@
                       tweeted_by: link_to("@#{ @pantograph.pantographer.twitter_screen_name }", 
                       @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name })) unless @pantograph.external_created_at.nil?
               li#percentage= "#{ @pantograph.percentage }%"
-              li#length= "#{ @pantograph.text.length }/#{ Constant.pantography.max_length }"
+              li#length= "#{ @pantograph.text.length }/#{ NB.pantography_max_length.to_i }"
         = render 'shared/sequential_nav', object: @pantograph
 
       section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
@@ -39,8 +39,8 @@
             = render 'notes/versions_list', note: @note
         = render 'pantographs_list'
 
-      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+      - if NB.comments_native_or_disqus_or_none == 'native'
          section#comments = commontator_thread(@note)
 
-      - if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+      - if NB.comments_native_or_disqus_or_none == 'disqus'
          = render 'disqus'

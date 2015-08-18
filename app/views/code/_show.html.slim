@@ -14,24 +14,35 @@
       li
         a href="#model"
           | Model
+      li
+        a href="#server"
+          | Server
 
     #source
       h2
         | Source
-      pre
-        code
+      pre.viewport
+        code.container
     #view
       h2
-      pre
-        code#view-code
+      pre.viewport
+        code.container
     #controller
       h2
-      pre
-        code
+      pre.viewport
+        code.container
     #model
       h2
-      pre
-        code
+      pre.viewport
+        code.container
+    #server
+      h2
+        | Server
+      .viewport
+        .container
+          iframe.datadog data-token="9ce4ff5414df9b2136d0b4f9cc4f2af4e50fe2848e2c1ce18b29e4e7cd0ab7bc" frameborder="0"
+          iframe.datadog data-token="fcccb740d6d068cab1088dc849b26f32dce9926e83941653b60604c738712306" frameborder="0"
+          iframe.datadog data-token="3f6aa11cecd28a48be80dfd1cf31e595a97f873f6578898bace310f08ffce80f" frameborder="0"
 
   a class="close" href="#close"
     | &times;

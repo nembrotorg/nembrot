@@ -6,7 +6,7 @@ class EvernoteNotesController < ApplicationController
       EvernoteNote.add_task(params[:guid], params[:notebookGuid])
       render json: { 'Status' => 'OK' }
 
-      if Constant.synchronous
+      if NB.synchronous == 'true'
         EvernoteNote.sync_all
         Resource.sync_all_binaries
         Book.sync_all

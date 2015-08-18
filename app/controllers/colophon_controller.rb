@@ -2,7 +2,8 @@
 
 class ColophonController < ApplicationController
   def index
-    @palette = Setting.where("var LIKE '%color%'").pluck(:value).uniq
+    color_settings = ENV.select { |x| x.match(/.*color.*/) }
+    @palette = color_settings.values.uniq
     @gems = Bundler.load.specs.sort_by &:name
   end
 end

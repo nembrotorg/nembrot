@@ -18,8 +18,8 @@ class EvernoteNote < ActiveRecord::Base
   def self.add_task(guid, notebook_guid)
     # This test is repeated in EvernoteRequest, and below in #evernote_auth - do we need all of them?
     evernote_note = where(cloud_note_identifier: guid).first_or_initialize
-    if !Setting['channel.evernote_notebooks'].include? notebook_guid
-      SYNC_LOG.error "Note is not in any required notebook! (Notebook #{ notebook_guid } is not in #{ Setting['channel.evernote_notebooks'] }."
+    if !NB.evernote_notebooks.include? notebook_guid
+      SYNC_LOG.error "Note is not in any required notebook! (Notebook #{ notebook_guid } is not in #{ NB.evernote_notebooks }."
       evernote_note.note.destroy! unless evernote_note.note.nil?
     else
       evernote_note.update_attribute('cloud_notebook_identifier', notebook_guid)
@@ -35,8 +35,8 @@ class EvernoteNote < ActiveRecord::Base
 
   def self.bulk_sync
     filter = Evernote::EDAM::NoteStore::NoteFilter.new(
-      notebookGuid: Setting['channel.evernote_notebooks'],
-      words: Setting['advanced.instructions_required'].gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
+      notebookGuid: NB.evernote_notebooks,
+      words: NB.instructions_required.gsub(/^/, 'tag:').gsub(/ /, ' tag:'),
       order: 2,
       ascending: false
     )

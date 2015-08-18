@@ -12,10 +12,10 @@ FactoryGirl.define do
                                                 oauth_token: 'MOCK_TOKEN'
                                               },
                                consumer: {
-                                 key: Secret.auth.evernote.key,
-                                 secret: Secret.auth.evernote.secret
+                                 key: ENV['evernote_key'],
+                                 secret: ENV['evernote_secret']
                                }
-                                            })
+                            })
                          })
 	end
 end

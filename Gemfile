@@ -18,11 +18,12 @@ gem 'detect_language'
 gem 'devise'
 gem 'differ'
 gem 'dogapi'
-gem 'embiggen', '~> 0.2'
+gem 'embiggen'
 gem 'flexslider'
 gem 'jquery-dotdotdot-rails'
 gem 'jquery-rails-cdn'
 gem 'evernote-thrift'
+gem 'figaro'
 gem 'friendly_id'
 gem 'gmaps4rails'
 gem 'god'
@@ -49,11 +50,9 @@ gem 'omniauth-twitter'
 gem 'paper_trail'
 gem 'pjax_rails'
 gem 'pismo'
-gem 'rails-settings-cached', '0.4.1'
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
-gem 'settingslogic'
 gem 'sidekiq'
 gem 'sitemap_generator'
 gem 'slim-rails'
@@ -75,6 +74,7 @@ group :development, :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'slackistrano', require: false
   gem 'spring-commands-rspec'
   gem 'sqlite3'
 end
@@ -82,7 +82,11 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano',           require: false
+  gem 'capistrano-bundler',   require: false
+  gem 'capistrano-rails',     require: false
+  gem 'capistrano-rvm',       require: false
+  gem 'capistrano3-unicorn'
   gem 'flog'
   gem 'guard-coffeescript'
   gem 'guard-livereload'

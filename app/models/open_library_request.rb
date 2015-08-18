@@ -3,13 +3,13 @@
 class OpenLibraryRequest
   include HTTParty
 
-  base_uri Constant.books.open_library.domain
+  base_uri NB.open_library_domain
 
   attr_accessor :metadata
 
   def initialize(isbn)
     params = { 'format' => 'json', 'jscmd' => 'details', 'bibkeys' => "ISBN:#{ isbn }" }
-    response = self.class.get(Constant.books.open_library.path, query: params)
+    response = self.class.get(NB.open_library_path, query: params)
 
     populate(response, isbn) if response && response["ISBN:#{ isbn }"]['details']
 

@@ -23,7 +23,7 @@ class PantographsController < ApplicationController
   private
 
   def copy_and_list
-    @pantographs = Pantograph.limit(Constant.pantography.timeline_length)
+    @pantographs = Pantograph.limit(NB.pantography_timeline_length.to_i)
     @note = Note.publishable.tagged_with('pantography').tagged_with('__COPY', on: :instructions).first
     @tags = @note.tags
     commontator_thread_show(@note)

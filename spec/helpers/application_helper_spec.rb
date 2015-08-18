@@ -12,7 +12,7 @@ RSpec.describe ApplicationHelper do
   end
 
   describe '#body_dir_attr' do
-    before { Constant['rtl_langs'] = 'ar' }
+    before { ENV['rtl_langs'] = 'ar' }
     it 'should return "rtl" if language is rtl' do
       expect(body_dir_attr('ar')).to eq('rtl')
     end
@@ -25,7 +25,7 @@ RSpec.describe ApplicationHelper do
     before { I18n.enforce_available_locales = false }
     context 'when the note is in the default language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         I18n.locale = 'ar'
       end
       it 'returns "ltr" if language is not the same as locale, and is ltr' do
@@ -37,7 +37,7 @@ RSpec.describe ApplicationHelper do
     end
     context 'when the note is not in the default language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         I18n.locale = 'en'
       end
       it 'returns nil if language is the same as locale' do

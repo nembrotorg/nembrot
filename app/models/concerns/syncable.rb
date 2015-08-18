@@ -4,8 +4,8 @@ module Syncable
   extend ActiveSupport::Concern
 
   included do
-    scope :maxed_out, -> { where('attempts > ?', Setting['advanced.attempts'].to_i).order('updated_at') }
-    scope :need_syncdown, -> { where('dirty = ? AND attempts <= ? AND try_again_at < ?', true, Setting['advanced.attempts'].to_i, Time.now).order('updated_at') }
+    scope :maxed_out, -> { where('attempts > ?', NB.attempts.to_i).order('updated_at') }
+    scope :need_syncdown, -> { where('dirty = ? AND attempts <= ? AND try_again_at < ?', true, NB.attempts.to_i, Time.now).order('updated_at') }
   end
 
   def dirtify(save_it = true)
@@ -28,7 +28,7 @@ module Syncable
   end
 
   def max_out_attempts
-    self.update_attributes!(attempts: Setting['advanced.attempts'].to_i + 1)
+    self.update_attributes!(attempts: NB.attempts.to_i + 1)
   end
 
   def merge(new_values, overwrite = false, object = self)

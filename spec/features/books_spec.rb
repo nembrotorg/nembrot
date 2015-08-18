@@ -8,7 +8,7 @@ RSpec.describe 'Books' do
     fill_in 'Password', with: 'changeme'
     click_button('Sign in')
     @book = FactoryGirl.create(:book)
-    @note = FactoryGirl.create(:note, books: [@book], body: 'Note text.')
+    @note = FactoryGirl.create(:note, books: [@book], body: "Note text that mentions #{ @book.tag }.")
     @citation = FactoryGirl.create(:note, books: [@book], content_type: 1, body: "{quote:Citation text. -- (#{ @book.tag }), p. 1}")
   end
 

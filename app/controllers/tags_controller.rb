@@ -3,9 +3,9 @@ class TagsController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_tags = Note.publishable.tag_counts_on(:tags, at_least: Setting['advanced.tags_minimum'].to_i)
+    all_tags = Note.publishable.tag_counts_on(:tags, at_least: NB.tags_minimum.to_i)
 
-    @tags = all_tags.page(page_number).per(Setting['advanced.tags_index_per_page'].to_i).load
+    @tags = all_tags.page(page_number).per(NB.tags_index_per_page.to_i).load
     @references_count = all_tags.to_a.sum(&:count)
     @tags_count = all_tags.size
   end

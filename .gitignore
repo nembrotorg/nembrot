@@ -14,6 +14,7 @@
 *~
 .DS_Store
 .gitattributes
+.irb-history
 .project
 .ruby-gemset
 .ruby-version
@@ -36,3 +37,6 @@ trial
 
 * Ignore coverage
 coverage
+
+# Ignore application configuration
+/config/application.yml

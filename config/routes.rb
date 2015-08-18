@@ -29,7 +29,6 @@ Nembrot::Application.routes.draw do
   get 'texts/p/:page' => 'notes#index'
   get 'texts' => 'notes#index', as: :notes
 
-  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
   put 'settings' => 'settings#update', as: :update_settings
   get 'settings/edit' => 'settings#edit', as: :edit_settings
 

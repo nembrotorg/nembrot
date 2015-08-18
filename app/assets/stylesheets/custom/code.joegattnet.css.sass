@@ -17,6 +17,9 @@ a:focus
     top: 0
     width: 100%
     z-index: 2
+    .viewport
+      height: 100%
+      overflow: hidden
     &> div
       padding: 0
     pre
@@ -67,11 +70,15 @@ a:focus
         color: $headline-font-color
       .hljs-function
         color: $headline-font-color
+    iframe
+      height: $line-height * 12
+      width: 95%
+      overflow: hidden
 
     #tabs
       padding-left: $text-indent / 2
       border-radius: 0
-      border:none
+      border: none
 
   #tools
     li.code

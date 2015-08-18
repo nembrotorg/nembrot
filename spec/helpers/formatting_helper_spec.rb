@@ -67,7 +67,7 @@ RSpec.describe FormattingHelper do
 
   describe '#sanitize_from_db' do
     it 'truncates all text after --30-- or similar' do
-      expect(sanitize_from_db("Text.#{ Setting['advanced.truncate_after_regexp'] }THIS SHOULD NOT\n BE INCLUDED."))
+      expect(sanitize_from_db("Text.#{ ENV['truncate_after_regexp'] }THIS SHOULD NOT\n BE INCLUDED."))
         .to eq("\nText.")
     end
     it 'removes superfluous html tags and attributes' do

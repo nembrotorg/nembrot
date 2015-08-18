@@ -161,21 +161,9 @@ en:
 
   settings:
     edit:
-      advanced_header: 'Advanced settings'
-      channel_header: 'Channel settings'
       failure: 'Update failed!'
-      style_header: 'Style settings'
       success: 'Settings updated successfully!'
       title: 'Settings'
-      reset:
-        confirm: 'Are you sure you want to reset these settings?'
-        label_advanced: 'Reset advanced settings'
-        label_channel: 'Reset channel settings'
-        label_style: 'Reset style settings'
-    reset:
-      success_channel: 'Advanced settings have been reset!'
-      success_channel: 'Channel settings have been reset!'
-      success_style: 'Style settings have been reset!'
 
   tags:
     index:

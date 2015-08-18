@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   skip_before_filter :get_promoted_notes, :get_sections, if: proc { |_c| request.xhr? && request.path != '/' }
 
   def set_locale
-    I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
+    I18n.locale = params[:locale] || NB.locale || I18n.default_locale
   end
 
   def add_home_breadcrumb
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def note_tags(note)
-    @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
+    @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= NB.tags_minimum.to_i }
   end
 
   def note_map(note)
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_public_cache_headers
-    expires_in Constant.cache_minutes.minutes, public: true
+    expires_in NB.cache_minutes.to_i.minutes, public: true
   end
 
   rescue_from CanCan::AccessDenied do |exception|

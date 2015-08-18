@@ -28,7 +28,7 @@ class Book < ActiveRecord::Base
                     unless: :tag_changed? # || '!tag.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
-  paginates_per Setting['advanced.books_index_per_page'].to_i
+  paginates_per NB.books_index_per_page.to_i
 
   extend FriendlyId
   friendly_id :tag, use: :slugged
@@ -94,31 +94,31 @@ class Book < ActiveRecord::Base
     merge_open_library
     undirtify(false) unless missing_metadata?
     SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_missing_metadata if missing_metadata? && attempts == Setting['advanced.attempts'].to_i
+    announce_missing_metadata if missing_metadata? && attempts == NB.attempts.to_i
     save!
   end
 
   def merge_world_cat
-    merge(WorldCatRequest.new(isbn).metadata) if Constant.books.world_cat.active?
+    merge(WorldCatRequest.new(isbn).metadata) if NB.world_cat_active == 'true'
   end
 
   def merge_isbndb
-    merge(IsbndbRequest.new(isbn).metadata) if Constant.books.isbndb.active?
+    merge(IsbndbRequest.new(isbn).metadata) if NB.isbndb_active == 'true'
   end
 
   def merge_google_books
-    merge(GoogleBooksRequest.new(isbn).metadata) if Constant.books.google_books.active?
+    merge(GoogleBooksRequest.new(isbn).metadata) if NB.google_books_active == 'true'
   end
 
   def merge_open_library
-    merge(OpenLibraryRequest.new(isbn).metadata) if Constant.books.open_library.active?
+    merge(OpenLibraryRequest.new(isbn).metadata) if NB.open_library_active == 'true'
   end
 
   private
 
   def scan_notes_for_references
     # REVIEW: try checking for setting as an unless: after before_save
-    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if Setting['advanced.books_section'] == 'true'
+    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if NB.books_section == 'true'
   end
 
   def missing_metadata?

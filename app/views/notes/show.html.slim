@@ -46,11 +46,11 @@
         - unless @note.is_section
           aside
             = render 'notes/tag_list', tags: @tags unless @tags.empty?
-            = render 'notes/versions_list', note: @note if Setting['advanced.versions']
+            = render 'notes/versions_list', note: @note if NB.versions == 'true'
             = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
 
-    - if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
+    - if NB.comments_native_or_disqus_or_none == 'native'
        section#comments = commontator_thread(@note)
 
-    - if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+    - if NB.comments_native_or_disqus_or_none == 'disqus'
        = render 'disqus'

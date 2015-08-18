@@ -1,13 +1,13 @@
 class PantographMailer < ActionMailer::Base
-  default from: Setting['advanced.admin_email']
+  default from: NB.admin_email
 
   def tweet_failed(message)
     @message = message
 
     mail(
-      to: Setting['advanced.monitoring_email'],
+      to: NB.monitoring_email,
       subject: message,
-      host: Constant.host
+      host: NB.host
     )
   end
 end

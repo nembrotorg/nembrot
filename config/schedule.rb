@@ -3,7 +3,7 @@ set :output, "#{ path }/log/daemons.log"
 # REVIEW: get times from Settings
 #  require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 #  require 'rubygems'
-#  every Setting['advanced.synch_every_minutes'].minutes do
+#  every ENV['synch_every_minutes'].to_i.minutes do
 
 every 3.minutes do
   rake 'joegattnet:three_minutes'

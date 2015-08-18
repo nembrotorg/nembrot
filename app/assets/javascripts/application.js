@@ -16,6 +16,7 @@
 //= require jquery.flexslider
 //= require jquery.pjax
 //= require jquery.alterclass
+//= require jquery.slimscroll
 //= require unorphan
 //= require media_match
 //= require enquire

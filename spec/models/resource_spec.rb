@@ -52,7 +52,7 @@ RSpec.describe Resource do
     end
 
     context 'when resources are maxed_out or dirty' do
-      before { @resource.update_attributes(dirty: true, attempts: Setting['advanced.attempts'].to_i + 1, try_again_at: 1.minute.ago) }
+      before { @resource.update_attributes(dirty: true, attempts: ENV['attempts'].to_i + 1, try_again_at: 1.minute.ago) }
       it 'is empty' do
         expect(Resource.need_syncdown.last).to be_nil
       end
@@ -60,13 +60,13 @@ RSpec.describe Resource do
   end
 
   describe ':attached_images' do
-    before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i + 1) }
+    before { @resource.update_attributes(width: ENV['images_min_width'].to_i + 1) }
     it 'contains resources larger than half the standard width' do
       expect(Resource.attached_images.last).to eq(@resource)
     end
 
     context 'does not contain resources smaller than half the standard width' do
-      before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i - 1) }
+      before { @resource.update_attributes(width: ENV['images_min_width'].to_i - 1) }
       it 'is empty' do
         expect(Resource.need_syncdown.last).to be_nil
       end
@@ -98,7 +98,7 @@ RSpec.describe Resource do
 
   describe '#max_out_attempts' do
     before { @resource.max_out_attempts }
-    its(:attempts) { is_expected.to be >=  Setting['advanced.attempts'].to_i }
+    its(:attempts) { is_expected.to be >=  ENV['attempts'].to_i }
   end
 
   describe '#file_ext' do

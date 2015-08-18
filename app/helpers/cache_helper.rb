@@ -2,6 +2,6 @@
 
 module CacheHelper
   def cache_buster(version)
-    "#{ Setting.all.load }#{ version }"
+    "#{ NB }#{ version }"
   end
 end

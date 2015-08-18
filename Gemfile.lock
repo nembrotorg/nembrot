@@ -88,12 +88,21 @@ GEM
     byebug (5.0.0)
       columnize (= 0.9.0)
     cancan (1.6.10)
-    capistrano (2.15.5)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    capistrano (3.4.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.3)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano3-unicorn (0.2.1)
+      capistrano (~> 3.1, >= 3.1.0)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -120,6 +129,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colored (1.2)
+    colorize (0.7.7)
     columnize (0.9.0)
     commontator (4.10.5)
       jquery-rails
@@ -175,6 +185,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     fast-stemmer (1.0.2)
     ffi (1.9.10)
+    figaro (1.1.1)
+      thor (~> 0.14)
     flexslider (2.2.0)
       sass-rails (>= 3.1.0)
     flog (4.3.2)
@@ -221,7 +233,6 @@ GEM
       guard (>= 2.8.0)
       sass (>= 3.1)
     hashie (3.4.2)
-    highline (1.7.2)
     hike (1.2.3)
     hitimes (1.2.2)
     http (0.8.12)
@@ -277,7 +288,7 @@ GEM
     mime-types (2.6.1)
     mini_magick (4.2.7)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -285,11 +296,7 @@ GEM
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nokogumbo (1.4.1)
@@ -363,14 +370,12 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-settings-cached (0.4.1)
-      rails (>= 4.0.0)
     rails-timeago (2.12.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
@@ -434,7 +439,6 @@ GEM
       nokogiri (>= 1.4.4)
       nokogumbo (= 1.4.1)
     sass (3.2.19)
-    settingslogic (2.0.9)
     sexp_processor (4.6.0)
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
@@ -453,6 +457,9 @@ GEM
     simplecov-html (0.10.0)
     sitemap_generator (5.1.0)
       builder
+    slackistrano (0.1.10)
+      capistrano (>= 3.0.1)
+      json
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -476,6 +483,10 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+    sshkit (1.7.1)
+      colorize (>= 0.7.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     susy (1.0.9)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
@@ -530,7 +541,11 @@ DEPENDENCIES
   breadcrumbs_on_rails
   byebug
   cancan
-  capistrano (= 2.15.5)
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rvm
+  capistrano3-unicorn
   capybara
   capybara-webkit
   codeclimate-test-reporter
@@ -543,10 +558,11 @@ DEPENDENCIES
   devise
   differ
   dogapi
-  embiggen (~> 0.2)
+  embiggen
   evernote-thrift
   factory_girl_rails
   faker
+  figaro
   flexslider
   flog
   friendly_id
@@ -585,7 +601,6 @@ DEPENDENCIES
   pismo
   pjax_rails
   rails (= 4.2.1)
-  rails-settings-cached (= 0.4.1)
   rails-timeago
   rails_best_practices
   rb-inotify (~> 0.9)
@@ -594,11 +609,11 @@ DEPENDENCIES
   rspec-rails
   safe_yaml
   sass-rails!
-  settingslogic
   shoulda-matchers
   sidekiq
   simplecov
   sitemap_generator
+  slackistrano
   slim-rails
   spring-commands-rspec
   sprockets-rails

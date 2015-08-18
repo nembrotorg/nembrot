@@ -16,9 +16,9 @@ html data={ controller: controller.controller_name, action: controller.action_na
 
     = render 'footer'
 
-    = render 'google_analytics' unless Setting['advanced.google_analytics_key'].blank?
+    = render 'google_analytics' unless NB.google_analytics_key.blank?
 
-    = render 'async_share_scripts' if Setting['advanced.share_native_or_iframes_or_none'] == 'iframes'
+    = render 'async_share_scripts' if NB.share_native_or_iframes_or_none == 'iframes'
 
     #code style="display:none"
       = render 'code/show'

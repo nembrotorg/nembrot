@@ -5,6 +5,8 @@ server 'joegatt.org', user: 'deployer', roles: %w{app db web}
 
 set :repo_url, 'git@github.com:joegattnet/joegattnet_v3.git'
 
+set :ssh_options, keys: ["config/deploy_id_rsa"] if File.exist?("config/deploy_id_rsa")
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

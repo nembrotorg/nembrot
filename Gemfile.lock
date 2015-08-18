@@ -457,6 +457,9 @@ GEM
     simplecov-html (0.10.0)
     sitemap_generator (5.1.0)
       builder
+    slackistrano (0.1.10)
+      capistrano (>= 3.0.1)
+      json
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -610,6 +613,7 @@ DEPENDENCIES
   sidekiq
   simplecov
   sitemap_generator
+  slackistrano
   slim-rails
   spring-commands-rspec
   sprockets-rails

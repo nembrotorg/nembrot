@@ -1,5 +1,5 @@
 # Set environment to development unless something else is specified
-env = ENV["RAILS_ENV"] || "development"
+env = "poduction"
 
 # See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
 # documentation.
@@ -11,13 +11,13 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
-app_path = "/home/deployer/apps/#{ ENV['app_name'] }"
+app_path = "/home/deployer/apps/joegattnet_v3"
 
-pid "/tmp/unicorn.#{ ENV['app_name'] }.pid"
+pid "/tmp/unicorn.joegattnet_v3.pid"
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/#{ ENV['app_name'] }.socket", :backlog => 64
+listen "/tmp/joegattnet_v3.socket", :backlog => 64
 
 # feel free to point this anywhere accessible on the filesystem
 user 'deployer', 'staff'
@@ -40,7 +40,7 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  old_pid = "/tmp/unicorn.#{ ENV['app_name'] }.pid.oldbin"
+  old_pid = "/tmp/unicorn.joegattnet_v3.pid.oldbin"
 
   if File.exists?(old_pid) && server.pid != old_pid
     begin

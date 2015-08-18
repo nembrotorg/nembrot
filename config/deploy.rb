@@ -7,6 +7,9 @@ set :repo_url, 'https://github.com/joegattnet/joegattnet_v3.git'
 
 set :ssh_options, keys: ["config/deploy_id_rsa"] if File.exist?("config/deploy_id_rsa")
 
+# FIXME: This needs to be hidden
+set :slack_webhook, 'https://hooks.slack.com/services/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'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

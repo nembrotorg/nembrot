@@ -74,6 +74,7 @@ group :development, :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'slackistrano', require: false
   gem 'spring-commands-rspec'
   gem 'sqlite3'
 end

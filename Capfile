@@ -24,6 +24,7 @@ require 'capistrano/bundler'
 # require 'capistrano/passenger'
 require 'capistrano3/unicorn'
 
+require 'slackistrano'
 require 'whenever/capistrano'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

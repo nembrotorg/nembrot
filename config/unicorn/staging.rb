@@ -13,7 +13,7 @@ timeout 30
 
 app_path = "/home/deployer/apps/joegattnet_v3_staging"
 
-pid "/tmp/unicorn.joegattnet_v3_staging.pid"
+pid "#{ app_path }/current/tmp/pids/unicorn.pid"
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
@@ -40,7 +40,7 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  old_pid = "/tmp/unicorn.joegattnet_v3_staging.pid.oldbin"
+  old_pid = "#{ server.config[:pid] }.oldbin"
 
   if File.exists?(old_pid) && server.pid != old_pid
     begin

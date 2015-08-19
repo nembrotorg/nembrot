@@ -1,6 +1,6 @@
 set :output, "#{ path }/log/daemons.log"
 
-if ENV['RAILS_ENV'] == 'production'
+if :rails_env == 'production'
 
   every 3.minutes do
     rake 'joegattnet:three_minutes'

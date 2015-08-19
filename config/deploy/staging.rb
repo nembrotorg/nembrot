@@ -1,7 +1,8 @@
-set :application, 'joegattnet_v3_staging'
-set :branch,      'staging'
-set :deploy_to,   '/home/deployer/apps/joegattnet_v3_staging'
-set :rails_env,   'staging'
+set :application,           'joegattnet_v3_staging'
+set :branch,                'staging'
+set :deploy_to,             '/home/deployer/apps/joegattnet_v3_staging'
+set :rails_env,             'staging'
+set :sidekiq_default_hooks, false
 
 # server-based syntax
 # ======================

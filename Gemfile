@@ -87,6 +87,7 @@ group :development do
   gem 'capistrano-bundler',   require: false
   gem 'capistrano-rails',     require: false
   gem 'capistrano-rvm',       require: false
+  gem 'capistrano-sidekiq'
   gem 'capistrano3-unicorn'
   gem 'flog'
   gem 'guard-coffeescript'

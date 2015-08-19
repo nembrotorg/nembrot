@@ -22,6 +22,7 @@ require 'capistrano/rvm'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
 # require 'capistrano/passenger'
+require 'capistrano/sidekiq'
 require 'capistrano3/unicorn'
 
 require 'slackistrano'

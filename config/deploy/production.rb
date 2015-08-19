@@ -1,7 +1,8 @@
-set :application, 'joegattnet_v3'
-set :branch,      'master'
-set :deploy_to,   '/home/deployer/apps/joegattnet_v3'
-set :rails_env,   'production'
+set :application,     'joegattnet_v3'
+set :branch,          'master'
+set :deploy_to,       '/home/deployer/apps/joegattnet_v3'
+set :rails_env,       'production'
+set :sidekiq_options, '/home/deployer/apps/joegattnet_v3/shared/config/sidekiq.yml'
 
 # server-based syntax
 # ======================

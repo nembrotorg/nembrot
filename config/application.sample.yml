@@ -12,7 +12,7 @@ daemon_frequency: '30'
 detect_language_sample_length: '250'
 evernote_errors: 'UNKNOWN BAD_DATA_FORMAT PERMISSION_DENIED INTERNAL_ERROR DATA_REQUIRED LIMIT_REACHED QUOTA_REACHED INVALID_AUTH AUTH_EXPIRED DATA_CONFLICT ENML_VALIDATION SHARD_UNAVAILABLE LEN_TOO_SHORT LEN_TOO_LONG TOO_FEW TOO_MANY UNSUPPORTED_OPERATION'
 html_pretty: 'true'
-html_pretty_body: 'false'
+html_pretty_body: 'true'
 html_sort_attrs: 'true'
 html_tabsize: '2'
 html_format: html

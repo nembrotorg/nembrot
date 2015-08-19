@@ -63,6 +63,7 @@ gem 'twitter', git: 'https://github.com/sferik/twitter.git'
 gem 'uglifier'
 gem 'underscore-rails'
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 gem 'uuidtools'
 gem 'validate_url'
 gem 'whenever', require: false

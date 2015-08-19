@@ -40,6 +40,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for keep_releases is 5
 # set :keep_releases, 3
 
+set(:whenever_command) { "RAILS_ENV=#{ rails_env } bundle exec whenever" }
+
 set :rvm_ruby_version, '2.1.5'
 
 after 'deploy:publishing', 'deploy:restart'

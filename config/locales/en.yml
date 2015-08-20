@@ -129,7 +129,7 @@ en:
     word_count: '%{word_count} words, <span title="Damerau-Levenshtein edit distance between this version and the previous one">%{distance} changes</span>'
     untitled_synonyms: ['Untitled', 'Untitled Note', 'New note']
     sections:
-      annotations: 'Annotations'
+      annotations: 'Notes'
       downloads: 'Downloads'
     sync:
       updated: "%{provider}: note %{id} (%{title}) UPDATED."

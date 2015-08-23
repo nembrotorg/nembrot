@@ -21,7 +21,7 @@ add_scrolling_class = () ->
 insert_qr_code = () ->
   # Get image size from settings
   $('body > footer img.qr_code').remove()
-  $('body > footer').prepend('<img onload="$(document).trigger(\'nembrot:painted\')" class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&rnd=' + Math.random() + '&chl=' + location.href + '" alt="QR code">')
+  $('body > footer').append('<img onload="$(document).trigger(\'nembrot:painted\')" class="qr_code" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&rnd=' + Math.random() + '&chl=' + location.href + '" alt="QR code">')
 
 load_user_menu = () ->
   $.ajax

@@ -22,10 +22,12 @@ require 'capistrano/rvm'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
 # require 'capistrano/passenger'
+require 'capistrano/sidekiq'
 require 'capistrano3/unicorn'
 
 require 'slackistrano'
 require 'whenever/capistrano'
+require 'capistrano/datadog'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

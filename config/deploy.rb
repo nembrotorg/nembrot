@@ -42,6 +42,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 set :rvm_ruby_version, '2.1.5'
 
+set :datadog_api_key, 'd61c085faa7b4c1686333e3eafd1fb3e'
+
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do

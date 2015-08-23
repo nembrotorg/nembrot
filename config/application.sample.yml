@@ -45,6 +45,7 @@ mailer_password: CHANGE_ME
 mailer_port: CHANGE_ME
 mailer_user_name: optional
 secret_key_base: CHANGE_ME_TO_AT_LEAST_30_RANDOM_ALPHANUMERIC_CHARACTERS_80_OR_SO_IS_BETTER
+slack_webhook_url: optional
 twitter_key: optional
 twitter_pantography_access_secret: optional
 twitter_pantography_access_token: optional
@@ -128,6 +129,7 @@ line_height: '28px'
 links_index_per_page: '100'
 links_section: 'true'
 locale: en
+logo_url: http://joegatt.net/logo.png
 notes_index_per_page: '10'
 promotions_home_columns: '3'
 promotions_home_rows: '2'
@@ -190,6 +192,7 @@ staging:
   # Basics
   app_name: joegattnet_v3_staging
   host: staging.joegatt.net
+  name: 'joegatt.net Staging'
 
 production:
   # Basics

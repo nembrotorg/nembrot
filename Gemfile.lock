@@ -461,6 +461,7 @@ GEM
     simplecov-html (0.10.0)
     sitemap_generator (5.1.0)
       builder
+    slack-notifier (1.2.1)
     slackistrano (0.1.10)
       capistrano (>= 3.0.1)
       json
@@ -621,6 +622,7 @@ DEPENDENCIES
   sidekiq
   simplecov
   sitemap_generator
+  slack-notifier
   slackistrano
   slim-rails
   spring-commands-rspec

@@ -45,13 +45,7 @@ class Book < ActiveRecord::Base
     isbn_candidate.gsub!(/[^\dX]/, '')
     book = where(isbn_10: isbn_candidate).first_or_create if isbn_candidate.length == 10
     book = where(isbn_13: isbn_candidate).first_or_create if isbn_candidate.length == 13
-    # We can't use dirtify here because this is a class method
-    if book
-      book.dirty = true
-      book.attempts = 0
-      book.save
-      book
-    end
+    SyncBookJob.perform_later(book)
   end
 
   def self.sync_all
@@ -93,8 +87,8 @@ class Book < ActiveRecord::Base
     merge_google_books
     merge_open_library
     undirtify(false) unless missing_metadata?
-    SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_missing_metadata if missing_metadata? && attempts == NB.attempts.to_i
+    announce_new_book unless missing_metadata?
+    announce_missing_metadata if missing_metadata?
     save!
   end
 
@@ -125,8 +119,17 @@ class Book < ActiveRecord::Base
     title.blank? || author.blank? || published_date.blank?
   end
 
+  def announce_new_book
+    # FIXME: Use generic option slack_or_email
+    # BookMailer.missing_metadata(self).deliver
+    Slack.ping("New book added: #{ title } by #{ author }. Use as: #{ tag }."), icon_url: NB.logo_url
+    SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
+  end
+
   def announce_missing_metadata
-    BookMailer.missing_metadata(self).deliver
+    # FIXME: Use generic option slack_or_email
+    # BookMailer.missing_metadata(self).deliver
+    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/admin/book/#{ id }/edit\">Edit</a>."), icon_url: NB.logo_url
     SYNC_LOG.error I18n.t('books.sync.missing_metadata.logger', id: id, author: author, title: title, isbn: isbn)
   end
 

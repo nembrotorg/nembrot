@@ -36,7 +36,7 @@ class Resource < ActiveRecord::Base
   def sync_binary
     unless File.file?(raw_location)
       increment_attempts
-      NB.stream_binaries ? stream_binary : download_binary
+      NB.stream_binaries == 'true' ? stream_binary : download_binary
       # Check that the resource has been downloaded correctly. If so, unflag it.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
     end

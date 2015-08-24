@@ -17,8 +17,8 @@ after_success:
 - chmod 0600 config/deploy_id_rsa
 - eval "$(ssh-agent)"
 - ssh-add config/deploy_id_rsa
-- '[ "$TRAVIS_BRANCH" == "staging" ] && bundle exec cap staging deploy'
-- '[ "$TRAVIS_BRANCH" == "master" ] && bundle exec cap production deploy'
+- '[[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "staging" ]] && bundle exec cap staging deploy'
+- '[[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "master" ]] && bundle exec cap production deploy'
 env:
   global:
     secure: RtMfntRPbWBf4QtjI/qwdANpv8IoalcmGckbOIvZQupfl20DydwXVzk2zjAr+MsTn7On4+0RJ0AYtvOsXmfAOXYxV1v8XIgAVLZUEmVNEaIHusf/sa+uHzVhzx9jDuhVd0DN1R1Xrhzj4QkZq6GAXEFgfJMn7e9c/0zGWcJAPEY=

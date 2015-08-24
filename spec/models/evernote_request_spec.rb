@@ -44,7 +44,6 @@ RSpec.describe EvernoteNote do
       # pending its(:update_necessary?) { is_expected.to be_falsey }
       it 'undirtifies evernote_note' do
         @evernote_request.evernote_note.dirty { is_expected.to be_falsey }
-        @evernote_request.evernote_note.attempts { is_expected.to eq(0) }
       end
     end
 

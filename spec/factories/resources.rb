@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :resource do
     altitude Random.rand(1000)
-    attempts 0
     caption { Faker::Lorem.sentence(8) }
     description { Faker::Lorem.sentence(8) }
     dirty false

@@ -14,15 +14,12 @@ class EvernoteRequest
     self.evernote_auth = evernote_note.evernote_auth
 
     unless evernote_note.destroyed? # REVIEW: evernote_note could have been destroyed by #evernote_auth
-      self.evernote_note.increment_attempts
-
       self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
       update_note if update_necessary? && note_is_not_conflicted?
     end
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
-      evernote_note.max_out_attempts
       SYNC_LOG.error "EDAMUserException: #{ %w(NB.evernote_errors)[error.errorCode] } #{ error.parameter }"
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       evernote_note.note.destroy! unless evernote_note.note.nil?
@@ -150,11 +147,9 @@ class EvernoteRequest
 
   def update_evernote_note_with_evernote_data(cloud_note_data)
     evernote_note.update_attributes!(
-      attempts: 0,
       content_hash: cloud_note_data.contentHash,
       dirty: false,
       note_id: evernote_note.note.id,
-      try_again_at: 100.years.from_now,
       update_sequence_number: cloud_note_data.updateSequenceNum
     )
   end

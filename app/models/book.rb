@@ -46,7 +46,7 @@ class Book < ActiveRecord::Base
     isbn_candidate.gsub!(/[^\dX]/, '')
     book = where(isbn_10: isbn_candidate).first_or_create if isbn_candidate.length == 10
     book = where(isbn_13: isbn_candidate).first_or_create if isbn_candidate.length == 13
-    unless book.nil?
+    if book && book.dirty?
       book.save!
       SyncBookJob.perform_later(book)
     end
@@ -87,15 +87,14 @@ class Book < ActiveRecord::Base
 
   # REVIEW: this fails if protected and called through sync_all
   def populate!
-    increment_attempts
     merge_world_cat
     merge_isbndb
     merge_google_books
     merge_open_library
     undirtify(false) unless missing_metadata?
+    save!
     announce_new_book unless missing_metadata?
     announce_missing_metadata if missing_metadata?
-    save!
   end
 
   def merge_world_cat
@@ -137,7 +136,7 @@ class Book < ActiveRecord::Base
     return if Rails.env == 'test'
     # FIXME: Use generic option slack_or_email
     # BookMailer.missing_metadata(self).deliver
-    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/admin/book/#{ id }/edit\">Edit</a>.", icon_url: NB.logo_url)
+    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/bibliography/#{ id }/edit\">Edit</a>.", icon_url: NB.logo_url)
     SYNC_LOG.error I18n.t('books.sync.missing_metadata.logger', id: id, author: author, title: title, isbn: isbn)
   end
 

@@ -2,9 +2,8 @@
 
 FactoryGirl.define do
   factory :book do
-    attempts 0
     author 'Book Author'
-    dirty false
+    dirty true
     editor { Faker::Lorem.words(2).join(' ') }
     google_books_id { Faker::Lorem.characters(10) }
     introducer { Faker::Lorem.words(2).join(' ') }

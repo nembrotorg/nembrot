@@ -36,7 +36,7 @@ class Resource < ActiveRecord::Base
   def sync_binary
     unless File.file?(raw_location)
       increment_attempts
-      NB.stream_binaries ? stream_binary : download_binary
+      NB.stream_binaries == 'true' ? stream_binary : download_binary
       # Check that the resource has been downloaded correctly. If so, unflag it.
       undirtify if Digest::MD5.file(raw_location).digest == data_hash
     end
@@ -129,7 +129,6 @@ class Resource < ActiveRecord::Base
     update_attributes!(
       altitude: cloud_resource.attributes.altitude,
       attachment: cloud_resource.attributes.attachment,
-      attempts: 0,
       camera_make: cloud_resource.attributes.cameraMake,
       camera_model: cloud_resource.attributes.cameraModel,
       caption: caption,
@@ -145,7 +144,6 @@ class Resource < ActiveRecord::Base
       longitude: cloud_resource.attributes.longitude,
       mime: cloud_resource.mime,
       source_url: cloud_resource.attributes.sourceURL,
-      try_again_at: 100.years.from_now,
       width: cloud_resource.width
     )
     SyncResourceJob.perform_later(self) if cloud_resource.data.bodyHash != data_hash

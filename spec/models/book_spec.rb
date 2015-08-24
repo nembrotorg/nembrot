@@ -4,7 +4,6 @@ RSpec.describe Book do
   before { @book = FactoryGirl.build(:book) }
   subject { @book }
 
-  it { is_expected.to respond_to(:attempts) }
   it { is_expected.to respond_to(:author) }
   it { is_expected.to respond_to(:author_or_editor) }
   it { is_expected.to respond_to(:dewey_decimal) }
@@ -55,7 +54,6 @@ RSpec.describe Book do
 
   def book_is_updated?
     expect(@book.author).to eq('Friedrich A. Kittler')
-    expect(@book.attempts).to eq(0)
     expect(@book.dewey_decimal).to eq('830.9357')
     expect(@book.dimensions).to eq(nil)
     expect(@book.dirty).to eq(false)

@@ -61,4 +61,20 @@ RSpec.describe EvernoteNote do
     before { @evernote_note.max_out_attempts }
     its(:attempts) { should >=  ENV['attempts'].to_i }
   end
+
+  describe '#add_task' do
+    ENV['evernote_notebooks'] = 'MYNOTEBOOK,OTHERNOTEBOOK'
+    context 'when note is in required notebook' do
+      it 'adds a job' do
+        expect(SyncNoteJob).to receive(:perform_later).once
+        EvernoteNote.add_task('MYNOTE', 'MYNOTEBOOK')
+      end
+    end
+    context 'when note is not in required notebook' do
+      it 'adds a job' do
+        expect(SyncNoteJob).to_not receive(:perform_later)
+        EvernoteNote.add_task('MYNOTE', 'NOTMYNOTEBOOK')
+      end
+    end
+  end
 end

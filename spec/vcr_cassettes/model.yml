@@ -779,4 +779,382 @@ http_interactions:
         }
     http_version: 
   recorded_at: Mon, 17 Aug 2015 08:26:10 GMT
+- request:
+    method: get
+    uri: http://www.worldcat.org/webservices/catalog/content/isbn/0140446044?recordSchema=info:srw/schema/1/dc&servicelevel=full&wskey=<_FIGARO_WORLD_CAT_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 407
+      message: 'org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed: status=UNAUTHENTICATED'
+    headers:
+      Date:
+      - Mon, 24 Aug 2015 05:52:55 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '1178'
+      Content-Type:
+      - text/html;charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '<html><head><title> - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;}
+        H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;}
+        H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;}
+        BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;}
+        B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;}
+        P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A
+        {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP
+        Status 407 - org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate Failed:
+        status=UNAUTHENTICATED</h1><HR size="1" noshade="noshade"><p><b>type</b> Status
+        report</p><p><b>message</b> <u>org.oclc.wskey.api.WSKeyException: WSKeyAuthenticate
+        Failed: status=UNAUTHENTICATED</u></p><p><b>description</b> <u>The client
+        must first authenticate itself with the proxy (org.oclc.wskey.api.WSKeyException:
+        WSKeyAuthenticate Failed: status=UNAUTHENTICATED).</u></p><HR size="1" noshade="noshade"><h3></h3></body></html>'
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 05:52:55 GMT
+- request:
+    method: get
+    uri: http://isbndb.com/api/v2/json/<_FIGARO_ISBNDB_KEY>/book/0140446044
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.6.1
+      Date:
+      - Mon, 24 Aug 2015 05:52:55 GMT
+      Content-Length:
+      - '1235'
+      Connection:
+      - keep-alive
+      X-Catalyst:
+      - '5.90042'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "data" : [
+              {
+                 "physical_description_text" : "1283 p. ; 20 cm.",
+                 "publisher_text" : "London, England ; Penguin Books, 1993",
+                 "urls_text" : "",
+                 "author_data" : [
+                    {
+                       "name" : "Montaigne, Michel de",
+                       "id" : "montaigne_michel_de"
+                    },
+                    {
+                       "name" : "Screech, M. A.",
+                       "id" : "screech_m_a"
+                    }
+                 ],
+                 "publisher_name" : "Penguin Books",
+                 "subject_ids" : [
+                    "montaigne_michel_de_1533_1592_translations_into_english"
+                 ],
+                 "isbn13" : "9780140446043",
+                 "edition_info" : "",
+                 "title_long" : "",
+                 "dewey_decimal" : "844/.3",
+                 "lcc_number" : "PQ1642",
+                 "notes" : "Includes bibliographical references and index.",
+                 "isbn10" : "0140446044",
+                 "book_id" : "the_complete_essays",
+                 "title_latin" : "complete Essays",
+                 "summary" : "",
+                 "title" : "The complete Essays",
+                 "language" : "eng",
+                 "awards_text" : "",
+                 "marc_enc_level" : "",
+                 "dewey_normal" : "844.3",
+                 "publisher_id" : "penguin_books"
+              }
+           ],
+           "index_searched" : "isbn"
+        }
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 05:52:55 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/books/v1/volumes?country=GB&maxResults=1&q=ISBN:0140446044
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Mon, 24 Aug 2015 05:52:56 GMT
+      Date:
+      - Mon, 24 Aug 2015 05:52:56 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"AEqHJ39cYOcHij976IZqD9LCWzE/zHfRWyaA56lmbk0WFmcrutatzFs"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '3003'
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 443:quic,p=1
+      Alt-Svc:
+      - quic=":443"; p="1"; ma=604800
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "books#volumes",
+         "totalItems": 269,
+         "items": [
+          {
+           "kind": "books#volume",
+           "id": "K_BuQw1SV_8C",
+           "etag": "IABejJHyKao",
+           "selfLink": "https://www.googleapis.com/books/v1/volumes/K_BuQw1SV_8C",
+           "volumeInfo": {
+            "title": "The Complete Essays",
+            "authors": [
+             "Michel Montaigne"
+            ],
+            "publisher": "ePenguin",
+            "publishedDate": "2004-03-25",
+            "description": "In 1572 Montaigne retired to his estates in order to devote himself to leisure, reading and reflection. There he wrote his constantly expanding 'essays', inspired by the ideas he found in books from his library and his own experience. He discusses subjects as diverse as war-horses and cannibals, poetry and politics, sex and religion, love and friendship, ecstasy and experience. Above all, Montaigne studied himself to find his own inner nature and that of humanity. The Essays are among the most idiosyncratic and personal works in all literature. An insight into a wise Renaissance mind, they continue to engage, enlighten and entertain modern readers.",
+            "industryIdentifiers": [
+             {
+              "type": "ISBN_10",
+              "identifier": "0140446044"
+             },
+             {
+              "type": "ISBN_13",
+              "identifier": "9780140446043"
+             }
+            ],
+            "readingModes": {
+             "text": false,
+             "image": false
+            },
+            "pageCount": 1360,
+            "printType": "BOOK",
+            "categories": [
+             "Literary Collections"
+            ],
+            "averageRating": 4.0,
+            "ratingsCount": 117,
+            "maturityRating": "NOT_MATURE",
+            "allowAnonLogging": false,
+            "contentVersion": "0.6.1.0.preview.0",
+            "imageLinks": {
+             "smallThumbnail": "http://books.google.co.uk/books/content?id=K_BuQw1SV_8C&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+             "thumbnail": "http://books.google.co.uk/books/content?id=K_BuQw1SV_8C&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+            },
+            "language": "en",
+            "previewLink": "http://books.google.co.uk/books?id=K_BuQw1SV_8C&dq=ISBN:0140446044&hl=&cd=1&source=gbs_api",
+            "infoLink": "http://books.google.co.uk/books?id=K_BuQw1SV_8C&dq=ISBN:0140446044&hl=&source=gbs_api",
+            "canonicalVolumeLink": "http://books.google.co.uk/books/about/The_Complete_Essays.html?hl=&id=K_BuQw1SV_8C"
+           },
+           "saleInfo": {
+            "country": "GB",
+            "saleability": "NOT_FOR_SALE",
+            "isEbook": false
+           },
+           "accessInfo": {
+            "country": "GB",
+            "viewability": "NO_PAGES",
+            "embeddable": false,
+            "publicDomain": false,
+            "textToSpeechPermission": "ALLOWED",
+            "epub": {
+             "isAvailable": false
+            },
+            "pdf": {
+             "isAvailable": false
+            },
+            "webReaderLink": "http://books.google.co.uk/books/reader?id=K_BuQw1SV_8C&hl=&printsec=frontcover&output=reader&source=gbs_api",
+            "accessViewStatus": "NONE",
+            "quoteSharingAllowed": false
+           },
+           "searchInfo": {
+            "textSnippet": "Above all, Montaigne studied himself to find his own inner nature and that of humanity. The Essays are among the most idiosyncratic and personal works in all literature."
+           }
+          }
+         ]
+        }
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 05:52:56 GMT
+- request:
+    method: get
+    uri: http://openlibrary.org/api/books?bibkeys=ISBN:0140446044&format=json&jscmd=details
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.1.19
+      Date:
+      - Mon, 24 Aug 2015 05:52:58 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ol-Stats:
+      - '"IB 1 0.031 MC 2 0.001 TT 0 0.034"'
+    body:
+      encoding: UTF-8
+      string: '{"ISBN:0140446044": {"info_url": "http://openlibrary.org/books/OL1518084M/The_complete_Essays",
+        "bib_key": "ISBN:0140446044", "preview_url": "http://openlibrary.org/books/OL1518084M/The_complete_Essays",
+        "thumbnail_url": "https://covers.openlibrary.org/b/id/104155-S.jpg", "details":
+        {"number_of_pages": 1283, "series": ["Penguin classics"], "covers": [104155],
+        "lc_classifications": ["PQ1642.E5 S37 1993"], "latest_revision": 8, "contributions":
+        ["Screech, M. A."], "title": "The complete Essays", "languages": [{"key":
+        "/languages/eng"}], "subjects": ["Montaigne, Michel de, 1533-1592 -- Translations
+        into English."], "publish_country": "enk", "by_statement": "translated and
+        edited with an introduction and notes by M.A. Screech.", "type": {"key": "/type/edition"},
+        "revision": 8, "publishers": ["Penguin Books"], "last_modified": {"type":
+        "/type/datetime", "value": "2011-06-18T00:14:56.366032"}, "key": "/books/OL1518084M",
+        "authors": [{"name": "Michel de Montaigne", "key": "/authors/OL6899172A"}],
+        "publish_places": ["London, England", "New York, N.Y., USA"], "pagination":
+        "1283 p. ;", "created": {"type": "/type/datetime", "value": "2008-04-01T03:28:50.625462"},
+        "dewey_decimal_class": ["844/.3"], "notes": {"type": "/type/text", "value":
+        "Includes bibliographical references and index."}, "identifiers": {"goodreads":
+        ["30735"], "librarything": ["15610"]}, "lccn": ["93203834"], "isbn_10": ["0140446044"],
+        "publish_date": "1993", "work_title": ["Essais."], "works": [{"key": "/works/OL1086528W"}]},
+        "preview": "noview"}}'
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 05:52:58 GMT
+- request:
+    method: post
+    uri: https://hooks.slack.com/services/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
+    body:
+      encoding: US-ASCII
+      string: payload=%7B%22username%22%3A%22joegatt.net%22%2C%22icon_url%22%3A%22http%3A%2F%2Fjoegatt.net%2Flogo.png%22%2C%22text%22%3A%22New+book+added%3A+The+Complete+Essays+by+Michel+de+Montaigne.+Use+as%3A+.%22%7D
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 24 Aug 2015 05:52:59 GMT
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ok
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 05:53:00 GMT
+- request:
+    method: post
+    uri: https://hooks.slack.com/services/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
+    body:
+      encoding: US-ASCII
+      string: payload=%7B%22username%22%3A%22joegatt.net%22%2C%22icon_url%22%3A%22http%3A%2F%2Fjoegatt.net%2Flogo.png%22%2C%22text%22%3A%22New+book+added%3A+Discourse+Networks%2C+1800-1900+by+Friedrich+A.+Kittler.+Use+as%3A+.%22%7D
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 24 Aug 2015 06:03:18 GMT
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ok
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 06:03:19 GMT
 recorded_with: VCR 2.9.3

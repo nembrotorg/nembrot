@@ -23,6 +23,7 @@ class EvernoteNote < ActiveRecord::Base
       evernote_note.note.destroy! unless evernote_note.note.nil?
     else
       evernote_note.update_attribute('cloud_notebook_identifier', notebook_guid)
+      evernote_note.dirtify(true)
       SyncNoteJob.perform_later(evernote_note)
     end
   end

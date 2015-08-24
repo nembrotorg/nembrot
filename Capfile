@@ -26,7 +26,6 @@ require 'capistrano/sidekiq'
 require 'capistrano3/unicorn'
 
 require 'slackistrano'
-require 'whenever/capistrano'
 require 'capistrano/datadog'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

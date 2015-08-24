@@ -1,15 +1,7 @@
 set :output, "#{ path }/log/daemons.log"
 
-if :rails_env == 'production'
-
-  every 3.minutes do
-    rake 'joegattnet:three_minutes'
-  end
-
-  every '0 * * * *' do
-    rake 'joegattnet:one_hour'
-  end
-
+every 1.hour do
+  rake 'joegattnet:one_hour'
 end
 
 every 1.day, at: '5:00 am' do

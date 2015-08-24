@@ -1,3 +1,6 @@
+# We only want to update crontab in production
+require 'whenever/capistrano'
+
 set :application,     'joegattnet_v3'
 set :branch,          'master'
 set :deploy_to,       '/home/deployer/apps/joegattnet_v3'

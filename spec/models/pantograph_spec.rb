@@ -20,6 +20,13 @@ RSpec.describe Pantograph do
   # it { is_expected.to validate_uniqueness_of(:text) }
   # it { is_expected.to validate_uniqueness_of(:tweet_id) }
 
+  describe '#publish_next' do
+    before do
+      @pantograph = FactoryGirl.create(:pantograph, text: 'a')
+    end
+    specify { expect(Pantograph.publish_next).to eq('b') }
+  end
+
   describe '.calculate_next' do
     context 'when we are strating from scratch' do
       specify { expect(Pantograph.calculate_after('')).to eq('0') }
@@ -110,18 +117,4 @@ RSpec.describe Pantograph do
     before { @pantograph.text = '0?7' }
     its(:last_path) { should eq('/pantography/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }
   end
-
-  # RSpec.describe '.publish_next' do
-  #   Pantograph.publish_next.should == ''
-  # end
-
-  # describe '.last_by_self_text' do
-  #   before do
-  #     @pantographer_self = FactoryGirl.create(:pantographer, twitter_user_id: ENV['pantography_twitter_user_id'])
-  #     @pantographer_other = FactoryGirl.create(:pantographer, twitter_user_id: '1')
-  #     @pantograph_by_self = FactoryGirl.create(:pantograph, pantographer_id: @pantographer_self.id)
-  #     @pantograph_by_other = FactoryGirl.create(:pantograph, pantographer_id: @pantographer_other.id)
-  #   end
-  #   Pantograph.last_by_self_text.should == @pantograph_by_self.text
-  # end
 end

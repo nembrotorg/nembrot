@@ -2,39 +2,58 @@ SitemapGenerator::Sitemap.default_host = "http://#{ ENV['host'] }"
 
 SitemapGenerator::Sitemap.create do
 
-  Channel.sitemappable.each do |channel|
+  unless Note.publishable.listable.empty?
+    add notes_path
 
-    add home_path(channel)
+    feature_indices = []
 
-    unless Note.channelled(channel).publishable.listable.empty?
-      add notes_path(channel)
-
-      Note.channelled(channel).publishable.listable.each do |note|
-        # REVIEW: Unable to include ApplicationHelper here
-        # Feaure and section indices are added later
-        if note.feature.nil? || !note.feature_id.nil?
-          add (note.has_instruction?('feature') ? feature_path(channel: channel.slug, feature: note.feature, feature_id: note.feature_id) : note_path(channel: channel.slug, id: note.id)),
-           lastmod: note.external_updated_at,
-           priority: (note.is_feature? && !note.is_section?) ? 0.8 : 0.7
-        end
-      end
-
-      Note.channelled(channel).features.each do |feature|
-        add feature_path(channel: channel.slug, feature: feature), priority: 0.9
-      end
-
-      # REVIEW: Lastmod here becomes more recent than anything else
-      Note.channelled(channel).sections.each do |section|
-        add feature_path(channel: channel.slug, feature: section)
+    Note.listable.publishable.order('feature DESC, weight ASC, feature_id DESC') .each do |note|
+      if note.is_section
+        add feature_path(feature: note.feature),
+         lastmod: note.external_updated_at,
+         priority: 0.6
+      elsif note.is_feature && note.feature_id.blank?
+        add feature_path(feature: note.feature),
+         lastmod: note.external_updated_at,
+         priority: 0.9
+      elsif note.is_feature
+        add feature_path(feature: note.feature, feature_id: note.feature_id),
+         lastmod: note.external_updated_at,
+         priority: 0.9
+         feature_indices.push(note.feature)
+      else
+        add note_path(id: note.id),
+         lastmod: note.external_updated_at,
+         priority: 0.8
       end
     end
 
-    unless channel.tags == false || Note.channelled(channel).publishable.tag_counts_on(:tags).empty?
-      add tags_path(channel)
+    feature_indices.uniq.each do |feature|
+      add feature_path(feature),
+       lastmod: Time.now,
+       priority: 0.9
+    end
 
-      Note.channelled(channel).publishable.tag_counts_on(:tags).each do |tag|
-        add tag_path(channel: channel.slug, slug: tag.slug), lastmod: Time.now
+    Note.citation.publishable.each do |citation|
+      add citation_path(citation), priority: 0.9
+    end
+
+    add links_path
+
+    unless Note.publishable.tag_counts_on(:tags).empty?
+      add tags_path
+
+      Note.publishable.tag_counts_on(:tags).each do |tag|
+        add tag_path(slug: tag.slug), lastmod: Time.now
       end
+    end
+  end
+
+  unless Book.cited.all.empty?
+    add books_path
+
+    Book.cited.each do |book|
+      add book_path(book), lastmod: book.updated_at
     end
   end
 

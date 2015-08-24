@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815155533) do
+ActiveRecord::Schema.define(version: 20150824083031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,8 @@ ActiveRecord::Schema.define(version: 20150815155533) do
     t.string   "weight",                  limit: 255
     t.string   "google_books_id",         limit: 255
     t.string   "tag",                     limit: 255
-    t.boolean  "dirty"
-    t.integer  "attempts"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "library_thing_id",        limit: 255
     t.string   "open_library_id",         limit: 255
     t.string   "slug",                    limit: 255
@@ -58,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150815155533) do
     t.string   "lcc_number",              limit: 255
     t.string   "full_text_url",           limit: 255
     t.boolean  "google_books_embeddable"
-    t.datetime "try_again_at"
+    t.boolean  "dirty",                               default: true
   end
 
   add_index "books", ["slug"], name: "index_sources_on_slug", unique: true, using: :btree
@@ -116,14 +114,12 @@ ActiveRecord::Schema.define(version: 20150815155533) do
   create_table "evernote_notes", force: :cascade do |t|
     t.string   "cloud_note_identifier",     limit: 255
     t.integer  "note_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "dirty"
-    t.integer  "attempts"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.binary   "content_hash"
     t.integer  "update_sequence_number"
-    t.datetime "try_again_at"
     t.text     "cloud_notebook_identifier"
+    t.boolean  "dirty",                                 default: true
   end
 
   add_index "evernote_notes", ["note_id"], name: "index_cloud_notes_on_note_id", using: :btree
@@ -216,17 +212,15 @@ ActiveRecord::Schema.define(version: 20150815155533) do
     t.string   "camera_model",              limit: 255
     t.string   "file_name",                 limit: 255
     t.boolean  "attachment"
-    t.boolean  "dirty"
-    t.integer  "attempts"
     t.integer  "note_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.binary   "data_hash"
     t.integer  "width"
     t.integer  "height"
     t.integer  "size"
     t.string   "local_file_name",           limit: 255
-    t.datetime "try_again_at"
+    t.boolean  "dirty",                                 default: true
   end
 
   add_index "resources", ["cloud_resource_identifier", "note_id"], name: "index_resources_on_cloud_resource_identifier_and_note_id", unique: true, using: :btree

@@ -46,7 +46,7 @@ class Book < ActiveRecord::Base
     isbn_candidate.gsub!(/[^\dX]/, '')
     book = where(isbn_10: isbn_candidate).first_or_create if isbn_candidate.length == 10
     book = where(isbn_13: isbn_candidate).first_or_create if isbn_candidate.length == 13
-    unless book.nil?
+    if book && book.dirty?
       book.save!
       SyncBookJob.perform_later(book)
     end
@@ -87,7 +87,6 @@ class Book < ActiveRecord::Base
 
   # REVIEW: this fails if protected and called through sync_all
   def populate!
-    increment_attempts
     merge_world_cat
     merge_isbndb
     merge_google_books

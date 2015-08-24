@@ -80,7 +80,6 @@ admin_name: CHANGE_ME
 allowed_html_attributes: href src alt cite
 allowed_html_tags: a blockquote cite code del ins li ol ul img strong table tbody td tr
 always_reset_on_create: 'true'
-attempts: '3'
 author: CHANGE_ME
 average_word_length: '5.5'
 blurb_length: '400'

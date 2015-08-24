@@ -59,7 +59,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:attempts, :author, :dewey_decimal, :dimensions, :dirty, :editor, :format,
+    params.require(:book).permit(:author, :dewey_decimal, :dimensions, :dirty, :editor, :format,
                                  :full_text_url, :google_books_id, :introducer, :isbn_10, :isbn_13, :lang, :lcc_number,
                                  :library_thing_id, :notes, :open_library_id, :page_count, :pages, :published_city,
                                  :published_date, :publisher, :tag, :title, :translator, :weight)

@@ -18,6 +18,7 @@ class Book < ActiveRecord::Base
   } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
+  validates :isbn_10, presence: true, if: 'isbn_13.blank?'
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
   validates :isbn_10, isbn_format: { with: :isbn10 }, allow_blank: true
   validates :isbn_13, isbn_format: { with: :isbn13 }, allow_blank: true
@@ -45,7 +46,12 @@ class Book < ActiveRecord::Base
     isbn_candidate.gsub!(/[^\dX]/, '')
     book = where(isbn_10: isbn_candidate).first_or_create if isbn_candidate.length == 10
     book = where(isbn_13: isbn_candidate).first_or_create if isbn_candidate.length == 13
-    SyncBookJob.perform_later(book)
+    unless book.nil?
+      book.save!
+      SyncBookJob.perform_later(book)
+    end
+    rescue ActiveRecord::RecordInvalid => error
+      SYNC_LOG.error "No valid ISBN (#{ book.isbn_10 }, #{ book.isbn_13 })."
   end
 
   def self.sync_all
@@ -120,16 +126,18 @@ class Book < ActiveRecord::Base
   end
 
   def announce_new_book
+    return if Rails.env == 'test'
     # FIXME: Use generic option slack_or_email
     # BookMailer.missing_metadata(self).deliver
-    Slack.ping("New book added: #{ title } by #{ author }. Use as: #{ tag }."), icon_url: NB.logo_url
+    Slack.ping("New book added: #{ title } by #{ author }. Use as: #{ tag }.", icon_url: NB.logo_url)
     SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
   end
 
   def announce_missing_metadata
+    return if Rails.env == 'test'
     # FIXME: Use generic option slack_or_email
     # BookMailer.missing_metadata(self).deliver
-    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/admin/book/#{ id }/edit\">Edit</a>."), icon_url: NB.logo_url
+    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/admin/book/#{ id }/edit\">Edit</a>.", icon_url: NB.logo_url)
     SYNC_LOG.error I18n.t('books.sync.missing_metadata.logger', id: id, author: author, title: title, isbn: isbn)
   end
 

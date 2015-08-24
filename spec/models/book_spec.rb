@@ -32,15 +32,14 @@ RSpec.describe Book do
   it { is_expected.to have_and_belong_to_many(:notes) }
 
   describe '.grab_isbns' do
-    before { Book.grab_isbns('Body text (0804720991, 9780804720991) and more text.') }
     it 'adds dirty books from an isbn inside a block of text' do
-      expect(Book.where(isbn_10: '0804720991', dirty: true).exists?).to be_truthy
-      expect(Book.where(isbn_13: '9780804720991', dirty: true).exists?).to be_truthy
+      expect(SyncBookJob).to receive(:perform_later).twice
+      Book.grab_isbns('Body text (0804720991, 9780804720991) and more text.')
     end
 
     context 'when the isbn numbers are not valid (invalid check digits)' do
       before { Book.grab_isbns('Body text (0804720990, 9780804720990) and more text.') }
-      it 'adds dirty books from an isbn inside a block of text' do
+      it 'does not add books' do
         expect(Book.where(isbn_10: '0804720990').exists?).to be_falsey
         expect(Book.where(isbn_13: '9780804720990').exists?).to be_falsey
       end
@@ -48,9 +47,9 @@ RSpec.describe Book do
   end
 
   describe '.add_task' do
-    before { Book.add_task('0804720991') }
     it 'adds a dirty book when given an isbn' do
-      expect(Book.where(isbn_10: '0804720991', dirty: true).exists?).to be_truthy
+      expect(SyncBookJob).to receive(:perform_later).once
+      Book.add_task('0804720991')
     end
   end
 
@@ -85,7 +84,7 @@ RSpec.describe Book do
 
   describe '#populate!' do
     before do
-      @book = Book.add_task('0804720991')
+      @book = Book.new(isbn_10: '0804720991')
       @book.populate!
     end
     it 'fetches metadata from four APIs' do

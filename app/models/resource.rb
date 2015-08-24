@@ -35,10 +35,13 @@ class Resource < ActiveRecord::Base
 
   def sync_binary
     unless File.file?(raw_location)
-      increment_attempts
       NB.stream_binaries == 'true' ? stream_binary : download_binary
       # Check that the resource has been downloaded correctly. If so, unflag it.
-      undirtify if Digest::MD5.file(raw_location).digest == data_hash
+      if Digest::MD5.file(raw_location).digest == data_hash
+        undirtify
+        attachments = { image_url: raw_url }
+        Slack.ping("Image added: #{ caption }", icon_url: NB.logo_url, attachments: attachments)
+      end
     end
   end
 
@@ -73,6 +76,10 @@ class Resource < ActiveRecord::Base
 
   def file_ext
     (Mime::Type.file_extension_of mime).parameterize
+  end
+
+  def raw_url
+    'http://' + NB.host + '/' + File.join(Rails.root, 'resources', 'raw', "#{ mime == 'application/pdf' ? local_file_name : id }.#{ file_ext }")
   end
 
   def raw_location

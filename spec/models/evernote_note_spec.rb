@@ -45,7 +45,7 @@ RSpec.describe EvernoteNote do
   end
 
   describe '#add_task' do
-    ENV['evernote_notebooks'] = 'MYNOTEBOOK,OTHERNOTEBOOK'
+    before { ENV['evernote_notebooks'] = 'MYNOTEBOOK,OTHERNOTEBOOK' }
     context 'when note is in required notebook' do
       it 'adds a job' do
         expect(SyncNoteJob).to receive(:perform_later).once

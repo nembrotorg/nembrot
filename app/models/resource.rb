@@ -126,7 +126,6 @@ class Resource < ActiveRecord::Base
 
   # REVIEW: Put this in EvernoteNote? and mimic Books?
   def update_with_evernote_data(cloud_resource, caption, description, credit)
-    binary_not_downloaded = (cloud_resource.data.bodyHash != data_hash)
     update_attributes!(
       altitude: cloud_resource.attributes.altitude,
       attachment: cloud_resource.attributes.attachment,
@@ -137,7 +136,7 @@ class Resource < ActiveRecord::Base
       credit: credit,
       data_hash: cloud_resource.data.bodyHash,
       description: description,
-      dirty: binary_not_downloaded,
+      dirty: true,
       external_updated_at: cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
       file_name: cloud_resource.attributes.fileName,
       height: cloud_resource.height,
@@ -146,9 +145,10 @@ class Resource < ActiveRecord::Base
       longitude: cloud_resource.attributes.longitude,
       mime: cloud_resource.mime,
       source_url: cloud_resource.attributes.sourceURL,
-      try_again_at: binary_not_downloaded ? Time.now : 100.years.from_now,
+      try_again_at: 100.years.from_now,
       width: cloud_resource.width
     )
+    SyncResourceJob.perform_later(self) if cloud_resource.data.bodyHash != data_hash
   end
 
   def delete_binaries

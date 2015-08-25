@@ -372,7 +372,7 @@ module FormattingHelper
   end
 
   def sectionize(text)
-    text = text.split(/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/)
+    text = text.split(/^\*\*\*+$|^\-\-\-+$|<hr ?\/?>/)
            .reject(&:empty?)
            .map { |content| "<section>\n#{ content }\n</section>" }
            .join unless text[/^\s*(\*\*+|\-\-+)|<hr ?\/?>\s*$/].blank?

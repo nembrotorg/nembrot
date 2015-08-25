@@ -2,23 +2,17 @@ class NotesController < ApplicationController
   add_breadcrumb I18n.t('notes.index.title'), :notes_path
 
   def index
-    page_number = params[:page] ||= 1
-    all_notes = Note.unscoped.dateordered.publishable.listable.blurbable
+    @page_number = params[:page] ||= 1
+    all_notes = Note.note.unscoped.dateordered.publishable.listable.blurbable
 
-    @notes = all_notes.page(page_number).load
+    @notes = all_notes.page(@page_number).load
     @map = all_notes.mappable
     @total_count = all_notes.size
     @word_count = all_notes.sum(:word_count)
-
-    respond_to do |format|
-      format.html
-      format.atom { render atom: all_notes }
-      format.json { render json: all_notes }
-    end
   end
 
   def map
-    @notes = Note.unscoped.dateordered.publishable.listable.blurbable
+    @notes = Note.note.unscoped.dateordered.publishable.listable.blurbable
     @word_count = @notes.sum(:word_count)
 
     @map = mapify(@notes)
@@ -27,7 +21,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = Note.publishable.find(params[:id])
+    @note = Note.note.publishable.find(params[:id])
     note_tags(@note)
     note_map(@note)
     note_source(@note)
@@ -41,7 +35,7 @@ class NotesController < ApplicationController
   end
 
   def version
-    @note = Note.publishable.find(params[:id])
+    @note = Note.note.publishable.find(params[:id])
     @diffed_version = DiffedNoteVersion.new(@note, params[:sequence].to_i)
     @diffed_tag_list = DiffedNoteTagList.new(@diffed_version.previous_tag_list, @diffed_version.tag_list).list
 

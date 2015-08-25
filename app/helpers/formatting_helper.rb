@@ -217,9 +217,9 @@ module FormattingHelper
       text.gsub!(/\s*( *\[)([^\.].*? .*?)(\])/m).each_with_index do |_match, index|
         %(<a href="#annotation-#{ index + 1 }" id="annotation-mark-#{ index + 1 }">#{ index + 1 }</a>)
       end
-      render 'notes/annotated_text', text: text, annotations: annotations.flatten
+      render 'notes/annotated_text.html', text: text, annotations: annotations.flatten
     else
-      render 'notes/text', text: text
+      render 'notes/text.html', text: text
     end
   end
 

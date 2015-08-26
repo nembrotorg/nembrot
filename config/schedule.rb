@@ -1,5 +1,6 @@
 set :output, "#{ path }/log/daemons.log"
 set :environment, ENV['RAILS_ENV']
+env :PATH, ENV['PATH']
 
 if environment == 'production'
   every 1.hour do

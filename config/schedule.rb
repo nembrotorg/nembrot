@@ -3,7 +3,7 @@ set :output, "#{ path }/log/daemons.log"
 # FIXME: We should be able to do this with stage
 if path == '/home/deployer/apps/joegattnet_v3'
 
-  every :hour do
+  every 60.minutes do
     rake '-s joegattnet:one_hour'
   end
 

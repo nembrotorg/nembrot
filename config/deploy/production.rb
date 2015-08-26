@@ -4,8 +4,6 @@ set :deploy_to,       '/home/deployer/apps/joegattnet_v3'
 set :rails_env,       'production'
 set :sidekiq_options, '/home/deployer/apps/joegattnet_v3/shared/config/sidekiq.yml'
 
-require 'whenever/capistrano'
-
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

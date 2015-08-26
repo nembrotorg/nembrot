@@ -3,7 +3,7 @@ class LinksController < ApplicationController
 
   def index
     page_number = params[:page] ||= 1
-    all_links = Note.link.publishable.link
+    all_links = Note.link.publishable
 
     page_size = NB.notes_index_per_page.to_i * 10
     @links = all_links.page(page_number).per(page_size).load

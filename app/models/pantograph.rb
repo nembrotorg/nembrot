@@ -251,15 +251,22 @@ class Pantograph < ActiveRecord::Base
   private
 
   def self.get_timeline(min_id)
-    authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id).each do |tweet|
-    user = Pantographer.where(twitter_user_id: tweet.user.id).first_or_create
-    create(
-          text: sanitize(tweet.text, user.id),
-          external_created_at: tweet.created_at,
-          tweet_id: tweet.id,
-          pantographer_id: user.id
-        )
+    tweets = authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id)
+
+    # Notify if no Pantographs have been found
+    unless tweets.any? { |tweet| tweet.user.id == NB.pantography_twitter_user_id.to_i }
+      Slack.ping("No new <a href=\"https://twitter.com/pantography\">pantographs</a> detected!", icon_url: NB.logo_url)
     end
+
+    tweets.each do |tweet|
+      user = Pantographer.where(twitter_user_id: tweet.user.id).first_or_create
+      create(
+            text: sanitize(tweet.text, user.id),
+            external_created_at: tweet.created_at,
+            tweet_id: tweet.id,
+            pantographer_id: user.id
+          )
+      end
   end
 
   def self.pantography_twitter_user

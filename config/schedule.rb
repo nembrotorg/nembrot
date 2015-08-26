@@ -1,6 +1,7 @@
 set :output, "#{ path }/log/daemons.log"
+set :environment, ENV['RAILS_ENV']
 
-if "#{ stage }" == 'production'
+if environment == 'production'
   every 1.hour do
     rake 'joegattnet:one_hour'
   end

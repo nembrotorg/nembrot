@@ -41,6 +41,7 @@ class EvernoteRequest
     evernote_note.note.save!
     update_resources_with_evernote_data(cloud_note_data)
     update_evernote_note_with_evernote_data(cloud_note_data)
+    Slack.ping("#{ logger_details[:title] } saved as #{ evernote_note.note.content_type } #{ evernote_note.note.id }.", icon_url: NB.logo_url)    
     SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.content_type } #{ evernote_note.note.id }."
   end
 

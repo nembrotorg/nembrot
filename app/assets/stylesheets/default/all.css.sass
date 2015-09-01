@@ -25,10 +25,12 @@ a
 
 .books-show
   .details
-    a[href*=http]:after
-      padding-left: 5px
-      +icon-link-ext
-      +icon-medium
+    a
+      padding-right: 10px
+      &[href*=http]:after
+        padding-left: 5px
+        +icon-link-ext
+        +icon-medium
 
 nav ul li a:first-of-type
   &[href*=pdf]

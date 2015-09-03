@@ -433,23 +433,22 @@ section:not(.ins-section), .home-index
   +pagination-nav($font-color)
 
 article, .links > ul > li
-  .tags
-    ul
-      +horizontal-list
-      &:before
-        +icon-tags
-        color: $secondary-color
-        display: inline
-        float: left
-      li
-        height: $line-height
-        a
-          text-transform: lowercase
-          &:after
-            content: ', '
-        &:last-child
-          a:after
-            content: ''
+  ul.tags
+    +horizontal-list
+    &:before
+      +icon-tags
+      color: $secondary-color
+      display: inline
+      float: left
+    li
+      height: $line-height
+      a
+        text-transform: lowercase
+        &:after
+          content: ', '
+      &:last-child
+        a:after
+          content: ''
 
 .links > ul > li
   ul.details

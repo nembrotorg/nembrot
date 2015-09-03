@@ -10,9 +10,8 @@
     p = blurbify(url_lede, [])
 
   ul.details
-    li = link_to link.inferred_url_domain, link.inferred_url, title: link.inferred_url
+    li = link_to link.inferred_url_domain, link.inferred_url, title: "#{ link.inferred_url } (Acessed: #{ link.external_updated_at.to_formatted_s(:long) })"
     - unless link.url_author.blank?
       li = link.url_author
-    li == timeago_tag(link.external_updated_at)
     - unless link.tags.blank?
-      li = render 'notes/tag_list', tags: link.tags
+      li = render 'notes/tag_list', tags: link.tags, simple: true

@@ -74,6 +74,7 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'fuubar'
+  gem 'rb-readline'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'

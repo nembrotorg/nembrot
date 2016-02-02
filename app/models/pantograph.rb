@@ -144,7 +144,7 @@ class Pantograph < ActiveRecord::Base
         solved = true
       end
     end
-    letters.join         
+    letters.join
   end
 
   def self.calculate_after(current)
@@ -254,6 +254,9 @@ class Pantograph < ActiveRecord::Base
     tweets = authenticated_twitter_client.home_timeline(trim_user: true, min_id: min_id)
 
     # Notify if no Pantographs have been found
+    # FIXME: This is only being trigerred when there are a lot of
+    #  non-Pantography tweets to pad the list. Maybe something is wrong with
+    #  min_id above.
     unless tweets.any? { |tweet| tweet.user.id == NB.pantography_twitter_user_id.to_i }
       Slack.ping("No new <a href=\"https://twitter.com/pantography\">pantographs</a> detected!", icon_url: NB.logo_url)
     end

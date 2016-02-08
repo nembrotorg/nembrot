@@ -26,7 +26,9 @@ if params[:extended] == 'true'
   json.word_count         note.word_count
 
   json.instructions       note.instruction_list.uniq.join(',')
-  json.tags               note.tag_list.uniq.join(',')
+  # This should use note_tags from Application controller
+  tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= NB.tags_minimum.to_i }
+  json.tags               tags, partial: './tags/tag', as: :tag
 end
 
 case params[:body]

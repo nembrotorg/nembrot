@@ -9,12 +9,48 @@ schemes:
 produces:
   - application/json
 paths:
-  /texts:
+  /tags.json:
+    get:
+      summary: Tags
+      description: Returns tags and counts.
+      parameters:
+        - name: blurb
+          in: query
+          description: "Return blurbs for referenced objeccts if set to 'true'."
+          required: false
+          type: string
+      tags:
+        - Tags
+      responses:
+        200:
+          description: An array of tags.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tags'
+  /tags/{slug}.json:
+    get:
+      summary: Tags
+      description: Returns a tag and blurbs for the objects it references.
+      parameters:
+        - name: blurb
+          in: query
+          description: "Return blurbs for referenced objects if set to 'true'."
+          required: false
+          type: string
+      tags:
+        - Texts
+      responses:
+        200:
+          description: An array of texts.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Texts'
+  /texts.json:
     get:
       summary: Texts
-      description: |
-        The Texts endpoint returns text and metadata associated with every text
-        on joegatt.net.
+      description: Returns texts and metadata on joegatt.net.
       parameters:
         - name: p
           in: query
@@ -33,24 +69,22 @@ paths:
           type: string
         - name: body
           in: query
-          description: "Return text body. Options are 'raw', 'simple' and 'html'." 
+          description: "Return text body. Options are 'raw', 'simple' and 'html'."
           required: false
           type: string
       tags:
         - Texts
       responses:
         200:
-          description: An array of texts
+          description: An array of texts.
           schema:
             type: array
             items:
               $ref: '#/definitions/Texts'
-  /texts/{id}:
+  /texts/{id}.json:
     get:
       summary: Text
-      description: |
-        The Texts endpoint returns text and metadata associated with every text
-        on joegatt.net.
+      description: Returns a text and its metadata.
       parameters:
         - name: id
           in: path
@@ -69,7 +103,7 @@ paths:
           type: string
         - name: body
           in: query
-          description: Return text body. Options are 'raw', 'simple' and 'html'. 
+          description: Return text body. Options are 'raw', 'simple' and 'html'.
           required: false
           type: string
       tags:
@@ -84,6 +118,34 @@ paths:
                 items:
                   $ref: '#/definitions/Text'
 definitions:
+  Tag:
+    type: object
+    properties:
+      slug:
+        type: string
+        description: Parameterised version of tag name.
+      canonical_url:
+        type: string
+        description: Canonical url for this tag.
+      name:
+        type: string
+        description: Titlecased version of this tag.
+      count:
+        type: integer
+        description: Number of references for this tag.
+  Tags:
+    type: object
+    properties:
+      count:
+        type: integer
+        description: Number of tags available.
+      references_count:
+        type: integer
+        description: Number of notes, citations, books and links referenced by this tag.
+      tags:
+        type: array
+        items:
+          $ref: '#/definitions/Tag'
   Texts:
     type: object
     properties:
@@ -159,10 +221,10 @@ definitions:
         description: Comma-separated list of tags.
       blurb_title:
         type: string
-        description: Title suitable for a blurb in a listing. 
+        description: Title suitable for a blurb in a listing.
       blurb_body:
         type: string
-        description: Body content suitable for a blurb in a listing. 
+        description: Body content suitable for a blurb in a listing.
       body:
         type: string
         description: Body content of the note, in either raw, simple or html format.

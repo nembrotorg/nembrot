@@ -1,0 +1,168 @@
+swagger: '2.0'
+info:
+  title: joegatt.net API
+  description: "Fetch notes, citations and bibliography"
+  version: '3.0.0'
+host: joegatt.net
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /texts:
+    get:
+      summary: Texts
+      description: |
+        The Texts endpoint returns text and metadata associated with every text
+        on joegatt.net.
+      parameters:
+        - name: p
+          in: query
+          description: Page number.
+          required: false
+          type: string
+        - name: extended
+          in: query
+          description: Return expanded views.
+          required: false
+          type: string
+        - name: blurb
+          in: query
+          description: "Return blurbs for texts if set to 'true'."
+          required: false
+          type: string
+        - name: body
+          in: query
+          description: "Return text body. Options are 'raw', 'simple' and 'html'." 
+          required: false
+          type: string
+      tags:
+        - Texts
+      responses:
+        200:
+          description: An array of texts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Texts'
+  /texts/{id}:
+    get:
+      summary: Text
+      description: |
+        The Texts endpoint returns text and metadata associated with every text
+        on joegatt.net.
+      parameters:
+        - name: id
+          in: path
+          description: Unique identifier of the requested text.
+          required: true
+          type: string
+        - name: extended
+          in: query
+          description: Return expanded view.
+          required: false
+          type: string
+        - name: blurb
+          in: query
+          description: Return blurbs for text if set to 'true'.
+          required: false
+          type: string
+        - name: body
+          in: query
+          description: Return text body. Options are 'raw', 'simple' and 'html'. 
+          required: false
+          type: string
+      tags:
+        - Texts
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              data:
+                items:
+                  $ref: '#/definitions/Text'
+definitions:
+  Texts:
+    type: object
+    properties:
+      count:
+        type: integer
+        description: Number of texts available in all pages.
+      paginates_per:
+        type: integer
+        description: Maximum number of texts in a single pages.
+      page_number:
+        type: integer
+        description: Page number of the array in texts.
+      total_word_count:
+        type: integer
+        description: Word count for all texts in all pages (calculated at 5.5 characters per word).
+      texts:
+        type: array
+        items:
+          $ref: '#/definitions/Text'
+  Text:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier representing a specific text.
+      canonical_url:
+        type: string
+        description: Canonical url for this text.
+      main_title:
+        type: string
+        description: Main title for this text.
+      subtitle:
+        type: string
+        description: Subtitle of this text (if present).
+      blurb:
+        type: string
+        description: A short blurb for this text.
+      introduction:
+        type: string
+        description: Subtitle of this text (if present).
+      feature_title:
+        type: string
+        description: Slug for feature group of this text (if preset).
+      feature_subtitle:
+        type: string
+        description: Slug for feature item of this text (if preset).
+      lang:
+        type: string
+        description: Unicode for language of this text.
+      author:
+        type: string
+        description: The name of the author of this text.
+      licence:
+        type: string
+        description: Url pointing to text of licence under which this text is available.
+      created_at:
+        type: string
+        description: Date when this text was created.
+      updated_at:
+        type: string
+        description: Date when this text was last modified.
+      version:
+        type: string
+        description: Version number of this text.
+      word_count:
+        type: string
+        description: Word length of this text (at 5.5 characters per word).
+      instructions:
+        type: string
+        description: Comma-separated list of hints on displaying this text.
+      tags:
+        type: string
+        description: Comma-separated list of tags.
+      blurb_title:
+        type: string
+        description: Title suitable for a blurb in a listing. 
+      blurb_body:
+        type: string
+        description: Body content suitable for a blurb in a listing. 
+      body:
+        type: string
+        description: Body content of the note, in either raw, simple or html format.

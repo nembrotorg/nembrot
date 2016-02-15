@@ -27,6 +27,7 @@ sitemap.*
 /config/advanced.constants.yml
 /config/channel.constants.yml
 /config/secret.yml
+/config/database.yml
 
 # Ignore resource files
 /public/resources/*/*.*

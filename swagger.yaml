@@ -49,9 +49,9 @@ paths:
         200:
           description: An array of texts.
           schema:
-            type: array
+            type: object
             items:
-              $ref: '#/definitions/Texts'
+              $ref: '#/definitions/Text'
   /texts.json:
     get:
       summary: Texts

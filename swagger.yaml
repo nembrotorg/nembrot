@@ -30,16 +30,21 @@ paths:
               $ref: '#/definitions/Tags'
   /tags/{slug}.json:
     get:
-      summary: Tags
+      summary: Tag
       description: Returns a tag and blurbs for the objects it references.
       parameters:
+        - name: slug
+          in: path
+          description: String id.
+          required: true
+          type: string
         - name: blurb
           in: query
           description: "Return blurbs for referenced objects if set to 'true'."
           required: false
           type: string
       tags:
-        - Texts
+        - Tags
       responses:
         200:
           description: An array of texts.
@@ -146,25 +151,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Tag'
-  Texts:
-    type: object
-    properties:
-      count:
-        type: integer
-        description: Number of texts available in all pages.
-      paginates_per:
-        type: integer
-        description: Maximum number of texts in a single pages.
-      page_number:
-        type: integer
-        description: Page number of the array in texts.
-      total_word_count:
-        type: integer
-        description: Word count for all texts in all pages (calculated at 5.5 characters per word).
-      texts:
-        type: array
-        items:
-          $ref: '#/definitions/Text'
   Text:
     type: object
     properties:
@@ -228,3 +214,22 @@ definitions:
       body:
         type: string
         description: Body content of the note, in either raw, simple or html format.
+  Texts:
+    type: object
+    properties:
+      count:
+        type: integer
+        description: Number of texts available in all pages.
+      paginates_per:
+        type: integer
+        description: Maximum number of texts in a single pages.
+      page_number:
+        type: integer
+        description: Page number of the array in texts.
+      total_word_count:
+        type: integer
+        description: Word count for all texts in all pages (calculated at 5.5 characters per word).
+      texts:
+        type: array
+        items:
+          $ref: '#/definitions/Text'

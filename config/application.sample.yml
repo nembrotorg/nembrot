@@ -38,7 +38,7 @@ github_secret: optional
 gplus_key: optional
 isbndb_key: optional
 linkedin_key: optional
-linkedin_secret: optional 
+linkedin_secret: optional
 mailer_address: CHANGE_ME
 mailer_domain: CHANGE_ME
 mailer_password: CHANGE_ME
@@ -130,8 +130,8 @@ links_section: 'true'
 locale: en
 logo_url: http://joegatt.net/logo.png
 notes_index_per_page: '10'
-promotions_home_columns: '3'
-promotions_home_rows: '2'
+promotions_home_columns: '2'
+promotions_home_rows: '4'
 promotions_footer: '6'
 share_native_or_iframes_or_none: native
 tags_index_per_page: '120'

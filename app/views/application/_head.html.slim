@@ -3,8 +3,31 @@ head
   = display_meta_tags
   meta http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1"
   meta name="viewport" content="width=device-width" initial-scale="1.0" maximum-scale="1.0"
-  - if NB.facebook_app_id
+  - if NB.facebook_app_id != 'CHANGE_ME_OPTIONAL'
     meta property="fb:app_id" content="#{ NB.facebook_app_id }"
+  meta content="width=device-width, initial-scale=1" name="viewport"
+  meta content="yes" name="mobile-web-app-capable"
+  meta content="yes" name="apple-mobile-web-app-capable"
+  meta content="black" name="apple-mobile-web-app-status-bar-style"
+  meta content="#{ t('description') }" name="description"
+  meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
+  meta content="width=device-width" initial-scale="1.0" maximum-scale="1.0" name="viewport"
+  meta content="#ffffff" name="msapplication-TileColor"
+  meta content="/icons/ms-icon-144x144.png" name="msapplication-TileImage"
+  meta content="#ffffff" name="theme-color"
+  = favicon_link_tag "/icons/apple-icon-57x57.png", rel: "apple-touch-icon", sizes: "57x57"
+  = favicon_link_tag "/icons/apple-icon-60x60.png", rel: "apple-touch-icon", sizes: "60x60"
+  = favicon_link_tag "/icons/apple-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"
+  = favicon_link_tag "/icons/apple-icon-76x76.png", rel: "apple-touch-icon", sizes: "76x76"
+  = favicon_link_tag "/icons/apple-icon-114x114.png", rel: "apple-touch-icon", sizes: "114x114"
+  = favicon_link_tag "/icons/apple-icon-120x120.png", rel: "apple-touch-icon", sizes: "120x120"
+  = favicon_link_tag "/icons/apple-icon-144x144.png", rel: "apple-touch-icon", sizes: "144x144"
+  = favicon_link_tag "/icons/apple-icon-152x152.png", rel: "apple-touch-icon", sizes: "152x152"
+  = favicon_link_tag "/icons/apple-icon-180x180.png", rel: "apple-touch-icon", sizes: "180x180"
+  = favicon_link_tag "/icons/android-icon-192x192.png", rel: "icon", sizes: "192x192", type: "image/png"
+  = favicon_link_tag "/icons/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"
+  = favicon_link_tag "/icons/favicon-96x96.png", rel: "icon", sizes: "96x96", type: "image/png"
+  = favicon_link_tag "/icons/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"
   = auto_discovery_link_tag :atom, notes_url(:atom), title: NB.name
   = stylesheet_link_tag 'application', media: 'all'
   = jquery_include_tag :google

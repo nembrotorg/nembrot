@@ -2,6 +2,6 @@
 
 module CacheHelper
   def cache_buster(version)
-    "#{ Constant.cache_buster }#{ version }#{ @current_channel }"
+    "#{ Constant.cache_buster }#{ version }"
   end
 end

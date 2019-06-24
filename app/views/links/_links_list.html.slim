@@ -1,25 +1,9 @@
-section.links
+- cache [cache_buster(1), links] do
 
-  header
-    h3 = title ||= t('links.index.title')
-
-  ul
-    - links.each do |link|
-      li
-
-        = render 'shared/media', url: embeddable_url(link.url) if link.url =~ /youtube|vimeo|soundcloud/
-
-        cite = link_to link.title, link.url
-        = t('citation.link.accessed_at_html', accessed_at: (timeago_tag link.updated_at))
-
-        p = link_to link.url.gsub(%r(https?://), ''), link.url, class: 'url'
-
-        = render 'citations/citations_list',
-          citations: link.notes.publishable.citations,
-          books: '',
-          links: [link] unless link.notes.publishable.citations.empty?
-
-        = render 'shared/notes_list',
-          notes: link.notes.publishable.listable, 
-          all_interrelated_notes_and_features: all_interrelated_notes_and_features
-          unless link.notes.publishable.listable.empty?
+  section.links
+    header
+      h3 = title ||= t('links.index.title')
+    ul
+      - links.each do |link|
+        li
+          = render 'shared/link_blurb', link: link

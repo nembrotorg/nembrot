@@ -8,6 +8,8 @@ Nembrot::Application.routes.draw do
 
   root to: 'home#index'
 
+  get 'code/:controller_script/:action_script' => 'code#show'
+
   put 'bibliography/update' => 'books#update', as: :update_book
   get 'bibliography/:id/edit' => 'books#edit', as: :edit_book
   get 'bibliography/admin(/:mode)' => 'books#admin', as: :books_admin, mode: /|editable|citable|cited|missing_metadata/
@@ -17,19 +19,16 @@ Nembrot::Application.routes.draw do
   get 'citations/:id' => 'citations#show', id: /\d+/, as: :citation
   get 'citations(/p/:page)' => 'citations#index', as: :citations
 
-  put 'links/update' => 'links#update', as: :update_link
-  get 'links/admin' => 'links#admin', as: :links_admin
-  get 'links/:id/edit' => 'links#edit', as: :edit_link
-  get 'links/:slug' => 'links#show_channel', slug: /[\_a-z\d\-\.]+/, as: :link
-  get 'links(/p/:page)' => 'links#index', as: :links
+  get 'colophon' => 'colophon#index', as: :colophon
 
-  get 'notes/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
-  get 'notes/:id' => 'notes#show', id: /\d+/, as: :note
-  get 'notes/map' => 'notes#map'
-  get 'notes/p/:page' => 'notes#index'
-  get 'notes' => 'notes#index', as: :notes
+  get 'links(/:tab)(/p/:page)' => 'links#index', as: :links
 
-  get 'settings/reset/:namespace' => 'settings#reset', as: :reset_settings, namespace: /channel|advanced|style/
+  get 'texts/:id/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'texts/:id' => 'notes#show', id: /\d+/, as: :note
+  get 'texts/map' => 'notes#map', as: :notes_map
+  get 'texts/p/:page' => 'notes#index'
+  get 'texts' => 'notes#index', as: :notes
+
   put 'settings' => 'settings#update', as: :update_settings
   get 'settings/edit' => 'settings#edit', as: :edit_settings
 
@@ -55,6 +54,11 @@ Nembrot::Application.routes.draw do
   get 'webhooks/evernote_note' => 'evernote_notes#add_task'
 
   resources :evernote_notes, only: [:add_evernote_task]
+
+  # Custom routes
+  # get 'pantography/v/:sequence' => 'notes#version', id: /\d+/, sequence: /\d+/, as: :note_version
+  get 'pantography/:text' => 'pantographs#show', as: :pantograph # , text: /[a-zA-F0-9\%]+/
+  get 'pantography' => 'pantographs#index', as: :pantographs
 
   get ':feature(/:feature_id)/v/:sequence' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, sequence: /\d+/, as: :feature_version
   get ':feature(/:feature_id)' => 'features#show', feature: /[\_a-z\d\-]+/, feature_id: /[\_a-z\d\-]+/, as: :feature

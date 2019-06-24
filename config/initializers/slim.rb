@@ -1,5 +1,5 @@
 # Slim
-Slim::Engine.set_options format: Constant.html.format.to_sym,
-                         pretty: Constant.html.pretty,
-                         sort_attrs: Constant.html.sort_attrs,
-                         tabsize: Constant.html.tabsize
+Slim::Engine.set_options format: ENV['html_format'].to_sym,
+                         pretty: (ENV['html_pretty'] == 'true'),
+                         sort_attrs: ENV['html_sort_attrs'],
+                         tabsize: ENV['html_tabsize'].to_i

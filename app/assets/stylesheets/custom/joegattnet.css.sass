@@ -1,0 +1,77 @@
+.pantograph-index, .pantograph-show
+  h1
+    color: $headline-font-color
+  a[href*=http]
+    &:before, &:after
+      display: none
+
++embed-font-suite($code-font)
+
+#pantograph
+  +prefix(6)
+  +suffix(6)
+  +span-columns(24)
+  margin-bottom: 0
+  blockquote
+    +font-color($caption-color)
+    +rule-once($background-color, 2px, $line-top: 50%)
+    background-color: #9ff
+    font:
+      family: $code-font-stack
+      size: 25px
+    height: $line-height * 2
+    margin: 0
+    word-wrap: break-word
+    &.tweeted
+      color: $font-color
+  figcaption
+    +font-color($caption-color)
+    ul
+      margin-bottom: 0
+    #details
+      +span-columns(30, 36)
+    #percentage, #length
+      +span-columns(3 omega, 36)
+      text-align: right
+  nav
+    //+sequential_nav(lighten($caption-color, 15%))
+    +pagination-nav
+
+#pantographs
+  +span-columns(36, 36)
+  ol
+    +compact-text
+    font-size: 14px
+    list-style-type: none
+    li
+      margin-bottom: $line-height * 2/3
+      blockquote
+        font:
+          family: monospace
+        margin: 0
+        word-wrap: break-word
+        a
+          background-color: #9ff
+      figcaption
+        color: $caption-color
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Media-queries
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// @media only print
+
+// Screen /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// @media only screen
+
+// Screen > 720px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Screen > 1024px /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 1366px)
+
+  #pantographs
+    +span-columns(9 omega, 36)

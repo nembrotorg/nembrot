@@ -1,1 +1,1 @@
-Sitemap: http://nembrot.org/sitemap.xml.gz
+Sitemap: http://joegatt.net/sitemap.xml.gz

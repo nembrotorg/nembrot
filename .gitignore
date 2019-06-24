@@ -13,17 +13,21 @@
 *.swp
 *~
 .DS_Store
+.gitattributes
+.irb-history
 .project
 .ruby-gemset
 .ruby-version
 .rvmrc
 doc/
 sitemap.*
+!sitemap.rb
 
 # Ignore files with passwords etc (except sample and model files)
 /config/advanced.constants.yml
 /config/channel.constants.yml
 /config/secret.yml
+/config/database.yml
 
 # Ignore resource files
 /public/resources/*/*.*
@@ -34,3 +38,6 @@ trial
 
 * Ignore coverage
 coverage
+
+# Ignore application configuration
+/config/application.yml

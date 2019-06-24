@@ -1,20 +1,20 @@
 # encoding: utf-8
 
-describe BookMailer do
+RSpec.describe BookMailer do
   describe 'missing_metadata' do
-    let(:book) { FactoryGirl.create(:book) }
+    let(:book) { FactoryGirl.build(:book) }
     let(:mail) { BookMailer.missing_metadata(book) }
 
     it 'renders the receiver email' do
-      expect(mail.to).to eq([Setting['advanced.admin_email']])
+      expect(mail.to).to eq([ENV['admin_email']])
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq([Setting['advanced.admin_email']])
+      expect(mail.from).to eq([ENV['admin_email']])
     end
 
     it 'assigns @name' do
-      expect(mail.body.encoded).to match(Setting['advanced.admin_name'])
+      expect(mail.body.encoded).to match(ENV['admin_name'])
     end
 
     it 'includes book details in the subject' do

@@ -2,18 +2,16 @@
 
 # FIXME: These tests are flawed. Content is not being changed at all!
 
-describe EvernoteNote do
-
+RSpec.describe EvernoteNote do
   before(:example) do
-    Setting['channel.evernote_notebooks'] = 'NOTEBOOK_GUID'
-    Setting['advanced.instructions_required'] = '__PUBLISH'
+    ENV['evernote_notebooks'] = 'NOTEBOOK_GUID'
+    ENV['instructions_required'] = '__PUBLISH'
     @evernote_request = FactoryGirl.build(:evernote_request)
   end
 
   subject { @evernote_request }
 
   describe '#update_necessary?' do
-
     context 'when note is in a required notebook' do
       before do
         @evernote_request.cloud_note_metadata[:notebookGuid] = 'NOTEBOOK_GUID'
@@ -46,7 +44,6 @@ describe EvernoteNote do
       # pending its(:update_necessary?) { is_expected.to be_falsey }
       it 'undirtifies evernote_note' do
         @evernote_request.evernote_note.dirty { is_expected.to be_falsey }
-        @evernote_request.evernote_note.attempts { is_expected.to eq(0) }
       end
     end
 
@@ -62,7 +59,7 @@ describe EvernoteNote do
 
     context 'when cloud note has an instruction to ignore' do
       before do
-        Setting['advanced.instructions_ignore'] = '__IGNORE'
+        ENV['instructions_ignore'] = '__IGNORE'
         @evernote_request.cloud_note_tags = %w(__IGNORE)
       end
       its(:update_necessary?) { is_expected.to be_falsey }
@@ -73,7 +70,6 @@ describe EvernoteNote do
   end
 
   describe '#note_is_not_conflicted?' do
-
     context 'when note content does not contain a conflict warning' do
       before do
         @evernote_request.cloud_note_data[:content] = 'Plain text.'

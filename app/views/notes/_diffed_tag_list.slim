@@ -1,19 +1,17 @@
-nav.tags
+- cache [cache_buster(1), title, diffed_tag_list] do
 
-  header
-    h3 = title ||= t('tags.index.title')
-
-  ul
-    - diffed_tag_list.each do |key, value|
-      li
-        - if value['status'] == 1
-          ins= link_to key, tag_path(key.parameterize)
-
-        - elsif value['status'] == -1
-          - if value['obsolete']
-            del= key
+  nav.tags
+    header
+      h3 = title ||= t('tags.index.title')
+    ul
+      - diffed_tag_list.each do |key, value|
+        li
+          - if value['status'] == 1
+            ins= link_to key, tag_path(key.parameterize)
+          - elsif value['status'] == -1
+            - if value['obsolete']
+              del= key
+            - else
+              del= link_to key, tag_path(key.parameterize)
           - else
-            del= link_to key, tag_path(key.parameterize)
-
-        - else
-          = link_to key, tag_path(key.parameterize)
+            = link_to key, tag_path(key.parameterize)

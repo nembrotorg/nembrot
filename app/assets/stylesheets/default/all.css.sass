@@ -1,0 +1,884 @@
+//////////////////////////////
+//
+// Elements
+//
+//////////////////////////////
+
+::selection
+  background: $selected-background-color
+  text-shadow: none
+
+::-moz-selection
+  background: $selected-background-color
+  text-shadow: none
+
+html
+  overflow-y: scroll
+  -webkit-text-size-adjust: auto
+
+body
+  +font-color
+  background-color: $background-color
+
+a
+  text-decoration: none
+
+.books-show
+  .details
+    a
+      padding-right: 10px
+      &[href*=http]:after
+        padding-left: 5px
+        +icon-link-ext
+        +icon-medium
+
+nav ul li a:first-of-type
+  &[href*=pdf]
+    +citation-font
+    &:before
+      +icon-download
+  &[dir=rtl]
+    text-align: right
+  &[rel=tag]
+    text-transform: lowercase
+  &:focus
+    outline: 0
+  &[href*=admin]:before, &[href*=settings]:before
+    +icon-settings
+    +icon-medium
+  &[href*=users]:before
+    +icon-user-2-empty
+  &[href$='#disqus_thread']:before,
+  &[href$='#comments']:before
+    +icon-comment-empty
+  &[href$='#menu']:before
+    +icon-list
+  &[href*=evernote]:before,
+    +icon-evernote
+  &[href*=facebook]:before,
+    +icon-facebook
+  &[href*=github]:before
+    +icon-github-circled
+  &[href*=google]:before, &[href*=gplus]:before
+    +icon-gplus
+    +icon-medium
+  &[href*=linkedin]:before
+    +icon-linkedin
+  &[href*=medium]:before
+    +icon-mediumcom
+  &[href*=trello]:before
+    +icon-trello
+  &[href^=mailto]:before
+    +icon-mail
+    +icon-small
+  &[href$=rss]:before,
+  &[href$=atom]:before
+    +icon-rss
+    +icon-regular
+  &[href*=reset]:before
+    +icon-undo
+  &[href*=signout]:before
+    +icon-signout
+  &[href*=soundcloud]:before
+    +icon-soundcloud
+  &[href*=spotify]:before
+    +icon-spotify
+  &[href*=tumblr]:before
+    +icon-tumblr
+  &[href*=instapaper]:before
+    +icon-instapaper
+  &[href*=twitter]:before
+    +icon-twitter
+  &[href*=vimeo]:before
+    +icon-vimeo
+    +icon-medium
+  &[href*=youtube]:before
+    +icon-youtube
+
+ul li.signed_in
+  a:first-of-type
+    &[href*=users]:before
+      +icon-user-2
+
+abbr
+  font-variant: small-caps
+  text-transform: lowercase
+
+article[dir=rtl]
+  text-align: right
+  float: right
+
+body, small
+  +dashboard-font
+  line-height: $line-height
+
+cite
+  font-style: normal
+  &+a[href*=annotation]
+    margin-left: 3px
+
+.book
+  font-style: italic
+
+del
+  +font-color($delete-font-color)
+  text-decoration: strike-through
+
+form
+  fieldset
+    border: none
+    padding: 0
+  label
+    display: block
+    height: $line-height
+    line-height: $line-height
+    &:hover
+      background-color: $row-hover-color
+  input
+    &[type=email],
+    &[type=number],
+    &[type=password],
+    &[type=text],
+    &[type=url],
+      border: 1px solid $border-color
+      color: $font-color
+      height: 24px
+      margin: 2px 0
+      padding: 0 !important // Override auto-fillers
+      &.important:not([value])
+        border-color: $error-background-color
+    &[type=button],
+    &[type=submit]
+      border: 1px solid $border-color
+      font-variant: small-caps
+      font-weight: bold
+      height: $line-height
+      margin-top: $line-height
+      padding: 0 ($text-indent / 2)
+      text-transform: lowercase
+      &:hover
+        background-color: $link-hover-color
+        color: $background-color
+
+h1
+  margin: $line-height 0
+  line-height: $line-height
+  font:
+    family: $headline-font-stack
+    weight: bold
+    size: $headline-font-size
+
+section:not(.ins-section) section, .home-index
+  h2
+    +font-color($headline-font-color)
+
+section.ins-section
+  section
+    h2
+      font-weight: bold
+
+iframe
+  border: 0
+
+img, iframe
+  display: block
+  width: 100%
+  max-width: 100%
+
+ins
+  text-decoration: none
+  background-color: $insert-background-color
+
+ol, ul
+  +no-bullets
+  padding: 0
+
+#main
+  table
+    width: 100%
+    tr
+      &:hover
+        background-color: $row-hover-color
+    td
+      margin-left: $gutter-width
+      &:empty
+        background-color: $error-background-color
+      &:first-child
+        margin-left: 0
+
+// cite, em
+//   &:after
+//     content: ' '
+
+.caption
+  figcaption
+    cite:after
+      content: ''
+
+.home-index, .notes-index, .notes-show, .notes-version,
+.features-index section:not(.ins-section), .features-show section:not(.ins-section),
+.features-show article:not(.ins-section), .features-version
+  h1
+    +font-color($headline-font-color)
+
+.url
+  color: $static-url-color
+  &:link
+    &:after
+      content: ''
+  &:hover
+    &:after
+      padding-left: 5px
+      +icon-link-ext
+      +icon-medium
+
+// REVIEW - icon CSS above is too specific
+ul li.deep-link
+  a[href$='#disqus_thread']:before,
+  a:first-of-type[href$='#comments']:before
+    +icon-comment
+
+.instruction
+  font-style: italic
+
+footer
+  nav
+    margin-bottom: $line-height
+    ul
+      margin-bottom: 0
+      li
+        a
+          +truncated-line
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Document
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#main, footer
+  width: 90%
+  margin: 0 5%
+
+#main > div, p, footer
+  +clearfix
+
+ol, ul, .statistics, iframe, table, form, fieldset
+  margin-bottom: $line-height
+  overflow: hidden
+
+// ol, ul, .statistics, iframe, table, form, fieldset
+//  ol, ul, .statistics, iframe, table, form, fieldset
+//    margin-bottom: 0
+
+.breadcrumb
+  +arrow-links
+  +horizontal-list
+  text-transform: lowercase
+  li
+    .current
+      font-weight: normal
+    cite
+      font-style: normal
+    &:last-child
+      display: none
+
+header
+  position: relative
+  aside
+    p
+      display: inline
+      margin: 0
+
+.alert,
+.error
+  background-color: $error-background-color
+  &:before
+    +icon-attention
+.notice,
+.success
+  background-color: $success-background-color
+  &:before
+    +icon-ok
+
+footer
+  ul
+    &.promotions
+      +font-color($headline-font-color)
+    &.promotions, &.sections
+      +arrow-links
+      margin-bottom: $line-height
+    &.sections, &.channels
+      text-transform: lowercase
+    li
+      a
+        &[href*=http],
+        &[href*=mailto]
+          &:before
+            display: inline-block
+            padding-right: 0.35em !important
+            text-align: center
+            width: $text-indent * 2/3
+          &:after
+            display: none
+        &[href*=vimeo]:before
+          +icon-medium
+  small:before
+    +icon-cc-by-nc-sa
+    letter-spacing: 0.25em
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Elements
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+figure
+  +reset
+  &.image
+    img
+      clear: both
+    figcaption
+      +font-color($caption-color)
+      .credit
+        &:before
+          content: '('
+        &:after
+          content: ')'
+  &.citation
+    blockquote
+      margin: 0 0 0 $text-indent
+      text-align: left
+      &:before
+        +icon-quote-left
+        color: $secondary-color
+        display: inline-block
+        font-size: $body-font-size
+        margin-left: $line-height * -1
+        padding: 0
+        width: $text-indent
+    figcaption
+      margin-left: $text-indent
+      padding: 0
+      &:before
+        content: '\2014'
+
+iframe
+  &[src*='vimeo'],
+  &[src*='youtube']
+    height: $line-height * 8
+  &[src*='soundcloud.com']
+    height: $line-height * 2
+  &[src*='soundcloud.com%2Fplaylist']
+    height: $line-height * 8
+
+#annotations
+  font:
+    size: $small-font-size
+  line-height: $line-height * 2/3
+  text-align: left !important
+  text-indent: 0
+  ol
+    padding-left: $text-indent
+  li
+    position: relative
+    text-indent: $text-indent * -1
+    &:target
+      background-color: $selected-background-color
+    a
+      display: inline
+      text-indent: 0
+      &[href*='#annotation-']
+        display: inline-block
+        width: $text-indent
+
+.citation
+  +citation-font
+
+.count
+  color: $count-color
+
+.map_container
+  +reset
+  #map
+    +reset
+    background-color: $map-background-color
+    color:  $map-font-color
+    img, object, embed
+      max-width: none
+    .infowindow
+      +blurb(3, 3)
+
+.notes > ul > li, .citations > ul > li, .links > ul > li, .map-infowindow
+  +clearfix
+  display: block
+  margin-bottom: $line-height
+  &:last-child
+    margin-bottom: 0
+
+.references
+  +arrow-links
+
+section:not(.ins-section), .home-index
+  .notes li, .map-infowindow
+    +body-font
+
+.features-index, .features-show
+  .notes li
+    h2
+      span
+        display: none
+
+.pagination
+  +pagination-nav($font-color)
+
+article, .links > ul > li
+  ul.tags
+    +horizontal-list
+    &:before
+      +icon-tags
+      color: $secondary-color
+      display: inline
+      float: left
+    li
+      height: $line-height
+      a
+        text-transform: lowercase
+        &:after
+          content: ', '
+      &:last-child
+        a:after
+          content: ''
+
+.links > ul > li
+  ul.details
+    +horizontal-list
+    &> li
+      &:first-child
+        a
+          &:before
+            +icon-link-ext
+          &:after
+            content: ', '
+          h2
+            +truncated-line
+    .tags
+      margin: 0
+
+ul li a
+  &.back
+    text-transform: lowercase
+    &:before
+      +icon-left
+      +icon-small
+    &:after
+      content: ''
+  &[data-method=delete]:before
+    +icon-delete
+    +icon-regular
+  &[href^='/users/auth/']:before
+    +icon-only
+    +icon-large
+  &[href$='sign_out']:before
+    +icon-signout
+    +icon-large
+
+blockquote
+  footer
+    +pre-with-emdash
+    margin: 0
+
+footer
+  nav
+    ul
+      &.promotions
+        +span-columns(36)
+      &.sections
+        +columns(2)
+        +span-columns(36)
+      &.channels
+        +columns(2)
+        +span-columns(36)
+  small
+    +span-columns(36)
+    margin-bottom: $line-height
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Pages
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#introduction
+  +body-font
+  +hyphens(none)
+  font-style: italic
+  text-align: left
+  font-size: $font-size * 1.5
+  margin-bottom: $line-height
+
+#text
+  .body, #annotations
+    +body-font
+    p
+      margin: 0
+      text-indent: $text-indent
+      &:first-of-type
+        text-indent: 0
+    a
+      &[href*=http]:after
+        display: none
+      &[id*=annotation-mark]
+        font-size: $small-font-size - 2px
+        line-height: 0
+        vertical-align: super
+
+  .body
+    blockquote
+      +citation-font
+      font-size: 1.1em
+      line-height: $line-height
+      margin: ($line-height / 3) $text-indent
+    table
+      td
+        font:
+          size: 0.8em
+        line-height: $line-height * 2/3
+        padding: ($line-height * 1/3) ($line-height * 2/3) ($line-height * 1/3) 0
+      tr
+        &:first-of-type
+          font-weight: 600
+          td
+            padding-bottom: ($line-height * 1/3) - 1px
+        &:last-of-type
+          td
+            padding-bottom: 0
+    ol
+      counter-reset: items
+      &> li
+        counter-increment: items 1
+        padding-left: $text-indent
+        &:before
+          content: counter(items)
+          margin-left: $text-indent * -1
+          position: absolute
+          width: $text-indent
+        ol
+          counter-reset: subitems
+          li
+            counter-increment: subitems
+            padding-left: $text-indent
+            &:before
+              content: counter(items) "." counter(subitems)
+              margin-left: $text-indent * -1
+              position: absolute
+              width: $text-indent
+    ul
+      li
+        padding-left: $text-indent
+        &:before
+          +icon-circle
+          +icon-small
+          font-size: 7px
+          left: 0
+          position: absolute
+          width: $text-indent
+    li
+      margin-bottom: $line-height * 1/3
+      &:last-of-type
+        margin-bottom: 0
+    section
+      margin-bottom: $line-height
+      h2
+        color: $body-font-color
+        display: block
+        margin: 0
+        font:
+          family: $headline-font-stack
+          size: 1.1em
+      &:first-of-type
+        h2
+          display: none
+      &:last-of-type
+        margin-bottom: 0
+      p:first-of-type
+        text-indent: 0
+  &.parallel
+    line-height: $line-height * 2
+    .source
+      p
+        color: $headline-font-color
+    .target
+      position: absolute
+      padding-top: $line-height
+      top: 0
+      left: 0
+    &.collate
+      p
+        text-indent: $text-indent
+    div
+      overflow: show
+      position: relative
+      .source
+        color: $headline-font-color
+        &:before
+          top: $line-height / 2
+      .target
+        position: absolute
+        top: 0
+      &:first-of-type
+        p
+          text-indent: 0
+
+#tags, #versions, #annotations
+  margin: $line-height 0 0 0
+
+section.ins-section, article.ins-section
+  #text
+    .body
+      +citation-font
+      text-align: left
+  .statistics
+    display: none
+
+#disqus_thread,
+#comments
+  +span-columns(36)
+  ol
+    margin-top: $line-height
+
+.notes
+  li
+    +blurb(8)
+    position: relative
+  h2:after
+    content: ' '
+
+.links
+  &> ul > li
+    h2
+      color: $body-font-color !important
+      font:
+        family: $headline-font-stack
+        size: $body-font-size
+        weight: bold
+    &> a
+      display: block
+      height: $line-height * 3
+      overflow: hidden
+      position: relative
+
+#versions
+  li
+    &:first-child
+      a:before
+        +icon-angle-double-down
+    &:nth-child(n+2)
+      display: none
+
+.books-admin
+  section
+    nav
+      ul
+        +horizontal-list
+        li
+          float: right
+          text-transform: lowercase
+          a:before
+            +icon-right
+            +icon-small
+  a[href$=edit]
+    +icon-only
+    &:before,
+      +icon-edit
+      +icon-only
+
+.books-admin, .books-edit
+  .breadcrumb
+    background-color: $selected-background-color
+
+.books-show
+  iframe[src*='books.google']
+    height: $line-height * 24
+
+.books-show
+  figure.citation
+    cite
+      display: none
+
+.notes-version, .features-version
+  #versions
+    li:nth-child(n+2)
+      display: block
+
+.notes-map, .tags-map, .features-map
+  #map
+    height: $line-height * 20
+    margin-bottom: $line-height
+
+.statistics
+  clear: both
+  font-style: italic
+
+.tags-index
+  ul
+    +columns(2)
+    &.cloud
+      +inline-block-list
+    li
+      a
+        text-transform: lowercase
+
+.tags-show, .tags-map
+  h1:before
+    +icon-tag
+    color: $secondary-color
+
+.confirmations-edit, .confirmations-new, .registrations-new, .passwords-new, .sessions-new, .signed-out .sessions-event
+  h1:before
+    +icon-user-2-empty
+
+.passwords-edit, .registrations-edit, .signed-in .sessions-event
+  h1:before
+    +icon-user-2
+
+.scrolling, .mousemoving
+  #tools
+    bottom: 0
+    +transition(0.35s)
+
+#tools:hover
+  bottom: 0
+
+#tools
+  +transition
+  background-color: $background-color
+  border-top: 1px solid $body-font-color
+  bottom: $line-height * -2.25
+  display: block
+  height: $line-height * 1.5
+  margin: 0
+  padding-left: 5%
+  padding-top: $line-height * 0.5
+  position: fixed
+  width: 100%
+  iframe
+    margin-bottom: 0
+  ul
+    display: inline-block
+    margin-bottom: 0
+    li
+      display: inline-block
+      li
+        height: $line-height
+        // margin-right: $text-indent/2
+        position: relative
+        width: $text-indent
+      &.fb-like
+        overflow: visible
+      a
+        font-size: $small-font-size - 2px
+        height: $line-height * 1/3
+        padding-bottom: $line-height * 2/3
+        position: absolute
+        text-align: right
+        top: $line-height * 2/3
+        width: $text-indent
+        &:before
+          font-size: $line-height * 24/30
+          height: $line-height * 2/3
+          left: $line-height * -0.1
+          position: absolute
+          text-align: center
+          top: $line-height * 2/3 * -1
+          width: $text-indent
+        &:after
+          display: none
+        &:hover
+          &[href*=facebook]:before
+            color: $facebook-color
+          &[href*=google]:before
+            color: $gplus-color
+          &[href*=twitter]:before
+            color: $twitter-color
+      &.user ul, &.menu ul
+        li
+          +icon-only
+          a
+            padding-top: $line-height
+
+    .deep-link
+      a
+        color: $count-color
+
+ul.admin
+  bottom: $line-height * 2
+  position: absolute !important
+  width: auto !important
+  left: $text-indent / 2
+
+.oauth
+  margin-top: $line-height
+  ul
+    +horizontal-list
+    display: inline-block
+    li
+      font-size: 16px
+      overflow: hidden
+      position: relative
+      width: $text-indent * 2
+      &.connected:before
+        +icon-ok
+        color: $font-color
+        display: block
+        height: $line-height
+        left: 0
+        position: absolute
+        text-align: right
+        width: $text-indent * 2
+        z-index: 1
+      span
+        opacity: 0.5
+      a:hover:before
+        background-color: $external-link-hover-color !important
+      a:before, span:before
+        +icon-large
+        +icon-only($text-indent * 2)
+        color: $background-color
+        padding-left: $text-indent / 2
+      .evernote:before, a[href*=evernote]:before
+        +icon-evernote
+        background-color: $evernote-color
+      .facebook:before, a[href*=facebook]:before
+        +icon-facebook
+        background-color: $facebook-color
+      .github:before, a[href*=github]:before
+        +icon-github-circled
+        background-color: $github-color
+      .gplus:before, a[href*=gplus]:before
+        +icon-gplus
+        background-color: $gplus-color
+      .linkedin:before, a[href*=linkedin]:before
+        +icon-linkedin
+        background-color: $linkedin-color
+      .twitter:before, a[href*=twitter]:before
+        +icon-twitter
+        background-color: $twitter-color
+
+.ins-enumerate
+  counter-reset: paragraphs
+  #text
+    &.regular p, section.source p, p.source
+      counter-increment: paragraphs 1
+      position: relative
+      &:before
+        +code-font
+        color: $off-color
+        content: counter(paragraphs)
+        display: block
+        font-size: $small-font-size - 2px
+        left: $text-indent * -3
+        line-height: $line-height
+        position: absolute
+        text-align: right
+        width: $text-indent * 2

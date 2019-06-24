@@ -1,11 +1,10 @@
 # encoding: utf-8
 
 class EvernoteAuth
-
   attr_accessor :auth
 
-  def initialize(user)
-    self.auth = Authorization.where(provider: 'evernote', user: user).first
+  def initialize
+    self.auth = Authorization.where(provider: 'evernote', key: NB.evernote_key).first
     if auth.nil?
       CloudServiceMailer.auth_not_found('evernote').deliver
       SYNC_LOG.error I18n.t('notes.sync.rejected.not_authenticated', provider: 'Evernote', guid: '')

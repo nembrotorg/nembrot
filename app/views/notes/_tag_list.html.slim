@@ -1,8 +1,14 @@
-nav.tags
+- simple = simple || false
+- cache [cache_buster(1), title, tags, simple] do
 
-  header
-    h3 = title ||= t('tags.index.title')
-
-  ul
-    - tags.each do |tag|
-      li = link_to tag.name, tag_path(tag), rel: 'tag'
+  - if simple
+    ul.tags
+      - tags.each do |tag|
+        li = link_to tag.name, tag_path(tag), rel: 'tag'
+  - else
+    nav#tags
+      header
+        h3 = title ||= t('tags.index.title')
+      ul.tags
+        - tags.each do |tag|
+          li = link_to tag.name, tag_path(tag), rel: 'tag'

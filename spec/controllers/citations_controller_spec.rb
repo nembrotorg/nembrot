@@ -1,9 +1,8 @@
 # encoding: utf-8
 
-describe CitationsController do
-
+RSpec.describe CitationsController do
   before do
-    @citation = FactoryGirl.create(:note, instruction_list: %w(__QUOTE))
+    @citation = FactoryGirl.create(:note, content_type: 1)
   end
 
   describe 'GET #index' do

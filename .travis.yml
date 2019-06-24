@@ -1,22 +1,24 @@
 sudo: false
-
 rvm:
 - 2.1.5
-
 script:
 - bundle exec rake db:migrate RAILS_ENV=test
-- bundle exec rake settings:update_defaults RAILS_ENV=test
 - bundle exec rspec
-
 before_script:
-- cp config/channel.constants.sample.yml config/channel.constants.yml
-- cp config/advanced.constants.sample.yml config/advanced.constants.yml
-
+- cp config/application.sample.yml config/application.yml
 notifications:
-  hipchat:
-    rooms:
-      secure: hzm5pp3qtwFIJu+Uh7WjUbIwi4vLOjCzvLoSSREKttlakWNHTV4BVfUKkwvFFTaLorG0xwPGL5iWZll9KjCDMSM+Y7cxx+GhnV+bLfMe5ywl5MBPgCBRag1iYhPl19UQvxorFj/KJOMGEpWuqFSRRgctuzcyjDVO6+NqZPkDuu4=
-
+  slack:
+    secure: a7Lv/6S5pttnC84gGI4RFw0f4X0rC8CXdVt6/IK5xqNNtSJqUaFtL2GhmvQ111HTkOaN81QR6zv3Ynj9EW3cFTHaGZgMab37V/5iVeHO1QM56KQZ2sf/Z+LsyfPfok7GTe6lDr5VzeatN7lptoQkpunoI8fh2Up+DVqccgVOMP0=
 addons:
   code_climate:
-    repo_token: 24d5e8746ee2bcfc0db4df0ac6e09886a13e2903b4b6e7f25f64da9e86017c8c
+    repo_token: 21f23bf9ce3a7f7f97fd0b169b24157029d5fcdeeeb7bfe5094fb28e17f56e52
+after_success:
+- "openssl aes-256-cbc -k $DEPLOY_KEY -in config/deploy_id_rsa_enc_travis -d -a -out config/deploy_id_rsa"
+- chmod 0600 config/deploy_id_rsa
+- eval "$(ssh-agent)"
+- ssh-add config/deploy_id_rsa
+- '[[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "staging" ]] && bundle exec cap staging deploy'
+- '[[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "master" ]] && bundle exec cap production deploy'
+env:
+  global:
+    secure: RtMfntRPbWBf4QtjI/qwdANpv8IoalcmGckbOIvZQupfl20DydwXVzk2zjAr+MsTn7On4+0RJ0AYtvOsXmfAOXYxV1v8XIgAVLZUEmVNEaIHusf/sa+uHzVhzx9jDuhVd0DN1R1Xrhzj4QkZq6GAXEFgfJMn7e9c/0zGWcJAPEY=

@@ -1,0 +1,46 @@
+- cache [cache_buster(1), @pantograph, @note, @tags, @no_index, commontator_thread(@note)] do
+
+  - document_title = "#{ t('pantographs.index.title') } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  canonical: pantographs_path,
+                  description: '',
+                  open_graph: { title: document_title }
+  - set_meta_tags noindex: true if @no_index
+
+  div class="#{ controller.controller_name }-#{ controller.action_name } features-show"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
+
+    article class=css_instructions(@note.instruction_list)
+      = render 'header', title: t('pantographs.index.title'), subtitle: '', document_title: document_title
+
+      section#pantograph
+        figure
+          blockquote class=('tweeted' unless @pantograph.external_created_at.nil?)
+            = @pantograph.text
+          figcaption
+            ul
+              li#details
+                  span#scheduled_for 
+                    ' #{ t('pantographs.index.scheduled_for', scheduled_for: @pantograph.scheduled_for).html_safe }
+                  span#tweeted_at_by =t('pantographs.index.tweeted_at_by_html',
+                      tweeted_at: link_to(timeago_tag(@pantograph.external_created_at), @pantograph.twitter_url),
+                      tweeted_by: link_to("@#{ @pantograph.pantographer.twitter_screen_name }", 
+                      @pantograph.pantographer.twitter_url, { title: @pantograph.pantographer.twitter_real_name })) unless @pantograph.external_created_at.nil?
+              li#percentage= "#{ @pantograph.percentage }%"
+              li#length= "#{ @pantograph.text.length }/#{ NB.pantography_max_length.to_i }"
+        = render 'shared/sequential_nav', object: @pantograph
+
+      section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+        section#text.regular
+          = bodify(@note.body, @note.books)
+          aside
+            = render 'notes/tag_list', tags: @tags unless @tags.empty?
+            -#= render 'notes/notes_list_headlines', note: @note
+            = render 'notes/versions_list', note: @note
+        = render 'pantographs_list'
+
+      - if NB.comments_native_or_disqus_or_none == 'native'
+         section#comments = commontator_thread(@note)
+
+      - if NB.comments_native_or_disqus_or_none == 'disqus'
+         = render 'disqus'

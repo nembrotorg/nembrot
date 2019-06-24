@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Resource < ActiveRecord::Base
-
   include Evernotable
   include Syncable
 
@@ -9,8 +8,8 @@ class Resource < ActiveRecord::Base
 
   default_scope { order('id ASC') }
   # REVIEW: Evernote's attachment flag is inconsistent across source apps, use __INLINE
-  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', Setting['style.images_min_width'].to_i) }
-  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', Setting['style.images_min_width'].to_i) }
+  # scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where(attachment: nil).where('width > ?', NB.images_min_width.to_i) }
+  scope :attached_images, -> { where('mime LIKE ? AND dirty = ?', 'image%', false).where('width > ?', NB.images_min_width.to_i) }
   scope :attached_files, -> { where('mime = ? AND dirty = ?', 'application/pdf', false) }
 
   validates_presence_of :cloud_resource_identifier, :note
@@ -22,7 +21,7 @@ class Resource < ActiveRecord::Base
   before_destroy :delete_binaries
 
   def self.sync_all_binaries
-    need_syncdown.each { |resource| resource.sync_binary }
+    need_syncdown.each(&:sync_binary)
   end
 
   def self.blank_location(file_ext = 'png')
@@ -36,10 +35,13 @@ class Resource < ActiveRecord::Base
 
   def sync_binary
     unless File.file?(raw_location)
-      increment_attempts
-      Constant.stream_binaries ? stream_binary : download_binary
+      NB.stream_binaries == 'true' ? stream_binary : download_binary
       # Check that the resource has been downloaded correctly. If so, unflag it.
-      undirtify if Digest::MD5.file(raw_location).digest == data_hash
+      if Digest::MD5.file(raw_location).digest == data_hash
+        undirtify
+        attachments = { image_url: raw_url }
+        Slack.ping("Image added: #{ caption }", icon_url: NB.logo_url, attachments: attachments)
+      end
     end
   end
 
@@ -51,7 +53,7 @@ class Resource < ActiveRecord::Base
     connection = Net::HTTP.new(uri.host)
     connection.use_ssl = true if uri.scheme == 'https'
 
-    connection.start do |http|
+    connection.start do |_http|
       response = connection.post_form(uri.path, { 'auth' => oauth_token })
       File.open(raw_location, 'wb') do |file|
         file.write(response.body)
@@ -74,6 +76,10 @@ class Resource < ActiveRecord::Base
 
   def file_ext
     (Mime::Type.file_extension_of mime).parameterize
+  end
+
+  def raw_url
+    'http://' + NB.host + '/' + File.join(Rails.root, 'resources', 'raw', "#{ mime == 'application/pdf' ? local_file_name : id }.#{ file_ext }")
   end
 
   def raw_location
@@ -115,9 +121,9 @@ class Resource < ActiveRecord::Base
     if mime && mime !~ /image/
       new_name = File.basename(file_name, File.extname(file_name))
     elsif caption && !caption[/[a-zA-Z\-]{5,}/].blank? # Ensure caption is in Latin script and at least 5 characters
-      new_name = caption[0..Setting['style.images_name_length'].to_i]
+      new_name = caption[0..NB.images_name_length.to_i]
     elsif description && !description[/[a-zA-Z\-]{5,}/].blank?
-      new_name = description[0..Setting['style.images_name_length'].to_i]
+      new_name = description[0..NB.images_name_length.to_i]
     elsif file_name && !file_name.empty?
       new_name = File.basename(file_name, File.extname(file_name))
     end
@@ -127,18 +133,16 @@ class Resource < ActiveRecord::Base
 
   # REVIEW: Put this in EvernoteNote? and mimic Books?
   def update_with_evernote_data(cloud_resource, caption, description, credit)
-    binary_not_downloaded = (cloud_resource.data.bodyHash != data_hash)
     update_attributes!(
       altitude: cloud_resource.attributes.altitude,
       attachment: cloud_resource.attributes.attachment,
-      attempts: 0,
       camera_make: cloud_resource.attributes.cameraMake,
       camera_model: cloud_resource.attributes.cameraModel,
       caption: caption,
       credit: credit,
       data_hash: cloud_resource.data.bodyHash,
       description: description,
-      dirty: binary_not_downloaded,
+      dirty: true,
       external_updated_at: cloud_resource.attributes.timestamp ? Time.at(cloud_resource.attributes.timestamp / 1000).to_datetime : nil,
       file_name: cloud_resource.attributes.fileName,
       height: cloud_resource.height,
@@ -147,18 +151,18 @@ class Resource < ActiveRecord::Base
       longitude: cloud_resource.attributes.longitude,
       mime: cloud_resource.mime,
       source_url: cloud_resource.attributes.sourceURL,
-      try_again_at: binary_not_downloaded ? Time.now : 100.years.from_now,
       width: cloud_resource.width
     )
+    SyncResourceJob.perform_later(self) if cloud_resource.data.bodyHash != data_hash
   end
 
   def delete_binaries
-    File.delete raw_location if File.exists? raw_location
+    File.delete raw_location if File.exist? raw_location
     Dir.glob("public/resources/templates/#{ id }*.*").each do |binary|
-      File.delete binary if File.exists? binary
+      File.delete binary if File.exist? binary
     end
     Dir.glob("public/resources/cut/*-#{ id }.*").each do |binary|
-      File.delete binary if File.exists? binary
+      File.delete binary if File.exist? binary
     end
   end
 end

@@ -122,8 +122,8 @@ class String
       elsif b[i+1] == '.' || b[i-1] == '.'
         w
       # if there's an internal non-word symbol, leave it alone
-      elsif b[i+1] =~ INTERNAL_SYMBOL || b[i-1] =~ INTERNAL_SYMBOL
-        a[i]
+      #elsif b[i+1] =~ INTERNAL_SYMBOL || b[i-1] =~ INTERNAL_SYMBOL
+      #  a[i]
       # always capitalize first and last words
       elsif i == 0 or i == len - 1
         w.icap

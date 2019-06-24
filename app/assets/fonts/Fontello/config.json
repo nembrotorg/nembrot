@@ -7,6 +7,34 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "d35a7075df81ac0197d66b34b74bf9e0",
+      "css": "glyph",
+      "code": 59430,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M20 154.3V64.9H376L527.8 491.7 668.9 64.9H1015.6V154.3H880.4V713.9H1022.9V799.8H631.8V713.9H737.8V168L549.8 710Q545.9 720.2 540 727.3T527.8 737.3 514.6 740.2Q502.4 740.2 491.5 732.2T476.1 712.9L264.6 160.2V713.9H386.2V799.8H28.3V713.9H155.8V154.3H20Z",
+        "width": 1041.9921875
+      },
+      "search": [
+        "glyph"
+      ]
+    },
+    {
+      "uid": "79980efd0ff432ee7722ba84b2a460b7",
+      "css": "glyph-1",
+      "code": 59431,
+      "src": "custom_icons",
+      "selected": false,
+      "svg": {
+        "path": "M0 799.8V280.3H519.5V799.8H0Z",
+        "width": 519.53125
+      },
+      "search": [
+        "glyph"
+      ]
+    },
+    {
       "uid": "bf882b30900da12fca090d9796bc3030",
       "css": "mail",
       "code": 9993,
@@ -208,6 +236,12 @@
       "uid": "0f6a2573a7b6df911ed199bb63717e27",
       "css": "github-circled-1",
       "code": 61595,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b846892636bd74112998bb159bdddf27",
+      "css": "trello",
+      "code": 59431,
       "src": "fontawesome"
     },
     {

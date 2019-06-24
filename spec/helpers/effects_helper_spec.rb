@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe EffectsHelper do
-
+RSpec.describe EffectsHelper do
   # REVIEW: The only thing these tests actually demonstrate is that the function does not throw an error.
   #  A useful confirmation, but have_dimensions seems to accept any values.
 

@@ -13,7 +13,7 @@ en:
       inline_html: "<cite><a href=\"%{path}\">%{title}</a></cite>"
       inline_annotated_html: "<cite><a href=\"%{path}\">%{title}</a></cite>[<a href=\"%{path}\">%{title}, %{publisher} %{published_year}.</a>]"
       inline_title_html: "<cite><a href=\"%{path}\">%{title}</a></cite>"
-      inline_unlinked_html: "<cite>%{title}</cite>"
+      inline_unlinked_html: "<cite class=\"book\">%{title}</cite>"
     link:
       accessed_at_html: "(Accessed %{accessed_at}.)"
       inline_html: "<cite><a href=\"%{url}\">%{link_text}</a></cite>"

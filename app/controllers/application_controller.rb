@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery
 
   before_filter :set_locale
@@ -8,10 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :get_sections
   before_filter :set_public_cache_headers, only: [:index, :show, :show_channel]
 
-  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |c| request.xhr? }
+  skip_before_filter :get_promoted_notes, :get_sections, if: proc { |_c| request.xhr? && request.path != '/' }
 
   def set_locale
-    I18n.locale = params[:locale] || Setting['advanced.locale'] || I18n.default_locale
+    I18n.locale = params[:locale] || NB.locale || I18n.default_locale
   end
 
   def add_home_breadcrumb
@@ -26,19 +25,19 @@ class ApplicationController < ActionController::Base
     @sections = Note.sections
   end
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     user_event_path('signed_up')
   end
 
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     user_event_path('signed_up_inactive')
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     user_event_path('signed_in')
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_resource)
     user_event_path('signed_out')
   end
 
@@ -51,13 +50,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def interrelated_notes_features_and_citations
-    @all_interrelated_notes_and_features = Note.interrelated.publishable.notes_and_features
-    @all_interrelated_citations = Note.interrelated.publishable.citations
-  end
-
   def note_tags(note)
-    @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= Setting['advanced.tags_minimum'].to_i }
+    @tags = note.tags.to_a.keep_if { |tag| Note.publishable.tagged_with(tag).size >= NB.tags_minimum.to_i }
   end
 
   def note_map(note)
@@ -69,7 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_public_cache_headers
-    expires_in Constant.cache_minutes.minutes, public: true
+    expires_in NB.cache_minutes.to_i.minutes, public: true
   end
 
   rescue_from CanCan::AccessDenied do |exception|

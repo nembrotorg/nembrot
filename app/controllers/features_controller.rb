@@ -1,5 +1,4 @@
 class FeaturesController < ApplicationController
-
   def show
     @notes = Note.publishable.where(feature: params[:feature], lang: I18n.locale)
 
@@ -27,9 +26,8 @@ class FeaturesController < ApplicationController
 
     note_tags(@note)
     commontator_thread_show(@note)
-    interrelated_notes_features_and_citations
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
-    @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
+    get_parallel_source
 
     @total_count = @notes.size
     @word_count = @notes.sum(:word_count)
@@ -44,7 +42,6 @@ class FeaturesController < ApplicationController
     page_number = params[:page] ||= 1
     @notes = @notes.listable.page(page_number).load
     @title = @notes.first.main_title
-    interrelated_notes_features_and_citations
     @map = @notes.mappable
     @total_count = @notes.size
     @word_count = @notes.sum(:word_count)
@@ -57,9 +54,9 @@ class FeaturesController < ApplicationController
     @note = params[:feature_id].nil? ? @notes.first : @notes.where(feature_id: params[:feature_id]).first
     note_tags(@note)
     commontator_thread_show(@note)
-    interrelated_notes_features_and_citations
     @map = mapify(@note) if @note.has_instruction?('map') && !@note.inferred_latitude.nil?
-    @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
+    get_parallel_source
+
     add_breadcrumb @note.get_feature_name, feature_path(@note.feature)
     add_breadcrumb @note.get_feature_id, feature_path(@note.feature, @note.feature_id) unless params[:feature_id].nil?
 
@@ -67,5 +64,9 @@ class FeaturesController < ApplicationController
     @feature_notes = @notes
 
     render template: 'notes/show'
+  end
+
+  def get_parallel_source
+    @source = Note.where(title: @note.title).where.not(lang: @note.lang).first if @note.has_instruction?('parallel')
   end
 end

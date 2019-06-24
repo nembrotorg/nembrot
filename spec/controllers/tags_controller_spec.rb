@@ -1,8 +1,8 @@
-describe TagsController do
-
+RSpec.describe TagsController do
   describe 'GET #index' do
     before(:example) do
-      Setting['advanced.tags_minimum'] = 1
+      ENV['tags_minimum'] = '1'
+      ENV['version_gap_distance'] = '10'
       @tag_name = Faker::Lorem.words(1)
       note = FactoryGirl.create(:note, tag_list: @tag_name)
       @tags = Note.tag_counts_on(:tags)
@@ -16,7 +16,7 @@ describe TagsController do
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
-      before { Setting['advanced.tags_minimum'] = 10 }
+      before { ENV['tags_minimum'] = '10' }
       it 'does not populate an array of tags' do
         get :index
         expect(assigns(:tags)).not_to eq(@tags)
@@ -56,5 +56,4 @@ describe TagsController do
       end
     end
   end
-
 end

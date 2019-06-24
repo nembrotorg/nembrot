@@ -1,12 +1,12 @@
-nav.versions
+- cache [cache_buster(1), title, note] do
 
-  header
-    h3 = title ||= t('notes.show.versions_title')
-
-  ol
-    - if note.versions.length == 0
-      li = "v#{ note.versions.length + 1 } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count), distance: number_with_delimiter(note.distance)) })".html_safe
-    - else
-      li = link_to_unless_current_or_wrap "#{ t('notes.version.title', sequence: note.versions.length + 1) } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count), distance: number_with_delimiter(note.distance)) })".html_safe, note_version_path(note, note.versions.length + 1)
-      - note.versions.reverse.each do |version|
-        li = link_to_unless_current_or_wrap "#{ t('notes.version.title', sequence: version.sequence) } (#{ timeago_tag version.reify.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(version.word_count), distance: number_with_delimiter(version.distance)) })".html_safe, note_version_path(note, version.sequence)
+  nav#versions
+    header
+      h3 = title ||= t('notes.show.versions_title')
+    ol
+      - if note.versions.length == 0
+        li = "v#{ note.versions.length + 1 } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count), distance: number_with_delimiter(note.distance)) })".html_safe
+      - else
+        li = link_to_unless_current_or_wrap "#{ t('notes.version.title', sequence: note.versions.length + 1) } (#{ timeago_tag note.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(note.word_count), distance: number_with_delimiter(note.distance)) })".html_safe, note_version_path(note, note.versions.length + 1)
+        - note.versions.reverse.each do |version|
+          li = link_to_unless_current_or_wrap "#{ t('notes.version.title', sequence: version.sequence) } (#{ timeago_tag version.reify.external_updated_at }, #{ t('notes.word_count', word_count: number_with_delimiter(version.word_count), distance: number_with_delimiter(version.distance)) })".html_safe, note_version_path(note, version.sequence)

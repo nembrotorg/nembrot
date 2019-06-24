@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe DiffedNoteTagList do
-
+RSpec.describe DiffedNoteTagList do
   before do
     @note = FactoryGirl.create(:note, tag_list: %w(tag1))
     @diffed_note_tag_list = DiffedNoteTagList.new(%w(tag1 tag2 tag3), %w(tag2 tag3 tag4)).list

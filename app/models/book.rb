@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Book < ActiveRecord::Base
-
   include Syncable
 
   has_and_belongs_to_many :notes
@@ -11,12 +10,15 @@ class Book < ActiveRecord::Base
   scope :citable, -> { where('title IS NOT ? AND tag IS NOT ? AND published_date IS NOT ?', nil, nil, nil) }
   scope :editable, -> { order('updated_at DESC') }
   scope :missing_metadata, -> { where('author IS ? OR title IS ? OR published_date IS ?', nil, nil, nil).order('updated_at DESC') }
-  scope :cited, -> { where('title IS NOT ? AND tag IS NOT ?', nil, nil)
-    .joins('left outer join books_notes on books.id = books_notes.book_id')
-    .where('books_notes.book_id IS NOT ?', nil)
-    .uniq } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
+  scope :cited, -> {
+                  where('title IS NOT ? AND tag IS NOT ?', nil, nil)
+                    .joins('left outer join books_notes on books.id = books_notes.book_id')
+                    .where('books_notes.book_id IS NOT ?', nil)
+                    .uniq
+  } # OPTIMIZE: Notes must be active and not hidden (publishable) see http://stackoverflow.com/questions/3875564
 
   validates :isbn_10, :isbn_13, uniqueness: true, allow_blank: true
+  validates :isbn_10, presence: true, if: 'isbn_13.blank?'
   validates :isbn_13, presence: true, if: 'isbn_10.blank?'
   validates :isbn_10, isbn_format: { with: :isbn10 }, allow_blank: true
   validates :isbn_13, isbn_format: { with: :isbn13 }, allow_blank: true
@@ -27,7 +29,7 @@ class Book < ActiveRecord::Base
                     unless: :tag_changed? # || '!tag.blank?'
   before_validation :scan_notes_for_references, if: :tag_changed?
 
-  paginates_per Setting['advanced.books_index_per_page'].to_i
+  paginates_per NB.books_index_per_page.to_i
 
   extend FriendlyId
   friendly_id :tag, use: :slugged
@@ -44,17 +46,16 @@ class Book < ActiveRecord::Base
     isbn_candidate.gsub!(/[^\dX]/, '')
     book = where(isbn_10: isbn_candidate).first_or_create if isbn_candidate.length == 10
     book = where(isbn_13: isbn_candidate).first_or_create if isbn_candidate.length == 13
-    # We can't use dirtify here because this is a class method
-    if book
-      book.dirty = true
-      book.attempts = 0
-      book.save
-      book
+    if book && book.dirty?
+      book.save!
+      SyncBookJob.perform_later(book)
     end
+    rescue ActiveRecord::RecordInvalid => error
+      SYNC_LOG.error "No valid ISBN (#{ book.isbn_10 }, #{ book.isbn_13 })."
   end
 
   def self.sync_all
-    need_syncdown.missing_metadata.each { |book| book.populate! }
+    need_syncdown.missing_metadata.each(&:populate!)
   end
 
   def isbn
@@ -81,51 +82,61 @@ class Book < ActiveRecord::Base
   end
 
   def headline
-    "#{ author_surname }: <cite>#{ short_title }</cite>".html_safe
+    "#{ author_surname }: <span class=\"book\">#{ short_title } </span>".html_safe
   end
 
   # REVIEW: this fails if protected and called through sync_all
   def populate!
-    increment_attempts
     merge_world_cat
     merge_isbndb
     merge_google_books
     merge_open_library
     undirtify(false) unless missing_metadata?
-    SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
-    announce_missing_metadata if missing_metadata? && attempts == Setting['advanced.attempts'].to_i
     save!
+    announce_new_book unless missing_metadata?
+    announce_missing_metadata if missing_metadata?
   end
 
   def merge_world_cat
-    merge(WorldCatRequest.new(isbn).metadata) if Constant.books.world_cat.active?
+    merge(WorldCatRequest.new(isbn).metadata) if NB.world_cat_active == 'true'
   end
 
   def merge_isbndb
-    merge(IsbndbRequest.new(isbn).metadata) if Constant.books.isbndb.active?
+    merge(IsbndbRequest.new(isbn).metadata) if NB.isbndb_active == 'true'
   end
 
   def merge_google_books
-    merge(GoogleBooksRequest.new(isbn).metadata) if Constant.books.google_books.active?
+    merge(GoogleBooksRequest.new(isbn).metadata) if NB.google_books_active == 'true'
   end
 
   def merge_open_library
-    merge(OpenLibraryRequest.new(isbn).metadata) if Constant.books.open_library.active?
+    merge(OpenLibraryRequest.new(isbn).metadata) if NB.open_library_active == 'true'
   end
 
   private
 
   def scan_notes_for_references
     # REVIEW: try checking for setting as an unless: after before_save
-    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if Setting['advanced.books_section'] == 'true'
+    self.notes = Note.where('body LIKE ?', "%#{ tag }%") if NB.books_section == 'true'
   end
 
   def missing_metadata?
     title.blank? || author.blank? || published_date.blank?
   end
 
+  def announce_new_book
+    return if Rails.env == 'test'
+    # FIXME: Use generic option slack_or_email
+    # BookMailer.missing_metadata(self).deliver
+    Slack.ping("New book added: #{ title } by #{ author }. Use as: #{ tag }.", icon_url: NB.logo_url)
+    SYNC_LOG.info I18n.t('books.sync.updated', id: id, author: author, title: title, isbn: isbn)
+  end
+
   def announce_missing_metadata
-    BookMailer.missing_metadata(self).deliver
+    return if Rails.env == 'test'
+    # FIXME: Use generic option slack_or_email
+    # BookMailer.missing_metadata(self).deliver
+    Slack.ping("New book missing metadata. <a href=\"http://#{ NB.host }/bibliography/#{ id }/edit\">Edit</a>.", icon_url: NB.logo_url)
     SYNC_LOG.error I18n.t('books.sync.missing_metadata.logger', id: id, author: author, title: title, isbn: isbn)
   end
 

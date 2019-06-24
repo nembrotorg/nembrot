@@ -20,14 +20,16 @@
  *    Work: Lead Product Designer @ http://kyruus.com
  */
 
-$fontelloPath:   "Fontello/regular" !default
-$borderColor:       #eee !default
-$iconMuted:         #eee !default
+/* http://fontello.com */
+
+$fontelloPath:  "Fontello/regular" !default
+$borderColor:   #eee !default
+$iconMuted:     #eee !default
+
 @mixin border-radius($radius)
   -webkit-border-radius: $radius
   -moz-border-radius: $radius
   border-radius: $radius
-
 
 @font-face
   font-family: 'fontello'
@@ -42,24 +44,24 @@ $iconMuted:         #eee !default
  * includes sprites.less reset */
 
 =icon
-  font-family: fontello
-  font-weight: normal
-  font-style: normal
+  font:
+    family: fontello
+    style: normal
+    weight: normal
   padding-right: 0.5em
-
 
 /* makes the font 33% larger relative to the icon container */
 
 =icon-large
-  vertical-align: -10%
+  //vertical-align: -10%
   font-size: 1.3333333333333333em
 
 =icon-small
-  vertical-align: 5%
+  //vertical-align: 5%
   font-size: 0.6666666666666666em
 
 =icon-medium
-  vertical-align: 2.5%
+  //vertical-align: 2.5%
   font-size: 0.85em
 
 /* For resetting: */
@@ -126,15 +128,7 @@ $iconMuted:         #eee !default
 
 =icon-left
   +icon
-  content: '\e88f'
-
-=icon-left
-  +icon
   content: '\e9c9'
-
-=icon-right
-  +icon
-  content: '\e890'
 
 =icon-right
   +icon
@@ -276,7 +270,7 @@ $iconMuted:         #eee !default
   +icon-left
   border:
     width: 0 0 0 2px
-    style: solid 
+    style: solid
     color: inherit
   padding-left: 1px
 
@@ -284,7 +278,7 @@ $iconMuted:         #eee !default
   +icon-right
   border:
     width: 0 2px 0 0
-    style: solid 
+    style: solid
     color: inherit
   padding-right: 1px
   text-align: right
@@ -344,3 +338,27 @@ $iconMuted:         #eee !default
 =icon-undo
   +icon
   content: '\e81e'
+
+=icon-code
+  +icon
+  content: '\e821'
+
+=icon-radio-button
+  +icon
+  content: '\e822'
+
+=icon-radio-button-selected
+  +icon
+  content: '\e823'
+
+=icon-tumblr
+  +icon
+  content: '\e824'
+
+=icon-mediumcom
+  +icon
+  content: '\e826'
+
+=icon-trello
+  +icon
+  content: '\e827'

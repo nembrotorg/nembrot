@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-
   load_and_authorize_resource
 
   add_breadcrumb I18n.t('books.index.title'), :books_path
@@ -25,7 +24,6 @@ class BooksController < ApplicationController
     @books = Book.cited
     @book = @books.friendly.find(params[:slug])
     @related_books = @books.where(author: @book.author).where('books.id <> ?', @book.id)
-    interrelated_notes_features_and_citations
 
     add_breadcrumb @book.headline, book_path(params[:slug])
 
@@ -61,10 +59,9 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:attempts, :author, :dewey_decimal, :dimensions, :dirty, :editor, :format,
+    params.require(:book).permit(:author, :dewey_decimal, :dimensions, :dirty, :editor, :format,
                                  :full_text_url, :google_books_id, :introducer, :isbn_10, :isbn_13, :lang, :lcc_number,
                                  :library_thing_id, :notes, :open_library_id, :page_count, :pages, :published_city,
                                  :published_date, :publisher, :tag, :title, :translator, :weight)
   end
-
 end

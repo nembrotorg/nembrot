@@ -1,9 +1,8 @@
 # encoding: utf-8
 
-describe BlurbHelper do
-
+RSpec.describe BlurbHelper do
   before(:example) do
-    Setting['advanced.blurb_length'] = 100
+    ENV['blurb_length'] = '100'
   end
 
   describe '#blurb' do
@@ -50,5 +49,4 @@ describe BlurbHelper do
       end
     end
   end
-
 end

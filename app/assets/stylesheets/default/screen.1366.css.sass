@@ -1,0 +1,228 @@
+@media only screen and (min-width: 1366px)
+
+  $column-width: 15px
+  $gutter-width: 28px
+
+  #main > div > nav,
+  #main nav.pagination,
+  footer nav,
+  footer small,
+  #tags,
+  #versions,
+  aside.statistics,
+  .books-show .details
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    clear: both
+
+  #disqus_thread,
+  #comments,
+  ul.user,
+  .registrations-new form, .registrations-edit form,
+  .sessions-new form, .passwords-new form, .confirmations-new form
+    +prefix(6)
+    +suffix(15)
+    +span-columns(15, 36)
+    clear: both
+
+  // #comments > aside > ol > li
+  //   counter-increment: comments 1
+  //   &:before
+  //     +code-font
+  //     color: $off-color
+  //     content: counter(comments)
+  //     display: block
+  //     font-size: $small-font-size
+  //     line-height: $line-height
+  //     padding-right: $text-indent
+  //     position: absolute
+  //     text-align: right
+  //     width: $text-indent * 2
+
+  header[data-title]
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    clear: both
+
+  .citations
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+    blockquote
+      +suffix(12, 24)
+      +span-columns(12, 24)
+
+  .links,
+    +prefix(6)
+    +suffix(18)
+    +span-columns(12, 36)
+
+  .books, .tags-index .tags
+    +prefix(6)
+    +suffix(6)
+    +span-columns(24, 36)
+
+  .home-index
+    .notes
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      padding-right: 0
+      ul
+        +columns($promotions-home-columns)
+        //+column-gap($gutter-width * 1px)
+        +column-gap($text-indent)
+        margin-bottom: 0
+        li
+          +blurb($promotions-home-lines)
+          margin-bottom: $line-height
+
+  .colophon-index
+    .palette
+      margin-bottom: $line-height
+      ul
+        +horizontal-list
+        li
+          +code-font
+          padding-top: $line-height * 2
+    .gems, .palette
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+
+  .books-index, .colophon-index .gems
+    ul
+      +columns(2)
+
+  .tags-index
+    ul
+      +columns(6)
+
+  .citations-show
+    figure.citation
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+      blockquote
+        +suffix(12, 24)
+        +span-columns(12, 24)
+
+  .settings-edit
+    form
+      +prefix(6)
+      +suffix(6)
+      +span-columns(24, 36)
+
+  article
+    section#content
+      +span-columns(36)
+      figure
+        &.image
+          +prefix(6)
+          +suffix(15)
+          +span-columns(15, 36)
+      #introduction
+        +prefix(6)
+        +span-columns(18, 36)
+      #text
+        overflow: visible
+        aside
+          +prefix(6)
+          +span-columns(12, 36)
+        .side-annotations
+          +prefix(18, 18)
+          +span-columns(9, 18)
+          height: 0
+          margin-top: 0
+        &.regular, &.parallel
+          +prefix(6)
+          +span-columns(12, 36)
+        &.enface
+          +prefix(6, 36)
+          +span-columns(30, 36)
+          p
+            line-height: $line-height
+            &:before
+              top: 0
+          .source, p.source
+            +span-columns(12, 30)
+            color: $body-font-color
+            p
+              color: $body-font-color
+          .target, p.target
+            +prefix(12, 30)
+            +span-columns(12, 30)
+            padding-top: 0
+          .side-annotations
+            +prefix(24, 30)
+            +span-columns(6, 30)
+          div
+            overflow: hidden
+      #map
+        +prefix(6)
+        +span-columns(27)
+    #extra
+      +span-columns(9 omega, 36)
+
+  .fade-annotations
+    .side-annotations
+      +fade(0)
+    &:hover
+      .side-annotations
+        +fade(1)
+
+  .ins-section #text .body
+    margin-bottom: $line-height
+    p
+      margin: $line-height/3 0
+      text-indent: 0
+
+  .notes
+    +prefix(6)
+    +suffix(15)
+    +span-columns(15, 36)
+    li
+      +blurb(5, 9, 36)
+      img, iframe
+        width: space(6) auto
+        height: $line-height * 5
+
+  .share
+    display: inline-block
+    margin-bottom: $line-height / 2
+
+  #admin
+    ul
+      bottom: $line-height * 2
+      padding-left: $text-indent
+      position: fixed
+
+  figure.image
+    img
+      height: 390px
+      width: 690px
+
+  #tools
+    background-color: transparent
+    border: none
+    padding-left: $text-indent / 2
+    width: space(6)
+
+  footer
+    margin-bottom: 0
+    small
+      margin-bottom: 0
+
+  iframe
+    +span-columns(18, 36)
+
+  form
+    +span-columns(18)
+    label
+      input
+        left: space(12)
+        padding: 1px 0
+        position: absolute
+        width: space(6)

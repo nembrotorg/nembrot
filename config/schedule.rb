@@ -1,18 +1,13 @@
-set :output, "#{ path }/log/sync.log"
+set :output, "#{ path }/log/daemons.log"
+set :environment, ENV['RAILS_ENV']
+env :PATH, ENV['PATH']
 
-# REVIEW: get times from Settings
-#  require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
-#  require 'rubygems'
-#  every Setting['advanced.synch_every_minutes'].minutes do
+if environment == 'production'
+  every 1.hour do
+    rake 'joegattnet:one_hour'
+  end
 
-every 3.minutes do
-  rake 'sync:all'
-end
-
-every 1.hour do
-  rake 'downgrades:audit'
-end
-
-every 1.day, at: '5:00 am' do
-  rake '-s sitemap:refresh'
+  every 1.day, at: '5:00 am' do
+    rake '-s sitemap:refresh'
+  end
 end

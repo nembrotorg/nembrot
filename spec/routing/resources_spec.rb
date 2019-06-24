@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Routing to resources' do
-
+RSpec.describe 'Routing to resources' do
   it 'routes /resources/cut to resources#cut' do
     expect(get: '/resources/cut/FILENAME-100-200-300-1-0-tri-1.png').to route_to(
       controller: 'resources',

@@ -17,7 +17,7 @@ load_share_links = (page_controller, page_action) ->
     url = encodeURIComponent(location.href)
   else
     $('.share').removeClass('deep-link')
-    title = 'nembrot.org'
+    title = 'joegatt.net'
     url = 'http://' + encodeURIComponent(location.host)
 
   $('#tools a[href*=facebook]').attr('href', 'http://www.facebook.com/share.php?u=' + url + '&title=' + title)

@@ -1,0 +1,198 @@
+# Channel
+evernote_notebooks: '0000000000000000000000000000000'
+host: localhost:3000
+name: joegatt.net
+
+# Basics
+app_name: joegattnet_v3
+assets_version: '1.7'
+blank_image_location: '/public/resources/cut/blank.png'
+cache_minutes: '10'
+daemon_frequency: '30'
+detect_language_sample_length: '250'
+evernote_errors: 'UNKNOWN BAD_DATA_FORMAT PERMISSION_DENIED INTERNAL_ERROR DATA_REQUIRED LIMIT_REACHED QUOTA_REACHED INVALID_AUTH AUTH_EXPIRED DATA_CONFLICT ENML_VALIDATION SHARD_UNAVAILABLE LEN_TOO_SHORT LEN_TOO_LONG TOO_FEW TOO_MANY UNSUPPORTED_OPERATION'
+html_pretty: 'true'
+html_pretty_body: 'true'
+html_sort_attrs: 'true'
+html_tabsize: '2'
+html_format: html
+repository: git://github.com/joegattnet/joegattnet_v3.git
+role_name: joegatt.net
+rtl_langs: 'ar fa'
+stream_binaries: 'false'
+synchronous: 'false'
+version: '0.9'
+
+# Secrets
+database_encryption_key: CHANGE_ME_TO_AT_LEAST_30_RANDOM_ALPHANUMERIC_CHARACTERS_80_OR_SO_IS_BETTER
+detect_language_key: optional
+devise_secret_key: CHANGE_ME_TO_AT_LEAST_30_RANDOM_ALPHANUMERIC_CHARACTERS_80_OR_SO_IS_BETTER
+evernote_key: CHANGE_ME
+evernote_secret: CHANGE_ME
+evernote_username: CHANGE_ME
+facebook_key: optional
+facebook_secret: optional
+github_key: optional
+github_secret: optional
+github_secret: optional
+gplus_key: optional
+isbndb_key: optional
+linkedin_key: optional
+linkedin_secret: optional
+mailer_address: CHANGE_ME
+mailer_domain: CHANGE_ME
+mailer_password: CHANGE_ME
+mailer_port: CHANGE_ME
+mailer_user_name: optional
+secret_key_base: CHANGE_ME_TO_AT_LEAST_30_RANDOM_ALPHANUMERIC_CHARACTERS_80_OR_SO_IS_BETTER
+slack_webhook_url: optional
+twitter_key: optional
+twitter_pantography_access_secret: optional
+twitter_pantography_access_token: optional
+twitter_pantography_key: optional
+twitter_pantography_secret: optional
+twitter_secret: optional
+world_cat_key: optional
+
+#Services
+disqus_public_key: CHANGE_ME
+disqus_shortname: CHANGE_ME_OPTIONAL
+evernote_server: https://sandbox.evernote.com
+facebook_app_id: CHANGE_ME_OPTIONAL
+google_analytics_key: 'UA-0000000-0'
+google_books_active: 'true'
+google_books_domain: https://www.googleapis.com
+google_books_path: /books/v1/volumes
+isbndb_active: 'true'
+isbndb_domain: http://isbndb.com
+isbndb_path: /api/v2/json/
+open_library_active: 'true'
+open_library_domain: http://openlibrary.org
+open_library_path: /api/books
+twitter_user_name: joegattnet
+world_cat_active: 'true'
+world_cat_domain: http://www.worldcat.org
+world_cat_path: /webservices/catalog/content/isbn/
+
+# Settings
+admin_email: CHANGE_ME@CHANGE_ME
+admin_name: CHANGE_ME
+allowed_html_attributes: href src alt cite
+allowed_html_tags: a blockquote cite code del ins li ol ul img strong table tbody td tr
+always_reset_on_create: 'true'
+author: CHANGE_ME
+average_word_length: '5.5'
+blurb_length: '400'
+blurb_omission: ...
+books_index_per_page: '30'
+books_section: 'true'
+cache_buster: '6'
+citation_blurb_length: '230'
+citation_max_length: '9999'
+citation_style: default
+citations_index_per_page: '10'
+comments_native_or_disqus_or_none: native
+contact_email: CHANGE_ME@CHANGE_ME
+css_for_instructions: __FX_POL __SECTION __ENUMERATE  __CURTAIN __CURTAIN_50 __CURTAIN_75 __CURTAIN_100 __CURTAIN_0 __HIDE_HEADER __SHOW_BYLINE
+detect_language_sample_length: '250'
+force_double_quotes: 'true'
+hyper_conform: 'false'
+images_effects: ''
+images_gravity: '0'
+images_name_length: '100'
+images_snap: '0'
+images_standard_aspect_x: '16'
+images_standard_aspect_y: '9'
+images_standard_width: '800'
+instructions_citation: __QUOTE __CITATION
+instructions_collate: __COLLATE
+instructions_default: __TRI
+instructions_feature: __FEATURE
+instructions_feature_first: __FEATURE_FIRST
+instructions_feature_last: __FEATURE_LAST
+instructions_hide: __HIDE
+instructions_hide_image: __HIDE_IMAGE __NO_IMAGE
+instructions_hide_introduction: __HIDE_INTRO __NO_INTRO
+instructions_hide_versions: __HIDE_VERSION_LIST __NO_VERSION_LIST
+instructions_ignore: __IGNORE __HOLD
+instructions_interlinear: __INTERLINEAR
+instructions_link: __CLIP __LINK
+instructions_map: __MAP
+instructions_parallel: __PARALLEL
+instructions_promote: __PROMOTE
+instructions_required: __PUBLISH
+instructions_reset: __RESET
+instructions_unlist: __UNLIST __NO_LIST __SECTION __SOURCE
+instructions_unversion: __UNVERSION __NO_VERSION
+line_height: '28px'
+links_index_per_page: '100'
+links_section: 'true'
+locale: en
+logo_url: http://joegatt.net/logo.png
+notes_index_per_page: '10'
+promotions_home_columns: '2'
+promotions_home_rows: '4'
+promotions_footer: '6'
+share_native_or_iframes_or_none: native
+tags_index_per_page: '120'
+tags_index_style: 'false'
+tags_minimum: '2'
+title_length: '40'
+truncate_after_regexp: --30--
+twitter_user_name: joegattnet
+version_gap_distance: '100'
+version_gap_minutes: '60'
+versions: 'true'
+web_channels: twitter.com/joegattnet facebook.com/joegattnet plus.google.com/+JoegattNet youtube.com/joegatt0net vimeo.com/joegattnet soundcloud.com/joegattnet github.com/joegattnet trello.com/b/ClFWLboi/joegatt-net www.instapaper.com/p/joegattnet medium.com/@joegattnet www.evernote.com/pub/joegatt/joegatt.net
+
+# Palette
+background_color: '#fafafa'
+body_font_color: '#222'
+border_color: '#666'
+caption_color: '#666'
+citation_font_color: '#222'
+count_color: '#900'
+delete_font_color: '#222'
+error_background_color: '#ff4545'
+external_link_hover_color: '#009'
+furniture_color: '#666'
+headline_font_color: '#900'
+font_color: '#222'
+insert_background_color: '#ffff45'
+invalid_background_color: '#ff0'
+link_color: '#222'
+link_hover_color: '#900'
+link_visited_color: '#222'
+map_background_color: '#ccc'
+map_font_color: '#333'
+off_color: '#999'
+row_hover_color: '#ff0'
+secondary_color: '#333'
+selected_background_color: '#ff0'
+selected_font_color: '#222'
+static_url_color: '#090'
+success_background_color: '#45ff45'
+
+# Pantography
+pantography_alphabet: 0123456789.,;:_@!?/#()%'-+= abcdefghijklmnopqrstuvwxyz
+pantography_alphabet_escaped: 0123456789.,;:_@!?/#()%'\-+= abcdefghijklmnopqrstuvwxyz
+pantography_start_date: 'October 28, 2011 08:20:00 GMT'
+pantography_frequency: '3600'
+pantography_max_length: '140'
+pantography_sidereal_year_in_days: '365.256363004'
+pantography_timeline_length: '20'
+pantography_twitter_user_id: '237443494'
+
+test:
+  # Basics
+  host: rspec-tests
+
+staging:
+  # Basics
+  app_name: joegattnet_v3_staging
+  host: staging.joegatt.net
+  name: 'joegatt.net Staging'
+
+production:
+  # Basics
+  host: joegatt.net

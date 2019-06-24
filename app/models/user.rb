@@ -1,7 +1,6 @@
 # See http://www.codebeerstartups.com/2013/10/social-login-integration-with-all-the-popular-social-networks-in-ruby-on-rails/
 
 class User < ActiveRecord::Base
-
   include UserCustom, Tokenable
 
   devise :confirmable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable,
@@ -52,7 +51,7 @@ class User < ActiveRecord::Base
     if auth.provider == 'evernote'
       authorization.extra = auth.extra
       authorization.key = auth.extra.access_token.consumer.key
-      user.role = 'admin' if auth.info.nickname == Secret.auth.evernote.username
+      user.role = 'admin' if auth.info.nickname == NB.evernote_username
     end
 
     user.skip_confirmation!
@@ -89,7 +88,7 @@ class User < ActiveRecord::Base
 
   def public_name
      name || nickname || ''
-     # email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
+    # email.gsub(/\@.*/, '').split(/\.|\-/).join(' ').titlecase
   end
 
   def admin?

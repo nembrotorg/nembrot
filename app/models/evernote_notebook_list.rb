@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteNotebookList
-
   attr_accessor :evernote_auth, :note_store, :list, :user
 
   include Evernotable
@@ -26,12 +25,12 @@ class EvernoteNotebookList
     list_array = []
     list.each do |n|
       list_array.push({
-        name: n.name,
+                        name: n.name,
         guid: n.guid,
         default: n.defaultNotebook,
         shared: (!n.publishing.nil? || n.published? || !n.sharedNotebooks.nil? || !n.businessNotebook.nil?),
         business: !n.businessNotebook.nil?
-      })
+                      })
     end
 
     list_array = list_array.sort_by { |i| i[:name].downcase }
@@ -41,7 +40,7 @@ class EvernoteNotebookList
     return list_array
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
-      return ['AUTH_EXPIRED'] if Constant.evernote_errors[error.errorCode] == 'AUTH_EXPIRED'
+      return ['AUTH_EXPIRED'] if %w(NB.evernote_errors)[error.errorCode] == 'AUTH_EXPIRED'
   end
 
   def cache_key

@@ -1,9 +1,8 @@
 # encoding: utf-8
 
-describe DiffedNoteVersion, versioning: true do
-
+RSpec.describe DiffedNoteVersion, versioning: true do
   before do
-    Setting['advanced.versions'] = 'true'
+    ENV['versions'] = 'true'
     @note = FactoryGirl.create(:note, title: 'First Title', body: 'First body.', tag_list: %w(tag1 tag2 tag3), external_updated_at: 200.minutes.ago)
     @note.update_attributes(title: 'Second Title', body: 'Second body.', tag_list: %w(tag2 tag3 tag4), external_updated_at: 100.minutes.ago)
     @note.update_attributes(title: 'Third Title', body: 'Third body.', tag_list: %w(tag3 tag4 tag5), external_updated_at: 1.minute.ago)
@@ -62,5 +61,4 @@ describe DiffedNoteVersion, versioning: true do
     its(:tag_list) { is_expected.to eq(%w(tag3 tag4 tag5)) }
     its(:previous_tag_list) { is_expected.to eq(%w(tag2 tag3 tag4)) }
   end
-
 end

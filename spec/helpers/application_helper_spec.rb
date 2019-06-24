@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe ApplicationHelper do
-
+RSpec.describe ApplicationHelper do
   describe '#lang_attr' do
     before { I18n.locale = 'en' }
     it 'should return the language if different from locale' do
@@ -13,7 +12,7 @@ describe ApplicationHelper do
   end
 
   describe '#body_dir_attr' do
-    before { Constant['rtl_langs'] = 'ar' }
+    before { ENV['rtl_langs'] = 'ar' }
     it 'should return "rtl" if language is rtl' do
       expect(body_dir_attr('ar')).to eq('rtl')
     end
@@ -26,7 +25,7 @@ describe ApplicationHelper do
     before { I18n.enforce_available_locales = false }
     context 'when the note is in the default language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         I18n.locale = 'ar'
       end
       it 'returns "ltr" if language is not the same as locale, and is ltr' do
@@ -38,7 +37,7 @@ describe ApplicationHelper do
     end
     context 'when the note is not in the default language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         I18n.locale = 'en'
       end
       it 'returns nil if language is the same as locale' do
@@ -55,7 +54,9 @@ describe ApplicationHelper do
     specify { expect(embeddable_url('http://youtube.com?v=ABCDEF')).to eq('http://www.youtube.com/embed/ABCDEF?rel=0') }
     specify { expect(embeddable_url('http://vimeo.com/video/ABCDEF')).to eq('http://player.vimeo.com/video/ABCDEF') }
     specify { expect(embeddable_url('http://vimeo.com/ABCDEF')).to eq('http://player.vimeo.com/video/ABCDEF') }
-    specify do expect(embeddable_url('http://soundcloud.com?v=ABCDEF'))
-              .to eq('http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF') end
+    specify do 
+      expect(embeddable_url('http://soundcloud.com?v=ABCDEF'))
+        .to eq('http://w.soundcloud.com/player/?url=http://soundcloud.com?v=ABCDEF') 
+    end
   end
 end

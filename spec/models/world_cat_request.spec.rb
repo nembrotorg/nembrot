@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe WorldCatRequest do
-
+RSpec.describe WorldCatRequest do
   context 'when a book is found:' do
     before do
       @world_cat_book = WorldCatRequest.new('0804720991')

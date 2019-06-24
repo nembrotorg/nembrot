@@ -1,0 +1,6 @@
+nav.sequential_nav
+  ol
+    li= link_to_unless_current_or_wrap t('site.nav.first'), object.first_path, rel: 'first'
+    li= link_to_unless_current_or_wrap t('site.nav.previous'), object.previous_path, rel: 'previous'
+    li= link_to_unless_current_or_wrap t('site.nav.next'), object.next_path, rel: 'next'
+    li= link_to_unless_current_or_wrap t('site.nav.last'), object.last_path, rel: 'last'

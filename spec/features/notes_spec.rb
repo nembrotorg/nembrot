@@ -1,19 +1,18 @@
 # encoding: utf-8
 
-describe 'Notes' do
-
-  # REVIEW: Refactor this, use describe and consistent selectors
+RSpec.describe 'Notes' do
+  # REVIEW: Refactor this, use RSpec.describe and consistent selectors
 
   include ResourcesHelper
 
   before(:example) do
-    Constant['rtl_langs'] = 'ar'
-    Setting['advanced.blurb_length'] = 40
-    Setting['advanced.instructions_map'] = '__MAP'
-    Setting['advanced.tags_minimum'] = 1
-    Setting['advanced.versions'] = 'true'
-    Setting['advanced.version_gap_distance'] = 10
-    Setting['advanced.version_gap_minutes'] = 60
+    ENV['rtl_langs'] = 'ar'
+    ENV['blurb_length'] = '40'
+    ENV['instructions_map'] = '__MAP'
+    ENV['tags_minimum'] = '1'
+    ENV['versions'] = 'true'
+    ENV['version_gap_distance'] = '10'
+    ENV['version_gap_minutes'] = '60'
   end
 
   describe 'index page' do
@@ -100,8 +99,8 @@ describe 'Notes' do
 
   describe 'show page' do
     before do
-      Setting['advanced.versions'] = 'true'
-      Setting['advanced.tags_minimum'] = 1
+      ENV['versions'] = 'true'
+      ENV['tags_minimum'] = '1'
       @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
       @note.tag_list = ['tag1']
       @note.save
@@ -137,7 +136,7 @@ describe 'Notes' do
 
     context 'when versions are turned off' do
       before do
-        Setting['advanced.versions'] = false
+        ENV['versions'] = 'false'
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
         visit note_path(@note)
       end
@@ -147,7 +146,7 @@ describe 'Notes' do
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
-      before { Setting['advanced.tags_minimum'] = 10 }
+      before { ENV['tags_minimum'] = '10' }
       it 'should not have a link to tag1' do
         # # pending "page.should_not have_link('tag1', href: '/tags/tag1')"
       end
@@ -234,7 +233,7 @@ describe 'Notes' do
 
     context 'when a note is in an RTL language' do
       before do
-        Constant['rtl_langs'] = 'ar'
+        ENV['rtl_langs'] = 'ar'
         @note = FactoryGirl.create(:note, external_updated_at: 200.minutes.ago)
         I18n.locale = 'en'
         @note.instruction_list = ['__LANG_AR']
@@ -274,7 +273,7 @@ describe 'Notes' do
 
     context 'when a note has a reference to a book' do
       before do
-        Setting['advanced.books_section'] = 'true'
+        ENV['books_section'] = 'true'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)
@@ -286,7 +285,7 @@ describe 'Notes' do
 
     context 'when a books section is turned off' do
       before do
-        Setting['advanced.books_section'] = 'false'
+        ENV['books_section'] = 'false'
         @book = FactoryGirl.create(:book)
         @note.update_attributes(body: "This note contains a reference to #{ @book.tag }.")
         visit note_path(@note)
@@ -296,31 +295,7 @@ describe 'Notes' do
       end
     end
 
-    context 'when a note has a reference to a link' do
-      before do
-        Setting['advanced.links_section'] = 'true'
-        @link = FactoryGirl.create(:link)
-        @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
-        visit note_path(@note)
-      end
-      it 'should link to the link page' do
-        expect(page).to have_css("#content a[href='#{ link_path(@link) }']")
-      end
-    end
-
-    context 'links section is turned off' do
-      before do
-        Setting['advanced.links_section'] = 'false'
-        @link = FactoryGirl.create(:link)
-        @note.update_attributes(body: "This note contains a reference to #{ @link.url }.")
-        visit note_path(@note)
-      end
-      it 'should not link to a link page' do
-        expect(page).not_to have_css("#content a[href='#{ link_path(@link) }']")
-      end
-    end
-
-    context 'when a note has a reference to another note (using path)' do
+    context 'when a note has a reference to another note (using path)' do ####
       before do
         @reference = FactoryGirl.create(:note)
         @note.update_attributes(body: "This note contains a reference to {link: #{ note_path(@reference) }}.")
@@ -344,7 +319,7 @@ describe 'Notes' do
 
     context 'when a note has a reference to a citation' do
       before do
-        @citation = FactoryGirl.create(:note, is_citation: true)
+        @citation = FactoryGirl.create(:note, content_type: 1)
         @note.update_attributes(body: "This note contains a reference to {link: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
@@ -366,7 +341,7 @@ describe 'Notes' do
 
     context 'when a note contains a blurb for a citation' do
       before do
-        @reference = FactoryGirl.create(:note, is_citation: true)
+        @reference = FactoryGirl.create(:note, content_type: 1)
         @note.update_attributes(body: "This note contains a reference to {blurb: #{ citation_path(@reference) }}.")
         visit note_path(@note)
       end
@@ -375,10 +350,10 @@ describe 'Notes' do
       end
     end
 
-    context 'when a note contains another note' do
+    context 'when a note contains another note' do ####
       before do
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
+        @note.update_attributes(body: "This note contains a reference to {text: #{ note_path(@reference) }}.")
         visit note_path(@note)
       end
       it 'should contain the other note' do
@@ -390,7 +365,7 @@ describe 'Notes' do
       before do
         @nested_reference = FactoryGirl.create(:note)
         @reference = FactoryGirl.create(:note)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ note_path(@reference) }}.")
+        @note.update_attributes(body: "This note contains a reference to {text: #{ note_path(@reference) }}.")
         visit note_path(@note)
       end
       it 'should contain the text of the nested note' do
@@ -400,12 +375,12 @@ describe 'Notes' do
 
     context 'when a note contains a citation' do
       before do
-        @citation = FactoryGirl.create(:note, is_citation: true)
-        @note.update_attributes(body: "This note contains a reference to {insert: #{ citation_path(@citation) }}.")
+        @citation = FactoryGirl.create(:note, body: 'Citation text', content_type: 1, instruction_list: ['__PUBLISH', '__QUOTE'])
+        @note.update_attributes(body: "This note contains a reference to {text: #{ citation_path(@citation) }}.")
         visit note_path(@note)
       end
       it 'should contain the citation' do
-        # # pending 'page.should have_text(@reference.body)'
+        expect(page).to have_text('Citation text')
       end
     end
 
@@ -482,14 +457,11 @@ describe 'Notes' do
       @note.external_updated_at = 100.minutes.ago
       @note.save
       @note.title = 'Newest title'
-      @note.body = 'Newest body'
+      @note.body = 'Newest body with extra characters'
       @note.tag_list = ['tag2']
       @note.external_updated_at = 1.minute.ago
       @note.save
       visit note_version_path(@note, 3)
-    end
-    it 'should have the note title as title' do
-      expect(page).to have_selector('h1', text: '<del>Newer</del><ins>Newest</ins> title v3')
     end
     it 'should not have the language attribute (if note is in default language)' do
       expect(page).not_to have_css('#content[lang=en]')
@@ -504,12 +476,12 @@ describe 'Notes' do
       expect(page).to have_link(I18n.t('tags.index.title'), href: tags_path)
     end
     it 'should have a diffed title' do
-      expect(page).to have_selector('del', text: 'Newer')
-      expect(page).to have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('h1 del', text: 'Newer')
+      expect(page).to have_selector('h1 ins', text: 'Newest')
     end
     it 'should have a diffed body' do
-      expect(page).to have_selector('del', text: 'Newer')
-      expect(page).to have_selector('ins', text: 'Newest')
+      expect(page).to have_selector('.body del', text: 'Newer')
+      expect(page).to have_selector('.body ins', text: 'Newest')
     end
     it 'should have diffed tags' do
       expect(page).to have_selector('del', text: 'tag1')
@@ -542,7 +514,7 @@ describe 'Notes' do
   end
 
   # REVIEW: Test this on all pages using behaves like
-  # describe 'promotions' do
+  # RSpec.describe 'promotions' do
   #   before do
   #     @note = FactoryGirl.create(:note, instruction_list: ['__PROMOTE'])
   #     visit notes_path

@@ -1,0 +1,98 @@
+en:
+
+  notes:
+    index:
+      title: 'Texts'
+      statistics:
+        zero: "0 texts."
+        one: "1 text (%{word_count} words)."
+        other: "%{count} texts (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
+    map:
+      title: 'Texts'
+      statistics:
+        zero: "0 mapped texts."
+        one: "1 mapped text."
+        other:  "%{count} mapped texts."
+      other_view_html: " <a href=\"%{path}\">See list</a>."
+    show:
+      title: "Text %{id}"
+      downloads_title: 'Downloads'
+      versions_title: 'Versions'
+      not_found: "Text %{id} is not available."
+    version:
+      title: "v%{sequence}"
+      title_html: "%{title} v%{sequence}"
+      full: "Text %{id} v%{sequence}"
+      not_found: "Text %{id} v%{sequence} is not available."
+    word_count: '%{word_count} words, <span title="Damerau-Levenshtein edit distance between this version and the previous one">%{distance} changes</span>'
+    untitled_synonyms: ['Untitled', 'Untitled Note', 'New Note']
+    sections:
+      annotations: 'Annotations'
+      downloads: 'Downloads'
+    sync:
+      updated: "%{provider}: text %{id} (%{title}) UPDATED."
+      rejected:
+        version_not_ok: "%{provider}: text %{guid} failed! The SDK is out of date."
+        not_authenticated: "%{provider}: text %{guid} rejected! Your %{provider} API key is not authenticated."
+        not_in_textbook: "%{provider}: text %{guid} rejected! Not in required textbook."
+        deleted_text: "%{provider}: text %{guid} rejected! Text has been deleted from cloud textbook."
+        tag_missing: "%{provider}: text %{guid} (%{title}) rejected! Missing required tag."
+        ignore: "%{provider}: text %{guid} (%{title}) rejected! Contains instructions to ignore."
+        not_latest: "%{provider}: text %{guid} (%{title}) rejected! Already have latest version."
+      update_error: "%{provider}: text %{guid} failed on database update!"
+      failed:
+        logger: "%{provider}: text %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: text %{guid} failed on database update!"
+          body: "%{provider}: text %{guid} for user %{username} failed on database update!"
+      conflicted:
+        warning_string: 'Conflicting modification on'
+        logger: "%{provider}: conflicted text %{guid} (%{title}) failed on database update!"
+        email:
+          subject: "%{provider}: conflicted text '%{title}' failed on database update!"
+          body: "%{provider}: text '%{title}' [%{guid}] for user %{username} failed on database update!\\n\\nThere is a synchronisation conflict in the text content."
+
+  settings:
+    edit:
+      advanced_header: 'Advanced settings'
+      channel_header: 'Channel settings'
+      failure: 'Update failed!'
+      style_header: 'Style settings'
+      success: 'Settings updated successfully!'
+      title: 'Settings'
+      reset:
+        confirm: 'Are you sure you want to reset these settings?'
+        label_advanced: 'Reset advanced settings'
+        label_channel: 'Reset channel settings'
+        label_style: 'Reset style settings'
+    reset:
+      success_channel: 'Advanced settings have been reset!'
+      success_channel: 'Channel settings have been reset!'
+      success_style: 'Style settings have been reset!'
+
+  tags:
+    index:
+      title: 'Tags'
+      statistics:
+        zero: "0 tags."
+        one: "1 tag (%{references_count} references)."
+        other: "%{count} tags (%{references_count} references)."
+    show:
+      title: "Tag: \"%{name}\""
+      title_short: "%{name}"
+      not_found: "Tag: %{slug} is not available."
+      statistics:
+        zero: "0 texts."
+        one: "1 text (%{word_count} words)."
+        other: "%{count} texts (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See map</a>."
+    map:
+      title: 'Texts'
+      title_short: "%{name}"
+      not_found: "Tag: %{slug} is not available."
+      statistics:
+        zero: "0 mapped texts."
+        one: "1 mapped text (%{word_count} words)."
+        other: "%{count} mapped texts (%{word_count} words)."
+      other_view_html: " <a href=\"%{path}\">See list</a>."

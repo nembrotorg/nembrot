@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe CloudNoteMailer do
+RSpec.describe CloudNoteMailer do
   describe '.syncdown_note_failed' do
     let(:provider) { 'PROVIDER01' }
     let(:guid) { 'USER01' }
@@ -15,15 +15,15 @@ describe CloudNoteMailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eq([Setting['advanced.admin_email']])
+      expect(mail.to).to eq([ENV['admin_email']])
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq([Setting['advanced.admin_email']])
+      expect(mail.from).to eq([ENV['admin_email']])
     end
 
     it 'assigns @name' do
-      expect(mail.body.encoded).to match(Setting['advanced.admin_name'])
+      expect(mail.body.encoded).to match(ENV['admin_name'])
     end
 
     it 'assigns @user' do

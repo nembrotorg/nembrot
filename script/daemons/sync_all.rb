@@ -7,5 +7,5 @@ loop do
   Resource.sync_all_binaries
   Book.sync_all
   Link.sync_all
-  sleep Constant.daemon_frequency.to_i
+  sleep NB.daemon_frequency.to_i
 end

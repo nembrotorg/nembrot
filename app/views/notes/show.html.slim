@@ -1,64 +1,56 @@
-- document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
-- set_meta_tags title: document_title,
-                description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
-                open_graph: { title: @note.title }
-- set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
-- set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
+- cache [cache_buster(1), @note, @feature_notes, @map, @source, @tags, commontator_thread(@note)] do
 
-div class="#{ controller.controller_name }-#{ controller.action_name }"
+  - document_title = "#{ @note.headline } | #{ t('.title', id: @note.id) } | #{ t('site.title') }"
+  - set_meta_tags title: document_title,
+                  description: "#{ @note.introduction.blank? ? @note.body : @note.introduction }",
+                  open_graph: { title: @note.title }
+  - set_meta_tags 'geo.position' => "#{ @note.inferred_latitude }; #{ @note.inferred_longitude }" unless @note.inferred_latitude.nil?
+  - set_meta_tags 'google' => 'notranslate' if @note.has_instruction?('no_translate') || !@source.nil?
 
-  nav = render_breadcrumbs builder: ::OrderedListBuilder
+  div class="#{ controller.controller_name }-#{ controller.action_name }"
+    nav = render_breadcrumbs builder: ::OrderedListBuilder
 
-  article class=css_instructions(@note.instruction_list)
+    article class=css_instructions(@note.instruction_list)
+      = render 'header', title: @note.main_title, subtitle: @note.subtitle, document_title: document_title
 
-    = render 'header', title: @note.main_title, subtitle: @note.subtitle, document_title: document_title
+      section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+        = render 'shared/images', note: @note, type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+        = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
 
-    section#content lang=lang_attr(@note.lang) dir=dir_attr(@note.lang)
+        - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
+          section#introduction
+            p == @note.introduction
 
-      = render 'shared/images', images: @note.resources.attached_images.first(Setting['style.note_images_number'].to_i), type: :standard unless @note.resources.attached_images.empty? || @note.has_instruction?('hide_image')
+        - if @source.nil?
+          section#text.regular
+            = bodify(@note.body, @note.books)
 
-      = render 'shared/media', url: @note.source_url if @note.is_embeddable_source_url
+        - elsif @note.has_instruction?('collate')
+          section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
+            = bodify_collate(@source.body, @note.body, @source.lang, @note.books)
 
-      - unless @note.introduction.blank? || @note.has_instruction?('hide_introduction')
-        section#introduction
-          p == @note.introduction
+        - else
+          section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
+            section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
+              = bodify(@source.body, [], '', '', false)
 
-      - if @source.nil?
-        section#text.regular
-          = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+            section.target
+              = bodify(@note.body, @note.books)
 
-      - elsif @note.has_instruction?('collate')
-        section#text class="parallel collate#{ @note.has_instruction?('interlinear') ? '' : ' enface'  }"
-          = bodify_collate(@source.body, @note.body, @source.lang, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+          / Collated
 
-      - else
-        section#text class="parallel#{ @note.has_instruction?('interlinear') ? '' : ' enface' }"
-          section.source lang=lang_attr(@source.lang) dir=dir_attr(@source.lang)
-            = bodify(@source.body, [], [], [], [], '', '', false)
+          = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
 
-          section.target
-            = bodify(@note.body, @note.books, @note.links, @all_interrelated_notes_and_features, @all_interrelated_citations)
+        = render 'shared/map', map: @map unless @map.nil?
 
-        / Collated
+        - unless @note.is_section
+          aside
+            = render 'notes/tag_list', tags: @tags unless @tags.empty?
+            = render 'notes/versions_list', note: @note if NB.versions == 'true'
+            = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
 
-        = render 'downloads', downloads: @note.resources.attached_files unless @note.resources.attached_files.empty?
+    - if NB.comments_native_or_disqus_or_none == 'native'
+       section#comments = commontator_thread(@note)
 
-      = render 'shared/map', map: @map unless @map.nil?
-
-      - unless @note.is_section
-
-        aside
-
-          = render 'notes/tag_list', tags: @tags unless @tags.empty?
-
-          -# = render 'notes/related_notes_and_citations', note: @note
-
-          = render 'notes/versions_list', note: @note if Setting['advanced.versions']
-
-          = render 'notes/feature_headlines_list', notes: @feature_notes if @note.is_feature?
-
-  - unless @note.is_section || Setting['advanced.comments_native_or_disqus_or_none'] == 'none'
-
-    section#comments = commontator_thread(@note) if Setting['advanced.comments_native_or_disqus_or_none'] == 'native'
-
-    = render 'disqus' if Setting['advanced.comments_native_or_disqus_or_none'] == 'disqus'
+    - if NB.comments_native_or_disqus_or_none == 'disqus'
+       = render 'disqus'

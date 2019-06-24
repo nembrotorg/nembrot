@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe HomeController do
+RSpec.describe HomeController do
   describe 'GET #index' do
     it 'renders the :index view' do
       get :index

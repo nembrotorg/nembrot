@@ -1,14 +1,14 @@
-ul
-  - if user_signed_in?
-    li.signed_in title="Signed in as #{ current_user.public_name }"
-      = link_to current_user.public_name, edit_user_registration_path
+- cache [cache_buster(1)] do
 
-  - else
-    li= link_to t('tools.sign_in'), new_user_session_path
+  ul
+    - if user_signed_in?
+      li.signed_in title="Signed in as #{ current_user.public_name }"
+        = link_to current_user.public_name, edit_user_registration_path
+    - else
+      li= link_to t('tools.sign_in'), new_user_session_path
+    -# Add sign-in status CSS class to body and CSRF token meta tags
+    javascript:
+      $('body').removeClass('signed-out').addClass("#{user_signed_in? ? 'signed-in' : 'signed-out' }");
 
--# Add sign-in status CSS class to body and CSRF token meta tags
-javascript:
-  $('body').removeClass('signed-out').addClass("#{user_signed_in? ? 'signed-in' : 'signed-out' }");
-
-  $('head').append('#{ tag('meta', name: 'csrf-param', content: request_forgery_protection_token).html_safe }');
-  $('head').append('#{ tag('meta', name: 'csrf-token', content: form_authenticity_token).html_safe }');
+      $('head').append('#{ tag('meta', name: 'csrf-param', content: request_forgery_protection_token).html_safe }');
+      $('head').append('#{ tag('meta', name: 'csrf-token', content: form_authenticity_token).html_safe }');

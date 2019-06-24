@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class EvernoteRequest
-
   include EvernoteRequestCustom, Evernotable
 
   attr_accessor :data, :evernote_note, :evernote_auth, :note, :guid, :cloud_note_metadata, :cloud_note_data,
@@ -15,22 +14,19 @@ class EvernoteRequest
     self.evernote_auth = evernote_note.evernote_auth
 
     unless evernote_note.destroyed? # REVIEW: evernote_note could have been destroyed by #evernote_auth
-      self.evernote_note.increment_attempts
-
       self.cloud_note_metadata = note_store.getNote(oauth_token, guid, false, false, false, false)
 
       update_note if update_necessary? && note_is_not_conflicted?
     end
 
     rescue Evernote::EDAM::Error::EDAMUserException => error
-      evernote_note.max_out_attempts
-      SYNC_LOG.error "EDAMUserException: #{ Constant.evernote_errors[error.errorCode] } #{ error.parameter }"
+      SYNC_LOG.error "EDAMUserException: #{ %w(NB.evernote_errors)[error.errorCode] } #{ error.parameter }"
     rescue Evernote::EDAM::Error::EDAMNotFoundException => error
       evernote_note.note.destroy! unless evernote_note.note.nil?
       evernote_note.destroy! unless evernote_note.nil?
       SYNC_LOG.error "Evernote: Not Found Exception: #{ error.identifier }: #{ error.key }. (Destroyed.)"
     rescue Evernote::EDAM::Error::EDAMSystemException => error
-      SYNC_LOG.error "Evernote: User Exception: #{ error.identifier }: #{ error.key }."
+      SYNC_LOG.error "Evernote: User Exception: #{ error }."
   end
 
   def update_necessary?
@@ -45,7 +41,8 @@ class EvernoteRequest
     evernote_note.note.save!
     update_resources_with_evernote_data(cloud_note_data)
     update_evernote_note_with_evernote_data(cloud_note_data)
-    SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.type } #{ evernote_note.note.id }."
+    Slack.ping("#{ logger_details[:title] } saved as #{ evernote_note.note.content_type } #{ evernote_note.note.id }.", icon_url: NB.logo_url)    
+    SYNC_LOG.info "#{ logger_details[:title] } saved as #{ evernote_note.note.content_type } #{ evernote_note.note.id }."
   end
 
   def update_necessary_according_to_note?
@@ -74,7 +71,7 @@ class EvernoteRequest
 
   def cloud_note_updated?
     updated = evernote_note.update_sequence_number.blank?
-    updated = updated || (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
+    updated ||= (evernote_note.update_sequence_number < cloud_note_metadata.updateSequenceNum)
     # updated = updated || 
     unless updated
       evernote_note.undirtify
@@ -89,7 +86,7 @@ class EvernoteRequest
   end
 
   def cloud_note_has_required_tags?
-    has_required_tags = !(Setting['advanced.instructions_required'].split(/, ?| /) & cloud_note_tags).empty?
+    has_required_tags = !(NB.instructions_required.split(/, ?| /) & cloud_note_tags).empty?
     unless has_required_tags
       evernote_note.note.destroy!
       SYNC_LOG.info I18n.t('notes.sync.rejected.tag_missing', logger_details)
@@ -98,7 +95,7 @@ class EvernoteRequest
   end
 
   def cloud_note_is_not_ignorable?
-    not_ignorable = (Setting['advanced.instructions_ignore'].split(/, ?| /) & cloud_note_tags).empty?
+    not_ignorable = (NB.instructions_ignore.split(/, ?| /) & cloud_note_tags).empty?
     unless not_ignorable
       SYNC_LOG.info I18n.t('notes.sync.rejected.ignore', logger_details)
       evernote_note.undirtify
@@ -151,11 +148,9 @@ class EvernoteRequest
 
   def update_evernote_note_with_evernote_data(cloud_note_data)
     evernote_note.update_attributes!(
-      attempts: 0,
       content_hash: cloud_note_data.contentHash,
       dirty: false,
       note_id: evernote_note.note.id,
-      try_again_at: 100.years.from_now,
       update_sequence_number: cloud_note_data.updateSequenceNum
     )
   end
@@ -181,8 +176,7 @@ class EvernoteRequest
       cloud_resources = cloud_resources.sort_by { |i| resources_order_in_content.index i.data.bodyHash.unpack('H*').first }
 
       cloud_resources.each_with_index do |cloud_resource, index|
-
-        if cloud_resource.width.nil? || cloud_resource.width > Setting['style.images_min_width'].to_i
+        if cloud_resource.width.nil? || cloud_resource.width > NB.images_min_width.to_i
           resource = evernote_note.note.resources.where(cloud_resource_identifier: cloud_resource.guid).first_or_initialize
 
           caption = captions[index] ? captions[index][0] : ''
@@ -195,5 +189,4 @@ class EvernoteRequest
       end
     end
   end
-
 end

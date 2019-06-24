@@ -9,7 +9,7 @@ fix_collated_paragraph_heights = ->
         source.css 'word-spacing': '0px'
         target.css 'word-spacing': '0px'
         source.css 'letter-spacing': '0px'
-        target.css 'letter-spacing': '0px'  
+        target.css 'letter-spacing': '0px'
       shorter = (if source.outerHeight(false) < target.outerHeight(false) then source else target)
       longer = (if source.outerHeight(false) > target.outerHeight(false) then source else target)
       if shorten
@@ -24,18 +24,3 @@ fix_collated_paragraph_heights = ->
     return
 
 window.Nembrot.fix_collated_paragraph_heights = fix_collated_paragraph_heights
-
-# Document hooks ******************************************************************************************************
-
-$(document).ready ->
-  setTimeout fix_collated_paragraph_heights, 2000
-
-$ ->
-  $(document).on 'pjax:success', '#main', (data) ->
-    fix_collated_paragraph_heights()
-
-  $(window).on 'popstate', ->
-    fix_collated_paragraph_heights()
-
-  $(window).on 'resize', ->
-    fix_collated_paragraph_heights()

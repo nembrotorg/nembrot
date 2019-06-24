@@ -1,0 +1,17 @@
+- cache [cache_buster(1), link] do
+
+  - blurb_length = blurb_length || NB.blurb_length.to_i
+  - headline, blurb = blurb(link.main_title, link.subtitle, link.clean_body, link.introduction, blurb_length)
+  - url_title = link.url_title || headline
+  - url_lede = link.url_lede || blurb
+
+  = link_to link.inferred_url, lang: lang_attr(link.lang), dir: dir_attr(link.lang), title: link.inferred_url do
+    h2 = simple_blurbify_link(url_title)
+    p = blurbify(url_lede, [])
+
+  ul.details
+    li = link_to link.inferred_url_domain, link.inferred_url, title: "#{ link.inferred_url } (Acessed: #{ link.external_updated_at.to_formatted_s(:long) })"
+    - unless link.url_author.blank?
+      li = link.url_author
+    - unless link.tags.blank?
+      li = render 'notes/tag_list', tags: link.tags, simple: true

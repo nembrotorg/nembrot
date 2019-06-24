@@ -1,0 +1,223 @@
+@media only screen and (min-width: 720px)
+
+  body
+    padding-top: $line-height / 2
+
+  .breadcrumb
+    li
+      &:last-child
+        display: inline
+        .book
+          font-style: normal
+
+  #main,
+  .hello-world,
+  footer
+    margin: 0 auto $line-height auto
+    ul
+      &.promotions, &.sections
+        margin-bottom: 0
+
+  #tools
+    bottom: 0
+    li.menu
+      display: none
+
+  form
+    +span-columns(18)
+    label
+      input
+        left: space(15)
+        position: absolute
+        width: space(9)
+
+  header[data-title]
+    height: $line-height * 3
+    margin-bottom: $line-height
+    margin-top: $line-height
+    position: relative
+    #notice
+      position: absolute
+      top: $line-height
+    h1
+      margin: 0
+    h2
+      margin-top: $line-height
+
+  iframe
+    clear: both
+    &[src*='vimeo'],
+    &[src*='youtube']
+      height: $line-height * 16
+    &[src*='soundcloud.com']
+      height: $line-height * 6
+    &[src*='soundcloud.com%2Fplaylist']
+      height: $line-height * 15
+
+  .citations, .links
+    +span-columns(27)
+    +suffix(3)
+    a
+      display: block
+      &:hover
+        blockquote, blockquote:before, figcaption
+          color: $link-hover-color
+
+  .citations
+    blockquote
+      height: $line-height * 3
+
+  .links
+    a:hover
+      h2, p
+        color: $external-link-hover-color
+    p
+      height: $line-height * 2
+      overflow: hidden
+
+  .notes
+    li
+      +blurb(5, 4)
+
+  ul.user
+    clear: both
+    a
+      text-transform: lowercase
+      &:before
+        +icon-right
+        +icon-small
+
+  article
+    figure
+      &.image
+        margin-bottom: $line-height
+        figcaption
+          padding-top: $line-height / 2
+      &.ins-fx-pol
+        figcaption
+          display: none
+      .map_container
+        #map
+          height: $line-height * 6
+          margin-bottom: $line-height * 2/3
+    aside
+      +span-columns(36)
+
+    #text
+      +span-columns(24)
+      +font-color($body-font-color)
+      counter-reset: term
+      overflow: visible
+      position: relative
+      p
+        position: relative
+      .body
+        +span-columns(24, 24)
+      #annotations
+        +prefix(24, 24)
+        +span-columns(12, 24)
+        li
+          +hyphens
+          font:
+            size: $small-font-size
+      .side-annotations
+        position: relative
+        ol
+          display: block
+          padding-left: 0
+          li
+            +font-color($headline-font-color, $headline-font-color)
+            display: block
+            position: absolute
+            a[href*=annotation-mark]
+              font:
+                size: $small-font-size
+              // line-height: 0
+              // padding-right: 2px
+              // text-align: right
+              // vertical-align: super
+              width: $text-indent - 2px
+              &:after
+                content: '. '
+
+      // Reset indent on annotations
+      .side-annotations
+        li
+          text-indent: 0
+          a
+            text-indent: 0
+            &[href*=annotation-mark]
+              display: inline
+              padding-right: 0
+              text-align: left
+              width: auto
+
+      .aside
+        clear: both
+    &:hover
+      #text
+        a
+          background:
+            color: transparent
+            image: linear-gradient(to bottom, rgba($body-font-color,0) 50%, rgba($body-font-color,0.6) 50%)
+            position: 0 ($line-height * 2/3)
+            repeat: repeat-x
+            size: 2px 2px
+          color: $body-font-color
+          text:
+            decoration: none
+            shadow: 0.03em 0 $background-color, -0.03em 0 $background-color, 0 0.03em $background-color, 0 -0.03em $background-color, 0.06em 0 $background-color, -0.06em 0 $background-color, 0.09em 0 $background-color, -0.09em 0 $background-color, 0.12em 0 $background-color, -0.12em 0 $background-color, 0.15em 0 $background-color, -0.15em 0 $background-color
+          &[id^=annotation], &[href^='#annotation']
+            text-decoration: none
+          &:hover
+            background:
+              image: linear-gradient(to bottom, rgba($link-hover-color,0) 50%, rgba($link-hover-color,0.6) 50%)
+            color: $link-hover-color
+            &[href^='http']
+              background:
+                image: linear-gradient(to bottom, rgba($external-link-hover-color,0) 50%, rgba($external-link-hover-color,0.6) 50%)
+              color: $external-link-hover-color
+    &[dir=rtl]
+      header
+        +span-columns(18)
+
+  .books-edit, .books-update
+    .tools
+      +span-columns(18)
+      ul
+        margin: 0
+
+  .books-show
+    .details
+      margin-bottom: $line-height
+      p
+        margin: 0
+        &.main
+          font-weight: bold
+
+  .citations-show
+    figure.citation
+      +span-columns(27, 36)
+      margin-bottom: $line-height
+      blockquote
+        +span-columns(18, 27)
+        +suffix(9, 27)
+        margin-bottom: $line-height
+
+  .tags-index
+    ul
+      +columns(4)
+
+  footer
+    nav
+      ul
+        &.promotions
+          +span-columns(12)
+        &.sections
+          +columns(2)
+          +span-columns(12)
+        &.channels
+          +columns(2)
+          +span-columns(12 omega)
+    small
+      +span-columns(36)

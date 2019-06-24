@@ -1,9 +1,8 @@
 # encoding: utf-8
 
-describe 'Tags pages' do
-
+RSpec.describe 'Tags pages' do
   before do
-    Setting['advanced.tags_minimum'] = 1
+    ENV['tags_minimum'] = '1'
     @note = FactoryGirl.create(:note)
     @note.update_attributes(tag_list: ['tag1'])
     @tag = @note.tags[0]
@@ -19,7 +18,7 @@ describe 'Tags pages' do
     end
 
     context 'when this tag is attached to fewer notes than threshold' do
-      before { Setting['advanced.tags_minimum'] = 10 }
+      before { ENV['tags_minimum'] = '10' }
       it 'does not have a link to tag 1' do
         # # pending 'page.should_not have_link(@tag.name, href: tag_path(@tag.slug))'
       end
@@ -45,7 +44,7 @@ describe 'Tags pages' do
       expect(page).to have_selector('h1', text: @tag.name)
     end
     it 'has a link to note' do
-      expect(page).to have_selector('a', note_or_feature_path(@note))
+      expect(page).to have_selector('a', note_path(@note))
     end
   end
 
@@ -56,7 +55,7 @@ describe 'Tags pages' do
     end
     it 'does not have a link to an inactive note' do
       expect(page).not_to have_selector('a', text: 'New title: New body')
-      expect(page).not_to have_link('New title: New body', href: note_or_feature_path(@note))
+      expect(page).not_to have_link('New title: New body', href: note_path(@note))
     end
   end
 end

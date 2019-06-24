@@ -1,0 +1,14 @@
+- cache [cache_buster(1), @pantographs] do
+
+  section#pantographs
+    header
+      h3= t('pantographs.index.title')
+    ol
+      - @pantographs.each do |pantograph|
+        li
+          figure
+            blockquote =link_to pantograph.text, pantograph_path(pantograph)
+            figcaption =t('pantographs.index.tweeted_at_by_short_html',
+                tweeted_at: link_to(timeago_tag(pantograph.external_created_at), pantograph.twitter_url),
+                tweeted_by: link_to("@#{ pantograph.pantographer.twitter_screen_name }", 
+                pantograph.pantographer.twitter_url, { title: pantograph.pantographer.twitter_real_name }))

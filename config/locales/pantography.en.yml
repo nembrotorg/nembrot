@@ -1,0 +1,7 @@
+en:
+  pantographs:
+    index:
+      title: Pantography
+      scheduled_for: "Scheduled for %{scheduled_for}."
+      tweeted_at_by_html: "Tweeted %{tweeted_at} by %{tweeted_by}."
+      tweeted_at_by_short_html: "%{tweeted_by}, %{tweeted_at}"

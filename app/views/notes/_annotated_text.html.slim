@@ -1,15 +1,10 @@
-section.body == text
+- cache [cache_buster(1), text, annotations] do
 
-section.annotations
+  section.body == text
 
-  header
-    / h6 =t('notes.sections.annotations')
-    = "<h3>#{ t('notes.sections.annotations') }</h3>".html_safe
-
-  ol
-    - annotations.each_with_index do |annotation, index|
-      = "<li id=\"annotation-#{ index + 1 }\"><a href=\"#annotation-mark-#{ index + 1 }\">#{ index + 1 }</a>#{ annotation.html_safe }</li> ".html_safe
-      / Problematic whitespace
-      / li id="annotation-#{ index + 1 }"
-      /   a href="#annotation-mark-#{ index + 1 }" = index + 1  
-      /   = annotation.html_safe
+  section#annotations
+    header
+      = "<h3>#{ t('notes.sections.annotations') }</h3>".html_safe
+    ol
+      - annotations.each_with_index do |annotation, index|
+        = "<li id=\"annotation-#{ index + 1 }\"><a href=\"#annotation-mark-#{ index + 1 }\">#{ index + 1 }</a>#{ annotation.html_safe }</li> ".html_safe

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'routing to citations' do
+RSpec.describe 'routing to citations' do
   it 'routes /citations to citation#index' do
     expect(get: '/citations').to route_to(
       controller: 'citations',

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe Resource do
+RSpec.describe Resource do
   let(:note) { FactoryGirl.create(:note) }
   before { @resource = FactoryGirl.create(:resource, note: note) }
   subject { @resource }
@@ -12,7 +12,6 @@ describe Resource do
   it { is_expected.to be_valid }
   it { is_expected.to respond_to(:altitude) }
   it { is_expected.to respond_to(:attachment) }
-  it { is_expected.to respond_to(:attempts) }
   it { is_expected.to respond_to(:blank_location) }
   it { is_expected.to respond_to(:camera_make) }
   it { is_expected.to respond_to(:camera_model) }
@@ -27,11 +26,9 @@ describe Resource do
   it { is_expected.to respond_to(:external_updated_at) }
   it { is_expected.to respond_to(:file_name) }
   it { is_expected.to respond_to(:height) }
-  it { is_expected.to respond_to(:increment_attempts) }
   it { is_expected.to respond_to(:latitude) }
   it { is_expected.to respond_to(:local_file_name) }
   it { is_expected.to respond_to(:longitude) }
-  it { is_expected.to respond_to(:max_out_attempts) }
   it { is_expected.to respond_to(:mime) }
   it { is_expected.to respond_to(:note_id) }
   it { is_expected.to respond_to(:raw_location) }
@@ -46,55 +43,37 @@ describe Resource do
   it { is_expected.to validate_uniqueness_of(:cloud_resource_identifier).scoped_to(:note_id) }
 
   describe ':need_syncdown' do
-    before { @resource.update_attributes(dirty: true, attempts: 0, try_again_at: 1.minute.ago) }
+    before { @resource.update_attribute(:dirty, true) }
     it 'contains all dirty resources' do
       expect(Resource.need_syncdown.last).to eq(@resource)
-    end
-
-    context 'when resources are maxed_out or dirty' do
-      before { @resource.update_attributes(dirty: true, attempts: Setting['advanced.attempts'].to_i + 1, try_again_at: 1.minute.ago) }
-      Resource.need_syncdown.last.should == nil
     end
   end
 
   describe ':attached_images' do
-    before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i + 1) }
+    before { @resource.update_attributes(width: ENV['images_min_width'].to_i + 1) }
     it 'contains resources larger than half the standard width' do
       expect(Resource.attached_images.last).to eq(@resource)
     end
 
     context 'does not contain resources smaller than half the standard width' do
-      before { @resource.update_attributes(width: Setting['style.images_min_width'].to_i - 1) }
-      Resource.attached_images.last.should == nil
+      before { @resource.update_attributes(width: ENV['images_min_width'].to_i - 1) }
+      it 'is empty' do
+        expect(Resource.need_syncdown.last).to be_nil
+      end
     end
   end
 
   describe '#dirtify' do
     before { @resource.dirtify }
     its(:dirty) { is_expected.to eq(true) }
-    its(:attempts) { is_expected.to eq(0) }
   end
 
   describe '#undirtify' do
     before do
-      @resource = FactoryGirl.create(:resource, dirty: true, attempts: 1)
+      @resource = FactoryGirl.create(:resource)
       @resource.undirtify
     end
     its(:dirty) { is_expected.to eq(false) }
-    its(:attempts) { is_expected.to eq(0) }
-  end
-
-  describe '#increment_attempts' do
-    before do
-      @resource = FactoryGirl.create(:resource, attempts: 0)
-      @resource.increment_attempts
-    end
-    its(:attempts) { is_expected.to eq(1) }
-  end
-
-  describe '#max_out_attempts' do
-    before { @resource.max_out_attempts }
-    its(:attempts) { is_expected.to be >=  Setting['advanced.attempts'].to_i }
   end
 
   describe '#file_ext' do

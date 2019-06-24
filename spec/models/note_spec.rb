@@ -3,9 +3,12 @@
 include ActionView::Helpers::SanitizeHelper
 include ApplicationHelper
 
-describe Note do
-
-  before(:example) { Setting['advanced.versions'] = 'true' }
+RSpec.describe Note do
+  before(:example) do
+    ENV['versions'] = 'true'
+    ENV['version_gap_distance'] = '10'
+    ENV['version_gap_minutes'] = '60'
+  end
   let(:note) { FactoryGirl.create(:note, external_updated_at: 200.minutes.ago, external_created_at: 200.minutes.ago) }
   subject { note }
 
@@ -32,9 +35,16 @@ describe Note do
   it { is_expected.to respond_to(:title) }
   it { is_expected.to respond_to(:word_count) }
 
+  it { is_expected.to respond_to(:url) }
+  it { is_expected.to respond_to(:url_title) }
+  it { is_expected.to respond_to(:url_author) }
+  it { is_expected.to respond_to(:url_accessed_at) }
+  it { is_expected.to respond_to(:url_updated_at) }
+  it { is_expected.to respond_to(:url_html) }
+  it { is_expected.to respond_to(:url_lang) }
+
   it { is_expected.to have_many(:evernote_notes) }
   it { is_expected.to have_many(:instructions).through(:instruction_taggings) }
-  it { is_expected.to have_many(:related_notes) }
   it { is_expected.to have_many(:resources) }
   it { is_expected.to have_many(:tags).through(:tag_taggings) }
   it { is_expected.to have_many(:versions) }
@@ -54,8 +64,32 @@ describe Note do
     end
   end
 
+  describe 'saves the correct content type' do
+    it 'note by default' do
+      expect(note.content_type).to eq('note')
+    end
+    context 'when note has __QUOTE tag' do
+      before do
+        note.instruction_list = %w(__QUOTE)
+        note.save
+      end
+      it 'content_type is Citation' do
+        expect(note.content_type).to eq('citation')
+      end
+    end
+    context 'when note has __LINK tag' do
+      before do
+        note.instruction_list = %w(__LINK)
+        note.save
+      end
+      it 'content_type is Link' do
+        expect(note.content_type).to eq('link')
+      end
+    end
+  end
+
   # Not yet implemented
-  # describe "refuses update when external_updated_at is unchanged" do
+  # RSpec.describe "refuses update when external_updated_at is unchanged" do
   #   before do
   #     note.update_attributes(
   #         title: "New Title",
@@ -67,7 +101,7 @@ describe Note do
   # end
 
   # Not yet implemented
-  # describe "refuses update when external_updated_at is older" do
+  # RSpec.describe "refuses update when external_updated_at is older" do
   #   before {
   #     note.update_attributes(
   #         title: "New Title",
@@ -93,7 +127,7 @@ describe Note do
     end
     context 'when versions are turned off' do
       before do
-        Setting['advanced.versions'] = false
+        ENV['versions'] = 'false'
         note.title = 'New Title'
         note.external_updated_at = 1.minute.ago
         note.save
@@ -158,7 +192,7 @@ describe Note do
 
     context 'when a note is not much older, is the same length, but is different from the last version' do
       before do
-        note.body = note.body[16..-1] + note.body[0..15]
+        note.body = note.body.reverse
         note.external_updated_at = 199.minutes.ago
         note.save!
       end
@@ -192,13 +226,9 @@ describe Note do
   end
 
   describe '#has_instruction?' do
-    # pending 'Add tests'
-  end
-
-  describe '#has_instruction?' do
     before do
-      Setting['advanced.instructions_hide'] = '__HIDESYNONYM'
-      Setting['advanced.instructions_default'] = '__DEFAULT_INSTRUCTION'
+      ENV['instructions_hide'] = '__HIDESYNONYM'
+      ENV['instructions_default'] = '__DEFAULT_INSTRUCTION'
       note.instruction_list = %w(__NOTEINSTRUCTION __HIDESYNONYM)
     end
     context 'when an instruction has synonyms in Settings' do
@@ -252,7 +282,7 @@ describe Note do
     end
     context 'when note is a citation' do
       before do
-        note.is_citation = true
+        note.citation!
       end
       it 'returns preformatted title (e.g. Citation 1)' do
         expect(note.headline).to eq(I18n.t('citations.show.title', id: note.id))
@@ -260,13 +290,25 @@ describe Note do
     end
   end
 
-  describe '#type' do
-    its(:type) { is_expected.to eq('Note') }
-    context 'when note is a citation' do
+  describe '#inferred_url' do
+    context 'when source url exists' do
       before do
-        note.is_citation = true
+        note.source_url = 'http://example.com'
+        note.save
       end
-      its(:type) { is_expected.to eq('Citation') }
+      it 'returns source url' do
+        expect(note.inferred_url).to eq('http://example.com')
+      end
+    end
+    context 'when source urldoes not exist' do
+      before do
+        note.source_url = nil
+        note.body = 'Normal body. http://example2.com'
+        note.save
+      end
+      it 'returns the first url from the body' do
+        expect(note.inferred_url).to eq('http://example2.com')
+      end
     end
   end
 
@@ -346,8 +388,8 @@ describe Note do
   end
 
   describe '#feature' do
-    Setting['advanced.instructions_feature_first'] = '__FEATURE_FIRST'
-    Setting['advanced.instructions_feature_last'] = '__FEATURE_LAST'
+    ENV['instructions_feature_first'] = '__FEATURE_FIRST'
+    ENV['instructions_feature_last'] = '__FEATURE_LAST'
     before { note.update_attributes(title: 'Title Has Three Words') }
     context 'when note has no instruction' do
       its (:feature) { is_expected.to be_nil }
@@ -371,43 +413,8 @@ describe Note do
     its (:fx) { is_expected.to eq(['abc', 'def']) }
   end
 
-  describe '#looks_like_a_citation?' do
-    it 'returns false for ordinary text' do
-      note = FactoryGirl.create(:note, body: 'Plain text.')
-      expect(note.is_citation).to be_falsey
-    end
-    it 'recognises one-line citations' do
-      note = FactoryGirl.create(:note, body: "\n{quote:Plain text. -- Author 2000}\n")
-      # pending 'note.looks_like_a_citation?.should be_truthy'
-    end
-    it 'recognises two-line citations' do
-      note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\n")
-      # pending 'note.looks_like_a_citation?.should be_truthy'
-    end
-    context 'when a note merely contains a citation' do
-      context 'when text precedes quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\n")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-      context 'when text succeeds quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-      context 'when text surrounds quote' do
-        it 'does not return a false positive' do
-          note = FactoryGirl.create(:note, body: "Plain text.\n{quote:Plain text.\n-- Author 2000}\nPlain text.")
-          expect(note.is_citation).to be_falsey
-        end
-      end
-    end
-  end
-
   describe 'lang_from_cloud' do
-    Setting['advanced.detect_language_sample_length'] = 100
+    ENV['detect_language_sample_length'] = '100'
     context 'when text is in Enlish' do
       before do
         note.update_attributes(title: 'The Anatomy of Melancholy', body: "Burton's book consists mostly of a.", instruction_list: [])
@@ -426,7 +433,7 @@ describe Note do
     end
     context 'when text is in Russian' do
      before do
-       note.update_attributes(title: 'Анатомия меланхолии', body: 'Гигантский том in-quarto толщиной в 900.', instruction_list: [])
+       note.update_attributes(title: 'Анатомия меланхолии', body: 'Автор книги — оксфордский прелат Роберт Бёртон — продолжал дополнять и дописывать книгу до самой смерти в 1640 году.', instruction_list: [])
        note.save!
      end
      it 'returns ru' do

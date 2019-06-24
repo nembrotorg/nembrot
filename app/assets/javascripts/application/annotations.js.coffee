@@ -1,13 +1,12 @@
 place_annotations = () ->
   if $('html.wider-than-720px').length > 0
-    # Not sure what we're waiting for but it works more reliably
-    setTimeout place_annotations_do, 500
+    place_annotations_do()
   else
     place_annotations_undo()
 
 place_annotations_do = () ->
-  if $('.annotations').length > 0
-    $('.annotations').addClass('side-annotations')
+  if $('#annotations').length > 0
+    $('#annotations').addClass('side-annotations')
     annotations = $('li[id^=annotation-]')
     minimum = $('.body').offset().top
     if $('#single_map:visible').length > 0 then minimum += $('#single_map').outerHeight(true)
@@ -41,19 +40,7 @@ _correct_annotations_from_bottom = (annotations) ->
       maximum = new_top
 
 place_annotations_undo = () ->
-  $('.annotations').removeClass('side-annotations')
+  $('#annotations').removeClass('side-annotations')
   $('li[id*=annotation-]').css('top', '0')
 
-# Document hooks ******************************************************************************************************
-
-$ ->
-  place_annotations()
-
-  $(document).on 'pjax:success', '#main', (data) ->
-    place_annotations()
-
-  $(window).on 'popstate', ->
-    place_annotations()
-
-  $(window).on 'resize', ->
-    place_annotations()
+window.Nembrot.place_annotations = place_annotations

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # REVIEW: Some gems are listed more than once. Travis warns about it.
 
-gem 'rails',          '4.1'
+gem 'rails',          '4.2.1'
 
 gem 'activerecord-session_store'
 gem 'acts-as-taggable-on'
@@ -12,21 +12,25 @@ gem 'breadcrumbs_on_rails'
 gem 'cancan'
 gem 'coffee-rails'
 gem 'commontator'
-gem 'compass-rails'
+gem 'compass-rails', '~> 2.0.0'
 gem 'dalli'
 gem 'detect_language'
 gem 'devise'
 gem 'differ'
+gem 'dogapi'
+gem 'embiggen'
 gem 'flexslider'
 gem 'jquery-dotdotdot-rails'
 gem 'jquery-rails-cdn'
 gem 'evernote-thrift'
+gem 'figaro'
 gem 'friendly_id'
 gem 'gmaps4rails'
 gem 'god'
 gem 'httparty'
 # gem 'image_optim'
 gem 'isbn_validation'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'json'
@@ -46,20 +50,22 @@ gem 'omniauth-linkedin'
 gem 'omniauth-twitter'
 gem 'paper_trail'
 gem 'pjax_rails'
-gem "rails-settings-cached", "0.4.1"
+gem 'pismo'
 gem 'rails-timeago'
 gem 'safe_yaml'
 gem 'sass-rails', github: 'rails/sass-rails', branch: '4-0-stable'
-gem 'settingslogic'
+gem 'sidekiq'
 gem 'sitemap_generator'
-gem 'slim'
+gem 'slack-notifier'
 gem 'slim-rails'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'susy'
 gem 'thin'
+gem 'twitter', git: 'https://github.com/sferik/twitter.git'
 gem 'uglifier'
 gem 'underscore-rails'
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 gem 'uuidtools'
 gem 'validate_url'
 gem 'whenever', require: false
@@ -68,21 +74,29 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'fuubar'
-  gem 'rspec-rails'
+  gem 'rb-readline'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'slackistrano', require: false
+  gem 'spring-commands-rspec'
   gem 'sqlite3'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano',           require: false
+  gem 'capistrano-bundler',   require: false
+  gem 'capistrano-rails',     require: false
+  gem 'capistrano-rvm',       require: false
+  gem 'capistrano-sidekiq'
+  gem 'capistrano3-unicorn'
   gem 'flog'
   gem 'guard-coffeescript'
   gem 'guard-livereload'
   # gem 'guard-rails_best_practices'
-  gem 'guard-rubocop'
+  # gem 'guard-rubocop', require: false
   gem 'guard-sass', require: false
   gem 'rails_best_practices'
 end
@@ -96,11 +110,9 @@ group :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
-  gem 'guard-spork'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'spork-rails'
   gem 'vcr'
   gem 'webmock'
 

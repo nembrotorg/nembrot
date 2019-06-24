@@ -1,31 +1,26 @@
 # encoding: utf-8
 
 class Note < ActiveRecord::Base
-
   include NoteCustom, Syncable
 
-  attr_writer   :tag_list, :instruction_list
+  attr_writer :tag_list, :instruction_list, :keyword_list
   attr_accessor :external_created_at
 
   has_many :evernote_notes, dependent: :destroy
   has_many :resources, dependent: :destroy
 
-  has_many :related_notes_association, class_name: 'RelatedNote'
-  has_many :related_notes, through: :related_notes_association, source: :related_note
-  has_many :inverse_related_notes_association, class_name: 'RelatedNote', foreign_key: 'related_note_id'
-  has_many :inverse_related_notes, through: :inverse_related_notes_association, source: :note
-
   has_and_belongs_to_many :books
-  has_and_belongs_to_many :links
+
+  enum content_type: [ :note, :citation, :link ]
 
   acts_as_commontable
 
-  acts_as_taggable_on :tags, :instructions
+  acts_as_taggable_on :tags, :instructions, :keywords
 
   has_paper_trail on: [:update],
                   only: [:title, :body],
                   if:  proc { |note| note.save_new_version? },
-                  unless: proc { |note| Setting['advanced.versions'] == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
+                  unless: proc { |note| NB.versions == 'false' || note.has_instruction?('reset') || note.has_instruction?('unversion') },
                   meta: {
                     external_updated_at: proc { |note| Note.find(note.id).external_updated_at },
                     instruction_list: proc { |note| Note.find(note.id).instruction_list },
@@ -36,26 +31,29 @@ class Note < ActiveRecord::Base
                   }
 
   default_scope { order('weight ASC, external_updated_at DESC') }
-  # scope :blurbable, -> { where('word_count > ?', (Setting['advanced.blurb_length'].to_i / Setting['advanced.average_word_length'].to_f)) }
-  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled 
-  scope :citations, -> { where(is_citation: true) }
+  # scope :blurbable, -> { where('word_count > ?', (NB.blurb_length.to_i / NB.average_word_length.to_f)) }
+  scope :blurbable, -> { where(active: true) } # REVIEW: Temporarily disabled
+  scope :dateordered, -> { order('external_updated_at DESC') }
   scope :features, -> { where.not(feature: nil) }
-  scope :notes_and_features, -> { where(is_citation: false) }
-  scope :listable, -> { where(listable: true, is_citation: false) }
-  scope :publishable, -> { where(active: true, hide: false) }
-  scope :interrelated, -> { where(id: RelatedNote.pluck(:note_id, :related_note_id)) }
+  scope :listable, -> { note.where(listable: true) }
   # scope :mappable, -> { where (is_mapped: true) }
+  scope :processed_urls, -> { where.not(url_accessed_at: nil) }
+  scope :publishable, -> { where(active: true, hide: false) }
+  scope :unprocessed_urls, -> { where(url_accessed_at: nil) }
+  scope :weighted, -> { order('weight ASC') }
 
   validates :title, :external_updated_at, presence: true
-  validate :body_or_source_or_resource?, before: :update
+  validate :body_or_source_or_resource?
   # validate :external_updated_is_latest?, before: :update
 
   before_save :update_metadata
   before_save :scan_note_for_references, if: :body_changed?
+  # REVIEW: Reinstate this - need to react to change sin the url
+  # before_save :reset_url, if: "body_changed? || source_url_changed?"
   after_save :scan_note_for_isbns, if: :body_changed?
-  after_save :scan_note_for_urls, if: :body_changed? || :source_url_changed?
+  after_save :queue_url_decoration
 
-  paginates_per Setting['advanced.notes_index_per_page'].to_i
+  paginates_per NB.notes_index_per_page.to_i
 
   # REVIEW: Store in columns like is_section?
   def self.mappable
@@ -64,9 +62,17 @@ class Note < ActiveRecord::Base
 
   # REVIEW: Store in columns like is_section?
   def self.promotable
-    promotions_home = Setting['style.promotions_home_columns'].to_i * Setting['style.promotions_home_rows'].to_i
-    greater_promotions_number = [Setting['style.promotions_footer'].to_i, promotions_home].max
+    promotions_home = NB.promotions_home_columns.to_i * NB.promotions_home_rows.to_i
+    greater_promotions_number = [NB.promotions_footer.to_i, promotions_home].max
     (all.to_a.keep_if { |note| note.has_instruction?('promote') } + first(greater_promotions_number)).uniq
+  end
+
+  def self.homeable
+    (all.keep_if { |note| note.has_instruction?('home') } + promotable).uniq
+  end
+
+  def self.with_instruction(instruction)
+    all.keep_if { |note| note.has_instruction?(instruction) }
   end
 
   def self.homeable
@@ -85,25 +91,29 @@ class Note < ActiveRecord::Base
     where(is_feature: true, is_section: false).uniq
   end
 
+  def self.related_notes(note_ids)
+    note.publishable.where(id: note_ids)
+  end
+
+  def self.related_citations(citation_ids)
+    citation.publishable.where(id: citation_ids)
+  end
+
   def has_instruction?(instruction, instructions = instruction_list)
     instruction_to_find = ["__#{ instruction.upcase }"]
-    instruction_to_find.push(Setting["advanced.instructions_#{ instruction }"].split(/, ?| /)) unless Setting["advanced.instructions_#{ instruction }"].nil?
+    instruction_to_find.push(ENV["instructions_#{ instruction }"].split(/, ?| /)) unless ENV["instructions_#{ instruction }"].nil?
     instruction_to_find.flatten!
 
     all_relevant_instructions = Array(instructions)
-    all_relevant_instructions.push(Setting['advanced.instructions_default'].split(/, ?| /))
+    all_relevant_instructions.push(NB.instructions_default.split(/, ?| /))
     all_relevant_instructions.flatten!
 
     !(all_relevant_instructions & instruction_to_find).empty?
   end
 
   def headline
-    return I18n.t('citations.show.title', id: id) if is_citation
+    return I18n.t('citations.show.title', id: id) if citation?
     is_untitled? ? I18n.t('notes.show.title', id: id) : title
-  end
-
-  def type
-    is_citation ? 'Citation' : 'Note'
   end
 
   def clean_body_with_instructions
@@ -127,6 +137,22 @@ class Note < ActiveRecord::Base
       .gsub(/\s+/, ' ')
   end
 
+  def inferred_url_domain
+    return nil unless inferred_url
+    inferred_url.scan(%r{https?://([a-z0-9\&\.\-]*)}).flatten.first
+  end
+
+  def inferred_original_url
+    return url unless url.blank?
+    inferred_url
+  end
+
+  def inferred_url
+    return url unless url.blank?
+    return source_url unless source_url.blank?
+    body.scan(%r{(https?://[a-zA-Z0-9\./\-\?&%=_]+)[\,\.]?}).flatten.first
+  end
+
   # REVIEW: If we named this embeddable_source_url? then we can't do
   #  self.embeddable_source_url? = version.embeddable_source_url? in diffed_version
   def is_embeddable_source_url
@@ -134,7 +160,7 @@ class Note < ActiveRecord::Base
   end
 
   def fx
-    instructions = Setting['advanced.instructions_default'].split(/, ?| /) + Array(instruction_list)
+    instructions = NB.instructions_default.split(/, ?| /) + Array(instruction_list)
     fx = instructions.keep_if { |i| i =~ /__FX_/ }.each { |i| i.gsub!(/__FX_/, '').downcase! }
     fx.empty? ? nil : fx
   end
@@ -164,14 +190,6 @@ class Note < ActiveRecord::Base
     has_instruction?('full_title') ? nil : headline.scan(/\:\s*(.*)/).flatten.first
   end
 
-  # def related_notes_resolved
-  #   all_related_notes << related_notes
-  #   all_related_notes.uniq.each do |r|
-  #     all_related_notes << r.related_notes
-  #   end
-  #   all_related_notes
-  # end
-
   def get_feature_name
     title_candidate = main_title
     title_candidate = main_title.split(' ').first if has_instruction?('feature_first')
@@ -196,9 +214,24 @@ class Note < ActiveRecord::Base
   end
 
   def save_new_version?
+    return false unless content_type == 'note'
     return false if external_updated_at_was.blank?
     return false if external_updated_at == external_updated_at_was
-    Setting['advanced.versions'] == 'true' && ((external_updated_at - external_updated_at_was) > Setting['advanced.version_gap_minutes'].to_i.minutes || get_real_distance > Setting['advanced.version_gap_distance'].to_i)
+    NB.versions == 'true' && ((external_updated_at - external_updated_at_was) > NB.version_gap_minutes.to_i.minutes || get_real_distance > NB.version_gap_distance.to_i)
+  end
+
+  def reset_url
+    return if content_type != 'link' || inferred_url.blank?
+    self.url = nil
+    self.url_author = nil
+    self.url_html = nil
+    self.url_lede = nil
+    self.url_title = nil
+    self.url_updated_at = nil
+    self.url_accessed_at = nil
+    self.url_lang = nil
+    self.keyword_list = []
+    save!
   end
 
   private
@@ -215,19 +248,24 @@ class Note < ActiveRecord::Base
     end
   end
 
+  def update_content_type
+    self.content_type = Note.content_types[:citation] if has_instruction?('citation')
+    self.content_type = Note.content_types[:link] if has_instruction?('link')
+  end
+
   def update_lang(content = "#{ title } #{ clean_body }")
-    lang_instruction = Array(instruction_list).select { |v| v =~ /__LANG_/ } .first
+    lang_instruction = Array(instruction_list).find { |v| v =~ /__LANG_/ }
     if lang_instruction
      lang = lang_instruction.gsub(/__LANG_/, '').downcase
     else
-      response = DetectLanguage.simple_detect(content[0..Constant.detect_language_sample_length.to_i])
+      response = DetectLanguage.simple_detect(content[0..NB.detect_language_sample_length.to_i])
       lang = Array(response.match(/^\w\w$/)).size == 1 ? response : nil
     end
     self.lang = lang
   end
 
   def update_weight
-    weight_instruction = Array(instruction_list).select { |v| v =~ /__WEIGHT_|__ORDER_/ } .first
+    weight_instruction = Array(instruction_list).find { |v| v =~ /__WEIGHT_|__ORDER_/ }
     if weight_instruction
      weight = weight_instruction.gsub(/__WEIGHT_|__ORDER_/, '').to_i
     end
@@ -237,24 +275,11 @@ class Note < ActiveRecord::Base
   # REVIEW: Are the following two methods duplicated in Book?
   def scan_note_for_references
     self.books = Book.citable.to_a.keep_if { |book| body.include?(book.tag) }
-    self.links = Link.publishable.to_a.keep_if { |link| body.include?(link.url) } if Setting['advanced.links_section'] == 'true'
-
-    new_related_notes = Note.notes_and_features.where(id: body.scan(/\{[a-z ]*:? *\/?notes\/(\d+) *\}/).flatten)
-    new_related_notes << Note.citations.where(id: body.scan(/\{[a-z ]*:? *\/?citations\/(\d+) *\}/).flatten)
-    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*) *\}/).flatten, feature_id: nil)
-    new_related_notes << Note.notes_and_features.where(feature: body.scan(/\{[a-z ]*:? *\/?([a-z0-9\-\_]*)\//).flatten, feature_id: body.scan(/\{[a-z ]*:? *\/?[a-z0-9\-\_]*\/([a-z0-9\-\_]*) *\}/).flatten)
-
-    self.related_notes = new_related_notes.flatten.uniq
   end
 
   def scan_note_for_isbns
     # REVIEW: try checking for setting as an unless: after before_save
-    Book.grab_isbns(body) unless Setting['advanced.books_section'] == 'false' || body.blank?
-  end
-
-  def scan_note_for_urls
-    # REVIEW: try checking for setting as an unless: after before_save
-    Link.grab_urls(body, source_url) unless Setting['advanced.links_section'] == 'false' || clean_body.blank? && source_url.blank?
+    Book.grab_isbns(body) unless NB.books_section == 'false' || body.blank?
   end
 
   def body_or_source_or_resource?
@@ -264,10 +289,11 @@ class Note < ActiveRecord::Base
   end
 
   def update_metadata
+    update_date
     discard_versions?
     update_date
     update_is_hidable?
-    update_is_citation?
+    update_content_type
     update_is_listable?
     update_is_feature?
     update_is_section?
@@ -277,6 +303,7 @@ class Note < ActiveRecord::Base
     update_feature_id
     update_word_count
     update_distance
+    update_url_domain
   end
 
   def update_date
@@ -285,22 +312,27 @@ class Note < ActiveRecord::Base
   end
 
   def reset_date?
-    self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true' && new_record?
+    self.external_updated_at = external_created_at if NB.always_reset_on_create == 'true' && new_record?
   end
 
   def discard_versions?
     if has_instruction?('reset')
-      self.external_updated_at = external_created_at if Setting['advanced.always_reset_on_create'] == 'true'
+      self.external_updated_at = external_created_at if NB.always_reset_on_create == 'true'
       versions.destroy_all unless versions.empty?
     end
   end
 
-  def update_is_citation?
-    self.is_citation = has_instruction?('citation') || looks_like_a_citation?(clean_body)
+  def skip_new_version?
+    # Do not save a new version even though and versioning is switched on
+    NB.versions == 'true' && minor_edit?
   end
 
-  def looks_like_a_citation?(content = clean_body)
-    content.scan(/\A\W*quote\:(.*?)\n?\-\- *?(.*?[\d]{4}.*)\W*\Z/).size == 1 # OPTIMIZE: Replace 'quote': by i18n
+  def minor_edit?
+    # Should we consider all canges in title a major edit?
+    return false if new_record?
+    too_recent = ((external_updated_at - external_updated_at_was) * 1.minutes) < NB.version_gap_minutes.to_i.minutes
+    too_minor = get_real_distance < NB.version_gap_distance.to_i
+    too_recent && too_minor
   end
 
   def update_is_listable?
@@ -340,5 +372,13 @@ class Note < ActiveRecord::Base
   def update_feature_id
     feature_id_candidate = get_feature_id
     self.feature_id = get_feature_id.parameterize unless feature_id_candidate.nil?
+  end
+
+  def update_url_domain
+    self.url_domain = inferred_url_domain if content_type == 'link'
+  end
+
+  def queue_url_decoration
+    UrlDecorateNoteJob.perform_later(self) if !inferred_url.nil? && (body_changed? || source_url_changed?)
   end
 end

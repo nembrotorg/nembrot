@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe ResourcesHelper do
-
+RSpec.describe ResourcesHelper do
   describe '#cut_image_binary_path' do
     before do
       @note = FactoryGirl.create(:note)
@@ -9,14 +8,14 @@ describe ResourcesHelper do
     end
     it 'uses default settings for path to the cut the image' do
       expect(cut_image_binary_path(@resource))
-        .to eq("/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ Setting['style.images_effects'] }-#{ @resource.id }.png")
+        .to eq("/resources/cut/#{ @resource.local_file_name }-#{ ENV['images_standard_aspect_x'] }-#{ ENV['images_standard_aspect_y'] }-#{ ENV['images_standard_width'] }-#{ ENV['images_snap'] }-#{ ENV['images_gravity'] }-#{ ENV['images_effects'] }-#{ @resource.id }.png")
     end
 
     context 'when cut_image_binary_path has note fx' do
       before { @note.instruction_list = ['__FX_ABC', '__FX_DEF'] }
       it 'uses note#fx if they are set' do
         # cut_image_binary_path(@resource)
-        #  .should == "/resources/cut/#{ @resource.local_file_name }-#{ Setting['style.images_standard_aspect_x'] }-#{ Setting['style.images_standard_aspect_y'] }-#{ Setting['style.images_standard_width'] }-#{ Setting['style.images_snap'] }-#{ Setting['style.images_gravity'] }-#{ @note.fx.try(:join, '|') }-#{ @resource.id }.png"
+        #  .should == "/resources/cut/#{ @resource.local_file_name }-#{ ENV['images_standard_aspect_x'] }-#{ ENV['images_standard_aspect_y'] }-#{ ENV['images_standard_width'] }-#{ ENV['images_snap'] }-#{ ENV['images_gravity'] }-#{ @note.fx.try(:join, '|') }-#{ @resource.id }.png"
       end
     end
 
@@ -46,10 +45,10 @@ describe ResourcesHelper do
     context 'when the raw image exists' do
       it 'creates an image file' do
         # If a raw file already exists, we do not create a new one, nor do we delete it afterwards.
-        preexisting_raw_file = File.exists? @resource.raw_location
+        preexisting_raw_file = File.exist? @resource.raw_location
         FileUtils.cp(Resource.blank_location, @resource.raw_location) unless preexisting_raw_file
         expect(cut_image_binary(@resource.id, 'png', 16, 9, 100, 1, 0, '')).to eq(@resource.cut_location(16, 9, 100, 1, 0, ''))
-        expect(File.exists?(@resource.cut_location(16, 9, 100, 1, 0, ''))).to eq(true)
+        expect(File.exist?(@resource.cut_location(16, 9, 100, 1, 0, ''))).to eq(true)
         File.delete @resource.cut_location(16, 9, 100, 1, 0, '')
         File.delete @resource.raw_location unless preexisting_raw_file
       end
@@ -57,7 +56,7 @@ describe ResourcesHelper do
     context 'when the raw image does not exist' do
       it 'returns a blank image' do
         # If a raw file already exists, we temporarily rename it.
-        preexisting_raw_file = File.exists? @resource.raw_location
+        preexisting_raw_file = File.exist? @resource.raw_location
         File.rename(@resource.raw_location, "#{ @resource.raw_location }-stashed") if preexisting_raw_file
         expect(cut_image_binary(@resource.id, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
         File.rename("#{ @resource.raw_location }-stashed", @resource.raw_location) if preexisting_raw_file
@@ -65,7 +64,7 @@ describe ResourcesHelper do
     end
     context 'when the image record is not found' do
       it 'returns a blank image' do
-        expect(cut_image_binary(9999999, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
+        expect(cut_image_binary(9_999_999, 'png', 16, 9, 100, 1, 0, '')).to eq(Resource.blank_location)
       end
     end
   end
@@ -80,16 +79,6 @@ describe ResourcesHelper do
       it 'rounds number up if nearer' do
         expect(round_nearest(57, 30)).to eq(60)
       end
-    end
-  end
-
-  describe '#column_width' do
-    before do
-      Setting['style.column_width'] = 60
-      Setting['style.gutter_width'] = 30
-    end
-    it 'calculates the right width' do
-      expect(column_width(3)).to eq(240)
     end
   end
 end

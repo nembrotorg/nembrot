@@ -1,4 +1,6 @@
-Nembrot::Application.configure do
+require 'syslog/logger'
+
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -9,11 +11,11 @@ Nembrot::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.js_compressor = :uglify
+  config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -26,7 +28,7 @@ Nembrot::Application.configure do
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -38,16 +40,16 @@ Nembrot::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new('joegattnet_v3_staging'))
 
   # Use a different cache store in production
   config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = Constant.asset_host unless Constant.asset_host.blank?
+  config.action_controller.asset_host = ENV['asset_host'] unless ENV['asset_host'].blank?
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( head_scripts.js jquery.js rollbar.js .svg .eot .woff .ttf )
+  config.assets.precompile += %w( head_scripts.js hyphenator.js jquery.js .svg .eot .woff .ttf )
 
   # Add the fonts path
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')

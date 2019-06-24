@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe FormattingHelper do
-
+RSpec.describe FormattingHelper do
   describe '#bodify' do
     Dir.glob(Rails.root.join('spec', 'support', 'formatting_samples', 'evernote_*_input.txt')) do |sample_file|
       let(:input) { IO.read(sample_file) }
@@ -39,16 +38,16 @@ describe FormattingHelper do
           .to eq("Some text.\n\n<blockquote>Long quote.\nNew line.</blockquote>\n\nMore text.")
       end
     end
-#    it 'converts quotes to block quote and includes attribution if present' do
-#      format_blockquotes("Some text.\nquote:Long quote.-- Kittler 2001\nMore text.")
-#        .should == "Some text.\n#{ render citation_partial('blockquote_with_attribution'), citation: 'Long quote.', attribution: 'Kittler 2001') }"
-#        #.should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
-#    end
-#    it 'converts quotes to block quote and includes attribution if present on next paragraph' do
-#      format_blockquotes("Some text.\nquote:Long quote.\n-- Kittler 2001\nMore text.")
-#        .should == "Some text.\n#{ render citation_partial('blockquote_with_attribution'), citation: 'Long quote.', attribution: 'Kittler 2001') }"
-#        .should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
-#    end
+    #    it 'converts quotes to block quote and includes attribution if present' do
+    #      format_blockquotes("Some text.\nquote:Long quote.-- Kittler 2001\nMore text.")
+    #        .should == "Some text.\n#{ render citation_partial('blockquote_with_attribution'), citation: 'Long quote.', attribution: 'Kittler 2001') }"
+    #        #.should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
+    #    end
+    #    it 'converts quotes to block quote and includes attribution if present on next paragraph' do
+    #      format_blockquotes("Some text.\nquote:Long quote.\n-- Kittler 2001\nMore text.")
+    #        .should == "Some text.\n#{ render citation_partial('blockquote_with_attribution'), citation: 'Long quote.', attribution: 'Kittler 2001') }"
+    #        .should == "Some text.\n<figure class=\"citation\">\n<blockquote>Long quote.</blockquote>\n<figcaption>Kittler 2001</figcaption>\n</figure>\n\nMore text."
+    #    end
   end
 
   describe '#remove_instructions' do
@@ -68,7 +67,7 @@ describe FormattingHelper do
 
   describe '#sanitize_from_db' do
     it 'truncates all text after --30-- or similar' do
-      expect(sanitize_from_db("Text.#{ Setting['advanced.truncate_after_regexp'] }THIS SHOULD NOT\n BE INCLUDED."))
+      expect(sanitize_from_db("Text.#{ ENV['truncate_after_regexp'] }THIS SHOULD NOT\n BE INCLUDED."))
         .to eq("\nText.")
     end
     it 'removes superfluous html tags and attributes' do
@@ -99,7 +98,7 @@ describe FormattingHelper do
   #    end
   #  end
 
-  # describe '#smartify' do
+  # RSpec.describe '#smartify' do
   #   it 'does not convert double quotes inside html tags' do
   #     smartify('Plain text with <a href="link">link</a> does "nothing silly".')
   #       .should == "Plain text with <a href=\"link\">link</a> does \u201Cnothing silly\u201D."
@@ -160,7 +159,7 @@ describe FormattingHelper do
 
   describe '#clean_whitespace' do
     it 'replaces multiple new lines with a single new line' do
-      expect(clean_whitespace("Some text.\n\nMore text.")).to  eq("Some text.\nMore text.")
+      expect(clean_whitespace("Some text.\n\nMore text.")).to eq("Some text.\nMore text.")
     end
     it 'strips leading and trailing spaces' do
       expect(clean_whitespace(' Text. More text.  ')).to eq('Text. More text.')

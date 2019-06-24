@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 module ApplicationHelper
-
   include CacheHelper
   include FollowUrlsHelper
 
@@ -10,13 +9,13 @@ module ApplicationHelper
   end
 
   def body_dir_attr(language)
-    Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
+    NB.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
   end
 
   def dir_attr(language)
     if language != I18n.locale.to_s
-      page_direction = Constant.rtl_langs.split(/, ?| /).include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
-      this_direction = Constant.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
+      page_direction = NB.rtl_langs.split(/, ?| /).include?(I18n.locale.to_s) ? 'rtl' : 'ltr'
+      this_direction = NB.rtl_langs.split(/, ?| /).include?(language) ? 'rtl' : 'ltr'
       this_direction if page_direction != this_direction
     end
   end
@@ -27,10 +26,10 @@ module ApplicationHelper
 
   def embeddable_url(url)
     url.gsub(/^.*youtube.*v=(.*)\b/, 'http://www.youtube.com/embed/\\1?rel=0')
-       .gsub(/^.*youtube.*list=(.*)\b/, 'http://www.youtube.com/embed/videoseries?list=\\1&rel=0')
-       .gsub(%r(^.*vimeo.*/(\d*)\b), 'http://player.vimeo.com/video/\\1')
-       .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
-       .gsub(/(^.*spotify.*$)/, 'https://embed.spotify.com/?uri=\\1')
+      .gsub(/^.*youtube.*list=(.*)\b/, 'http://www.youtube.com/embed/videoseries?list=\\1&rel=0')
+      .gsub(%r{^.*vimeo.*/(\d*)\b}, 'http://player.vimeo.com/video/\\1')
+      .gsub(/(^.*soundcloud.*$)/, 'http://w.soundcloud.com/player/?url=\\1')
+      .gsub(/(^.*spotify.*$)/, 'https://embed.spotify.com/?uri=\\1')
   end
 
   def link_to_unless_or_wrap(condition, name, options = {}, html_options = {})
@@ -46,7 +45,7 @@ module ApplicationHelper
   def css_instructions(note_instructions)
     # If an instruction is listed in css_for_instructions, it is written out as a css class
     # TODO: Test for this
-    (note_instructions & Setting['style.css_for_instructions'].split(/, ?| /)).map do |c|
+    (note_instructions & NB.css_for_instructions.split(/, ?| /)).map do |c|
       'ins-' + c.gsub(/__/, '').gsub(/_/, '-').downcase
     end
   end
@@ -71,5 +70,13 @@ module ApplicationHelper
     # Be careful that feature is not repeated
     #  Imitate for home blurbs
     note.has_instruction?('feature') ? feature_path(feature: note.feature) : note_path(note)
+  end
+
+  def site_title_from_url(url)
+    url.gsub(/.*tumblr.*/, 'Tumblr')
+      .gsub(/plus\.google/, 'Google+')
+      .gsub(/^www\./, '')
+      .gsub(/^([^\.]*).*$/, '\1')
+      .titlecase
   end
 end

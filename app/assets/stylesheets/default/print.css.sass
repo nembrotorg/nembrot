@@ -1,0 +1,48 @@
+@media only print
+
+  iframe, nav
+    display: none
+
+  p, blockquote, li, small
+    font-size: $print-font-size !important
+    line-height: $print-line-height !important
+    orphans: 3
+    widows: 3
+
+  a
+    text-decoration: none
+
+  #main, footer
+    width: 100%
+    margin: 0
+
+  #text
+    +columns(2)
+
+  // FIXME: This isn't working
+  #versions ol li:first-of-type
+    &:before
+      content: ''
+    display: inline-block
+
+  h2, h3, h4
+    font-size: $print-font-size !important
+    line-height: $print-line-height !important
+    margin-after: ($print-font-size * $print-line-height) !important
+    +column-break(after, never)
+
+  nav, #tools, #comments, #code
+    display: none
+
+  footer
+    display: inline-block !important
+
+  img.qr_code
+    +span-columns(6)
+    float: left
+    height: $qr-code-image-size
+    width: $qr-code-image-size
+
+  small
+    display: inline-block
+    float: left

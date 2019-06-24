@@ -13,15 +13,23 @@
       +icon-small
       width: $text-indent / 2
 
+=truncated-line
+  display: block
+  height: $line-height
+  width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
 =blurb($lines: 3, $image-width: 0, $context: $total-columns)
   +font-color
   h2
     +font-color($headline-font-color)
     display: inline
     font:
-      family: $headline-font-family
-      size: $body-font-size
-      weight: normal
+      family: $headline-font-stack
+      size: 1.1em
+      weight: bold
   a
     display: block
     height: $line-height * $lines
@@ -34,8 +42,9 @@
         style: solid
       bottom: -3px
       content: ''
-      font-family: fontello
-      font-size: 14px
+      font:
+        family: fontello
+        size: 14px
       margin-right: space($image-width, $context)
       padding-left: 5px
       position: absolute
@@ -55,13 +64,19 @@
 =debug-bg
   background: url('/resources/static/debug-bg.png') 0 0 repeat
 
-=embed-font($font-name, $font-variant)
+=embed-font($font-name, $font-variant, $weight: normal, $style: normal)
   @font-face
     font-family: $font-name
     src: font-url('#{$font-name}/#{$font-variant}.eot')
     src: font-url('#{$font-name}/#{$font-variant}.eot?#iefix') format('embedded-opentype'), font-url('#{$font-name}/#{$font-variant}.woff') format('woff'), font-url('#{$font-name}/#{$font-variant}.ttf') format('truetype')
-    font-weight: normal
-    font-style: normal
+    font-weight: $weight
+    font-style: $style
+
+=embed-font-suite($font-name)
+  +embed-font($font-name, 'regular')
+  +embed-font($font-name, 'bold', $weight: bold, $style: normal)
+  +embed-font($font-name, 'italic', $weight: normal, $style: italic)
+  // +embed-font($font-name, 'bolditalic', $weight: bold, $style: italic)
 
 =fade($opacity: 0, $transition: 1s)
   opacity: $opacity
@@ -88,6 +103,18 @@
       &:after
         border-color: $hover-color
         color: $hover-color
+    &[href^=http]
+      border-color: $color
+      color: $color
+      &:hover
+        border-color: $external-link-hover-color
+        color: $external-link-hover-color
+        &:before
+          border-color: $external-link-hover-color
+          color: $external-link-hover-color
+        &:after
+          border-color: $external-link-hover-color
+          color: $external-link-hover-color
 
 =pagination-nav($line-color: $furniture-color, $button-width: $text-indent)
   +font-color($line-color)
@@ -136,13 +163,6 @@
           &:before
             +icon-to-end-2
 
-=pass-media-query($media-query)
-  body
-    &:after
-      content: $media-query
-      line-height: 0
-      visibility: hidden
-
 =reset
   margin: 0
   padding: 0
@@ -187,34 +207,35 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+embed-font($headline-font, $headline-font-variant)
-
-+embed-font($monospace-font, $monospace-font-variant)
++embed-font-suite($font)
++embed-font-suite($body-font)
++embed-font-suite($code-font)
 
 =body-font
   +hyphens
   color: $body-font-color
   font:
-    family: $body-font-family
+    family: $body-font-stack
     size: $body-font-size
   text-align: justify
   ms-text-justify: auto
 
-=body-font-citation
-  color: $body-font-citation-color
+=citation-font
+  color: $citation-font-color
   font:
-    family: $body-font-citation-family
-    size: $body-font-citation-size
+    family: $citation-font-stack
+    size: $body-font-size
   text-align: justify
 
 =dashboard-font
   color: $font-color
-  font-family: $font-family
-  font-size: $font-size
-
-=monospace-font
   font:
-    family: $monospace-font-family
+    family: $font-stack
+    size: $font-size
+
+=code-font
+  font:
+    family: $code-font-stack
 
 =pre-with-emdash
   &:before

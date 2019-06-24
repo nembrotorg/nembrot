@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 module ResourcesHelper
-
   include EffectsHelper
 
   # REVIEW: Does this duplicate Resource#cut_location? Or maybe this should be a separate Class?
@@ -13,103 +12,93 @@ module ResourcesHelper
 
     Rails.application.routes.url_helpers.cut_resource_path(
       file_name:  image.local_file_name,
-      aspect_x:   options[:aspect_x]  || Setting["style.images_#{ type.to_s }_aspect_x"],
-      aspect_y:   options[:aspect_y]  || Setting["style.images_#{ type.to_s }_aspect_y"],
-      width:      options[:width]     || Setting["style.images_#{ type.to_s }_width"],
-      snap:       options[:snap]      || Setting['style.images_snap'],
-      gravity:    options[:gravity]   || Setting['style.images_gravity'],
+      aspect_x:   options[:aspect_x]  || ENV["images_#{ type }_aspect_x"].to_i,
+      aspect_y:   options[:aspect_y]  || ENV["images_#{ type }_aspect_y"].to_i,
+      width:      options[:width]     || ENV["images_#{ type }_width"].to_i,
+      snap:       options[:snap]      || NB.images_snap,
+      gravity:    options[:gravity]   || NB.images_gravity,
       effects:    options[:effects]   || image.note.fx,
       id:         options[:id]        || image.id,
       format:     image.file_ext.to_sym
     )
   end
 
-  def cut_image_binary(id, format, aspect_x, aspect_y, width, snap, gravity, effects)
+  def cut_image_binary(id, _format, aspect_x, aspect_y, width, snap, gravity, effects)
+    image_record = Resource.find(id)
 
-    begin
+    file_name_template = image_record.template_location(aspect_x, aspect_y)
+    file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
 
-      image_record = Resource.find(id)
+    # The height is derived from the aspect ratio and width.
+    height = (width * aspect_y) / aspect_x
 
-      file_name_template = image_record.template_location(aspect_x, aspect_y)
-      file_name_out = image_record.cut_location(aspect_x, aspect_y, width, snap, gravity, effects)
+    # We snap the height to nearest baseline to maintain a vertical grid.
+    height = round_nearest(height, NB.line_height.to_i) if snap == '1'
 
-      # Shorthand: small integers are taken to be number of columns rather than absolute width
-      width = column_width(width) if width <= Setting['style.total_columns'].to_i
+    larger_cut_image_with_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, NB.total_columns.to_i)
+    larger_cut_image_without_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, '', NB.total_columns.to_i)
 
-      # The height is derived from the aspect ratio and width.
-      height = (width * aspect_y) / aspect_x
+    template_already_has_effects = false
 
-      # We snap the height to nearest baseline to maintain a vertical grid.
-      height = round_nearest(height, Setting['style.line_height'].to_i) if snap == '1'
-
-      larger_cut_image_with_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, effects, Setting['style.total_columns'].to_i)
-      larger_cut_image_without_effects =  image_record.larger_cut_image_location(aspect_x, aspect_y, width, snap, gravity, '', Setting['style.total_columns'].to_i)
-
-      template_already_has_effects = false
-
-      if !larger_cut_image_with_effects.nil?
-        template_already_has_effects = true
-        file_name_in = larger_cut_image_with_effects
-      elsif !larger_cut_image_without_effects.nil?
-        file_name_in = larger_cut_image_without_effects
-      elsif File.exists?(file_name_template)
-        file_name_in = file_name_template
-      else
-        file_name_in = image_record.raw_location
-      end
-
-      image =  MiniMagick::Image.open(file_name_in)
-      image = resize_with_crop(image, width, height, gravity_options = {})
-      image.write file_name_out
-
-      unless template_already_has_effects
-        # REVIEW: Here we re-open the image - this must slow things down
-        image = MiniMagick::Image.new(file_name_out)
-        pre_fx(image, effects)
-
-        # TODO: This needs to do crop/resize, not just resize.
-        # image.resize "#{ width }x#{ height }"
-
-        # Gravity
-        # image = image.resize_to_fit(width, height, EastGravity)
-        # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
-        # resize_with_crop(image, width, height, gravity_options = {})
-
-        fx(image, effects)
-        post_fx(image, effects)
-      end
-
-      # TODO: Test for speed
-      # image_optim = ImageOptim.new
-      # image_optim.optimize_image!(file_name_out)
-
-      # We save the image so next time it can be served directly, totally bypassing Rails.
-      # image.write file_name_out
-      return file_name_out
-    rescue => error
-      if image_record
-        image_record.dirty = true
-        image_record.save!
-      end
-      logger.info t('resources.cut.failed.image_record_not_found', id: id)
-      logger.info error
-      return Resource.blank_location
+    if !larger_cut_image_with_effects.nil?
+      template_already_has_effects = true
+      file_name_in = larger_cut_image_with_effects
+    elsif !larger_cut_image_without_effects.nil?
+      file_name_in = larger_cut_image_without_effects
+    elsif File.exist?(file_name_template)
+      file_name_in = file_name_template
+    else
+      file_name_in = image_record.raw_location
     end
+
+    image =  MiniMagick::Image.open(file_name_in)
+    image = resize_with_crop(image, width, height, gravity_options = {})
+    image.write file_name_out
+
+    unless template_already_has_effects
+      # REVIEW: Here we re-open the image - this must slow things down
+      image = MiniMagick::Image.new(file_name_out)
+      pre_fx(image, effects)
+
+      # TODO: This needs to do crop/resize, not just resize.
+      # image.resize "#{ width }x#{ height }"
+
+      # Gravity
+      # image = image.resize_to_fit(width, height, EastGravity)
+      # gravity_options = { gravity: gravity } unless gravity == '0' || gravity == ''
+      # resize_with_crop(image, width, height, gravity_options = {})
+
+      fx(image, effects)
+      post_fx(image, effects)
+    end
+
+    # TODO: Test for speed
+    # image_optim = ImageOptim.new
+    # image_optim.optimize_image!(file_name_out)
+
+    # We save the image so next time it can be served directly, totally bypassing Rails.
+    # image.write file_name_out
+    return file_name_out
+  rescue => error
+    if image_record
+      image_record.dirty = true
+      image_record.save!
+    end
+    logger.info t('resources.cut.failed.image_record_not_found', id: id)
+    logger.info error
+    return Resource.blank_location
   end
 
   def round_nearest(number, nearest)
     (number / nearest.to_f).round * nearest
   end
 
-  def column_width(columns)
-    (Setting['style.column_width'].to_i * columns) + (Setting['style.gutter_width'].to_i * (columns - 1))
-  end
-
   # FROM: http://maxivak.com/crop-and-resize-an-image-using-minimagick-ruby-on-rails/
   def resize_with_crop(img, w, h, options = {})
     gravity = options[:gravity] || :center
 
-    w_original, h_original = [img[:width].to_f, img[:height].to_f]
+    w_original = img[:width].to_f
+    h_original = img[:height].to_f
 
     op_resize = ''
 
@@ -142,8 +131,8 @@ module ResourcesHelper
 
   def crop_offsets_by_gravity(gravity, original_dimensions, cropped_dimensions)
     fail(ArgumentError, "Gravity must be one of #{GRAVITY_TYPES.inspect}") unless GRAVITY_TYPES.include?(gravity.to_sym)
-    fail(ArgumentError, 'Original dimensions must be supplied as a [ width, height ] array') unless original_dimensions.kind_of?(Enumerable) && original_dimensions.size == 2
-    fail(ArgumentError, 'Cropped dimensions must be supplied as a [ width, height ] array') unless cropped_dimensions.kind_of?(Enumerable) && cropped_dimensions.size == 2
+    fail(ArgumentError, 'Original dimensions must be supplied as a [ width, height ] array') unless original_dimensions.is_a?(Enumerable) && original_dimensions.size == 2
+    fail(ArgumentError, 'Cropped dimensions must be supplied as a [ width, height ] array') unless cropped_dimensions.is_a?(Enumerable) && cropped_dimensions.size == 2
 
     original_width, original_height = original_dimensions
     cropped_width, cropped_height = cropped_dimensions

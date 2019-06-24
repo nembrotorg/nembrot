@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 module EffectsHelper
-
   def fx(image, effects)
     cycle_effects('fx', image, effects)
   end
@@ -51,7 +50,7 @@ module EffectsHelper
     image.charcoal 2
   end
 
-  def fx_colortone(image, color = '#222b6d', level = 100, type = 0)
+  def fx_colortone(image, color = '#222b6d', level = 100, _type = 0)
     color_image = image.clone
     color_image.combine_options do |c|
       c.fill color

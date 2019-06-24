@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe 'Resources' do
-
+RSpec.describe 'Resources' do
   include ResourcesHelper
 
   before(:example) do

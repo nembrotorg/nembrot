@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-describe User do
-
+RSpec.describe User do
   before { @user = FactoryGirl.create(:user, role: 'admin') }
 
   describe '#admin' do
@@ -17,5 +16,4 @@ describe User do
       specify { expect(@user.admin?).not_to be_truthy }
     end
   end
-
 end

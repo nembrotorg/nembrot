@@ -1,16 +1,14 @@
-section.citations
+- cache [cache_buster(1), citations] do
 
-  header
-    h3 = title ||= t('citations.index.title')
-
-  ul
-    - citations.each do |citation|
-
-      - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
-      -# FIXME: This should be done in the helper
-      - attribution.gsub!(/\,/, '')
-
-      li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
-        figure.citation
-          blockquote= blurbify(citation_text, citation.books, citation.links)
-          figcaption= blurbify(attribution, citation.books, citation.links)
+  section.citations
+    header
+      h3 = title ||= t('citations.index.title')
+    ul
+      - citations.each do |citation|
+        - citation_text, attribution = citation_blurb(citation.clean_body_with_parentheses)
+        -# FIXME: This should be done in the helper
+        - attribution.gsub!(/\,/, '') unless attribution.blank?
+        li = link_to citation_path(citation), lang: lang_attr(citation.lang), dir: dir_attr(citation.lang) do  
+          figure.citation
+            blockquote= blurbify(citation_text, citation.books)
+            figcaption= blurbify(attribution, citation.books, 'citation.book.inline_unlinked_html', 'citation.link.inline_unlinked_html', false)
